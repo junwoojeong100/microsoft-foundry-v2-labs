@@ -103,7 +103,7 @@ class SearchGateway:
                 "intents": [{"type": "semantic", "search": question}],
                 "includeActivity": True,
                 "maxRuntimeInSeconds": 30,
-                "maxOutputSizeInTokens": 2000,
+                "maxOutputSizeInTokens": 6000,
                 "knowledgeSourceParams": [
                     {
                         "kind": "searchIndex",

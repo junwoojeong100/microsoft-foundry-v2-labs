@@ -134,6 +134,13 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 
 ## 완료·정리
 
+![실제 Hosted code deployment](../assets/live-20260913/34-hosted-deployment.png)
+
+![고정 버전의 실제 원격 응답](../assets/live-20260913/35-hosted-remote-response.png)
+
+이 실행에서는 서비스가 버전 1을 활성화했고 실제 원격 답변과 Trace ID가 반환되었습니다.
+별도 Hosted 품질 평가까지 했다는 뜻은 아닙니다. [실행 기록](../live-run.md)을 확인합니다.
+
 패키지 생성 / 로컬 응답 / 원격 배포 / 원격 평가를 별도 칸으로 기록합니다.
 활성 session은 호출 사이에 재사용될 수 있고 session별 컴퓨트 비용이 쌓입니다.
 `azd ai agent sessions list`로 확인하고 [정리 가이드](../reference/cleanup.md)에 따라

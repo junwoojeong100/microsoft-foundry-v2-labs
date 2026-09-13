@@ -3,6 +3,7 @@ import asyncio
 import json
 import subprocess
 import sys
+import traceback
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -18,6 +19,9 @@ DEFAULT_QUESTION = "2026년 9월 국내 출장 숙박비는 1박 얼마까지인
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(
         description="Microsoft Foundry v2 workshop (Korean, synthetic data only)."
+    )
+    result.add_argument(
+        "--debug", action="store_true", help="Print the error stack for local diagnosis."
     )
     commands = result.add_subparsers(dest="command", required=True)
     doctor = commands.add_parser(
@@ -131,6 +135,8 @@ def doctor_offline(root: Path) -> dict[str, Any]:
 
 
 def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None:
+    if args.debug:
+        print(f"Python executable: {sys.executable}; prefix: {sys.prefix}", file=sys.stderr)
     import httpx
     from azure.core.exceptions import AzureError
     from openai import OpenAIError
@@ -229,7 +235,13 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                     candidate=args.candidate,
                 )
     except (AzureError, OpenAIError, httpx.HTTPError) as exc:
-        status = getattr(exc, "status_code", None)
+        status = (
+            exc.response.status_code
+            if isinstance(exc, httpx.HTTPStatusError)
+            else getattr(exc, "status_code", None)
+        )
+        if args.debug and isinstance(exc, httpx.HTTPStatusError):
+            print(f"Service error: {exc.response.text[:2000]}", file=sys.stderr)
         raise ValueError(
             f"Azure request failed: {type(exc).__name__}, HTTP {status}. "
             "See docs/reference/troubleshooting.md. No provider/model fallback was used."
@@ -281,6 +293,8 @@ def main(root: Path, argv: list[str] | None = None) -> int:
         return 0
     except (OSError, ValueError, ImportError, TimeoutError, subprocess.SubprocessError) as exc:
         print(f"FAIL: {type(exc).__name__}: {exc}", file=sys.stderr)
+        if args.debug:
+            traceback.print_exc()
         if isinstance(exc, ImportError):
             print(
                 'Install the matching optional dependencies: python -m pip install -e ".[cloud]" or ".[agents,hosted]".',

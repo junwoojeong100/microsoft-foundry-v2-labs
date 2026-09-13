@@ -1,5 +1,6 @@
 import os
 import re
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -88,7 +89,32 @@ def credential_for(settings: Settings):
     from azure.identity import AzureCliCredential, ManagedIdentityCredential
 
     if settings.auth_mode == "cli":
-        return AzureCliCredential(tenant_id=settings.tenant_id, process_timeout=30)
+        subscription = require_env("AZURE_SUBSCRIPTION_ID")
+        UUID(subscription)
+        profile = subprocess.run(
+            [
+                "az",
+                "account",
+                "show",
+                "--subscription",
+                subscription,
+                "--query",
+                "tenantId",
+                "--output",
+                "tsv",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
+        )
+        if (
+            not settings.tenant_id
+            or profile.stdout.strip().casefold() != settings.tenant_id.casefold()
+        ):
+            raise ValueError("The selected Azure CLI subscription does not match AZURE_TENANT_ID.")
+        # Azure CLI rejects --tenant and --subscription together; the subscription selects its account.
+        return AzureCliCredential(subscription=subscription, process_timeout=30)
     return ManagedIdentityCredential(client_id=settings.managed_identity_client_id)
 
 

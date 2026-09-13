@@ -9,7 +9,7 @@
 | 02 모델/Router | 02 + 07 | 배포 이름 고정, 실제 모델 비교와 routing 실험 구분 |
 | 03 에이전트/도구 | 03–04 | 관리형 prompt agent와 로컬 MAF 구분, 합성 읽기 전용 도구 |
 | 04 Foundry IQ | 06 + 10 | GA intents와 richer Preview 분리, 참조 번호와 문서 ID 구분 |
-| 05 Workflow | 05 + 08 | 코드 오케스트레이션·사람 검토·Hosted를 다른 단계로 |
+| 05 포털 Workflow | 05 + 08 | 포털 작성 경로 제외, MAF 코드 오케스트레이션·사람 검토·Hosted 기반 구분 |
 | 06 Evaluation | 07 | dev/holdout, 오류를 포함한 분모, 고정 후보, 실제 evaluator 이력 |
 | 07 Control Plane | 09 | 버전·권한·trace·quota·비용·정리의 운영 게이트 |
 
@@ -24,6 +24,7 @@
 
 ## 그대로 복사하지 않은 것
 
+- 포털 workflow의 노드 생성·연결·게시 절차는 가져오지 않습니다. Lab 05의 MAF builder로 학습합니다.
 - 구독별로 검증된 특정 모델 ID·리전·quota를 모든 사람의 기본값으로 삼지 않았습니다.
 - 개별 리포마다 다른 `.env` 이름과 Python/SDK 조합을 혼합하지 않았습니다.
 - 실제 고객·개인 환경, resource ID, 토큰, 영상의 환경 식별자를 복사하지 않았습니다.

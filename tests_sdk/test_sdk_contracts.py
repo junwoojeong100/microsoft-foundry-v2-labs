@@ -16,7 +16,7 @@ from foundry_workshop.agents import build_policy_agent, run_agent, run_workflow
 from foundry_workshop.cloud import answer_with_context, invoke_prompt_agent
 from foundry_workshop.contracts import load_documents
 from foundry_workshop.knowledge import evidence
-from foundry_workshop.settings import Settings
+from foundry_workshop.settings import Settings, credential_for
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -76,6 +76,28 @@ def response_body(text, number=1):
 
 
 class ProjectSDKTests(unittest.TestCase):
+    def test_cli_auth_pins_subscription_without_changing_defaults(self):
+        subscription = "00000000-0000-0000-0000-000000000002"
+        with patch.dict(os.environ, {"AZURE_SUBSCRIPTION_ID": subscription}):
+            with patch("foundry_workshop.settings.subprocess.run") as profile:
+                profile.return_value.stdout = settings().tenant_id + "\n"
+                with patch("azure.identity.AzureCliCredential") as credential:
+                    credential_for(settings())
+        credential.assert_called_once_with(subscription=subscription, process_timeout=30)
+        self.assertIn("--subscription", profile.call_args.args[0])
+        self.assertNotIn("set", profile.call_args.args[0])
+
+    def test_cli_auth_rejects_a_different_tenant_before_getting_a_token(self):
+        with patch.dict(
+            os.environ, {"AZURE_SUBSCRIPTION_ID": "00000000-0000-0000-0000-000000000002"}
+        ):
+            with patch("foundry_workshop.settings.subprocess.run") as profile:
+                profile.return_value.stdout = "00000000-0000-0000-0000-000000000099\n"
+                with patch("azure.identity.AzureCliCredential") as credential:
+                    with self.assertRaises(ValueError):
+                        credential_for(settings())
+        credential.assert_not_called()
+
     def test_real_sdk_serializes_structured_model_and_pinned_agent_requests(self):
         captured = []
         answer = json.dumps(
@@ -170,6 +192,9 @@ class AgentSDKTests(unittest.IsolatedAsyncioTestCase):
                             settings(), ROOT, "2026년 국내 출장 숙박비", pattern
                         )
                 self.assertTrue(result["outputs"])
+                self.assertTrue(
+                    any("Unit-test workflow output" in output for output in result["outputs"])
+                )
                 self.assertLessEqual(len(self.captured), 3)
                 self.assertFalse(result["external_actions_performed"])
                 self.assertEqual(result["approval_status"], "pending-human-review")

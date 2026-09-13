@@ -80,6 +80,13 @@ SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기�
 
 ## 완료 확인
 
+![실제 Prompt Agent의 현행 규정 응답](../assets/live-20260913/11-agent-current-policy.png)
+
+![근거가 없는 해외 출장 질문의 실제 보류 응답](../assets/live-20260913/14-agent-missing-evidence.png)
+
+캡처는 SDK로 만든 실제 agent version 1을 포털에서 확인한 것입니다.
+이 버전의 입력 문서와 뒤의 IQ 기반 평가 경로는 구분합니다. [실행 기록](../live-run.md)을 참고하세요.
+
 에이전트 이름/버전, 실제 네 응답, 근거 제공 방식, 틀리거나 보류한 사례 하나를 기록합니다.
 답변이 자연스럽다는 사실과 회사 규정이 맞다는 사실은 별개입니다.
 이 차이를 [Lab 07](07-evaluation.md)에서 평가 기준으로 바꿉니다.

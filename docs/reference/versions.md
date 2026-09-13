@@ -10,8 +10,9 @@ Ignite 2026 발표를 예측하지 않고, 현재 공식 문서와 소스의 계
 | 현재 Foundry / Agents v2 / Responses | 기본 경로 | classic SDK 1.x/threads/runs와 분리 |
 | Prompt Agent | 모델+지침, 명시적 버전 | 생성/호출의 실제 API를 기록 |
 | MAF | `Agent`, `FoundryChatClient`, `model=` | 공급자 패키지의 버전이 core와 같을 필요 없음 |
+| 워크플로 작성 | MAF의 Sequential/Concurrent/GroupChat builder | 포털 Workflow Designer에 의존하지 않음 |
 | 일반 Search | REST `2024-07-01`, 텍스트 index | 벡터/하이브리드 검색으로 부르지 않음 |
-| IQ GA | REST `2026-04-01`, `intents` | minimal/extractive, planner/synthesis 없음 |
+| IQ GA | REST `2026-04-01`, `intents` | 별도 planner 배포 없이 사용; 실제 activity/요금은 별도 확인 |
 | richer IQ | `2026-08-01-preview` | 별도 환경·설정·승인; 기본 코드와 혼합 금지 |
 | 포털 IQ | 포털이 사용하는 Preview 계약 | GA REST 코드와 동일하다고 가정하지 않음 |
 | Hosted Agent 서비스 | GA, 선택 배포 | 지역·권한·session 비용은 별도 |

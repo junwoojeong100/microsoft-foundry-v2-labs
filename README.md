@@ -4,6 +4,9 @@
 
 한국어 · 합성 데이터 · **2026-09-13 기준 / Pre-Ignite 2026 Edition**
 
+**[실제 실행 결과·주요 화면·headless 녹화](docs/live-run.md)** —
+실제 dev/holdout, Foundry 평가, Hosted 원격 응답과 Trace를 확인한 기록입니다.
+
 2025년 12월의 `microsoft-foundry-labs`를 바탕으로, 이후 분리해 만든 Foundry Evaluation,
 MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업무 시나리오**로
 다시 구성했습니다. 다른 리포를 차례로 방문하는 링크 모음이 아닙니다.
@@ -19,7 +22,8 @@ MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업�
 | Azure 승인이나 할당량을 기다리는 중 | **[Azure 없이 검사기 체험](docs/labs/00-start.md)** | 오프라인 fixture로 실행·평가 파일 구조 이해. **클라우드 실습 완료와는 다름** |
 | 구버전을 이미 진행함 | **[구버전 → v2 변경 지도](docs/reference/migration.md)** | 재사용할 개념, 바꿔야 할 SDK·권한·실행 방식 |
 
-**초보자는 터미널 설치부터 시작하지 않습니다.** 브라우저 경로와 Python 경로를 분리했습니다.
+**초보자는 터미널 설치부터 시작하지 않습니다.** 기본은 포털이며, 워크플로 단계에서는
+강사가 준비한 MAF 환경에서 명령을 복사해 실행합니다. 포털 Workflow Designer로 작성하지 않습니다.
 아래 시간은 강사가 계정·리소스·권한·모델을 준비한 뒤의 수업 시간입니다.
 구독 개설, 기능 승인, 할당량 증설, 설치·RBAC 전파는 별도입니다.
 
@@ -51,7 +55,7 @@ flowchart LR
 | [02. 모델](docs/labs/02-models.md) | 배포 이름, Playground, SDK, 모델 비교·Router | 기존 종합 랩 + MAF Workshop |
 | [03. 첫 에이전트](docs/labs/03-prompt-agent.md) | 지침, 합성 문서, 인용, 도구와 권한 경계 | 기존 종합 랩 |
 | [04. MAF와 도구](docs/labs/04-agents-tools.md) | 단일 에이전트, 함수, 로컬 MCP | MAF Workshop + Agent Framework Labs |
-| [05. 워크플로](docs/labs/05-workflows.md) | 순차·병렬·Group Chat, 사람의 검토 | Agent Framework Labs |
+| [05. MAF 워크플로](docs/labs/05-workflows.md) | 준비된 예제 실행 → 순차·병렬·Group Chat 코드, 사람의 검토 | Agent Framework Labs |
 | [06. RAG와 Foundry IQ](docs/labs/06-knowledge.md) | 검색과 IQ의 차이, GA API, 원문 인용 | Microsoft IQ on Foundry |
 | [07. 평가와 학습 루프](docs/labs/07-evaluation.md) | dev → 실패 분석 → 지침 개선 → holdout | Foundry Evaluation |
 | [08. Hosted Agent](docs/labs/08-hosted.md) | 안전한 패키징, 로컬 서버, code deployment | MAF Workshop + IQ |
@@ -78,6 +82,7 @@ python3.13 scripts/workshop.py evaluate --label first-offline
 ## 이 버전의 범위
 
 - 현재 Foundry / Projects SDK **2.x**를 사용합니다. classic의 threads/runs 코드를 혼합하지 않습니다.
+- 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다.
 - 모델을 `gpt-...` 이름으로 강제하지 않습니다. 강사가 해당 구독에서 확인한 **실제 배포 이름**을 씁니다.
 - 서비스 GA와 SDK Preview는 따로 표시합니다. Hosted Agent 서비스는 GA지만 이 랩의 Python hosting
   패키지는 prerelease입니다. Foundry IQ도 GA 계약과 richer Preview 계약을 구분합니다.

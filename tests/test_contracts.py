@@ -2,6 +2,7 @@ import os
 import unittest
 from unittest.mock import patch
 
+from foundry_workshop.agents import policy_instructions
 from foundry_workshop.cli import doctor_offline, parser
 from foundry_workshop.contracts import (
     Answer,
@@ -136,6 +137,21 @@ class ContractTests(unittest.TestCase):
         )
         self.assertEqual(args.candidate, "candidate")
         self.assertTrue(args.unlock_holdout)
+
+    def test_workflow_curriculum_uses_existing_maf_examples(self):
+        guide = (ROOT / "docs/labs/05-workflows.md").read_text(encoding="utf-8")
+        paths = (ROOT / "docs/paths.md").read_text(encoding="utf-8")
+        for pattern in ("sequential", "concurrent", "group-chat"):
+            self.assertIn(f"workflow --pattern {pattern}", guide)
+        self.assertIn("준비된 MAF 실행 환경", guide)
+        self.assertNotIn("포털에 Workflow Designer가 제공되고", guide)
+        self.assertNotIn("워크플로 디자이너·IQ 포털", paths)
+
+    def test_policy_tool_modes_share_the_answer_schema(self):
+        instructions = policy_instructions(ROOT)
+        self.assertIn('"needs_approval"', instructions)
+        self.assertIn('"insufficient_evidence"', instructions)
+        self.assertIn('"limit_krw"', instructions)
 
 
 if __name__ == "__main__":

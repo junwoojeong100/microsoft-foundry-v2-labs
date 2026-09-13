@@ -74,6 +74,10 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 이 MCP는 **합성 로컬 라이브러리**입니다. Microsoft Learn, Work IQ 또는 회사 MCP를
 연결한 것으로 발표하지 않습니다. 원격 MCP/Toolbox는 [Lab 10](10-iq-extensions.md)입니다.
 
+함수 도구와 MCP 도구는 같은 답변 schema를 전달하고 실제 반환 JSON을 검사합니다.
+`answer`의 문장뿐 아니라 `decision`, `limit_krw`, `citations`도 함께 확인합니다.
+형식이 잘못되면 응답을 임의로 고쳐 성공으로 처리하지 않습니다.
+
 ## 4. 도구 하나를 안전하게 바꿔 보기
 
 1. `lookup_policy`의 docstring을 읽고 “읽기 전용”, “합성”, “승인 불가”를 설명할 수 있게 합니다.
@@ -85,6 +89,12 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 실습을 위해 실제 전송/결제 도구를 새로 만들 필요는 없습니다.
 
 ## 완료·문제 해결
+
+![실제 MAF 함수 도구 응답](../assets/live-20260913/15-maf-function-tool.png)
+
+![실제 MCP 서버 호출과 답변](../assets/live-20260913/16-maf-mcp-response.png)
+
+[실행 기록](../live-run.md)에는 발견한 schema 누락과 수정·재실행 결과도 남겼습니다.
 
 세 명령의 실제 출력과 도구 경계를 설명하면 완료입니다.
 MCP 실행 실패 시 [환경/도구 문제 해결](../reference/troubleshooting.md)을 확인합니다.

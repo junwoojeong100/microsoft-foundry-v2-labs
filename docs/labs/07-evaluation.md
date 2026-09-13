@@ -157,6 +157,16 @@ python scripts/workshop.py compare --baseline candidate --candidate model-b --va
 
 ## 완료 기준
 
+![실제 baseline 업무 검사 4/6](../assets/live-20260913/27-baseline-evaluation.png)
+
+![개선한 실제 candidate 업무 검사 6/6](../assets/live-20260913/29-refined-candidate-evaluation.png)
+
+![별도 judge의 실제 Foundry 평가](../assets/live-20260913/32-foundry-evaluation-metrics.png)
+
+실제 실행은 4/6 → 5/6 → 6/6의 dev 개선과 holdout 4/4를 기록했습니다.
+숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.
+데이터·실패 원인·분리된 평가 경로는 [실행 기록](../live-run.md)을 확인합니다.
+
 실제 baseline/candidate 이력, 실패 검토 또는 전부 통과했다는 기록, 고정 후보의 holdout
 결과와 사람의 판단이 남습니다. `accept`는 인수 자료를 만들며 **자동 배포/운영 승인을 하지 않습니다.**
 업무 검사의 100% 통과가 답변 전체의 의미적 정확성·보안·법적 적합성을 보장하지 않습니다.

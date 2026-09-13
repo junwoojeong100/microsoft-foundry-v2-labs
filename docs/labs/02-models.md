@@ -86,6 +86,13 @@ Router가 없어도 이 랩은 완료할 수 있습니다.
 
 ## 완료·복구
 
+![실제 모델 배포 목록](../assets/live-20260913/05-model-deployment.png)
+
+![실제 Playground 모델 응답](../assets/live-20260913/06-model-playground-response.png)
+
+위 화면은 실제 호출입니다. 기본 화면에 Web Search가 표시되어 있어 이번 요청 전에 제거했습니다.
+모델·배포·실제 평가 범위는 [실행 기록](../live-run.md)에 구분했습니다.
+
 - 완료: 실제 모델 응답과 배포 이름이 있고, 근거 없는 회사 정책 질문의 한계를 설명합니다.
 - 401/403: [인증·권한](../reference/troubleshooting.md). 무조건 Owner를 추가하지 않습니다.
 - 404: 프로젝트 endpoint와 **배포 이름**부터 확인합니다.

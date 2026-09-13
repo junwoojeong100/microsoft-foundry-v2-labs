@@ -83,8 +83,11 @@ python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국�
 ```
 
 기본 IQ 코드는 **REST `2026-04-01` GA의 minimal/extractive 계약**을 사용합니다.
-명시적인 semantic `intents`로 요청하며, 메시지 기반 LLM planning이나 답변 합성을
-사용하지 않습니다. 별도 planner 모델도 기본 GA 경로에서는 필요 없습니다.
+명시적인 semantic `intents`로 요청하며, `messages`나 별도 planner 모델 설정을
+요청에 넣지 않습니다. 최종 답변은 다음 단계의 모델 호출에서 생성합니다.
+서비스 내부 처리가 없다는 보장은 아니며 실제 activity에 보고된 reasoning 항목도 확인합니다.
+검색 응답의 `maxOutputSizeInTokens`는 6000으로 제한합니다. 실제 GA 호출에서 5000 초과가
+필요함을 확인했으며, 이는 답변 모델의 `WORKSHOP_MAX_OUTPUT_TOKENS`와 다른 설정입니다.
 
 확인:
 
@@ -126,6 +129,14 @@ flowchart LR
 [Lab 10](10-iq-extensions.md)과 [API 호환성](../reference/versions.md)에서 별도로 다룹니다.
 
 ## 완료 확인
+
+![실제로 생성된 지식 베이스](../assets/live-20260913/23-foundry-knowledge.png)
+
+![실제 Foundry IQ API 검색 결과](../assets/live-20260913/21-iq-retrieval.png)
+
+GA 검색은 성공했지만 포털 Preview 편집기는 별도 chat model을 요구했습니다.
+기존 GA 구성을 이 화면에서 저장해 바꾸지 않습니다.
+실제 activity와 차이는 [실행 기록](../live-run.md)에 남겼습니다.
 
 Search와 IQ를 각각 호출하고 구분할 수 있으며, 실제 인용의 원문과 적용 기간을 확인합니다.
 `outputs/azure-objects.json`은 내 Search 객체의 소유권 기록입니다.

@@ -8,13 +8,15 @@
 
 | 수업 | 기본 준비 | 미리 빼도 되는 것 |
 |---|---|---|
-| A. 완전초보자 | 브라우저 계정, 프로젝트, 모델, 합성 문서, 평가표 | Python, Hosted, 실제 M365/Fabric |
+| A. 완전초보자 | 브라우저 계정, 프로젝트, 모델, 합성 문서, 평가표, 준비된 MAF 실행 환경 | Python 코드 작성, Hosted, 실제 M365/Fabric |
 | B. 경험자 | 위 + Python/SDK, 읽기 권한, 코드 환경 | 유료 judge, Hosted 원격 배포는 별도 게이트 |
 | IQ 심화 | 준비된 Search, 인증·semantic/knowledge retrieval 설정 | planner·임베딩·richer Preview는 기본 GA에 불필요 |
 | Hosted 심화 | 3.13 런타임, 실제 ARM ID, 배포/identity 권한 | 로컬 Docker는 code deployment에 불필요 |
 
 초보자의 core를 “모든 Preview 승인과 회사 M365 연결”에 의존시키지 않습니다.
 각 조는 고유한 agent/검색 접두사를 사용하고, 공유 서비스의 생성/삭제는 강사만 담당합니다.
+포털 workflow 작성 환경은 준비하지 않습니다. A의 Lab 05도 기존 MAF 예제를 실행하므로,
+SDK·가상환경·학습자 계정의 모델 호출 권한을 미리 확인합니다.
 
 ## 2. 3–7일 전: 계정·권한·비용
 
@@ -78,6 +80,7 @@ python scripts/workshop.py doctor
 python scripts/workshop.py doctor --cloud
 python scripts/workshop.py model --question "이 응답은 합성 워크숍 연결 확인입니다. 한국어로 짧게 답하세요."
 python scripts/workshop.py answer --prompt v2 --retrieval local
+python scripts/workshop.py workflow --pattern sequential
 ```
 
 여기서 실제 모델 호출이 실패하면 리허설은 통과가 아닙니다.
@@ -89,6 +92,8 @@ python scripts/workshop.py answer --prompt v2 --retrieval local
 python scripts/export_policy_docs.py
 python scripts/workshop.py maf --tools
 python scripts/workshop.py maf --mcp
+python scripts/workshop.py workflow --pattern concurrent
+python scripts/workshop.py workflow --pattern group-chat
 python scripts/workshop.py seed-search --iq --confirm-create
 python scripts/workshop.py retrieve --provider iq
 ```
@@ -125,6 +130,7 @@ python -m pip freeze > outputs/instructor/environment.txt
 |---|---|
 | 한 조가 10분 이상 환경 오류 | 사전 확인한 조별 환경으로 이동, 계정/모델 변경을 명시적으로 기록 |
 | 모델/region quota 없음 | 승인된 준비 환경 사용 또는 실제 실습 미실행으로 표시 |
+| A의 MAF 실행 환경 미준비 | 준비된 학습자 환경으로 복구하거나 `MAF 관찰 / 직접 실행 미완료`로 기록; 포털 workflow 작성으로 대체하지 않음 |
 | IQ Preview 승인 없음 | GA 경로 또는 설계 관찰. 서로 같은 결과로 표시하지 않음 |
 | SDK 다운로드 불가 | 미리 준비한 환경/브라우저 경로. 인증서 검증 해제 금지 |
 | baseline 전부 통과 | 그대로 기록; 실패를 조작하지 않고 평가 범위의 한계 토론 |

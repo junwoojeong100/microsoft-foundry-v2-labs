@@ -7,8 +7,8 @@
 
 | 이름 | 쓰는 곳 | 비고 |
 |---|---|---|
-| `AZURE_SUBSCRIPTION_ID` | cloud doctor의 ARM 조회 | UUID, 기본 구독을 변경하지 않음 |
-| `AZURE_TENANT_ID` | 로컬 CLI 인증 | UUID, 지정 tenant와 대조 |
+| `AZURE_SUBSCRIPTION_ID` | 로컬 CLI 인증과 ARM 조회 | UUID, 이 구독의 계정 프로필을 선택하며 기본 구독은 변경하지 않음 |
+| `AZURE_TENANT_ID` | 로컬 인증 전 검증 | 선택한 구독의 실제 tenant와 대조 |
 | `AZURE_RESOURCE_GROUP` | 배포 확인 | 실제 실습 그룹 |
 | `AZURE_AI_ACCOUNT_NAME` | 배포 확인 | 실제 Foundry account |
 | `AZURE_AI_PROJECT_ENDPOINT` | 모델·agent·평가 SDK | 전체 `/api/projects/...` endpoint |
@@ -37,6 +37,10 @@ richer Preview를 별도 실험할 때의 선택 설정입니다. 기본 GA IQ �
 
 자동 alias/fallback은 없습니다. 오타가 있으면 다른 프로젝트로 연결하기보다
 명시적으로 실패하는 편이 안전합니다.
+
+여러 계정이 Azure CLI에 로그인되어 있어도 인증은 설정된 구독에 고정합니다.
+`--tenant`만 지정하면 다른 기본 계정이 선택될 수 있고, Azure CLI는
+`--tenant`와 `--subscription`을 동시에 받지 않으므로 구독의 tenant를 먼저 검증합니다.
 
 ## 데이터·출력 계약
 

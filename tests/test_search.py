@@ -52,6 +52,7 @@ class SearchContractTests(unittest.TestCase):
         self.assertEqual(parameters["api"], "2026-04-01")
         self.assertIn("intents", parameters["body"])
         self.assertNotIn("messages", parameters["body"])
+        self.assertGreater(parameters["body"]["maxOutputSizeInTokens"], 5000)
         self.assertNotIn("retrievalReasoningEffort", parameters["body"])
         self.assertEqual(result["source_ids"], ["TRAVEL-2026"])
         self.assertEqual(result["references"][0]["id"], "0")

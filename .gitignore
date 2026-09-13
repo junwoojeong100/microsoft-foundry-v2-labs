@@ -8,6 +8,7 @@ __pycache__/
 !.env.example
 .azure/
 .foundry/
+.playwright-mcp/
 .build/
 outputs/
 site/
@@ -15,3 +16,4 @@ dist/
 .DS_Store
 azure.yaml
 !examples/hosted/azure.yaml.example
+.azure

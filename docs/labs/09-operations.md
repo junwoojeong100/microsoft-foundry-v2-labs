@@ -81,6 +81,13 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 
 ## 반드시 정리하고 끝내기
 
+![CLI와 같은 ID가 확인된 실제 Trace](../assets/live-20260913/37-hosted-trace-list.png)
+
+![실제 도구 호출의 입력과 결과](../assets/live-20260913/39-hosted-tool-trace.png)
+
+root가 Completed여도 내부 storage 조회 span의 실패 표시가 있을 수 있습니다.
+이번 실행에서 관찰한 값과 남은 자산은 [실행 기록](../live-run.md)에 그대로 적었습니다.
+
 ```bash
 python scripts/workshop.py cleanup-plan
 ```
