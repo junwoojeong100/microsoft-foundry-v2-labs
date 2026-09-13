@@ -1,0 +1,33 @@
+{
+  "repository": "junwoojeong100/microsoft-foundry-v2-labs",
+  "repository_id": 1367892793,
+  "private_repository": true,
+  "uploaded_on": "2026-09-14",
+  "hosting": "repository-scoped GitHub user attachments",
+  "new_recording": false,
+  "reencoded_for_upload": false,
+  "verification": {
+    "verified_on": "2026-09-14",
+    "method": "Authenticated GitHub Markdown rendering and actual private GitHub media playback in headless Edge",
+    "players_per_document": 2,
+    "documents": ["docs/live-run.md", "docs/video-summary.md"],
+    "seek_fractions": [0, 0.5, 0.9],
+    "signed_media_urls_saved": false
+  },
+  "videos": [
+    {
+      "filename": "cli-full-run.mp4",
+      "url": "https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe",
+      "source_sha256": "22b009e38cf140e5da7eb0b47bafd348f51bd81827aacac0ec5105d185312b5b",
+      "bytes": 87889690,
+      "content_type": "video/mp4"
+    },
+    {
+      "filename": "portal-full-run.mp4",
+      "url": "https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14",
+      "source_sha256": "157316af332295abd066ebacfaa35f4773e14e0386dc78cff8eacc8988b88d0b",
+      "bytes": 35066798,
+      "content_type": "video/mp4"
+    }
+  ]
+}

@@ -2,9 +2,9 @@
 
 **2026-09-13 · Sweden Central · 실제 CLI 72단계 · PNG 122개**
 
-[영상 플레이어 실행 안내](video-summary.md#재생하기) ·
-[CLI MP4 파일](assets/live-20260913-swc/cli-full-run.mp4) ·
-[포털 MP4 파일](assets/live-20260913-swc/portal-full-run.mp4) ·
+[GitHub 영상 플레이어](video-summary.md#재생하기) ·
+[CLI 영상 바로 열기](https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe) ·
+[포털 영상 바로 열기](https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14) ·
 [실행 결과](live-run.md) · [전체 파일·해시](assets/live-20260913-swc/media.json)
 
 | 실습 | 대표 화면 |

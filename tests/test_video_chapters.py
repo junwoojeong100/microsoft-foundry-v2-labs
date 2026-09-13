@@ -55,3 +55,27 @@ class VideoChapterTests(unittest.TestCase):
             self.assertEqual(builder.attachment_url(receipt), url)
         self.assertEqual(builder.timestamp(688.8), "11:29")
         self.assertEqual(builder.timestamp(3661), "1:01:01")
+
+    def test_live_guides_embed_the_verified_recording_attachments(self):
+        assets = ROOT / "docs/assets/live-20260913-swc"
+        uploads = json.loads((assets / "github-playback.json").read_text())
+        originals = {
+            item["filename"]: item
+            for item in json.loads((assets / "media.json").read_text())["videos"]
+        }
+        self.assertEqual(uploads["repository"], "junwoojeong100/microsoft-foundry-v2-labs")
+        self.assertTrue(uploads["private_repository"])
+        self.assertEqual(len(uploads["videos"]), 2)
+        for item in uploads["videos"]:
+            original = originals[item["filename"]]
+            self.assertEqual(item["source_sha256"], original["sha256"])
+            self.assertEqual(item["bytes"], original["bytes"])
+            self.assertRegex(
+                item["url"], r"^https://github\.com/user-attachments/assets/[0-9a-f-]+$"
+            )
+            for document in ("live-run.md", "video-summary.md"):
+                text = (ROOT / "docs" / document).read_text()
+                self.assertIn(item["url"], text.splitlines())
+                self.assertNotIn("private-user-images.githubusercontent.com", text)
+                if document == "video-summary.md":
+                    self.assertEqual(text.count(item["url"]), 1)

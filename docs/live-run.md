@@ -26,11 +26,22 @@
 
 ## 실제 화면과 실시간 영상
 
-- [영상 플레이어 실행 안내](video-summary.md#재생하기)
-- [CLI 전체 실시간 녹화 파일](assets/live-20260913-swc/cli-full-run.mp4)
-- [실제 Foundry 포털 headless 녹화 파일](assets/live-20260913-swc/portal-full-run.mp4)
+- [CLI 전체 영상 바로 열기](https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe)
+- [Foundry 포털 영상 바로 열기](https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14)
+- [재생·다운로드 안내](video-summary.md#재생하기)
 - [단계별 영상·캡처 안내](video-chapters.md)
 - [파일 정보·해시·촬영 계보](assets/live-20260913-swc/media.json)
+
+**아래 GitHub 플레이어의 ▶ 버튼으로 바로 재생할 수 있습니다. 로컬 서버는 필요 없습니다.**
+비공개 저장소에 접근 가능한 GitHub 계정으로 로그인한 상태에서 이용하세요.
+
+### CLI 전체 영상 — 95분 50초
+
+https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe
+
+### Foundry 포털 전체 영상 — 82분 16초
+
+https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14
 
 **72개 CLI 실행 단계와 실제 포털 조작을 실행 중에 녹화했고 PNG 122개를 남겼습니다.**
 기록한 JSON을 나중에 4초씩 재생한 영상이 아닙니다. 대기시간을 제거하거나 결과를 재현 화면으로 바꾸지 않았습니다.
