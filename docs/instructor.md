@@ -66,6 +66,7 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 ## 4. 하루 전: 같은 배포본으로 리허설
 
 문서/코드 버전을 고정한 뒤 새 폴더에서 진행합니다.
+Hosted 초기화는 상위 `azure.yaml`을 찾을 수 있으므로 기존 azd 프로젝트 바깥의 독립된 폴더를 사용합니다.
 
 ```bash
 python3.13 -m venv .venv
@@ -143,6 +144,7 @@ python -m pip freeze > outputs/instructor/environment.txt
 
 - 참가자 결과와 fixture가 구분되어 있는지 확인.
 - session 목록의 다음 페이지까지 확인하고 본인 활성 session 중지.
+- Responses 재검증은 `--new-session --new-conversation`을 함께 사용해 이전 대화가 섞이지 않는지 확인.
 - 조별 에이전트·Search 객체·별도 연결과 공유 자원을 구분해 정리.
 - 강사가 전용 서비스·모델·로그·capacity의 잔여 과금을 확인.
 - [버전 기준](reference/versions.md)의 점검일과 [검증 기록](reference/validation.md)을 실제로 갱신.

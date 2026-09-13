@@ -61,8 +61,13 @@ azd ai agent init --help
 아래의 세 값을 **강사가 확인한 실제 값으로 바꾼 뒤** 실행합니다.
 ARM ID를 endpoint 문자열에서 추측해 조립하지 않습니다.
 
+**실습 폴더는 다른 azd 프로젝트의 하위 폴더가 아닌 독립된 위치에 둡니다.**
+`azd`는 상위 디렉토리의 `azure.yaml`을 발견하면 그 프로젝트에 서비스를 추가할 수 있습니다.
+초기화 후 파일이 현재 실습 루트에 생겼는지 확인합니다.
+
 ```bash
 azd ai agent init --src ./.build/hosted --agent-name "<unique-agent-name>" --project-id "<existing-project-arm-id>" --model-deployment "<existing-model-deployment-name>" --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
+test -f ./azure.yaml
 ```
 
 `<...>`는 그대로 실행할 수 없는 자리표시자입니다.
@@ -76,6 +81,27 @@ azd ai agent init --src ./.build/hosted --agent-name "<unique-agent-name>" --pro
 - Responses protocol과 연결할 기존 프로젝트.
 - 원격 런타임에 전달할 `AZURE_AI_PROJECT_ENDPOINT`, `AZURE_AI_MODEL_DEPLOYMENT_NAME`.
 - **원격의 `WORKSHOP_AUTH_MODE=managed-identity`**.
+
+초기화가 이 환경변수를 모두 넣어 준다고 가정하지 않습니다. 생성된 **agent 서비스의 `env`만**
+다음과 같이 보완하고, 프로젝트 연결·서비스 이름·코드 경로는 그대로 유지합니다.
+
+```yaml
+env:
+  AZURE_AI_PROJECT_ENDPOINT: ${AZURE_AI_PROJECT_ENDPOINT}
+  AZURE_AI_MODEL_DEPLOYMENT_NAME: ${AZURE_AI_MODEL_DEPLOYMENT_NAME}
+  WORKSHOP_AUTH_MODE: managed-identity
+  WORKSHOP_MAX_OUTPUT_TOKENS: "2048"
+```
+
+그다음 azd 환경에 실제 값을 설정하고 다시 읽어 확인합니다. 이 명령은 기본 Azure CLI 구독을 바꾸지 않습니다.
+
+```bash
+azd env set AZURE_AI_PROJECT_ENDPOINT "<existing-project-endpoint>"
+azd env set AZURE_AI_PROJECT_ID "<existing-project-arm-id>"
+azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME "<existing-model-deployment-name>"
+azd env get-value AZURE_AI_PROJECT_ENDPOINT
+azd env get-value AZURE_AI_MODEL_DEPLOYMENT_NAME
+```
 
 `examples/hosted/azure.yaml.example`은 구조 참고용이지 즉시 배포 가능한 환경 파일이 아닙니다.
 생성된 파일을 통째로 덮어쓰지 않습니다.
@@ -100,7 +126,7 @@ python scripts/workshop.py serve
 
 ```bash
 curl --fail http://127.0.0.1:8088/readiness
-azd ai agent invoke --local --new-session --timeout 120 "2026년 9월 국내 출장 숙박비 한도와 근거를 알려주세요."
+azd ai agent invoke --local --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장 숙박비 한도와 근거를 알려주세요."
 ```
 
 readiness의 HTTP 200은 서버 준비 상태일 뿐 모델 추론 성공이 아닙니다.
@@ -123,8 +149,12 @@ azd ai agent show --output json
 실제 version을 사용해 호출합니다.
 
 ```bash
-azd ai agent invoke --version "<deployed-version>" --new-session --timeout 120 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
+azd ai agent invoke --version "<deployed-version>" --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
 ```
+
+Responses 프로토콜에서 **세션과 대화는 별개**입니다. `--new-session`만 사용하면
+이전 `Conversation` ID가 재사용될 수 있으므로, 독립적인 확인에는 `--new-conversation`도 함께 지정합니다.
+대화 이어하기를 시험할 때만 의도적으로 같은 conversation을 재사용합니다.
 
 로컬 사용자와 원격 agent identity는 다릅니다.
 원격 403을 로컬 `az login` 반복으로 해결하지 않습니다.

@@ -38,6 +38,7 @@ Python 3.14는 오프라인 코드에 사용할 수 있지만 hosted 런타임�
 배포받은 ZIP을 풀거나 이 작업 폴더를 VS Code로 엽니다.
 터미널의 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
 새 원격 리포가 아직 게시되지 않았다면 존재하지 않는 GitHub URL을 추측해 clone하지 않습니다.
+Hosted까지 확인하려면 다른 azd 프로젝트의 하위 폴더가 아닌 독립된 실습 폴더를 사용합니다.
 
 ```bash
 pwd

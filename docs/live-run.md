@@ -26,8 +26,9 @@
 
 ## 실제 화면과 실시간 영상
 
-- [CLI 전체 실시간 녹화](assets/live-20260913-swc/cli-full-run.mp4)
-- [실제 Foundry 포털 headless 녹화](assets/live-20260913-swc/portal-full-run.mp4)
+- [영상 플레이어 실행 안내](video-summary.md#재생하기)
+- [CLI 전체 실시간 녹화 파일](assets/live-20260913-swc/cli-full-run.mp4)
+- [실제 Foundry 포털 headless 녹화 파일](assets/live-20260913-swc/portal-full-run.mp4)
 - [단계별 영상·캡처 안내](video-chapters.md)
 - [파일 정보·해시·촬영 계보](assets/live-20260913-swc/media.json)
 

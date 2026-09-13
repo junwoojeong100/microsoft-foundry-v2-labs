@@ -5,6 +5,46 @@
 [실제 실행 기록](../live-run.md)과 [headless 미디어](../video-summary.md)는 이번 실행의 결과입니다.
 업스트림이나 이전 Luna 실행의 성공 기록을 새 결과로 복사하지 않았습니다.
 
+## 2026-09-14: 게시된 가이드를 새 폴더에서 재실행
+
+`b1ff68d`의 새 checkout과 Python 3.13 가상환경에서 가이드의 설치·명령을 실행했습니다.
+이전 결과를 복사하지 않고 기존 Sweden Central 프로젝트의 같은 Luna 배포를 호출했습니다.
+리소스 그룹 생성, 모델 재배포, 역할 변경, 기본 구독 변경은 하지 않았습니다.
+
+| 확인 경로 | 새 실행 결과 |
+|---|---|
+| Lab 00 | `.[cloud,agents]`, 선택 `.[hosted]`, 강사의 lock 파일 설치 모두 성공. offline doctor·fixture v1/v2·compare 정상 |
+| Lab 02–05 | 모델·구조화 답변·새 Prompt Agent·함수·MCP·세 워크플로 명령 실행 성공 |
+| Lab 03 A | 가이드의 자연어 출력 지침과 합성 원문으로 새 버전 구성. 현행·과거·승인·근거 부족 4문항을 headless 새 대화로 확인 |
+| Lab 06 | 별도 접두사의 Search index/source/base 생성과 Search/IQ 실제 검색·답변 성공 |
+| Lab 07 | 가이드 기본값 `--retrieval local`로 새 baseline **6/6**, candidate **6/6**, native groundedness **6/6**, relevance **5/6** |
+| Lab 08 | 새 패키징·azd 초기화·로컬 readiness/실제 답변 성공. 기존 원격 Hosted v1도 새 응답 확인; 재배포는 수행하지 않음 |
+| Lab 09 | `cleanup-plan`이 삭제하지 않음을 확인하고 이번 원격 세션만 중지 |
+
+Native relevance의 보류 답변 실패는 보존했습니다. 기존에 사용한 holdout을 회귀 검증에 재사용하지 않았으며,
+이번에는 `--unlock-holdout` 없는 호출이 거부되는 잠금 동작만 확인했습니다.
+따라서 9월 13일의 holdout 4/4를 이번 재실행 점수로 표시하지 않습니다.
+
+### 실행 중 확인해 보완한 안내
+
+- **독립된 azd 폴더:** 하위 checkout에서 `azd init`이 상위 `azure.yaml`을 선택했습니다.
+  검증 중 추가된 서비스만 원복하고 상위 프로젝트 바깥에서 재실행해 현재 폴더에 생성됨을 확인했습니다.
+- **명시적 Hosted 설정:** 생성된 agent `env`에는 모델만 있었습니다.
+  endpoint·managed identity 모드·출력 한도를 넣는 정확한 YAML과 azd 값 설정/조회 명령을 Lab 08에 추가했습니다.
+- **새 세션과 새 대화 구분:** 원격 `--new-session` 호출에서도 이전 conversation ID가 재사용됐습니다.
+  독립 확인 명령은 `--new-session --new-conversation`을 함께 사용하도록 보완했습니다.
+- **TLS 타임아웃:** 첫 azd 초기화는 Microsoft 로그인 서버 연결 타임아웃으로 실패했습니다.
+  인증과 AAD discovery HTTP 200을 확인하고 동일 명령 재시도에 성공했습니다. 인증서 검증을 끄거나 endpoint를 바꾸지 않았습니다.
+- **영상 링크:** MP4 링크는 파일 보기 링크이고 GitHub Markdown은 이를 내장 플레이어로 바꾸지 않았습니다.
+  별도 GitHub 업로드 승인은 없으므로 기존 파일을 보존하고, 로컬에서 검증·재생·구간 탐색하는
+  [플레이어 실행 방법](../video-summary.md#재생하기)을 추가했습니다.
+
+새 원시 응답·명령·실패 기록은 Git에서 제외된 `outputs/guide-check-20260914/`에 보존합니다.
+GitHub 브라우저의 비공개 문서 접근은 별도 로그인 대기 상태이므로 로그인 후 GitHub 내장 재생 검증 완료를 주장하지 않습니다.
+보완 후 오프라인 **55개**·설치 SDK **7개**, Ruff·format·Python compile·문서 검사를 통과했습니다.
+새 플레이어의 가이드 링크 두 개는 실제 headless 브라우저에서 열어 시작·50%·90% 위치의 재생과 탐색을 확인했습니다.
+이번 검증용 에이전트·평가·Search 객체는 제거하고 원본 응답·정리 기록은 보존했습니다.
+
 ## 로컬 검사와 실제 Azure 실행
 
 | 구분 | 확인 결과 |

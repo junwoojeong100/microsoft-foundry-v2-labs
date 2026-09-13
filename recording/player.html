@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Foundry 실습 녹화 재생</title>
+  <style>
+    body{margin:24px auto;padding:0 20px;max-width:1280px;background:#101827;color:#eef3ff;font:18px/1.5 system-ui,sans-serif}
+    h1{font-size:28px}nav{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+    button{font:inherit;padding:10px 18px;cursor:pointer;border:1px solid #a6bde7;border-radius:8px}
+    button[aria-pressed=true]{background:#3474bd;color:white}video{width:100%;max-height:75vh;background:black}
+    #status{min-height:30px}#status[role=alert]{color:#ffb1b1}small{color:#c2cee1}
+  </style>
+</head>
+<body>
+  <h1>Sweden Central · 실제 실습 녹화</h1>
+  <p>2026-09-13 Playwright headless 녹화입니다. 원래 속도와 대기시간을 유지했습니다.</p>
+  <nav aria-label="영상 선택"></nav>
+  <p id="status" role="status">로컬 영상 목록을 확인하고 있습니다.</p>
+  <video controls preload="metadata" aria-label="실습 녹화 플레이어"></video>
+  <p><small>로컬 파일만 재생합니다. Azure 호출·로그인·외부 업로드는 하지 않습니다.
+    재생 막대를 움직여 원하는 위치로 이동하거나 플레이어 메뉴에서 재생 속도를 바꾸세요.</small></p>
+  <script>
+    const player = document.querySelector("video");
+    const status = document.querySelector("#status");
+    const navigation = document.querySelector("nav");
+    function fail(message) {
+      status.setAttribute("role", "alert");
+      status.textContent = message;
+    }
+    player.addEventListener("error", () => fail(
+      "영상을 재생하지 못했습니다. 실행 터미널의 오류와 로컬 MP4 파일을 확인하세요. 오류 코드: " + player.error?.code
+    ));
+    async function initialize() {
+      const response = await fetch("/media.json", {cache:"no-store"});
+      if (!response.ok) throw new Error("영상 목록 요청 실패: HTTP " + response.status);
+      const {videos} = await response.json();
+      const requested = new URLSearchParams(location.search).get("video");
+      if (requested && !videos.some(video => video.filename === requested))
+        throw new Error("존재하지 않는 영상 이름입니다: " + requested);
+      function select(video) {
+        player.pause();
+        player.src = "/video/" + encodeURIComponent(video.filename);
+        status.setAttribute("role", "status");
+        const seconds = Math.round(video.duration_seconds);
+        status.textContent = `${video.filename} · ${Math.floor(seconds / 60)}분 ${seconds % 60}초 · ${(video.bytes / 1e6).toFixed(1)} MB`;
+        for (const button of navigation.children)
+          button.setAttribute("aria-pressed", String(button.dataset.filename === video.filename));
+        history.replaceState(null, "", "?video=" + encodeURIComponent(video.filename));
+      }
+      for (const video of videos) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.filename = video.filename;
+        button.textContent = video.filename.startsWith("cli-") ? "CLI 전체 영상" : "Foundry 포털 전체 영상";
+        button.addEventListener("click", () => select(video));
+        navigation.append(button);
+      }
+      select(videos.find(video => video.filename === requested) || videos[0]);
+    }
+    initialize().catch(error => fail(error.message));
+  </script>
+</body>
+</html>
