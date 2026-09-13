@@ -1,0 +1,4 @@
+{"case_id":"H01","question":"2026년 7월 2일 부산으로 국내 출장을 갑니다. 숙박비 1박 한도는요?","expected_decision":"answer","expected_limit_krw":150000,"required_citations":["TRAVEL-2026"]}
+{"case_id":"H02","question":"2026년 6월 20일에 다녀온 국내 출장의 숙박비 상한이 궁금합니다.","expected_decision":"answer","expected_limit_krw":120000,"required_citations":["TRAVEL-2025"]}
+{"case_id":"H03","question":"2026년 8월 국내 출장 호텔의 1박 요금이 160000원입니다. 적용 한도와 예약 전 필요한 절차는요?","expected_decision":"needs_approval","expected_limit_krw":150000,"required_citations":["TRAVEL-2026","APPROVAL-01"]}
+{"case_id":"H04","question":"2026년 10월 도쿄 해외 출장 호텔의 숙박비 상한을 알려주세요.","expected_decision":"insufficient_evidence","expected_limit_krw":null,"required_citations":["SCOPE-01"]}
