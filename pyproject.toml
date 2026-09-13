@@ -23,7 +23,7 @@ agents = [
   "agent-framework-core==1.17.0",
   "agent-framework-foundry==1.12.0",
   "agent-framework-orchestrations==1.1.1",
-  "mcp==1.27.2",
+  "mcp==1.28.1",
 ]
 hosted = [
   "microsoft-foundry-v2-labs[agents]",
