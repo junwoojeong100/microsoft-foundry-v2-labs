@@ -11,7 +11,7 @@
 | 전용 Python 3.13 환경 / `pip check` | 통과 | 선언된 SDK 의존성 일치 |
 | `scripts/check_sdk.py` | 통과 | 고정 버전과 실제 import surface |
 | Ruff / format / Python compile | 통과 | 소스 스타일·문법 |
-| 오프라인 단위·계약 검사 | **48개 통과** | JSON·검색·오류 분모·hash·holdout·패키징·MAF 경로·공통 schema |
+| 오프라인 단위·계약 검사 | **51개 통과** | JSON·검색·오류 분모·hash·holdout·패키징·MAF 경로·공통 schema·영상 분할 |
 | 설치된 SDK 계약 검사 | **7개 통과** | 요청 직렬화·구독 범위 인증·workflow·MCP·hosting adapter |
 | 문서 검사 | 통과 | 로컬 링크·이미지·CLI 예제 인자 |
 
@@ -54,6 +54,17 @@ Trace에는 내부 storage 조회 span 2개의 실패 표시가 있었습니다.
 MCP/Pydantic과 hosting SDK의 prerelease/resilience 경고를 숨기지 않았습니다.
 
 ## 재검증
+
+### 영상 링크 보완
+
+20분 MP4의 H.264/`yuv420p` 파일 자체는 정상이었으나 기존 링크는 GitHub의 파일 조회 페이지였습니다.
+GitHub가 실제 플레이어로 렌더링하는 비공개 리포 동영상 첨부 링크로 교체했습니다.
+20분본과 [전체본의 12개 구간](../video-chapters.md)을 모두 headless Edge에서
+재생하고 중간 지점으로 이동하는 동작을 확인했으며, 비로그인 접근은 모두 거부되었습니다.
+
+전체본은 재인코딩 없이 나눴습니다. 원본과 분할본의 영상 packet 수가 **66,615개**로 같고,
+모든 구간이 keyframe에서 시작하며 파일 크기는 **14.0–81.2 MB**입니다.
+원본의 대기시간과 진단 과정도 유지됩니다. 기존 Git 이력은 재작성하지 않았습니다.
 
 ```bash
 python -m pip check

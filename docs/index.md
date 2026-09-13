@@ -12,6 +12,7 @@
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
 | 실제 실행 화면과 headless 녹화 | [실행 기록과 영상](live-run.md) |
+| 필요한 영상 구간만 재생 | [영역별 전체 녹화](video-chapters.md) |
 | 마지막에 확인할 결과물 | [캡스톤](labs/11-capstone.md) |
 | 현재 지원 상태와 버전 | [호환성 기준](reference/versions.md) |
 | 오류·권한·할당량 문제 | [문제 해결](reference/troubleshooting.md) |

@@ -7,6 +7,8 @@
 **[실제 실행 결과·주요 화면·headless 녹화](docs/live-run.md)** —
 실제 dev/holdout, Foundry 평가, Hosted 원격 응답과 Trace를 확인한 기록입니다.
 
+[20분 영상 재생](docs/video-summary.md) · [전체 녹화 구간별 재생](docs/video-chapters.md)
+
 2025년 12월의 `microsoft-foundry-labs`를 바탕으로, 이후 분리해 만든 Foundry Evaluation,
 MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업무 시나리오**로
 다시 구성했습니다. 다른 리포를 차례로 방문하는 링크 모음이 아닙니다.
