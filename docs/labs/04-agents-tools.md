@@ -90,9 +90,9 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 
 ## 완료·문제 해결
 
-![실제 MAF 함수 도구 응답](../assets/live-20260913/15-maf-function-tool.png)
+![Luna MAF 함수 도구 응답](../assets/live-20260913-swc/037-maf-function-tool.png)
 
-![실제 MCP 서버 호출과 답변](../assets/live-20260913/16-maf-mcp-response.png)
+![Luna MCP 서버 호출과 답변](../assets/live-20260913-swc/038-maf-mcp.png)
 
 [실행 기록](../live-run.md)에는 발견한 schema 누락과 수정·재실행 결과도 남겼습니다.
 

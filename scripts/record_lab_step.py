@@ -65,6 +65,8 @@ def main() -> int:
             ("ai", "agent", "show"),
             ("ai", "agent", "invoke"),
             ("ai", "agent", "doctor"),
+            ("ai", "agent", "eval"),
+            ("ai", "agent", "monitor"),
             ("ai", "agent", "sessions", "list"),
             ("ai", "agent", "sessions", "stop"),
         ]
@@ -106,13 +108,16 @@ def main() -> int:
     save_state(viewer / "state.json", state)
     started = time.monotonic()
     try:
+        environment = {**os.environ, "PYTHONUNBUFFERED": "1"}
+        if args.kind == "azd":
+            environment["AZURE_DEV_USER_AGENT"] = "microsoft_foundry_skill"
         result = subprocess.run(
             command,
             cwd=ROOT,
             capture_output=True,
             text=True,
             timeout=args.timeout,
-            env={**os.environ, "PYTHONUNBUFFERED": "1"},
+            env=environment,
         )
         output = result.stdout + ("\n" + result.stderr if result.stderr else "")
         state.update(

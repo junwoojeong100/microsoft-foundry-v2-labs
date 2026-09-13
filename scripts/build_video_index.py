@@ -27,7 +27,7 @@ def attachment_url(receipt: Path) -> str:
     return url
 
 
-def build(parts_dir: Path, summary_receipt: Path, docs: Path) -> dict:
+def build(parts_dir: Path, summary_receipt: Path, docs: Path, asset_run: str) -> dict:
     source = json.loads((parts_dir / "parts.json").read_text(encoding="utf-8"))
     if source["source_video_packets"] != source["output_video_packets"]:
         raise ValueError("The source timeline was not fully preserved.")
@@ -95,7 +95,7 @@ def build(parts_dir: Path, summary_receipt: Path, docs: Path) -> dict:
         f"- 긴 MAF/평가 구간은 두 파일로 나눴습니다. 가장 큰 파일은 약 **{max(item['size_bytes'] for item in parts) / 1_000_000:.1f} MB**입니다.\n"
         "- 영상 본문은 Git 히스토리에 추가하지 않았습니다. 기존에 커밋했던 20분 파일의 과거 이력은 재작성하지 않습니다.\n"
         "- 로그인 화면 제외와 식별정보 가림은 분할본에도 그대로 유지됩니다.\n\n"
-        "[파일별 메타데이터·SHA-256](assets/live-20260913/video-parts.json)\n"
+        f"[파일별 메타데이터·SHA-256](assets/{asset_run}/video-parts.json)\n"
     )
     (docs / "video-chapters.md").write_text(index, encoding="utf-8")
     (docs / "video-summary.md").write_text(
@@ -122,7 +122,9 @@ def build(parts_dir: Path, summary_receipt: Path, docs: Path) -> dict:
         "summary_url": summary,
         "parts": parts,
     }
-    (docs / "assets/live-20260913/video-parts.json").write_text(
+    asset_dir = docs / "assets" / asset_run
+    asset_dir.mkdir(parents=True, exist_ok=True)
+    (asset_dir / "video-parts.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     return report
@@ -133,8 +135,9 @@ if __name__ == "__main__":
     parser.add_argument("--parts-dir", type=Path, required=True)
     parser.add_argument("--summary-receipt", type=Path, required=True)
     parser.add_argument("--docs", type=Path, default=Path("docs"))
+    parser.add_argument("--asset-run", required=True)
     args = parser.parse_args()
-    result = build(args.parts_dir, args.summary_receipt, args.docs)
+    result = build(args.parts_dir, args.summary_receipt, args.docs, args.asset_run)
     print(
         f"Built {len(result['parts'])} chapter playback pages and a verified summary player page."
     )

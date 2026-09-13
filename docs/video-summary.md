@@ -1,12 +1,17 @@
-# 20분 배속본 재생
+# Sweden Central — Playwright headless 실시간 녹화
 
-[구간별 원래 속도 영상](video-chapters.md) · [실제 실행 결과](live-run.md)
+[실제 실행 결과](live-run.md) · [단계별 캡처](video-chapters.md)
 
-**20분 · 67.7 MB · 약 5.55배속**입니다. 대기시간도 배속되어 있으며 제거된 것은 아닙니다.
+| 영상 | 내용 |
+|---|---|
+| [CLI 전체 녹화](assets/live-20260913-swc/cli-full-run.mp4) | **95분 50초 · 87.9 MB · 1440×900**, 같은 그룹명 재생성부터 세션 확인까지 실제 72단계 |
+| [Foundry 포털 전체 녹화](assets/live-20260913-swc/portal-full-run.mp4) | **82분 16초 · 35.1 MB · 1440×1000**, 실제 모델·에이전트·평가·Trace·Knowledge |
 
-https://github.com/user-attachments/assets/cd241726-d951-4c17-8da7-2c324341e3a5
+두 영상은 **원래 속도이며 대기시간을 제거하지 않았습니다.**
+Playwright headless context의 실제 화면을 실행 중에 녹화했고, H.264 MP4로 인코딩했습니다.
+이전의 JSON 결과 재생 영상을 새 실측 영상으로 재사용하지 않았습니다.
+인증용 창의 로그인·MFA 과정은 제외했으며 모든 PNG·실습 녹화는 headless에서 생성했습니다.
 
-GitHub에 로그인하고 이 비공개 리포의 접근 권한이 있는지 확인하세요.
-필요하면 [영상 파일 열기/다운로드](https://github.com/user-attachments/assets/cd241726-d951-4c17-8da7-2c324341e3a5)를 이용할 수 있습니다.
-
-이전 MP4 blob 링크 대신 GitHub가 실제 `<video>` 플레이어로 렌더링하는 첨부 링크를 사용합니다. headless Edge에서 재생 진행과 10분 지점 탐색을 확인했습니다.
+길이·크기·해시·촬영 방식은 [미디어 메타데이터](assets/live-20260913-swc/media.json)에 있습니다.
+포털 자료에는 실습 계정과 리소스 식별정보가 보일 수 있습니다. 외부 게시 전 확인하세요.
+영상은 이 저장소의 `assets` 파일로 관리하며, 별도의 첨부파일 호스팅이나 외부 영상 서비스는 사용하지 않습니다.

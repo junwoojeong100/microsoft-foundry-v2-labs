@@ -37,6 +37,9 @@ python scripts/package_hosted.py
 | 직접 의존성의 고정 버전 | 로컬 `.venv`나 임의 파일 |
 | 파일별 hash manifest | 클라우드 실행 성공 주장 |
 
+배포 뒤 생성한 `.foundry/` 평가 데이터·결과와 `eval*.yaml` 설정도
+`.agentignore`로 제외합니다. 재배포할 때 평가 정답이 에이전트 코드에 섞이지 않게 합니다.
+
 `package-manifest.json`과 `requirements.txt`를 확인합니다.
 재빌드 시 기존 폴더를 자동 삭제하지 않습니다. 그 **정확한 생성 폴더만** 보관/정리한 뒤 다시 실행합니다.
 소스 변경 후 과거 패키지를 재배포하지 않도록 hash를 비교합니다.
@@ -76,6 +79,8 @@ azd ai agent init --src ./.build/hosted --agent-name "<unique-agent-name>" --pro
 
 `examples/hosted/azure.yaml.example`은 구조 참고용이지 즉시 배포 가능한 환경 파일이 아닙니다.
 생성된 파일을 통째로 덮어쓰지 않습니다.
+루트 `.env`와 azd 환경에 이전 endpoint가 남아 있지 않은지도 확인합니다.
+기존 프로젝트를 지정해 초기화했더라도 양쪽의 endpoint·배포 이름을 새 환경과 일치시킨 후 호출합니다.
 최신 CLI 도움말에도 과거 `agent.yaml` 표현이 남을 수 있으므로 실제 생성 결과를 확인합니다.
 
 ## 3. 로컬 서버 — 두 터미널
@@ -134,12 +139,13 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 
 ## 완료·정리
 
-![실제 Hosted code deployment](../assets/live-20260913/34-hosted-deployment.png)
+![Luna Hosted code deployment](../assets/live-20260913-swc/067-deploy-hosted.png)
 
-![고정 버전의 실제 원격 응답](../assets/live-20260913/35-hosted-remote-response.png)
+![Luna 고정 버전의 실제 원격 응답](../assets/live-20260913-swc/069-remote-hosted-response.png)
 
 이 실행에서는 서비스가 버전 1을 활성화했고 실제 원격 답변과 Trace ID가 반환되었습니다.
-별도 Hosted 품질 평가까지 했다는 뜻은 아닙니다. [실행 기록](../live-run.md)을 확인합니다.
+그 smoke 응답만으로 품질 평가를 대신하지 않았습니다. 이번 실행에서는 별도의 합성 dev 6건을
+실제 원격 Hosted에 요청하고 생성형 rubric으로 평가했습니다. 기준과 한계는 [실행 기록](../live-run.md)을 확인합니다.
 
 패키지 생성 / 로컬 응답 / 원격 배포 / 원격 평가를 별도 칸으로 기록합니다.
 활성 session은 호출 사이에 재사용될 수 있고 session별 컴퓨트 비용이 쌓입니다.

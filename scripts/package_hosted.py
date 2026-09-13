@@ -49,6 +49,8 @@ def build(root: Path) -> Path:
                 "files": files,
                 "excludes": [
                     ".env",
+                    ".foundry",
+                    "eval YAML configs",
                     "outputs",
                     "evaluation datasets",
                     "holdout",

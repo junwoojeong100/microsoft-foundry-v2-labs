@@ -1,0 +1,1496 @@
+{
+  "recorded_on": "2026-09-13",
+  "region": "swedencentral",
+  "model": "gpt-5.6-luna",
+  "model_version": "2026-07-09",
+  "playwright_version": "1.62.0",
+  "headless": true,
+  "historical_json_replay": false,
+  "waiting_time_removed": false,
+  "authentication_recorded": false,
+  "cli_stage_count": 72,
+  "screenshot_count": 122,
+  "portal_screenshot_count": 17,
+  "cli_capture": {
+    "started_at": "2026-09-13T13:01:59.161101+00:00",
+    "finished_at": "2026-09-13T14:37:48.439376+00:00",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "stages": [
+      {
+        "stage": "001-rebuild-scope",
+        "title": "01. 동일 그룹명 재시작 — 직전 실습 소유권 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T13:02:48.727170+00:00",
+        "finished_at": "2026-09-13T13:02:50.001665+00:00",
+        "screenshots": [
+          "001-rebuild-scope.png"
+        ],
+        "captured_at": "2026-09-13T13:02:51.610008+00:00"
+      },
+      {
+        "stage": "002-before-rebuild-inventory",
+        "title": "01. 삭제 대상은 방금 만든 Foundry·Search뿐",
+        "status": "completed",
+        "started_at": "2026-09-13T13:02:51.641375+00:00",
+        "finished_at": "2026-09-13T13:02:53.073475+00:00",
+        "screenshots": [
+          "002-before-rebuild-inventory.png",
+          "002-before-rebuild-inventory-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:02:55.375577+00:00"
+      },
+      {
+        "stage": "003-delete-previous-attempt",
+        "title": "01. 사용자 요청에 따라 직전 전용 그룹 삭제",
+        "status": "completed",
+        "started_at": "2026-09-13T13:02:55.533873+00:00",
+        "finished_at": "2026-09-13T13:04:01.762225+00:00",
+        "screenshots": [
+          "003-delete-previous-attempt.png"
+        ],
+        "captured_at": "2026-09-13T13:04:03.596086+00:00"
+      },
+      {
+        "stage": "004-confirm-group-removed",
+        "title": "01. 기존 그룹 삭제 완료 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T13:04:03.617257+00:00",
+        "finished_at": "2026-09-13T13:04:05.206449+00:00",
+        "screenshots": [
+          "004-confirm-group-removed.png"
+        ],
+        "captured_at": "2026-09-13T13:04:06.584483+00:00"
+      },
+      {
+        "stage": "005-recreate-group-sweden",
+        "title": "01. 같은 이름의 리소스 그룹을 Sweden Central에 새로 생성",
+        "status": "completed",
+        "started_at": "2026-09-13T13:04:06.657234+00:00",
+        "finished_at": "2026-09-13T13:04:09.881532+00:00",
+        "screenshots": [
+          "005-recreate-group-sweden.png"
+        ],
+        "captured_at": "2026-09-13T13:04:11.634167+00:00"
+      },
+      {
+        "stage": "006-create-search-sweden",
+        "title": "06. Sweden Central Search부터 생성 가능 여부 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T13:04:11.735061+00:00",
+        "finished_at": "2026-09-13T13:13:00.390169+00:00",
+        "screenshots": [
+          "006-create-search-sweden.png"
+        ],
+        "captured_at": "2026-09-13T13:13:02.612962+00:00"
+      },
+      {
+        "stage": "007-create-foundry-sweden",
+        "title": "01. Sweden Central Foundry — 키 인증 비활성화",
+        "status": "completed",
+        "started_at": "2026-09-13T13:13:02.655123+00:00",
+        "finished_at": "2026-09-13T13:13:18.055859+00:00",
+        "screenshots": [
+          "007-create-foundry-sweden.png"
+        ],
+        "captured_at": "2026-09-13T13:13:19.605703+00:00"
+      },
+      {
+        "stage": "008-create-project-sweden",
+        "title": "01. 동일 리전 프로젝트와 관리 ID 생성",
+        "status": "completed",
+        "started_at": "2026-09-13T13:13:19.700318+00:00",
+        "finished_at": "2026-09-13T13:13:25.267741+00:00",
+        "screenshots": [
+          "008-create-project-sweden.png"
+        ],
+        "captured_at": "2026-09-13T13:13:26.602418+00:00"
+      },
+      {
+        "stage": "009-deploy-luna-sweden",
+        "title": "02. Luna 2026-07-09 — Data Zone Standard 100K",
+        "status": "completed",
+        "started_at": "2026-09-13T13:13:26.708056+00:00",
+        "finished_at": "2026-09-13T13:13:34.163104+00:00",
+        "screenshots": [
+          "009-deploy-luna-sweden.png"
+        ],
+        "captured_at": "2026-09-13T13:13:35.628710+00:00"
+      },
+      {
+        "stage": "010-deploy-judge-sweden",
+        "title": "07. 별도 Luna judge — Data Zone Standard 50K",
+        "status": "completed",
+        "started_at": "2026-09-13T13:13:35.813166+00:00",
+        "finished_at": "2026-09-13T13:13:55.599021+00:00",
+        "screenshots": [
+          "010-deploy-judge-sweden.png"
+        ],
+        "captured_at": "2026-09-13T13:13:57.589255+00:00"
+      },
+      {
+        "stage": "011-user-foundry-role",
+        "title": "01. 사용자 Foundry 데이터 접근 — 새 계정 범위",
+        "status": "completed",
+        "started_at": "2026-09-13T13:13:57.659075+00:00",
+        "finished_at": "2026-09-13T13:14:02.910545+00:00",
+        "screenshots": [
+          "011-user-foundry-role.png"
+        ],
+        "captured_at": "2026-09-13T13:14:04.576956+00:00"
+      },
+      {
+        "stage": "012-project-foundry-role",
+        "title": "08. 프로젝트 관리 ID의 Foundry 호출 권한",
+        "status": "completed",
+        "started_at": "2026-09-13T13:14:04.761671+00:00",
+        "finished_at": "2026-09-13T13:14:08.802347+00:00",
+        "screenshots": [
+          "012-project-foundry-role.png"
+        ],
+        "captured_at": "2026-09-13T13:14:10.605054+00:00"
+      },
+      {
+        "stage": "013-search-schema-role",
+        "title": "06. 사용자 Search 스키마 관리 권한",
+        "status": "completed",
+        "started_at": "2026-09-13T13:14:10.658934+00:00",
+        "finished_at": "2026-09-13T13:14:16.371056+00:00",
+        "screenshots": [
+          "013-search-schema-role.png"
+        ],
+        "captured_at": "2026-09-13T13:14:18.590817+00:00"
+      },
+      {
+        "stage": "014-search-data-role",
+        "title": "06. 사용자 합성 문서 업로드·검색 권한",
+        "status": "completed",
+        "started_at": "2026-09-13T13:14:18.637948+00:00",
+        "finished_at": "2026-09-13T13:14:23.904914+00:00",
+        "screenshots": [
+          "014-search-data-role.png"
+        ],
+        "captured_at": "2026-09-13T13:14:25.602992+00:00"
+      },
+      {
+        "stage": "015-create-log-analytics",
+        "title": "09. Sweden Central 로그 저장소 — 30일 보존·일일 1GB 제한",
+        "status": "completed",
+        "started_at": "2026-09-13T13:17:54.193801+00:00",
+        "finished_at": "2026-09-13T13:18:30.598880+00:00",
+        "screenshots": [
+          "015-create-log-analytics.png"
+        ],
+        "captured_at": "2026-09-13T13:18:32.696148+00:00"
+      },
+      {
+        "stage": "016-create-app-insights",
+        "title": "09. Sweden Central Application Insights 생성",
+        "status": "completed",
+        "started_at": "2026-09-13T13:18:32.860691+00:00",
+        "finished_at": "2026-09-13T13:18:36.256293+00:00",
+        "screenshots": [
+          "016-create-app-insights.png"
+        ],
+        "captured_at": "2026-09-13T13:18:37.678605+00:00"
+      },
+      {
+        "stage": "017-project-log-reader",
+        "title": "09. 프로젝트 관리 ID에 전용 로그 읽기 권한",
+        "status": "completed",
+        "started_at": "2026-09-13T13:18:37.708117+00:00",
+        "finished_at": "2026-09-13T13:18:42.751100+00:00",
+        "screenshots": [
+          "017-project-log-reader.png"
+        ],
+        "captured_at": "2026-09-13T13:18:44.687075+00:00"
+      },
+      {
+        "stage": "018-project-search-reader",
+        "title": "06. 프로젝트 관리 ID에 합성 검색 데이터 읽기 권한",
+        "status": "completed",
+        "started_at": "2026-09-13T13:18:44.806017+00:00",
+        "finished_at": "2026-09-13T13:18:48.970598+00:00",
+        "screenshots": [
+          "018-project-search-reader.png"
+        ],
+        "captured_at": "2026-09-13T13:18:50.676443+00:00"
+      },
+      {
+        "stage": "019-connect-server-tracing",
+        "title": "09. 새 프로젝트의 서버 측 tracing 연결 — 인증 정보 비공개",
+        "status": "completed",
+        "started_at": "2026-09-13T13:18:51.693697+00:00",
+        "finished_at": "2026-09-13T13:18:53.638245+00:00",
+        "screenshots": [
+          "019-connect-server-tracing.png"
+        ],
+        "captured_at": "2026-09-13T13:18:55.693627+00:00"
+      },
+      {
+        "stage": "020-connect-search",
+        "title": "06. 전용 Search를 Foundry에 키 없이 연결",
+        "status": "completed",
+        "started_at": "2026-09-13T13:18:55.908532+00:00",
+        "finished_at": "2026-09-13T13:18:57.197622+00:00",
+        "screenshots": [
+          "020-connect-search.png"
+        ],
+        "captured_at": "2026-09-13T13:18:58.682079+00:00"
+      },
+      {
+        "stage": "021-single-region-verification",
+        "title": "01. 모든 지역 리소스가 Sweden Central인지 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T13:18:58.852589+00:00",
+        "finished_at": "2026-09-13T13:19:01.887588+00:00",
+        "screenshots": [
+          "021-single-region-verification.png",
+          "021-single-region-verification-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:19:04.496635+00:00"
+      },
+      {
+        "stage": "030-offline-doctor",
+        "title": "00. 로컬 환경 검사 — Azure 실행과 구분",
+        "status": "completed",
+        "started_at": "2026-09-13T13:20:17.485230+00:00",
+        "finished_at": "2026-09-13T13:20:17.566920+00:00",
+        "screenshots": [
+          "030-offline-doctor.png"
+        ],
+        "captured_at": "2026-09-13T13:20:19.678927+00:00"
+      },
+      {
+        "stage": "031-cloud-doctor",
+        "title": "01. 새 Sweden Central 배포·인증 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T13:20:19.823388+00:00",
+        "finished_at": "2026-09-13T13:20:25.609395+00:00",
+        "screenshots": [
+          "031-cloud-doctor.png",
+          "031-cloud-doctor-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:20:28.491752+00:00"
+      },
+      {
+        "stage": "032-luna-response",
+        "title": "02. 새 Luna의 실제 Responses 응답",
+        "status": "completed",
+        "started_at": "2026-09-13T13:20:28.700931+00:00",
+        "finished_at": "2026-09-13T13:20:35.296420+00:00",
+        "screenshots": [
+          "032-luna-response.png"
+        ],
+        "captured_at": "2026-09-13T13:20:36.686486+00:00"
+      },
+      {
+        "stage": "033-grounded-local-answer",
+        "title": "02. 합성 원문을 근거로 한 Luna 구조화 답변",
+        "status": "completed",
+        "started_at": "2026-09-13T13:20:36.736636+00:00",
+        "finished_at": "2026-09-13T13:20:42.848483+00:00",
+        "screenshots": [
+          "033-grounded-local-answer.png",
+          "033-grounded-local-answer-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:20:45.526496+00:00"
+      },
+      {
+        "stage": "034-create-prompt-agent",
+        "title": "03. 새 Prompt Agent 생성",
+        "status": "completed",
+        "started_at": "2026-09-13T13:20:45.739030+00:00",
+        "finished_at": "2026-09-13T13:21:00.651967+00:00",
+        "screenshots": [
+          "034-create-prompt-agent.png"
+        ],
+        "captured_at": "2026-09-13T13:21:02.686176+00:00"
+      },
+      {
+        "stage": "035-prompt-current",
+        "title": "03. Prompt Agent — 현행 숙박 한도",
+        "status": "completed",
+        "started_at": "2026-09-13T13:21:02.707452+00:00",
+        "finished_at": "2026-09-13T13:21:08.186920+00:00",
+        "screenshots": [
+          "035-prompt-current.png",
+          "035-prompt-current-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:21:10.499888+00:00"
+      },
+      {
+        "stage": "035-prompt-historical",
+        "title": "03. Prompt Agent — 과거 규정 적용",
+        "status": "completed",
+        "started_at": "2026-09-13T13:21:10.659548+00:00",
+        "finished_at": "2026-09-13T13:21:16.517491+00:00",
+        "screenshots": [
+          "035-prompt-historical.png",
+          "035-prompt-historical-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:21:19.493938+00:00"
+      },
+      {
+        "stage": "035-prompt-approval",
+        "title": "03. Prompt Agent — 사전 승인 경계",
+        "status": "completed",
+        "started_at": "2026-09-13T13:21:19.595092+00:00",
+        "finished_at": "2026-09-13T13:21:25.139000+00:00",
+        "screenshots": [
+          "035-prompt-approval.png",
+          "035-prompt-approval-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:21:27.514591+00:00"
+      },
+      {
+        "stage": "035-prompt-missing",
+        "title": "03. Prompt Agent — 근거 없는 질문 보류",
+        "status": "completed",
+        "started_at": "2026-09-13T13:21:27.615331+00:00",
+        "finished_at": "2026-09-13T13:21:32.101222+00:00",
+        "screenshots": [
+          "035-prompt-missing.png"
+        ],
+        "captured_at": "2026-09-13T13:21:33.719958+00:00"
+      },
+      {
+        "stage": "036-maf-single",
+        "title": "04. MAF 단일 에이전트",
+        "status": "completed",
+        "started_at": "2026-09-13T13:21:33.753628+00:00",
+        "finished_at": "2026-09-13T13:21:42.325553+00:00",
+        "screenshots": [
+          "036-maf-single.png"
+        ],
+        "captured_at": "2026-09-13T13:21:43.772703+00:00"
+      },
+      {
+        "stage": "037-maf-function-tool",
+        "title": "04. MAF 읽기 전용 함수 도구",
+        "status": "completed",
+        "started_at": "2026-09-13T13:21:43.967723+00:00",
+        "finished_at": "2026-09-13T13:21:51.685662+00:00",
+        "screenshots": [
+          "037-maf-function-tool.png"
+        ],
+        "captured_at": "2026-09-13T13:21:53.718338+00:00"
+      },
+      {
+        "stage": "038-maf-mcp",
+        "title": "04. 로컬 MCP 서버와 Luna",
+        "status": "completed",
+        "started_at": "2026-09-13T13:21:53.749527+00:00",
+        "finished_at": "2026-09-13T13:22:01.226080+00:00",
+        "screenshots": [
+          "038-maf-mcp.png",
+          "038-maf-mcp-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:22:03.492456+00:00"
+      },
+      {
+        "stage": "039-workflow-sequential",
+        "title": "05. MAF sequential 실제 실행",
+        "status": "completed",
+        "started_at": "2026-09-13T13:22:03.697917+00:00",
+        "finished_at": "2026-09-13T13:22:18.184482+00:00",
+        "screenshots": [
+          "039-workflow-sequential.png"
+        ],
+        "captured_at": "2026-09-13T13:22:19.704157+00:00"
+      },
+      {
+        "stage": "040-workflow-concurrent",
+        "title": "05. MAF concurrent 실제 실행",
+        "status": "completed",
+        "started_at": "2026-09-13T13:22:19.825892+00:00",
+        "finished_at": "2026-09-13T13:22:29.687350+00:00",
+        "screenshots": [
+          "040-workflow-concurrent.png",
+          "040-workflow-concurrent-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:22:32.522071+00:00"
+      },
+      {
+        "stage": "041-workflow-group-chat",
+        "title": "05. MAF group-chat 실제 실행",
+        "status": "completed",
+        "started_at": "2026-09-13T13:22:32.547366+00:00",
+        "finished_at": "2026-09-13T13:22:47.155902+00:00",
+        "screenshots": [
+          "041-workflow-group-chat.png",
+          "041-workflow-group-chat-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:22:49.542493+00:00"
+      },
+      {
+        "stage": "042-seed-search",
+        "title": "06. 전용 인덱스에 합성 정책 6건 업로드",
+        "status": "completed",
+        "started_at": "2026-09-13T13:23:51.272393+00:00",
+        "finished_at": "2026-09-13T13:23:59.876429+00:00",
+        "screenshots": [
+          "042-seed-search.png"
+        ],
+        "captured_at": "2026-09-13T13:24:01.701710+00:00"
+      },
+      {
+        "stage": "043-retrieve-search",
+        "title": "06. 실제 Azure AI Search 검색",
+        "status": "completed",
+        "started_at": "2026-09-13T13:24:01.728378+00:00",
+        "finished_at": "2026-09-13T13:24:04.524058+00:00",
+        "screenshots": [
+          "043-retrieve-search.png",
+          "043-retrieve-search-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:24:07.498671+00:00"
+      },
+      {
+        "stage": "044-seed-iq",
+        "title": "06. GA Foundry IQ source·knowledge base 생성",
+        "status": "completed",
+        "started_at": "2026-09-13T13:24:07.620969+00:00",
+        "finished_at": "2026-09-13T13:24:16.604341+00:00",
+        "screenshots": [
+          "044-seed-iq.png"
+        ],
+        "captured_at": "2026-09-13T13:24:18.686282+00:00"
+      },
+      {
+        "stage": "045-retrieve-iq",
+        "title": "06. GA Foundry IQ 실제 검색",
+        "status": "completed",
+        "started_at": "2026-09-13T13:24:18.877010+00:00",
+        "finished_at": "2026-09-13T13:24:22.347754+00:00",
+        "screenshots": [
+          "045-retrieve-iq.png",
+          "045-retrieve-iq-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:24:24.627399+00:00"
+      },
+      {
+        "stage": "046-iq-answer",
+        "title": "06. IQ 원문과 Luna 구조화 답변",
+        "status": "completed",
+        "started_at": "2026-09-13T13:24:24.821177+00:00",
+        "finished_at": "2026-09-13T13:24:34.947611+00:00",
+        "screenshots": [
+          "046-iq-answer.png",
+          "046-iq-answer-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:24:37.500468+00:00"
+      },
+      {
+        "stage": "050-baseline-collect",
+        "title": "07. v1 dev 6건 실제 수집",
+        "status": "completed",
+        "started_at": "2026-09-13T13:25:24.536375+00:00",
+        "finished_at": "2026-09-13T13:25:56.594821+00:00",
+        "screenshots": [
+          "050-baseline-collect.png",
+          "050-baseline-collect-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:25:59.485947+00:00"
+      },
+      {
+        "stage": "051-baseline-evaluate",
+        "title": "07. v1 전체 업무 검사 — 오류도 분모 유지",
+        "status": "completed",
+        "started_at": "2026-09-13T13:25:59.688474+00:00",
+        "finished_at": "2026-09-13T13:25:59.824632+00:00",
+        "screenshots": [
+          "051-baseline-evaluate.png",
+          "051-baseline-evaluate-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:26:02.459888+00:00"
+      },
+      {
+        "stage": "052-candidate-collect",
+        "title": "07. v2 dev 6건 실제 수집",
+        "status": "completed",
+        "started_at": "2026-09-13T13:26:40.200655+00:00",
+        "finished_at": "2026-09-13T13:27:10.172714+00:00",
+        "screenshots": [
+          "052-candidate-collect.png",
+          "052-candidate-collect-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:27:12.519873+00:00"
+      },
+      {
+        "stage": "053-candidate-evaluate",
+        "title": "07. v2 전체 업무 검사",
+        "status": "completed",
+        "started_at": "2026-09-13T13:27:12.647589+00:00",
+        "finished_at": "2026-09-13T13:27:12.781125+00:00",
+        "screenshots": [
+          "053-candidate-evaluate.png",
+          "053-candidate-evaluate-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:27:15.493245+00:00"
+      },
+      {
+        "stage": "054-controlled-comparison",
+        "title": "07. 동일 모델·코퍼스·검색 설정에서 지침 비교",
+        "status": "completed",
+        "started_at": "2026-09-13T13:27:15.659349+00:00",
+        "finished_at": "2026-09-13T13:27:15.757463+00:00",
+        "screenshots": [
+          "054-controlled-comparison.png",
+          "054-controlled-comparison-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:27:18.495335+00:00"
+      },
+      {
+        "stage": "055-native-luna-judge",
+        "title": "07. 별도 Luna judge의 native groundedness·relevance",
+        "status": "completed",
+        "started_at": "2026-09-13T13:27:18.629570+00:00",
+        "finished_at": "2026-09-13T13:27:58.887990+00:00",
+        "screenshots": [
+          "055-native-luna-judge.png"
+        ],
+        "captured_at": "2026-09-13T13:28:00.713925+00:00"
+      },
+      {
+        "stage": "056-final-holdout",
+        "title": "07. 고정 후보의 최종 holdout — 개발에 재사용하지 않음",
+        "status": "completed",
+        "started_at": "2026-09-13T13:28:36.500273+00:00",
+        "finished_at": "2026-09-13T13:28:59.650338+00:00",
+        "screenshots": [
+          "056-final-holdout.png",
+          "056-final-holdout-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:29:02.534857+00:00"
+      },
+      {
+        "stage": "057-holdout-evaluate",
+        "title": "07. holdout 전체 업무 검사",
+        "status": "completed",
+        "started_at": "2026-09-13T13:29:02.727590+00:00",
+        "finished_at": "2026-09-13T13:29:02.863932+00:00",
+        "screenshots": [
+          "057-holdout-evaluate.png",
+          "057-holdout-evaluate-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:29:05.509701+00:00"
+      },
+      {
+        "stage": "058-acceptance",
+        "title": "11. 실제 후보·holdout 계보가 연결된 인수 자료",
+        "status": "completed",
+        "started_at": "2026-09-13T13:29:05.527951+00:00",
+        "finished_at": "2026-09-13T13:29:05.629363+00:00",
+        "screenshots": [
+          "058-acceptance.png",
+          "058-acceptance-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:29:08.533424+00:00"
+      },
+      {
+        "stage": "060-preserve-hosted-state",
+        "title": "08. 이전 생성 패키지·azd 상태 보존",
+        "status": "completed",
+        "started_at": "2026-09-13T13:32:25.655561+00:00",
+        "finished_at": "2026-09-13T13:32:25.734903+00:00",
+        "screenshots": [
+          "060-preserve-hosted-state.png"
+        ],
+        "captured_at": "2026-09-13T13:32:27.684191+00:00"
+      },
+      {
+        "stage": "061-package-hosted",
+        "title": "08. 합성 정책만 포함한 새 Hosted 패키지",
+        "status": "completed",
+        "started_at": "2026-09-13T13:32:27.796471+00:00",
+        "finished_at": "2026-09-13T13:32:27.891138+00:00",
+        "screenshots": [
+          "061-package-hosted.png"
+        ],
+        "captured_at": "2026-09-13T13:32:29.693914+00:00"
+      },
+      {
+        "stage": "062-initialize-hosted",
+        "title": "08. 새 Sweden Central 프로젝트와 Luna에 Hosted 코드 연결",
+        "status": "completed",
+        "started_at": "2026-09-13T13:32:29.741933+00:00",
+        "finished_at": "2026-09-13T13:32:35.994947+00:00",
+        "screenshots": [
+          "062-initialize-hosted.png",
+          "062-initialize-hosted-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:32:38.472307+00:00"
+      },
+      {
+        "stage": "063-synchronize-hosted-bindings",
+        "title": "08. .env와 azd를 새 프로젝트·배포에 명시적으로 일치",
+        "status": "completed",
+        "started_at": "2026-09-13T13:38:43.527970+00:00",
+        "finished_at": "2026-09-13T13:38:45.151367+00:00",
+        "screenshots": [
+          "063-synchronize-hosted-bindings.png",
+          "063-synchronize-hosted-bindings-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:38:47.528865+00:00"
+      },
+      {
+        "stage": "064-verify-clean-hosted-package",
+        "title": "08. 재배포에서도 평가 정답·캐시가 제외되는 새 패키지",
+        "status": "completed",
+        "started_at": "2026-09-13T13:38:47.617619+00:00",
+        "finished_at": "2026-09-13T13:38:47.891478+00:00",
+        "screenshots": [
+          "064-verify-clean-hosted-package.png"
+        ],
+        "captured_at": "2026-09-13T13:38:49.723075+00:00"
+      },
+      {
+        "stage": "065-local-readiness",
+        "title": "08. 실제 로컬 Hosted 서버 readiness",
+        "status": "completed",
+        "started_at": "2026-09-13T13:41:55.747320+00:00",
+        "finished_at": "2026-09-13T13:41:55.775236+00:00",
+        "screenshots": [
+          "065-local-readiness.png"
+        ],
+        "captured_at": "2026-09-13T13:41:57.725569+00:00"
+      },
+      {
+        "stage": "066-local-hosted-response",
+        "title": "08. 새 Luna를 호출하는 실제 로컬 Hosted 응답",
+        "status": "completed",
+        "started_at": "2026-09-13T13:41:57.836354+00:00",
+        "finished_at": "2026-09-13T13:42:05.505195+00:00",
+        "screenshots": [
+          "066-local-hosted-response.png"
+        ],
+        "captured_at": "2026-09-13T13:42:07.724251+00:00"
+      },
+      {
+        "stage": "067-deploy-hosted",
+        "title": "08. Sweden Central Hosted 직접 코드 배포",
+        "status": "completed",
+        "started_at": "2026-09-13T13:43:23.370531+00:00",
+        "finished_at": "2026-09-13T13:45:59.272068+00:00",
+        "screenshots": [
+          "067-deploy-hosted.png",
+          "067-deploy-hosted-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:46:01.564117+00:00"
+      },
+      {
+        "stage": "068-hosted-status",
+        "title": "08. 원격 Hosted 버전·상태·endpoint 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T13:46:01.776675+00:00",
+        "finished_at": "2026-09-13T13:46:03.342370+00:00",
+        "screenshots": [
+          "068-hosted-status.png",
+          "068-hosted-status-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:46:05.498841+00:00"
+      },
+      {
+        "stage": "069-remote-hosted-response",
+        "title": "08. 고정된 Hosted 버전 1의 실제 원격 응답",
+        "status": "completed",
+        "started_at": "2026-09-13T13:48:45.099211+00:00",
+        "finished_at": "2026-09-13T13:49:03.446167+00:00",
+        "screenshots": [
+          "069-remote-hosted-response.png"
+        ],
+        "captured_at": "2026-09-13T13:49:05.772992+00:00"
+      },
+      {
+        "stage": "070-hosted-dev-lineage",
+        "title": "08. 원격 Hosted 평가 입력 — 기존 dev 6건만 사용",
+        "status": "completed",
+        "started_at": "2026-09-13T13:53:14.618358+00:00",
+        "finished_at": "2026-09-13T13:53:19.605210+00:00",
+        "screenshots": [
+          "070-hosted-dev-lineage.png"
+        ],
+        "captured_at": "2026-09-13T13:53:21.755580+00:00"
+      },
+      {
+        "stage": "071-hosted-eval-setup",
+        "title": "08. Hosted 평가 설정 — 새 질문 생성 없이 기존 합성 dev",
+        "status": "completed",
+        "started_at": "2026-09-13T13:53:21.921605+00:00",
+        "finished_at": "2026-09-13T13:53:26.980312+00:00",
+        "screenshots": [
+          "071-hosted-eval-setup.png",
+          "071-hosted-eval-setup-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:53:29.585390+00:00"
+      },
+      {
+        "stage": "072-hosted-evaluation",
+        "title": "08. 실제 원격 Hosted 에이전트 대상 dev 평가",
+        "status": "completed",
+        "started_at": "2026-09-13T13:56:02.031112+00:00",
+        "finished_at": "2026-09-13T13:57:07.713422+00:00",
+        "screenshots": [
+          "072-hosted-evaluation.png",
+          "072-hosted-evaluation-tail.png"
+        ],
+        "captured_at": "2026-09-13T13:57:10.566548+00:00"
+      },
+      {
+        "stage": "073-verify-hosted-evaluation-rows",
+        "title": "08. 원격 평가 6건의 실제 응답·도구 호출·점수 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T14:08:10.617896+00:00",
+        "finished_at": "2026-09-13T14:08:18.518369+00:00",
+        "screenshots": [
+          "073-verify-hosted-evaluation-rows.png",
+          "073-verify-hosted-evaluation-rows-tail.png"
+        ],
+        "captured_at": "2026-09-13T14:08:21.464895+00:00"
+      },
+      {
+        "stage": "074-real-file-search",
+        "title": "03. 선택 File Search — 합성 파일 6개 색인·실제 파일 인용",
+        "status": "completed",
+        "started_at": "2026-09-13T14:08:21.595280+00:00",
+        "finished_at": "2026-09-13T14:09:13.439625+00:00",
+        "screenshots": [
+          "074-real-file-search.png",
+          "074-real-file-search-tail.png"
+        ],
+        "captured_at": "2026-09-13T14:09:16.490593+00:00"
+      },
+      {
+        "stage": "075-iq-extension-design",
+        "title": "10. 합성 IQ 라우팅 설계 — Fabric·M365 실제 연결 없음",
+        "status": "completed",
+        "started_at": "2026-09-13T14:09:16.519065+00:00",
+        "finished_at": "2026-09-13T14:09:27.866264+00:00",
+        "screenshots": [
+          "075-iq-extension-design.png",
+          "075-iq-extension-design-tail.png"
+        ],
+        "captured_at": "2026-09-13T14:09:30.527655+00:00"
+      },
+      {
+        "stage": "076-hosted-monitor",
+        "title": "09. 실제 원격 Hosted 세션의 최근 로그 확인",
+        "status": "completed",
+        "started_at": "2026-09-13T14:20:02.740551+00:00",
+        "finished_at": "2026-09-13T14:20:05.663194+00:00",
+        "screenshots": [
+          "076-hosted-monitor.png"
+        ],
+        "captured_at": "2026-09-13T14:20:07.697656+00:00"
+      },
+      {
+        "stage": "077-hosted-session-inventory",
+        "title": "09. 새 Hosted 에이전트의 세션 목록",
+        "status": "completed",
+        "started_at": "2026-09-13T14:20:07.725137+00:00",
+        "finished_at": "2026-09-13T14:20:09.551769+00:00",
+        "screenshots": [
+          "077-hosted-session-inventory.png",
+          "077-hosted-session-inventory-tail.png"
+        ],
+        "captured_at": "2026-09-13T14:20:12.512479+00:00"
+      },
+      {
+        "stage": "078-remove-previous-workshop-resources",
+        "title": "09. 이전 실습 전용 자산 삭제 — 공유 IQ 기반 보존",
+        "status": "completed",
+        "started_at": "2026-09-13T14:28:50.540840+00:00",
+        "finished_at": "2026-09-13T14:29:36.024087+00:00",
+        "screenshots": [
+          "078-remove-previous-workshop-resources.png",
+          "078-remove-previous-workshop-resources-tail.png"
+        ],
+        "captured_at": "2026-09-13T14:29:38.394190+00:00"
+      },
+      {
+        "stage": "079-stop-session-1",
+        "title": "09. 본인 Hosted 세션 중지 — 파일시스템은 보존",
+        "status": "completed",
+        "started_at": "2026-09-13T14:32:27.867433+00:00",
+        "finished_at": "2026-09-13T14:32:30.564387+00:00",
+        "screenshots": [
+          "079-stop-session-1.png"
+        ],
+        "captured_at": "2026-09-13T14:32:32.595034+00:00"
+      },
+      {
+        "stage": "079-stop-session-2",
+        "title": "09. 본인 Hosted 세션 중지 — 파일시스템은 보존",
+        "status": "completed",
+        "started_at": "2026-09-13T14:32:32.613831+00:00",
+        "finished_at": "2026-09-13T14:32:34.235409+00:00",
+        "screenshots": [
+          "079-stop-session-2.png"
+        ],
+        "captured_at": "2026-09-13T14:32:35.705637+00:00"
+      },
+      {
+        "stage": "080-verify-stopped-sessions",
+        "title": "09. 활성 Hosted 세션이 없는지 재조회",
+        "status": "completed",
+        "started_at": "2026-09-13T14:32:35.885612+00:00",
+        "finished_at": "2026-09-13T14:32:37.426261+00:00",
+        "screenshots": [
+          "080-verify-stopped-sessions.png",
+          "080-verify-stopped-sessions-tail.png"
+        ],
+        "captured_at": "2026-09-13T14:32:40.363517+00:00"
+      }
+    ]
+  },
+  "videos": [
+    {
+      "filename": "cli-full-run.mp4",
+      "sha256": "22b009e38cf140e5da7eb0b47bafd348f51bd81827aacac0ec5105d185312b5b",
+      "bytes": 87889690,
+      "duration_seconds": 5749.92,
+      "source_duration_seconds": 5749.92,
+      "source_sha256": "c959fcc03c6147bf84a745b301c5f4c0e07694e15ea143dab4a6ed1be8a0872f",
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1440,
+          "height": 900,
+          "avg_frame_rate": "25/1"
+        }
+      ]
+    },
+    {
+      "filename": "portal-full-run.mp4",
+      "sha256": "157316af332295abd066ebacfaa35f4773e14e0386dc78cff8eacc8988b88d0b",
+      "bytes": 35066798,
+      "duration_seconds": 4935.666667,
+      "source_duration_seconds": 4935.68,
+      "source_sha256": "c20db6d46dcb5dd1d02ebb0ee99dbffbd95c64b49276994943a51508da838f03",
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1440,
+          "height": 1000,
+          "avg_frame_rate": "15/1"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "filename": "001-rebuild-scope.png",
+      "bytes": 106278,
+      "sha256": "9b6ac799e5f3a66bdcbd59dd9966350eeabbcf119d29be98a28658e137fdf25c"
+    },
+    {
+      "filename": "002-before-rebuild-inventory-tail.png",
+      "bytes": 161364,
+      "sha256": "3b015fbc35b35463ac05de11d8cc15e8b8f6174606fd0a77b398653693d053ac"
+    },
+    {
+      "filename": "002-before-rebuild-inventory.png",
+      "bytes": 159793,
+      "sha256": "a0ef1032b568574a3205e3d2e7d170a33cdc7903f1a193ab340f346609827d2e"
+    },
+    {
+      "filename": "003-delete-previous-attempt.png",
+      "bytes": 74445,
+      "sha256": "9bf32debeaa9f11033aa838dc5136d5a59580cc55d135ea70b33ef607935c5da"
+    },
+    {
+      "filename": "004-confirm-group-removed.png",
+      "bytes": 65771,
+      "sha256": "c978341331d841132368b81dc838de786a7c1cdf37510e4af4295e7899a7ecb6"
+    },
+    {
+      "filename": "005-recreate-group-sweden.png",
+      "bytes": 137607,
+      "sha256": "5c5c1f889d47e455ffb9ac14c99435e0b9756b2a5c04e13082f39795bc1694d6"
+    },
+    {
+      "filename": "006-create-search-sweden.png",
+      "bytes": 153259,
+      "sha256": "9308659ceda3b9c7c299c5ef1f529515485153487a9f15c556e322e2034e3e52"
+    },
+    {
+      "filename": "007-create-foundry-sweden.png",
+      "bytes": 183755,
+      "sha256": "c0d826d06f5e3d792eb78376a0ce34c367685beb8ad5ea3a32650575a90f40ec"
+    },
+    {
+      "filename": "008-create-project-sweden.png",
+      "bytes": 164227,
+      "sha256": "17f85ca4759a44256d85e18c91b5567dc94815a4b52e15a7a23ba31a72307b85"
+    },
+    {
+      "filename": "009-deploy-luna-sweden.png",
+      "bytes": 148421,
+      "sha256": "5b725e1f11bc96192bbe7fae82110a2cc2625d582e95c48750be95e44a761da6"
+    },
+    {
+      "filename": "010-deploy-judge-sweden.png",
+      "bytes": 150311,
+      "sha256": "1555be3bc5f328df301ec60acaf3d5039d127a8cdc75e52c0827235e6368a687"
+    },
+    {
+      "filename": "011-user-foundry-role.png",
+      "bytes": 145734,
+      "sha256": "9d9d3289db6c54f9d9d56e6f2ee8951a84b177471bcf1a6c080fda50e2abbded"
+    },
+    {
+      "filename": "012-project-foundry-role.png",
+      "bytes": 148432,
+      "sha256": "c565676f321ea978ac80abe0f20469489c44e1581156cddb2e11df4754aeeacb"
+    },
+    {
+      "filename": "013-search-schema-role.png",
+      "bytes": 146019,
+      "sha256": "d3640ca76a8399e85e33c1d6cb0841084328667e8b8956cb11d0ac66cb004220"
+    },
+    {
+      "filename": "014-search-data-role.png",
+      "bytes": 146795,
+      "sha256": "2a882d03a4db4d8eddd2ad4869bec7edc5a5515e4b6054af9da24bcfa4989a93"
+    },
+    {
+      "filename": "015-create-log-analytics.png",
+      "bytes": 155551,
+      "sha256": "479884fc3a3ce36ed898b53799b142d9288dbe5fd80b4a465dad048ba66ee10f"
+    },
+    {
+      "filename": "016-create-app-insights.png",
+      "bytes": 161050,
+      "sha256": "c1c424cfc66004affcc01224d3aa6d5ae3df7c1701803c346b816747d380bbee"
+    },
+    {
+      "filename": "017-project-log-reader.png",
+      "bytes": 151344,
+      "sha256": "e1c760b5c5791fd1a588c1a744d3582ebde24aa76171449ed0d557c3027309c4"
+    },
+    {
+      "filename": "018-project-search-reader.png",
+      "bytes": 150000,
+      "sha256": "dc9823c5a9977b1085dd607d368872f050107050fa3254bb1c811f7b7453255e"
+    },
+    {
+      "filename": "019-connect-server-tracing.png",
+      "bytes": 145944,
+      "sha256": "f4fc90954569430735c00867f78222aef1d41b2fe7a534f0f5c4de0a5953004b"
+    },
+    {
+      "filename": "020-connect-search.png",
+      "bytes": 168738,
+      "sha256": "71a58d1623c74f2de85c1043a3d82e28e831ccf1f58a1da4ddcc421e6121da6b"
+    },
+    {
+      "filename": "021-single-region-verification-tail.png",
+      "bytes": 136708,
+      "sha256": "1abfdb1ab83f4da9b83a7542b03588145937c81c03f350c2e88409868e44b7be"
+    },
+    {
+      "filename": "021-single-region-verification.png",
+      "bytes": 136540,
+      "sha256": "adb0382ce4cd036ea6ce016a3606dad6ee5afd7af2163b7376c83e105abd7653"
+    },
+    {
+      "filename": "030-offline-doctor.png",
+      "bytes": 81785,
+      "sha256": "01d60d0748ba517859826784d18d448042ca3f0c2e73b4736f769110acfc3429"
+    },
+    {
+      "filename": "031-cloud-doctor-tail.png",
+      "bytes": 124539,
+      "sha256": "6e1f20ce55cd5f2b7ea14bc685cd0b383ce30bd083aa8a28c1355cfe949c62e0"
+    },
+    {
+      "filename": "031-cloud-doctor.png",
+      "bytes": 116702,
+      "sha256": "a52dae81c430607f27ec53a876825a63bec4f2b4894a869bb65e41302681165a"
+    },
+    {
+      "filename": "032-luna-response.png",
+      "bytes": 152408,
+      "sha256": "2c190400e7e6be910f75395bcfd3d0655fa506c065ad4587323cb260570baa43"
+    },
+    {
+      "filename": "033-grounded-local-answer-tail.png",
+      "bytes": 124471,
+      "sha256": "edd8f8721fc742ab1535123b82db8cd5b3ad1933adb924f73f94432ae49f90f9"
+    },
+    {
+      "filename": "033-grounded-local-answer.png",
+      "bytes": 148495,
+      "sha256": "1ecc30537b28442b19008c501596ae326420f05299b3d47d71016738469941f8"
+    },
+    {
+      "filename": "034-create-prompt-agent.png",
+      "bytes": 102982,
+      "sha256": "a595ab2bdaad2b7489e8df337fbe62a05c5db3c421e38078e524c809655dcca3"
+    },
+    {
+      "filename": "035-prompt-approval-tail.png",
+      "bytes": 171398,
+      "sha256": "0c87433d69e7994ddf368ff209ddc64e2259fe01d0e080cf128ba38c4251f7eb"
+    },
+    {
+      "filename": "035-prompt-approval.png",
+      "bytes": 171348,
+      "sha256": "0e92051df94c7eaa20c7f48e8fa60516072ecf5709c0685038b2576683f82e5d"
+    },
+    {
+      "filename": "035-prompt-current-tail.png",
+      "bytes": 164244,
+      "sha256": "a0c03d0a09b0d67cd1b1bc2eaf5eab51eb3a4a26bcc3264168b70d54287ffab4"
+    },
+    {
+      "filename": "035-prompt-current.png",
+      "bytes": 164304,
+      "sha256": "6cd9e32626c1b030c7bb8819ee086fd9c1c00fbf26e785b6902914d3897dd8d4"
+    },
+    {
+      "filename": "035-prompt-historical-tail.png",
+      "bytes": 169315,
+      "sha256": "c4e28001f3cf44c0dfbd205550d60ec43f92301b224035c887e5ef726c382028"
+    },
+    {
+      "filename": "035-prompt-historical.png",
+      "bytes": 169358,
+      "sha256": "5083ea88596975600b7b841711a9a5445d6fa0ad910728f033e036a19ac335fa"
+    },
+    {
+      "filename": "035-prompt-missing.png",
+      "bytes": 149339,
+      "sha256": "3acabe9dabdcbb6e2dddd63173af09c84968d8eb0eb1cfd6e57ab6807fdb1214"
+    },
+    {
+      "filename": "036-maf-single.png",
+      "bytes": 175133,
+      "sha256": "8de6701b762c2aa59d6b162fd7dcc35502b53a6f1c9ca2c35a745952639ba3cc"
+    },
+    {
+      "filename": "037-maf-function-tool.png",
+      "bytes": 169577,
+      "sha256": "cb9b1b7933bc9c4140f9a09c59de4a93b66cf6e365e29db5cef84fca9714d8aa"
+    },
+    {
+      "filename": "038-maf-mcp-tail.png",
+      "bytes": 164012,
+      "sha256": "03cb4f04749345f01be430f0a1e272c0ef8a719ed743b8928e50d26a73e33064"
+    },
+    {
+      "filename": "038-maf-mcp.png",
+      "bytes": 194943,
+      "sha256": "a10ea0a7fdbe8359ba0d72457f24c1af5665eb3a300faec6143f19819e8ad507"
+    },
+    {
+      "filename": "039-workflow-sequential.png",
+      "bytes": 146545,
+      "sha256": "6ece7e50fa09837ebfea4f514f8509e42d5a2d0b61fc532637560029253f4e99"
+    },
+    {
+      "filename": "040-workflow-concurrent-tail.png",
+      "bytes": 330735,
+      "sha256": "4d108e3c6490e8479f5d59b9e82a4fb193cd2cc98fd5b104fcb092e9752462d4"
+    },
+    {
+      "filename": "040-workflow-concurrent.png",
+      "bytes": 314097,
+      "sha256": "4616ae4e869aab078d09c92e0a46b6c515e030e930dd4af72444c2573f3294c3"
+    },
+    {
+      "filename": "041-workflow-group-chat-tail.png",
+      "bytes": 284785,
+      "sha256": "512a1b199b168384e53340d0f52f778ca72387698eaf939aee98ee76429b33a4"
+    },
+    {
+      "filename": "041-workflow-group-chat.png",
+      "bytes": 288203,
+      "sha256": "9023737f9e138d0965121d23c9a956138cdea71b18cd7bc066503922eeb93e82"
+    },
+    {
+      "filename": "042-seed-search.png",
+      "bytes": 93553,
+      "sha256": "91525b750f75f323c1ae856db2df51ab470120d87a918b5b763b09c08acd7372"
+    },
+    {
+      "filename": "043-retrieve-search-tail.png",
+      "bytes": 125285,
+      "sha256": "7a6e3e97e8ac7f110eea9ad8ade26fe1308c1e959fc65a18a57acbdd726f2cc7"
+    },
+    {
+      "filename": "043-retrieve-search.png",
+      "bytes": 151818,
+      "sha256": "17e7ed5469e5c76352d7d0a975123345cad7fee33eb960d4918b4cab735d4efd"
+    },
+    {
+      "filename": "044-seed-iq.png",
+      "bytes": 98275,
+      "sha256": "2ad62998071a1b5fb711ffb93917add930ab6207fc176a7018d73e568a3c1aac"
+    },
+    {
+      "filename": "045-retrieve-iq-tail.png",
+      "bytes": 121916,
+      "sha256": "58802bf70e785aba19f015830679c3188a32c2fdc483fdfe5740e0fc545ed39d"
+    },
+    {
+      "filename": "045-retrieve-iq.png",
+      "bytes": 170043,
+      "sha256": "43078b309bc05a11c9d478ae4a5d6d6c49727e502bdb7f1efda521eb8c8875df"
+    },
+    {
+      "filename": "046-iq-answer-tail.png",
+      "bytes": 137685,
+      "sha256": "7318d482d606dbfc8bb35a527318ea09ea5e3d0822070e20984008d0d3802e81"
+    },
+    {
+      "filename": "046-iq-answer.png",
+      "bytes": 144392,
+      "sha256": "8b3533dcf5e3b8bf3427bb267eb949e2ede40b611bd2a9118de954e5d361eeef"
+    },
+    {
+      "filename": "050-baseline-collect-tail.png",
+      "bytes": 103150,
+      "sha256": "5519d4fc17614455e86d8dc76a62aad416df4b16eb39303af9c672f304ad7102"
+    },
+    {
+      "filename": "050-baseline-collect.png",
+      "bytes": 108349,
+      "sha256": "ca05433a6647129c6106ba95e8d10c12af3eea2b1278223587ac6ebace83bc53"
+    },
+    {
+      "filename": "051-baseline-evaluate-tail.png",
+      "bytes": 102137,
+      "sha256": "b68956e905dd02b2f791a0a511d4cec96105377aea487705a9cc4ce7dfc7476d"
+    },
+    {
+      "filename": "051-baseline-evaluate.png",
+      "bytes": 107309,
+      "sha256": "3ba888ba048608ef119196255af4fa90dfd77c75b124d214e46ffd6d2873fc1c"
+    },
+    {
+      "filename": "052-candidate-collect-tail.png",
+      "bytes": 103699,
+      "sha256": "7d63f1ffa02eac150932264dd172a15486aaa1de2c8c805c5b0488dead846ac6"
+    },
+    {
+      "filename": "052-candidate-collect.png",
+      "bytes": 109388,
+      "sha256": "451684c60c5a642ccba2da1df95f1d6f131b28cf92c98f10f74b6e57f1d5b51b"
+    },
+    {
+      "filename": "053-candidate-evaluate-tail.png",
+      "bytes": 100641,
+      "sha256": "1bf904f9158f60943d86eecdda01203b562fd17a3a238d3ca58b5dab4570a633"
+    },
+    {
+      "filename": "053-candidate-evaluate.png",
+      "bytes": 106296,
+      "sha256": "e7b032076b19bbbdf47f9a8eb4116b6d5f52e6b27a40639132590cdc29a82360"
+    },
+    {
+      "filename": "054-controlled-comparison-tail.png",
+      "bytes": 113131,
+      "sha256": "74b8a95f6d54922b6cd3441daf4c044068d8130e7e31d58918b4351449c7e87b"
+    },
+    {
+      "filename": "054-controlled-comparison.png",
+      "bytes": 116134,
+      "sha256": "8b54e711f411022d0ea2c63823b5215cd75256cd5b801b6a8843788cf0aec247"
+    },
+    {
+      "filename": "055-native-luna-judge.png",
+      "bytes": 132752,
+      "sha256": "65473e6d67126127113c988cc9737eaad4d7bc795d5629d666094e52b5f2f58b"
+    },
+    {
+      "filename": "056-final-holdout-tail.png",
+      "bytes": 113318,
+      "sha256": "e9eda2cb77d62271dde1a54d27281b68cf39af94fa467aaae0b18223d2899f9d"
+    },
+    {
+      "filename": "056-final-holdout.png",
+      "bytes": 116814,
+      "sha256": "1dbfd3a3e42e683d6926adb144afcadf7b929a32a915cb519ca607e7c6b66d0a"
+    },
+    {
+      "filename": "057-holdout-evaluate-tail.png",
+      "bytes": 100881,
+      "sha256": "88ea639f2e544a40143e6890f3066cd1b3d36aeeb441653e3e5e729845f1db7e"
+    },
+    {
+      "filename": "057-holdout-evaluate.png",
+      "bytes": 106585,
+      "sha256": "a1dda78db357189a9d85a803d1c48f7a62aa1688b02518a95085e26010d94eba"
+    },
+    {
+      "filename": "058-acceptance-tail.png",
+      "bytes": 124514,
+      "sha256": "120978721a933d2eac66ca91d5833286f47005f4329c80abd20c38c5447ae8a0"
+    },
+    {
+      "filename": "058-acceptance.png",
+      "bytes": 114241,
+      "sha256": "5d6b1579d475db2e502d0381663743dda0f20dd7f7b92344b75857a61070afbe"
+    },
+    {
+      "filename": "060-preserve-hosted-state.png",
+      "bytes": 84744,
+      "sha256": "1d04ee3cdc98fe9606e872bd88838fe2aa6f0a14792c0fc9cef876b9fa00f509"
+    },
+    {
+      "filename": "061-package-hosted.png",
+      "bytes": 66518,
+      "sha256": "a2bbe9115e32b7354f57b8d7e9d8fce99a10f2ff69aa86eeeaef45720d9510d9"
+    },
+    {
+      "filename": "062-initialize-hosted-tail.png",
+      "bytes": 177784,
+      "sha256": "ff65724fe617a50cae487df193843de27a1ee216c872b6db78da27fedb4038a1"
+    },
+    {
+      "filename": "062-initialize-hosted.png",
+      "bytes": 143467,
+      "sha256": "f9cc2a96bb88466741a732d61d9842b03da27eb44cf0ebf481a1d10448691a78"
+    },
+    {
+      "filename": "063-synchronize-hosted-bindings-tail.png",
+      "bytes": 269077,
+      "sha256": "505e0f4528bdccd062f7c790dcd28a2d28e45ce4700913c49483d8d9596beeb9"
+    },
+    {
+      "filename": "063-synchronize-hosted-bindings.png",
+      "bytes": 259449,
+      "sha256": "45621dc33f8d42ceaa1a7e968a260f2ab57c615ad31e2cb3a383042f31eebfab"
+    },
+    {
+      "filename": "064-verify-clean-hosted-package.png",
+      "bytes": 95551,
+      "sha256": "182796855c03c0f352c672210032d690e535738d29a43f9dd907658e710b6f74"
+    },
+    {
+      "filename": "065-local-readiness.png",
+      "bytes": 66068,
+      "sha256": "fd46b74e8f90eb41553d4e58f1657e9ca4f1737863e5c812facb338d7fa295ff"
+    },
+    {
+      "filename": "066-local-hosted-response.png",
+      "bytes": 166112,
+      "sha256": "6701a9ec7640661f21538a9d0bc64055c434fa88f951098e3a18d440e4e0f5b8"
+    },
+    {
+      "filename": "067-deploy-hosted-tail.png",
+      "bytes": 198209,
+      "sha256": "0ae0554e9f6986ec628172fe0e542e8f3200d307d23d0a5609de7976688dfddf"
+    },
+    {
+      "filename": "067-deploy-hosted.png",
+      "bytes": 224659,
+      "sha256": "595aeca373dd922df0bdb00de505ed03a973b5c592b69afa7fce8c65a35b084d"
+    },
+    {
+      "filename": "068-hosted-status-tail.png",
+      "bytes": 151906,
+      "sha256": "d42bd230ada644a37bac5e7c2f4d47c5e710ce0fb92e474d39078c15317e67a4"
+    },
+    {
+      "filename": "068-hosted-status.png",
+      "bytes": 118146,
+      "sha256": "86447e2ec2fa6f58b7c621560861f773a9151416c9fb240265b3caf2be2506b9"
+    },
+    {
+      "filename": "069-remote-hosted-response.png",
+      "bytes": 191663,
+      "sha256": "ffad075790a00379c3bf8573a6c54eb7a7ce412fb4d725383eee4ead3044e7a1"
+    },
+    {
+      "filename": "070-hosted-dev-lineage.png",
+      "bytes": 118088,
+      "sha256": "adbe9ad565b07da0d801936df3e25f9035675d7b33fedab19ec88e8ba9134e8e"
+    },
+    {
+      "filename": "071-hosted-eval-setup-tail.png",
+      "bytes": 189372,
+      "sha256": "65a1dfeae6e116c73ad5bfd4d231d62eaf3faed017d88a52901fd4983b41d0c8"
+    },
+    {
+      "filename": "071-hosted-eval-setup.png",
+      "bytes": 196478,
+      "sha256": "529185dca08fd126fa22e669d206aa805362e968d197febd789237d0cdbf0a60"
+    },
+    {
+      "filename": "072-hosted-evaluation-tail.png",
+      "bytes": 176527,
+      "sha256": "582d76d688558a2994d0382b64ec30fa2f67236e994f11c8927689f17f18df5c"
+    },
+    {
+      "filename": "072-hosted-evaluation.png",
+      "bytes": 215117,
+      "sha256": "9408f4f968b38efe11ae9156309f312d8919546c21cee3fea1cb3a6ebf964d52"
+    },
+    {
+      "filename": "073-verify-hosted-evaluation-rows-tail.png",
+      "bytes": 104834,
+      "sha256": "301b777dd28d1bd43247595a2da0819bef96ab0d5bb7afb5743ffabd6c50180f"
+    },
+    {
+      "filename": "073-verify-hosted-evaluation-rows.png",
+      "bytes": 283297,
+      "sha256": "3ba91acd485b7535f11635b316eba6cb7766ef82f38a730805d0d9e1db7d49b9"
+    },
+    {
+      "filename": "074-real-file-search-tail.png",
+      "bytes": 163491,
+      "sha256": "1a5eb15bc0171805f483e2d63fcfe07ba00360f8dd9516a556ca93d0f3d006ce"
+    },
+    {
+      "filename": "074-real-file-search.png",
+      "bytes": 131015,
+      "sha256": "1971edf8eb8a62e13d71ad4d0553569cb3cf4626bd26bc047d4a9c35237eafed"
+    },
+    {
+      "filename": "075-iq-extension-design-tail.png",
+      "bytes": 246838,
+      "sha256": "5424c36b8fa7f49f4610b9e55942d0133d734f9c6e06d3b1512d1f04578d9d0d"
+    },
+    {
+      "filename": "075-iq-extension-design.png",
+      "bytes": 381867,
+      "sha256": "33d855536c752d1b573181e004693c91f1dde023015d939d1097f7ca329244e0"
+    },
+    {
+      "filename": "076-hosted-monitor.png",
+      "bytes": 128512,
+      "sha256": "46435fe7048ba388211d2c18c5cd3ff2e9e2e1330a2f91cb5fa593816d7119fe"
+    },
+    {
+      "filename": "077-hosted-session-inventory-tail.png",
+      "bytes": 108797,
+      "sha256": "e25b02570ddd247ecd910cd3b8067201619b7d4994b7631fa6d7bb7d9e20f5ea"
+    },
+    {
+      "filename": "077-hosted-session-inventory.png",
+      "bytes": 116524,
+      "sha256": "1d86a492e291d75ce5ebf455c3bf45937aac45e6d9a3c66c0e5105a75e660037"
+    },
+    {
+      "filename": "078-remove-previous-workshop-resources-tail.png",
+      "bytes": 109577,
+      "sha256": "908add1552210cfcdfe7091102ac98c3355b0c2819b5af0e0977c6a9626b0ac0"
+    },
+    {
+      "filename": "078-remove-previous-workshop-resources.png",
+      "bytes": 205562,
+      "sha256": "a75e99d9c9fdbb89dae84dd7cbac9150c6ce205f7c4bfa2e3b75970584c13294"
+    },
+    {
+      "filename": "079-stop-session-1.png",
+      "bytes": 108596,
+      "sha256": "c4ad9a771bf736ba67c5bb135be79267e10242bb573cffb991a9fccb81136390"
+    },
+    {
+      "filename": "079-stop-session-2.png",
+      "bytes": 96489,
+      "sha256": "46eee68ed2e12f02e603d0a99414009fc1057fdf0c911217fa2ddd8ad0891e8c"
+    },
+    {
+      "filename": "080-verify-stopped-sessions-tail.png",
+      "bytes": 109694,
+      "sha256": "547183b87f2a73de26f5cd541c89621dd3a3f1349c0a94b2b7f989fc51b61b19"
+    },
+    {
+      "filename": "080-verify-stopped-sessions.png",
+      "bytes": 117445,
+      "sha256": "75200fcb0ea416edc688b99fc23c2038683e98034762e4e5bb8be2b65efff45c"
+    },
+    {
+      "filename": "P01-project-home.png",
+      "bytes": 204351,
+      "sha256": "49ecece4d0771c3586e14e0d8b11e041ca5da0406e9ca38246347e0447ff2f26"
+    },
+    {
+      "filename": "P02-luna-deployments.png",
+      "bytes": 144754,
+      "sha256": "035e9625444e8dad55c35323e1da40d0ab2bb2ef3e000de14b3cc64d5743bbdb"
+    },
+    {
+      "filename": "P03-luna-playground-response.png",
+      "bytes": 114177,
+      "sha256": "56f9904dab5592aea5403de1b1c796c6f0df7d6542d8fb6fca1785ee306d8f54"
+    },
+    {
+      "filename": "P04-without-policy-evidence.png",
+      "bytes": 102995,
+      "sha256": "88fcba934c27edfbb40edfb2a350a070d7b58631e39a7ca5cc9116602fbc23a2"
+    },
+    {
+      "filename": "P05-portal-agent-instructions.png",
+      "bytes": 104600,
+      "sha256": "beaff8cba0071453d1125d3b05541596475a6818db92b17d0f0ac6702ce83f75"
+    },
+    {
+      "filename": "P06-D01-portal-response.png",
+      "bytes": 115489,
+      "sha256": "2a76aadcd019958b28aa4b88ecb1296a2250ebd0e3906111b64d09c0631d9902"
+    },
+    {
+      "filename": "P07-D02-portal-response.png",
+      "bytes": 110973,
+      "sha256": "a8a7ce2c713b15f456b47feb62b1c56d28164943372b0660727394ea66b398e5"
+    },
+    {
+      "filename": "P08-D03-portal-response.png",
+      "bytes": 123696,
+      "sha256": "6cdc78ff8f69ae62dfa2d763e58bf223c74fcb072b510f13a924666b15c6d1cb"
+    },
+    {
+      "filename": "P09-D04-portal-response.png",
+      "bytes": 106773,
+      "sha256": "ad8475b3bf72c3f723eacbbd057b7bef446f28bac8481208105b52157a910bca"
+    },
+    {
+      "filename": "P10-D05-portal-response.png",
+      "bytes": 117336,
+      "sha256": "5e5dfb945cc365f42fad95b53d625d0e0c86bd3122035ce4923278b34913335a"
+    },
+    {
+      "filename": "P11-D06-portal-response.png",
+      "bytes": 127059,
+      "sha256": "9b9baa37e377e133a2aed9a5a21fc1bd1d1363a90b136310928542b2ed688a41"
+    },
+    {
+      "filename": "P12-native-evaluation-report.png",
+      "bytes": 158341,
+      "sha256": "1ff351854f23c1ee13840e6e481f4ebcc7ac5e7c1ae013d7f8fe2c6e23efdc89"
+    },
+    {
+      "filename": "P13-hosted-evaluation-report.png",
+      "bytes": 193809,
+      "sha256": "654a969fbcd7a7bfabd7b029eff97022bf1a5c85b5553d6d7be4bcc14c8b831d"
+    },
+    {
+      "filename": "P14-hosted-agent.png",
+      "bytes": 91184,
+      "sha256": "bfbcafbc1e73d00f46d39df3a26d4aeae5ca0f48884808b4f567ff56b8790777"
+    },
+    {
+      "filename": "P15-hosted-trace-match.png",
+      "bytes": 89037,
+      "sha256": "b03d8309154adccd04b6c1e9eec4aee54a70465b556856a2a0dc03c578c698f2"
+    },
+    {
+      "filename": "P16-hosted-trace-detail.png",
+      "bytes": 185110,
+      "sha256": "7b39df8c13cccbb31f271ea6d6b244af54c26412409bcae681336a03b91663c5"
+    },
+    {
+      "filename": "P17-foundry-knowledge.png",
+      "bytes": 60471,
+      "sha256": "4d613a54cd179e6a4550b16c23e0117eedf77e541ec928f0d6a754787239dfe2"
+    }
+  ],
+  "privacy": "CLI account/UUID/Bearer fields are masked. Portal images may contain lab identity/resource names; review before external publication."
+}

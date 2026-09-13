@@ -5,5 +5,9 @@ __pycache__/
 *.pyc
 .git/
 .azure/
+.foundry/
+eval*.yaml
+eval*.yml
+data/evaluation/
 outputs/
 tests/

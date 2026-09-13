@@ -1,118 +1,111 @@
-# 실제 실행 · 주요 화면 · headless 녹화
+# Sweden Central — GPT-5.6 Luna 실제 실행
 
-**2026-09-13에 요청 계정으로 핵심 실습을 직접 실행했습니다.**
-아래 결과는 offline fixture가 아니라 실제 Foundry 모델·서비스 응답입니다.
-로그인 후 별도 **headless Edge / Playwright** 컨텍스트에서 포털과 실제 CLI 로그 화면을 녹화했습니다.
+**2026-09-13, `rg-mfv2-luna-20260913`을 같은 이름으로 재생성하고 모든 지역 리소스를 Sweden Central에 배치했습니다.**
+지정한 실습 계정으로 실행했으며 기본 Azure CLI 구독은 변경하지 않았습니다.
+입력은 저장소의 합성 정책과 평가 데이터뿐입니다. 회사·Microsoft 365 데이터에는 연결하지 않았습니다.
 
-## 녹화 보기
+## 환경과 모델
 
-- **[20분 배속본 바로 재생](video-summary.md)** — GitHub 동영상 플레이어로 열립니다.
-- **[111분 전체본 — 구간별 재생·다운로드](video-chapters.md)** — 실습 영역별 12개 파일, 각 100 MB 미만입니다.
-- 단일 파일 전체본은 로컬 `outputs/live-20260913/full-headless-redacted.mp4`에도 보존했습니다.
-  영상은 이 비공개 리포에 연결된 첨부파일로 제공하며, GitHub 로그인과 리포 접근 권한이 필요합니다.
-- [녹화 구성 정보](assets/live-20260913/recording.json)
-
-인증·패스키 화면은 녹화하지 않았습니다. 계정 이름·이메일·구독 식별자는 가렸습니다.
-CLI 장면은 **실제 명령의 로그를 브라우저로 표시한 화면**이며, Foundry 포털을 모사한 화면이 아닙니다.
-실패·진단·재시도도 기록에 남겼으며, 배속본을 실제 소요 시간으로 해석하면 안 됩니다.
-전체본의 구간 분할은 대기시간을 제거하거나 내용을 생략한 편집이 아닙니다.
-이전 MP4 파일 조회 링크는 실제 플레이어로 렌더링되는 재생 페이지로 교체했습니다.
-
-| 내용 | 전체본 위치 | 배속본 위치 |
-|---|---:|---:|
-| Foundry 시작과 새 경험 | 01:00 | 00:11 |
-| 실제 CLI 환경·모델 확인 | 11:27 | 02:04 |
-| 모델 Playground 응답 | 14:08 | 02:33 |
-| Prompt Agent와 근거·보류 응답 | 18:12 | 03:17 |
-| MAF 함수·MCP·3종 workflow | 23:48 | 04:17 |
-| Search와 Foundry IQ | 44:53 | 08:05 |
-| 별도 judge 배포·dev/holdout·Foundry 평가 | 59:27 | 10:43 |
-| Hosted Agent 패키징·배포 | 1:29:24 | 16:06 |
-| 실제 Hosted Trace·Monitor | 1:41:18 | 18:15 |
-| 실습 세션 중지·인수 확인 | 1:48:07 | 19:29 |
-
-## 실제 결과
-
-**[전체 캡처 41장 파일 목록](assets/live-20260913/)** — 아래와 각 랩 본문에는 주요 장면을 연결했습니다.
-
-같은 합성 규정과 dev 6문항을 사용했습니다. target은 `gpt-5.4-mini`,
-별도 cloud judge는 `gpt-5.4`입니다. 기존 실습용 프로젝트·모델·Search 서비스를
-재사용하고, 이번 실행의 새 자산에는 `mfv2-live-20260913` 접두사를 사용했습니다.
-
-| 실행 | 실제 결과 | 해석 |
-|---|---|---|
-| v1 baseline | **4/6** | 승인 필요 문장과 구조화 `decision`이 불일치한 사례 2건 |
-| 최초 v2 candidate | **5/6** | 실제 검색 결과에 없는 문서 ID를 인용한 사례 1건 |
-| 인용 규칙을 보강한 v2 | **6/6** | 실제 반환된 문서 ID만 인용하도록 개선 |
-| 고정 후보의 미사용 holdout | **4/4** | 후보 고정 후 별도 사례로 확인 |
-| Foundry `groundedness` | **6/6 통과** | 별도 GPT-5.4 judge의 native 결과 |
-| Foundry `relevance` | **6/6 통과** | 업무 검사와 별개의 native 결과 |
-| Hosted Agent | **버전 1 배포·원격 응답 성공** | `needs_approval`, 150000원, 실제 정책 ID 반환 |
-| Hosted Trace | **같은 Trace ID 확인** | 20 spans, 모델 2회·도구 1회, root Completed |
-
-![Foundry에서 확인한 실제 평가 결과](assets/live-20260913/32-foundry-evaluation-metrics.png)
-
-평가 데이터나 채점 기준을 바꾸지 않았고, 실패한 행을 분모에서 빼지 않았습니다.
-전후 dev의 `changed_context_cases`는 빈 목록이었습니다.
-이 작은 사례 수로 모델 우월성이나 운영 SLA를 주장하지 않습니다.
-Hosted smoke test는 프로젝트 Responses + IQ 평가와 다른 경로이므로
-위 dev/holdout 점수를 Hosted 버전의 품질 점수로 재사용하지 않습니다.
-
-## 실행하면서 수정한 부분
-
-| 발견한 문제 | 반영한 수정 |
+| 항목 | 이번 실행 |
 |---|---|
-| 기본 CLI 계정이 요청 계정과 다름 | 구독에 인증을 고정하고 tenant를 검증; 기본 구독은 변경하지 않음 |
-| 녹화용 하위 프로세스가 전역 Python을 사용 | 프로젝트 `.venv/bin/python` 경로를 명시적으로 사용 |
-| MCP 지침에 답변 schema 누락 | 함수/MCP에 같은 schema 전달, 실제 반환 JSON 검사 |
-| Group Chat에 종료 안내만 반환 | 참여자 응답을 명시적으로 수집; 최대 3라운드는 유지 |
-| IQ GA에서 작은 출력 한도 거부 | 서비스가 요구한 5000 초과 조건에 맞춰 6000 사용 |
-| 검색되지 않은 문서를 인용 | 실제 입력 문서 목록의 ID만 사용하도록 v2 지침 강화 |
-| HTTPX 오류에 HTTP 상태가 누락 | 실제 response status를 표시하고 선택적 debug 진단 제공 |
+| 리소스 그룹 | `rg-mfv2-luna-20260913` |
+| Foundry 계정 / 프로젝트 | `ai-mfv2-luna-swc-20260913` / `mfv2-luna-20260913` |
+| Search | `srch-mfv2-luna-swc-20260913`, Basic, Entra ID 인증 |
+| 관측 | 같은 리전의 Application Insights / Log Analytics, 30일 보존·일일 1GB 수집 제한 설정 |
+| 응답 모델 | `gpt-5.6-luna`, `2026-07-09`, Data Zone Standard 100K TPM |
+| 별도 judge 배포 | `gpt-5.6-luna-judge`, 같은 Luna 버전, Data Zone Standard 50K TPM |
+| 버전 정책 | 두 모델 배포 모두 `NoAutoUpgrade` |
 
-![MCP 실제 실행 결과](assets/live-20260913/16-maf-mcp-response.png)
+리소스의 배치 리전과 추론 처리 범위는 구분합니다. Data Zone Standard는 **EU 데이터 존 처리 유형**이며,
+추론이 Sweden Central의 단일 데이터센터에서만 처리된다는 뜻은 아닙니다.
+별도 judge 배포도 같은 기반 모델이므로 서로 독립적인 모델의 평가라고 주장하지 않습니다.
 
-## 포털과 GA IQ 계약의 차이
+처음 시도한 East US 2에서는 Search 신규 생성이 용량 부족으로 거부되었습니다.
+사용자 선택에 따라 그 시도의 전용 그룹을 삭제하고 같은 그룹명을 Sweden Central에 다시 만들었습니다.
+새 시도에서는 Search 생성 완료를 먼저 확인했습니다. 다른 모델·검색 provider·fixture로 우회하지 않았습니다.
 
-GA API로 만든 knowledge base는 정상 검색되었지만, 포털의 Preview 편집 화면은
-별도 chat model을 필수로 표시했습니다. 이 화면에서 **Save를 눌러 GA 구성을
-Preview 설정으로 바꾸지 않았습니다.** 실제 API 응답의 references·activity를 확인했습니다.
+## 실제 화면과 실시간 영상
 
-![정상 검색된 GA knowledge base의 포털 편집 경고](assets/live-20260913/24-knowledge-base-detail.png)
+- [CLI 전체 실시간 녹화](assets/live-20260913-swc/cli-full-run.mp4)
+- [실제 Foundry 포털 headless 녹화](assets/live-20260913-swc/portal-full-run.mp4)
+- [단계별 영상·캡처 안내](video-chapters.md)
+- [파일 정보·해시·촬영 계보](assets/live-20260913-swc/media.json)
 
-요청에 planner 모델을 지정하지 않았어도 실제 activity에 `agenticReasoning` 및
-reasoning token 항목이 나타났습니다. 서비스 내부 처리나 요금을 0으로 단정하지 않습니다.
+**72개 CLI 실행 단계와 실제 포털 조작을 실행 중에 녹화했고 PNG 122개를 남겼습니다.**
+기록한 JSON을 나중에 4초씩 재생한 영상이 아닙니다. 대기시간을 제거하거나 결과를 재현 화면으로 바꾸지 않았습니다.
+CLI 화면은 실제 프로세스 출력을 표시하는 전용 콘솔이며, 포털 영상은 실제 `ai.azure.com` 화면입니다.
+두 영상 모두 Playwright 1.62.0 headless Edge로 촬영했습니다. 로그인·MFA 화면은 녹화하지 않았습니다.
+CLI 식별자와 Bearer 값은 마스킹했습니다. 포털 화면에는 실습 계정·리소스 식별정보가 있을 수 있어 외부 게시 전 검토가 필요합니다.
 
-## 운영 확인과 남겨 둔 자산
+![새 프로젝트의 실제 Luna 응답](assets/live-20260913-swc/P03-luna-playground-response.png)
 
-![실제 Hosted Agent 도구 호출 Trace](assets/live-20260913/39-hosted-tool-trace.png)
+## 실습 결과
 
-포털 Trace에서 CLI가 반환한 같은 ID를 찾고 `lookup_policy` 호출을 확인했습니다.
-root는 Completed였으나 내부 storage 조회 span 2개가 실패로 표시되었습니다.
-이를 숨기거나 “모든 span 오류 0”으로 보고하지 않습니다.
-Monitor의 `$0` 표시는 화면의 반올림/추정값이며 무료 실행의 증거가 아닙니다.
+| 경로 | 확인한 결과 |
+|---|---|
+| 모델 | 새 Luna 배포의 SDK·포털 실제 응답. 포털 기본 Web Search는 요청 전에 제거 |
+| A. 포털 에이전트 | `mfv2-swc-20260913-portal` 버전 2, 합성 원문 직접 컨텍스트, dev 6건을 각각 새 대화로 수집 |
+| SDK Prompt Agent | `mfv2-swc-20260913-policy` 버전 1, 현행·과거·승인·근거 부족 응답 |
+| MAF | 단일·함수·로컬 MCP·순차·병렬·Group Chat 실제 실행 |
+| Search / Foundry IQ | 합성 6건 업로드, 전용 source/base, GA `2026-04-01` 실제 검색과 원문 인용 |
+| File Search | `mfv2-swc-20260913-files` 버전 1, 합성 파일 6개 색인 완료, 실제 검색 호출 및 파일 인용 3개 |
+| B. v1 / v2 dev | **6/6 / 6/6**, 수집 오류 0, 비교 시 검색 컨텍스트 변경 0 |
+| 고정 후보 holdout | **4/4**, 후보 고정 후 한 번만 수집 |
+| 별도 native judge | groundedness **5/6**, relevance **5/6** |
+| Hosted | `mfv2-swc-20260913-hosted` 버전 1, 로컬·원격 실제 응답 |
+| Hosted 별도 평가 | 기존 합성 dev 6건으로 실제 원격 응답을 새로 생성, 생성형 rubric **6/6** |
+| Lab 10 | 합성 라우팅 설계 수행. Fabric·Work IQ 실제 연결과 데이터 조회는 미실행 |
 
-실습의 **로컬 서버는 종료**했고, 새 Hosted session은 중지 후 **`idle`** 상태를 확인했습니다.
-기존 사용자의 자원은 수정·삭제하지 않았습니다.
-검토와 재현을 위해 다음 새 자산은 남겨 두었습니다.
+Group Chat은 설정된 **3라운드 상한으로 종료**했습니다. 사람의 승인이나 자연스러운 합의 완료를 뜻하지 않습니다.
+포털 자연어 답변 관찰, 결정적 업무 검사, native judge, Hosted rubric은 서로 다른 확인 경로입니다.
+한 경로의 점수를 다른 경로의 품질로 재사용하지 않습니다.
 
-- Prompt Agent `mfv2-live-20260913-policy`
-- Hosted Agent `mfv2-live-20260913-hosted`, 버전 1
-- judge 배포 `mfv2-live-20260913-judge` — GPT-5.4, Data Zone Standard, 50K TPM
-- 해당 접두사의 Search index / knowledge source / knowledge base
-- 이번 Foundry evaluation 결과
+![포털의 현행 규정 답변](assets/live-20260913-swc/P06-D01-portal-response.png)
 
-중지한 session의 파일시스템과 별도 서비스 비용은 남을 수 있습니다.
-완전히 제거할 때는 [정리 가이드](reference/cleanup.md)에서 소유권을 확인합니다.
-공유 Resource Group 전체를 삭제하지 않습니다.
+## 실패와 평가의 한계
 
-## 수행하지 않은 선택 확장
+v1과 v2가 모두 6/6이므로 이 작은 dev 집합에서 v2의 우월성을 주장하지 않습니다.
+업무 검사의 통과가 답변 전체의 의미적 정확성을 보장하지도 않습니다.
 
-실제 Fabric/Work IQ·Microsoft 365 데이터 연결, 외부 Web Search, File Search 업로드,
-추가 모델 A/B 비교, 자동 trace-to-dataset, 자동 Hosted 평가 suite 생성,
-continuous evaluation 및 fine-tuning은 이번 실행에 포함하지 않았습니다.
-기본 도구에 표시된 Web Search도 요청 전에 제거했습니다.
-이 기능들을 수행한 것처럼 캡처나 결과를 만들지 않았습니다.
+| native 실패 | 실제 관찰 |
+|---|---|
+| D01 groundedness, 2점 | 검색 컨텍스트에는 `APPROVAL-01`이 없는데 답변에 팀장·예약 전 승인 조건이 포함됨. 지침의 기여와 검색 근거를 구분해야 함 |
+| D05 relevance, 2점 | 해외 규정이 없어 금액을 보류한 답변을 일반 relevance가 낮게 채점. 업무상 올바른 보류와 일반 judge 기준의 차이를 검토해야 함 |
 
-재현·검증 명령과 SDK 조합은 [검증 기록](reference/validation.md)과
-[버전 기준](reference/versions.md)에 있습니다.
+이 실패를 삭제하거나 통과로 바꾸지 않았습니다. holdout을 보고 지침을 수정하거나 회귀 데이터를 만들지도 않았습니다.
+Hosted 평가는 별도의 생성형 rubric과 **0.5 임계값**을 사용했습니다.
+CLI가 실행에 기록한 evaluator version selector는 빈 값이어서, 조회한 catalog 버전 1을 보관하되
+**평가자를 명시적으로 버전 고정해 실행했다고 소급해서 주장하지 않습니다.**
+생성 평가자의 `input_quality` 경고, SDK 직렬화·MCP/Pydantic·hosting prerelease 경고도 보존했습니다.
+
+![실패를 포함한 native 평가](assets/live-20260913-swc/P12-native-evaluation-report.png)
+
+## Hosted와 Trace
+
+실제 배포의 환경 변수에서 새 프로젝트 endpoint, `gpt-5.6-luna`,
+`WORKSHOP_AUTH_MODE=managed-identity`를 확인했습니다.
+원격 응답은 `needs_approval`, 150,000원 한도와 실제 규정 ID를 반환했습니다.
+
+원격 호출의 Trace ID `9a829b6e14dc188afdbf494cf0d804dd`를 포털에서 직접 찾았습니다.
+해당 버전 1의 trace는 **14 spans, chat 1회, 도구 1회, 약 6.4초, root Completed**로 표시됐습니다.
+Hosted 평가 6건의 실제 질문·응답·도구 결과·response/trace ID와 모든 per-item 점수도 따로 내려받았습니다.
+
+![같은 원격 호출의 실제 Trace](assets/live-20260913-swc/P16-hosted-trace-detail.png)
+
+`monitor` 조회 시 해당 세션은 이미 멈춰 있어 `stream_interrupted`가 반환되었습니다.
+이를 정상적인 실시간 로그 스트리밍 성공으로 표시하지 않습니다.
+로컬 console trace와 프로젝트 Responses 결과의 `trace_export: not-configured`도 Azure 서버 trace와 구분합니다.
+
+## 정리와 남은 비용
+
+이전 MFV2 실행의 에이전트 3개, 모델 배포 4개, Search 객체 6개, 평가 3개,
+생성 평가자·아티팩트 2개를 정리했습니다.
+공유 `microsoft-iq-workflow-agent`, `gpt-5.4-mini`, 기존 공유 Foundry/Search/관측 기반은 보존했습니다.
+새 Hosted 세션 2개는 중지 후 모두 `idle`임을 확인했습니다.
+
+새 Sweden Central 그룹은 재현·검토용으로 남겨 두었습니다.
+세션 중지는 파일시스템 삭제가 아니며 **Search 고정비·저장소·로그·향후 모델 호출 비용이 없어졌다는 뜻이 아닙니다.**
+이전 화면·영상과 불필요한 로컬 생성물을 정리했으며 Git 이력은 재작성하지 않았습니다.
+개인 원시 실행 자료와 로컬 환경 설정은 Git에서 제외합니다.
+
+오프라인 검사와 실제 Azure 결과는 [검증 기록](reference/validation.md)에 구분했습니다.

@@ -72,3 +72,31 @@ azd ai agent sessions stop "<my-session-id>"
 
 비용 화면은 지연되어 반영될 수 있습니다. 마지막 조회 시각과 담당자를 기록합니다.
 예산 알림은 자동 중지 장치가 아닙니다.
+
+## 5. 로컬 `outputs`와 생성 디렉토리
+
+**최종 미디어, 현재 평가 입력/응답, 이전 실행 이력을 같은 종류의 임시 파일로 보지 않습니다.**
+파일이 Git에서 제외되어 있다는 이유만으로 삭제해도 되는 것은 아닙니다.
+
+| 위치 | 보존 기준 |
+|---|---|
+| `docs/assets/live-20260913-swc/` | 최종 영상·캡처·해시의 기준 사본. 같은 PNG가 `outputs`에 있으면 해시 비교 후 중복본만 삭제 |
+| `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
+| `outputs/swc-*-0913/` | 현재 baseline/candidate/holdout의 manifest, 실제 응답과 평가 결과. CLI 재검증을 위해 원래 경로 유지 |
+| `outputs/live-20260913-swc/` | 현재 환경·File Search·포털 응답·검증 및 정리 결과 |
+| `outputs/policy-documents/` | 초보자 경로에 배포하는 합성 텍스트 파일 |
+| `outputs/archive/20260913-history.tar.gz` | 이전 실행, 상세 CLI/포털 기록과 구버전 패키지를 통합한 개인 보관본 |
+| `.build/hosted/` | 현재 `azure.yaml`이 참조하는 소스와 `.foundry` 평가 계보. 통째로 삭제하지 않음 |
+
+구버전 `.build/hosted-pre-live`, `.build/hosted-luna-r1`은 현재 설정에서 참조하지 않아 정리했습니다.
+고유한 소스·평가 기록은 위 압축본에 보존했고, 재생성 가능한 가상환경·bytecode 캐시는 제외했습니다.
+압축본의 각 파일 해시를 원본과 확인한 뒤 개별 원본을 제거했습니다.
+
+보관 내용을 확인하려면 저장소 루트에서 다음 읽기 전용 명령을 사용합니다.
+
+```bash
+tar -tzf outputs/archive/20260913-history.tar.gz
+```
+
+압축본에는 개인 환경·실행 식별자가 들어 있을 수 있으므로 외부에 게시하지 않습니다.
+`.git`, 루트 `.venv`, 현재 `.env`·`.azure`, 실습 소스·합성 원본·테스트는 정리 대상이 아닙니다.

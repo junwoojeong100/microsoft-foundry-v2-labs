@@ -88,7 +88,7 @@ flowchart TD
 
 ### 실제 포털 화면
 
-![새 Foundry 경험의 프로젝트 화면](../assets/live-20260913/03-project-overview.png)
+![Sweden Central 새 환경의 클라우드 사전 점검](../assets/live-20260913-swc/031-cloud-doctor.png)
 
 기존 실습 프로젝트를 사용한 실제 화면입니다. 계정 식별자는 가렸습니다.
 [전체 실행 기록](../live-run.md)에서 초기 환경과 수행 범위를 확인합니다.

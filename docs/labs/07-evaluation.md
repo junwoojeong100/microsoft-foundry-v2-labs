@@ -30,6 +30,9 @@ flowchart LR
 4. 지침에서 빠진 조건 하나를 고치고, 같은 6문항을 다시 질문합니다.
 5. 전후의 모든 결과를 남깁니다. 성공한 질문만 골라 표에 넣지 않습니다.
 
+모든 사례가 통과하고 빠진 조건이 없다면 그 사실을 기록합니다.
+실패를 만들거나 불필요한 지침 변경을 강요하지 않습니다. 코드 경로의 고정 v1/v2 비교는 별도로 확인할 수 있습니다.
+
 | ID | 업무 기준 | 실제 응답/문서 ID | 통과 여부·실패 이유 |
 |---|---|---|---|
 | D01 | 현행 숙박 150000원 / 현행 규정 | 직접 기록 | 직접 기록 |
@@ -157,13 +160,14 @@ python scripts/workshop.py compare --baseline candidate --candidate model-b --va
 
 ## 완료 기준
 
-![실제 baseline 업무 검사 4/6](../assets/live-20260913/27-baseline-evaluation.png)
+![Luna v1 baseline 업무 검사 6/6](../assets/live-20260913-swc/051-baseline-evaluate.png)
 
-![개선한 실제 candidate 업무 검사 6/6](../assets/live-20260913/29-refined-candidate-evaluation.png)
+![Luna v2 candidate 업무 검사 6/6](../assets/live-20260913-swc/053-candidate-evaluate.png)
 
-![별도 judge의 실제 Foundry 평가](../assets/live-20260913/32-foundry-evaluation-metrics.png)
+![실패를 포함한 별도 Luna judge 평가](../assets/live-20260913-swc/P12-native-evaluation-report.png)
 
-실제 실행은 4/6 → 5/6 → 6/6의 dev 개선과 holdout 4/4를 기록했습니다.
+Luna 재실행은 같은 업무 검사에서 v1 6/6, v2 6/6과 holdout 4/4를 기록했습니다.
+이 작은 집합에서는 v2의 우월성을 주장하지 않습니다.
 숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.
 데이터·실패 원인·분리된 평가 경로는 [실행 기록](../live-run.md)을 확인합니다.
 

@@ -29,7 +29,10 @@ hosted = [
   "microsoft-foundry-v2-labs[agents]",
   "agent-framework-foundry-hosting==1.0.0b260903",
 ]
-dev = ["ruff==0.16.6"]
+dev = [
+  "playwright==1.62.0",
+  "ruff==0.16.6",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

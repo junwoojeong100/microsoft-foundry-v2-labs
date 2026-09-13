@@ -27,6 +27,12 @@ class PackagingTests(unittest.TestCase):
             self.assertFalse((destination / ".env").exists())
             self.assertFalse((destination / "data/evaluation").exists())
             self.assertFalse((destination / "outputs").exists())
+            ignore_patterns = set((destination / ".agentignore").read_text().splitlines())
+            self.assertTrue(
+                {".foundry/", "eval*.yaml", "eval*.yml", "data/evaluation/"}.issubset(
+                    ignore_patterns
+                )
+            )
             self.assertNotIn(
                 "microsoft-foundry-v2-labs[", (destination / "requirements.txt").read_text()
             )

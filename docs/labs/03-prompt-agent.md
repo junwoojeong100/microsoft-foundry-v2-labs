@@ -80,9 +80,9 @@ SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기�
 
 ## 완료 확인
 
-![실제 Prompt Agent의 현행 규정 응답](../assets/live-20260913/11-agent-current-policy.png)
+![Luna Prompt Agent의 실제 규정 응답](../assets/live-20260913-swc/P06-D01-portal-response.png)
 
-![근거가 없는 해외 출장 질문의 실제 보류 응답](../assets/live-20260913/14-agent-missing-evidence.png)
+![Luna 포털의 실제 근거 부족 답변](../assets/live-20260913-swc/P10-D05-portal-response.png)
 
 캡처는 SDK로 만든 실제 agent version 1을 포털에서 확인한 것입니다.
 이 버전의 입력 문서와 뒤의 IQ 기반 평가 경로는 구분합니다. [실행 기록](../live-run.md)을 참고하세요.

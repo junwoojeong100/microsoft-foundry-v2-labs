@@ -9,6 +9,7 @@
 1. 실습 프로젝트의 모델/배포 목록을 엽니다.
 2. 강사가 준비한 배포를 선택합니다. 카탈로그 모델 이름, 버전, 배포 이름을 따로 적습니다.
 3. 해당 모델의 Playground를 엽니다.
+   Tools에 기본 Web Search가 있으면 **Actions → Remove**로 제거합니다. 이 기본 경로는 외부 웹을 조회하지 않습니다.
 4. 아래 질문을 입력합니다.
 
    > Foundry 리소스, 프로젝트, 모델 배포, 에이전트의 차이를 초보자에게 네 문장으로 설명해 주세요.
@@ -86,9 +87,9 @@ Router가 없어도 이 랩은 완료할 수 있습니다.
 
 ## 완료·복구
 
-![실제 모델 배포 목록](../assets/live-20260913/05-model-deployment.png)
+![GPT-5.6 Luna 배포 확인](../assets/live-20260913-swc/P02-luna-deployments.png)
 
-![실제 Playground 모델 응답](../assets/live-20260913/06-model-playground-response.png)
+![GPT-5.6 Luna 실제 모델 응답](../assets/live-20260913-swc/P03-luna-playground-response.png)
 
 위 화면은 실제 호출입니다. 기본 화면에 Web Search가 표시되어 있어 이번 요청 전에 제거했습니다.
 모델·배포·실제 평가 범위는 [실행 기록](../live-run.md)에 구분했습니다.

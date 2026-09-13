@@ -81,12 +81,13 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 
 ## 반드시 정리하고 끝내기
 
-![CLI와 같은 ID가 확인된 실제 Trace](../assets/live-20260913/37-hosted-trace-list.png)
+![같은 원격 호출에서 확인한 Hosted Trace](../assets/live-20260913-swc/P16-hosted-trace-detail.png)
 
-![실제 도구 호출의 입력과 결과](../assets/live-20260913/39-hosted-tool-trace.png)
+![Luna Hosted session 중지 확인](../assets/live-20260913-swc/080-verify-stopped-sessions.png)
 
-root가 Completed여도 내부 storage 조회 span의 실패 표시가 있을 수 있습니다.
-이번 실행에서 관찰한 값과 남은 자산은 [실행 기록](../live-run.md)에 그대로 적었습니다.
+이번 원격 호출은 14-span trace에서 root Completed를 확인했습니다.
+별도 `monitor` 조회는 이미 중지된 세션에서 `stream_interrupted`를 반환했습니다.
+서로 다른 관찰을 합쳐 “오류 0”으로 표시하지 않습니다. 남은 자산은 [실행 기록](../live-run.md)에 적었습니다.
 
 ```bash
 python scripts/workshop.py cleanup-plan
