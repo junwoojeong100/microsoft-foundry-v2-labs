@@ -11,8 +11,9 @@
 | 나에게 맞는 시작점과 시간표 | [학습 경로](paths.md) |
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
-| 실제 실행 화면과 headless 녹화 | [실행 기록과 영상](live-run.md) |
-| Sweden Central 새 실행·122개 캡처 | [Playwright headless 실시간 녹화](video-chapters.md) |
+| 짧은 영상으로 흐름 먼저 보기 | [대기 제거 편집본: 포털 3분 30초 · CLI 6분 54초](video-summary.md) |
+| 단계별로 필요한 화면 찾기 | [가이드에서 사용하는 캡처 34개](video-chapters.md) |
+| 실제 결과와 아직 확인하지 않은 것 | [실행·검증 기록](live-run.md) |
 | 마지막에 확인할 결과물 | [캡스톤](labs/11-capstone.md) |
 | 현재 지원 상태와 버전 | [호환성 기준](reference/versions.md) |
 | 오류·권한·할당량 문제 | [문제 해결](reference/troubleshooting.md) |

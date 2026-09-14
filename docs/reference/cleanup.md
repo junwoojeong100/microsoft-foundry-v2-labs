@@ -80,7 +80,7 @@ azd ai agent sessions stop "<my-session-id>"
 
 | 위치 | 보존 기준 |
 |---|---|
-| `docs/assets/live-20260913-swc/` | 최종 영상·캡처·해시의 기준 사본. 같은 PNG가 `outputs`에 있으면 해시 비교 후 중복본만 삭제 |
+| `docs/assets/live-20260913-swc/` | 학습용 편집 영상 2개·가이드 참조 캡처 34개·원본/편집 계보. 같은 파일이 `outputs`에 있으면 해시 비교 후 중복본만 삭제 |
 | `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
 | `outputs/swc-*-0913/` | 현재 baseline/candidate/holdout의 manifest, 실제 응답과 평가 결과. CLI 재검증을 위해 원래 경로 유지 |
 | `outputs/live-20260913-swc/` | 현재 환경·File Search·포털 응답·검증 및 정리 결과 |
@@ -91,6 +91,11 @@ azd ai agent sessions stop "<my-session-id>"
 구버전 `.build/hosted-pre-live`, `.build/hosted-luna-r1`은 현재 설정에서 참조하지 않아 정리했습니다.
 고유한 소스·평가 기록은 위 압축본에 보존했고, 재생성 가능한 가상환경·bytecode 캐시는 제외했습니다.
 압축본의 각 파일 해시를 원본과 확인한 뒤 개별 원본을 제거했습니다.
+
+가이드에서 사용하지 않는 캡처 88개와 실시간 원본 MP4 두 개의 중복본도 현재 트리에서 제외했습니다.
+원본 영상은 기존 GitHub 첨부로 계속 열 수 있고, 원본 파일·캡처·제작 도구는 Git 이력에서 추적할 수 있습니다.
+녹화 콘솔 및 옛 영상 분할/색인 도구는 참가자의 실습에 필요하지 않아 제거했습니다.
+현재 로컬 재생기, 실제 실습 명령, 합성 데이터와 회귀 검사는 유지합니다.
 
 보관 내용을 확인하려면 저장소 루트에서 다음 읽기 전용 명령을 사용합니다.
 

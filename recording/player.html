@@ -13,8 +13,8 @@
   </style>
 </head>
 <body>
-  <h1>Sweden Central · 실제 실습 녹화</h1>
-  <p>2026-09-13 Playwright headless 녹화입니다. 원래 속도와 대기시간을 유지했습니다.</p>
+  <h1>Sweden Central · 핵심 변화 따라보기</h1>
+  <p>2026-09-13 실제 녹화에서 긴 대기를 제거한 편집본입니다. 남긴 조작과 결과는 원래 속도로 재생합니다.</p>
   <nav aria-label="영상 선택"></nav>
   <p id="status" role="status">로컬 영상 목록을 확인하고 있습니다.</p>
   <video controls preload="metadata" aria-label="실습 녹화 플레이어"></video>
@@ -43,7 +43,7 @@
         player.src = "/video/" + encodeURIComponent(video.filename);
         status.setAttribute("role", "status");
         const seconds = Math.round(video.duration_seconds);
-        status.textContent = `${video.filename} · ${Math.floor(seconds / 60)}분 ${seconds % 60}초 · ${(video.bytes / 1e6).toFixed(1)} MB`;
+        status.textContent = `${video.edited ? "대기 제거 편집본 · " : ""}${video.filename} · ${Math.floor(seconds / 60)}분 ${seconds % 60}초 · ${(video.bytes / 1e6).toFixed(1)} MB`;
         for (const button of navigation.children)
           button.setAttribute("aria-pressed", String(button.dataset.filename === video.filename));
         history.replaceState(null, "", "?video=" + encodeURIComponent(video.filename));
@@ -52,7 +52,7 @@
         const button = document.createElement("button");
         button.type = "button";
         button.dataset.filename = video.filename;
-        button.textContent = video.filename.startsWith("cli-") ? "CLI 전체 영상" : "Foundry 포털 전체 영상";
+        button.textContent = video.filename.startsWith("cli-") ? "CLI 핵심 실행" : "Foundry 포털 핵심 조작";
         button.addEventListener("click", () => select(video));
         navigation.append(button);
       }

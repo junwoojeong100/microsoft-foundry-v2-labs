@@ -1,0 +1,2069 @@
+{
+  "edited_on": "2026-09-14",
+  "source_commit": "895a16aecda69f1cd608bf044fbed624b2255e5b",
+  "waiting_time_removed": true,
+  "new_recording": false,
+  "playback_speed": 1,
+  "method": "Source-video cuts around actual controls/commands and verified result screens. No screenshot replay; no generated response footage.",
+  "videos": [
+    {
+      "filename": "cli-edited.mp4",
+      "source_filename": "cli-full-run.mp4",
+      "source_sha256": "22b009e38cf140e5da7eb0b47bafd348f51bd81827aacac0ec5105d185312b5b",
+      "fps": 25,
+      "expected_frames": 10361,
+      "retained_stage_count": 72,
+      "retained_verified_screens": null,
+      "retained_action_count": null,
+      "source_frame_verification": {
+        "kind": "cli",
+        "sampled_segments": 63,
+        "minimum_source_frame_ssim": 0.994871,
+        "mean_source_frame_ssim": 0.9978894444444445,
+        "source_frame_mapping_verified": true
+      },
+      "segments": [
+        {
+          "first_frame": 1240,
+          "last_frame": 1495,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "001-rebuild-scope",
+              "title": "01. 동일 그룹명 재시작 — 직전 실습 소유권 확인"
+            },
+            {
+              "kind": "result",
+              "stage": "001-rebuild-scope",
+              "title": "01. 동일 그룹명 재시작 — 직전 실습 소유권 확인",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "002-before-rebuild-inventory",
+              "title": "01. 삭제 대상은 방금 만든 Foundry·Search뿐"
+            },
+            {
+              "kind": "result",
+              "stage": "002-before-rebuild-inventory",
+              "title": "01. 삭제 대상은 방금 만든 Foundry·Search뿐",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "003-delete-previous-attempt",
+              "title": "01. 사용자 요청에 따라 직전 전용 그룹 삭제"
+            }
+          ],
+          "source_start_seconds": 49.6,
+          "source_end_seconds": 59.84,
+          "edited_start_seconds": 0.0,
+          "edited_end_seconds": 10.24
+        },
+        {
+          "first_frame": 3071,
+          "last_frame": 3400,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "003-delete-previous-attempt",
+              "title": "01. 사용자 요청에 따라 직전 전용 그룹 삭제",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "004-confirm-group-removed",
+              "title": "01. 기존 그룹 삭제 완료 확인"
+            },
+            {
+              "kind": "result",
+              "stage": "004-confirm-group-removed",
+              "title": "01. 기존 그룹 삭제 완료 확인",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "005-recreate-group-sweden",
+              "title": "01. 같은 이름의 리소스 그룹을 Sweden Central에 새로 생성"
+            },
+            {
+              "kind": "result",
+              "stage": "005-recreate-group-sweden",
+              "title": "01. 같은 이름의 리소스 그룹을 Sweden Central에 새로 생성",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "006-create-search-sweden",
+              "title": "06. Sweden Central Search부터 생성 가능 여부 확인"
+            }
+          ],
+          "source_start_seconds": 122.84,
+          "source_end_seconds": 136.04,
+          "edited_start_seconds": 10.24,
+          "edited_end_seconds": 23.44
+        },
+        {
+          "first_frame": 16536,
+          "last_frame": 16673,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "006-create-search-sweden",
+              "title": "06. Sweden Central Search부터 생성 가능 여부 확인",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "007-create-foundry-sweden",
+              "title": "01. Sweden Central Foundry — 키 인증 비활성화"
+            }
+          ],
+          "source_start_seconds": 661.44,
+          "source_end_seconds": 666.96,
+          "edited_start_seconds": 23.44,
+          "edited_end_seconds": 28.96
+        },
+        {
+          "first_frame": 16978,
+          "last_frame": 17099,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "007-create-foundry-sweden",
+              "title": "01. Sweden Central Foundry — 키 인증 비활성화",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "008-create-project-sweden",
+              "title": "01. 동일 리전 프로젝트와 관리 ID 생성"
+            }
+          ],
+          "source_start_seconds": 679.12,
+          "source_end_seconds": 684.0,
+          "edited_start_seconds": 28.96,
+          "edited_end_seconds": 33.84
+        },
+        {
+          "first_frame": 17158,
+          "last_frame": 17274,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "008-create-project-sweden",
+              "title": "01. 동일 리전 프로젝트와 관리 ID 생성",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "009-deploy-luna-sweden",
+              "title": "02. Luna 2026-07-09 — Data Zone Standard 100K"
+            }
+          ],
+          "source_start_seconds": 686.32,
+          "source_end_seconds": 691.0,
+          "edited_start_seconds": 33.84,
+          "edited_end_seconds": 38.52
+        },
+        {
+          "first_frame": 17381,
+          "last_frame": 17502,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "009-deploy-luna-sweden",
+              "title": "02. Luna 2026-07-09 — Data Zone Standard 100K",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "010-deploy-judge-sweden",
+              "title": "07. 별도 Luna judge — Data Zone Standard 50K"
+            }
+          ],
+          "source_start_seconds": 695.24,
+          "source_end_seconds": 700.12,
+          "edited_start_seconds": 38.52,
+          "edited_end_seconds": 43.4
+        },
+        {
+          "first_frame": 17916,
+          "last_frame": 18048,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "010-deploy-judge-sweden",
+              "title": "07. 별도 Luna judge — Data Zone Standard 50K",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "011-user-foundry-role",
+              "title": "01. 사용자 Foundry 데이터 접근 — 새 계정 범위"
+            }
+          ],
+          "source_start_seconds": 716.64,
+          "source_end_seconds": 721.96,
+          "edited_start_seconds": 43.4,
+          "edited_end_seconds": 48.72
+        },
+        {
+          "first_frame": 18099,
+          "last_frame": 18226,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "011-user-foundry-role",
+              "title": "01. 사용자 Foundry 데이터 접근 — 새 계정 범위",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "012-project-foundry-role",
+              "title": "08. 프로젝트 관리 ID의 Foundry 호출 권한"
+            }
+          ],
+          "source_start_seconds": 723.96,
+          "source_end_seconds": 729.08,
+          "edited_start_seconds": 48.72,
+          "edited_end_seconds": 53.84
+        },
+        {
+          "first_frame": 18247,
+          "last_frame": 18373,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "012-project-foundry-role",
+              "title": "08. 프로젝트 관리 ID의 Foundry 호출 권한",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "013-search-schema-role",
+              "title": "06. 사용자 Search 스키마 관리 권한"
+            }
+          ],
+          "source_start_seconds": 729.88,
+          "source_end_seconds": 734.96,
+          "edited_start_seconds": 53.84,
+          "edited_end_seconds": 58.92
+        },
+        {
+          "first_frame": 18436,
+          "last_frame": 18572,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "013-search-schema-role",
+              "title": "06. 사용자 Search 스키마 관리 권한",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "014-search-data-role",
+              "title": "06. 사용자 합성 문서 업로드·검색 권한"
+            }
+          ],
+          "source_start_seconds": 737.44,
+          "source_end_seconds": 742.92,
+          "edited_start_seconds": 58.92,
+          "edited_end_seconds": 64.4
+        },
+        {
+          "first_frame": 18624,
+          "last_frame": 18752,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "014-search-data-role",
+              "title": "06. 사용자 합성 문서 업로드·검색 권한",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 744.96,
+          "source_end_seconds": 750.12,
+          "edited_start_seconds": 64.4,
+          "edited_end_seconds": 69.56
+        },
+        {
+          "first_frame": 23876,
+          "last_frame": 23961,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "015-create-log-analytics",
+              "title": "09. Sweden Central 로그 저장소 — 30일 보존·일일 1GB 제한"
+            }
+          ],
+          "source_start_seconds": 955.04,
+          "source_end_seconds": 958.48,
+          "edited_start_seconds": 69.56,
+          "edited_end_seconds": 73.0
+        },
+        {
+          "first_frame": 24791,
+          "last_frame": 25049,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "015-create-log-analytics",
+              "title": "09. Sweden Central 로그 저장소 — 30일 보존·일일 1GB 제한",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "016-create-app-insights",
+              "title": "09. Sweden Central Application Insights 생성"
+            },
+            {
+              "kind": "result",
+              "stage": "016-create-app-insights",
+              "title": "09. Sweden Central Application Insights 생성",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "017-project-log-reader",
+              "title": "09. 프로젝트 관리 ID에 전용 로그 읽기 권한"
+            }
+          ],
+          "source_start_seconds": 991.64,
+          "source_end_seconds": 1002.0,
+          "edited_start_seconds": 73.0,
+          "edited_end_seconds": 83.36
+        },
+        {
+          "first_frame": 25095,
+          "last_frame": 25227,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "017-project-log-reader",
+              "title": "09. 프로젝트 관리 ID에 전용 로그 읽기 권한",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "018-project-search-reader",
+              "title": "06. 프로젝트 관리 ID에 합성 검색 데이터 읽기 권한"
+            }
+          ],
+          "source_start_seconds": 1003.8,
+          "source_end_seconds": 1009.12,
+          "edited_start_seconds": 83.36,
+          "edited_end_seconds": 88.68
+        },
+        {
+          "first_frame": 25251,
+          "last_frame": 25724,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "018-project-search-reader",
+              "title": "06. 프로젝트 관리 ID에 합성 검색 데이터 읽기 권한",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "019-connect-server-tracing",
+              "title": "09. 새 프로젝트의 서버 측 tracing 연결 — 인증 정보 비공개"
+            },
+            {
+              "kind": "result",
+              "stage": "019-connect-server-tracing",
+              "title": "09. 새 프로젝트의 서버 측 tracing 연결 — 인증 정보 비공개",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "020-connect-search",
+              "title": "06. 전용 Search를 Foundry에 키 없이 연결"
+            },
+            {
+              "kind": "result",
+              "stage": "020-connect-search",
+              "title": "06. 전용 Search를 Foundry에 키 없이 연결",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "021-single-region-verification",
+              "title": "01. 모든 지역 리소스가 Sweden Central인지 확인"
+            },
+            {
+              "kind": "result",
+              "stage": "021-single-region-verification",
+              "title": "01. 모든 지역 리소스가 Sweden Central인지 확인",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 1010.04,
+          "source_end_seconds": 1029.0,
+          "edited_start_seconds": 88.68,
+          "edited_end_seconds": 107.64
+        },
+        {
+          "first_frame": 27459,
+          "last_frame": 27602,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "030-offline-doctor",
+              "title": "00. 로컬 환경 검사 — Azure 실행과 구분"
+            },
+            {
+              "kind": "result",
+              "stage": "030-offline-doctor",
+              "title": "00. 로컬 환경 검사 — Azure 실행과 구분",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "031-cloud-doctor",
+              "title": "01. 새 Sweden Central 배포·인증 확인"
+            }
+          ],
+          "source_start_seconds": 1098.36,
+          "source_end_seconds": 1104.12,
+          "edited_start_seconds": 107.64,
+          "edited_end_seconds": 113.4
+        },
+        {
+          "first_frame": 27667,
+          "last_frame": 27824,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "031-cloud-doctor",
+              "title": "01. 새 Sweden Central 배포·인증 확인",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "032-luna-response",
+              "title": "02. 새 Luna의 실제 Responses 응답"
+            }
+          ],
+          "source_start_seconds": 1106.68,
+          "source_end_seconds": 1113.0,
+          "edited_start_seconds": 113.4,
+          "edited_end_seconds": 119.72
+        },
+        {
+          "first_frame": 27909,
+          "last_frame": 28025,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "032-luna-response",
+              "title": "02. 새 Luna의 실제 Responses 응답",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "033-grounded-local-answer",
+              "title": "02. 합성 원문을 근거로 한 Luna 구조화 답변"
+            }
+          ],
+          "source_start_seconds": 1116.36,
+          "source_end_seconds": 1121.04,
+          "edited_start_seconds": 119.72,
+          "edited_end_seconds": 124.4
+        },
+        {
+          "first_frame": 28098,
+          "last_frame": 28250,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "033-grounded-local-answer",
+              "title": "02. 합성 원문을 근거로 한 Luna 구조화 답변",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "034-create-prompt-agent",
+              "title": "03. 새 Prompt Agent 생성"
+            }
+          ],
+          "source_start_seconds": 1123.92,
+          "source_end_seconds": 1130.04,
+          "edited_start_seconds": 124.4,
+          "edited_end_seconds": 130.52
+        },
+        {
+          "first_frame": 28543,
+          "last_frame": 28674,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "034-create-prompt-agent",
+              "title": "03. 새 Prompt Agent 생성",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "035-prompt-current",
+              "title": "03. Prompt Agent — 현행 숙박 한도"
+            }
+          ],
+          "source_start_seconds": 1141.72,
+          "source_end_seconds": 1147.0,
+          "edited_start_seconds": 130.52,
+          "edited_end_seconds": 135.8
+        },
+        {
+          "first_frame": 28731,
+          "last_frame": 28873,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "035-prompt-current",
+              "title": "03. Prompt Agent — 현행 숙박 한도",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "035-prompt-historical",
+              "title": "03. Prompt Agent — 과거 규정 적용"
+            }
+          ],
+          "source_start_seconds": 1149.24,
+          "source_end_seconds": 1154.96,
+          "edited_start_seconds": 135.8,
+          "edited_end_seconds": 141.52
+        },
+        {
+          "first_frame": 28939,
+          "last_frame": 29096,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "035-prompt-historical",
+              "title": "03. Prompt Agent — 과거 규정 적용",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "035-prompt-approval",
+              "title": "03. Prompt Agent — 사전 승인 경계"
+            }
+          ],
+          "source_start_seconds": 1157.56,
+          "source_end_seconds": 1163.88,
+          "edited_start_seconds": 141.52,
+          "edited_end_seconds": 147.84
+        },
+        {
+          "first_frame": 29155,
+          "last_frame": 29297,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "035-prompt-approval",
+              "title": "03. Prompt Agent — 사전 승인 경계",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "035-prompt-missing",
+              "title": "03. Prompt Agent — 근거 없는 질문 보류"
+            }
+          ],
+          "source_start_seconds": 1166.2,
+          "source_end_seconds": 1171.92,
+          "edited_start_seconds": 147.84,
+          "edited_end_seconds": 153.56
+        },
+        {
+          "first_frame": 29329,
+          "last_frame": 29450,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "035-prompt-missing",
+              "title": "03. Prompt Agent — 근거 없는 질문 보류",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "036-maf-single",
+              "title": "04. MAF 단일 에이전트"
+            }
+          ],
+          "source_start_seconds": 1173.16,
+          "source_end_seconds": 1178.04,
+          "edited_start_seconds": 153.56,
+          "edited_end_seconds": 158.44
+        },
+        {
+          "first_frame": 29585,
+          "last_frame": 29706,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "036-maf-single",
+              "title": "04. MAF 단일 에이전트",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "037-maf-function-tool",
+              "title": "04. MAF 읽기 전용 함수 도구"
+            }
+          ],
+          "source_start_seconds": 1183.4,
+          "source_end_seconds": 1188.28,
+          "edited_start_seconds": 158.44,
+          "edited_end_seconds": 163.32
+        },
+        {
+          "first_frame": 29819,
+          "last_frame": 29950,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "037-maf-function-tool",
+              "title": "04. MAF 읽기 전용 함수 도구",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "038-maf-mcp",
+              "title": "04. 로컬 MCP 서버와 Luna"
+            }
+          ],
+          "source_start_seconds": 1192.76,
+          "source_end_seconds": 1198.04,
+          "edited_start_seconds": 163.32,
+          "edited_end_seconds": 168.6
+        },
+        {
+          "first_frame": 30057,
+          "last_frame": 30199,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "038-maf-mcp",
+              "title": "04. 로컬 MCP 서버와 Luna",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "039-workflow-sequential",
+              "title": "05. MAF sequential 실제 실행"
+            }
+          ],
+          "source_start_seconds": 1202.28,
+          "source_end_seconds": 1208.0,
+          "edited_start_seconds": 168.6,
+          "edited_end_seconds": 174.32
+        },
+        {
+          "first_frame": 30481,
+          "last_frame": 30602,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "039-workflow-sequential",
+              "title": "05. MAF sequential 실제 실행",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "040-workflow-concurrent",
+              "title": "05. MAF concurrent 실제 실행"
+            }
+          ],
+          "source_start_seconds": 1219.24,
+          "source_end_seconds": 1224.12,
+          "edited_start_seconds": 174.32,
+          "edited_end_seconds": 179.2
+        },
+        {
+          "first_frame": 30769,
+          "last_frame": 30920,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "040-workflow-concurrent",
+              "title": "05. MAF concurrent 실제 실행",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "041-workflow-group-chat",
+              "title": "05. MAF group-chat 실제 실행"
+            }
+          ],
+          "source_start_seconds": 1230.76,
+          "source_end_seconds": 1236.84,
+          "edited_start_seconds": 179.2,
+          "edited_end_seconds": 185.28
+        },
+        {
+          "first_frame": 31205,
+          "last_frame": 31350,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "041-workflow-group-chat",
+              "title": "05. MAF group-chat 실제 실행",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 1248.2,
+          "source_end_seconds": 1254.04,
+          "edited_start_seconds": 185.28,
+          "edited_end_seconds": 191.12
+        },
+        {
+          "first_frame": 32803,
+          "last_frame": 32888,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "042-seed-search",
+              "title": "06. 전용 인덱스에 합성 정책 6건 업로드"
+            }
+          ],
+          "source_start_seconds": 1312.12,
+          "source_end_seconds": 1315.56,
+          "edited_start_seconds": 191.12,
+          "edited_end_seconds": 194.56
+        },
+        {
+          "first_frame": 33023,
+          "last_frame": 33297,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "042-seed-search",
+              "title": "06. 전용 인덱스에 합성 정책 6건 업로드",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "043-retrieve-search",
+              "title": "06. 실제 Azure AI Search 검색"
+            },
+            {
+              "kind": "result",
+              "stage": "043-retrieve-search",
+              "title": "06. 실제 Azure AI Search 검색",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "044-seed-iq",
+              "title": "06. GA Foundry IQ source·knowledge base 생성"
+            }
+          ],
+          "source_start_seconds": 1320.92,
+          "source_end_seconds": 1331.92,
+          "edited_start_seconds": 194.56,
+          "edited_end_seconds": 205.56
+        },
+        {
+          "first_frame": 33442,
+          "last_frame": 33727,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "044-seed-iq",
+              "title": "06. GA Foundry IQ source·knowledge base 생성",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "045-retrieve-iq",
+              "title": "06. GA Foundry IQ 실제 검색"
+            },
+            {
+              "kind": "result",
+              "stage": "045-retrieve-iq",
+              "title": "06. GA Foundry IQ 실제 검색",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "046-iq-answer",
+              "title": "06. IQ 원문과 Luna 구조화 답변"
+            }
+          ],
+          "source_start_seconds": 1337.68,
+          "source_end_seconds": 1349.12,
+          "edited_start_seconds": 205.56,
+          "edited_end_seconds": 217.0
+        },
+        {
+          "first_frame": 33900,
+          "last_frame": 34049,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "046-iq-answer",
+              "title": "06. IQ 원문과 Luna 구조화 답변",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 1356.0,
+          "source_end_seconds": 1362.0,
+          "edited_start_seconds": 217.0,
+          "edited_end_seconds": 223.0
+        },
+        {
+          "first_frame": 35135,
+          "last_frame": 35220,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "050-baseline-collect",
+              "title": "07. v1 dev 6건 실제 수집"
+            }
+          ],
+          "source_start_seconds": 1405.4,
+          "source_end_seconds": 1408.84,
+          "edited_start_seconds": 223.0,
+          "edited_end_seconds": 226.44
+        },
+        {
+          "first_frame": 35941,
+          "last_frame": 36173,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "050-baseline-collect",
+              "title": "07. v1 dev 6건 실제 수집",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "051-baseline-evaluate",
+              "title": "07. v1 전체 업무 검사 — 오류도 분모 유지"
+            },
+            {
+              "kind": "result",
+              "stage": "051-baseline-evaluate",
+              "title": "07. v1 전체 업무 검사 — 오류도 분모 유지",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 1437.64,
+          "source_end_seconds": 1446.96,
+          "edited_start_seconds": 226.44,
+          "edited_end_seconds": 235.76
+        },
+        {
+          "first_frame": 37027,
+          "last_frame": 37112,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "052-candidate-collect",
+              "title": "07. v2 dev 6건 실제 수집"
+            }
+          ],
+          "source_start_seconds": 1481.08,
+          "source_end_seconds": 1484.52,
+          "edited_start_seconds": 235.76,
+          "edited_end_seconds": 239.2
+        },
+        {
+          "first_frame": 37781,
+          "last_frame": 38072,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "052-candidate-collect",
+              "title": "07. v2 dev 6건 실제 수집",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "053-candidate-evaluate",
+              "title": "07. v2 전체 업무 검사"
+            },
+            {
+              "kind": "result",
+              "stage": "053-candidate-evaluate",
+              "title": "07. v2 전체 업무 검사",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "054-controlled-comparison",
+              "title": "07. 동일 모델·코퍼스·검색 설정에서 지침 비교"
+            },
+            {
+              "kind": "result",
+              "stage": "054-controlled-comparison",
+              "title": "07. 동일 모델·코퍼스·검색 설정에서 지침 비교",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "055-native-luna-judge",
+              "title": "07. 별도 Luna judge의 native groundedness·relevance"
+            }
+          ],
+          "source_start_seconds": 1511.24,
+          "source_end_seconds": 1522.92,
+          "edited_start_seconds": 239.2,
+          "edited_end_seconds": 250.88
+        },
+        {
+          "first_frame": 38999,
+          "last_frame": 39129,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "055-native-luna-judge",
+              "title": "07. 별도 Luna judge의 native groundedness·relevance",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 1559.96,
+          "source_end_seconds": 1565.2,
+          "edited_start_seconds": 250.88,
+          "edited_end_seconds": 256.12
+        },
+        {
+          "first_frame": 39934,
+          "last_frame": 40019,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "056-final-holdout",
+              "title": "07. 고정 후보의 최종 holdout — 개발에 재사용하지 않음"
+            }
+          ],
+          "source_start_seconds": 1597.36,
+          "source_end_seconds": 1600.8,
+          "edited_start_seconds": 256.12,
+          "edited_end_seconds": 259.56
+        },
+        {
+          "first_frame": 40518,
+          "last_frame": 40825,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "056-final-holdout",
+              "title": "07. 고정 후보의 최종 holdout — 개발에 재사용하지 않음",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "057-holdout-evaluate",
+              "title": "07. holdout 전체 업무 검사"
+            },
+            {
+              "kind": "result",
+              "stage": "057-holdout-evaluate",
+              "title": "07. holdout 전체 업무 검사",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "058-acceptance",
+              "title": "11. 실제 후보·holdout 계보가 연결된 인수 자료"
+            },
+            {
+              "kind": "result",
+              "stage": "058-acceptance",
+              "title": "11. 실제 후보·holdout 계보가 연결된 인수 자료",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 1620.72,
+          "source_end_seconds": 1633.04,
+          "edited_start_seconds": 259.56,
+          "edited_end_seconds": 271.88
+        },
+        {
+          "first_frame": 45663,
+          "last_frame": 45850,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "060-preserve-hosted-state",
+              "title": "08. 이전 생성 패키지·azd 상태 보존"
+            },
+            {
+              "kind": "result",
+              "stage": "060-preserve-hosted-state",
+              "title": "08. 이전 생성 패키지·azd 상태 보존",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "061-package-hosted",
+              "title": "08. 합성 정책만 포함한 새 Hosted 패키지"
+            },
+            {
+              "kind": "result",
+              "stage": "061-package-hosted",
+              "title": "08. 합성 정책만 포함한 새 Hosted 패키지",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "062-initialize-hosted",
+              "title": "08. 새 Sweden Central 프로젝트와 Luna에 Hosted 코드 연결"
+            }
+          ],
+          "source_start_seconds": 1826.52,
+          "source_end_seconds": 1834.04,
+          "edited_start_seconds": 271.88,
+          "edited_end_seconds": 279.4
+        },
+        {
+          "first_frame": 45926,
+          "last_frame": 46073,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "062-initialize-hosted",
+              "title": "08. 새 Sweden Central 프로젝트와 Luna에 Hosted 코드 연결",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 1837.04,
+          "source_end_seconds": 1842.96,
+          "edited_start_seconds": 279.4,
+          "edited_end_seconds": 285.32
+        },
+        {
+          "first_frame": 55110,
+          "last_frame": 55355,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "063-synchronize-hosted-bindings",
+              "title": "08. .env와 azd를 새 프로젝트·배포에 명시적으로 일치"
+            },
+            {
+              "kind": "result",
+              "stage": "063-synchronize-hosted-bindings",
+              "title": "08. .env와 azd를 새 프로젝트·배포에 명시적으로 일치",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "064-verify-clean-hosted-package",
+              "title": "08. 재배포에서도 평가 정답·캐시가 제외되는 새 패키지"
+            },
+            {
+              "kind": "result",
+              "stage": "064-verify-clean-hosted-package",
+              "title": "08. 재배포에서도 평가 정답·캐시가 제외되는 새 패키지",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 2204.4,
+          "source_end_seconds": 2214.24,
+          "edited_start_seconds": 285.32,
+          "edited_end_seconds": 295.16
+        },
+        {
+          "first_frame": 59915,
+          "last_frame": 60052,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "065-local-readiness",
+              "title": "08. 실제 로컬 Hosted 서버 readiness"
+            },
+            {
+              "kind": "result",
+              "stage": "065-local-readiness",
+              "title": "08. 실제 로컬 Hosted 서버 readiness",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "066-local-hosted-response",
+              "title": "08. 새 Luna를 호출하는 실제 로컬 Hosted 응답"
+            }
+          ],
+          "source_start_seconds": 2396.6,
+          "source_end_seconds": 2402.12,
+          "edited_start_seconds": 295.16,
+          "edited_end_seconds": 300.68
+        },
+        {
+          "first_frame": 60164,
+          "last_frame": 60305,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "066-local-hosted-response",
+              "title": "08. 새 Luna를 호출하는 실제 로컬 Hosted 응답",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 2406.56,
+          "source_end_seconds": 2412.24,
+          "edited_start_seconds": 300.68,
+          "edited_end_seconds": 306.36
+        },
+        {
+          "first_frame": 62106,
+          "last_frame": 62191,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "067-deploy-hosted",
+              "title": "08. Sweden Central Hosted 직접 코드 배포"
+            }
+          ],
+          "source_start_seconds": 2484.24,
+          "source_end_seconds": 2487.68,
+          "edited_start_seconds": 306.36,
+          "edited_end_seconds": 309.8
+        },
+        {
+          "first_frame": 66008,
+          "last_frame": 66249,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "067-deploy-hosted",
+              "title": "08. Sweden Central Hosted 직접 코드 배포",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "068-hosted-status",
+              "title": "08. 원격 Hosted 버전·상태·endpoint 확인"
+            },
+            {
+              "kind": "result",
+              "stage": "068-hosted-status",
+              "title": "08. 원격 Hosted 버전·상태·endpoint 확인",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 2640.32,
+          "source_end_seconds": 2650.0,
+          "edited_start_seconds": 309.8,
+          "edited_end_seconds": 319.48
+        },
+        {
+          "first_frame": 70149,
+          "last_frame": 70234,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "069-remote-hosted-response",
+              "title": "08. 고정된 Hosted 버전 1의 실제 원격 응답"
+            }
+          ],
+          "source_start_seconds": 2805.96,
+          "source_end_seconds": 2809.4,
+          "edited_start_seconds": 319.48,
+          "edited_end_seconds": 322.92
+        },
+        {
+          "first_frame": 70613,
+          "last_frame": 70756,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "069-remote-hosted-response",
+              "title": "08. 고정된 Hosted 버전 1의 실제 원격 응답",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 2824.52,
+          "source_end_seconds": 2830.28,
+          "edited_start_seconds": 322.92,
+          "edited_end_seconds": 328.68
+        },
+        {
+          "first_frame": 76887,
+          "last_frame": 76972,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "070-hosted-dev-lineage",
+              "title": "08. 원격 Hosted 평가 입력 — 기존 dev 6건만 사용"
+            }
+          ],
+          "source_start_seconds": 3075.48,
+          "source_end_seconds": 3078.92,
+          "edited_start_seconds": 328.68,
+          "edited_end_seconds": 332.12
+        },
+        {
+          "first_frame": 77017,
+          "last_frame": 77155,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "070-hosted-dev-lineage",
+              "title": "08. 원격 Hosted 평가 입력 — 기존 dev 6건만 사용",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "071-hosted-eval-setup",
+              "title": "08. Hosted 평가 설정 — 새 질문 생성 없이 기존 합성 dev"
+            }
+          ],
+          "source_start_seconds": 3080.68,
+          "source_end_seconds": 3086.24,
+          "edited_start_seconds": 332.12,
+          "edited_end_seconds": 337.68
+        },
+        {
+          "first_frame": 77201,
+          "last_frame": 77351,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "071-hosted-eval-setup",
+              "title": "08. Hosted 평가 설정 — 새 질문 생성 없이 기존 합성 dev",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 3088.04,
+          "source_end_seconds": 3094.08,
+          "edited_start_seconds": 337.68,
+          "edited_end_seconds": 343.72
+        },
+        {
+          "first_frame": 81072,
+          "last_frame": 81157,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "072-hosted-evaluation",
+              "title": "08. 실제 원격 Hosted 에이전트 대상 dev 평가"
+            }
+          ],
+          "source_start_seconds": 3242.88,
+          "source_end_seconds": 3246.32,
+          "edited_start_seconds": 343.72,
+          "edited_end_seconds": 347.16
+        },
+        {
+          "first_frame": 82719,
+          "last_frame": 82876,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "072-hosted-evaluation",
+              "title": "08. 실제 원격 Hosted 에이전트 대상 dev 평가",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 3308.76,
+          "source_end_seconds": 3315.08,
+          "edited_start_seconds": 347.16,
+          "edited_end_seconds": 353.48
+        },
+        {
+          "first_frame": 99287,
+          "last_frame": 99372,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "073-verify-hosted-evaluation-rows",
+              "title": "08. 원격 평가 6건의 실제 응답·도구 호출·점수 확인"
+            }
+          ],
+          "source_start_seconds": 3971.48,
+          "source_end_seconds": 3974.92,
+          "edited_start_seconds": 353.48,
+          "edited_end_seconds": 356.92
+        },
+        {
+          "first_frame": 99489,
+          "last_frame": 99646,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "073-verify-hosted-evaluation-rows",
+              "title": "08. 원격 평가 6건의 실제 응답·도구 호출·점수 확인",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "074-real-file-search",
+              "title": "03. 선택 File Search — 합성 파일 6개 색인·실제 파일 인용"
+            }
+          ],
+          "source_start_seconds": 3979.56,
+          "source_end_seconds": 3985.88,
+          "edited_start_seconds": 356.92,
+          "edited_end_seconds": 363.24
+        },
+        {
+          "first_frame": 100863,
+          "last_frame": 101019,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "074-real-file-search",
+              "title": "03. 선택 File Search — 합성 파일 6개 색인·실제 파일 인용",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "075-iq-extension-design",
+              "title": "10. 합성 IQ 라우팅 설계 — Fabric·M365 실제 연결 없음"
+            }
+          ],
+          "source_start_seconds": 4034.52,
+          "source_end_seconds": 4040.8,
+          "edited_start_seconds": 363.24,
+          "edited_end_seconds": 369.52
+        },
+        {
+          "first_frame": 101223,
+          "last_frame": 101375,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "075-iq-extension-design",
+              "title": "10. 합성 IQ 라우팅 설계 — Fabric·M365 실제 연결 없음",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 4048.92,
+          "source_end_seconds": 4055.04,
+          "edited_start_seconds": 369.52,
+          "edited_end_seconds": 375.64
+        },
+        {
+          "first_frame": 117090,
+          "last_frame": 117424,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "076-hosted-monitor",
+              "title": "09. 실제 원격 Hosted 세션의 최근 로그 확인"
+            },
+            {
+              "kind": "result",
+              "stage": "076-hosted-monitor",
+              "title": "09. 실제 원격 Hosted 세션의 최근 로그 확인",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "077-hosted-session-inventory",
+              "title": "09. 새 Hosted 에이전트의 세션 목록"
+            },
+            {
+              "kind": "result",
+              "stage": "077-hosted-session-inventory",
+              "title": "09. 새 Hosted 에이전트의 세션 목록",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 4683.6,
+          "source_end_seconds": 4697.0,
+          "edited_start_seconds": 375.64,
+          "edited_end_seconds": 389.04
+        },
+        {
+          "first_frame": 130285,
+          "last_frame": 130370,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "078-remove-previous-workshop-resources",
+              "title": "09. 이전 실습 전용 자산 삭제 — 공유 IQ 기반 보존"
+            }
+          ],
+          "source_start_seconds": 5211.4,
+          "source_end_seconds": 5214.84,
+          "edited_start_seconds": 389.04,
+          "edited_end_seconds": 392.48
+        },
+        {
+          "first_frame": 131427,
+          "last_frame": 131571,
+          "reasons": [
+            {
+              "kind": "result",
+              "stage": "078-remove-previous-workshop-resources",
+              "title": "09. 이전 실습 전용 자산 삭제 — 공유 IQ 기반 보존",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 5257.08,
+          "source_end_seconds": 5262.88,
+          "edited_start_seconds": 392.48,
+          "edited_end_seconds": 398.28
+        },
+        {
+          "first_frame": 135718,
+          "last_frame": 136121,
+          "reasons": [
+            {
+              "kind": "command",
+              "stage": "079-stop-session-1",
+              "title": "09. 본인 Hosted 세션 중지 — 파일시스템은 보존"
+            },
+            {
+              "kind": "result",
+              "stage": "079-stop-session-1",
+              "title": "09. 본인 Hosted 세션 중지 — 파일시스템은 보존",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "079-stop-session-2",
+              "title": "09. 본인 Hosted 세션 중지 — 파일시스템은 보존"
+            },
+            {
+              "kind": "result",
+              "stage": "079-stop-session-2",
+              "title": "09. 본인 Hosted 세션 중지 — 파일시스템은 보존",
+              "status": "completed"
+            },
+            {
+              "kind": "command",
+              "stage": "080-verify-stopped-sessions",
+              "title": "09. 활성 Hosted 세션이 없는지 재조회"
+            },
+            {
+              "kind": "result",
+              "stage": "080-verify-stopped-sessions",
+              "title": "09. 활성 Hosted 세션이 없는지 재조회",
+              "status": "completed"
+            }
+          ],
+          "source_start_seconds": 5428.72,
+          "source_end_seconds": 5444.88,
+          "edited_start_seconds": 398.28,
+          "edited_end_seconds": 414.44
+        }
+      ]
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "source_filename": "portal-full-run.mp4",
+      "source_sha256": "157316af332295abd066ebacfaa35f4773e14e0386dc78cff8eacc8988b88d0b",
+      "fps": 15,
+      "expected_frames": 3147,
+      "retained_stage_count": null,
+      "retained_verified_screens": [
+        "P01-project-home.png",
+        "P02-luna-deployments.png",
+        "P03-luna-playground-response.png",
+        "P04-without-policy-evidence.png",
+        "P05-portal-agent-instructions.png",
+        "P06-D01-portal-response.png",
+        "P07-D02-portal-response.png",
+        "P08-D03-portal-response.png",
+        "P09-D04-portal-response.png",
+        "P10-D05-portal-response.png",
+        "P11-D06-portal-response.png",
+        "P12-native-evaluation-report.png",
+        "P13-hosted-evaluation-report.png",
+        "P14-hosted-agent.png",
+        "P15-hosted-trace-match.png",
+        "P16-hosted-trace-detail.png",
+        "P17-foundry-knowledge.png"
+      ],
+      "retained_action_count": 39,
+      "source_frame_verification": {
+        "kind": "portal",
+        "sampled_segments": 26,
+        "minimum_source_frame_ssim": 0.997615,
+        "mean_source_frame_ssim": 0.9992110769230769,
+        "source_frame_mapping_verified": true
+      },
+      "segments": [
+        {
+          "first_frame": 15,
+          "last_frame": 89,
+          "reasons": [
+            {
+              "kind": "project-overview"
+            }
+          ],
+          "source_start_seconds": 1.0,
+          "source_end_seconds": 6.0,
+          "edited_start_seconds": 0.0,
+          "edited_end_seconds": 5.0
+        },
+        {
+          "first_frame": 2081,
+          "last_frame": 2211,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-3a3545346f",
+              "screenshot": "P01-project-home.png"
+            },
+            {
+              "kind": "observed-navigation",
+              "action_id": "action-2fc617c6ab",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments"
+            }
+          ],
+          "source_start_seconds": 138.733333,
+          "source_end_seconds": 147.466667,
+          "edited_start_seconds": 5.0,
+          "edited_end_seconds": 13.733333
+        },
+        {
+          "first_frame": 6684,
+          "last_frame": 6813,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-9b9fd8e5e0",
+              "screenshot": "P02-luna-deployments.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-2f1dd71b7b",
+              "control": "gpt-5.6-luna",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 445.6,
+          "source_end_seconds": 454.266667,
+          "edited_start_seconds": 13.733333,
+          "edited_end_seconds": 22.4
+        },
+        {
+          "first_frame": 9617,
+          "last_frame": 9664,
+          "reasons": [
+            {
+              "kind": "click",
+              "action_id": "action-9f420423be",
+              "control": "Actions for Web search",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 641.133333,
+          "source_end_seconds": 644.333333,
+          "edited_start_seconds": 22.4,
+          "edited_end_seconds": 25.6
+        },
+        {
+          "first_frame": 10788,
+          "last_frame": 10835,
+          "reasons": [
+            {
+              "kind": "click",
+              "action_id": "action-a15202fa69",
+              "control": "Remove",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 719.2,
+          "source_end_seconds": 722.4,
+          "edited_start_seconds": 25.6,
+          "edited_end_seconds": 28.8
+        },
+        {
+          "first_frame": 13052,
+          "last_frame": 13127,
+          "reasons": [
+            {
+              "kind": "fill",
+              "action_id": "action-b839a642c3",
+              "control": "Chat with the model...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-cc684782ae",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 870.133333,
+          "source_end_seconds": 875.2,
+          "edited_start_seconds": 28.8,
+          "edited_end_seconds": 33.866667
+        },
+        {
+          "first_frame": 15221,
+          "last_frame": 15346,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-7883a4541b",
+              "screenshot": "P03-luna-playground-response.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-e0c0894ca3",
+              "control": "New chat",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 1014.733333,
+          "source_end_seconds": 1023.133333,
+          "edited_start_seconds": 33.866667,
+          "edited_end_seconds": 42.266667
+        },
+        {
+          "first_frame": 15943,
+          "last_frame": 16017,
+          "reasons": [
+            {
+              "kind": "fill",
+              "action_id": "action-afea7f9b47",
+              "control": "Chat with the model...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-a321204e15",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 1062.866667,
+          "source_end_seconds": 1067.866667,
+          "edited_start_seconds": 42.266667,
+          "edited_end_seconds": 47.266667
+        },
+        {
+          "first_frame": 19685,
+          "last_frame": 19810,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-df1c506466",
+              "screenshot": "P04-without-policy-evidence.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-2035eebef6",
+              "control": "Save as agent",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 1312.333333,
+          "source_end_seconds": 1320.733333,
+          "edited_start_seconds": 47.266667,
+          "edited_end_seconds": 55.666667
+        },
+        {
+          "first_frame": 22569,
+          "last_frame": 22642,
+          "reasons": [
+            {
+              "kind": "fill",
+              "action_id": "action-f2e84cf02f",
+              "control": "Agent name",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-35fe758cfe",
+              "control": "Create and open playground",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/models/deployments/gpt-5.6-luna/playground"
+            }
+          ],
+          "source_start_seconds": 1504.6,
+          "source_end_seconds": 1509.533333,
+          "edited_start_seconds": 55.666667,
+          "edited_end_seconds": 60.6
+        },
+        {
+          "first_frame": 27746,
+          "last_frame": 27824,
+          "reasons": [
+            {
+              "kind": "fill",
+              "action_id": "action-e09d4edab6",
+              "control": "Write your prompt here to give your agent instructions.",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-74d7fc2cc0",
+              "control": "Save",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            }
+          ],
+          "source_start_seconds": 1849.733333,
+          "source_end_seconds": 1855.0,
+          "edited_start_seconds": 60.6,
+          "edited_end_seconds": 65.866667
+        },
+        {
+          "first_frame": 33093,
+          "last_frame": 33279,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-844bd2848a",
+              "screenshot": "P05-portal-agent-instructions.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-f06131a7c0",
+              "control": "Instructions",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "fill",
+              "action_id": "action-e664ad0969",
+              "control": "Message the agent...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-012692911c",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            }
+          ],
+          "source_start_seconds": 2206.2,
+          "source_end_seconds": 2218.666667,
+          "edited_start_seconds": 65.866667,
+          "edited_end_seconds": 78.333333
+        },
+        {
+          "first_frame": 39658,
+          "last_frame": 39836,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-8bab4f481b",
+              "screenshot": "P06-D01-portal-response.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-f574836022",
+              "control": "New chat",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "fill",
+              "action_id": "action-73286f8b63",
+              "control": "Message the agent...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-b4a06f43e6",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            }
+          ],
+          "source_start_seconds": 2643.866667,
+          "source_end_seconds": 2655.8,
+          "edited_start_seconds": 78.333333,
+          "edited_end_seconds": 90.266667
+        },
+        {
+          "first_frame": 39890,
+          "last_frame": 40069,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-a794d18350",
+              "screenshot": "P07-D02-portal-response.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-27d9fd9abe",
+              "control": "New chat",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "fill",
+              "action_id": "action-629b9c1cc5",
+              "control": "Message the agent...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-17d820e2e2",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            }
+          ],
+          "source_start_seconds": 2659.333333,
+          "source_end_seconds": 2671.333333,
+          "edited_start_seconds": 90.266667,
+          "edited_end_seconds": 102.266667
+        },
+        {
+          "first_frame": 40081,
+          "last_frame": 40260,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-ee578df065",
+              "screenshot": "P08-D03-portal-response.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-d3323266d8",
+              "control": "New chat",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "fill",
+              "action_id": "action-e47a916302",
+              "control": "Message the agent...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-61d5160b59",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            }
+          ],
+          "source_start_seconds": 2672.066667,
+          "source_end_seconds": 2684.066667,
+          "edited_start_seconds": 102.266667,
+          "edited_end_seconds": 114.266667
+        },
+        {
+          "first_frame": 40272,
+          "last_frame": 40451,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-7571eada09",
+              "screenshot": "P09-D04-portal-response.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-abf2257ff8",
+              "control": "New chat",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "fill",
+              "action_id": "action-376e674244",
+              "control": "Message the agent...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-c31ce8602f",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            }
+          ],
+          "source_start_seconds": 2684.8,
+          "source_end_seconds": 2696.8,
+          "edited_start_seconds": 114.266667,
+          "edited_end_seconds": 126.266667
+        },
+        {
+          "first_frame": 40464,
+          "last_frame": 40643,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-7de5888d79",
+              "screenshot": "P10-D05-portal-response.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-432e64b1b9",
+              "control": "New chat",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "fill",
+              "action_id": "action-2b21582c96",
+              "control": "Message the agent...",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-eb3a35a9d8",
+              "control": "Send",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-portal/build"
+            }
+          ],
+          "source_start_seconds": 2697.6,
+          "source_end_seconds": 2709.6,
+          "edited_start_seconds": 126.266667,
+          "edited_end_seconds": 138.266667
+        },
+        {
+          "first_frame": 40655,
+          "last_frame": 40754,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-1ad6deb45c",
+              "screenshot": "P11-D06-portal-response.png"
+            }
+          ],
+          "source_start_seconds": 2710.333333,
+          "source_end_seconds": 2717.0,
+          "edited_start_seconds": 138.266667,
+          "edited_end_seconds": 144.933333
+        },
+        {
+          "first_frame": 45228,
+          "last_frame": 45294,
+          "reasons": [
+            {
+              "kind": "navigate",
+              "action_id": "action-36c4042454",
+              "control": null,
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/evaluations/eval_1bbd6becc9874f769500380f9793a73c/run/evalrun_e50804f8fb034a459f3c45be9eb1857b"
+            }
+          ],
+          "source_start_seconds": 3015.2,
+          "source_end_seconds": 3019.666667,
+          "edited_start_seconds": 144.933333,
+          "edited_end_seconds": 149.4
+        },
+        {
+          "first_frame": 49454,
+          "last_frame": 49602,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-8b7050c816",
+              "screenshot": "P12-native-evaluation-report.png"
+            },
+            {
+              "kind": "navigate",
+              "action_id": "action-4cdf0c1c74",
+              "control": null,
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/evaluations/eval_4781dcab88c74356a1158869b2899ce6/run/evalrun_d4e1bedad292478db7d7198b457d8fd5"
+            }
+          ],
+          "source_start_seconds": 3296.933333,
+          "source_end_seconds": 3306.866667,
+          "edited_start_seconds": 149.4,
+          "edited_end_seconds": 159.333333
+        },
+        {
+          "first_frame": 52756,
+          "last_frame": 52953,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-37fba77929",
+              "screenshot": "P13-hosted-evaluation-report.png"
+            },
+            {
+              "kind": "navigate",
+              "action_id": "action-d289e62a8f",
+              "control": null,
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-hosted/build"
+            }
+          ],
+          "source_start_seconds": 3517.066667,
+          "source_end_seconds": 3530.266667,
+          "edited_start_seconds": 159.333333,
+          "edited_end_seconds": 172.533333
+        },
+        {
+          "first_frame": 59809,
+          "last_frame": 59938,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-a839f40ea7",
+              "screenshot": "P14-hosted-agent.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-5c195143a1",
+              "control": "Traces",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-hosted/traces"
+            }
+          ],
+          "source_start_seconds": 3987.266667,
+          "source_end_seconds": 3995.933333,
+          "edited_start_seconds": 172.533333,
+          "edited_end_seconds": 181.2
+        },
+        {
+          "first_frame": 63825,
+          "last_frame": 63872,
+          "reasons": [
+            {
+              "kind": "fill",
+              "action_id": "action-d2c7fff7ca",
+              "control": "Search by trace ID, conversation ID, or response ID",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-hosted/traces"
+            }
+          ],
+          "source_start_seconds": 4255.0,
+          "source_end_seconds": 4258.2,
+          "edited_start_seconds": 181.2,
+          "edited_end_seconds": 184.4
+        },
+        {
+          "first_frame": 68791,
+          "last_frame": 68917,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-96ab827ff1",
+              "screenshot": "P15-hosted-trace-match.png"
+            },
+            {
+              "kind": "click",
+              "action_id": "action-8a5e2dfff5",
+              "control": "9a829b6e14dc188afdbf494cf0d804dd",
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/agents/mfv2-swc-20260913-hosted/traces"
+            }
+          ],
+          "source_start_seconds": 4586.066667,
+          "source_end_seconds": 4594.533333,
+          "edited_start_seconds": 184.4,
+          "edited_end_seconds": 192.866667
+        },
+        {
+          "first_frame": 71839,
+          "last_frame": 71996,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-3f2cbf7a8d",
+              "screenshot": "P16-hosted-trace-detail.png"
+            },
+            {
+              "kind": "navigate",
+              "action_id": "action-ffe57c47df",
+              "control": null,
+              "page": "https://ai.azure.com/nextgen/r/UVMWBCM3TAW8BTw9T_FU5Q,rg-mfv2-luna-20260913,,ai-mfv2-luna-swc-20260913,mfv2-luna-20260913/build/knowledge/search/c/workshop-search"
+            }
+          ],
+          "source_start_seconds": 4789.266667,
+          "source_end_seconds": 4799.8,
+          "edited_start_seconds": 192.866667,
+          "edited_end_seconds": 203.4
+        },
+        {
+          "first_frame": 73939,
+          "last_frame": 74034,
+          "reasons": [
+            {
+              "kind": "verified-screen",
+              "action_id": "action-8b2c0108af",
+              "screenshot": "P17-foundry-knowledge.png"
+            }
+          ],
+          "source_start_seconds": 4929.266667,
+          "source_end_seconds": 4935.666667,
+          "edited_start_seconds": 203.4,
+          "edited_end_seconds": 209.8
+        }
+      ]
+    }
+  ]
+}

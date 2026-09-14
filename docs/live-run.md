@@ -26,8 +26,8 @@
 
 ## 실제 화면과 실시간 영상
 
-- [CLI 전체 영상 바로 열기](https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe)
-- [Foundry 포털 영상 바로 열기](https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14)
+- [CLI 대기 제거 편집본](https://github.com/user-attachments/assets/7b3f79b1-15ba-4f6a-b0f9-5d144f236da8)
+- [Foundry 포털 대기 제거 편집본](https://github.com/user-attachments/assets/7290586e-628e-4a2f-823d-8a5c0c5a1b3e)
 - [재생·다운로드 안내](video-summary.md#재생하기)
 - [단계별 영상·캡처 안내](video-chapters.md)
 - [파일 정보·해시·촬영 계보](assets/live-20260913-swc/media.json)
@@ -35,18 +35,22 @@
 **아래 GitHub 플레이어의 ▶ 버튼으로 바로 재생할 수 있습니다. 로컬 서버는 필요 없습니다.**
 비공개 저장소에 접근 가능한 GitHub 계정으로 로그인한 상태에서 이용하세요.
 
-### CLI 전체 영상 — 95분 50초
+### CLI 핵심 실행 — 6분 54초
 
-https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe
+https://github.com/user-attachments/assets/7b3f79b1-15ba-4f6a-b0f9-5d144f236da8
 
-### Foundry 포털 전체 영상 — 82분 16초
+### Foundry 포털 핵심 조작 — 3분 30초
 
-https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14
+https://github.com/user-attachments/assets/7290586e-628e-4a2f-823d-8a5c0c5a1b3e
 
-**72개 CLI 실행 단계와 실제 포털 조작을 실행 중에 녹화했고 PNG 122개를 남겼습니다.**
-기록한 JSON을 나중에 4초씩 재생한 영상이 아닙니다. 대기시간을 제거하거나 결과를 재현 화면으로 바꾸지 않았습니다.
+**원본은 CLI 72단계와 실제 포털 조작을 실시간 녹화한 자료입니다.**
+학습용 편집본은 원본의 입력·변화·결과를 남기고 긴 대기를 제거했습니다.
+72단계의 결과와 포털 주요 화면 17개는 모두 유지했으며, 결과나 실패를 새로 만들거나 스크린샷으로 재생하지 않았습니다.
 CLI 화면은 실제 프로세스 출력을 표시하는 전용 콘솔이며, 포털 영상은 실제 `ai.azure.com` 화면입니다.
-두 영상 모두 Playwright 1.62.0 headless Edge로 촬영했습니다. 로그인·MFA 화면은 녹화하지 않았습니다.
+촬영은 Playwright 1.62.0 headless Edge로 했고 로그인·MFA 화면은 제외했습니다.
+원본 캡처 122개 중 가이드가 참조하는 34개만 현재 트리에 유지합니다.
+원본 영상은 [실시간 원본 링크](video-summary.md#참고-대기시간이-포함된-실시간-원본), 구간 대응은
+[편집 계보](assets/live-20260913-swc/edit-timeline.json)에서 확인할 수 있습니다.
 CLI 식별자와 Bearer 값은 마스킹했습니다. 포털 화면에는 실습 계정·리소스 식별정보가 있을 수 있어 외부 게시 전 검토가 필요합니다.
 
 ![새 프로젝트의 실제 Luna 응답](assets/live-20260913-swc/P03-luna-playground-response.png)

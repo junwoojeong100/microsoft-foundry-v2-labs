@@ -4,30 +4,39 @@
   "private_repository": true,
   "uploaded_on": "2026-09-14",
   "hosting": "repository-scoped GitHub user attachments",
+  "role": "learner-edited-recordings",
+  "edited_recordings_published": true,
+  "waiting_time_removed": true,
   "new_recording": false,
-  "reencoded_for_upload": false,
-  "verification": {
-    "verified_on": "2026-09-14",
-    "method": "Authenticated GitHub Markdown rendering and actual private GitHub media playback in headless Edge",
-    "players_per_document": 2,
-    "documents": ["docs/live-run.md", "docs/video-summary.md"],
-    "seek_fractions": [0, 0.5, 0.9],
-    "signed_media_urls_saved": false
-  },
+  "playback_speed": 1,
   "videos": [
+    {
+      "filename": "cli-edited.mp4",
+      "url": "https://github.com/user-attachments/assets/7b3f79b1-15ba-4f6a-b0f9-5d144f236da8",
+      "source_sha256": "2f393d4371598aebf55673833de9db9f3b05ed7feed3fc32afa584f681f75181",
+      "bytes": 10097179,
+      "content_type": "video/mp4"
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "url": "https://github.com/user-attachments/assets/7290586e-628e-4a2f-823d-8a5c0c5a1b3e",
+      "source_sha256": "3e4123dc6f328a8dcac37c5e58792907c3adb2f5a730a5cdf61f7f113ecfaeab",
+      "bytes": 2947452,
+      "content_type": "video/mp4"
+    }
+  ],
+  "original_recordings": [
     {
       "filename": "cli-full-run.mp4",
       "url": "https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe",
-      "source_sha256": "22b009e38cf140e5da7eb0b47bafd348f51bd81827aacac0ec5105d185312b5b",
-      "bytes": 87889690,
-      "content_type": "video/mp4"
+      "sha256": "22b009e38cf140e5da7eb0b47bafd348f51bd81827aacac0ec5105d185312b5b",
+      "duration_seconds": 5749.92
     },
     {
       "filename": "portal-full-run.mp4",
       "url": "https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14",
-      "source_sha256": "157316af332295abd066ebacfaa35f4773e14e0386dc78cff8eacc8988b88d0b",
-      "bytes": 35066798,
-      "content_type": "video/mp4"
+      "sha256": "157316af332295abd066ebacfaa35f4773e14e0386dc78cff8eacc8988b88d0b",
+      "duration_seconds": 4935.666667
     }
   ]
 }

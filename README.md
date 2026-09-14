@@ -4,10 +4,10 @@
 
 한국어 · 합성 데이터 · **2026-09-13 기준 / Pre-Ignite 2026 Edition**
 
-**[실제 실행 결과·주요 화면·headless 녹화](docs/live-run.md)** —
-실제 dev/holdout, Foundry 평가, Hosted 원격 응답과 Trace를 확인한 기록입니다.
+**[핵심 실습 영상: 포털 3분 30초 · CLI 6분 54초](docs/video-summary.md)** —
+긴 대기를 제거하고 실제 조작과 결과를 중심으로 편집했습니다.
 
-[Sweden Central 실시간 녹화](docs/video-summary.md) · [122개 CLI·포털 캡처](docs/video-chapters.md)
+[가이드에서 사용하는 화면 34개](docs/video-chapters.md) · [실행 결과와 검증 한계](docs/live-run.md)
 
 2025년 12월의 `microsoft-foundry-labs`를 바탕으로, 이후 분리해 만든 Foundry Evaluation,
 MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업무 시나리오**로

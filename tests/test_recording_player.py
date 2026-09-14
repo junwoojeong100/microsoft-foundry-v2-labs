@@ -46,7 +46,7 @@ class RecordingPlayerTests(unittest.TestCase):
             (root / "recording").mkdir()
             (root / "recording/player.html").write_text("<video controls></video>")
             content = b"0123456789"
-            media = assets / "cli-full-run.mp4"
+            media = assets / "cli-edited.mp4"
             media.write_bytes(content)
             manifest = {
                 "videos": [
@@ -63,16 +63,16 @@ class RecordingPlayerTests(unittest.TestCase):
             thread.start()
             connection = http.client.HTTPConnection("127.0.0.1", server.server_port)
             try:
-                connection.request("GET", "/video/cli-full-run.mp4", headers={"Range": "bytes=2-5"})
+                connection.request("GET", "/video/cli-edited.mp4", headers={"Range": "bytes=2-5"})
                 response = connection.getresponse()
                 self.assertEqual(response.status, 206)
                 self.assertEqual(response.getheader("Content-Range"), "bytes 2-5/10")
                 self.assertEqual(response.read(), b"2345")
-                connection.request("HEAD", "/video/cli-full-run.mp4")
+                connection.request("HEAD", "/video/cli-edited.mp4")
                 response = connection.getresponse()
                 self.assertEqual(response.getheader("Content-Length"), "10")
                 self.assertEqual(response.read(), b"")
-                connection.request("GET", "/video/cli-full-run.mp4", headers={"Range": "bytes=99-"})
+                connection.request("GET", "/video/cli-edited.mp4", headers={"Range": "bytes=99-"})
                 response = connection.getresponse()
                 self.assertEqual(response.status, 416)
                 self.assertEqual(response.getheader("Content-Range"), "bytes */10")

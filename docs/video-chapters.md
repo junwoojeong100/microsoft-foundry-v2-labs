@@ -1,10 +1,10 @@
 # 새 실행의 영상·화면 찾기
 
-**2026-09-13 · Sweden Central · 실제 CLI 72단계 · PNG 122개**
+**2026-09-13 실제 실행 · 2026-09-14 대기 제거 편집 · 가이드용 화면 34개**
 
 [GitHub 영상 플레이어](video-summary.md#재생하기) ·
-[CLI 영상 바로 열기](https://github.com/user-attachments/assets/75dd6df4-c615-4c28-8621-8a416ea31cbe) ·
-[포털 영상 바로 열기](https://github.com/user-attachments/assets/19b9097b-a4e9-41ad-9cc6-ddab5a1e5f14) ·
+[CLI 편집본 — 6분 54초](https://github.com/user-attachments/assets/7b3f79b1-15ba-4f6a-b0f9-5d144f236da8) ·
+[포털 편집본 — 3분 30초](https://github.com/user-attachments/assets/7290586e-628e-4a2f-823d-8a5c0c5a1b3e) ·
 [실행 결과](live-run.md) · [전체 파일·해시](assets/live-20260913-swc/media.json)
 
 | 실습 | 대표 화면 |
@@ -24,5 +24,6 @@
 | 10. 합성 확장 설계 | [실제 외부 연결과 구분](assets/live-20260913-swc/075-iq-extension-design.png) |
 | 11. 인수 | [고정 후보·holdout 인수 자료](assets/live-20260913-swc/058-acceptance.png) |
 
-파일명의 숫자는 기록 단계 식별자입니다. 실제 실행 순서·시각은 메타데이터에 보존했습니다.
-긴 출력의 `-tail.png`는 같은 실제 실행 화면을 아래로 스크롤한 추가 캡처입니다.
+파일명의 숫자는 원본 기록 단계 식별자입니다.
+실제 시각과 편집 영상의 대응은 [편집 계보](assets/live-20260913-swc/edit-timeline.json)에 있습니다.
+가이드에서 사용하지 않는 캡처와 중복 미디어는 현재 트리에서 제외했습니다.

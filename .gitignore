@@ -11,7 +11,6 @@ __pycache__/
 .playwright-mcp/
 .build/
 outputs/
-docs/assets/live-20260913/walkthrough-20min.mp4
 site/
 dist/
 .DS_Store
