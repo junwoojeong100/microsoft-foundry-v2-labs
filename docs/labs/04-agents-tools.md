@@ -10,6 +10,11 @@
 python scripts/workshop.py maf --question "Foundry와 Agent Framework의 차이를 세 문장으로 설명해 주세요."
 ```
 
+![도구 없는 로컬 MAF 에이전트의 실제 출력](../assets/live-20260914-action/shots/cli-1-0356-04-002-maf-single-result.webp)
+
+**화면 확인:** 마지막 출력의 `mode: live`, `orchestration: local`, `tools: none`을 읽습니다.
+로컬 Python이 실행을 소유해도 답변 모델 호출은 Azure에서 이루어집니다.
+
 `src/foundry_workshop/agents.py`를 엽니다. 다음 세 부분을 찾습니다.
 
 1. `FoundryChatClient`: 어디의 어떤 모델 배포를 호출하는가.
@@ -45,6 +50,11 @@ sequenceDiagram
     M-->>U: 조건·인용을 포함한 답변
 ```
 
+![실제 함수 도구 응답의 구조화된 판단과 인용](../assets/live-20260914-action/shots/cli-1-0362-04-003-maf-tool-result.webp)
+
+**화면 확인:** `tools: function`과 `answer` 안의 `decision`, `limit_krw`, `citations`를 확인합니다.
+사진의 `needs_approval`은 승인 완료가 아니라 사람의 사전 승인이 필요하다는 뜻입니다.
+
 확인할 것:
 
 - 응답에 `TRAVEL-2026`, `APPROVAL-01`에 해당하는 근거가 있는가.
@@ -78,6 +88,11 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 `answer`의 문장뿐 아니라 `decision`, `limit_krw`, `citations`도 함께 확인합니다.
 형식이 잘못되면 응답을 임의로 고쳐 성공으로 처리하지 않습니다.
 
+![별도 stdio MCP 서버를 사용한 실제 과거 규정 응답](../assets/live-20260914-action/shots/cli-1-0370-04-004-maf-mcp-result.webp)
+
+**화면 확인:** `tools: local-mcp`를 확인하고 2026년 5월에 과거 한도와 `TRAVEL-2025`를 적용했는지 봅니다.
+함수 도구 결과로 MCP 실행을 대신한 것이 아닙니다.
+
 ## 4. 도구 하나를 안전하게 바꿔 보기
 
 1. `lookup_policy`의 docstring을 읽고 “읽기 전용”, “합성”, “승인 불가”를 설명할 수 있게 합니다.
@@ -94,16 +109,17 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 python scripts/workshop.py maf --tools --question "$(python -c 'print("A" * 2001)')"
 ```
 
+![짧은 생성 명령으로 2001자 입력을 거절한 결과](../assets/live-20260914-action/shots/cli-1-0388-04-006-input-boundary-attempt-2-result.webp)
+
+**화면 확인:** 사진 맨 아래의 짧은 생성 명령과 `FAIL: Question must contain 1-2000 characters.`를 봅니다.
+이 거절이 기대한 결과입니다. 위쪽에 남은 긴 붙여넣기 시도와 혼동하지 않습니다.
+
 긴 문자열을 터미널에 직접 붙여 넣으면 터미널 입력 길이 제한으로 잘릴 수 있습니다.
 그 상태에서 모델이 답했다고 해서 애플리케이션의 2000자 검사가 실패한 것은 아닙니다.
 
 실습을 위해 실제 전송/결제 도구를 새로 만들 필요는 없습니다.
 
 ## 완료·문제 해결
-
-![Luna MAF 함수 도구 응답](../assets/live-20260914-action/shots/cli-1-0362-04-003-maf-tool-result.webp)
-
-![Luna MCP 서버 호출과 답변](../assets/live-20260914-action/shots/cli-1-0370-04-004-maf-mcp-result.webp)
 
 [실행 기록](../live-run.md)에는 새 환경의 함수·MCP 호출과 정확한 2001자 입력 거절 확인을 남겼습니다.
 

@@ -39,6 +39,11 @@ flowchart LR
 python scripts/workshop.py workflow --pattern sequential --question "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요."
 ```
 
+![초보자 경로의 준비된 순차 MAF 실행 결과](../assets/live-20260914-action/shots/cli-1-0404-05-003-beginner-sequential-result.webp)
+
+**화면 확인:** 마지막 명령의 `pattern: sequential`과 `outputs`를 읽습니다.
+터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다.
+
 ### 2. 실제 결과 읽기
 
 | 출력 | 초보자가 확인할 내용 |
@@ -50,6 +55,11 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 
 질문을 과거 출장일로 바꿔 한 번 더 실행하고, 어떤 규정을 적용했는지 비교합니다.
 참가자가 답변과 규정을 직접 읽고 수정 이유·최종 안내문을 기록합니다.
+
+![출장일을 2026년 5월로 바꾼 순차 워크플로 결과](../assets/live-20260914-action/shots/cli-1-0410-05-004-beginner-historical-result.webp)
+
+**화면 확인:** 질문의 날짜를 바꾸었을 때 적용 규정과 한도가 어떻게 달라지는지 비교합니다.
+두 실행 모두 `approval_status: pending-human-review`, `external_actions_performed: false`인지 확인하세요.
 
 ### 3. 완료 판정
 
@@ -88,6 +98,11 @@ python scripts/workshop.py workflow --pattern sequential
 `SequentialBuilder`의 participants 순서와 실제 출력의 흐름을 비교합니다.
 원문 오류를 초안이 그대로 이어받을 수 있다는 점도 관찰합니다.
 
+![코드 경로의 순차 워크플로 출력](../assets/live-20260914-action/shots/cli-1-0416-05-005-sequential-result.webp)
+
+**화면 확인:** 순차 실행의 응답 내용을 위의 세 역할과 연결해 읽습니다.
+후속 검토자가 자연스럽게 설명해도 앞 단계의 잘못된 근거가 사라졌다고 가정하지 않습니다.
+
 ### 2. 병렬: 같은 입력을 독립적으로 검토
 
 ```bash
@@ -98,6 +113,11 @@ python scripts/workshop.py workflow --pattern concurrent
 이 출력은 세 관점의 결과이며, **자동 합의·최종 답안 하나**가 아닙니다.
 사용자가 읽어 통합하거나 별도의 검증된 집계 단계를 설계해야 합니다.
 벽시계 시간이 줄어도 총 모델 호출 수나 비용이 줄었다고 단정하지 않습니다.
+
+![병렬 워크플로가 돌려준 여러 관점의 출력](../assets/live-20260914-action/shots/cli-1-0422-05-006-concurrent-result.webp)
+
+**화면 확인:** `pattern: concurrent`와 여러 참여자의 출력을 확인합니다.
+여러 응답이 나왔다는 사실을 하나의 합의된 최종 답안으로 해석하지 말고 직접 비교·통합합니다.
 
 ### 3. Group Chat: 공유 대화와 종료 조건
 
@@ -111,6 +131,11 @@ python scripts/workshop.py workflow --pattern group-chat
 무한 토론이나 모델 스스로 끝날 때까지 기다리는 구조가 아닙니다.
 전체 workflow timeout도 240초로 제한합니다.
 큰 수로 늘리기 전에 호출량과 token budget을 먼저 계산합니다.
+
+![Group Chat의 실제 참여자 응답과 종료 경계](../assets/live-20260914-action/shots/cli-1-0428-05-007-group-chat-result.webp)
+
+**화면 확인:** `pattern: group-chat`, 참여자 응답과 사람 검토 대기 상태를 확인합니다.
+3라운드 상한으로 끝난 것이므로 모델 스스로 합의하거나 실제 승인을 마쳤다는 뜻은 아닙니다.
 
 | 패턴 | 적합한 업무 | 주의할 점 |
 |---|---|---|
@@ -138,11 +163,6 @@ python scripts/workshop.py workflow --pattern group-chat
 
 ## 완료 확인
 
-![Luna MAF 순차 워크플로 응답](../assets/live-20260914-action/shots/cli-1-0416-05-005-sequential-result.webp)
-
-![Luna Group Chat 참여자 응답](../assets/live-20260914-action/shots/cli-1-0428-05-007-group-chat-result.webp)
-
-두 화면 모두 포털 Workflow Designer가 아니라 실제 MAF Python 실행 로그입니다.
 각 패턴의 실제 실행·참여자 출력과 액션별 녹화는 [실행 기록](../live-run.md)에 있습니다.
 
 A는 순차 MAF 실행과 사람의 검토 결과를 남깁니다.

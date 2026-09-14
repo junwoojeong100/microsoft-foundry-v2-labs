@@ -39,6 +39,11 @@ flowchart TD
 5. classic Hub 기반 프로젝트나 과거 threads/runs 코드를 보게 되면
    [마이그레이션 지도](../reference/migration.md)를 확인합니다. 서로 다른 API를 섞지 않습니다.
 
+![프로젝트 홈의 모델과 에이전트 진입점](../assets/live-20260914-action/shots/portal-0021-P00-004-select-new-project-ready.webp)
+
+**화면 확인:** **View deployments**는 모델 배포, **Start building**은 에이전트 제작의 진입점입니다.
+같은 프로젝트 안에 있어도 모델 배포와 에이전트는 다른 자산이라는 점을 위 관계 그림과 연결해 보세요.
+
 ## 2. 환경이 없는 경우 — 강사/관리자만 먼저 수행
 
 참가자 수업 시간에 포함하지 않는 준비 단계입니다.
@@ -56,6 +61,11 @@ flowchart TD
 
 리소스를 만들 수 있다고 모델을 호출할 수 있는 것은 아닙니다. **관리 평면과 데이터
 평면의 권한이 다릅니다.** 실습자 모두에게 구독 Owner를 부여하지 않습니다.
+
+![강사가 전용 리소스 그룹을 생성한 실제 CLI 결과](../assets/live-20260914-action/shots/cli-1-0164-01-008-create-group-result.webp)
+
+**화면 확인:** 강사 준비 예시의 `name`, `location`, `provisioningState`를 확인합니다.
+이것은 리소스 그룹 생성 결과이지 모델 호출 결과가 아닙니다. 참가자는 화면의 생성 명령을 그대로 실행하지 않습니다.
 
 ## 3. 최소 권한의 출발점
 
@@ -84,14 +94,12 @@ flowchart TD
 이 랩의 기본 추론은 프로젝트 SDK가 인증과 endpoint를 처리합니다.
 다른 endpoint로 자동 우회하거나 토큰 audience를 추측해 바꾸지 않습니다.
 
-## 완료 확인
-
-### 실제 포털 화면
-
 ![Sweden Central 새 환경의 클라우드 사전 점검](../assets/live-20260914-action/shots/cli-1-0227-00-015-cloud-doctor-result.webp)
 
-2026-09-14 완전히 새로운 Sweden Central 그룹과 프로젝트를 준비한 실제 실행입니다.
-[전체 실행 기록](../live-run.md)과 [액션별 화면](../action-captures.md)에서 생성·설정·확인을 구분합니다.
+**화면 확인:** `doctor --cloud`가 읽어 온 모델 배포 정보와 본인의 설정을 대조합니다.
+관리 평면을 읽을 수 있다는 사실과 실제 추론 권한은 다릅니다. [Lab 02](02-models.md)의 요청까지 확인하세요.
+
+## 완료 확인
 
 “모델을 바꿔도 프로젝트의 지식과 평가 기준을 남길 수 있나요?”에 답해 보세요.
 모델 배포는 바꿀 수 있지만 지식·지침·평가·권한을 자동으로 검증해 주는 것은 아닙니다.

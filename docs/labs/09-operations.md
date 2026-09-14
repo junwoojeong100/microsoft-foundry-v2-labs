@@ -50,9 +50,29 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 4. span의 부모/자식 관계, 모델·도구 호출, 지연·오류를 확인합니다.
 5. 보존 정책과 권한을 확인하고, 필요 이상의 원문을 export하지 않습니다.
 
+![해당 Hosted 버전의 Traces 탭과 실제 요청 목록](../assets/live-20260914-action/shots/portal-0510-P09-002-traces-tab-screen-change.webp)
+
+**화면 확인:** 본인 에이전트의 **Traces → Trace view**에서 날짜 범위와 agent version을 먼저 확인합니다.
+최신 행이라는 이유만으로 방금 보낸 요청이라고 판단하지 않습니다.
+
+![CLI에서 받은 Trace ID로 필터링한 동일 요청](../assets/live-20260914-action/shots/portal-0515-P09-003-find-exact-trace-screen-change.webp)
+
+**화면 확인:** 검색칸에 실제 Trace ID를 넣고 정확히 같은 ID의 행을 엽니다.
+`response_id`, conversation ID, Trace ID는 서로 다른 값입니다.
+
+![같은 원격 요청의 span 트리와 완료된 root](../assets/live-20260914-action/shots/portal-0542-P09-009-root-completed-transition.webp)
+
+**화면 확인:** 트리의 최상위 `invoke_agent`와 Metadata의 상태를 확인합니다.
+촬영에서는 **20 spans, chat 2회, 도구 1회**였으며, 상단의 **2 errors**도 함께 읽어야 합니다.
+
 보호된 테이블은 일반 로그 조회 역할 외에 추가 권한을 요구할 수 있습니다.
 트레이스가 늦게 도착하는 동안 호출을 반복해 비용을 늘리지 않습니다.
 없으면 **미확인**으로 남기고 연결·exporter·역할·시간 범위를 점검합니다.
+
+![호출 직후 같은 세션에서 읽은 실제 런타임 로그](../assets/live-20260914-action/shots/cli-2-0733-09-005-live-monitor-result.webp)
+
+**화면 확인:** 촬영은 호출 직후 `azd ai agent monitor`로 같은 세션의 로그를 확인한 예시입니다.
+모델·도구 처리와 최종 Responses HTTP 상태를 대조합니다. 중지된 세션에서 발생하는 로그 연결 오류와 구분하세요.
 
 ### 3. 실패 하나를 설명하기
 
@@ -62,6 +82,16 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 모델 실패, 도구 실패, 검색 근거 부족, 잘못된 정책 적용을 구분합니다.
 원문을 바탕으로 사람이 개선 이유를 검토한 뒤 [Lab 07](07-evaluation.md)의 dev 비교로 돌아갑니다.
 자동 trace-to-dataset 기능은 Preview이므로 이 기본 경로의 필수 조건이 아닙니다.
+
+![새 상태 저장소 조회에서 발생한 하위 오류 span](../assets/live-20260914-action/shots/portal-0530-P09-006-first-storage-miss-screen-change.webp)
+
+**화면 확인:** 빨간 `GET .../storage/state_stores/...` span을 선택해 어떤 접근이 실패했는지 봅니다.
+촬영에서는 초기 GET 404 이후 생성·갱신이 성공했습니다. 이를 모델 답변 실패나 “오류 0개”로 바꾸어 기록하지 않습니다.
+
+![정상 완료한 lookup_policy 도구 span](../assets/live-20260914-action/shots/portal-0539-P09-008-tool-span-screen-change.webp)
+
+**화면 확인:** 같은 트리에서 `execute_tool lookup_policy`를 선택해 호출과 완료를 확인합니다.
+실패한 저장소 조회와 성공한 도구·모델 처리를 분리해 설명해야 합니다.
 
 ## 운영 승인 게이트
 
@@ -81,10 +111,6 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 
 ## 반드시 정리하고 끝내기
 
-![같은 원격 호출에서 확인한 Hosted Trace](../assets/live-20260914-action/shots/portal-0542-P09-009-root-completed-transition.webp)
-
-![Luna Hosted session 중지 확인](../assets/live-20260914-action/shots/cli-2-0882-09-033-sessions-after-result.webp)
-
 2026-09-14 원격 호출은 20-span trace에서 root Completed, chat 2회·도구 1회를 확인했습니다.
 초기 state store/item 조회의 404 두 개도 보존했으며 이후 생성·갱신과 최종 응답은 성공했습니다.
 이번 `monitor`는 호출 직후 같은 Running 세션의 실제 로그를 확인했습니다.
@@ -98,3 +124,8 @@ python scripts/workshop.py cleanup-plan
 [정리 체크리스트](../reference/cleanup.md)를 따라 본인 자산을 확인하고,
 공유 서비스와 다른 조의 데이터를 유지합니다.
 정리 완료는 “명령을 실행했다”가 아니라 **활성 session·잔여 리소스·과금 상태를 다시 확인했다**는 뜻입니다.
+
+![명시적 stop 뒤 본인 Hosted 세션들을 다시 조회](../assets/live-20260914-action/shots/cli-2-0882-09-033-sessions-after-result.webp)
+
+**화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다. 촬영의 두 세션은 모두 `idle`이었습니다.
+화면의 세션 ID를 그대로 중지하지 말고 자신의 ID를 사용합니다. idle이어도 파일 저장소·Search·로그 비용이 모두 사라지는 것은 아닙니다.

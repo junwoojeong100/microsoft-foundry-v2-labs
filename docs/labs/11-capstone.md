@@ -33,6 +33,12 @@ python scripts/workshop.py accept --candidate candidate --holdout final-holdout
 Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별도로 추가합니다.
 로컬 프로젝트 Responses 결과를 다른 Hosted 경로의 성능으로 재사용하지 않습니다.
 
+![고정 후보와 교육용 holdout을 연결한 인수 자료](../assets/live-20260914-action/shots/cli-2-0848-11-001-acceptance-result.webp)
+
+**화면 확인:** 결과 파일과 `human_approval`의 검토 대기 상태를 확인합니다.
+`accepted: true`는 검사 조건을 충족한 인수 자료라는 뜻이지 운영 배포 승인이 아닙니다.
+사진의 holdout은 이미 사용된 교육용 세트이므로 새로운 미사용 검증셋의 합격으로 주장하지 않습니다.
+
 ## 5분 발표 순서
 
 1. **무엇을 해결했는가:** 어떤 질문에 답하고 어떤 질문은 보류하는가.

@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 import unittest
 
 from . import ROOT
@@ -8,6 +9,42 @@ ASSETS = ROOT / "docs/assets/live-20260914-action"
 
 
 class VideoLinkTests(unittest.TestCase):
+    def test_lab_images_are_current_captioned_and_placed_with_the_steps(self):
+        media = json.loads((ASSETS / "media.json").read_text())
+        known_images = {(ASSETS / item["filename"]).resolve() for item in media["images"]}
+        minimums = {
+            "00-start.md": 5,
+            "01-foundry.md": 3,
+            "02-models.md": 7,
+            "03-prompt-agent.md": 12,
+            "04-agents-tools.md": 4,
+            "05-workflows.md": 5,
+            "06-knowledge.md": 6,
+            "07-evaluation.md": 7,
+            "08-hosted.md": 7,
+            "09-operations.md": 5,
+            "10-iq-extensions.md": 1,
+            "11-capstone.md": 1,
+        }
+        total = 0
+        for filename, minimum in minimums.items():
+            path = ROOT / "docs/labs" / filename
+            text = path.read_text()
+            images = list(re.finditer(r"!\[[^\]]+\]\(([^)\s]+)\)", text))
+            with self.subTest(lab=filename):
+                self.assertGreaterEqual(len(images), minimum)
+                for image in images:
+                    self.assertIn((path.parent / image.group(1)).resolve(), known_images)
+                    self.assertIn("**화면 확인:**", text[image.end() : image.end() + 350])
+                completion = re.search(r"^## (?:완료|반드시 정리)", text, re.MULTILINE)
+                if completion:
+                    self.assertGreaterEqual(
+                        sum(image.start() < completion.start() for image in images),
+                        max(1, minimum - 1),
+                    )
+            total += len(images)
+        self.assertGreaterEqual(total, 70)
+
     def test_new_recording_and_publication_status_are_honest(self):
         media = json.loads((ASSETS / "media.json").read_text())
         uploads = json.loads((ASSETS / "github-playback.json").read_text())

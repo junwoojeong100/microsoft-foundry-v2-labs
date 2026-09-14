@@ -9,6 +9,9 @@
 
 [236개 액션의 전·후 화면](docs/action-captures.md) · [실행 결과와 검증 한계](docs/live-run.md)
 
+각 랩 본문에는 조작·명령 바로 옆에 **2026-09-14 촬영한 참고 이미지와 화면 확인 포인트**를 배치했습니다.
+먼저 [화면 읽는 법](docs/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
+
 2025년 12월의 `microsoft-foundry-labs`를 바탕으로, 이후 분리해 만든 Foundry Evaluation,
 MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업무 시나리오**로
 다시 구성했습니다. 다른 리포를 차례로 방문하는 링크 모음이 아닙니다.

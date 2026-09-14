@@ -28,6 +28,12 @@ app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습�
 합성 JSON으로 세 응답 형태를 만들어 reviewer에게 맡기는 것은 라우팅 연습입니다.
 **실제 Fabric IQ/Work IQ 연결 성공으로 표시하지 않습니다.**
 
+![합성 라우팅 설계 결과와 실제 연결 미수행 표시](../assets/live-20260914-action/shots/cli-2-0853-10-001-synthetic-routing-result.webp)
+
+**화면 확인:** 질문마다 다른 근거와 검증 항목을 정리한 설계 예시입니다.
+`fabric_connected`, `work_iq_connected`, `company_or_m365_data_accessed`가 모두 `false`임을 확인합니다.
+이것은 실제 서비스 조회나 새 연결을 실행하는 명령 예시가 아닙니다.
+
 ## 2. Fabric 연결 — 준비된 합성 자산이 있을 때만
 
 필요 조건을 먼저 기록합니다.

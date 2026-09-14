@@ -32,6 +32,11 @@ SDK·가상환경·학습자 계정의 모델 호출 권한을 미리 확인합�
 Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로 보일 수 있습니다.
 현재 [역할 표](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를 기준으로 확인합니다.
 
+![촬영 시점의 Luna SKU별 quota 사용량과 한도](assets/live-20260914-action/shots/cli-1-0152-01-006-luna-quota-result.webp)
+
+**화면 확인:** 2026-09-14 준비 과정의 예시입니다. `used`, `limit`, SKU를 구분하고 수업 직전에 다시 조회합니다.
+사진의 숫자나 Sweden Central 가용성을 다른 구독·날짜의 배포 가능 여부로 복사하지 않습니다.
+
 ### 조별로 전달할 값
 
 `.env.example` 형식으로 **값만 별도 전달**합니다. 비밀번호/API key/token은 전달하지 않습니다.
@@ -86,6 +91,11 @@ python scripts/workshop.py workflow --pattern sequential
 
 여기서 실제 모델 호출이 실패하면 리허설은 통과가 아닙니다.
 권한, quota, 모델의 tool/Structured Outputs 지원을 해결한 뒤 다시 확인합니다.
+
+![새 전용 그룹의 리소스 이름과 지역을 대조한 결과](assets/live-20260914-action/shots/cli-1-0288-01-015-new-region-inventory-result.webp)
+
+**화면 확인:** 준비한 프로젝트·Search·로그 리소스의 이름과 위치를 함께 검토한 예시입니다.
+한 리소스의 생성 성공만으로 전체 환경이 준비됐다고 판단하지 않습니다. 실제 참가자 계정의 첫 모델 호출은 별도 게이트입니다.
 
 추가 모듈은 실제 선택한 것만 확인합니다.
 

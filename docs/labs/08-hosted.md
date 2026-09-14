@@ -44,6 +44,11 @@ python scripts/package_hosted.py
 재빌드 시 기존 폴더를 자동 삭제하지 않습니다. 그 **정확한 생성 폴더만** 보관/정리한 뒤 다시 실행합니다.
 소스 변경 후 과거 패키지를 재배포하지 않도록 hash를 비교합니다.
 
+![자체 완결형 Hosted 패키지가 생성된 위치](../assets/live-20260914-action/shots/cli-1-0581-08-002-package-result.webp)
+
+**화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted` 위치를 반환하는지 확인합니다.
+파일을 묶은 단계일 뿐 Azure 배포 성공이 아닙니다. 위 표와 manifest로 포함·제외 파일을 대조하세요.
+
 ## 2. azd로 기존 프로젝트에 연결
 
 설치·로그인은 학습자가 수행합니다. 이미 설치된 도구를 수업 중 무조건 업그레이드하지 않습니다.
@@ -82,6 +87,12 @@ test -f ./azure.yaml
 - 원격 런타임에 전달할 `AZURE_AI_PROJECT_ENDPOINT`, `AZURE_AI_MODEL_DEPLOYMENT_NAME`.
 - **원격의 `WORKSHOP_AUTH_MODE=managed-identity`**.
 
+![초기화 직후 생성된 azure.yaml의 실제 서비스 구성](../assets/live-20260914-action/shots/cli-1-0616-08-008-check-local-azure-yaml-result.webp)
+
+**화면 확인:** `project`, `host: azure.ai.agent`, `codeConfiguration`, `protocols`를 찾습니다.
+촬영의 생성 직후 `env`에는 모델 변수만 있으므로 아래 블록으로 보완해야 했습니다.
+파일 전체를 촬영 예시로 덮어쓰지 않습니다.
+
 초기화가 이 환경변수를 모두 넣어 준다고 가정하지 않습니다. 생성된 **agent 서비스의 `env`만**
 다음과 같이 보완하고, 프로젝트 연결·서비스 이름·코드 경로는 그대로 유지합니다.
 
@@ -102,6 +113,11 @@ azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME "<existing-model-deployment-name>"
 azd env get-value AZURE_AI_PROJECT_ENDPOINT
 azd env get-value AZURE_AI_MODEL_DEPLOYMENT_NAME
 ```
+
+![azd에서 endpoint와 모델 배포 이름을 다시 읽은 결과](../assets/live-20260914-action/shots/cli-1-0667-08-017-read-model-deployment-result.webp)
+
+**화면 확인:** 두 `get-value` 결과가 `.env`와 같은 프로젝트·배포인지 확인합니다.
+화면의 endpoint를 그대로 쓰지 말고 강사가 제공한 본인 값과 대조하세요.
 
 `examples/hosted/azure.yaml.example`은 구조 참고용이지 즉시 배포 가능한 환경 파일이 아닙니다.
 생성된 파일을 통째로 덮어쓰지 않습니다.
@@ -129,6 +145,16 @@ curl --fail http://127.0.0.1:8088/readiness
 azd ai agent invoke --local --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장 숙박비 한도와 근거를 알려주세요."
 ```
 
+![터미널 B에서 로컬 서버 readiness를 확인](../assets/live-20260914-action/shots/cli-1-0672-08-019-local-readiness-result.webp)
+
+**화면 확인:** 터미널 A는 종료하지 않고 둔 채, B에서 `curl` 결과의 `status: ready`를 확인합니다.
+서버에 연결됐다는 뜻이지 모델 응답까지 성공했다는 뜻은 아닙니다.
+
+![별도 터미널에서 받은 실제 로컬 Hosted 응답](../assets/live-20260914-action/shots/cli-1-0678-08-020-local-invoke-result.webp)
+
+**화면 확인:** 실제 답변의 한도·근거와 새 **Session / Conversation**을 확인합니다.
+이 로컬 호출도 Azure 모델을 사용합니다. 사진의 결과를 원격 배포 결과로 표시하지 않습니다.
+
 readiness의 HTTP 200은 서버 준비 상태일 뿐 모델 추론 성공이 아닙니다.
 실제 답변과 문서 근거까지 확인합니다.
 이 로컬 실행도 Azure 모델을 호출하므로 비용이 발생합니다.
@@ -148,9 +174,19 @@ azd ai agent show --output json
 활성 상태, 실제 agent version, endpoint를 기록합니다.
 실제 version을 사용해 호출합니다.
 
+![code deployment가 반환한 실제 버전과 endpoint](../assets/live-20260914-action/shots/cli-1-0704-08-022-deploy-hosted-result.webp)
+
+**화면 확인:** 마지막 배포 명령의 완료 메시지와 **Agent playground / Agent endpoint**를 확인합니다.
+이어 `show`가 반환한 실제 version과 active 상태를 기록한 뒤 호출하세요.
+
 ```bash
 azd ai agent invoke --version "<deployed-version>" --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
 ```
+
+![고정된 원격 버전의 실제 답변과 Trace ID](../assets/live-20260914-action/shots/cli-2-0726-08-024-remote-invoke-result.webp)
+
+**화면 확인:** 답변뿐 아니라 **Session**, **Conversation**, **Trace ID**를 함께 남깁니다.
+이 Trace ID로 다음 랩에서 같은 요청을 찾습니다. 요청 하나의 성공은 dev 전체 품질 평가를 대신하지 않습니다.
 
 Responses 프로토콜에서 **세션과 대화는 별개**입니다. `--new-session`만 사용하면
 이전 `Conversation` ID가 재사용될 수 있으므로, 독립적인 확인에는 `--new-conversation`도 함께 지정합니다.
@@ -167,15 +203,16 @@ Lab 07의 프로젝트 Responses + precomputed retrieval 실행과 **동일한 �
 Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습니다.
 원격 버전을 고정한 새 dev/holdout 평가를 해야 같은 품질이라고 주장할 수 있습니다.
 
-## 완료·정리
+![별도 원격 Hosted 평가의 대상과 결과](../assets/live-20260914-action/shots/portal-0492-P08-001-hosted-evaluation-report-screen-change.webp)
 
-![Luna Hosted code deployment](../assets/live-20260914-action/shots/cli-1-0704-08-022-deploy-hosted-result.webp)
-
-![Luna 고정 버전의 실제 원격 응답](../assets/live-20260914-action/shots/cli-2-0726-08-024-remote-invoke-result.webp)
+**화면 확인:** **Evaluation type**, agent 이름·버전, 실제 사용한 evaluator와 6개 사례를 확인합니다.
+촬영의 Hosted rubric 6/6을 Lab 07의 native groundedness/relevance 점수로 바꾸어 적지 않습니다.
 
 이 실행에서는 서비스가 버전 1을 활성화했고 실제 원격 답변과 Trace ID가 반환되었습니다.
 그 smoke 응답만으로 품질 평가를 대신하지 않았습니다. 이번 실행에서는 별도의 합성 dev 6건을
 실제 원격 Hosted에 요청하고 생성형 rubric으로 평가했습니다. 기준과 한계는 [실행 기록](../live-run.md)을 확인합니다.
+
+## 완료·정리
 
 패키지 생성 / 로컬 응답 / 원격 배포 / 원격 평가를 별도 칸으로 기록합니다.
 활성 session은 호출 사이에 재사용될 수 있고 session별 컴퓨트 비용이 쌓입니다.
