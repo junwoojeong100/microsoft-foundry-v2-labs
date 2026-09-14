@@ -1,8 +1,28 @@
 {
   "repository": "junwoojeong100/microsoft-foundry-v2-labs",
+  "repository_id": 1367892793,
   "private_repository": true,
-  "status": "not-published",
-  "edited_recordings_published": false,
-  "videos": [],
-  "note": "Repository files and guides are published separately from native GitHub video attachments. New attachment upload has not been performed."
+  "status": "published",
+  "edited_recordings_published": true,
+  "recorded_on": "2026-09-14",
+  "videos": [
+    {
+      "filename": "cli-edited.mp4",
+      "upload_name": "foundry-20260914-cli-edited.mp4",
+      "url": "https://github.com/user-attachments/assets/1e2eb2ac-a164-4c67-8d4f-95cec33e2a3a",
+      "source_sha256": "0f8b0eb1affcebb1d30814a1d403a7996a9aace75ee5ae056413430380fdd0e2",
+      "bytes": 54818447,
+      "uploaded_at": "2026-09-14T06:46:30.359452+00:00"
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "upload_name": "foundry-20260914-portal-edited.mp4",
+      "url": "https://github.com/user-attachments/assets/714599fe-744d-40e2-a945-c4919d0fb0b3",
+      "source_sha256": "d4d0e13f3902f531500a04b8c309a1bb30c498bb8fc3c5b802726ddb7890b3e1",
+      "bytes": 12379674,
+      "uploaded_at": "2026-09-14T06:46:26.961769+00:00"
+    }
+  ],
+  "signed_media_urls_saved": false,
+  "note": "Only the current edited recordings were uploaded. Access remains scoped to this private repository; repository file commits and native attachment storage are separate."
 }

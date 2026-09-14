@@ -5,7 +5,8 @@
 [실행 결과](live-run.md) · [재생 방법](video-summary.md) · [모든 파일·해시](assets/live-20260914-action/media.json)
 
 각 액션의 전·입력·전환·결과를 확인할 수 있습니다. 중복 이미지와 단순 대기 갱신만 줄였습니다.
-영상 시각 링크는 `python scripts/play_recordings.py` 실행 후 사용합니다. 새 GitHub 첨부 영상은 아직 게시하지 않았습니다.
+전체 영상은 [GitHub 플레이어에서 바로 재생](video-summary.md#재생하기)하며 별도 명령이 필요 없습니다.
+아래 표의 **시각 링크는 로컬 정밀 탐색용**입니다. 이 기능을 선택할 때만 `python scripts/play_recordings.py`를 실행합니다.
 촬영용 `RUN_TOOLS` 보조 명령은 강사 준비·원문 검증용입니다. 학습자가 실행할 명령은 연결된 실습 가이드를 따르세요.
 
 ## [docs/instructor.md](instructor.md)

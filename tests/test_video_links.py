@@ -59,14 +59,31 @@ class VideoLinkTests(unittest.TestCase):
         self.assertTrue(uploads["private_repository"])
         active = {item["filename"]: item for item in media["videos"]}
         if uploads["edited_recordings_published"]:
+            self.assertEqual(uploads["status"], "published")
+            self.assertEqual(uploads["recorded_on"], media["recorded_on"])
+            self.assertEqual(uploads["repository_id"], 1367892793)
+            self.assertFalse(uploads["signed_media_urls_saved"])
             self.assertEqual(len(uploads["videos"]), 2)
             for item in uploads["videos"]:
                 self.assertEqual(item["source_sha256"], active[item["filename"]]["sha256"])
+                self.assertEqual(item["bytes"], active[item["filename"]]["bytes"])
                 self.assertRegex(
                     item["url"], r"^https://github\.com/user-attachments/assets/[0-9a-f-]+$"
                 )
                 for document in ("live-run.md", "video-summary.md"):
-                    self.assertIn(item["url"], (ROOT / "docs" / document).read_text().splitlines())
+                    lines = (ROOT / "docs" / document).read_text().splitlines()
+                    self.assertEqual(lines.count(item["url"]), 1)
+            summary = (ROOT / "docs/video-summary.md").read_text()
+            primary = summary.split("## 재생하기", 1)[1].split("## 선택:", 1)[0]
+            self.assertNotIn("127.0.0.1", primary)
+            self.assertNotIn("python scripts/play_recordings.py", primary)
+            self.assertIn("GitHub 계정으로 로그인", primary)
+            by_name = {item["filename"]: item for item in uploads["videos"]}
+            for label, filename in (
+                ("CLI 재생", "cli-edited.mp4"),
+                ("포털 재생", "portal-edited.mp4"),
+            ):
+                self.assertIn(f"[{label}]({by_name[filename]['url']})", primary)
         else:
             self.assertEqual(uploads["status"], "not-published")
             self.assertEqual(uploads["videos"], [])

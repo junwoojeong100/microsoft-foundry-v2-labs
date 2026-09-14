@@ -26,10 +26,18 @@
 각 질문은 새 대화로 실행했습니다. File Search의 파일 선택·업로드·색인 완료,
 평가 실패 행, Trace의 하위 오류도 포함합니다.
 
-**새 GitHub 동영상 첨부는 아직 게시하지 않았습니다.**
-지금은 저장소의 새 파일을 [로컬 플레이어](video-summary.md#재생하기)로 재생합니다.
-MP4 파일 링크를 GitHub 내장 플레이어라고 표시하지 않습니다.
+**아래 GitHub 내장 플레이어에서 바로 재생할 수 있습니다. 로컬 서버는 필요 없습니다.**
+비공개 저장소에 접근 가능한 GitHub 계정으로 로그인하세요.
+같은 최신 파일의 [직접 재생 링크와 선택적 로컬 재생 방법](video-summary.md#재생하기)을 제공합니다.
 촬영 보조 `RUN_TOOLS` 명령은 강사 준비·원문 검증용이며, 학습자는 각 랩에 적힌 명령을 사용합니다.
+
+### CLI 실행 영상 — 14분 02초
+
+https://github.com/user-attachments/assets/1e2eb2ac-a164-4c67-8d4f-95cec33e2a3a
+
+### Foundry 포털 영상 — 9분 09초
+
+https://github.com/user-attachments/assets/714599fe-744d-40e2-a945-c4919d0fb0b3
 
 ## 환경과 모델
 

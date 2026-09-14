@@ -10,22 +10,40 @@ CLI **14분 02초**, 포털 **9분 09초**입니다.
 
 ## 재생하기
 
-저장소를 내려받은 뒤 다음 명령을 실행합니다. Azure 호출·로그인·업로드는 하지 않습니다.
+**아래 링크를 클릭하거나 내장 플레이어의 ▶ 버튼을 누르면 재생됩니다.**
+저장소 다운로드나 로컬 서버 실행은 필요 없습니다.
+비공개 저장소이므로 **이 저장소에 접근 가능한 GitHub 계정으로 로그인**한 상태에서 이용하세요.
+Azure 로그인과는 별개입니다.
+
+**[CLI 재생](https://github.com/user-attachments/assets/1e2eb2ac-a164-4c67-8d4f-95cec33e2a3a)** ·
+**[포털 재생](https://github.com/user-attachments/assets/714599fe-744d-40e2-a945-c4919d0fb0b3)**
+
+### CLI 실행 영상 — 14분 02초
+
+https://github.com/user-attachments/assets/1e2eb2ac-a164-4c67-8d4f-95cec33e2a3a
+
+### Foundry 포털 영상 — 9분 09초
+
+https://github.com/user-attachments/assets/714599fe-744d-40e2-a945-c4919d0fb0b3
+
+두 첨부파일은 **2026-09-14 최신 편집 영상과 같은 바이트**입니다.
+예전 녹화나 편집 전 source 영상으로 연결하지 않습니다.
+
+## 선택: 로컬 재생과 시각별 이동
+
+이미 저장소를 내려받았거나 액션별 시각으로 정확히 이동하려면 다음 재생기를 사용할 수 있습니다.
+**위 GitHub 영상 재생에는 이 명령이 필요 없습니다.** 로컬 재생기는 Azure 호출·로그인·업로드를 하지 않습니다.
 
 ```bash
 python scripts/play_recordings.py
 ```
 
-**[CLI 재생](http://127.0.0.1:8765/?video=cli-edited.mp4)** ·
-**[포털 재생](http://127.0.0.1:8765/?video=portal-edited.mp4)**
+[CLI 로컬 재생](http://127.0.0.1:8765/?video=cli-edited.mp4) ·
+[포털 로컬 재생](http://127.0.0.1:8765/?video=portal-edited.mp4)
 
-서버 실행 후 링크를 열고 ▶ 버튼을 누르세요.
-[액션 인덱스](action-captures.md)의 시각 링크는 해당 위치로 이동합니다.
-끝나면 터미널에서 `Ctrl+C`로 종료합니다.
-포트 충돌 시 `python scripts/play_recordings.py --port 8766`으로 바꿉니다.
-
-**새 GitHub 내장 플레이어용 첨부는 아직 게시하지 않았습니다.**
-아래 MP4 링크는 파일 다운로드 경로이며 GitHub 내장 플레이어라고 주장하지 않습니다.
+[액션 인덱스](action-captures.md)의 로컬 시각 링크는 이 서버를 실행한 뒤 이용합니다.
+끝나면 `Ctrl+C`로 종료하고, 포트 충돌 시 `python scripts/play_recordings.py --port 8766`으로 바꿉니다.
+아래 MP4 링크는 다운로드용이며 위의 GitHub 재생 링크와 구분합니다.
 
 | 영상 | 길이 | 파일 |
 |---|---|---|
