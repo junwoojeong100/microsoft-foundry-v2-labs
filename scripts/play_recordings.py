@@ -12,7 +12,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSET_RUN = "live-20260913-swc"
+ASSET_RUN = "live-20260914-action"
 
 
 def byte_range(value: str | None, size: int) -> tuple[int, int]:

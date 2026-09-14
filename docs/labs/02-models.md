@@ -21,6 +21,12 @@
 
 이제 모델만으로는 회사의 규정·적용 시점·승인 기준이 생기지 않는다는 점을 확인합니다.
 
+2026-09-14 실제 화면에서는 도구를 제거한 뒤 다른 탭으로 이동할 때
+**Leave without saving?** 확인 창이 나타났습니다. 이 모델 Playground의 임시 설정을
+유지할 필요가 없다면 **Leave without saving**으로 이동합니다.
+새 에이전트에 이 설정이 자동 적용되는 것은 아니므로 [Lab 03](03-prompt-agent.md)에서
+모델과 도구 목록을 다시 확인합니다.
+
 ### 배포가 아직 없다면
 
 모델을 배포할 권한이 있는 강사가 카탈로그에서 **텍스트 입력, 도구 호출,
@@ -87,9 +93,9 @@ Router가 없어도 이 랩은 완료할 수 있습니다.
 
 ## 완료·복구
 
-![GPT-5.6 Luna 배포 확인](../assets/live-20260913-swc/P02-luna-deployments.png)
+![GPT-5.6 Luna 배포 확인](../assets/live-20260914-action/shots/portal-0026-P02-002-deployments-ready-before.webp)
 
-![GPT-5.6 Luna 실제 모델 응답](../assets/live-20260913-swc/P03-luna-playground-response.png)
+![GPT-5.6 Luna 실제 모델 응답](../assets/live-20260914-action/shots/portal-0056-P02-007-model-response-screen-change.webp)
 
 위 화면은 실제 호출입니다. 기본 화면에 Web Search가 표시되어 있어 이번 요청 전에 제거했습니다.
 모델·배포·실제 평가 범위는 [실행 기록](../live-run.md)에 구분했습니다.

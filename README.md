@@ -2,12 +2,12 @@
 
 **처음에는 에이전트 하나를 만들고, 마지막에는 지식·평가·운영 기준이 남는 시스템을 만듭니다.**
 
-한국어 · 합성 데이터 · **2026-09-13 기준 / Pre-Ignite 2026 Edition**
+한국어 · 합성 데이터 · **2026-09-14 실제 실행 확인 / Pre-Ignite 2026 Edition**
 
-**[핵심 실습 영상: 포털 3분 30초 · CLI 6분 54초](docs/video-summary.md)** —
-긴 대기를 제거하고 실제 조작과 결과를 중심으로 편집했습니다.
+**[새 액션별 실습 영상: 포털 9분 09초 · CLI 14분 02초](docs/video-summary.md)** —
+새 환경에서 처음부터 촬영하고 대기를 제거했습니다. 새 GitHub 첨부는 아직 게시하지 않았습니다.
 
-[가이드에서 사용하는 화면 34개](docs/video-chapters.md) · [실행 결과와 검증 한계](docs/live-run.md)
+[236개 액션의 전·후 화면](docs/action-captures.md) · [실행 결과와 검증 한계](docs/live-run.md)
 
 2025년 12월의 `microsoft-foundry-labs`를 바탕으로, 이후 분리해 만든 Foundry Evaluation,
 MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업무 시나리오**로

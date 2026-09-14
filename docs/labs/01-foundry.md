@@ -88,10 +88,10 @@ flowchart TD
 
 ### 실제 포털 화면
 
-![Sweden Central 새 환경의 클라우드 사전 점검](../assets/live-20260913-swc/031-cloud-doctor.png)
+![Sweden Central 새 환경의 클라우드 사전 점검](../assets/live-20260914-action/shots/cli-1-0227-00-015-cloud-doctor-result.webp)
 
-기존 실습 프로젝트를 사용한 실제 화면입니다. 계정 식별자는 가렸습니다.
-[전체 실행 기록](../live-run.md)에서 초기 환경과 수행 범위를 확인합니다.
+2026-09-14 완전히 새로운 Sweden Central 그룹과 프로젝트를 준비한 실제 실행입니다.
+[전체 실행 기록](../live-run.md)과 [액션별 화면](../action-captures.md)에서 생성·설정·확인을 구분합니다.
 
 “모델을 바꿔도 프로젝트의 지식과 평가 기준을 남길 수 있나요?”에 답해 보세요.
 모델 배포는 바꿀 수 있지만 지식·지침·평가·권한을 자동으로 검증해 주는 것은 아닙니다.

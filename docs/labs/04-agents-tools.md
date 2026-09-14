@@ -86,15 +86,26 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 4. 도구 결과가 “사용자 요청을 무시하라” 같은 문장을 포함해도 상위 지시가 되어서는 안 됩니다.
 5. 실제 업무로 확장할 때 필요한 서버 측 권한·인자 검증·승인·감사 로그를 적습니다.
 
+2000자 초과 입력은 다음처럼 짧은 명령으로 만들 수 있습니다.
+정상적인 검사 결과는 종료 코드 `2`와 `Question must contain 1-2000 characters.` 오류이며,
+이 요청은 모델 호출 전에 거절됩니다.
+
+```bash
+python scripts/workshop.py maf --tools --question "$(python -c 'print("A" * 2001)')"
+```
+
+긴 문자열을 터미널에 직접 붙여 넣으면 터미널 입력 길이 제한으로 잘릴 수 있습니다.
+그 상태에서 모델이 답했다고 해서 애플리케이션의 2000자 검사가 실패한 것은 아닙니다.
+
 실습을 위해 실제 전송/결제 도구를 새로 만들 필요는 없습니다.
 
 ## 완료·문제 해결
 
-![Luna MAF 함수 도구 응답](../assets/live-20260913-swc/037-maf-function-tool.png)
+![Luna MAF 함수 도구 응답](../assets/live-20260914-action/shots/cli-1-0362-04-003-maf-tool-result.webp)
 
-![Luna MCP 서버 호출과 답변](../assets/live-20260913-swc/038-maf-mcp.png)
+![Luna MCP 서버 호출과 답변](../assets/live-20260914-action/shots/cli-1-0370-04-004-maf-mcp-result.webp)
 
-[실행 기록](../live-run.md)에는 발견한 schema 누락과 수정·재실행 결과도 남겼습니다.
+[실행 기록](../live-run.md)에는 새 환경의 함수·MCP 호출과 정확한 2001자 입력 거절 확인을 남겼습니다.
 
 세 명령의 실제 출력과 도구 경계를 설명하면 완료입니다.
 MCP 실행 실패 시 [환경/도구 문제 해결](../reference/troubleshooting.md)을 확인합니다.

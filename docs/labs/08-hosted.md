@@ -169,9 +169,9 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 
 ## 완료·정리
 
-![Luna Hosted code deployment](../assets/live-20260913-swc/067-deploy-hosted.png)
+![Luna Hosted code deployment](../assets/live-20260914-action/shots/cli-1-0704-08-022-deploy-hosted-result.webp)
 
-![Luna 고정 버전의 실제 원격 응답](../assets/live-20260913-swc/069-remote-hosted-response.png)
+![Luna 고정 버전의 실제 원격 응답](../assets/live-20260914-action/shots/cli-2-0726-08-024-remote-invoke-result.webp)
 
 이 실행에서는 서비스가 버전 1을 활성화했고 실제 원격 답변과 Trace ID가 반환되었습니다.
 그 smoke 응답만으로 품질 평가를 대신하지 않았습니다. 이번 실행에서는 별도의 합성 dev 6건을

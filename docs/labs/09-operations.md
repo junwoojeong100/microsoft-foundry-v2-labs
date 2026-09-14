@@ -81,13 +81,14 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 
 ## 반드시 정리하고 끝내기
 
-![같은 원격 호출에서 확인한 Hosted Trace](../assets/live-20260913-swc/P16-hosted-trace-detail.png)
+![같은 원격 호출에서 확인한 Hosted Trace](../assets/live-20260914-action/shots/portal-0542-P09-009-root-completed-transition.webp)
 
-![Luna Hosted session 중지 확인](../assets/live-20260913-swc/080-verify-stopped-sessions.png)
+![Luna Hosted session 중지 확인](../assets/live-20260914-action/shots/cli-2-0882-09-033-sessions-after-result.webp)
 
-이번 원격 호출은 14-span trace에서 root Completed를 확인했습니다.
-별도 `monitor` 조회는 이미 중지된 세션에서 `stream_interrupted`를 반환했습니다.
-서로 다른 관찰을 합쳐 “오류 0”으로 표시하지 않습니다. 남은 자산은 [실행 기록](../live-run.md)에 적었습니다.
+2026-09-14 원격 호출은 20-span trace에서 root Completed, chat 2회·도구 1회를 확인했습니다.
+초기 state store/item 조회의 404 두 개도 보존했으며 이후 생성·갱신과 최종 응답은 성공했습니다.
+이번 `monitor`는 호출 직후 같은 Running 세션의 실제 로그를 확인했습니다.
+전체 완료와 하위 오류 0개를 같은 뜻으로 쓰지 않습니다. 남은 자산은 [실행 기록](../live-run.md)에 적었습니다.
 
 ```bash
 python scripts/workshop.py cleanup-plan

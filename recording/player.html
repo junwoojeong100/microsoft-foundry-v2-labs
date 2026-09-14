@@ -13,8 +13,8 @@
   </style>
 </head>
 <body>
-  <h1>Sweden Central · 핵심 변화 따라보기</h1>
-  <p>2026-09-13 실제 녹화에서 긴 대기를 제거한 편집본입니다. 남긴 조작과 결과는 원래 속도로 재생합니다.</p>
+  <h1>Sweden Central · 새 액션별 실습 따라보기</h1>
+  <p>2026-09-14 새 환경에서 처음부터 촬영한 대기 제거 편집본입니다. 남긴 조작과 결과는 원래 속도로 재생합니다.</p>
   <nav aria-label="영상 선택"></nav>
   <p id="status" role="status">로컬 영상 목록을 확인하고 있습니다.</p>
   <video controls preload="metadata" aria-label="실습 녹화 플레이어"></video>
@@ -24,6 +24,7 @@
     const player = document.querySelector("video");
     const status = document.querySelector("#status");
     const navigation = document.querySelector("nav");
+    let pendingSeek = 0;
     function fail(message) {
       status.setAttribute("role", "alert");
       status.textContent = message;
@@ -31,22 +32,38 @@
     player.addEventListener("error", () => fail(
       "영상을 재생하지 못했습니다. 실행 터미널의 오류와 로컬 MP4 파일을 확인하세요. 오류 코드: " + player.error?.code
     ));
+    player.addEventListener("loadedmetadata", () => {
+      if (pendingSeek >= player.duration) {
+        fail("지정한 시작 시각이 영상 길이를 벗어납니다.");
+        return;
+      }
+      player.currentTime = pendingSeek;
+    });
     async function initialize() {
       const response = await fetch("/media.json", {cache:"no-store"});
       if (!response.ok) throw new Error("영상 목록 요청 실패: HTTP " + response.status);
       const {videos} = await response.json();
-      const requested = new URLSearchParams(location.search).get("video");
+      const parameters = new URLSearchParams(location.search);
+      const requested = parameters.get("video");
+      const time = parameters.get("t");
+      if (time !== null && (!/^\d+(?:\.\d+)?$/.test(time) || !Number.isFinite(Number(time))))
+        throw new Error("유효하지 않은 시작 시각입니다: " + time);
+      const start = time === null ? 0 : Number(time);
       if (requested && !videos.some(video => video.filename === requested))
         throw new Error("존재하지 않는 영상 이름입니다: " + requested);
-      function select(video) {
+      function select(video, secondsFromStart = 0) {
+        if (secondsFromStart >= video.duration_seconds)
+          throw new Error("지정한 시작 시각이 영상 길이를 벗어납니다.");
         player.pause();
+        pendingSeek = secondsFromStart;
         player.src = "/video/" + encodeURIComponent(video.filename);
         status.setAttribute("role", "status");
         const seconds = Math.round(video.duration_seconds);
         status.textContent = `${video.edited ? "대기 제거 편집본 · " : ""}${video.filename} · ${Math.floor(seconds / 60)}분 ${seconds % 60}초 · ${(video.bytes / 1e6).toFixed(1)} MB`;
         for (const button of navigation.children)
           button.setAttribute("aria-pressed", String(button.dataset.filename === video.filename));
-        history.replaceState(null, "", "?video=" + encodeURIComponent(video.filename));
+        history.replaceState(null, "", "?video=" + encodeURIComponent(video.filename) +
+          (secondsFromStart ? "&t=" + secondsFromStart : ""));
       }
       for (const video of videos) {
         const button = document.createElement("button");
@@ -56,7 +73,7 @@
         button.addEventListener("click", () => select(video));
         navigation.append(button);
       }
-      select(videos.find(video => video.filename === requested) || videos[0]);
+      select(videos.find(video => video.filename === requested) || videos[0], start);
     }
     initialize().catch(error => fail(error.message));
   </script>

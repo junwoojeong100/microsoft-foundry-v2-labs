@@ -160,13 +160,14 @@ python scripts/workshop.py compare --baseline candidate --candidate model-b --va
 
 ## 완료 기준
 
-![Luna v1 baseline 업무 검사 6/6](../assets/live-20260913-swc/051-baseline-evaluate.png)
+![Luna v1 baseline 업무 검사 6/6](../assets/live-20260914-action/shots/cli-1-0494-07-004-evaluate-baseline-result.webp)
 
-![Luna v2 candidate 업무 검사 6/6](../assets/live-20260913-swc/053-candidate-evaluate.png)
+![Luna v2 candidate 업무 검사 6/6](../assets/live-20260914-action/shots/cli-1-0520-07-008-evaluate-candidate-result.webp)
 
-![실패를 포함한 별도 Luna judge 평가](../assets/live-20260913-swc/P12-native-evaluation-report.png)
+![실패를 포함한 별도 Luna judge 평가](../assets/live-20260914-action/shots/portal-0476-P07-020-native-report-screen-change.webp)
 
-Luna 재실행은 같은 업무 검사에서 v1 6/6, v2 6/6과 holdout 4/4를 기록했습니다.
+2026-09-14 새 실행은 같은 업무 검사에서 v1 6/6, v2 6/6을 기록했습니다.
+이미 사용된 교육용 holdout의 마지막 인수 절차도 4/4였으나 새로운 미사용 검증셋으로 주장하지 않습니다.
 이 작은 집합에서는 v2의 우월성을 주장하지 않습니다.
 숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.
 데이터·실패 원인·분리된 평가 경로는 [실행 기록](../live-run.md)을 확인합니다.

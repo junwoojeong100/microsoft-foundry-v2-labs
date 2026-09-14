@@ -130,9 +130,9 @@ flowchart LR
 
 ## 완료 확인
 
-![새 프로젝트에서 실제 확인한 지식 베이스](../assets/live-20260913-swc/P17-foundry-knowledge.png)
+![새 프로젝트에서 실제 확인한 지식 베이스](../assets/live-20260914-action/shots/portal-0566-P06-022-open-knowledge-base-screen-change.webp)
 
-![Luna Foundry IQ API 검색 결과](../assets/live-20260913-swc/045-retrieve-iq.png)
+![Luna Foundry IQ API 검색 결과](../assets/live-20260914-action/shots/cli-1-0462-06-010-retrieve-iq-result.webp)
 
 GA 검색은 성공했지만 포털 Preview 편집기는 별도 chat model을 요구했습니다.
 기존 GA 구성을 이 화면에서 저장해 바꾸지 않습니다.

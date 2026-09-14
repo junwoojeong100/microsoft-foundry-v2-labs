@@ -1,119 +1,84 @@
 # 이 에디션의 검증 기록
 
-**2026-09-13 · 새 Sweden Central 전용 환경 · GPT-5.6 Luna**
+**2026-09-14 · 완전히 새로운 Sweden Central 환경 · 새 액션별 촬영**
 
-[실제 실행 기록](../live-run.md)과 [headless 미디어](../video-summary.md)는 이번 실행의 결과입니다.
-업스트림이나 이전 Luna 실행의 성공 기록을 새 결과로 복사하지 않았습니다.
+[실제 실행](../live-run.md) · [영상](../video-summary.md) ·
+[236개 액션 증거](../action-captures.md)
 
-## 현재 학습용 영상과 저장소 범위
+이번 실행은 `8d094723d651d011592578a76609695c86570ba7`을 독립된 폴더에 풀어 시작했습니다.
+이전 결과나 업스트림 성공 기록을 복사하지 않았습니다.
+촬영에서 확인한 안내 보완은 현재 가이드에 반영했습니다.
 
-2026-09-14에 원본 녹화의 긴 대기를 제거하여 **CLI 414.44초, 포털 209.8초** 편집본을 만들었습니다.
-새로 실행하거나 스크린샷으로 영상을 재현한 것이 아닙니다. 선택된 원본 구간은 1배속이며, 점수·응답·오류는 바꾸지 않았습니다.
-CLI 72단계의 결과와 포털 주요 확인 화면 17개가 모두 포함되어 있습니다.
-원본 시각·편집 시각·프레임 범위는 [편집 계보](../assets/live-20260913-swc/edit-timeline.json)에 보존합니다.
+## 실제 Azure 결과
 
-각 편집 구간의 프레임을 원본의 대응 프레임과 비교했고, 최소 SSIM은 CLI 0.994871, 포털 0.997615였습니다.
-원본 실시간 영상은 기존 GitHub 첨부와 Git 이력으로 남겼으며 큰 MP4 중복본은 현재 트리에서 제거했습니다.
-122개 원본 캡처 중 가이드에서 실제 참조하는 **34개**를 유지합니다.
-사용하지 않는 녹화 콘솔·옛 영상 분할/색인 도구는 제거했으며 실습 코드·합성 데이터·현재 재생기·검사는 보존합니다.
-
-아래 수치들은 당시 실제 실행 결과입니다. 짧아진 영상 길이를 모델 지연 개선이나 빠른 배포의 증거로 해석하지 않습니다.
-
-## 2026-09-14: 게시된 가이드를 새 폴더에서 재실행
-
-`b1ff68d`의 새 checkout과 Python 3.13 가상환경에서 가이드의 설치·명령을 실행했습니다.
-이전 결과를 복사하지 않고 기존 Sweden Central 프로젝트의 같은 Luna 배포를 호출했습니다.
-리소스 그룹 생성, 모델 재배포, 역할 변경, 기본 구독 변경은 하지 않았습니다.
-
-| 확인 경로 | 새 실행 결과 |
+| 대상 | 새 실행 결과 |
 |---|---|
-| Lab 00 | `.[cloud,agents]`, 선택 `.[hosted]`, 강사의 lock 파일 설치 모두 성공. offline doctor·fixture v1/v2·compare 정상 |
-| Lab 02–05 | 모델·구조화 답변·새 Prompt Agent·함수·MCP·세 워크플로 명령 실행 성공 |
-| Lab 03 A | 가이드의 자연어 출력 지침과 합성 원문으로 새 버전 구성. 현행·과거·승인·근거 부족 4문항을 headless 새 대화로 확인 |
-| Lab 06 | 별도 접두사의 Search index/source/base 생성과 Search/IQ 실제 검색·답변 성공 |
-| Lab 07 | 가이드 기본값 `--retrieval local`로 새 baseline **6/6**, candidate **6/6**, native groundedness **6/6**, relevance **5/6** |
-| Lab 08 | 새 패키징·azd 초기화·로컬 readiness/실제 답변 성공. 기존 원격 Hosted v1도 새 응답 확인; 재배포는 수행하지 않음 |
-| Lab 09 | `cleanup-plan`이 삭제하지 않음을 확인하고 이번 원격 세션만 중지 |
+| 환경 | `rg-mfv2-action-swc-20260914`, 모든 지역 리소스 Sweden Central, 기본 구독 불변 |
+| 모델 | 정확한 Luna `2026-07-09`, target 100K / 별도 judge 50K, Data Zone Standard, NoAutoUpgrade |
+| 포털 / SDK | 브라우저 생성 agent v3의 안내 4문항·dev 6문항, 별도 SDK agent v1 |
+| MAF | 단일·함수·MCP, A의 두 순차 질문, B의 세 패턴 |
+| Search / IQ | 합성 6건과 실제 GA retrieval. 포털 관찰 후 동일 GA 호출 재확인 |
+| File Search | 별도 agent v2, 6개 Completed, 저장 파일 6개가 합성 원본과 바이트 일치 |
+| dev | v1 6/6, v2 6/6, 동일 local retrieval·모델·데이터·출력 한도 |
+| native | groundedness 6/6, relevance 5/6. D05의 원래 2점과 이유 보존 |
+| 교육용 holdout | 고정 후보의 마지막 인수 절차 4/4. 이미 사용된 세트이며 새 미사용 검증셋으로 주장하지 않음 |
+| Hosted | 새 code deployment v1, 로컬·원격 실제 응답, 두 모델 요청과 함수 도구의 성공 로그 |
+| Hosted 평가 | 실제 새 원격 응답 6건, query-only 입력 6건 검증, 생성형 rubric 6/6 |
+| Trace | 동일 ID `e72dc58132dbc461e5fa381c67da3ed9`, 20 spans, chat 2회·도구 1회, root Completed |
+| Trace 하위 오류 | 초기 state store/item GET 404 두 개를 보존. 이후 생성·갱신과 최종 Responses 요청 성공 |
+| 정리 | 본인 세션 2개 stop 후 모두 idle, 로컬 서버 종료, 기존 Azure 환경 보존 |
 
-Native relevance의 보류 답변 실패는 보존했습니다. 기존에 사용한 holdout을 회귀 검증에 재사용하지 않았으며,
-이번에는 `--unlock-holdout` 없는 호출이 거부되는 잠금 동작만 확인했습니다.
-따라서 9월 13일의 holdout 4/4를 이번 재실행 점수로 표시하지 않습니다.
+자연어 답변 검토·결정적 업무 검사·native judge·Hosted rubric은 별개의 기준입니다.
+실패·누락을 분모에서 제외하거나 모델 지연의 미측정 값을 0으로 채우지 않았습니다.
+Hosted 실제 run의 evaluator version selector는 빈 값입니다. 조회한 catalog v1을 소급해 고정 버전이라고 부르지 않습니다.
+사람의 운영 승인, durable crash recovery, 실제 Fabric·Work IQ·M365 연결은 수행하지 않았습니다.
 
-### 실행 중 확인해 보완한 안내
+## 이번 가이드 보완
 
-- **독립된 azd 폴더:** 하위 checkout에서 `azd init`이 상위 `azure.yaml`을 선택했습니다.
-  검증 중 추가된 서비스만 원복하고 상위 프로젝트 바깥에서 재실행해 현재 폴더에 생성됨을 확인했습니다.
-- **명시적 Hosted 설정:** 생성된 agent `env`에는 모델만 있었습니다.
-  endpoint·managed identity 모드·출력 한도를 넣는 정확한 YAML과 azd 값 설정/조회 명령을 Lab 08에 추가했습니다.
-- **새 세션과 새 대화 구분:** 원격 `--new-session` 호출에서도 이전 conversation ID가 재사용됐습니다.
-  독립 확인 명령은 `--new-session --new-conversation`을 함께 사용하도록 보완했습니다.
-- **TLS 타임아웃:** 첫 azd 초기화는 Microsoft 로그인 서버 연결 타임아웃으로 실패했습니다.
-  인증과 AAD discovery HTTP 200을 확인하고 동일 명령 재시도에 성공했습니다. 인증서 검증을 끄거나 endpoint를 바꾸지 않았습니다.
-- **영상 링크:** 최초 확인의 MP4 링크는 파일 보기 링크여서 로컬 플레이어를 추가했습니다.
-  이후 2026-09-14 사용자 요청에 따라 원본 영상 두 개를 같은 비공개 저장소의 동영상 첨부파일로 올리고,
-  `live-run.md`와 `video-summary.md`의 기본 경로를 [GitHub 내장 플레이어](../video-summary.md#재생하기)로 복원했습니다.
-  원본 SHA-256과 [첨부 URL](../assets/live-20260913-swc/github-playback.json)을 함께 보존합니다.
+- 새 에이전트에도 기본 Web Search가 다시 붙으므로 첫 질문 전에 별도로 제거합니다.
+- 실제 메뉴 **New agent → Build an agent**, **Save와 Publish의 차이**를 명시했습니다.
+- 모델 탭 이동 시 나타나는 **Leave without saving?** 확인 창을 안내합니다.
+- 터미널 자체 길이 제한에 잘리지 않도록 2001자 입력을 짧은 Python 생성 명령으로 검사합니다.
+- File Search의 인용 버튼이 원문을 열지 않은 사실을 기록합니다. 같은 저장 원문은 SDK로 별도 확인했습니다.
+- GA IQ와 포털 편집기의 chat model 요구를 구분하며, 관찰만 하고 GA 구성을 바꾸지 않습니다.
+- Hosted 로그는 호출 직후 확인하고, 성공한 root와 하위 초기화 404를 구분합니다.
 
-새 원시 응답·명령·실패 기록은 Git에서 제외된 `outputs/guide-check-20260914/`에 보존합니다.
-GitHub는 동영상 첨부 URL을 인증된 사용자용 `<video controls>`로 렌더링합니다.
-비공개 페이지와 영상은 해당 저장소에 접근 가능한 GitHub 로그인 상태에서 이용해야 합니다.
-재생 링크 복원 시에는 인증된 GitHub Markdown API가 두 문서에 각각 플레이어 2개를 생성하는지 확인하고,
-그 HTML의 실제 private GitHub CDN 영상을 headless Edge에서 시작·50%·90% 위치로 재생·탐색했습니다.
-로컬 파일이나 mock 영상으로 대체하지 않았으며 만료되는 서명 URL은 저장소에 넣지 않았습니다.
-플레이어 중복과 파일 링크 회귀를 방지하는 검사를 추가해 이 복원 변경의 오프라인 검사는 56개를 통과했습니다.
-보완 후 오프라인 **55개**·설치 SDK **7개**, Ruff·format·Python compile·문서 검사를 통과했습니다.
-새 플레이어의 가이드 링크 두 개는 실제 headless 브라우저에서 열어 시작·50%·90% 위치의 재생과 탐색을 확인했습니다.
-이번 검증용 에이전트·평가·Search 객체는 제거하고 원본 응답·정리 기록은 보존했습니다.
+## 새 미디어 검증
 
-## 로컬 검사와 실제 Azure 실행
+CLI **841.52초**, 포털 **549.44초**이며, 모두 실제 새 원본 구간을 1배속으로 연결했습니다.
+각 원본 안의 순서를 유지했고 명령 출력이나 화면을 스크린샷 슬라이드로 재현하지 않았습니다.
 
-| 구분 | 확인 결과 |
+| 검사 | 확인 |
 |---|---|
-| 오프라인 단위·계약 검사 | 51개. JSON·오류 분모·hash·holdout·검색·패키징·영상 분할 |
-| 설치 SDK 계약 검사 | 7개. MockTransport 기반 직렬화·workflow·MCP·hosting 계약이며 Azure 품질 점수가 아님 |
-| 정적 검사 | Ruff, format, Python compile, SDK import/version, `pip check` |
-| 문서 검사 | 로컬 링크·이미지·실행 예제 인자 |
-| 실제 모델·Prompt Agent | 새 Luna 모델, SDK agent v1, 포털 agent v2의 실제 응답 |
-| MAF / Search / IQ | 함수·MCP·세 워크플로, 합성 6건과 GA IQ retrieval |
-| File Search | 합성 6파일 색인 완료, 실제 검색 호출과 파일 인용 3개 |
-| dev / holdout | v1 6/6, v2 6/6, 고정 후보 holdout 4/4. 오류·누락을 분모에서 제외하지 않음 |
-| native judge | 별도 Luna 배포. groundedness 5/6, relevance 5/6 |
-| Hosted v1 | 실제 로컬·원격 응답. 별도로 생성한 원격 dev 응답 6건을 rubric으로 평가해 6/6 |
-| Trace | 원격 호출과 같은 ID. 포털에서 14 spans, chat 1회, 도구 1회, root Completed 확인 |
-| 정리 | 이전 전용 자산 18개 정리, 공유 기반 보존, 새 Hosted 세션 2개 중지 후 idle |
-| 원본 미디어 | 실제 CLI 72단계와 포털 조작을 녹화하고 PNG 122개 생성. 현재 가이드는 대기 제거 편집본 2개와 선별 캡처 34개 사용 |
+| 액션 경계 | CLI 131개 + 포털 105개에 화면과 영상 구간 연결 |
+| 캡처 | 원본 1,500회 → 의미 있는 1,065회, 중복 제거한 898개 lossless WebP |
+| 이미지 일치 | PNG와 WebP를 디코딩한 RGB 픽셀 일치 |
+| 비디오 무결성 | 모든 프레임을 FFmpeg로 디코딩 |
+| 원본 대응 | 227개 구간의 시작·중간·끝 **681프레임** 비교 |
+| 최소 SSIM | CLI **0.984467**, 포털 **0.991442** |
+| 인증 | 로그인·PIN·MFA는 촬영하지 않음 |
 
-## 해석상 제한
+[프레임 대응과 비교 결과](../assets/live-20260914-action/edit-timeline.json) ·
+[미디어 해시](../assets/live-20260914-action/media.json)
 
-- 업무 검사, 포털 자연어 응답 관찰, native judge, Hosted rubric은 서로 다른 기준입니다.
-- v1과 v2의 작은 dev 점수가 같으므로 개선의 통계적 우월성을 주장하지 않습니다.
-- native 실패 D01·D05는 원래 점수와 이유를 보존했습니다. holdout을 개발·회귀 수집에 재사용하지 않았습니다.
-- Hosted rubric의 임계값은 0.5입니다. CLI가 기록한 evaluator version selector는 빈 값이며, 조회한 버전 1을 소급해 고정 실행으로 취급하지 않습니다.
-- 생성 평가자의 `input_quality` 경고와 SDK의 직렬화·prerelease 경고를 보존했습니다.
-- 중지된 session의 `monitor`는 `stream_interrupted`를 반환했습니다. 실제 Trace 확인과 정상적인 live log streaming은 구분합니다.
-- `trace_export: not-configured`인 로컬 결과를 Azure trace로 바꾸어 적지 않았습니다.
-- Fabric·Work IQ·M365 실제 연결, 외부 Web Search, 다른 모델 A/B, Model Router 호출, fine-tuning, continuous evaluation은 수행하지 않았습니다. Lab 10은 합성 설계 경로입니다.
-- 지역 리소스는 Sweden Central에 있지만 모델의 Data Zone Standard 처리 범위는 EU 데이터 존입니다.
+새 영상 파일과 가이드를 저장소에 반영하는 것과 GitHub 내장 플레이어용 첨부 업로드는 별개입니다.
+새 동영상 첨부는 아직 업로드하지 않았으며, 로컬 재생 확인을 GitHub 첨부 재생 확인으로 표시하지 않습니다.
+이전 가이드에 있던 첨부 URL의 성공 기록을 새 영상의 게시·재생 결과로 재사용하지 않습니다.
 
-## 미디어와 계보
+## 이전 확인과 구분
 
-원본은 기존 JSON을 페이지별로 재생한 자료 대신 실제 실행 중인 CLI와 실제 포털을 녹화한 것입니다.
-현재 기본 재생 링크는 이 원본에서 대기 구간을 제거한 학습용 편집본입니다.
-로그인 화면은 제외했고 촬영은 모두 headless입니다. CLI 식별자는 마스킹했으며 포털 자료의 식별정보는 외부 공유 전 검토해야 합니다.
-영상 길이·크기·해시와 모든 이미지 목록은 [미디어 메타데이터](../assets/live-20260913-swc/media.json)에 있습니다.
-
-개인 원시 결과는 Git에서 제외된 `outputs/live-20260913-swc/`, `outputs/swc-*-0913/`와
-현재 Hosted 소스의 `.foundry/`에 보존합니다.
-Hosted 평가의 입력, 전체 출력, evaluator 정의, 실제 target response/trace ID를 함께 저장했습니다.
-상세 CLI/포털 녹화 기록과 이전 실행·구버전 패키지는
-`outputs/archive/20260913-history.tar.gz` 한 파일로 통합하고 원본 해시를 확인했습니다.
-현재 평가 세트와 응답은 원래 경로에 유지하며, 최종 PNG와 일치하는 `outputs`의 중복 캡처만 삭제했습니다.
-디렉토리별 보존 기준은 [로컬 정리 기준](cleanup.md)에 있습니다.
-`.agentignore`는 `.foundry/`, `eval*.yaml`과 평가 데이터를 제외해 재배포 시 정답이 에이전트 코드에 섞이지 않게 합니다.
-이전 캡처·영상과 불필요한 생성물을 정리했지만 Git 이력은 재작성하지 않았습니다.
-개인 원시 실행 자료와 로컬 환경 설정은 Git에 추가하지 않습니다.
+2026-09-13에는 이전 그룹에서 실제 실행했고, 2026-09-14 앞선 가이드 재검증은
+기존 환경을 사용했습니다. 그 결과와 이후의 대기 제거 편집은 **이번 새 그룹·재촬영 결과가 아닙니다.**
+이전 원시 평가 계보는 개인 보관 범위에 유지하되 현재 가이드의 이전 영상·캡처 링크는 제거합니다.
+Git 이력은 재작성하지 않으며 GitHub 첨부 원본의 영구 삭제를 완료했다고 주장하지 않습니다.
 
 ## 재검증 명령
+
+이번 변경에서 오프라인 **56개**, 설치 SDK 계약 **7개**, Ruff·format·Python compilation,
+SDK 버전·의존성 검사를 통과했습니다. 문서 **31개**, 로컬 링크 **1,268개**,
+CLI 예제 **54개**를 확인했습니다.
+실제 headless Edge에서 새 영상 두 개의 시작·25%·50%·90% 위치 **8회 재생/탐색**,
+영상 전환, 잘못된 시각/파일 이름 거절을 확인했습니다. 외부 요청이나 mock 영상은 사용하지 않았습니다.
 
 ```bash
 python -m pip check
@@ -127,4 +92,6 @@ python scripts/check_docs.py
 ```
 
 SDK 검사는 `.[cloud,agents,hosted]`, Ruff는 `.[dev]` 설치가 필요합니다.
-원격 GitHub Actions 실행 결과는 이번 검증 결과로 주장하지 않습니다.
+오프라인 계약 검사는 실제 Azure 품질 점수가 아니며, 원격 GitHub Actions 결과로 바꿔 적지 않습니다.
+원시 응답·평가자·실행/정리 증거는 Git에서 제외된 `outputs/live-20260914-action/`에 보존합니다.
+`.env`·인증 정보·개인 원문 trace는 Git에 추가하지 않습니다.

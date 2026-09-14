@@ -138,12 +138,12 @@ python scripts/workshop.py workflow --pattern group-chat
 
 ## 완료 확인
 
-![Luna MAF 순차 워크플로 응답](../assets/live-20260913-swc/039-workflow-sequential.png)
+![Luna MAF 순차 워크플로 응답](../assets/live-20260914-action/shots/cli-1-0416-05-005-sequential-result.webp)
 
-![Luna Group Chat 참여자 응답](../assets/live-20260913-swc/041-workflow-group-chat.png)
+![Luna Group Chat 참여자 응답](../assets/live-20260914-action/shots/cli-1-0428-05-007-group-chat-result.webp)
 
 두 화면 모두 포털 Workflow Designer가 아니라 실제 MAF Python 실행 로그입니다.
-실행 중 발견한 반환값 처리와 전체 녹화는 [실행 기록](../live-run.md)에 있습니다.
+각 패턴의 실제 실행·참여자 출력과 액션별 녹화는 [실행 기록](../live-run.md)에 있습니다.
 
 A는 순차 MAF 실행과 사람의 검토 결과를 남깁니다.
 B는 같은 질문에 대해 세 패턴의 호출 수·출력 형태·검토 부담을 비교한 표를 남깁니다.
