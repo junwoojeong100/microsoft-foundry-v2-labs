@@ -133,7 +133,7 @@ class VideoLinkTests(unittest.TestCase):
             self.assertEqual(uploads["recorded_on"], media["recorded_on"])
             self.assertEqual(uploads["repository_id"], 1367892793)
             self.assertFalse(uploads["signed_media_urls_saved"])
-            self.assertEqual(len(uploads["videos"]), 2)
+            self.assertEqual(len(uploads["videos"]), len(active))
             self.assertEqual(
                 set(uploads.get("not_uploaded_videos", [])),
                 set(active) - {item["filename"] for item in uploads["videos"]},
@@ -154,10 +154,31 @@ class VideoLinkTests(unittest.TestCase):
             self.assertIn("GitHub 계정으로 로그인", primary)
             by_name = {item["filename"]: item for item in uploads["videos"]}
             for label, filename in (
+                ("통합본 재생", "guide-walkthrough.mp4"),
                 ("CLI 재생", "cli-edited.mp4"),
                 ("포털 재생", "portal-edited.mp4"),
             ):
                 self.assertIn(f"[{label}]({by_name[filename]['url']})", primary)
+            merged_url = by_name["guide-walkthrough.mp4"]["url"]
+            actions = json.loads((ASSETS / "actions.json").read_text())["actions"]
+            index = (ROOT / "docs/action-captures.md").read_text()
+            rows = {
+                line.split("`", 2)[1]: line for line in index.splitlines() if line.startswith("| `")
+            }
+            for action in actions:
+                self.assertIn("▶ [통합 ", rows[action["id"]])
+                self.assertIn(
+                    f"({merged_url}#t={action['combined_start_seconds']:.2f})",
+                    rows[action["id"]],
+                )
+            chapters = (ROOT / "docs/video-chapters.md").read_text()
+            for chapter in active["guide-walkthrough.mp4"]["chapters"]:
+                self.assertIn(f"({merged_url}#t={chapter['start_seconds']:.2f})", chapters)
+            self.assertEqual(len(re.findall(r"\| ▶ \[[0-9:]+\]\(", chapters)), 12)
+            for document in ("video-summary.md", "video-chapters.md", "action-captures.md"):
+                text = (ROOT / "docs" / document).read_text()
+                self.assertNotIn("127.0.0.1:8765", text)
+                self.assertNotRegex(text, r"\]\([^)\s]*\.mp4(?:[?#][^)]*)?\)")
         else:
             self.assertEqual(uploads["status"], "not-published")
             self.assertEqual(uploads["videos"], [])

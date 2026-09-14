@@ -21,11 +21,17 @@
       "source_sha256": "d4d0e13f3902f531500a04b8c309a1bb30c498bb8fc3c5b802726ddb7890b3e1",
       "bytes": 12379674,
       "uploaded_at": "2026-09-14T06:46:26.961769+00:00"
+    },
+    {
+      "filename": "guide-walkthrough.mp4",
+      "upload_name": "foundry-20260914-guide-walkthrough.mp4",
+      "url": "https://github.com/user-attachments/assets/c005e1a6-f577-4d07-b2c3-9a4827750c81",
+      "source_sha256": "7481bdce6e7dd1d6d2a148f43ec260d4207f6b2745b801a792f528ca8c638b36",
+      "bytes": 74544310,
+      "uploaded_at": "2026-09-14T11:03:00.741779+00:00"
     }
   ],
   "signed_media_urls_saved": false,
-  "note": "The existing two current recordings remain available as native GitHub attachments. The guide-ordered walkthrough is a separate local edit and has not been uploaded.",
-  "not_uploaded_videos": [
-    "guide-walkthrough.mp4"
-  ]
+  "note": "All three current videos are available as native attachments scoped to this private repository. Canonical playback links contain no credentials; chapter/action links append only a media time fragment.",
+  "not_uploaded_videos": []
 }

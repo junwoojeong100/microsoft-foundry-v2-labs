@@ -72,7 +72,7 @@
       "waiting_time_removed": true,
       "guide_ordered": true,
       "new_recording": false,
-      "github_attachment_uploaded": false,
+      "github_attachment_uploaded": true,
       "all_input_frames_retained_once": true,
       "action_count": 236,
       "chapter_title_frames": 600,
