@@ -1,74 +1,84 @@
-# 학습 경로와 완료 기준
+# Learning paths and completion criteria
 
-**A는 코드를 작성하지 않고 준비된 예제를 실행하며, B는 코드와 실행 이력을 직접 다룹니다.**
-둘 다 같은 한빛기술 합성 규정을 사용합니다. A를 마친 뒤 B로 확장할 수 있습니다.
-각 랩의 A와 B 중 자기 경로를 따라갑니다. A는 포털 중심이지만 워크플로는 준비된 MAF 환경에서 실행합니다.
+**English** | [한국어](ko/paths.md)
 
-본문의 **조작·명령 → 참고 이미지 → 화면 확인** 순서로 진행하세요.
-이미지는 2026-09-14의 예시이므로 본인의 값과 결과를 따로 확인합니다.
-[화면 읽는 법](labs/00-start.md#이-가이드의-화면-읽는-법)과 [전체 액션 인덱스](action-captures.md)를 보조 자료로 사용하세요.
+**Path A runs prepared examples without writing code. Path B works directly with code and execution records.**
+Both use the same synthetic Hanbit Technology policies. Complete A first and extend
+to B later, or follow the relevant A/B section in each lab. A is portal-first, but
+its workflow exercise runs in a prepared MAF environment.
 
-## A. 완전초보자 — 준비된 환경에서 4시간
+Follow **action/command, reference image, then What to check**. September 14, 2026
+images are examples, not your results. Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide)
+and [complete action index](action-captures.md) as references.
+Canonical policy questions remain Korean to preserve reproducibility;
+[English meanings](reference/languages.md) are provided separately.
 
-브라우저, Entra 계정, 강사가 준비한 Foundry 프로젝트·모델 배포가 필요합니다.
-Lab 05에는 SDK 설치와 본인 계정 로그인이 끝난 **준비된 MAF 실행 환경**도 필요합니다.
-학습자는 명령을 복사해 실행하고 결과를 읽습니다. Python 코드 작성·설치·구독 결제 설정은 사전 준비입니다.
-환경을 직접 만들고 싶으면 [강사 준비](instructor.md)의 관리자 단계를 먼저 진행합니다.
+## A. Complete beginner: four hours in a prepared environment
 
-| 순서 | 실습 | 시간 | 직접 남길 결과 |
+You need a browser, an Entra account, and an instructor-prepared Foundry project and
+model deployment. Lab 05 also needs a **prepared MAF environment** with SDKs installed
+and the learner signed in. Copy commands and read their results; Python authoring,
+installation, and subscription billing setup are preparation, not class exercises.
+To create the environment yourself, complete the administrator steps in
+[Instructor preparation](instructor.md) first.
+
+| Order | Lab | Time | Your evidence |
 |---|---|---:|---|
-| 1 | [00. 시작](labs/00-start.md) | 20분 | 계정·프로젝트·진행 경로 확인 |
-| 2 | [01. Foundry](labs/01-foundry.md) | 25분 | 리소스·프로젝트·모델 구분 그림 |
-| 3 | [02. 모델 — A](labs/02-models.md) | 20분 | Playground 실제 응답과 배포 이름 |
-| 4 | [03. 에이전트 — A](labs/03-prompt-agent.md) | 35분 | 합성 정책을 사용하는 에이전트 |
-| 5 | [05. MAF 워크플로 — A](labs/05-workflows.md) | 25분 | 준비된 순차 MAF 실행 + 사람 검토 기록 |
-| 6 | [06. 지식 — A](labs/06-knowledge.md) | 35분 | 원문 인용·적용 시점 확인 |
-| 7 | [07. 평가 — A](labs/07-evaluation.md) | 30분 | dev 6문항의 수동 업무 평가표 |
-| 8 | [09. 운영 — A](labs/09-operations.md) | 25분 | 운영 위험·비용·정리 확인 |
-| — | 휴식·진행 버퍼 | 25분 | 합계 240분 |
+| 1 | [00. Start](labs/00-start.md) | 20 min | Account, project, and chosen path |
+| 2 | [01. Foundry](labs/01-foundry.md) | 25 min | Resource/project/model relationship diagram |
+| 3 | [02. Models: A](labs/02-models.md) | 20 min | Actual Playground response and deployment name |
+| 4 | [03. Agent: A](labs/03-prompt-agent.md) | 35 min | Agent using synthetic policies |
+| 5 | [05. MAF workflow: A](labs/05-workflows.md) | 25 min | Prepared sequential run and human review record |
+| 6 | [06. Knowledge: A](labs/06-knowledge.md) | 35 min | Source citation and effective-date check |
+| 7 | [07. Evaluation: A](labs/07-evaluation.md) | 30 min | Manual business assessment of all six dev cases |
+| 8 | [09. Operations: A](labs/09-operations.md) | 25 min | Risks, costs, and cleanup record |
+| — | Breaks and buffer | 25 min | **240 minutes total** |
 
-**A의 완료:** 실제 Playground/에이전트 응답, 준비된 MAF 순차 실행, 근거 문서 확인,
-dev 평가표, 정리 기록이 있습니다. Python 코드 작성이나 서버 배포는 완료 조건이 아닙니다.
+**A is complete** when you have actual Playground/agent responses, a prepared MAF
+sequential run, source checks, a dev assessment, and cleanup evidence. Writing Python
+or deploying a server is not required.
 
-MAF를 직접 실행하지 못했으면 관찰과 직접 실행을 구분합니다. 포털 workflow 작성으로 대신하지 않습니다.
-강사의 IQ 데모를 관찰한 경우도 본인의 IQ 배포 완료로 적지 않습니다.
+Distinguish observing MAF from running it yourself. Portal workflow authoring is not
+a substitute. Watching the instructor's IQ demo is not your own IQ deployment.
 
-## B. 경험자 — 준비된 환경에서 6시간
+## B. Practitioner: six hours in a prepared environment
 
-Python 기초, JSON, 터미널, `async/await`를 읽을 수 있어야 합니다.
-리전/모델/권한 승인, SDK 다운로드, Search 생성은 사전 준비입니다.
+You should understand basic Python, JSON, a terminal, and `async/await`.
+Region/model/permission approvals, SDK downloads, and Search service creation happen first.
 
-| 순서 | 실습 | 시간 | 직접 남길 결과 |
+| Order | Lab | Time | Your evidence |
 |---|---|---:|---|
-| 1 | [00. doctor와 공통 설정](labs/00-start.md) | 15분 | 환경 검사 |
-| 2 | [02. SDK — B](labs/02-models.md) | 20분 | 실제 Responses 응답 |
-| 3 | [04. MAF·함수·MCP](labs/04-agents-tools.md) | 45분 | 세 실행 방식의 차이 |
-| 4 | [05. MAF 워크플로 — B](labs/05-workflows.md) | 40분 | 순차·병렬·Group Chat 코드와 결과 |
-| 5 | [06. Search/IQ — B](labs/06-knowledge.md) | 45분 | references·activity·context hash |
-| 6 | [07. 학습 루프 — B](labs/07-evaluation.md) | 50분 | baseline/candidate/holdout 이력 |
-| 7 | [08. Hosted Agent](labs/08-hosted.md) | 40분 | 로컬 패키지와 선택적 원격 응답 |
-| 8 | [09. 관측·운영](labs/09-operations.md) | 30분 | 실행 ID 상관관계·운영 게이트 |
-| 9 | [11. 캡스톤](labs/11-capstone.md) | 45분 | 인수 체크리스트 |
-| — | 휴식·진행 버퍼 | 30분 | 합계 360분 |
+| 1 | [00. Doctor and settings](labs/00-start.md) | 15 min | Environment checks |
+| 2 | [02. SDK: B](labs/02-models.md) | 20 min | Actual Responses result |
+| 3 | [04. MAF, functions, MCP](labs/04-agents-tools.md) | 45 min | Differences among three execution paths |
+| 4 | [05. MAF workflows: B](labs/05-workflows.md) | 40 min | Sequential, concurrent, and Group Chat code/results |
+| 5 | [06. Search/IQ: B](labs/06-knowledge.md) | 45 min | References, activity, and context hash |
+| 6 | [07. Learning loop: B](labs/07-evaluation.md) | 50 min | Baseline/candidate/holdout lineage |
+| 7 | [08. Hosted Agent](labs/08-hosted.md) | 40 min | Local package and optional remote response |
+| 8 | [09. Observability and operations](labs/09-operations.md) | 30 min | Run-ID correlation and operational gates |
+| 9 | [11. Capstone](labs/11-capstone.md) | 45 min | Acceptance checklist |
+| — | Breaks and buffer | 30 min | **360 minutes total** |
 
-**B의 핵심 완료:** 실제 Azure 모델을 사용한 코드 응답과 비교 가능한 dev 실행 이력이
-있습니다. Hosted 배포·유료 cloud judge는 선택 게이트이며, 수행하지 않았으면
-캡스톤에 `미실행`으로 남깁니다. 할당량이 없다고 fixture를 실제 응답 대신 제출하지 않습니다.
+**B's core completion** requires code responses from a real Azure model and comparable
+dev run records. Hosted deployment and paid cloud judges have separate optional gates.
+Mark them **not run** if omitted; unavailable quota is not permission to submit fixtures
+as real model responses.
 
-[10. Fabric/Work IQ 확장](labs/10-iq-extensions.md)은 45–90분의 별도 세션입니다.
-승인·라이선스·capacity 준비 시간은 이 시간에 포함하지 않습니다.
+[10. Fabric/Work IQ extensions](labs/10-iq-extensions.md) is a separate 45–90-minute
+session. Approval, licensing, and capacity preparation are additional.
 
-## 독립 모듈로 다시 방문하기
+## Return to an independent module
 
-| 필요한 모듈 | 최소 선행 결과 | 재시작 지점 |
+| Module | Minimum prerequisite | Restart at |
 |---|---|---|
-| 모델/프롬프트 | 프로젝트·배포·Foundry User 권한 | 02 |
-| MAF·MCP·워크플로 | SDK 설치, `doctor --cloud`, `model` 성공 | 04 |
-| Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | 06 |
-| 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | 07 |
-| Hosted Agent | `maf --tools` 성공 + hosted SDK + 배포 권한 | 08 |
-| IQ 확장 | IQ 기본 완료 + 서비스별 별도 승인 | 10 |
+| Model/prompt | Project, deployment, Foundry User permission | 02 |
+| MAF/MCP/workflow | SDKs, successful `doctor --cloud` and `model` | 04 |
+| Foundry IQ | Above plus prepared Search, retrieval configuration, and roles | 06 |
+| Evaluation | A complete real run or an explicitly labeled fixture in `outputs/<label>` | 07 |
+| Hosted Agent | Successful `maf --tools`, hosted SDK, and deployment permission | 08 |
+| IQ extensions | IQ basics and separate service approvals | 10 |
 
-**실습 경로를 바꾸지 않는 원칙:** 모델이 실패하면 다른 모델로 자동 교체하지 않습니다.
-IQ가 실패하면 일반 검색을 IQ 결과로 표시하지 않습니다. SDK 설치가 실패하면
-버전을 제각각 올리지 말고 [버전 기준](reference/versions.md)과 강사 환경으로 복귀합니다.
+**Never silently switch paths.** A model error must not select another model. Failed
+IQ must not become ordinary Search labeled as IQ. For installation failures, return to
+the [version contract](reference/versions.md) or prepared environment instead of upgrading
+individual SDKs at random.

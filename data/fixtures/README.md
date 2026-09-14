@@ -1,6 +1,11 @@
 # Offline fixtures
 
-`demo`는 아래 여섯 답변을 그대로 읽는 **검사기 연습**입니다.
-Azure, Foundry, Agent Framework 또는 LLM을 실행한 결과가 아닙니다.
-`v1`에서는 인용을 의도적으로 제거해 검사 실패를 관찰합니다.
-이 차이는 모델이나 프롬프트의 실제 성능 개선을 입증하지 않습니다.
+**English** | [한국어](README.ko.md)
+
+`demo` reads six prewritten answers for a **checker exercise**.
+It does not execute Azure, Foundry, Agent Framework, or an LLM.
+For `v1`, citations are deliberately removed so you can observe failed checks.
+This difference does not demonstrate a real model or prompt improvement.
+
+The fixture bytes and Korean content are unchanged across documentation languages.
+See the [language contract](../../docs/reference/languages.md).

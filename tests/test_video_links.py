@@ -97,23 +97,26 @@ class VideoLinkTests(unittest.TestCase):
             "11-capstone.md": 1,
         }
         total = 0
-        for filename, minimum in minimums.items():
-            path = ROOT / "docs/labs" / filename
-            text = path.read_text()
-            images = list(re.finditer(r"!\[[^\]]+\]\(([^)\s]+)\)", text))
-            with self.subTest(lab=filename):
-                self.assertGreaterEqual(len(images), minimum)
-                for image in images:
-                    self.assertIn((path.parent / image.group(1)).resolve(), known_images)
-                    self.assertIn("**화면 확인:**", text[image.end() : image.end() + 350])
-                completion = re.search(r"^## (?:완료|반드시 정리)", text, re.MULTILINE)
-                if completion:
-                    self.assertGreaterEqual(
-                        sum(image.start() < completion.start() for image in images),
-                        max(1, minimum - 1),
+        for directory, caption in (("docs", "**What to check:**"), ("docs/ko", "**화면 확인:**")):
+            for filename, minimum in minimums.items():
+                path = ROOT / directory / "labs" / filename
+                text = path.read_text()
+                images = list(re.finditer(r"!\[[^\]]+\]\(([^)\s]+)\)", text))
+                with self.subTest(language=directory, lab=filename):
+                    self.assertGreaterEqual(len(images), minimum)
+                    for image in images:
+                        self.assertIn((path.parent / image.group(1)).resolve(), known_images)
+                        self.assertIn(caption, text[image.end() : image.end() + 350])
+                    completion = re.search(
+                        r"^## (?:완료|반드시 정리|Completion|Always finish)", text, re.MULTILINE
                     )
-            total += len(images)
-        self.assertGreaterEqual(total, 70)
+                    if completion:
+                        self.assertGreaterEqual(
+                            sum(image.start() < completion.start() for image in images),
+                            max(1, minimum - 1),
+                        )
+                total += len(images)
+        self.assertGreaterEqual(total, 140)
 
     def test_new_recording_and_publication_status_are_honest(self):
         media = json.loads((ASSETS / "media.json").read_text())
@@ -144,10 +147,11 @@ class VideoLinkTests(unittest.TestCase):
                 self.assertRegex(
                     item["url"], r"^https://github\.com/user-attachments/assets/[0-9a-f-]+$"
                 )
-                for document in ("live-run.md", "video-summary.md"):
-                    lines = (ROOT / "docs" / document).read_text().splitlines()
-                    self.assertEqual(lines.count(item["url"]), 1)
-            summary = (ROOT / "docs/video-summary.md").read_text()
+                for directory in ("docs", "docs/ko"):
+                    for document in ("live-run.md", "video-summary.md"):
+                        lines = (ROOT / directory / document).read_text().splitlines()
+                        self.assertEqual(lines.count(item["url"]), 1)
+            summary = (ROOT / "docs/ko/video-summary.md").read_text()
             primary = summary.split("## 재생하기", 1)[1].split("## 선택:", 1)[0]
             self.assertNotIn("127.0.0.1", primary)
             self.assertNotIn("python scripts/play_recordings.py", primary)
@@ -159,26 +163,40 @@ class VideoLinkTests(unittest.TestCase):
                 ("포털 재생", "portal-edited.mp4"),
             ):
                 self.assertIn(f"[{label}]({by_name[filename]['url']})", primary)
+            english = (ROOT / "docs/video-summary.md").read_text()
+            english_primary = english.split("## Play now", 1)[1].split("## Optional:", 1)[0]
+            self.assertNotIn("127.0.0.1", english_primary)
+            self.assertNotIn("python scripts/play_recordings.py", english_primary)
+            self.assertIn("GitHub account", english_primary)
+            for label, filename in (
+                ("Play combined walkthrough", "guide-walkthrough.mp4"),
+                ("Play CLI", "cli-edited.mp4"),
+                ("Play portal", "portal-edited.mp4"),
+            ):
+                self.assertIn(f"[{label}]({by_name[filename]['url']})", english_primary)
             merged_url = by_name["guide-walkthrough.mp4"]["url"]
             actions = json.loads((ASSETS / "actions.json").read_text())["actions"]
-            index = (ROOT / "docs/action-captures.md").read_text()
-            rows = {
-                line.split("`", 2)[1]: line for line in index.splitlines() if line.startswith("| `")
-            }
-            for action in actions:
-                self.assertIn("▶ [통합 ", rows[action["id"]])
-                self.assertIn(
-                    f"({merged_url}#t={action['combined_start_seconds']:.2f})",
-                    rows[action["id"]],
-                )
-            chapters = (ROOT / "docs/video-chapters.md").read_text()
-            for chapter in active["guide-walkthrough.mp4"]["chapters"]:
-                self.assertIn(f"({merged_url}#t={chapter['start_seconds']:.2f})", chapters)
-            self.assertEqual(len(re.findall(r"\| ▶ \[[0-9:]+\]\(", chapters)), 12)
-            for document in ("video-summary.md", "video-chapters.md", "action-captures.md"):
-                text = (ROOT / "docs" / document).read_text()
-                self.assertNotIn("127.0.0.1:8765", text)
-                self.assertNotRegex(text, r"\]\([^)\s]*\.mp4(?:[?#][^)]*)?\)")
+            for directory, label in (("docs", "Combined"), ("docs/ko", "통합")):
+                index = (ROOT / directory / "action-captures.md").read_text()
+                rows = {
+                    line.split("`", 2)[1]: line
+                    for line in index.splitlines()
+                    if line.startswith("| `")
+                }
+                for action in actions:
+                    self.assertIn(f"▶ [{label} ", rows[action["id"]])
+                    self.assertIn(
+                        f"({merged_url}#t={action['combined_start_seconds']:.2f})",
+                        rows[action["id"]],
+                    )
+                chapters = (ROOT / directory / "video-chapters.md").read_text()
+                for chapter in active["guide-walkthrough.mp4"]["chapters"]:
+                    self.assertIn(f"({merged_url}#t={chapter['start_seconds']:.2f})", chapters)
+                self.assertEqual(len(re.findall(r"\| ▶ \[[0-9:]+\]\(", chapters)), 12)
+                for document in ("video-summary.md", "video-chapters.md", "action-captures.md"):
+                    text = (ROOT / directory / document).read_text()
+                    self.assertNotIn("127.0.0.1:8765", text)
+                    self.assertNotRegex(text, r"\]\([^)\s]*\.mp4(?:[?#][^)]*)?\)")
         else:
             self.assertEqual(uploads["status"], "not-published")
             self.assertEqual(uploads["videos"], [])

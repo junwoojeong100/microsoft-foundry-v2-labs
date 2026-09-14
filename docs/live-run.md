@@ -1,127 +1,131 @@
-# 새 Sweden Central 환경의 액션별 실제 실행
+# Source execution: action-level run in Sweden Central
 
-**2026-09-14, 완전히 새로운 `rg-mfv2-action-swc-20260914`에서 가이드를 다시 실행하고 촬영했습니다.**
-지정된 실습 계정으로 실행했으며 기본 Azure CLI 구독은 변경하지 않았습니다.
-회사·Microsoft 365 데이터 없이 저장소의 합성 데이터만 사용했습니다.
+**English** | [한국어](ko/live-run.md)
 
-[영상 재생](video-summary.md) · [236개 액션의 전·후 화면](action-captures.md) ·
-[실습별 찾기](video-chapters.md) · [미디어 해시](assets/live-20260914-action/media.json)
+**On September 14, 2026, the guide was rerun and recorded in the new
+`rg-mfv2-action-swc-20260914` environment.**
+The designated training account was used without changing the default Azure CLI
+subscription. Only bundled synthetic data was accessed, not company or Microsoft 365 data.
 
-이 가이드의 이미지와 영상은 모두 **2026-09-14 액션별 재촬영 자료**입니다.
-사용할 미디어는 `docs/assets/live-20260914-action/` 한 곳에 모았습니다.
+[Videos](video-summary.md) · [236-action captures](action-captures.md) ·
+[Chapters](video-chapters.md) · [Media hashes](assets/live-20260914-action/media.json)
 
-## 이번 촬영
+**This is an English translation of that run's evidence, not a new English-language
+Azure run.** Source media remains in `docs/assets/live-20260914-action/`.
 
-| 구분 | 새 결과 |
+## Recording
+
+| Surface | Recorded evidence |
 |---|---|
-| CLI | 실제 Bash PTY에서 **131개 액션**, 명령 입력·실행·결과 촬영 |
-| 포털 | 실제 `ai.azure.com`의 **105개 액션**, 생성·편집·저장·질문·화면 전환 촬영 |
-| 캡처 | 원본 1,500회 중 액션 경계와 의미 있는 변화 1,065회를 보존. 동일 이미지는 공유하여 **898개 lossless WebP**로 제공 |
-| CLI 영상 | **14분 02초**, 대기 제거, 실제 원본 구간 1배속 |
-| 포털 영상 | **9분 09초**, 대기 제거, 실제 원본 구간 1배속 |
-| 실습 순서 통합본 | **23분 35초**, 두 개별 영상의 전체 장면을 Lab 00–11로 재배치. 12개 제목 화면 포함 |
-| 촬영 방식 | Playwright 1.62.0 headless Edge. 로그인·PIN·MFA 화면은 제외 |
+| CLI | **131 actions** in an actual Bash PTY: typing, execution, output |
+| Portal | **105 actions** in actual `ai.azure.com`: creation, editing, saving, questions, navigation |
+| Captures | 1,065 meaningful action-boundary/change events from 1,500 originals, stored as **898 lossless WebP images** |
+| CLI video | **14:02**, waits removed, source footage at normal speed |
+| Portal video | **9:09**, waits removed, source footage at normal speed |
+| Guide-ordered video | **23:35**, all scenes rearranged into Lab 00–11 with twelve title cards |
+| Method | Playwright 1.62.0, headless Edge; no sign-in/PIN/MFA footage |
 
-새 에이전트를 **New agent → Build an agent**로 만드는 과정부터 이름·모델 선택,
-기본 Web Search 제거, 지침과 합성 문서 입력, 버전 저장을 각각 촬영했습니다.
-각 질문은 새 대화로 실행했습니다. File Search의 파일 선택·업로드·색인 완료,
-평가 실패 행, Trace의 하위 오류도 포함합니다.
+Agent creation via **New agent → Build an agent**, naming/model choice, removing
+Web Search, entering instructions/synthetic documents, and saving versions were
+captured separately. Every question started a new conversation.
+File selection/upload/indexing, failed evaluation rows, and child trace errors are included.
 
-가이드 순서로 이어 보려면 [통합본과 챕터 목차](video-chapters.md)를 사용합니다.
-통합본은 새 실행이 아닌 학습용 순서 편집이며 GitHub에서 바로 재생할 수 있습니다.
-CLI·포털 개별 영상도 직접 재생할 수 있습니다.
+The [combined chapters](video-chapters.md) follow the guide, not a new run.
+**All three videos play directly on GitHub without a local server.**
+Sign in with an account authorized for this private repository.
+[Playback links](video-summary.md#play-now) point to the same current files.
+`RUN_TOOLS` is instructor support; use the learner commands in each lab.
 
-**아래 GitHub 내장 플레이어에서 바로 재생할 수 있습니다. 로컬 서버는 필요 없습니다.**
-비공개 저장소에 접근 가능한 GitHub 계정으로 로그인하세요.
-같은 최신 파일의 [직접 재생 링크와 선택적 로컬 재생 방법](video-summary.md#재생하기)을 제공합니다.
-촬영 보조 `RUN_TOOLS` 명령은 강사 준비·원문 검증용이며, 학습자는 각 랩에 적힌 명령을 사용합니다.
-
-### 실습 가이드 순서 통합 영상 — 23분 35초
+### Guide-ordered source video: 23:35
 
 https://github.com/user-attachments/assets/c005e1a6-f577-4d07-b2c3-9a4827750c81
 
-### CLI 실행 영상 — 14분 02초
+### CLI source video: 14:02
 
 https://github.com/user-attachments/assets/1e2eb2ac-a164-4c67-8d4f-95cec33e2a3a
 
-### Foundry 포털 영상 — 9분 09초
+### Portal source video: 9:09
 
 https://github.com/user-attachments/assets/714599fe-744d-40e2-a945-c4919d0fb0b3
 
-## 환경과 모델
+## Environment and models
 
-| 항목 | 이번 실행 |
+| Item | Source run |
 |---|---|
-| 리소스 그룹 | `rg-mfv2-action-swc-20260914` |
-| Foundry 계정 / 프로젝트 | `ai-mfv2-action-swc-20260914` / `mfv2-action-20260914` |
-| Search | `srch-mfv2-action-swc-20260914`, Basic, Entra ID 인증 |
-| 관측 | 같은 리전의 Application Insights / Log Analytics, 30일 보존·일일 1GB 제한 |
-| 응답 모델 | `gpt-5.6-luna`, `2026-07-09`, Data Zone Standard 100K TPM |
-| 별도 judge | `gpt-5.6-luna-judge`, 같은 모델 버전, Data Zone Standard 50K TPM |
-| 버전 정책 | 두 배포 모두 `NoAutoUpgrade`, 다른 모델·endpoint로 우회하지 않음 |
+| Resource group | `rg-mfv2-action-swc-20260914` |
+| Foundry account/project | `ai-mfv2-action-swc-20260914` / `mfv2-action-20260914` |
+| Search | `srch-mfv2-action-swc-20260914`, Basic, Entra authentication |
+| Observability | Same-region Application Insights/Log Analytics, 30-day retention, 1 GB daily cap |
+| Answer model | `gpt-5.6-luna`, `2026-07-09`, Data Zone Standard 100K TPM |
+| Separate judge | `gpt-5.6-luna-judge`, same model version, Data Zone Standard 50K TPM |
+| Version policy | `NoAutoUpgrade` on both; no model/endpoint fallback |
 
-Data Zone Standard의 추론 처리 범위는 **EU 데이터 존**입니다.
-리소스가 Sweden Central에 있다는 사실을 단일 데이터센터에서만 추론한다는 뜻으로 해석하지 않습니다.
-target과 judge도 같은 기반 모델이므로 독립적인 모델 간 검증이 아닙니다.
+Data Zone Standard processes inference in the **EU data zone**.
+Sweden Central resource placement is not a single-datacenter inference guarantee.
+Target and judge share an underlying model, so this is not independent cross-model validation.
 
-## 실제 실행 결과
+## Actual source-run results
 
-| 경로 | 이번 실행의 증거 |
+| Path | Evidence |
 |---|---|
-| 모델 | SDK·포털에서 새 Luna 호출. 근거를 주기 전 숙박비 질문에는 금액을 추측하지 않음 |
-| A. 포털 Prompt Agent | `mfv2-action-20260914-portal` **v3**, 인라인 합성 원문. 안내 4문항과 별도 dev 6문항을 각각 새 대화로 실행 |
-| SDK Prompt Agent | `mfv2-action-20260914-policy` **v1**, 현행·과거·승인·근거 부족 질문 실행 |
-| MAF | 단일·함수·로컬 MCP, A의 현행/과거 순차 실행, B의 순차·병렬·Group Chat 실행 |
-| Search / IQ | 합성 6건, 새 index/source/base, GA `2026-04-01` 실제 검색. 포털 관찰 후에도 GA 경로 재확인 |
-| File Search | `mfv2-action-20260914-files` **v2**, 인라인 근거 없이 File Search만 사용. 6파일 Completed 및 저장 원문 6개 바이트 일치 확인 |
-| v1 / v2 dev | `--retrieval local`을 고정한 새 응답 **6/6 / 6/6**, 수집 오류 0 |
-| 교육용 holdout | 고정 후보의 인수 절차 **4/4**. 이미 사용된 공개 교육용 세트이며 새로운 미사용 검증셋이 아님 |
-| native judge | groundedness **6/6**, relevance **5/6**, 각 6개 사례를 분모에 유지 |
-| Hosted | `mfv2-action-20260914-hosted` **v1**, 새 로컬·원격 응답, 실제 managed identity 실행 |
-| Hosted 별도 평가 | 새 원격 응답 **6건**, 생성형 rubric **6/6**. target에 query만 전달됐음을 모든 raw output에서 확인 |
-| Lab 10 | 합성 라우팅 설계. 실제 Fabric·Work IQ·Microsoft 365 연결은 하지 않음 |
+| Model | SDK/portal Luna calls; unsupported lodging amount withheld before policies were supplied |
+| A. Portal Prompt Agent | `mfv2-action-20260914-portal` **v3**, inline sources; four introductory and six dev questions, each in a fresh conversation |
+| SDK Prompt Agent | `mfv2-action-20260914-policy` **v1**, current/historical/approval/insufficient-evidence questions |
+| MAF | Single/function/local MCP; A's current/historical sequential runs; B's sequential/concurrent/Group Chat |
+| Search/IQ | Six synthetic documents, new index/source/base, actual GA `2026-04-01` retrieval; rechecked after portal observation |
+| File Search | `mfv2-action-20260914-files` **v2**, no inline evidence; six Completed files, stored bytes matched all six originals |
+| v1/v2 dev | **6/6 / 6/6**, fixed local retrieval, no collection errors |
+| Teaching holdout | Final frozen-candidate procedure **4/4**; already-exposed teaching set, not a fresh unseen set |
+| Native judge | Groundedness **6/6**, relevance **5/6**; all six cases retained in each denominator |
+| Hosted | `mfv2-action-20260914-hosted` **v1**, actual local/remote responses and managed identity |
+| Separate Hosted evaluation | Six fresh remote responses, generative rubric **6/6**; query-only target inputs verified in all raw outputs |
+| Lab 10 | Synthetic routing design; no Fabric/Work IQ/Microsoft 365 connection |
 
-포털 dev 6문항은 현행 150,000원, 과거 120,000원, 사전 승인, 식비 30,000원,
-해외 규정 보류, 규정 무시 요청 거절을 확인했습니다. 이는 assistant의 검토 기록이며
-사람의 운영 승인이나 통계적 품질 보증이 아닙니다.
-Group Chat도 최대 3라운드 종료이며 실제 예약·승인·지급을 수행하지 않았습니다.
+Portal dev responses were reviewed for current KRW 150,000, historical KRW 120,000,
+advance approval, meals KRW 30,000, international withholding, and refusal to ignore
+policy. This was assistant review, not human production approval or statistical
+quality assurance. Group Chat stopped at three rounds and performed no booking/approval/payment.
 
-## 실패와 한계도 그대로 보존
+## Failures and limitations retained
 
-- **D05 native relevance 2점:** 해외 규정이 없어 보류한 답변을 “실제 금액을 제시하지 못했다”고 낮게 평가했습니다.
-  업무상 올바른 보류와 일반 relevance 기준의 차이입니다. 점수를 바꾸지 않고 dev 검토 대기 기록을 남겼습니다.
-- **File Search 원문 열기 UI:** 인용 칩과 본문 번호를 클릭했지만 미리보기나 다운로드가 열리지 않았습니다.
-  성공한 것으로 표시하지 않았습니다. 같은 File Search 저장 파일을 SDK로 읽어 6개 모두 합성 원본과 비교했습니다.
-  답변을 다시 만들거나 다른 검색 provider로 바꾼 것이 아닙니다.
-- **IQ 포털 편집기:** Active인 GA base를 열어도 별도 chat completions model을 요구했습니다.
-  Preview 형태로 저장하거나 모델을 추가하지 않았고, GA 호출이 계속 동작함을 재확인했습니다.
-- **Hosted evaluator 버전:** 생성된 YAML에는 버전 1이 있지만 실제 run의 version selector는 빈 값이었습니다.
-  조회한 catalog v1을 보관하되 버전을 명시적으로 고정해 실행했다고 소급하지 않습니다.
-- **작은 평가 집합:** v1과 v2 모두 6/6이므로 우월성을 주장하지 않습니다.
-  holdout을 지침 수정이나 회귀 사례 수집에 사용하지 않았습니다.
+- **D05 native relevance = 2:** correct withholding of an unsupported international
+  amount was penalized for not providing an amount. Preserve the metric and a pending
+  dev review rather than rewriting the score to match business criteria.
+- **File Search source UI:** citation chips/numbers did not open a preview/download.
+  This was not marked successful. The same stored files were separately read via SDK
+  and compared to all six originals; neither answers nor retrieval providers changed.
+- **IQ portal editor:** an Active GA base still required a separate chat-completions
+  model. No model was added and no Preview configuration was saved. GA retrieval still worked.
+- **Hosted evaluator version:** generated YAML contained v1, but the actual run's version
+  selector was empty. Catalog v1 was retained without retroactively claiming explicit pinning.
+- **Small evaluation:** both prompts passed 6/6; no superiority claim.
+  Holdout was not used for instruction development or regression harvesting.
 
-SDK의 prerelease·직렬화·비영속 실행 경고와 촬영 보조 도구의 재시도도 별도 기록했습니다.
-오류·누락 행을 평가 분모에서 빼지 않았습니다.
+Prerelease, serialization, and non-durable-execution warnings and capture-helper retries
+were recorded separately. No missing/error rows were removed from denominators.
 
-## 실제 Hosted Trace와 로그
+## Actual Hosted trace and logs
 
-CLI가 반환한 **`e72dc58132dbc461e5fa381c67da3ed9`**를 같은 에이전트의 Traces에서 검색했습니다.
-실제 화면은 **20 spans, chat 2회, 도구 1회, 약 7.2초, root Completed**였습니다.
+The CLI's Trace ID **`e72dc58132dbc461e5fa381c67da3ed9`** was located in the same agent's
+Traces view. It showed **20 spans, two chat calls, one tool call, about 7.2 seconds,
+root Completed**.
 
-화면의 **2 errors**도 숨기지 않았습니다. 새 상태 저장소와 새 대화 항목의 초기 GET 404이며,
-이어진 생성/갱신과 모델·`lookup_policy` 호출은 성공했습니다.
-“전체 요청 완료”와 “하위 span 오류 0개”는 같은 말이 아닙니다.
+The displayed **two errors** were initial GET 404s for a new state store and conversation
+item. Subsequent creation/update, model, and `lookup_policy` calls succeeded.
+Overall completion and zero child errors are different claims.
 
-이번에는 원격 호출 **직후** `azd ai agent monitor`를 실행했습니다.
-동일 세션의 Running 상태, 두 모델 HTTP 200, 도구 성공, 최종 Responses HTTP 200 로그를 확인했습니다.
-SDK의 resilient tasks는 기본 비활성화 상태였으며 durable crash recovery를 검증했다고 주장하지 않습니다.
+`azd ai agent monitor` was run **immediately after invocation** on the same Running
+session. Logs showed two model HTTP 200s, successful tool execution, and final
+Responses HTTP 200. Resilient tasks were disabled; durable crash recovery was not verified.
 
-## 정리와 재현
+## Cleanup and reproduction
 
-새 Hosted 세션 2개는 자동 idle 상태에서도 명시적으로 stop하고 다시 조회해 모두 idle임을 확인했습니다.
-로컬 서버와 촬영 프로세스도 종료했습니다. 새 그룹은 검토용으로 남겼으므로
-**Search·File Search 저장소·로그와 향후 모델 호출 비용은 별도로 남을 수 있습니다.**
+Both new Hosted sessions were explicitly stopped even after automatic idle, then
+reread as idle. Local server/capture processes were stopped.
+The group was retained for review, so **Search, File Search storage, logs, and future
+model calls can still incur costs**.
 
-실행은 상위 azd 프로젝트가 없는 독립된 폴더에서 수행했습니다.
-개인 원시 응답·평가자·설정·정리 증거는 Git에서 제외하며,
-[검증 기록](reference/validation.md)과 [액션 인덱스](action-captures.md)에서 확인 범위를 구분합니다.
+Execution used a standalone folder outside other azd projects. Personal raw responses,
+evaluators, settings, and cleanup evidence remain Git-excluded.
+[Validation](reference/validation.md) and the [action index](action-captures.md)
+separate exactly what was verified.

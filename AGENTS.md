@@ -1,7 +1,7 @@
 # Workshop maintenance
 
 - Read the microsoft-foundry skill before changing Foundry integration code.
-- Keep the Korean beginner and practitioner paths aligned with executable commands.
+- Keep the English and Korean beginner and practitioner paths aligned with executable commands.
 - Use only the bundled synthetic data. Do not access company or Microsoft 365 data.
 - Do not provision, deploy, assign roles, change the default Azure subscription,
   publish, or push without a separate request to perform that action.

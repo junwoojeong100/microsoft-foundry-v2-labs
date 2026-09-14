@@ -1,66 +1,68 @@
-# Lab 11. 내 팀이 다시 실행할 수 있는 최종 결과
+# Lab 11. A final handoff your team can reproduce
 
-**완료 목표:** 특정 모델의 데모가 아니라 지식·코드·평가·운영을 분리한 작은 시스템을 인계합니다.
+**English** | [한국어](../ko/labs/11-capstone.md)
 
-상위: [학습 경로](../paths.md) · 종료: [정리](../reference/cleanup.md)
+**Goal:** Hand over a small system with separate knowledge, code, evaluation, and operations—not just a model demo.
 
-## 과제
+Parent: [Learning paths](../paths.md) · Finish: [Cleanup](../reference/cleanup.md)
 
-한빛기술 도우미의 최종 안내 흐름을 완성합니다.
-새 서비스를 많이 붙이는 대신, 아래 산출물을 다른 참가자가 이해하고 재현할 수 있게 합니다.
-실제 회사 데이터나 자동 지급 기능을 추가하지 않습니다.
+## Assignment
 
-| 산출물 | A. 완전초보자 | B. 경험자 |
+Complete the Hanbit Technology assistant's guidance flow. Rather than attaching many
+new services, make the following artifacts understandable and reproducible by another
+learner. Add neither company data nor automatic payments.
+
+| Deliverable | A. Beginner | B. Practitioner |
 |---|---|---|
-| 구조 | 프로젝트·모델·근거·에이전트 관계 그림 | 실제 코드·provider·identity까지 표시 |
-| 지식 | 사용한 6개 합성 문서와 적용일 | corpus hash, retrieval provider·문서 ID |
-| 지침 | 최종 지침과 바꾼 이유 | v1/v2 hash와 고정 후보 |
-| MAF 워크플로 | 준비된 순차 예제의 실제 실행·사람 검토 기록 | 순차·병렬·Group Chat의 코드와 결과 비교 |
-| 평가 | 실제 dev 6문항 수동 평가표 | 전체 dev 전후·최종 holdout 및 오류 이력 |
-| 실패 검토 | 실제 실패 한 건 또는 전부 통과했다는 기록 | source run/request/response와 검토 대기 기록 |
-| 운영 | 권한·비용·정리 확인 | 재현 설정·선택적 원격 버전·실제 trace 확인 |
-| 제한 사항 | 관찰만 한 기능과 미실행 기능 | SDK/클라우드/Preview별 확인 범위 |
+| Architecture | Project/model/evidence/agent diagram | Include actual code, provider, identity |
+| Knowledge | Six synthetic documents and effective periods | Corpus hash, retrieval provider, IDs |
+| Instructions | Final instructions and reasons for changes | v1/v2 hashes and frozen candidate |
+| MAF workflow | Actual prepared sequential run and human review | Code/results for sequential, concurrent, Group Chat |
+| Evaluation | Manual assessment of all six real dev answers | Complete dev before/after, final holdout, errors |
+| Failure review | Actual failure or all-pass record | Source run/request/response and pending review |
+| Operations | Permissions, cost, cleanup | Reproduction settings, optional remote version, actual trace |
+| Limitations | Observed-only and unrun features | SDK/cloud/Preview verification boundaries |
 
-## 경험자 인수 명령
+## Practitioner acceptance command
 
-[Lab 07](07-evaluation.md)의 실제 후보와 holdout이 있다면:
+If you have the actual candidate and holdout from [Lab 07](07-evaluation.md):
 
 ```bash
 python scripts/workshop.py accept --candidate candidate --holdout final-holdout
 ```
 
-이 결과는 **사람의 인수를 위한 자료**입니다. 파일 하나의 `true`만 보고 운영에 배포하지 않습니다.
-Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별도로 추가합니다.
-로컬 프로젝트 Responses 결과를 다른 Hosted 경로의 성능으로 재사용하지 않습니다.
+The result is **evidence for human acceptance**, not permission to deploy based on a
+single `true`. If using Hosted, add its version-specific smoke/evaluation evidence.
+Do not transfer local project Responses quality scores to a different Hosted path.
 
-![고정 후보와 교육용 holdout을 연결한 인수 자료](../assets/live-20260914-action/shots/cli-2-0848-11-001-acceptance-result.webp)
+![Acceptance artifacts linking a frozen candidate and teaching holdout](../assets/live-20260914-action/shots/cli-2-0848-11-001-acceptance-result.webp)
 
-**화면 확인:** 결과 파일과 `human_approval`의 검토 대기 상태를 확인합니다.
-`accepted: true`는 검사 조건을 충족한 인수 자료라는 뜻이지 운영 배포 승인이 아닙니다.
-사진의 holdout은 이미 사용된 교육용 세트이므로 새로운 미사용 검증셋의 합격으로 주장하지 않습니다.
+**What to check:** Inspect the output file and pending `human_approval`.
+`accepted: true` means the artifact met checker conditions, not production approval.
+The recorded holdout was already exposed teaching data, not a fresh unseen test.
 
-## 5분 발표 순서
+## Five-minute presentation
 
-1. **무엇을 해결했는가:** 어떤 질문에 답하고 어떤 질문은 보류하는가.
-2. **어디에서 근거를 얻는가:** 실제 문서 ID·적용 시점·검색 방식.
-3. **어떻게 확인했는가:** 전체 사례, 실패, 개선, holdout.
-4. **누가 통제하는가:** 승인 경계, 사용자와 agent identity, 민감정보·비용.
-5. **무엇을 아직 확인하지 않았는가:** 미실행/Preview/구독별 제한.
+1. **Problem:** which questions are answered and which are withheld?
+2. **Evidence:** actual document IDs, effective dates, and retrieval path.
+3. **Verification:** all cases, failures, improvements, and holdout.
+4. **Control:** approval boundaries, user/agent identities, sensitive data, costs.
+5. **Unknowns:** unrun features, Preview boundaries, subscription-specific limitations.
 
-## 리뷰어의 인수 체크리스트
+## Reviewer acceptance checklist
 
-- [ ] 실제 호출과 fixture가 구분되어 있다.
-- [ ] 모델 배포 이름과 프로젝트 endpoint를 추측하지 않았다.
-- [ ] 워크플로는 MAF 코드로 실행했으며 포털 대화를 수동으로 이어 붙인 것을 대신 제출하지 않았다.
-- [ ] 실패·누락·오류를 평가 분모에서 빼지 않았다.
-- [ ] 과거 정책과 현행 정책의 적용일을 확인했다.
-- [ ] holdout을 prompt 개선에 재사용하지 않았다.
-- [ ] 소스/데이터/지침/응답/evaluator 이력을 보존했다.
-- [ ] LLM reviewer가 사람 승인자처럼 행동하지 않는다.
-- [ ] 지연·사용량의 미측정 값을 0으로 채우지 않았다.
-- [ ] 원격 실행을 하지 않은 기능은 미실행으로 표시했다.
-- [ ] 본인 자산을 정리하고 공유 자산은 유지했다.
+- [ ] Real calls and fixtures are visibly distinct.
+- [ ] Deployment names and project endpoints were verified, not guessed.
+- [ ] Workflows ran in MAF code; manually stitched portal answers are not substituted.
+- [ ] Failures, missing rows, and errors remain in the denominator.
+- [ ] Historical/current policy effective dates were checked.
+- [ ] Holdout was not reused for prompt development.
+- [ ] Source, dataset, prompt, response, and evaluator lineage is preserved.
+- [ ] An LLM reviewer is not treated as a human approver.
+- [ ] Unmeasured latency/usage is not filled with zero.
+- [ ] Features not remotely executed are marked not run.
+- [ ] Owned assets were cleaned up and shared assets preserved.
 
-6문항/4문항의 통과는 워크숍 완료 기준입니다.
-실제 회사에 적용하려면 업무 전문가의 규정 승인, 더 넓은 평가셋, 위협 모델,
-부하/복구/접근 통제 검토, 서비스별 SLA·가격·보존 정책 검토가 추가로 필요합니다.
+Six/four cases are workshop gates. Production adoption also requires business-expert
+policy approval, broader evaluation, threat modeling, load/recovery/access reviews,
+and service-specific SLA, price, and retention reviews.

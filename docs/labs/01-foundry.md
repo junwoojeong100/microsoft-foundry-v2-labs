@@ -1,106 +1,107 @@
-# Lab 01. Foundry를 이해하고 프로젝트 준비하기
+# Lab 01. Understand Foundry and prepare a project
 
-**완료 목표:** Foundry, Agent Framework, 모델 배포, 에이전트의 관계를 설명합니다.
+**English** | [한국어](../ko/labs/01-foundry.md)
 
-이전: [Lab 00](00-start.md) · 다음: [Lab 02](02-models.md)
+**Goal:** Explain the relationship between Foundry, Agent Framework, model deployments, and agents.
 
-## 먼저 네 가지를 구분하기
+Previous: [Lab 00](00-start.md) · Next: [Lab 02](02-models.md)
 
-| 용어 | 쉬운 설명 | 이 실습에서의 예 |
+## Distinguish four concepts
+
+| Concept | Plain-language meaning | Workshop example |
 |---|---|---|
-| Foundry 리소스 | Azure에서 AI 서비스를 운영하는 자원 | 실습용 Foundry account |
-| 프로젝트 | 에이전트·연결·평가를 함께 관리하는 작업 공간 | 한빛기술 실습 프로젝트 |
-| 모델 배포 | 특정 모델·버전·SKU를 호출할 수 있게 한 구성 | 강사가 정한 `workshop-chat` 같은 이름 |
-| 에이전트 | 모델에 지침·도구·실행 방식을 붙인 업무 단위 | 출장 규정 안내 도우미 |
+| Foundry resource | Azure resource operating AI services | Training Foundry account |
+| Project | Workspace for agents, connections, and evaluations | Hanbit Technology training project |
+| Model deployment | Configuration exposing a model/version/SKU for calls | Instructor-selected name such as `workshop-chat` |
+| Agent | Model plus instructions, tools, and execution behavior | Travel-policy assistant |
 
-**Foundry는 클라우드 플랫폼, Microsoft Agent Framework(MAF)는 코드로 에이전트와
-워크플로를 만드는 오픈소스 SDK**입니다. MAF를 로컬에서 실행하더라도 그 안의 모델 호출은
-Azure에서 과금될 수 있습니다.
+**Foundry is the cloud platform. Microsoft Agent Framework (MAF) is the open-source
+SDK for building agents and workflows in code.** Local MAF can still make billable Azure model calls.
 
 ```mermaid
 flowchart TD
-    S["Azure 구독 · 비용과 관리 범위"] --> R["Resource Group"]
-    R --> F["Foundry 리소스"]
-    F --> D["모델 배포 · 실제 호출 이름"]
-    F --> P["Foundry 프로젝트"]
-    P --> A["에이전트와 버전"]
-    P --> C["지식·도구 연결"]
-    P --> E["평가·관측"]
+    S["Azure subscription / Billing and administration"] --> R["Resource Group"]
+    R --> F["Foundry resource"]
+    F --> D["Model deployment / Actual invocation name"]
+    F --> P["Foundry project"]
+    P --> A["Agents and versions"]
+    P --> C["Knowledge and tool connections"]
+    P --> E["Evaluation and observability"]
     D --> A
 ```
 
-## 1. 강사가 준비한 환경 확인
+## 1. Check the prepared environment
 
-1. `https://ai.azure.com`에서 현재 Foundry 경험과 실습 프로젝트를 엽니다.
-2. 프로젝트 이름, 리소스 이름, 연결된 모델 배포를 워크시트에 적습니다.
-3. 같은 프로젝트에서 에이전트·모델·평가/관측 기능이 어디에 있는지 찾아봅니다.
-4. 메뉴 이름은 언어와 배포 시점에 따라 달라질 수 있습니다. **메뉴 위치보다
-   “프로젝트의 모델 배포 목록”처럼 확인할 대상**을 기준으로 이동합니다.
-5. classic Hub 기반 프로젝트나 과거 threads/runs 코드를 보게 되면
-   [마이그레이션 지도](../reference/migration.md)를 확인합니다. 서로 다른 API를 섞지 않습니다.
+1. Open the current Foundry experience and training project at `https://ai.azure.com`.
+2. Record project name, resource name, and connected model deployment.
+3. Locate agents, models, and evaluation/observability within the same project.
+4. Menu labels vary by language and rollout. Navigate by the **object to verify**,
+   such as "the project's model deployments," rather than memorizing screen coordinates.
+5. If you encounter a classic Hub project or threads/runs code, use the
+   [migration map](../reference/migration.md). Do not combine incompatible APIs.
 
-![프로젝트 홈의 모델과 에이전트 진입점](../assets/live-20260914-action/shots/portal-0021-P00-004-select-new-project-ready.webp)
+![Project home entry points for model deployments and agents](../assets/live-20260914-action/shots/portal-0021-P00-004-select-new-project-ready.webp)
 
-**화면 확인:** **View deployments**는 모델 배포, **Start building**은 에이전트 제작의 진입점입니다.
-같은 프로젝트 안에 있어도 모델 배포와 에이전트는 다른 자산이라는 점을 위 관계 그림과 연결해 보세요.
+**What to check:** **View deployments** opens model deployments; **Start building**
+starts agent creation. They are distinct assets even inside the same project.
 
-## 2. 환경이 없는 경우 — 강사/관리자만 먼저 수행
+## 2. No environment yet: instructor/administrator preparation
 
-참가자 수업 시간에 포함하지 않는 준비 단계입니다.
+These steps are outside participant class time and require separate authorization.
 
-1. 실습용 Azure 구독과 전용 Resource Group을 정합니다.
-2. [Foundry 공식 시작 가이드](https://learn.microsoft.com/azure/foundry/quickstarts/get-started-code)에
-   따라 Foundry 리소스와 현재 프로젝트를 만듭니다.
-3. 리전을 선택하기 전에 필요한 **모델/SKU/할당량**을 확인합니다.
-   Hosted를 쓸 경우에는 [Hosted 지원 리전](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)도
-   별도로 확인합니다. 두 목록이 항상 같지는 않습니다.
-4. 모델을 배포하고, 참가자에게 정확한 배포 이름을 전달합니다.
-5. 프로젝트에 필요한 참가자 역할을 부여하고 반영을 기다립니다.
-6. 한 명의 학습자 계정으로 실제 모델 호출을 확인합니다.
-7. Search·Application Insights·Hosted는 사용할 모듈에만 준비합니다.
+1. Select a training subscription and dedicated resource group.
+2. Create a Foundry resource and current project following the
+   [official quickstart](https://learn.microsoft.com/azure/foundry/quickstarts/get-started-code).
+3. Verify **model/SKU/quota** before choosing a region. If using Hosted, separately
+   check [Hosted regions](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents);
+   the region lists need not match.
+4. Deploy the model and give participants its exact deployment name.
+5. Assign necessary project roles and wait for propagation.
+6. Verify an actual model request with a learner account.
+7. Prepare Search, Application Insights, and Hosted only for selected modules.
 
-리소스를 만들 수 있다고 모델을 호출할 수 있는 것은 아닙니다. **관리 평면과 데이터
-평면의 권한이 다릅니다.** 실습자 모두에게 구독 Owner를 부여하지 않습니다.
+Resource-creation permission does not imply model-invocation permission.
+**Management-plane and data-plane permissions differ.** Do not give every learner subscription Owner.
 
-![강사가 전용 리소스 그룹을 생성한 실제 CLI 결과](../assets/live-20260914-action/shots/cli-1-0164-01-008-create-group-result.webp)
+![Instructor-created dedicated resource group in the September 14 run](../assets/live-20260914-action/shots/cli-1-0164-01-008-create-group-result.webp)
 
-**화면 확인:** 강사 준비 예시의 `name`, `location`, `provisioningState`를 확인합니다.
-이것은 리소스 그룹 생성 결과이지 모델 호출 결과가 아닙니다. 참가자는 화면의 생성 명령을 그대로 실행하지 않습니다.
+**What to check:** Read `name`, `location`, and `provisioningState`. This is resource
+group creation, not model inference. Participants should not copy the creation command from the image.
 
-## 3. 최소 권한의 출발점
+## 3. Starting points for least privilege
 
-| 역할 | 권한의 출발점 | 범위 |
+| Actor | Starting role | Scope |
 |---|---|---|
-| 학습자: 에이전트·평가 개발 | `Foundry User` | 실습 프로젝트 |
-| 기존 에이전트 호출만 | `Foundry Agent Consumer` | 해당 에이전트 |
-| 기존 프로젝트에 Hosted 배포 | `Foundry Project Manager` 등 배포 가이드의 권한 | 해당 프로젝트 |
-| 리소스·역할 준비 담당자 | 생성 권한 + 필요한 역할 할당 권한 | 실습 전용 범위 |
-| 로그 조회자 | `Log Analytics Reader` 등 | 연결된 관찰 리소스 |
+| Learner developing agents/evaluations | `Foundry User` | Training project |
+| Caller of an existing agent | `Foundry Agent Consumer` | Relevant agent |
+| Hosted deployer to an existing project | Deployment-guide roles such as `Foundry Project Manager` | Relevant project |
+| Resource/role preparer | Creation and required role-assignment permissions | Dedicated training scope |
+| Log reader | Such as `Log Analytics Reader` | Connected observability resource |
 
-역할 이름이 아직 `Azure AI User`처럼 보일 수 있습니다. 현재 이름 변경은 기존 역할 ID를
-바꾸지 않습니다. 필요한 추가 권한과 역할 ID는 [공식 RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를
-확인합니다. 사용자, Search managed identity, Hosted agent identity는 서로 다른 주체입니다.
+Names may still display as `Azure AI User`; renaming does not change existing role IDs.
+Check additional permissions and IDs in [official RBAC guidance](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
+The user, Search managed identity, and Hosted agent identity are separate principals.
 
-## 4. endpoint 혼동 없애기
+## 4. Do not confuse endpoints
 
-| 용도 | 모양 |
+| Purpose | Shape |
 |---|---|
-| 프로젝트 SDK | `https://<account>.services.ai.azure.com/api/projects/<project>` |
-| 계정의 Azure OpenAI API | `https://<account>.openai.azure.com/openai/v1/` |
+| Project SDK | `https://<account>.services.ai.azure.com/api/projects/<project>` |
+| Account Azure OpenAI API | `https://<account>.openai.azure.com/openai/v1/` |
 | Azure AI Search | `https://<search>.search.windows.net` |
-| 브라우저 포털 | `https://ai.azure.com` — **SDK endpoint가 아님** |
+| Browser portal | `https://ai.azure.com` — **not an SDK endpoint** |
 
-프로젝트 endpoint에서 `/api/projects/<project>`를 지우지 않습니다.
-이 랩의 기본 추론은 프로젝트 SDK가 인증과 endpoint를 처리합니다.
-다른 endpoint로 자동 우회하거나 토큰 audience를 추측해 바꾸지 않습니다.
+Keep `/api/projects/<project>` in the project endpoint. The project SDK handles
+authentication and endpoints for default inference. Do not silently redirect to
+another endpoint or guess a different token audience.
 
-![Sweden Central 새 환경의 클라우드 사전 점검](../assets/live-20260914-action/shots/cli-1-0227-00-015-cloud-doctor-result.webp)
+![Read-only cloud preflight for the source environment](../assets/live-20260914-action/shots/cli-1-0227-00-015-cloud-doctor-result.webp)
 
-**화면 확인:** `doctor --cloud`가 읽어 온 모델 배포 정보와 본인의 설정을 대조합니다.
-관리 평면을 읽을 수 있다는 사실과 실제 추론 권한은 다릅니다. [Lab 02](02-models.md)의 요청까지 확인하세요.
+**What to check:** Compare the deployment returned by `doctor --cloud` with your
+settings. ARM read access does not establish inference permission; complete [Lab 02](02-models.md).
 
-## 완료 확인
+## Completion
 
-“모델을 바꿔도 프로젝트의 지식과 평가 기준을 남길 수 있나요?”에 답해 보세요.
-모델 배포는 바꿀 수 있지만 지식·지침·평가·권한을 자동으로 검증해 주는 것은 아닙니다.
-그래서 뒤의 모듈에서 같은 데이터와 기준을 다시 사용합니다.
+Explain whether knowledge and evaluation criteria can remain when a model is replaced.
+A deployment can change, but that does not automatically revalidate knowledge,
+instructions, evaluation, or permissions. Later modules deliberately reuse the same data and criteria.

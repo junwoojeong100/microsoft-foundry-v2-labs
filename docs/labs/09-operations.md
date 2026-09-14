@@ -1,131 +1,132 @@
-# Lab 09. Trace, 운영 게이트, 비용과 정리
+# Lab 09. Traces, operational gates, costs, and cleanup
 
-**완료 목표:** 한 번 잘 답한 데모를 운영 가능한 시스템으로 착각하지 않고, 다음 판단의 근거를 남깁니다.
+**English** | [한국어](../ko/labs/09-operations.md)
 
-이전: [Lab 07](07-evaluation.md) 또는 [Lab 08](08-hosted.md) · 다음: [캡스톤](11-capstone.md)
+**Goal:** Preserve evidence for the next decision instead of mistaking one successful demo for a production-ready system.
 
-## A. 브라우저 — 무엇을 관리해야 하나?
+Previous: [Lab 07](07-evaluation.md) or [Lab 08](08-hosted.md) · Next: [Capstone](11-capstone.md)
 
-실습 프로젝트에서 본인 권한으로 보이는 범위를 관찰합니다.
+## A. Browser: what needs management?
 
-| 관찰 대상 | 직접 확인할 질문 |
+Observe only the training project's assets visible with your permissions.
+
+| Area | Question to answer |
 |---|---|
-| 에이전트·버전·assets | 지금 사용자가 호출하는 버전은 어느 것인가? |
-| 모델 배포·quota | 모델 이름, 실제 배포, 용량 제한을 구분했는가? |
-| 도구·지식 연결 | 어느 데이터와 외부 시스템에 접근하는가? |
-| 평가 결과 | 어떤 데이터와 evaluator로 측정했는가? |
-| Trace/Monitor | 실패한 요청의 처리 흐름을 찾을 수 있는가? |
-| 비용·사용량 | 모델뿐 아니라 Search·session·로그 비용도 있는가? |
-| 보안/거버넌스 설정 | 누가 호출·변경·배포·승인할 수 있는가? |
+| Agents, versions, assets | Which version are users actually calling? |
+| Deployments and quota | Can you distinguish model, deployment, and capacity limits? |
+| Tools and knowledge connections | Which data/external systems can be accessed? |
+| Evaluation | Which dataset and evaluator produced the result? |
+| Trace/Monitor | Can you find the failed request's execution path? |
+| Costs and usage | Are Search, sessions, and logs charged in addition to models? |
+| Security/governance | Who can invoke, change, deploy, and approve? |
 
-기존 종합 랩의 Control Plane 관점을 이 표로 통합했습니다.
-Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습니다.
-전체 구독 권한을 추가하는 것이 학습의 목표가 아닙니다.
+This integrates the original Control Plane perspective. Missing Fleet/management
+menus can be normal for your role. Gaining subscription-wide permissions is not the objective.
 
-## B. 코드 — 실행 이력과 실제 telemetry 연결
+## B. Code: link execution lineage and actual telemetry
 
-### 1. 로컬 이력부터 찾기
+### 1. Find local lineage first
 
-`outputs/<label>/manifest.json`과 `responses.jsonl`에서 다음 값을 찾습니다.
+In `outputs/<label>/manifest.json` and `responses.jsonl`, locate run/question IDs
+(`run_id`, `case_id`), prompt/data/code/evidence hashes, `response_id`, `request_id`,
+actual response model, retrieval provider/document IDs/IQ activity, success/errors,
+token usage, and latency.
 
-- 실행과 질문: `run_id`, `case_id`.
-- 지침·데이터·코드·근거: hash와 버전.
-- 요청: `response_id`, `request_id`, 실제 응답 모델.
-- 검색: provider, 문서 ID, IQ references/activity.
-- 결과: 정상/오류, token usage, latency.
+Request/response IDs **do not automatically become Azure Monitor traces**.
+Report `trace_id: null` and `trace_export: not-configured` when that is what you have.
 
-여기 있는 request/response ID는 **자동으로 Azure Monitor trace가 되지 않습니다.**
-`trace_id: null`, `trace_export: not-configured`이면 그렇게 보고해야 합니다.
+### 2. Prepare server-side tracing
 
-### 2. 서버 측 tracing부터 준비
+The instructor verifies the project/Application Insights connection, retention, costs,
+and permissions. Follow [official tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup).
+Add local client instrumentation only when needed. This repository's Hosted entry point
+does not enable sensitive input/output capture by default.
 
-강사는 프로젝트와 Application Insights 연결, 로그 보존·비용·접근 권한을 확인합니다.
-[공식 tracing 설정](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup)을
-따라 서버 측 tracing을 활성화하고, 필요할 때만 로컬 client instrumentation을 더합니다.
-이 저장소의 Hosted 진입점은 민감한 입력/출력 캡처를 기본 활성화하지 않습니다.
+1. Send one synthetic question to the prepared agent.
+2. Record response, conversation, and agent version.
+3. Find that same invocation in Foundry tracing.
+4. Inspect parent/child spans, model/tools, latency, and errors.
+5. Check retention/permissions and avoid unnecessary raw-content export.
 
-1. 준비된 에이전트에 합성 질문을 한 번 보냅니다.
-2. 응답/대화/agent version을 기록합니다.
-3. Foundry의 해당 tracing 화면에서 같은 실행을 찾습니다.
-4. span의 부모/자식 관계, 모델·도구 호출, 지연·오류를 확인합니다.
-5. 보존 정책과 권한을 확인하고, 필요 이상의 원문을 export하지 않습니다.
+![Actual Traces tab and request list for a Hosted version](../assets/live-20260914-action/shots/portal-0510-P09-002-traces-tab-screen-change.webp)
 
-![해당 Hosted 버전의 Traces 탭과 실제 요청 목록](../assets/live-20260914-action/shots/portal-0510-P09-002-traces-tab-screen-change.webp)
+**What to check:** In **Traces → Trace view**, check date range and agent version.
+The newest row is not automatically the request you just sent.
 
-**화면 확인:** 본인 에이전트의 **Traces → Trace view**에서 날짜 범위와 agent version을 먼저 확인합니다.
-최신 행이라는 이유만으로 방금 보낸 요청이라고 판단하지 않습니다.
+![Filter by the exact Trace ID returned by the CLI](../assets/live-20260914-action/shots/portal-0515-P09-003-find-exact-trace-screen-change.webp)
 
-![CLI에서 받은 Trace ID로 필터링한 동일 요청](../assets/live-20260914-action/shots/portal-0515-P09-003-find-exact-trace-screen-change.webp)
+**What to check:** Search the actual Trace ID and open the matching row.
+Response, conversation, and trace IDs are different identifiers.
 
-**화면 확인:** 검색칸에 실제 Trace ID를 넣고 정확히 같은 ID의 행을 엽니다.
-`response_id`, conversation ID, Trace ID는 서로 다른 값입니다.
+![Span tree and Completed root for the same remote invocation](../assets/live-20260914-action/shots/portal-0542-P09-009-root-completed-transition.webp)
 
-![같은 원격 요청의 span 트리와 완료된 root](../assets/live-20260914-action/shots/portal-0542-P09-009-root-completed-transition.webp)
+**What to check:** Inspect root `invoke_agent` and Metadata. The source run showed
+**20 spans, two chat calls, one tool call**, and also **two errors**. Keep both facts.
 
-**화면 확인:** 트리의 최상위 `invoke_agent`와 Metadata의 상태를 확인합니다.
-촬영에서는 **20 spans, chat 2회, 도구 1회**였으며, 상단의 **2 errors**도 함께 읽어야 합니다.
+Protected tables can require additional permission beyond ordinary log reading.
+Do not repeat costly model calls while waiting for telemetry. If absent, record
+**unverified** and inspect connection, exporter, roles, and time range.
 
-보호된 테이블은 일반 로그 조회 역할 외에 추가 권한을 요구할 수 있습니다.
-트레이스가 늦게 도착하는 동안 호출을 반복해 비용을 늘리지 않습니다.
-없으면 **미확인**으로 남기고 연결·exporter·역할·시간 범위를 점검합니다.
+![Actual runtime logs read immediately after invocation](../assets/live-20260914-action/shots/cli-2-0733-09-005-live-monitor-result.webp)
 
-![호출 직후 같은 세션에서 읽은 실제 런타임 로그](../assets/live-20260914-action/shots/cli-2-0733-09-005-live-monitor-result.webp)
+**What to check:** The source run used `azd ai agent monitor` on the same session
+immediately after the call. Compare model/tool activity and final Responses HTTP
+status; distinguish this from log-connection errors after a session stops.
 
-**화면 확인:** 촬영은 호출 직후 `azd ai agent monitor`로 같은 세션의 로그를 확인한 예시입니다.
-모델·도구 처리와 최종 Responses HTTP 상태를 대조합니다. 중지된 세션에서 발생하는 로그 연결 오류와 구분하세요.
+### 3. Explain one failure
 
-### 3. 실패 하나를 설명하기
+Do not stop at "D03 returned 403." Identify which user/project/agent identity attempted
+to access which service. Separate model failure, tool failure, missing evidence,
+and wrong policy application.
+After reviewing sources and the reason for change, return to the dev comparison in
+[Lab 07](07-evaluation.md). Automatic trace-to-dataset is optional Preview, not a core requirement.
 
-> “D03은 403이었다”에서 멈추지 말고, 사용자/프로젝트/agent identity 중 누가
-> 어느 서비스에 접근하다 실패했는지 설명합니다.
+![Child error span from an initial state-store read](../assets/live-20260914-action/shots/portal-0530-P09-006-first-storage-miss-screen-change.webp)
 
-모델 실패, 도구 실패, 검색 근거 부족, 잘못된 정책 적용을 구분합니다.
-원문을 바탕으로 사람이 개선 이유를 검토한 뒤 [Lab 07](07-evaluation.md)의 dev 비교로 돌아갑니다.
-자동 trace-to-dataset 기능은 Preview이므로 이 기본 경로의 필수 조건이 아닙니다.
+**What to check:** Select the red `GET .../storage/state_stores/...` span.
+The source run's initial GET returned 404, followed by successful creation/update.
+Do not call it a failed model answer or rewrite the run as "zero errors."
 
-![새 상태 저장소 조회에서 발생한 하위 오류 span](../assets/live-20260914-action/shots/portal-0530-P09-006-first-storage-miss-screen-change.webp)
+![Successfully completed lookup_policy tool span](../assets/live-20260914-action/shots/portal-0539-P09-008-tool-span-screen-change.webp)
 
-**화면 확인:** 빨간 `GET .../storage/state_stores/...` span을 선택해 어떤 접근이 실패했는지 봅니다.
-촬영에서는 초기 GET 404 이후 생성·갱신이 성공했습니다. 이를 모델 답변 실패나 “오류 0개”로 바꾸어 기록하지 않습니다.
+**What to check:** Inspect `execute_tool lookup_policy` in the same tree.
+Explain successful tool/model work separately from the failed initialization reads.
 
-![정상 완료한 lookup_policy 도구 span](../assets/live-20260914-action/shots/portal-0539-P09-008-tool-span-screen-change.webp)
+## Operational approval gates
 
-**화면 확인:** 같은 트리에서 `execute_tool lookup_policy`를 선택해 호출과 완료를 확인합니다.
-실패한 저장소 조회와 성공한 도구·모델 처리를 분리해 설명해야 합니다.
-
-## 운영 승인 게이트
-
-| 게이트 | 이번 실습에서 남길 증거 |
+| Gate | Evidence to retain |
 |---|---|
-| 품질 | 전체 dev/holdout, 실패·누락 포함, 업무 기준과 의미 검토 |
-| 권한 | 최소 권한, 사용자/런타임 identity 구분 |
-| 데이터 | 합성/승인된 데이터만 사용, 적용 시점·출처·보존 기간 |
-| 안전 | 실제 행동 도구의 서버 측 검증과 사람 승인 계획 |
-| 비용 | 예상 호출량, Search 고정비, session 수, 로그 보존 |
-| 릴리스 | 정확한 agent/model/prompt/dataset/code 버전 |
-| 복구 | 이전 버전·되돌릴 설정·담당자 |
+| Quality | All dev/holdout rows, including failures, business criteria and semantic review |
+| Permissions | Least privilege; user and runtime identities separated |
+| Data | Synthetic/approved data, effective periods, sources, retention |
+| Safety | Server-side checks and human approval design for real actions |
+| Costs | Expected calls, Search fixed costs, sessions, log retention |
+| Release | Exact agent/model/prompt/dataset/code versions |
+| Recovery | Previous version, reversible settings, responsible owner |
 
-자동 최적화나 continuous evaluation을 기본으로 켜지 않습니다.
-운영 중 샘플링·평가 비용·데이터 정책을 승인한 뒤 별도 설정합니다.
-수업의 6문항 통과만으로 운영 배포를 승인하지 않습니다.
+Do not enable automatic optimization or continuous evaluation by default.
+Sampling, evaluation charges, and data policy require separate approval.
+Six passing teaching cases do not authorize production.
 
-## 반드시 정리하고 끝내기
+## Always finish with cleanup
 
-2026-09-14 원격 호출은 20-span trace에서 root Completed, chat 2회·도구 1회를 확인했습니다.
-초기 state store/item 조회의 404 두 개도 보존했으며 이후 생성·갱신과 최종 응답은 성공했습니다.
-이번 `monitor`는 호출 직후 같은 Running 세션의 실제 로그를 확인했습니다.
-전체 완료와 하위 오류 0개를 같은 뜻으로 쓰지 않습니다. 남은 자산은 [실행 기록](../live-run.md)에 적었습니다.
+In the September 14 source run, the 20-span root completed with two chat calls and
+one tool call. Two initial state-store/item 404s remained visible; later writes and
+the final answer succeeded. `monitor` read the same Running session immediately after
+invocation. Completed overall does not mean no child errors.
+[Execution records](../live-run.md) list retained assets.
 
 ```bash
 python scripts/workshop.py cleanup-plan
 ```
 
-이 명령은 **목록과 절차만 출력**하며 삭제하지 않습니다.
-[정리 체크리스트](../reference/cleanup.md)를 따라 본인 자산을 확인하고,
-공유 서비스와 다른 조의 데이터를 유지합니다.
-정리 완료는 “명령을 실행했다”가 아니라 **활성 session·잔여 리소스·과금 상태를 다시 확인했다**는 뜻입니다.
+This **prints a list and procedure; it deletes nothing**.
+Follow [Cleanup](../reference/cleanup.md), preserve shared/other-team resources, and
+recheck active sessions, residual resources, and costs rather than assuming a command
+means cleanup is complete.
 
-![명시적 stop 뒤 본인 Hosted 세션들을 다시 조회](../assets/live-20260914-action/shots/cli-2-0882-09-033-sessions-after-result.webp)
+![Owned Hosted sessions reread after explicit stop](../assets/live-20260914-action/shots/cli-2-0882-09-033-sessions-after-result.webp)
 
-**화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다. 촬영의 두 세션은 모두 `idle`이었습니다.
-화면의 세션 ID를 그대로 중지하지 말고 자신의 ID를 사용합니다. idle이어도 파일 저장소·Search·로그 비용이 모두 사라지는 것은 아닙니다.
+**What to check:** Check your session states and pagination. Both recorded sessions
+were `idle`. Use your IDs, not the screenshot's IDs. Idle does not eliminate every
+filesystem, Search, or log charge.

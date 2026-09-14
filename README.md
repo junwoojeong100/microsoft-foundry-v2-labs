@@ -1,128 +1,137 @@
 # Microsoft Foundry v2 Hands-on Labs
 
-**처음에는 에이전트 하나를 만들고, 마지막에는 지식·평가·운영 기준이 남는 시스템을 만듭니다.**
+**English** | [한국어](README.ko.md)
 
-한국어 · 합성 데이터 · **2026-09-14 실제 실행 확인 / Pre-Ignite 2026 Edition**
+**Start with one agent. Finish with a system whose knowledge, evaluation criteria, and operational decisions your team can reuse.**
 
-**[새 액션별 실습 영상: 포털 9분 09초 · CLI 14분 02초](docs/video-summary.md)** —
-새 환경에서 처음부터 촬영하고 대기를 제거했습니다. **GitHub 내장 플레이어에서 별도 명령 없이 재생**합니다.
+English by default · Korean available · Synthetic data only
 
-**[실습 순서 통합본 — 23분 35초](docs/video-summary.md#실습-가이드-순서-통합본)**도 제공합니다.
-Lab 00–11별로 CLI와 포털을 교차 편집했으며,
-**[통합본도 GitHub에서 바로 재생](https://github.com/user-attachments/assets/c005e1a6-f577-4d07-b2c3-9a4827750c81)**합니다.
+**Pre-Ignite 2026 Edition / Azure execution recorded September 14, 2026 / English documentation September 15, 2026**
 
-[236개 액션의 전·후 화면](docs/action-captures.md) · [실행 결과와 검증 한계](docs/live-run.md)
+Follow the **[beginner or practitioner guide](docs/paths.md)**. Each lab places reference
+images and a **What to check** explanation beside the relevant action or command.
+Read [how to use the screenshots](docs/labs/00-start.md#how-to-read-this-guide) first.
 
-각 랩 본문에는 조작·명령 바로 옆에 **2026-09-14 촬영한 참고 이미지와 화면 확인 포인트**를 배치했습니다.
-먼저 [화면 읽는 법](docs/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
+**[Watch the guide-ordered walkthrough](docs/video-summary.md)**: 23:35 combined,
+14:02 CLI, or 9:09 portal, with **direct GitHub playback** and no download command.
+[All 236 recorded actions](docs/action-captures.md) · [Results and limitations](docs/live-run.md)
 
-2025년 12월의 `microsoft-foundry-labs`를 바탕으로, 이후 분리해 만든 Foundry Evaluation,
-MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업무 시나리오**로
-다시 구성했습니다. 다른 리포를 차례로 방문하는 링크 모음이 아닙니다.
-이 폴더에 실습 본문, Python 코드, 정책 문서, 평가 데이터, 강사 가이드가 있습니다.
+The September 14 recordings use the original Korean workshop content. Translating the
+guide does **not** turn those recordings into a new English Azure run.
+The [language contract](docs/reference/languages.md) explains why canonical policy
+questions, prompts, and evaluation data remain unchanged.
 
-## 여기에서 시작하세요
+This edition brings the December 2025 `microsoft-foundry-labs`, Foundry Evaluation,
+MAF Workshop, Agent Framework, and Microsoft IQ exercises into **one environment and
+one business scenario**. It is not a list of repositories to visit in sequence.
+The labs, Python code, synthetic policies, evaluation data, and instructor guide are here.
 
-| 지금 내 상태 | 시작점 | 끝나면 남는 것 |
+## Start here
+
+| Your starting point | Recommended path | What you will produce |
 |---|---|---|
-| Azure·AI·코딩이 처음 | **[A. 완전초보자 4시간 경로](docs/paths.md)** | 포털 에이전트, 근거 있는 답변, 6문항 평가표, 운영·정리 체크리스트 |
-| Python/API/Azure를 사용해 봄 | **[B. 경험자 6시간 경로](docs/paths.md)** | MAF·MCP·워크플로 코드, 검색, 전후 평가·holdout, 배포 패키지 |
-| 강사·환경 준비 담당자 | **[강사 사전 준비](docs/instructor.md)** | 조별 환경, 권한·비용 계획, 수업 전 smoke test, 중단·복구 기준 |
-| Azure 승인이나 할당량을 기다리는 중 | **[Azure 없이 검사기 체험](docs/labs/00-start.md)** | 오프라인 fixture로 실행·평가 파일 구조 이해. **클라우드 실습 완료와는 다름** |
-| 구버전을 이미 진행함 | **[구버전 → v2 변경 지도](docs/reference/migration.md)** | 재사용할 개념, 바꿔야 할 SDK·권한·실행 방식 |
+| New to Azure, AI, and coding | **[A. Four-hour beginner path](docs/paths.md)** | A portal agent, grounded answers, a six-question assessment, and an operations/cleanup checklist |
+| Familiar with Python, APIs, or Azure | **[B. Six-hour practitioner path](docs/paths.md)** | MAF/MCP/workflow code, retrieval, before/after evaluation and holdout records, and a deployment package |
+| Teaching or preparing the environment | **[Instructor preparation](docs/instructor.md)** | Team environments, permissions and cost planning, smoke checks, and recovery criteria |
+| Waiting for Azure approval or quota | **[Try the checker without Azure](docs/labs/00-start.md)** | Understand run/evaluation files with offline fixtures; **not completion of the cloud labs** |
+| Returning from the previous edition | **[Migration map](docs/reference/migration.md)** | Concepts to retain and SDK, permission, and execution contracts to change |
 
-**초보자는 터미널 설치부터 시작하지 않습니다.** 기본은 포털이며, 워크플로 단계에서는
-강사가 준비한 MAF 환경에서 명령을 복사해 실행합니다. 포털 Workflow Designer로 작성하지 않습니다.
-아래 시간은 강사가 계정·리소스·권한·모델을 준비한 뒤의 수업 시간입니다.
-구독 개설, 기능 승인, 할당량 증설, 설치·RBAC 전파는 별도입니다.
+**Beginners do not start by installing a terminal.** They primarily use the portal,
+then copy commands into an instructor-prepared MAF environment for workflows.
+They do not author workflows in the portal Workflow Designer.
+The advertised times start **after** accounts, resources, roles, and models are ready.
+Subscription creation, access approvals, quota increases, installation, and RBAC propagation are separate.
 
-## 하나의 시나리오, 점점 확장되는 시스템
+## One scenario, an expanding system
 
-가상 기업 **한빛기술의 출장 규정 안내 도우미**를 만듭니다.
-현재/과거 숙박 한도, 식비, 사전 승인, 근거 없는 해외 출장 질문을 다룹니다.
-실제 회사 문서·개인 정보·Microsoft 365 데이터는 사용하지 않습니다.
-에이전트는 안내만 하며 출장 승인·예약·지급을 실행하지 않습니다.
+Build a travel-policy assistant for the fictional **Hanbit Technology**.
+It handles current and historical lodging limits, meals, advance approval, and
+unsupported international-travel questions. No real company documents, personal
+information, or Microsoft 365 data are used. The assistant provides guidance;
+it does not approve, book, or reimburse travel.
 
 ```mermaid
 flowchart LR
-    U["사용자 질문"] --> A["Foundry Agent / MAF"]
-    K["합성 규정 6건"] --> R["문서 근거 / Search / Foundry IQ"]
+    U["User question"] --> A["Foundry Agent / MAF"]
+    K["Six synthetic policies"] --> R["Document context / Search / Foundry IQ"]
     R --> A
-    T["읽기 전용 함수·MCP"] --> A
-    A --> E["답변·인용·실행 이력"]
-    E --> V["업무 검사 + 선택적 Foundry 평가"]
-    V --> H["사람의 실패 검토"]
-    H --> P["개선 지침 + 회귀 자산"]
+    T["Read-only functions / MCP"] --> A
+    A --> E["Answers / citations / execution history"]
+    E --> V["Business checks + optional Foundry evaluation"]
+    V --> H["Human failure review"]
+    H --> P["Improved instructions + regression assets"]
     P --> A
-    E --> O["Trace / Monitor / 비용"]
+    E --> O["Trace / Monitor / costs"]
 ```
 
-| 모듈 | 내용 | 주요 통합 원본 |
+| Module | Topics | Main source modules |
 |---|---|---|
-| [00. 시작과 환경](docs/labs/00-start.md) | 학습 경로, 브라우저/코드 준비, offline/cloud 구분 | MAF Workshop |
-| [01. Foundry와 프로젝트](docs/labs/01-foundry.md) | 플랫폼·SDK 구분, 리소스·프로젝트·권한 | 기존 종합 랩 |
-| [02. 모델](docs/labs/02-models.md) | 배포 이름, Playground, SDK, 모델 비교·Router | 기존 종합 랩 + MAF Workshop |
-| [03. 첫 에이전트](docs/labs/03-prompt-agent.md) | 지침, 합성 문서, 인용, 도구와 권한 경계 | 기존 종합 랩 |
-| [04. MAF와 도구](docs/labs/04-agents-tools.md) | 단일 에이전트, 함수, 로컬 MCP | MAF Workshop + Agent Framework Labs |
-| [05. MAF 워크플로](docs/labs/05-workflows.md) | 준비된 예제 실행 → 순차·병렬·Group Chat 코드, 사람의 검토 | Agent Framework Labs |
-| [06. RAG와 Foundry IQ](docs/labs/06-knowledge.md) | 검색과 IQ의 차이, GA API, 원문 인용 | Microsoft IQ on Foundry |
-| [07. 평가와 학습 루프](docs/labs/07-evaluation.md) | dev → 실패 분석 → 지침 개선 → holdout | Foundry Evaluation |
-| [08. Hosted Agent](docs/labs/08-hosted.md) | 안전한 패키징, 로컬 서버, code deployment | MAF Workshop + IQ |
-| [09. 관측·운영·정리](docs/labs/09-operations.md) | trace, 운영 게이트, 비용과 소유권 기반 정리 | 기존 Control Plane + Evaluation |
-| [10. IQ 확장](docs/labs/10-iq-extensions.md) | Fabric·Work IQ·Toolbox·Preview 승인 경계 | Microsoft IQ on Foundry |
-| [11. 캡스톤](docs/labs/11-capstone.md) | 지식·모델·평가·운영을 묶은 최종 인수 | 전체 통합 |
+| [00. Getting started](docs/labs/00-start.md) | Learning paths, browser/code setup, offline/cloud boundaries | MAF Workshop |
+| [01. Foundry and projects](docs/labs/01-foundry.md) | Platform vs. SDK, resources, projects, roles | Original integrated labs |
+| [02. Models](docs/labs/02-models.md) | Deployment names, Playground, SDK, comparison and Router | Original labs + MAF Workshop |
+| [03. Your first agent](docs/labs/03-prompt-agent.md) | Instructions, synthetic documents, citations, tool/permission boundaries | Original labs |
+| [04. MAF and tools](docs/labs/04-agents-tools.md) | Single agent, functions, local MCP | MAF Workshop + Agent Framework Labs |
+| [05. MAF workflows](docs/labs/05-workflows.md) | Prepared example, sequential/concurrent/Group Chat code, human review | Agent Framework Labs |
+| [06. RAG and Foundry IQ](docs/labs/06-knowledge.md) | Search vs. IQ, GA API, source citations | Microsoft IQ on Foundry |
+| [07. Evaluation and learning](docs/labs/07-evaluation.md) | Dev, failure analysis, instruction improvements, holdout | Foundry Evaluation |
+| [08. Hosted Agent](docs/labs/08-hosted.md) | Safe packaging, local server, code deployment | MAF Workshop + IQ |
+| [09. Operations and cleanup](docs/labs/09-operations.md) | Traces, release gates, costs, ownership-aware cleanup | Control Plane + Evaluation |
+| [10. IQ extensions](docs/labs/10-iq-extensions.md) | Fabric, Work IQ, Toolbox, Preview approval boundaries | Microsoft IQ on Foundry |
+| [11. Capstone](docs/labs/11-capstone.md) | Final handoff across knowledge, models, evaluation, and operations | All modules |
 
-## 코드 경로의 가장 짧은 시작
+## Shortest code-path start
 
-모든 명령은 **이 폴더의 루트**에서 실행합니다. Bash 기준이며 Windows 코드는 WSL을
-사용합니다. Python 3.13을 권장합니다. 브라우저 경로에서는 아래 명령이 필요 없습니다.
+Run every command from **this repository's root**. Examples use Bash; use WSL on
+Windows. Python 3.13 is recommended. Browser-path learners do not need these commands.
 
 ```bash
-# 외부 패키지나 Azure 없이 가능한 검사기 체험
+# Try the checker without external packages or Azure.
 python3.13 scripts/workshop.py doctor
 python3.13 scripts/workshop.py demo --label first-offline --prompt v2
 python3.13 scripts/workshop.py evaluate --label first-offline
 ```
 
-`offline-fixture` 결과는 **미리 작성한 예제**입니다. 모델 품질·Foundry 성능·Azure 연결을
-검증한 결과가 아닙니다. 실제 SDK 설치·인증·호출은 [Lab 00](docs/labs/00-start.md)에서
-진행합니다. 반복 실행 시 새 label을 사용합니다. 기존 실행을 덮어쓰지 않습니다.
+`offline-fixture` results are **prewritten examples**, not evidence of model quality,
+Foundry performance, or Azure connectivity. Continue with [Lab 00](docs/labs/00-start.md)
+for SDK installation, authentication, and real calls. Use a new label for every run;
+existing runs are not overwritten.
 
-## 이 버전의 범위
+## Scope of this edition
 
-- 현재 Foundry / Projects SDK **2.x**를 사용합니다. classic의 threads/runs 코드를 혼합하지 않습니다.
-- 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다.
-- 모델을 `gpt-...` 이름으로 강제하지 않습니다. 강사가 해당 구독에서 확인한 **실제 배포 이름**을 씁니다.
-- 서비스 GA와 SDK Preview는 따로 표시합니다. Hosted Agent 서비스는 GA지만 이 랩의 Python hosting
-  패키지는 prerelease입니다. Foundry IQ도 GA 계약과 richer Preview 계약을 구분합니다.
-- 모델 교체, 지침 개선, 평가 데이터 축적을 다룹니다. **자동 가중치 학습·fine-tuning·RL을 수행하지 않습니다.**
-- 실제 배포, 유료 평가, 외부 데이터 연결은 학습자가 별도로 실행하는 선택 단계입니다.
-  이 저장소를 열거나 `doctor`를 실행한다고 리소스가 생성되지 않습니다.
-- Ignite 2026에서 발표될 기능이나 가격·리전·할당량을 미리 보장하지 않습니다.
+- Current Foundry and Projects SDK **2.x**; no mixing with classic threads/runs code.
+- **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded.
+- Use an instructor-verified **deployment name**, not a mandatory `gpt-...` model name.
+- Service GA and SDK Preview are separate. The Hosted Agent service is GA, while this
+  edition's Python hosting package is prerelease. Foundry IQ GA and richer Preview contracts are distinct.
+- Model replacement, instruction improvement, and accumulating evaluation evidence are included.
+  **Automatic weight training, fine-tuning, and RL are not.**
+- Deployment, paid evaluation, and external connections are optional, separately executed steps.
+  Opening the repository or running `doctor` creates no resources.
+- Unannounced Ignite 2026 capabilities, future prices, regions, and quotas are not guaranteed.
 
-**기준과 증거:** [버전·기능 상태](docs/reference/versions.md) ·
-[이 에디션의 검증 범위](docs/reference/validation.md) ·
-[원본 커밋·공식 출처](docs/reference/sources.md) ·
-[문제 해결](docs/reference/troubleshooting.md) ·
-[리소스 정리](docs/reference/cleanup.md)
+**Evidence:** [Versions/status](docs/reference/versions.md) ·
+[Validation scope](docs/reference/validation.md) · [Sources](docs/reference/sources.md) ·
+[Troubleshooting](docs/reference/troubleshooting.md) · [Cleanup](docs/reference/cleanup.md)
 
-처음 보는 용어는 [용어 사전](docs/reference/glossary.md), 실행 옵션은
-[명령 참조](docs/reference/commands.md), 환경변수는 [공통 설정](docs/reference/configuration.md)을 확인하세요.
+New terms: [glossary](docs/reference/glossary.md). Execution options:
+[command reference](docs/reference/commands.md). Environment variables:
+[configuration](docs/reference/configuration.md).
 
-## 저장소 구성
+## Repository layout
 
 ```text
-docs/                  한국어 실습·학습 경로·강사·참고 문서
-src/foundry_workshop/   공통 설정·검색·에이전트·평가·실행 이력
-scripts/               실습 CLI, 패키징, 문서 검사
-data/knowledge/        합성 정책 6건
-data/evaluation/       dev 6건 / holdout 4건 / judge calibration 2건
-data/fixtures/         Azure 없이 검사기만 체험하는 고정 예제
-prompts/               비교할 v1 / v2 지침
-examples/              로컬 MCP 서버와 Hosted Agent 진입점
-tests/                 Azure 없는 로직·계약 검사
-outputs/               개인 실행 결과; Git에서 제외
+docs/                  English labs, learning paths, instructor and reference guides
+docs/ko/               Matching Korean guides
+src/foundry_workshop/   Shared settings, retrieval, agents, evaluation, and lineage
+scripts/               Workshop CLI, packaging, and documentation checks
+data/knowledge/        Six canonical synthetic policies (Korean)
+data/evaluation/       Six dev / four holdout / two judge-calibration cases
+data/fixtures/         Fixed examples for the offline checker
+prompts/               Canonical v1 / v2 instructions (Korean)
+examples/              Local MCP server and Hosted Agent entry point
+tests/                 Offline logic and contract checks
+outputs/               Personal run outputs; excluded from Git
 ```
 
-자료의 라이선스는 [MIT](LICENSE)입니다. 원본 리포별 출처·라이선스 경계는
-[출처 문서](docs/reference/sources.md)에 구분했습니다.
+Licensed under [MIT](LICENSE). Source attribution and repository-specific license
+boundaries are recorded in [Sources](docs/reference/sources.md).

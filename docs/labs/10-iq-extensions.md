@@ -1,105 +1,105 @@
-# Lab 10. Fabric IQ, Work IQ, Toolbox 확장
+# Lab 10. Fabric IQ, Work IQ, and Toolbox extensions
 
-**선택 심화입니다. 기본 실습은 실제 Fabric/Microsoft 365 계정에 접근하지 않고 완료됩니다.**
+**English** | [한국어](../ko/labs/10-iq-extensions.md)
 
-선행: [Lab 06](06-knowledge.md) · 상위: [학습 경로](../paths.md)
+**Optional advanced work. Complete the core labs without accessing actual Fabric or Microsoft 365 accounts.**
 
-## 세 IQ를 같은 API로 보지 않기
+Prerequisite: [Lab 06](06-knowledge.md) · Parent: [Learning paths](../paths.md)
 
-| 구분 | 주된 맥락 | 이번 통합 가이드의 기본 범위 |
+## Three IQs are not one API
+
+| Product | Main context | Default scope here |
 |---|---|---|
-| Foundry IQ | 기업 지식 검색, knowledge source/base | 합성 Search index의 GA retrieval |
-| Fabric IQ | 의미 모델·분석·ontology·OneLake·data agent | 합성 자산을 준비한 경우의 별도 연결 설계 |
-| Work IQ | Microsoft 365 업무·협업 맥락 | 기본 비활성화; 실제 사용자 연결은 별도 승인 |
+| Foundry IQ | Enterprise knowledge, knowledge sources/bases | GA retrieval over a synthetic Search index |
+| Fabric IQ | Semantic models, analytics, ontology, OneLake, data agents | Separate connection design only when synthetic assets are prepared |
+| Work IQ | Microsoft 365 work/collaboration context | Disabled by default; real user connection needs separate approval |
 
-“둘 다 IQ니까 같은 키를 넣으면 된다”거나 “Copilot 라이선스가 있으니 백엔드가
-app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습니다.
+Do not infer that similarly named products share a key, or that a Copilot license
+permits unrestricted app-only backend access.
 
-## 1. 누구나 할 수 있는 합성 설계 실습
+## 1. Synthetic design exercise for everyone
 
-실제 서비스에 로그인하지 않고 다음 세 질문의 라우팅 표를 만듭니다.
+Without signing into services, design this routing table:
 
-| 질문 | 적절한 근거 | 필요한 권한/검증 |
+| Question | Appropriate evidence | Required verification |
 |---|---|---|
-| 출장 숙박 한도가 얼마인가? | 버전이 있는 정책 문서 / Foundry IQ | 원문·적용일·인용 |
-| 이번 분기 부서별 출장비 합계는? | 합성 분석 모델 / Fabric | 집계 정의·사용자 데이터 권한 |
-| 출장 검토 회의에서 합의한 내용은? | 승인된 업무 맥락 / Work IQ | 사용자 동의·위임 권한·민감정보 보호 |
+| What is the lodging limit? | Versioned policies / Foundry IQ | Source, effective date, citation |
+| What are quarterly travel totals by department? | Synthetic analytics model / Fabric | Aggregation definition, user data permissions |
+| What did the travel-review meeting agree? | Approved work context / Work IQ | Consent, delegated permission, sensitive-data protection |
 
-합성 JSON으로 세 응답 형태를 만들어 reviewer에게 맡기는 것은 라우팅 연습입니다.
-**실제 Fabric IQ/Work IQ 연결 성공으로 표시하지 않습니다.**
+Mocking three response shapes with synthetic JSON is a routing exercise,
+**not proof of an actual Fabric IQ or Work IQ connection**.
 
-![합성 라우팅 설계 결과와 실제 연결 미수행 표시](../assets/live-20260914-action/shots/cli-2-0853-10-001-synthetic-routing-result.webp)
+![Synthetic routing design with explicit no-connection fields](../assets/live-20260914-action/shots/cli-2-0853-10-001-synthetic-routing-result.webp)
 
-**화면 확인:** 질문마다 다른 근거와 검증 항목을 정리한 설계 예시입니다.
-`fabric_connected`, `work_iq_connected`, `company_or_m365_data_accessed`가 모두 `false`임을 확인합니다.
-이것은 실제 서비스 조회나 새 연결을 실행하는 명령 예시가 아닙니다.
+**What to check:** Review the evidence/verification route for each question.
+`fabric_connected`, `work_iq_connected`, and `company_or_m365_data_accessed` are all
+`false`. This is not a live service-query command.
 
-## 2. Fabric 연결 — 준비된 합성 자산이 있을 때만
+## 2. Fabric: only with prepared synthetic assets
 
-필요 조건을 먼저 기록합니다.
+Record prerequisites before connecting:
 
-1. 합성 데이터만 있는 Fabric workspace와 현재 지원되는 capacity.
-2. 게시된 Data Agent/의미 모델과 해당 데이터 원본의 읽기 권한.
-3. Foundry/Search/Fabric의 tenant·network·지역·data processing 요구사항.
-4. MCP 또는 Foundry tool/knowledge source의 현재 지원 방식.
-5. 필요한 delegated 사용자 인증/OBO와 실제 호출자의 권한.
-6. capacity 활성 시간, 호출 비용, 종료·복원 계획.
+1. A Fabric workspace containing only synthetic data and a currently supported capacity.
+2. A published Data Agent/semantic model and source-read permissions.
+3. Tenant, network, region, and processing requirements across Foundry/Search/Fabric.
+4. Current supported MCP or Foundry tool/knowledge-source integration.
+5. Required delegated-user/OBO authentication and the actual caller's permissions.
+6. Capacity uptime, request costs, and shutdown/restoration plan.
 
-자산이 없다면 [공식 Fabric Data Agent 튜토리얼](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial)에서
-합성 자산을 먼저 만듭니다. 자산 준비는 이 랩의 45–90분에 포함하지 않습니다.
-원본 모듈의 세부 실습은 [고정된 Fabric 가이드](https://github.com/junwoojeong100/microsoft-iq-on-foundry/blob/fa16c84f9800377823edd9aea1cb20d6a56a1edf/docs/fabric-iq.md)에서
-참고하되, 과거 SKU/CLI/권한 조건을 현재 문서와 대조합니다.
+If assets are absent, start with the
+[official Fabric Data Agent tutorial](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial).
+Preparation is outside the 45–90-minute module.
+The [pinned source Fabric guide](https://github.com/junwoojeong100/microsoft-iq-on-foundry/blob/fa16c84f9800377823edd9aea1cb20d6a56a1edf/docs/fabric-iq.md)
+is background reading; recheck historical SKU/CLI/role assumptions against current documentation.
 
-**완료 증거:** 실제 사용자의 질문, 선택된 Data Agent/데이터 원본, 응답·근거,
-user-context/OBO 검증 결과. 관리자 계정으로 한 번 성공했다고 모든 사용자에게 권한이 있는 것은 아닙니다.
+**Evidence:** actual user question, selected agent/source, answer/evidence, and
+user-context/OBO verification. An administrator's success does not establish every user's access.
 
-## 3. Work IQ — 명시적 옵트인과 추가 과금
+## 3. Work IQ: explicit opt-in and additional billing
 
-현재 [Work IQ knowledge-source 가이드](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq)의
-요구사항을 관리자가 먼저 확인해야 합니다.
+An administrator first reviews the current
+[Work IQ knowledge-source requirements](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq):
+tenant enablement, real user sign-in and assigned usage-based billing;
+delegated `WorkIQAgent.Ask` and admin/user consent; network/tenant/support boundaries;
+data movement, retention, regulation, and per-user access/deletion policy.
+Preview Work IQ may **perform actions**, not merely read.
 
-- tenant enablement, 실제 사용자 sign-in, 사용자에게 할당된 usage-based billing.
-- delegated `WorkIQAgent.Ask` 권한과 관리자/사용자 동의.
-- tenant·네트워크·지원 경계, 데이터 이동/보존/규제 요구.
-- 사용자별 데이터 접근과 차단/삭제 정책.
-- 비용과 동작 범위: Preview Work IQ가 읽기뿐 아니라 **행동을 수행할 가능성**.
+No repository script automatically enables Work IQ or creates accounts/service
+principals. Do not force personal sign-in or paste Graph/M365 tokens.
+Owning M365 Copilot alone does not satisfy these requirements.
 
-이 리포에는 실제 Work IQ를 자동 활성화하거나 계정/서비스 principal을 생성하는 스크립트가 없습니다.
-개인 계정을 강제로 로그인시키거나 Graph/Microsoft 365 token을 복사해 넣지 않습니다.
-M365 Copilot 보유 여부만으로 위 조건을 충족했다고 판단하지 않습니다.
+**Stop:** if approval, billing, tenant, delegated access, or action scope is unclear,
+remain with synthetic routing. Do not make a real connection.
 
-**중단 조건:** 승인/과금/tenant/위임 권한/행동 범위 중 하나라도 불명확하면 실제 연결을 하지 않고
-합성 라우팅 실습에서 멈춥니다.
+## 4. Toolbox, remote MCP, and the web
 
-## 4. Toolbox / 원격 MCP / 웹
+[Lab 04](04-agents-tools.md) uses local MCP. Begin remote-tool extensions with approved
+public documentation such as Microsoft Learn.
 
-기본 [Lab 04](04-agents-tools.md)는 로컬 MCP입니다.
-원격 도구로 확장할 때는 승인된 Microsoft Learn 등 공개 문서 조회부터 시작합니다.
-
-| 추가할 것 | 연결 전에 정할 것 |
+| Addition | Decide before connecting |
 |---|---|
-| Microsoft Learn MCP | 신뢰할 서버 URL, 노출 도구, 호출 예산 |
-| Web Search | 허용 도메인, 최신성, 출처 URL, query의 민감도 |
-| 사내 API | OpenAPI/MCP 스키마, 입력 검증, 사용자별 권한 |
-| 변경 작업 | 별도 승인, idempotency, 감사·보상 동작 |
+| Microsoft Learn MCP | Trusted server URL, exposed tools, call budget |
+| Web Search | Allowed domains, freshness, source URLs, query sensitivity |
+| Company API | OpenAPI/MCP schema, input validation, per-user authorization |
+| Mutating operation | Separate approval, idempotency, audit and compensation |
 
-Web IQ와 일반 Web Search를 같은 기능으로 표시하지 않습니다.
-도구가 등록되었다는 것과 실제 권한으로 올바른 결과를 받았다는 것도 구분합니다.
+Web IQ and ordinary Web Search are not interchangeable.
+Tool registration is not proof of a correct result under real permissions.
 
-## 5. Richer IQ Preview — GA 코드와 분리
+## 5. Richer IQ Preview: separate from GA code
 
-현재 richer 경로는 `2026-08-01-preview`를 확인합니다.
-메시지 기반 planning, 추론 노력, synthesis, 추가 source는 GA `2026-04-01`과 body가 다릅니다.
-이 리포의 `seed-search --iq`에 Preview 필드를 끼워 넣지 않습니다.
+The dated compatibility snapshot uses `2026-08-01-preview` for richer experiments.
+Message-based planning, reasoning effort, synthesis, and added sources have different
+bodies from GA `2026-04-01`. Do not insert Preview fields into `seed-search --iq`.
 
-별도 실험 복사본·접두사·설정에서 [공식 API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate)을
-따릅니다. Preview Search SDK가 필요하면 별도 환경에 해당 버전을 설치합니다.
-기본 GA 실습의 패키지를 한꺼번에 업그레이드하지 않습니다.
-`.env.example`의 planner 관련 선택 필드는 이 확장의 개념을 설명하기 위한 것으로
-기본 GA 명령에서 사용되지 않습니다.
+Use a separate experiment copy, prefix, and configuration following
+[official API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate).
+Install any Preview SDK in its own environment; do not upgrade all GA dependencies.
+Optional planner fields in `.env.example` illustrate this extension and are unused by default GA commands.
 
-## 종료
+## Finish
 
-추가 연결을 제거/복원하고, 본인 Fabric capacity·Work IQ billing·session 상태를 확인합니다.
-capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참조하는지 점검합니다.
-다른 조의 연결이나 조직 전체 consent를 임의로 삭제하지 않습니다.
+Remove/restore only approved added connections and check owned Fabric capacity,
+Work IQ billing, and sessions. Check shared-agent dependencies before stopping capacity.
+Never arbitrarily remove another team's connection or organization-wide consent.

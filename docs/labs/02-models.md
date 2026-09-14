@@ -1,155 +1,161 @@
-# Lab 02. 모델을 배포하고 실제로 호출하기
+# Lab 02. Deploy a model and make a real request
 
-**완료 목표:** 모델 이름과 배포 이름을 구분하고, 한 번의 실제 응답을 확인합니다.
+**English** | [한국어](../ko/labs/02-models.md)
 
-이전: [Lab 01](01-foundry.md) · 다음: [Lab 03](03-prompt-agent.md)
+**Goal:** Distinguish model names from deployment names and obtain one actual response.
 
-## A. 브라우저 — Playground에서 시작
+Previous: [Lab 01](01-foundry.md) · Next: [Lab 03](03-prompt-agent.md)
 
-### 1. 사용할 배포 확인
+## A. Browser: start in the Playground
 
-1. 실습 프로젝트의 모델/배포 목록을 엽니다.
-2. 강사가 준비한 배포를 선택합니다. 카탈로그 모델 이름, 버전, 배포 이름을 따로 적습니다.
+### 1. Identify the deployment
 
-![모델 배포 목록에서 응답 모델과 judge를 구분](../assets/live-20260914-action/shots/portal-0026-P02-002-deployments-ready-before.webp)
+Open the training project's model/deployment list. Select the prepared deployment
+and record its catalog model, version, and deployment name separately.
 
-**화면 확인:** **Name**은 호출할 배포 이름, **Model / Version**은 기반 모델 정보입니다.
-촬영에서는 응답용 `gpt-5.6-luna`와 평가용 `gpt-5.6-luna-judge`를 구분했습니다.
-상세 패널에 judge가 보이더라도 질문은 강사가 지정한 응답용 배포의 Playground에서 보냅니다.
+![Distinguish the answer deployment and judge in the deployment list](../assets/live-20260914-action/shots/portal-0026-P02-002-deployments-ready-before.webp)
 
-### 2. 외부 웹 도구 끄기
+**What to check:** **Name** is the invocation name; **Model / Version** identifies the
+underlying model. The source run used `gpt-5.6-luna` for answers and
+`gpt-5.6-luna-judge` for evaluation. Send questions to the instructor-selected answer deployment.
 
-해당 모델의 Playground를 엽니다.
-Tools에 기본 Web Search가 있으면 **Actions → Remove**로 제거합니다. 이 기본 경로는 외부 웹을 조회하지 않습니다.
+### 2. Disable external web tools
 
-![Web Search의 Actions 메뉴에서 Remove 찾기](../assets/live-20260914-action/shots/portal-0041-P02-004-web-search-menu-ready.webp)
+Open that model's Playground. If Tools includes Web Search by default, use
+**Actions → Remove**. The core workshop does not query the external web.
 
-**화면 확인:** **Web search** 행의 Actions 메뉴를 열고 **Remove**를 선택합니다.
-안내 배너를 닫는 **Dismiss**는 도구 제거가 아닙니다.
+![Locate Remove in the Web Search Actions menu](../assets/live-20260914-action/shots/portal-0041-P02-004-web-search-menu-ready.webp)
 
-![Web Search를 제거한 뒤의 비어 있는 도구 목록](../assets/live-20260914-action/shots/portal-0043-P02-005-remove-web-search-transition.webp)
+**What to check:** Open the Web search row's Actions menu and select **Remove**.
+**Dismiss** only closes a banner; it does not remove the tool.
 
-**화면 확인:** Web search 행이 도구 목록에서 사라졌는지 확인한 뒤 질문을 입력합니다.
-다른 Playground나 새 에이전트로 이동하면 도구 설정을 다시 확인해야 합니다.
+![Tools list after Web Search removal](../assets/live-20260914-action/shots/portal-0043-P02-005-remove-web-search-transition.webp)
 
-### 3. 질문을 입력하고 응답 확인
+**What to check:** Verify that the Web search row is gone before entering a question.
+Recheck tools whenever you switch Playgrounds or create an agent.
 
-> Foundry 리소스, 프로젝트, 모델 배포, 에이전트의 차이를 초보자에게 네 문장으로 설명해 주세요.
+### 3. Enter a question and inspect the response
 
-![모델 Playground의 질문 입력 위치와 전송 버튼](../assets/live-20260914-action/shots/portal-0049-P02-006-model-question-ready.webp)
+> Explain the difference between a Foundry resource, a project, a model deployment,
+> and an agent to a beginner in four sentences.
 
-**화면 확인:** 오른쪽 아래 **Chat with the model...**에 질문을 넣고 전송합니다.
-왼쪽 **Instructions**는 시스템 지침 입력란이므로 질문과 혼동하지 않습니다.
+![Model Playground question field and send button](../assets/live-20260914-action/shots/portal-0049-P02-006-model-question-ready.webp)
 
-![새 Luna 배포가 반환한 실제 모델 응답](../assets/live-20260914-action/shots/portal-0056-P02-007-model-response-screen-change.webp)
+**What to check:** Enter the question in **Chat with the model...** at the lower right.
+**Instructions** on the left is a system-instruction field, not the chat input.
 
-**화면 확인:** 응답 내용뿐 아니라 답변 아래의 모델 이름·시간·토큰 표시도 기록합니다.
-이 화면은 촬영 환경의 예시이며, 참가자의 결과가 자동으로 같아지는 것은 아닙니다.
+![Actual model response in the original Korean-content recording](../assets/live-20260914-action/shots/portal-0056-P02-007-model-response-screen-change.webp)
 
-### 4. 근거 없는 질문과 비교
+**What to check:** Record the model name, time, and token information as well as the
+answer. The source screenshot used the Korean equivalent; it is not your own response.
 
-**New chat**으로 새 대화를 시작한 뒤 “한빛기술의 2026년 9월 숙박비 한도는?”을 질문합니다.
-**아직 합성 규정을 주지 않았으므로 금액을 아는 척하면 안 됩니다.**
-실제 회사 정책을 아는지 시험하는 질문이 아닙니다.
+### 4. Compare a question without evidence
 
-![정책 문서 없이 질문했을 때 금액을 보류한 실제 응답](../assets/live-20260914-action/shots/portal-0073-P02-008-no-policy-send-screen-change.webp)
+Start **New chat**, then ask the canonical question:
+`한빛기술의 2026년 9월 숙박비 한도는?`
+(What is Hanbit Technology's lodging limit in September 2026?)
 
-**화면 확인:** 근거를 제공하지 않았을 때 확인이 필요하다고 답하는지 봅니다.
-그럴듯한 금액을 제시했다면 성공이 아니라 근거 없는 응답으로 기록하세요.
+**No synthetic policies have been supplied yet, so the model should not pretend to
+know an amount.** This is not a test of knowledge about an actual company.
 
-이제 모델만으로는 회사의 규정·적용 시점·승인 기준이 생기지 않는다는 점을 확인합니다.
+![Actual response withholding an unsupported lodging amount](../assets/live-20260914-action/shots/portal-0073-P02-008-no-policy-send-screen-change.webp)
 
-2026-09-14 실제 화면에서는 도구를 제거한 뒤 다른 탭으로 이동할 때
-**Leave without saving?** 확인 창이 나타났습니다. 이 모델 Playground의 임시 설정을
-유지할 필요가 없다면 **Leave without saving**으로 이동합니다.
-새 에이전트에 이 설정이 자동 적용되는 것은 아니므로 [Lab 03](03-prompt-agent.md)에서
-모델과 도구 목록을 다시 확인합니다.
+**What to check:** Does it request evidence or clarification? A plausible invented
+amount is an ungrounded response, not a success.
 
-![다른 탭으로 이동하기 전에 나타난 저장 확인 창](../assets/live-20260914-action/shots/portal-0078-P02-009-model-details-screen-change.webp)
+A model alone does not supply company policy, effective dates, or approval rules.
+In the September 14 UI, leaving the model tab after removing a tool displayed
+**Leave without saving?** Choose **Leave without saving** only if you do not need the
+temporary Playground settings. Those settings do not automatically apply to new agents.
 
-**화면 확인:** 화면 이동이 멈춘 것처럼 보이면 **Leave without saving?** 창이 있는지 확인합니다.
-임시 모델 설정을 유지하지 않을 때만 **Leave without saving**을 선택합니다.
+![Confirmation when leaving unsaved temporary model settings](../assets/live-20260914-action/shots/portal-0078-P02-009-model-details-screen-change.webp)
 
-### 배포가 아직 없다면
+**What to check:** If navigation seems stuck, look for the confirmation dialog.
+Discard only the temporary settings you intended to leave unsaved.
 
-모델을 배포할 권한이 있는 강사가 카탈로그에서 **텍스트 입력, 도구 호출,
-Structured Outputs를 지원하는 배포 가능한 모델**을 고릅니다.
-배포 이름, SKU, 용량, 리전, 가격·할당량을 확인한 뒤 생성합니다.
-특정 신형 모델의 접근 권한을 이 워크숍의 필수 조건으로 삼지 않습니다.
+### If no deployment exists
 
-`workshop-chat`은 배포 이름을 설명하기 위한 예일 뿐, 이미 존재하는 리소스가 아닙니다.
-모델 버전·리전·TPM 숫자를 이 문서에서 복사해 강제로 생성하지 않습니다.
+An authorized instructor selects a deployable model supporting **text input, tools,
+and Structured Outputs**. Review deployment name, SKU, capacity, region, pricing,
+and quota before creating it. Access to a particular new model is not a prerequisite.
 
-## B. 코드 — 같은 프로젝트를 Responses API로 호출
+`workshop-chat` is an illustrative name, not a resource that already exists.
+Do not force-create resources using model versions, regions, or TPM numbers copied from this guide.
+
+## B. Code: call the same project through Responses
 
 ```bash
 python scripts/workshop.py doctor --cloud
 python scripts/workshop.py model --question "Foundry와 Agent Framework의 차이를 한국어로 세 문장으로 설명해 주세요."
 ```
 
-핵심 코드는 `src/foundry_workshop/cloud.py`의 `project_clients`, `call_model`입니다.
+The question asks for a three-sentence Korean explanation of Foundry versus Agent
+Framework. Model-only questions may be translated freely; canonical policy/evaluation
+questions should remain unchanged for comparison.
+
+Read `project_clients` and `call_model` in `src/foundry_workshop/cloud.py`.
 
 ```python
 with AIProjectClient(endpoint=project_endpoint, credential=credential) as project:
     with project.get_openai_client() as client:
         response = client.responses.create(
             model=deployment_name,
-            input="Foundry와 MAF의 차이를 설명해 주세요.",
+            input="Explain the difference between Foundry and MAF.",
             store=False,
         )
 ```
 
-위 블록은 흐름 설명용입니다. 실행에는 위 CLI와 `.env`의 실제 값을 사용합니다.
-`response_id`, 실제 `response_model`, 토큰 사용량이 결과에 기록됩니다.
-`trace_id: null`은 아직 Application Insights trace를 수집한 것이 아니라는 뜻입니다.
-`response_id`를 임의의 trace ID로 바꿔 적지 않습니다.
+This block explains the flow. Execute the CLI using your actual `.env` values.
+Results retain `response_id`, actual `response_model`, and token usage.
+`trace_id: null` means no Application Insights trace has been collected;
+do not relabel a response ID as a trace ID.
 
-![Responses API가 반환한 텍스트와 실제 모델 및 요청 이력](../assets/live-20260914-action/shots/cli-1-0294-02-003-live-model-result.webp)
+![Responses output with actual model and request lineage](../assets/live-20260914-action/shots/cli-1-0294-02-003-live-model-result.webp)
 
-**화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다.
-`trace_id: null`과 `trace_export: not-configured`도 그대로 기록하며, 생성된 응답 ID를 Trace ID로 바꾸지 않습니다.
+**What to check:** Read `text`, `response_model`, `response_id`, and `usage` below
+the last command. Preserve `trace_id: null` and `trace_export: not-configured` honestly.
 
-### 구조화 출력까지 확인
+### Verify Structured Outputs
 
 ```bash
 python scripts/workshop.py answer --prompt v2 --retrieval local
 ```
 
-이 명령은 합성 문서에서 로컬 키워드 검색을 한 뒤 **실제 Azure 모델**을 호출합니다.
-JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
-`local`은 검색 위치를 뜻할 뿐 **모델 호출이 오프라인이라는 뜻이 아닙니다.**
+The command performs local keyword retrieval over synthetic documents, then calls a
+**real Azure model**. Inspect `answer`, `decision`, `limit_krw`, and `citations`.
+`local` describes retrieval, **not an offline model**.
 
-![구조화 답변 실행에서 보존한 요청과 검색 이력](../assets/live-20260914-action/shots/cli-1-0300-02-004-structured-answer-result.webp)
+![Structured-answer request and retrieval lineage](../assets/live-20260914-action/shots/cli-1-0300-02-004-structured-answer-result.webp)
 
-**화면 확인:** 사진은 긴 출력의 하단입니다. `source_ids`, `response_id`, `usage`,
-`trace_export`를 확인하고, 출력 위쪽의 `answer`·`decision`·`limit_krw`·`citations`와 함께 읽습니다.
-답변만 복사하고 이력을 버리지 않습니다.
+**What to check:** The screenshot shows the bottom of a long output. Read `source_ids`,
+`response_id`, `usage`, and `trace_export` together with the answer fields above.
+Do not retain only the answer and discard its lineage.
 
-지원하지 않는 모델이 `json_schema`를 거부하면 여기서 중단합니다.
-코드는 일반 텍스트로 몰래 전환하거나 JSON을 임의로 고치지 않습니다.
-강사가 지원 여부를 확인한 배포로 명시적으로 다시 구성한 후 새 실행으로 기록합니다.
+Stop if the model rejects `json_schema`. The code does not silently switch to plain
+text or repair invalid JSON. Explicitly configure an instructor-verified deployment
+and record a new run after resolving support.
 
-## 경험자 확장: 모델을 어떻게 비교할까?
+## Practitioner extension: compare models correctly
 
-같은 질문 하나만으로 모델 순위를 정하지 않습니다.
-[Lab 07](07-evaluation.md)에서 **같은 dev·지식·지침·출력 한도·동시성**을 사용하고
-배포 하나만 바꾸어 비교합니다. judge 모델도 응답 모델과 구분합니다.
-정확한 비용은 토큰 종류, 실제 배포 가격, 캐시·추론 토큰, 도구/검색 요금을 함께 계산합니다.
-이 저장소는 불확실한 단가로 원화 비용을 만들어 내지 않습니다.
+A single question cannot establish a model ranking. In [Lab 07](07-evaluation.md),
+hold **dev data, knowledge, instructions, output limit, and concurrency** fixed and
+change only the deployment. Distinguish the judge from the answer model.
+Calculate costs from actual token categories, deployment pricing, cache/reasoning
+tokens, and tool/search charges; this repository does not invent currency estimates.
 
-### Model Router — 선택 관찰
+### Model Router: optional observation
 
-해당 프로젝트에 Model Router가 제공되면 같은 질문이 어떤 라우팅 구성으로 처리되는지
-살펴봅니다. Router 배포를 사용하는 것과 모델 A/B를 고정해 평가하는 것은 다른 실험입니다.
-라우팅 정책·가능한 후보·실제 응답 모델을 기록할 수 없다면 고정 모델 순위로 발표하지 않습니다.
-Router의 접근 권한/모델 목록은 수업 직전 공식 모델 문서와 포털에서 확인합니다.
-Router가 없어도 이 랩은 완료할 수 있습니다.
+If available, inspect how a Router configuration handles the same question.
+Router usage is not the same experiment as evaluating two fixed deployments.
+Without routing policy, candidate models, and the actual response model, do not
+present a fixed-model ranking. Verify access and the model list immediately before
+class. This lab can be completed without Router.
 
-## 완료·복구
+## Completion and recovery
 
-모델·배포·실제 평가 범위는 [실행 기록](../live-run.md)에 구분했습니다.
+[Execution records](../live-run.md) separate models, deployments, and evaluation scope.
 
-- 완료: 실제 모델 응답과 배포 이름이 있고, 근거 없는 회사 정책 질문의 한계를 설명합니다.
-- 401/403: [인증·권한](../reference/troubleshooting.md). 무조건 Owner를 추가하지 않습니다.
-- 404: 프로젝트 endpoint와 **배포 이름**부터 확인합니다.
-- 429: 동시 호출을 멈추고 quota/TPM을 확인합니다. 무한 재시도하지 않습니다.
+- Complete: an actual model response, its deployment name, and an explanation of unsupported policy questions.
+- 401/403: check [authentication and roles](../reference/troubleshooting.md), not blanket Owner access.
+- 404: check the full project endpoint and **deployment name** first.
+- 429: stop concurrent calls and inspect quota/TPM; no endless retries.

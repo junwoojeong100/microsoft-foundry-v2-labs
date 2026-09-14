@@ -1,108 +1,109 @@
-# 실습 정리: 공유 자산을 지우지 않기
+# Cleanup: preserve shared assets
 
-**삭제보다 먼저 “누가 만든 어떤 자산인가”를 확인합니다.**
-이 저장소는 Azure 리소스/권한을 자동 삭제하지 않습니다.
+**English** | [한국어](../ko/reference/cleanup.md)
 
-## 1. 증거와 소유권 확인
+**Identify the owner and exact asset before deleting anything.**
+This repository does not automatically delete Azure resources or roles.
+
+## 1. Check evidence and ownership
 
 ```bash
 python scripts/workshop.py cleanup-plan
 ```
 
-`outputs/azure-objects.json`은 이 복사본에서 만든 Search index/source/base의 기록입니다.
-모든 Azure 리소스를 포괄하는 inventory나 삭제 권한의 증명은 아닙니다.
-개인 결과가 필요한지 먼저 판단하고, 공개 저장소에는 비밀/환경 식별자를 올리지 않습니다.
+`outputs/azure-objects.json` records Search index/source/base objects created by this
+copy. It is neither a full Azure inventory nor proof of deletion authority.
+Decide which personal results to retain; never publish secrets/environment identifiers.
 
-## 2. 실행 중인 로컬 프로세스와 Hosted session
+## 2. Local processes and Hosted sessions
 
-1. `serve`를 실행한 터미널에서 `Ctrl+C`로 **그 서버만** 종료합니다.
-2. azd 프로젝트 폴더에서 자신의 Hosted session을 조회합니다.
+Stop **only your server** with `Ctrl+C` in the terminal running `serve`.
+From the azd project folder, inspect owned Hosted sessions:
 
 ```bash
 azd ai agent sessions list --limit 10
 ```
 
-continuation token이 있으면 다음 페이지도 확인합니다.
-여러 서비스가 있으면 실제 서비스 이름으로 `--agent-name`을 지정합니다.
-자신의 session ID와 agent를 확인한 뒤:
+Follow continuation tokens through all pages. With multiple services, explicitly use
+the actual service name via `--agent-name`. Verify the session and agent before:
 
 ```bash
 azd ai agent sessions stop "<my-session-id>"
 ```
 
-중지는 컴퓨트를 종료하지만 persistent filesystem을 보존합니다.
-다음 호출로 다시 실행될 수 있으므로 완전 삭제나 과금 0의 보장이 아닙니다.
-사용자 데이터까지 정리해야 한다면 별도 삭제 동작의 범위와 복구 불가 여부를 검토합니다.
-다른 조의 session을 중지하지 않습니다.
+Stop terminates compute but retains the persistent filesystem. Another invocation can
+restart it; this is not deletion or guaranteed zero cost. Separately review the scope
+and irreversibility of any user-data deletion. Do not stop other teams' sessions.
 
-## 3. 본인이 만든 객체만 정리
+## 3. Clean up only owned objects
 
-| 자산 | 확인과 정리 |
+| Asset | Ownership-aware action |
 |---|---|
-| Prompt/Hosted agent·version | 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제 |
-| Search knowledge base/source/index | 의존 순서: base → source → index; ledger의 본인 이름만 |
-| 업로드 파일/벡터 저장소 | 내 File Search 자료와 공유 자료를 구분 |
-| 모델 배포 | 조별 전용인지 공유 배포인지 확인; 공유 모델 유지 |
-| Search 서비스 | index 삭제만으로 서비스의 고정 비용이 사라지지 않음 |
-| Application Insights/Log Analytics | 필요한 증거·보존 정책·공유 여부 확인 |
-| Fabric/Work IQ | 전용 capacity/billing/연결을 별도 확인; 조직 consent 임의 삭제 금지 |
-| Resource Group | 완전히 실습 전용이고 모든 자산을 확인한 경우에만 소유자가 삭제 |
+| Prompt/Hosted agent/version | Owner verifies project, name, version, and scope before deletion |
+| Search base/source/index | Dependency order: base → source → index; only owned ledger names |
+| Uploaded files/vector stores | Separate your File Search data from shared data |
+| Model deployments | Preserve shared models; verify whether a deployment is team-exclusive |
+| Search service | Deleting an index does not end the service's fixed cost |
+| App Insights/Log Analytics | Review evidence, retention, and shared ownership |
+| Fabric/Work IQ | Separately review capacity, billing, connections; no arbitrary tenant consent deletion |
+| Resource group | Owner deletes only if entirely training-exclusive and every asset has been reviewed |
 
-포털에서 정확한 자산 이름·구독·삭제 경고를 읽고 최종 삭제를 수행합니다.
-리소스 그룹 전체를 지우는 복사-붙여넣기 명령은 제공하지 않습니다.
+Read the exact asset name, subscription, and warning in the portal.
+No copy/paste "delete the whole resource group" command is provided.
 
-## `azd down`은 모든 환경의 같은 정리 명령이 아닙니다
+## `azd down` is not equivalent in every environment
 
-현재 공식 Hosted quickstart는 다음을 구분합니다.
+The official Hosted quickstart distinguishes a newly created project, where the
+resource group and all its resources may be deleted, from an existing project, where
+project/group/agent assets may remain.
+Do not run `azd down` indiscriminately or infer zero cost from a success message.
+Compare provider, creation plan, and existing-resource status with
+[official guidance](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent).
 
-- azd가 새 프로젝트를 만든 경우: Resource Group과 안의 모든 리소스를 삭제할 수 있음.
-- 기존 프로젝트를 선택한 경우: project/RG/hosted agent 등 실습 자산이 남을 수 있음.
+## 4. Final checks
 
-따라서 무조건 `azd down`을 실행하거나, 성공 메시지만 보고 비용이 끝났다고 하지 않습니다.
-사용한 provider·생성 계획·기존 자원 여부를 [공식 안내](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)와 대조합니다.
+- [ ] My local server stopped.
+- [ ] I reread session state and checked for remaining active owned sessions.
+- [ ] I verified outcomes for my agents, files, and Search objects.
+- [ ] Shared resources and other people's data remain.
+- [ ] The owner checked residual service/model/log/storage/capacity costs.
+- [ ] Evidence to retain and sensitive data to remove are distinguished.
 
-## 4. 최종 확인
+Cost reporting can lag. Record the last check time and owner.
+Budget alerts are not automatic shutdown controls.
 
-- [ ] 내 로컬 서버가 종료됨.
-- [ ] 내 활성 Hosted session이 남지 않았는지 재조회함.
-- [ ] 내 agent/파일/Search 객체의 처리 결과를 확인함.
-- [ ] 공유 자원과 타인의 데이터를 유지함.
-- [ ] 서비스·모델·로그·storage·capacity의 잔여 비용을 담당자가 확인함.
-- [ ] 보존할 결과와 지울 민감정보를 구분함.
+## 5. Local outputs and generated directories
 
-비용 화면은 지연되어 반영될 수 있습니다. 마지막 조회 시각과 담당자를 기록합니다.
-예산 알림은 자동 중지 장치가 아닙니다.
+The source guide media is the **September 14 action-level recording** in
+`docs/assets/live-20260914-action/media.json`. Compare manifest filenames/hashes
+before cleanup; dates alone are insufficient.
+Evaluation inputs, responses, evaluator definitions, and ownership records are separate
+from media. Git exclusion does not make them disposable.
 
-## 5. 로컬 `outputs`와 생성 디렉토리
-
-**가이드용 미디어는 2026-09-14 액션별 재촬영본만 사용합니다.**
-이미지·영상의 기준 목록은 `docs/assets/live-20260914-action/media.json`입니다.
-날짜만 보고 지우지 말고 이 목록의 파일명·해시를 먼저 대조합니다.
-평가 입력·응답·평가자·소유권 기록은 미디어와 별개이며, Git에서 제외됐다는 이유로 삭제하지 않습니다.
-
-| 위치 | 보존 기준 |
+| Location | Retention rule |
 |---|---|
-| `docs/assets/live-20260914-action/` | 개별 편집 영상 2개와 가이드 순서 통합본 1개·236개 액션의 캡처·프레임/해시 계보. 각 버전의 역할을 구분 |
-| `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
-| `outputs/live-20260914-action/` | 새 환경의 원시 응답·평가자·File Search·포털·정리 증거. 개인정보가 있어 Git에서 제외 |
-| `outputs/<label>/` | 해당 실행의 manifest·응답·평가 결과. 고유한 평가 계보를 보존 |
-| `outputs/policy-documents/` | 초보자 경로에 배포하는 합성 텍스트 파일 |
-| `outputs/live-20260914-action/sources/` | 이번 촬영의 편집 전 source 영상 4개. 해시 검증용 개인 보관본이며 기본 재생 영상과 구분 |
-| `.build/hosted/` | 현재 `azure.yaml`이 참조하는 소스와 `.foundry` 평가 계보. 통째로 삭제하지 않음 |
+| `docs/assets/live-20260914-action/` | Two edited videos, one guide-ordered video, 236-action captures, frame/hash lineage |
+| `outputs/azure-objects.json` | Current Search ownership; not a disposable log |
+| `outputs/live-20260914-action/` | Raw responses/evaluators/File Search/portal/cleanup evidence; private and Git-excluded |
+| `outputs/<label>/` | Unique run manifest, responses, and evaluation lineage |
+| `outputs/policy-documents/` | Synthetic text files distributed to beginners |
+| `outputs/live-20260914-action/sources/` | Four unedited recording sources for private hash verification, not default playback |
+| `.build/hosted/` | Source referenced by current `azure.yaml` and `.foundry` evaluation lineage; never delete wholesale |
 
-캡처의 중복 파일·단순 대기 갱신·임시 인코딩 결과는 최종 파일의 해시와 원본 대응을 확인한 뒤 정리합니다.
-평가 증거를 압축 보관한다면 각 파일의 해시를 검증하고, 이미지·영상이 섞여 있는지도 확인합니다.
-촬영 제작 도구·가상환경은 참가자 저장소에 추가하지 않습니다.
-로컬 재생기, 실제 실습 명령, 합성 데이터와 회귀 검사는 유지합니다.
+Remove duplicate captures, wait-only frames, and temporary encodes only after final
+hash/source correspondence checks. Verify every file hash if archiving evaluation
+evidence, and inspect whether media is mixed in.
+Keep production tools/venvs out of the learner repository; retain the player,
+executable labs, synthetic inputs, and regression checks.
 
-보관 내용을 확인하려면 저장소 루트에서 다음 읽기 전용 명령을 사용합니다.
+Read an existing private archive without extracting it:
 
 ```bash
 tar -tzf outputs/live-20260914-action/evidence.tar.gz
 ```
 
-압축본에는 개인 환경·실행 식별자가 들어 있을 수 있으므로 외부에 게시하지 않습니다.
-`.git`, 루트 `.venv`, 현재 `.env`·`.azure`, 실습 소스·합성 원본·테스트는 정리 대상이 아닙니다.
-
-이 정리는 현재 파일과 가이드 참조에 대한 것입니다. Git 이력이나 GitHub의 별도 첨부 저장소까지
-삭제하는 작업과는 구분하며, 확인하지 않은 영구 삭제를 완료했다고 표시하지 않습니다.
+The archive can contain private environment/run identifiers. Do not publish it.
+`.git`, root `.venv`, current `.env`/`.azure`, workshop source, synthetic inputs, and
+tests are not cleanup targets.
+Cleaning current files is separate from deleting Git history or GitHub attachments;
+do not claim unverified permanent deletion.

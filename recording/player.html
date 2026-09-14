@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Foundry 실습 녹화 재생</title>
+  <title>Foundry workshop recordings</title>
   <style>
     body{margin:24px auto;padding:0 20px;max-width:1280px;background:#101827;color:#eef3ff;font:18px/1.5 system-ui,sans-serif}
     h1{font-size:28px}nav{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
@@ -14,30 +14,88 @@
   </style>
 </head>
 <body>
-  <h1>Sweden Central · 실습 가이드 순서대로 따라보기</h1>
-  <p>2026-09-14 촬영본을 사용합니다. 통합본은 Lab 00–11 순서이며, 개별 영상도 선택할 수 있습니다.
-    장면은 원래 속도이고 통합본의 제목 화면은 별도로 표시했습니다.</p>
-  <nav aria-label="영상 선택"></nav>
-  <section id="chapters" aria-label="실습 챕터" hidden>
-    <label for="chapter-select">이동할 실습</label>
-    <select id="chapter-select" aria-label="이동할 실습"></select>
+  <p><a id="english" href="?lang=en" lang="en">English</a> | <a id="korean" href="?lang=ko" lang="ko">한국어</a></p>
+  <h1 data-text="heading">Sweden Central · Follow the guide in order</h1>
+  <p data-text="introduction">September 14, 2026 source recordings with Korean sample content.
+    The combined video follows Lab 00–11; individual videos are also available.
+    Footage stays at original speed and chapter cards are identified separately.</p>
+  <nav aria-label="Choose a video"></nav>
+  <section id="chapters" aria-label="Lab chapters" hidden>
+    <label for="chapter-select" data-text="chapter">Jump to a lab</label>
+    <select id="chapter-select" aria-label="Jump to a lab"></select>
   </section>
-  <p id="status" role="status">로컬 영상 목록을 확인하고 있습니다.</p>
-  <video controls preload="metadata" aria-label="실습 녹화 플레이어"></video>
-  <p><small>로컬 파일만 재생합니다. Azure 호출·로그인·외부 업로드는 하지 않습니다.
-    재생 막대를 움직여 원하는 위치로 이동하거나 플레이어 메뉴에서 재생 속도를 바꾸세요.</small></p>
+  <p id="status" role="status" data-text="loading">Checking the local video catalog.</p>
+  <video controls preload="metadata" aria-label="Workshop recording player"></video>
+  <p><small data-text="footer">Local files only. No Azure calls, sign-in, or external uploads.
+    Seek with the playback bar or change speed using the player's menu.</small></p>
   <script>
+    const parameters = new URLSearchParams(location.search);
+    const requestedLanguage = parameters.get("lang");
+    const language = requestedLanguage === "ko" ? "ko" : "en";
+    const translations = {
+      en: {
+        title: "Foundry workshop recordings",
+        heading: "Sweden Central · Follow the guide in order",
+        introduction: "September 14, 2026 source recordings with Korean sample content. The combined video follows Lab 00–11; individual videos are also available. Footage stays at original speed and chapter cards are identified separately.",
+        chapter: "Jump to a lab", chapters: "Lab chapters", choose: "Choose a video",
+        loading: "Checking the local video catalog.", player: "Workshop recording player",
+        footer: "Local files only. No Azure calls, sign-in, or external uploads. Seek with the playback bar or change speed using the player's menu.",
+        playbackError: "Playback failed. Check the terminal error and local MP4 file. Error code: ",
+        timeError: "The requested start time is outside the recording.",
+        chapterError: "The selected lab chapter was not found.",
+        catalogError: "Video catalog request failed: HTTP ",
+        invalidTime: "Invalid start time: ", invalidVideo: "Unknown video: ",
+        edited: "Waits removed · ",
+        videos: {"guide-walkthrough.mp4": "Guide-ordered walkthrough · Korean source", "cli-edited.mp4": "CLI execution · Korean source", "portal-edited.mp4": "Foundry portal · Korean source"},
+        labs: ["Getting started", "Foundry and projects", "Models", "First agent", "MAF tools and MCP", "MAF workflows", "Search and Foundry IQ", "Evaluation", "Hosted Agent", "Operations and cleanup", "IQ extensions", "Capstone"]
+      },
+      ko: {
+        title: "Foundry 실습 녹화 재생",
+        heading: "Sweden Central · 실습 가이드 순서대로 따라보기",
+        introduction: "2026-09-14 한국어 원본 촬영본입니다. 통합본은 Lab 00–11 순서이며, 개별 영상도 선택할 수 있습니다. 장면은 원래 속도이고 통합본의 제목 화면은 별도로 표시했습니다.",
+        chapter: "이동할 실습", chapters: "실습 챕터", choose: "영상 선택",
+        loading: "로컬 영상 목록을 확인하고 있습니다.", player: "실습 녹화 플레이어",
+        footer: "로컬 파일만 재생합니다. Azure 호출·로그인·외부 업로드는 하지 않습니다. 재생 막대를 움직여 원하는 위치로 이동하거나 플레이어 메뉴에서 재생 속도를 바꾸세요.",
+        playbackError: "영상을 재생하지 못했습니다. 실행 터미널의 오류와 로컬 MP4 파일을 확인하세요. 오류 코드: ",
+        timeError: "지정한 시작 시각이 영상 길이를 벗어납니다.",
+        chapterError: "선택한 실습 챕터를 찾을 수 없습니다.",
+        catalogError: "영상 목록 요청 실패: HTTP ",
+        invalidTime: "유효하지 않은 시작 시각입니다: ", invalidVideo: "존재하지 않는 영상 이름입니다: ",
+        edited: "대기 제거 편집본 · ",
+        videos: {"guide-walkthrough.mp4": "실습 순서 통합본", "cli-edited.mp4": "CLI 핵심 실행", "portal-edited.mp4": "Foundry 포털 핵심 조작"},
+        labs: ["시작과 공통 환경", "Foundry와 프로젝트", "모델", "첫 에이전트", "MAF 함수와 MCP", "MAF 워크플로", "Search와 Foundry IQ", "평가", "Hosted Agent", "운영과 정리", "IQ 확장", "캡스톤"]
+      }
+    };
+    const text = translations[language];
+    document.documentElement.lang = language;
+    document.title = text.title;
+    for (const element of document.querySelectorAll("[data-text]"))
+      element.textContent = text[element.dataset.text];
     const player = document.querySelector("video");
     const status = document.querySelector("#status");
     const navigation = document.querySelector("nav");
     const chapterPanel = document.querySelector("#chapters");
     const chapterSelect = document.querySelector("#chapter-select");
+    player.setAttribute("aria-label", text.player);
+    navigation.setAttribute("aria-label", text.choose);
+    chapterPanel.setAttribute("aria-label", text.chapters);
+    chapterSelect.setAttribute("aria-label", text.chapter);
+    document.querySelector(language === "en" ? "#english" : "#korean").setAttribute("aria-current", "true");
     let selectedVideo = null;
     let pendingSeek = 0;
     function updateLocation(video, seconds) {
-      history.replaceState(null, "", "?video=" + encodeURIComponent(video.filename) +
+      history.replaceState(null, "", "?lang=" + language + "&video=" + encodeURIComponent(video.filename) +
         (seconds ? "&t=" + seconds : ""));
     }
+    for (const [id, lang] of [["english", "en"], ["korean", "ko"]])
+      document.getElementById(id).addEventListener("click", event => {
+        const query = new URLSearchParams({lang});
+        if (selectedVideo) {
+          query.set("video", selectedVideo.filename);
+          query.set("t", String(player.currentTime));
+        }
+        event.currentTarget.href = "?" + query;
+      });
     function updateChapter() {
       const chapters = selectedVideo?.chapters || [];
       const chapter = chapters.find(item =>
@@ -49,11 +107,11 @@
       status.textContent = message;
     }
     player.addEventListener("error", () => fail(
-      "영상을 재생하지 못했습니다. 실행 터미널의 오류와 로컬 MP4 파일을 확인하세요. 오류 코드: " + player.error?.code
+      text.playbackError + player.error?.code
     ));
     player.addEventListener("loadedmetadata", () => {
       if (pendingSeek >= player.duration) {
-        fail("지정한 시작 시각이 영상 길이를 벗어납니다.");
+        fail(text.timeError);
         return;
       }
       player.currentTime = pendingSeek;
@@ -64,27 +122,28 @@
     chapterSelect.addEventListener("change", () => {
       const chapter = selectedVideo?.chapters?.find(item => item.id === chapterSelect.value);
       if (!chapter) {
-        fail("선택한 실습 챕터를 찾을 수 없습니다.");
+        fail(text.chapterError);
         return;
       }
       player.currentTime = chapter.start_seconds;
       updateLocation(selectedVideo, chapter.start_seconds);
     });
     async function initialize() {
+      if (requestedLanguage !== null && !["en", "ko"].includes(requestedLanguage))
+        throw new Error("Unsupported language: " + requestedLanguage);
       const response = await fetch("/media.json", {cache:"no-store"});
-      if (!response.ok) throw new Error("영상 목록 요청 실패: HTTP " + response.status);
+      if (!response.ok) throw new Error(text.catalogError + response.status);
       const {videos, default_video} = await response.json();
-      const parameters = new URLSearchParams(location.search);
       const requested = parameters.get("video");
       const time = parameters.get("t");
       if (time !== null && (!/^\d+(?:\.\d+)?$/.test(time) || !Number.isFinite(Number(time))))
-        throw new Error("유효하지 않은 시작 시각입니다: " + time);
+        throw new Error(text.invalidTime + time);
       const start = time === null ? 0 : Number(time);
       if (requested && !videos.some(video => video.filename === requested))
-        throw new Error("존재하지 않는 영상 이름입니다: " + requested);
+        throw new Error(text.invalidVideo + requested);
       function select(video, secondsFromStart = 0) {
         if (secondsFromStart >= video.duration_seconds)
-          throw new Error("지정한 시작 시각이 영상 길이를 벗어납니다.");
+          throw new Error(text.timeError);
         player.pause();
         selectedVideo = video;
         pendingSeek = secondsFromStart;
@@ -94,14 +153,16 @@
           const option = document.createElement("option");
           option.value = chapter.id;
           const time = Math.floor(chapter.start_seconds);
-          option.textContent = `${Math.floor(time / 60)}:${String(time % 60).padStart(2, "0")} · ${chapter.title}`;
+          const title = Number.isInteger(chapter.lab) && text.labs[chapter.lab]
+            ? `Lab ${String(chapter.lab).padStart(2, "0")}. ${text.labs[chapter.lab]}` : chapter.title;
+          option.textContent = `${Math.floor(time / 60)}:${String(time % 60).padStart(2, "0")} · ${title}`;
           chapterSelect.append(option);
         }
         chapterPanel.hidden = !video.chapters?.length;
         player.src = "/video/" + encodeURIComponent(video.filename);
         status.setAttribute("role", "status");
         const seconds = Math.round(video.duration_seconds);
-        status.textContent = `${video.edited ? "대기 제거 편집본 · " : ""}${video.filename} · ${Math.floor(seconds / 60)}분 ${seconds % 60}초 · ${(video.bytes / 1e6).toFixed(1)} MB`;
+        status.textContent = `${video.edited ? text.edited : ""}${video.filename} · ${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")} · ${(video.bytes / 1e6).toFixed(1)} MB`;
         for (const button of navigation.children)
           button.setAttribute("aria-pressed", String(button.dataset.filename === video.filename));
         updateLocation(video, secondsFromStart);
@@ -110,11 +171,13 @@
         const button = document.createElement("button");
         button.type = "button";
         button.dataset.filename = video.filename;
-        button.textContent = video.title || (video.filename.startsWith("cli-") ? "CLI 핵심 실행" : "Foundry 포털 핵심 조작");
+        button.textContent = text.videos[video.filename] || video.title || video.filename;
         button.addEventListener("click", () => select(video));
         navigation.append(button);
       }
-      select(videos.find(video => video.filename === (requested || default_video)) || videos[0], start);
+      const initial = videos.find(video => video.filename === (requested || default_video));
+      if (!initial) throw new Error(text.invalidVideo + default_video);
+      select(initial, start);
     }
     initialize().catch(error => fail(error.message));
   </script>

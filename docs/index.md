@@ -1,42 +1,47 @@
-# Microsoft Foundry v2 실습
+# Microsoft Foundry v2 Hands-on Labs
 
-**에이전트를 만드는 경험에서, 조직의 지식·평가·운영 기준을 남기는 경험으로.**
+**English** | [한국어](ko/index.md)
 
-이 자료는 2026-09-14 실제 실행을 확인한 Pre-Ignite 2026 Edition입니다.
-완전초보자는 포털과 준비된 MAF 실행 환경에서, 경험자는 Python 코드에서
-같은 **합성 출장 규정 상담 업무**를 해결합니다. 워크플로를 포털에서 작성하는 단계는 없습니다.
+**Move from building an agent to preserving your team's knowledge, evaluation criteria, and operational decisions.**
 
-| 찾는 것 | 바로가기 |
+This is the Pre-Ignite 2026 Edition, with Azure execution recorded on September 14,
+2026 and English documentation added on September 15. Beginners use the portal and
+a prepared MAF environment; practitioners use Python. Both solve the same
+**synthetic travel-policy scenario**. Neither path authors workflows in the portal.
+
+| What you need | Start here |
 |---|---|
-| 나에게 맞는 시작점과 시간표 | [학습 경로](paths.md) |
-| 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
-| 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
-| 새 영상으로 실제 조작 따라가기 | [대기 제거 편집본: 포털 9분 09초 · CLI 14분 02초](video-summary.md) |
-| 가이드 순서대로 한 영상에서 보기 | [CLI·포털 통합본 23분 35초와 챕터](video-chapters.md) |
-| 단계별로 필요한 화면 찾기 | [236개 액션의 전·후 캡처](action-captures.md) |
-| 실제 결과와 아직 확인하지 않은 것 | [실행·검증 기록](live-run.md) |
-| 마지막에 확인할 결과물 | [캡스톤](labs/11-capstone.md) |
-| 현재 지원 상태와 버전 | [호환성 기준](reference/versions.md) |
-| 오류·권한·할당량 문제 | [문제 해결](reference/troubleshooting.md) |
-| 비용을 남기지 않고 마치기 | [정리](reference/cleanup.md) |
+| A starting point and schedule | [Learning paths](paths.md) |
+| First-run instructions | [Lab 00](labs/00-start.md) |
+| Classroom preparation | [Instructor guide](instructor.md) |
+| Action-by-action recordings | [Portal 9:09 / CLI 14:02](video-summary.md) |
+| One video in guide order | [23:35 walkthrough and chapters](video-chapters.md) |
+| A particular screen or action | [236-action capture index](action-captures.md) |
+| Actual results and unverified features | [Execution record](live-run.md) |
+| Final deliverables | [Capstone](labs/11-capstone.md) |
+| Supported contracts and versions | [Compatibility snapshot](reference/versions.md) |
+| Errors, roles, or quota | [Troubleshooting](reference/troubleshooting.md) |
+| Finishing without overlooked costs | [Cleanup](reference/cleanup.md) |
+| English/Korean scope and sample translations | [Language contract](reference/languages.md) |
 
-> **세 가지를 구분합니다.** `offline-fixture`는 고정 예제, 로컬 MAF는 내 PC에서
-> 실행하지만 모델은 Azure에 호출하는 코드, Hosted Agent는 내 코드를 클라우드에서
-> 실행하는 서비스입니다. 셋의 완료 조건은 같지 않습니다.
+> **Keep three things separate.** `offline-fixture` is a fixed example. Local MAF runs
+> on your computer but calls a model in Azure. Hosted Agent runs your code in the cloud.
+> Their completion criteria are different. The original recordings contain Korean
+> sample content; an English guide is not a new Azure validation result.
 
 ```mermaid
 flowchart TD
-    S["Lab 00 · 출발점 선택"] --> A["A · 포털 + 준비된 MAF"]
-    S --> B["B · Python 중심"]
-    A --> P["프로젝트 → 에이전트 → MAF 예제 → 문서 근거"]
-    B --> C["SDK → MAF/도구 → 워크플로 → Search/IQ"]
-    P --> E["같은 업무 기준으로 평가"]
+    S["Lab 00 / Choose a starting point"] --> A["A / Portal + prepared MAF"]
+    S --> B["B / Python"]
+    A --> P["Project / Agent / MAF example / Source documents"]
+    B --> C["SDK / MAF and tools / Workflows / Search and IQ"]
+    P --> E["Evaluate against the same business criteria"]
     C --> E
-    E --> R["실패 검토 → 개선 → 최종 확인"]
-    R --> O["관측 · 비용 · 안전한 정리"]
-    C -. "선택" .-> H["Hosted Agent / IQ 확장"]
+    E --> R["Review failures / Improve / Final check"]
+    R --> O["Observability / Costs / Safe cleanup"]
+    C -. "Optional" .-> H["Hosted Agent / IQ extensions"]
 ```
 
-현재/과거 문서를 모두 주는 이유는 최신 문서가 검색되었다는 사실만으로 **출장일에
-맞는 규정을 적용했다**고 결론 내릴 수 없기 때문입니다. 모델, 검색, 업무 검사를
-각각 관찰하는 것이 이 통합 실습의 핵심입니다.
+Both current and historical documents are intentional: retrieving the newest document
+does not prove that the assistant applied the policy valid **on the travel date**.
+Observing models, retrieval, and business checks independently is the core of these labs.
