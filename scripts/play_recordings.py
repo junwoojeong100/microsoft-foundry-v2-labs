@@ -5,6 +5,7 @@ import argparse
 import functools
 import hashlib
 import json
+import math
 import re
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -53,8 +54,34 @@ def media_catalog(root: Path) -> tuple[dict, dict[str, Path]]:
             digest = hashlib.file_digest(handle, "sha256").hexdigest()
         if path.stat().st_size != item["bytes"] or digest != item["sha256"]:
             raise ValueError(f"Recording integrity check failed: {name}.")
+        chapters = item.get("chapters", [])
+        if not isinstance(chapters, list):
+            raise ValueError(f"Invalid chapter list: {name}.")
+        previous_end = 0
+        chapter_ids = set()
+        for chapter in chapters:
+            start, end = chapter["start_seconds"], chapter["end_seconds"]
+            duration = item["duration_seconds"]
+            if (
+                not isinstance(chapter["id"], str)
+                or not re.fullmatch(r"[a-z0-9-]+", chapter["id"])
+                or chapter["id"] in chapter_ids
+                or not isinstance(chapter["title"], str)
+                or not chapter["title"].strip()
+                or any(
+                    type(value) not in (int, float) or not math.isfinite(value)
+                    for value in (start, end, duration)
+                )
+                or not previous_end <= start < end <= duration
+            ):
+                raise ValueError(f"Invalid or overlapping recording chapter: {name}.")
+            previous_end = end
+            chapter_ids.add(chapter["id"])
         files[name] = path
-    return {"videos": videos}, files
+    default_video = metadata.get("default_video", videos[0]["filename"])
+    if not isinstance(default_video, str) or default_video not in files:
+        raise ValueError("The default recording is not in the verified media catalog.")
+    return {"videos": videos, "default_video": default_video}, files
 
 
 class RecordingHandler(BaseHTTPRequestHandler):

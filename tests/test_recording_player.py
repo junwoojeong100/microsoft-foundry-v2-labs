@@ -1,3 +1,4 @@
+import copy
 import hashlib
 import http.client
 import json
@@ -12,6 +13,66 @@ PLAYER = load_script("play_recordings")
 
 
 class RecordingPlayerTests(unittest.TestCase):
+    def test_default_video_and_chapter_ranges_are_validated(self):
+        with tempfile.TemporaryDirectory(prefix="recording-chapters-test-") as directory:
+            root = Path(directory)
+            assets = root / "docs/assets" / PLAYER.ASSET_RUN
+            assets.mkdir(parents=True)
+            content = b"0123456789"
+            (assets / "guide-walkthrough.mp4").write_bytes(content)
+            valid = {
+                "default_video": "guide-walkthrough.mp4",
+                "videos": [
+                    {
+                        "filename": "guide-walkthrough.mp4",
+                        "bytes": len(content),
+                        "sha256": hashlib.sha256(content).hexdigest(),
+                        "duration_seconds": 10,
+                        "chapters": [
+                            {
+                                "id": "lab-00",
+                                "title": "Lab 00",
+                                "start_seconds": 0,
+                                "end_seconds": 5,
+                            },
+                            {
+                                "id": "lab-01",
+                                "title": "Lab 01",
+                                "start_seconds": 5,
+                                "end_seconds": 10,
+                            },
+                        ],
+                    }
+                ],
+            }
+            path = assets / "media.json"
+            path.write_text(json.dumps(valid))
+            catalog, _ = PLAYER.media_catalog(root)
+            self.assertEqual(catalog["default_video"], "guide-walkthrough.mp4")
+            self.assertEqual(catalog["videos"][0]["chapters"], valid["videos"][0]["chapters"])
+            invalid = []
+            item = copy.deepcopy(valid)
+            item["default_video"] = "missing.mp4"
+            invalid.append(item)
+            for field, value in (
+                ("start_seconds", -1),
+                ("start_seconds", 4),
+                ("start_seconds", float("nan")),
+                ("end_seconds", 11),
+                ("id", "lab-00"),
+                ("title", ""),
+            ):
+                item = copy.deepcopy(valid)
+                item["videos"][0]["chapters"][1][field] = value
+                invalid.append(item)
+            item = copy.deepcopy(valid)
+            item["videos"][0]["chapters"] = "invalid"
+            invalid.append(item)
+            for item in invalid:
+                with self.subTest(manifest=item), self.assertRaises(ValueError):
+                    path.write_text(json.dumps(item))
+                    PLAYER.media_catalog(root)
+
     def test_byte_ranges_cover_full_partial_open_and_suffix_requests(self):
         for value, expected in (
             (None, (0, 9)),

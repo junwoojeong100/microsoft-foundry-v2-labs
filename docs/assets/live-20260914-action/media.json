@@ -60,6 +60,142 @@
           "nb_frames": "13736"
         }
       ]
+    },
+    {
+      "filename": "guide-walkthrough.mp4",
+      "title": "실습 순서 통합본",
+      "bytes": 74544310,
+      "sha256": "7481bdce6e7dd1d6d2a148f43ec260d4207f6b2745b801a792f528ca8c638b36",
+      "duration_seconds": 1414.96,
+      "source_duration_seconds": 1390.96,
+      "edited": true,
+      "waiting_time_removed": true,
+      "guide_ordered": true,
+      "new_recording": false,
+      "github_attachment_uploaded": false,
+      "all_input_frames_retained_once": true,
+      "action_count": 236,
+      "chapter_title_frames": 600,
+      "chapters": [
+        {
+          "id": "lab-00",
+          "lab": 0,
+          "title": "Lab 00. 시작과 공통 환경",
+          "description": "포털 프로젝트 선택 → 로컬 설치·설정·점검",
+          "start_seconds": 0.0,
+          "end_seconds": 157.28,
+          "action_count": 20
+        },
+        {
+          "id": "lab-01",
+          "lab": 1,
+          "title": "Lab 01. Foundry와 프로젝트",
+          "description": "강사 준비 예시 · 리소스·권한·endpoint 구분",
+          "start_seconds": 157.28,
+          "end_seconds": 242.0,
+          "action_count": 15
+        },
+        {
+          "id": "lab-02",
+          "lab": 2,
+          "title": "Lab 02. 모델 배포와 실제 호출",
+          "description": "배포 → 포털 질문 → SDK 호출",
+          "start_seconds": 242.0,
+          "end_seconds": 339.88,
+          "action_count": 18
+        },
+        {
+          "id": "lab-03",
+          "lab": 3,
+          "title": "Lab 03. 지침과 근거를 가진 에이전트",
+          "description": "포털 생성 → 선택 File Search → 기본 질문 → SDK",
+          "start_seconds": 339.88,
+          "end_seconds": 643.8,
+          "action_count": 60
+        },
+        {
+          "id": "lab-04",
+          "lab": 4,
+          "title": "Lab 04. MAF 함수와 MCP 도구",
+          "description": "단일 Agent → 함수 → MCP → 입력 경계",
+          "start_seconds": 643.8,
+          "end_seconds": 687.24,
+          "action_count": 7
+        },
+        {
+          "id": "lab-05",
+          "lab": 5,
+          "title": "Lab 05. MAF 워크플로와 사람의 검토",
+          "description": "A 경로 순차 예제 → B 경로의 세 패턴",
+          "start_seconds": 687.24,
+          "end_seconds": 732.12,
+          "action_count": 8
+        },
+        {
+          "id": "lab-06",
+          "lab": 6,
+          "title": "Lab 06. Search와 Foundry IQ",
+          "description": "포털 관찰 → Search/IQ 코드 실행과 원문 확인",
+          "start_seconds": 732.12,
+          "end_seconds": 828.16,
+          "action_count": 16
+        },
+        {
+          "id": "lab-07",
+          "lab": 7,
+          "title": "Lab 07. 평가와 실패 검토",
+          "description": "포털 dev → v1/v2 → native judge → 고정 후보 인수 절차",
+          "start_seconds": 828.16,
+          "end_seconds": 1025.8,
+          "action_count": 37
+        },
+        {
+          "id": "lab-08",
+          "lab": 8,
+          "title": "Lab 08. 로컬 코드에서 Hosted Agent로",
+          "description": "패키지·설정 → 두 로컬 터미널 → 원격 배포·평가",
+          "start_seconds": 1025.8,
+          "end_seconds": 1279.28,
+          "action_count": 31
+        },
+        {
+          "id": "lab-09",
+          "lab": 9,
+          "title": "Lab 09. Trace와 운영 및 정리",
+          "description": "관측 설정·로그 → 같은 Trace → 오류 구분·세션 정리",
+          "start_seconds": 1279.28,
+          "end_seconds": 1401.44,
+          "action_count": 22
+        },
+        {
+          "id": "lab-10",
+          "lab": 10,
+          "title": "Lab 10. 합성 IQ 확장 설계",
+          "description": "설계만 수행 · 실제 Fabric/Microsoft 365 연결 없음",
+          "start_seconds": 1401.44,
+          "end_seconds": 1408.16,
+          "action_count": 1
+        },
+        {
+          "id": "lab-11",
+          "lab": 11,
+          "title": "Lab 11. 최종 결과와 인수",
+          "description": "검사 결과와 사람의 운영 승인을 구분",
+          "start_seconds": 1408.16,
+          "end_seconds": 1414.96,
+          "action_count": 1
+        }
+      ],
+      "edit_timeline": "combined-timeline.json",
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1440,
+          "height": 1000,
+          "avg_frame_rate": "25/1",
+          "nb_frames": "35374"
+        }
+      ]
     }
   ],
   "sources": [
@@ -5499,5 +5635,6 @@
     }
   ],
   "action_ledger": "actions.json",
-  "edit_timeline": "edit-timeline.json"
+  "edit_timeline": "edit-timeline.json",
+  "default_video": "guide-walkthrough.mp4"
 }

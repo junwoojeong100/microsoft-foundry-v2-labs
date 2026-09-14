@@ -82,7 +82,7 @@ azd ai agent sessions stop "<my-session-id>"
 
 | 위치 | 보존 기준 |
 |---|---|
-| `docs/assets/live-20260914-action/` | 새 편집 영상 2개·236개 액션의 캡처·프레임/해시 계보. 같은 이미지의 중복본과 대기 갱신은 제외 |
+| `docs/assets/live-20260914-action/` | 개별 편집 영상 2개와 가이드 순서 통합본 1개·236개 액션의 캡처·프레임/해시 계보. 각 버전의 역할을 구분 |
 | `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
 | `outputs/live-20260914-action/` | 새 환경의 원시 응답·평가자·File Search·포털·정리 증거. 개인정보가 있어 Git에서 제외 |
 | `outputs/<label>/` | 해당 실행의 manifest·응답·평가 결과. 고유한 평가 계보를 보존 |

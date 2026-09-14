@@ -45,7 +45,18 @@
           "start_seconds": 0.0,
           "end_seconds": 4.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 5,
+          "chapter": "lab-00",
+          "start_seconds": 22.4,
+          "end_seconds": 27.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 22.4
     },
     {
       "id": "00-002-shell",
@@ -88,7 +99,18 @@
           "start_seconds": 4.76,
           "end_seconds": 41.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 6,
+          "chapter": "lab-00",
+          "start_seconds": 27.16,
+          "end_seconds": 31.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 27.16
     },
     {
       "id": "00-003-python",
@@ -131,7 +153,18 @@
           "start_seconds": 4.76,
           "end_seconds": 41.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 7,
+          "chapter": "lab-00",
+          "start_seconds": 31.88,
+          "end_seconds": 36.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 31.88
     },
     {
       "id": "00-004-offline-doctor",
@@ -174,7 +207,18 @@
           "start_seconds": 4.76,
           "end_seconds": 41.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 8,
+          "chapter": "lab-00",
+          "start_seconds": 36.56,
+          "end_seconds": 41.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 36.56
     },
     {
       "id": "00-005-demo-v1",
@@ -217,7 +261,18 @@
           "start_seconds": 4.76,
           "end_seconds": 41.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 9,
+          "chapter": "lab-00",
+          "start_seconds": 41.44,
+          "end_seconds": 46.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 41.44
     },
     {
       "id": "00-006-demo-v2",
@@ -260,7 +315,18 @@
           "start_seconds": 4.76,
           "end_seconds": 41.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 10,
+          "chapter": "lab-00",
+          "start_seconds": 46.32,
+          "end_seconds": 51.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 46.32
     },
     {
       "id": "00-007-demo-compare",
@@ -303,7 +369,18 @@
           "start_seconds": 4.76,
           "end_seconds": 41.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 11,
+          "chapter": "lab-00",
+          "start_seconds": 51.16,
+          "end_seconds": 56.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 51.16
     },
     {
       "id": "00-008-fixture-files",
@@ -346,7 +423,18 @@
           "start_seconds": 4.76,
           "end_seconds": 41.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 12,
+          "chapter": "lab-00",
+          "start_seconds": 56.16,
+          "end_seconds": 60.96,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 56.16
     },
     {
       "id": "00-009-new-venv",
@@ -395,7 +483,26 @@
           "start_seconds": 41.56,
           "end_seconds": 51.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 13,
+          "chapter": "lab-00",
+          "start_seconds": 60.96,
+          "end_seconds": 63.96,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 14,
+          "chapter": "lab-00",
+          "start_seconds": 63.96,
+          "end_seconds": 66.64,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 60.96
     },
     {
       "id": "00-010-activate",
@@ -438,7 +545,18 @@
           "start_seconds": 41.56,
           "end_seconds": 51.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 15,
+          "chapter": "lab-00",
+          "start_seconds": 66.64,
+          "end_seconds": 71.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 66.64
     },
     {
       "id": "00-011-install-core",
@@ -755,7 +873,50 @@
           "start_seconds": 104.24,
           "end_seconds": 112.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 16,
+          "chapter": "lab-00",
+          "start_seconds": 71.44,
+          "end_seconds": 74.36,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 17,
+          "chapter": "lab-00",
+          "start_seconds": 74.36,
+          "end_seconds": 75.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 18,
+          "chapter": "lab-00",
+          "start_seconds": 75.84,
+          "end_seconds": 117.92,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 19,
+          "chapter": "lab-00",
+          "start_seconds": 117.92,
+          "end_seconds": 126.64,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 20,
+          "chapter": "lab-00",
+          "start_seconds": 126.64,
+          "end_seconds": 129.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 71.44
     },
     {
       "id": "00-012-pip-check",
@@ -798,7 +959,18 @@
           "start_seconds": 104.24,
           "end_seconds": 112.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 21,
+          "chapter": "lab-00",
+          "start_seconds": 129.36,
+          "end_seconds": 134.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 129.36
     },
     {
       "id": "01-001-default-before",
@@ -841,7 +1013,18 @@
           "start_seconds": 112.16,
           "end_seconds": 125.44
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 29,
+          "chapter": "lab-01",
+          "start_seconds": 159.28,
+          "end_seconds": 164.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 159.28
     },
     {
       "id": "01-002-target-account",
@@ -884,7 +1067,18 @@
           "start_seconds": 112.16,
           "end_seconds": 125.44
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 30,
+          "chapter": "lab-01",
+          "start_seconds": 164.48,
+          "end_seconds": 169.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 164.48
     },
     {
       "id": "01-003-unused-group",
@@ -933,7 +1127,26 @@
           "start_seconds": 125.44,
           "end_seconds": 131.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 31,
+          "chapter": "lab-01",
+          "start_seconds": 169.6,
+          "end_seconds": 172.56,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 32,
+          "chapter": "lab-01",
+          "start_seconds": 172.56,
+          "end_seconds": 175.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 169.6
     },
     {
       "id": "01-004-permission",
@@ -982,7 +1195,26 @@
           "start_seconds": 131.12,
           "end_seconds": 136.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 33,
+          "chapter": "lab-01",
+          "start_seconds": 175.24,
+          "end_seconds": 178.24,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 34,
+          "chapter": "lab-01",
+          "start_seconds": 178.24,
+          "end_seconds": 180.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 175.24
     },
     {
       "id": "01-005-luna-catalog",
@@ -1031,7 +1263,26 @@
           "start_seconds": 136.76,
           "end_seconds": 142.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 35,
+          "chapter": "lab-01",
+          "start_seconds": 180.92,
+          "end_seconds": 183.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 36,
+          "chapter": "lab-01",
+          "start_seconds": 183.88,
+          "end_seconds": 186.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 180.92
     },
     {
       "id": "01-006-luna-quota",
@@ -1080,7 +1331,26 @@
           "start_seconds": 142.36,
           "end_seconds": 148.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 37,
+          "chapter": "lab-01",
+          "start_seconds": 186.56,
+          "end_seconds": 189.48,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 38,
+          "chapter": "lab-01",
+          "start_seconds": 189.48,
+          "end_seconds": 192.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 186.56
     },
     {
       "id": "01-007-luna-capacity",
@@ -1129,7 +1399,26 @@
           "start_seconds": 148.04,
           "end_seconds": 150.72
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 39,
+          "chapter": "lab-01",
+          "start_seconds": 192.16,
+          "end_seconds": 195.16,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 40,
+          "chapter": "lab-01",
+          "start_seconds": 195.16,
+          "end_seconds": 197.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 192.16
     },
     {
       "id": "01-008-create-group",
@@ -1178,7 +1467,26 @@
           "start_seconds": 153.64,
           "end_seconds": 159.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 41,
+          "chapter": "lab-01",
+          "start_seconds": 197.84,
+          "end_seconds": 200.76,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 42,
+          "chapter": "lab-01",
+          "start_seconds": 200.76,
+          "end_seconds": 203.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 197.84
     },
     {
       "id": "01-009-create-search",
@@ -1227,7 +1535,26 @@
           "start_seconds": 159.28,
           "end_seconds": 169.6
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 43,
+          "chapter": "lab-01",
+          "start_seconds": 203.44,
+          "end_seconds": 206.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 44,
+          "chapter": "lab-01",
+          "start_seconds": 206.4,
+          "end_seconds": 209.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 203.44
     },
     {
       "id": "01-010-review-foundry",
@@ -1270,7 +1597,18 @@
           "start_seconds": 159.28,
           "end_seconds": 169.6
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 45,
+          "chapter": "lab-01",
+          "start_seconds": 209.08,
+          "end_seconds": 213.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 209.08
     },
     {
       "id": "01-011-create-foundry",
@@ -1319,7 +1657,26 @@
           "start_seconds": 169.6,
           "end_seconds": 175.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 46,
+          "chapter": "lab-01",
+          "start_seconds": 213.8,
+          "end_seconds": 216.72,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 47,
+          "chapter": "lab-01",
+          "start_seconds": 216.72,
+          "end_seconds": 219.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 213.8
     },
     {
       "id": "01-012-create-project",
@@ -1368,7 +1725,26 @@
           "start_seconds": 175.28,
           "end_seconds": 180.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 48,
+          "chapter": "lab-01",
+          "start_seconds": 219.44,
+          "end_seconds": 222.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 49,
+          "chapter": "lab-01",
+          "start_seconds": 222.4,
+          "end_seconds": 225.12,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 219.44
     },
     {
       "id": "02-001-deploy-luna",
@@ -1417,7 +1793,26 @@
           "start_seconds": 180.96,
           "end_seconds": 186.68
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 57,
+          "chapter": "lab-02",
+          "start_seconds": 244.0,
+          "end_seconds": 246.96,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 58,
+          "chapter": "lab-02",
+          "start_seconds": 246.96,
+          "end_seconds": 249.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 244.0
     },
     {
       "id": "02-002-deploy-judge",
@@ -1466,7 +1861,26 @@
           "start_seconds": 186.68,
           "end_seconds": 192.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 59,
+          "chapter": "lab-02",
+          "start_seconds": 249.72,
+          "end_seconds": 252.68,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 60,
+          "chapter": "lab-02",
+          "start_seconds": 252.68,
+          "end_seconds": 255.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 249.72
     },
     {
       "id": "01-013-user-foundry",
@@ -1515,7 +1929,26 @@
           "start_seconds": 192.32,
           "end_seconds": 198.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 50,
+          "chapter": "lab-01",
+          "start_seconds": 225.12,
+          "end_seconds": 228.04,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 51,
+          "chapter": "lab-01",
+          "start_seconds": 228.04,
+          "end_seconds": 230.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 225.12
     },
     {
       "id": "01-014-runtime-foundry",
@@ -1564,7 +1997,26 @@
           "start_seconds": 198.0,
           "end_seconds": 213.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 52,
+          "chapter": "lab-01",
+          "start_seconds": 230.72,
+          "end_seconds": 233.72,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 53,
+          "chapter": "lab-01",
+          "start_seconds": 233.72,
+          "end_seconds": 236.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 230.72
     },
     {
       "id": "00-013-env-template",
@@ -1607,7 +2059,18 @@
           "start_seconds": 198.0,
           "end_seconds": 213.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 22,
+          "chapter": "lab-00",
+          "start_seconds": 134.56,
+          "end_seconds": 139.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 134.56
     },
     {
       "id": "00-014-env-configure",
@@ -1650,7 +2113,18 @@
           "start_seconds": 198.0,
           "end_seconds": 213.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 23,
+          "chapter": "lab-00",
+          "start_seconds": 139.36,
+          "end_seconds": 144.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 139.36
     },
     {
       "id": "00-015-cloud-doctor",
@@ -1699,7 +2173,26 @@
           "start_seconds": 213.24,
           "end_seconds": 215.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 24,
+          "chapter": "lab-00",
+          "start_seconds": 144.16,
+          "end_seconds": 147.12,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 25,
+          "chapter": "lab-00",
+          "start_seconds": 147.12,
+          "end_seconds": 149.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 144.16
     },
     {
       "id": "09-001-create-workspace",
@@ -1748,7 +2241,26 @@
           "start_seconds": 218.92,
           "end_seconds": 224.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 356,
+          "chapter": "lab-09",
+          "start_seconds": 1281.28,
+          "end_seconds": 1284.24,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 357,
+          "chapter": "lab-09",
+          "start_seconds": 1284.24,
+          "end_seconds": 1286.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1281.28
     },
     {
       "id": "P00-001-project-picker",
@@ -1796,7 +2308,18 @@
           "start_seconds": 0.0,
           "end_seconds": 5.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 1,
+          "chapter": "lab-00",
+          "start_seconds": 2.0,
+          "end_seconds": 7.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 2.0
     },
     {
       "id": "09-002-create-insights",
@@ -1845,7 +2368,26 @@
           "start_seconds": 224.52,
           "end_seconds": 230.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 358,
+          "chapter": "lab-09",
+          "start_seconds": 1286.92,
+          "end_seconds": 1289.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 359,
+          "chapter": "lab-09",
+          "start_seconds": 1289.84,
+          "end_seconds": 1292.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1286.92
     },
     {
       "id": "P00-002-all-resources",
@@ -1893,7 +2435,18 @@
           "start_seconds": 5.16,
           "end_seconds": 11.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 2,
+          "chapter": "lab-00",
+          "start_seconds": 7.16,
+          "end_seconds": 13.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 7.16
     },
     {
       "id": "09-003-runtime-log-reader",
@@ -1942,7 +2495,26 @@
           "start_seconds": 230.16,
           "end_seconds": 236.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 360,
+          "chapter": "lab-09",
+          "start_seconds": 1292.52,
+          "end_seconds": 1295.48,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 361,
+          "chapter": "lab-09",
+          "start_seconds": 1295.48,
+          "end_seconds": 1298.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1292.52
     },
     {
       "id": "09-004-connect-tracing",
@@ -1991,7 +2563,26 @@
           "start_seconds": 236.0,
           "end_seconds": 241.72
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 362,
+          "chapter": "lab-09",
+          "start_seconds": 1298.16,
+          "end_seconds": 1301.32,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 363,
+          "chapter": "lab-09",
+          "start_seconds": 1301.32,
+          "end_seconds": 1304.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1298.16
     },
     {
       "id": "06-001-search-ready",
@@ -2051,7 +2642,34 @@
           "start_seconds": 243.2,
           "end_seconds": 248.84
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 208,
+          "chapter": "lab-06",
+          "start_seconds": 755.12,
+          "end_seconds": 758.12,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 209,
+          "chapter": "lab-06",
+          "start_seconds": 758.12,
+          "end_seconds": 759.6,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 210,
+          "chapter": "lab-06",
+          "start_seconds": 759.6,
+          "end_seconds": 762.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 755.12
     },
     {
       "id": "P00-003-search-new-project",
@@ -2099,7 +2717,18 @@
           "start_seconds": 11.32,
           "end_seconds": 20.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 3,
+          "chapter": "lab-00",
+          "start_seconds": 13.32,
+          "end_seconds": 18.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 13.32
     },
     {
       "id": "P00-004-select-new-project",
@@ -2137,7 +2766,18 @@
           "start_seconds": 11.32,
           "end_seconds": 20.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 4,
+          "chapter": "lab-00",
+          "start_seconds": 18.72,
+          "end_seconds": 22.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 18.72
     },
     {
       "id": "P02-001-deployments",
@@ -2175,7 +2815,18 @@
           "start_seconds": 20.4,
           "end_seconds": 24.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 61,
+          "chapter": "lab-02",
+          "start_seconds": 255.4,
+          "end_seconds": 259.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 255.4
     },
     {
       "id": "06-002-search-schema-role",
@@ -2224,7 +2875,26 @@
           "start_seconds": 248.84,
           "end_seconds": 254.44
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 211,
+          "chapter": "lab-06",
+          "start_seconds": 762.32,
+          "end_seconds": 765.24,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 212,
+          "chapter": "lab-06",
+          "start_seconds": 765.24,
+          "end_seconds": 767.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 762.32
     },
     {
       "id": "06-003-search-data-role",
@@ -2273,7 +2943,26 @@
           "start_seconds": 254.44,
           "end_seconds": 260.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 213,
+          "chapter": "lab-06",
+          "start_seconds": 767.92,
+          "end_seconds": 770.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 214,
+          "chapter": "lab-06",
+          "start_seconds": 770.84,
+          "end_seconds": 773.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 767.92
     },
     {
       "id": "06-004-runtime-search-reader",
@@ -2322,7 +3011,26 @@
           "start_seconds": 260.12,
           "end_seconds": 265.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 215,
+          "chapter": "lab-06",
+          "start_seconds": 773.52,
+          "end_seconds": 776.52,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 216,
+          "chapter": "lab-06",
+          "start_seconds": 776.52,
+          "end_seconds": 779.2,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 773.52
     },
     {
       "id": "06-005-connect-search",
@@ -2371,7 +3079,26 @@
           "start_seconds": 265.8,
           "end_seconds": 271.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 217,
+          "chapter": "lab-06",
+          "start_seconds": 779.2,
+          "end_seconds": 782.2,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 218,
+          "chapter": "lab-06",
+          "start_seconds": 782.2,
+          "end_seconds": 784.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 779.2
     },
     {
       "id": "01-015-new-region-inventory",
@@ -2420,7 +3147,26 @@
           "start_seconds": 271.4,
           "end_seconds": 274.08
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 54,
+          "chapter": "lab-01",
+          "start_seconds": 236.4,
+          "end_seconds": 239.32,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 55,
+          "chapter": "lab-01",
+          "start_seconds": 239.32,
+          "end_seconds": 242.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 236.4
     },
     {
       "id": "P02-002-deployments-ready",
@@ -2458,7 +3204,18 @@
           "start_seconds": 24.04,
           "end_seconds": 27.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 62,
+          "chapter": "lab-02",
+          "start_seconds": 259.04,
+          "end_seconds": 262.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 259.04
     },
     {
       "id": "02-003-live-model",
@@ -2507,7 +3264,26 @@
           "start_seconds": 277.0,
           "end_seconds": 282.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 80,
+          "chapter": "lab-02",
+          "start_seconds": 323.84,
+          "end_seconds": 326.76,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 81,
+          "chapter": "lab-02",
+          "start_seconds": 326.76,
+          "end_seconds": 329.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 323.84
     },
     {
       "id": "P02-003-model-playground",
@@ -2566,7 +3342,26 @@
           "start_seconds": 30.76,
           "end_seconds": 35.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 63,
+          "chapter": "lab-02",
+          "start_seconds": 262.28,
+          "end_seconds": 265.76,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 64,
+          "chapter": "lab-02",
+          "start_seconds": 265.76,
+          "end_seconds": 270.64,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 262.28
     },
     {
       "id": "02-004-structured-answer",
@@ -2615,7 +3410,26 @@
           "start_seconds": 282.64,
           "end_seconds": 293.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 82,
+          "chapter": "lab-02",
+          "start_seconds": 329.44,
+          "end_seconds": 332.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 83,
+          "chapter": "lab-02",
+          "start_seconds": 332.4,
+          "end_seconds": 335.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 329.44
     },
     {
       "id": "02-005-responses-source",
@@ -2658,7 +3472,18 @@
           "start_seconds": 282.64,
           "end_seconds": 293.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 84,
+          "chapter": "lab-02",
+          "start_seconds": 335.08,
+          "end_seconds": 339.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 335.08
     },
     {
       "id": "03-001-sdk-agent-create",
@@ -2707,7 +3532,26 @@
           "start_seconds": 293.0,
           "end_seconds": 298.6
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 163,
+          "chapter": "lab-03",
+          "start_seconds": 615.8,
+          "end_seconds": 618.68,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 164,
+          "chapter": "lab-03",
+          "start_seconds": 618.68,
+          "end_seconds": 621.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 615.8
     },
     {
       "id": "03-002-current",
@@ -2756,7 +3600,26 @@
           "start_seconds": 298.6,
           "end_seconds": 304.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 165,
+          "chapter": "lab-03",
+          "start_seconds": 621.36,
+          "end_seconds": 624.28,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 166,
+          "chapter": "lab-03",
+          "start_seconds": 624.28,
+          "end_seconds": 626.96,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 621.36
     },
     {
       "id": "P02-004-web-search-menu",
@@ -2799,7 +3662,18 @@
           "start_seconds": 35.64,
           "end_seconds": 39.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 65,
+          "chapter": "lab-02",
+          "start_seconds": 270.64,
+          "end_seconds": 274.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 270.64
     },
     {
       "id": "03-003-historical",
@@ -2848,7 +3722,26 @@
           "start_seconds": 304.2,
           "end_seconds": 309.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 167,
+          "chapter": "lab-03",
+          "start_seconds": 626.96,
+          "end_seconds": 629.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 168,
+          "chapter": "lab-03",
+          "start_seconds": 629.88,
+          "end_seconds": 632.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 626.96
     },
     {
       "id": "03-004-approval",
@@ -2897,7 +3790,26 @@
           "start_seconds": 309.76,
           "end_seconds": 315.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 169,
+          "chapter": "lab-03",
+          "start_seconds": 632.56,
+          "end_seconds": 635.44,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 170,
+          "chapter": "lab-03",
+          "start_seconds": 635.44,
+          "end_seconds": 638.12,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 632.56
     },
     {
       "id": "03-005-no-evidence",
@@ -2946,7 +3858,26 @@
           "start_seconds": 315.4,
           "end_seconds": 335.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 171,
+          "chapter": "lab-03",
+          "start_seconds": 638.12,
+          "end_seconds": 641.08,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 172,
+          "chapter": "lab-03",
+          "start_seconds": 641.08,
+          "end_seconds": 643.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 638.12
     },
     {
       "id": "P02-005-remove-web-search",
@@ -2984,7 +3915,18 @@
           "start_seconds": 39.8,
           "end_seconds": 47.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 66,
+          "chapter": "lab-02",
+          "start_seconds": 274.8,
+          "end_seconds": 278.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 274.8
     },
     {
       "id": "P02-006-model-question",
@@ -3022,7 +3964,18 @@
           "start_seconds": 39.8,
           "end_seconds": 47.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 67,
+          "chapter": "lab-02",
+          "start_seconds": 278.28,
+          "end_seconds": 282.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 278.28
     },
     {
       "id": "03-006-export-policies",
@@ -3065,7 +4018,18 @@
           "start_seconds": 315.4,
           "end_seconds": 335.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 105,
+          "chapter": "lab-03",
+          "start_seconds": 407.24,
+          "end_seconds": 412.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 407.24
     },
     {
       "id": "03-007-open-exported-policy",
@@ -3108,7 +4072,18 @@
           "start_seconds": 315.4,
           "end_seconds": 335.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 106,
+          "chapter": "lab-03",
+          "start_seconds": 412.0,
+          "end_seconds": 416.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 412.0
     },
     {
       "id": "04-001-agent-source",
@@ -3151,7 +4126,18 @@
           "start_seconds": 315.4,
           "end_seconds": 335.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 174,
+          "chapter": "lab-04",
+          "start_seconds": 645.8,
+          "end_seconds": 650.64,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 645.8
     },
     {
       "id": "04-002-maf-single",
@@ -3200,7 +4186,26 @@
           "start_seconds": 335.36,
           "end_seconds": 340.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 175,
+          "chapter": "lab-04",
+          "start_seconds": 650.64,
+          "end_seconds": 653.56,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 176,
+          "chapter": "lab-04",
+          "start_seconds": 653.56,
+          "end_seconds": 656.2,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 650.64
     },
     {
       "id": "P02-007-model-response",
@@ -3254,7 +4259,26 @@
           "start_seconds": 49.68,
           "end_seconds": 54.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 68,
+          "chapter": "lab-02",
+          "start_seconds": 282.56,
+          "end_seconds": 284.68,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 69,
+          "chapter": "lab-02",
+          "start_seconds": 284.68,
+          "end_seconds": 289.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 282.56
     },
     {
       "id": "04-003-maf-tool",
@@ -3303,7 +4327,26 @@
           "start_seconds": 340.96,
           "end_seconds": 346.6
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 177,
+          "chapter": "lab-04",
+          "start_seconds": 656.2,
+          "end_seconds": 659.16,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 178,
+          "chapter": "lab-04",
+          "start_seconds": 659.16,
+          "end_seconds": 661.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 656.2
     },
     {
       "id": "04-004-maf-mcp",
@@ -3374,7 +4417,42 @@
           "start_seconds": 349.6,
           "end_seconds": 355.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 179,
+          "chapter": "lab-04",
+          "start_seconds": 661.84,
+          "end_seconds": 664.8,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 180,
+          "chapter": "lab-04",
+          "start_seconds": 664.8,
+          "end_seconds": 666.32,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 181,
+          "chapter": "lab-04",
+          "start_seconds": 666.32,
+          "end_seconds": 667.8,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 182,
+          "chapter": "lab-04",
+          "start_seconds": 667.8,
+          "end_seconds": 670.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 661.84
     },
     {
       "id": "P02-008-no-policy-new-chat",
@@ -3412,7 +4490,18 @@
           "start_seconds": 54.56,
           "end_seconds": 64.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 70,
+          "chapter": "lab-02",
+          "start_seconds": 289.56,
+          "end_seconds": 293.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 289.56
     },
     {
       "id": "04-005-tool-unsupported",
@@ -3461,7 +4550,26 @@
           "start_seconds": 355.24,
           "end_seconds": 360.84
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 183,
+          "chapter": "lab-04",
+          "start_seconds": 670.48,
+          "end_seconds": 673.44,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 184,
+          "chapter": "lab-04",
+          "start_seconds": 673.44,
+          "end_seconds": 676.12,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 670.48
     },
     {
       "id": "P02-008-no-policy-question",
@@ -3504,7 +4612,18 @@
           "start_seconds": 54.56,
           "end_seconds": 64.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 71,
+          "chapter": "lab-02",
+          "start_seconds": 293.36,
+          "end_seconds": 296.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 293.36
     },
     {
       "id": "P02-008-no-policy-send",
@@ -3558,7 +4677,26 @@
           "start_seconds": 64.0,
           "end_seconds": 70.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 72,
+          "chapter": "lab-02",
+          "start_seconds": 296.88,
+          "end_seconds": 299.0,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 73,
+          "chapter": "lab-02",
+          "start_seconds": 299.0,
+          "end_seconds": 305.64,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 296.88
     },
     {
       "id": "04-006-input-boundary",
@@ -3607,7 +4745,26 @@
           "start_seconds": 360.84,
           "end_seconds": 363.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 185,
+          "chapter": "lab-04",
+          "start_seconds": 676.12,
+          "end_seconds": 679.04,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 186,
+          "chapter": "lab-04",
+          "start_seconds": 679.04,
+          "end_seconds": 681.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 676.12
     },
     {
       "id": "P02-009-model-details",
@@ -3661,7 +4818,26 @@
           "start_seconds": 74.12,
           "end_seconds": 76.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 74,
+          "chapter": "lab-02",
+          "start_seconds": 305.64,
+          "end_seconds": 309.12,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 75,
+          "chapter": "lab-02",
+          "start_seconds": 309.12,
+          "end_seconds": 311.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 305.64
     },
     {
       "id": "04-006-input-boundary-attempt-2",
@@ -3704,7 +4880,18 @@
           "start_seconds": 363.52,
           "end_seconds": 369.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 187,
+          "chapter": "lab-04",
+          "start_seconds": 681.72,
+          "end_seconds": 687.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 681.72
     },
     {
       "id": "05-001-role-source",
@@ -3747,7 +4934,18 @@
           "start_seconds": 369.04,
           "end_seconds": 381.6
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 193,
+          "chapter": "lab-05",
+          "start_seconds": 700.56,
+          "end_seconds": 705.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 700.56
     },
     {
       "id": "05-002-builder-source",
@@ -3790,7 +4988,18 @@
           "start_seconds": 369.04,
           "end_seconds": 381.6
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 194,
+          "chapter": "lab-05",
+          "start_seconds": 705.36,
+          "end_seconds": 710.2,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 705.36
     },
     {
       "id": "05-003-beginner-sequential",
@@ -3839,7 +5048,26 @@
           "start_seconds": 381.6,
           "end_seconds": 387.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 189,
+          "chapter": "lab-05",
+          "start_seconds": 689.24,
+          "end_seconds": 692.16,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 190,
+          "chapter": "lab-05",
+          "start_seconds": 692.16,
+          "end_seconds": 694.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 689.24
     },
     {
       "id": "05-004-beginner-historical",
@@ -3888,7 +5116,26 @@
           "start_seconds": 387.28,
           "end_seconds": 393.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 191,
+          "chapter": "lab-05",
+          "start_seconds": 694.88,
+          "end_seconds": 697.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 192,
+          "chapter": "lab-05",
+          "start_seconds": 697.84,
+          "end_seconds": 700.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 694.88
     },
     {
       "id": "05-005-sequential",
@@ -3937,7 +5184,26 @@
           "start_seconds": 393.0,
           "end_seconds": 398.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 195,
+          "chapter": "lab-05",
+          "start_seconds": 710.2,
+          "end_seconds": 713.2,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 196,
+          "chapter": "lab-05",
+          "start_seconds": 713.2,
+          "end_seconds": 715.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 710.2
     },
     {
       "id": "05-006-concurrent",
@@ -3986,7 +5252,26 @@
           "start_seconds": 398.64,
           "end_seconds": 404.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 197,
+          "chapter": "lab-05",
+          "start_seconds": 715.84,
+          "end_seconds": 718.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 198,
+          "chapter": "lab-05",
+          "start_seconds": 718.84,
+          "end_seconds": 721.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 715.84
     },
     {
       "id": "05-007-group-chat",
@@ -4035,7 +5320,26 @@
           "start_seconds": 404.28,
           "end_seconds": 411.92
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 199,
+          "chapter": "lab-05",
+          "start_seconds": 721.52,
+          "end_seconds": 724.48,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 200,
+          "chapter": "lab-05",
+          "start_seconds": 724.48,
+          "end_seconds": 727.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 721.52
     },
     {
       "id": "P02-010-details-ready",
@@ -4079,7 +5383,26 @@
           "start_seconds": 78.84,
           "end_seconds": 81.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 76,
+          "chapter": "lab-02",
+          "start_seconds": 311.8,
+          "end_seconds": 313.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 77,
+          "chapter": "lab-02",
+          "start_seconds": 313.84,
+          "end_seconds": 316.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 311.8
     },
     {
       "id": "05-008-review-boundary",
@@ -4122,7 +5445,18 @@
           "start_seconds": 404.28,
           "end_seconds": 411.92
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 201,
+          "chapter": "lab-05",
+          "start_seconds": 727.24,
+          "end_seconds": 732.12,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 727.24
     },
     {
       "id": "06-006-local-retrieval",
@@ -4165,7 +5499,18 @@
           "start_seconds": 411.92,
           "end_seconds": 419.68
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 219,
+          "chapter": "lab-06",
+          "start_seconds": 784.88,
+          "end_seconds": 789.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 784.88
     },
     {
       "id": "06-007-seed-search",
@@ -4214,7 +5559,26 @@
           "start_seconds": 419.68,
           "end_seconds": 425.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 220,
+          "chapter": "lab-06",
+          "start_seconds": 789.72,
+          "end_seconds": 792.64,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 221,
+          "chapter": "lab-06",
+          "start_seconds": 792.64,
+          "end_seconds": 795.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 789.72
     },
     {
       "id": "06-008-retrieve-search",
@@ -4263,7 +5627,26 @@
           "start_seconds": 425.28,
           "end_seconds": 430.92
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 222,
+          "chapter": "lab-06",
+          "start_seconds": 795.32,
+          "end_seconds": 798.24,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 223,
+          "chapter": "lab-06",
+          "start_seconds": 798.24,
+          "end_seconds": 800.96,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 795.32
     },
     {
       "id": "06-009-seed-iq",
@@ -4312,7 +5695,26 @@
           "start_seconds": 430.92,
           "end_seconds": 436.48
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 224,
+          "chapter": "lab-06",
+          "start_seconds": 800.96,
+          "end_seconds": 803.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 225,
+          "chapter": "lab-06",
+          "start_seconds": 803.88,
+          "end_seconds": 806.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 800.96
     },
     {
       "id": "06-010-retrieve-iq",
@@ -4361,7 +5763,26 @@
           "start_seconds": 436.48,
           "end_seconds": 442.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 226,
+          "chapter": "lab-06",
+          "start_seconds": 806.52,
+          "end_seconds": 809.44,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 227,
+          "chapter": "lab-06",
+          "start_seconds": 809.44,
+          "end_seconds": 812.12,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 806.52
     },
     {
       "id": "06-011-iq-answer",
@@ -4410,7 +5831,26 @@
           "start_seconds": 442.04,
           "end_seconds": 449.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 228,
+          "chapter": "lab-06",
+          "start_seconds": 812.12,
+          "end_seconds": 815.0,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 229,
+          "chapter": "lab-06",
+          "start_seconds": 815.0,
+          "end_seconds": 817.68,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 812.12
     },
     {
       "id": "06-012-owned-search-ledger",
@@ -4453,7 +5893,18 @@
           "start_seconds": 442.04,
           "end_seconds": 449.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 230,
+          "chapter": "lab-06",
+          "start_seconds": 817.68,
+          "end_seconds": 822.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 817.68
     },
     {
       "id": "07-001-open-dev",
@@ -4496,7 +5947,18 @@
           "start_seconds": 449.52,
           "end_seconds": 462.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 261,
+          "chapter": "lab-07",
+          "start_seconds": 926.24,
+          "end_seconds": 931.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 926.24
     },
     {
       "id": "P02-011-leave-temporary-model-settings",
@@ -4555,7 +6017,26 @@
           "start_seconds": 85.28,
           "end_seconds": 88.84
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 78,
+          "chapter": "lab-02",
+          "start_seconds": 316.52,
+          "end_seconds": 320.28,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 79,
+          "chapter": "lab-02",
+          "start_seconds": 320.28,
+          "end_seconds": 323.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 316.52
     },
     {
       "id": "07-002-open-baseline-prompt",
@@ -4598,7 +6079,18 @@
           "start_seconds": 449.52,
           "end_seconds": 462.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 262,
+          "chapter": "lab-07",
+          "start_seconds": 931.04,
+          "end_seconds": 935.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 931.04
     },
     {
       "id": "07-003-collect-baseline",
@@ -4647,7 +6139,26 @@
           "start_seconds": 462.12,
           "end_seconds": 474.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 263,
+          "chapter": "lab-07",
+          "start_seconds": 935.88,
+          "end_seconds": 938.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 264,
+          "chapter": "lab-07",
+          "start_seconds": 938.84,
+          "end_seconds": 941.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 935.88
     },
     {
       "id": "07-004-evaluate-baseline",
@@ -4690,7 +6201,18 @@
           "start_seconds": 462.12,
           "end_seconds": 474.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 265,
+          "chapter": "lab-07",
+          "start_seconds": 941.52,
+          "end_seconds": 946.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 941.52
     },
     {
       "id": "07-005-open-baseline-evaluation",
@@ -4733,7 +6255,18 @@
           "start_seconds": 462.12,
           "end_seconds": 474.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 266,
+          "chapter": "lab-07",
+          "start_seconds": 946.28,
+          "end_seconds": 951.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 946.28
     },
     {
       "id": "P03-001-agents-area",
@@ -4776,7 +6309,18 @@
           "start_seconds": 88.84,
           "end_seconds": 93.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 86,
+          "chapter": "lab-03",
+          "start_seconds": 341.88,
+          "end_seconds": 346.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 341.88
     },
     {
       "id": "07-005b-baseline-review",
@@ -4819,7 +6363,18 @@
           "start_seconds": 474.32,
           "end_seconds": 486.72
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 267,
+          "chapter": "lab-07",
+          "start_seconds": 951.04,
+          "end_seconds": 955.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 951.04
     },
     {
       "id": "P03-002-new-agent-dialog",
@@ -4862,7 +6417,18 @@
           "start_seconds": 93.36,
           "end_seconds": 97.6
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 87,
+          "chapter": "lab-03",
+          "start_seconds": 346.4,
+          "end_seconds": 350.64,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 346.4
     },
     {
       "id": "07-006-compare-prompts",
@@ -4905,7 +6471,18 @@
           "start_seconds": 474.32,
           "end_seconds": 486.72
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 268,
+          "chapter": "lab-07",
+          "start_seconds": 955.76,
+          "end_seconds": 960.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 955.76
     },
     {
       "id": "07-007-collect-candidate",
@@ -4954,7 +6531,26 @@
           "start_seconds": 486.72,
           "end_seconds": 501.84
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 269,
+          "chapter": "lab-07",
+          "start_seconds": 960.48,
+          "end_seconds": 963.44,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 270,
+          "chapter": "lab-07",
+          "start_seconds": 963.44,
+          "end_seconds": 966.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 960.48
     },
     {
       "id": "07-008-evaluate-candidate",
@@ -4997,7 +6593,18 @@
           "start_seconds": 486.72,
           "end_seconds": 501.84
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 271,
+          "chapter": "lab-07",
+          "start_seconds": 966.08,
+          "end_seconds": 970.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 966.08
     },
     {
       "id": "07-009-compare-dev",
@@ -5040,7 +6647,18 @@
           "start_seconds": 486.72,
           "end_seconds": 501.84
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 272,
+          "chapter": "lab-07",
+          "start_seconds": 970.88,
+          "end_seconds": 975.64,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 970.88
     },
     {
       "id": "07-010-native-judge",
@@ -5089,7 +6707,26 @@
           "start_seconds": 501.84,
           "end_seconds": 504.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 273,
+          "chapter": "lab-07",
+          "start_seconds": 975.64,
+          "end_seconds": 978.56,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 274,
+          "chapter": "lab-07",
+          "start_seconds": 978.56,
+          "end_seconds": 981.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 975.64
     },
     {
       "id": "P03-003-build-prompt-agent",
@@ -5137,7 +6774,18 @@
           "start_seconds": 97.6,
           "end_seconds": 103.72
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 88,
+          "chapter": "lab-03",
+          "start_seconds": 350.64,
+          "end_seconds": 356.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 350.64
     },
     {
       "id": "P03-004-agent-name",
@@ -5180,7 +6828,18 @@
           "start_seconds": 103.72,
           "end_seconds": 110.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 89,
+          "chapter": "lab-03",
+          "start_seconds": 356.76,
+          "end_seconds": 360.2,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 356.76
     },
     {
       "id": "P03-005-create-open-agent",
@@ -5224,7 +6883,26 @@
           "start_seconds": 110.4,
           "end_seconds": 112.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 90,
+          "chapter": "lab-03",
+          "start_seconds": 360.2,
+          "end_seconds": 363.44,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 91,
+          "chapter": "lab-03",
+          "start_seconds": 363.44,
+          "end_seconds": 365.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 360.2
     },
     {
       "id": "08-001-install-hosted",
@@ -5475,7 +7153,42 @@
           "start_seconds": 516.28,
           "end_seconds": 579.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 288,
+          "chapter": "lab-08",
+          "start_seconds": 1027.8,
+          "end_seconds": 1031.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 289,
+          "chapter": "lab-08",
+          "start_seconds": 1031.4,
+          "end_seconds": 1034.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 290,
+          "chapter": "lab-08",
+          "start_seconds": 1034.84,
+          "end_seconds": 1039.56,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 291,
+          "chapter": "lab-08",
+          "start_seconds": 1039.56,
+          "end_seconds": 1074.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1027.8
     },
     {
       "id": "08-002-package",
@@ -5518,7 +7231,18 @@
           "start_seconds": 516.28,
           "end_seconds": 579.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 292,
+          "chapter": "lab-08",
+          "start_seconds": 1074.52,
+          "end_seconds": 1079.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1074.52
     },
     {
       "id": "08-003-package-review",
@@ -5561,7 +7285,18 @@
           "start_seconds": 516.28,
           "end_seconds": 579.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 293,
+          "chapter": "lab-08",
+          "start_seconds": 1079.36,
+          "end_seconds": 1084.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1079.36
     },
     {
       "id": "08-004-azd-version",
@@ -5604,7 +7339,18 @@
           "start_seconds": 516.28,
           "end_seconds": 579.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 294,
+          "chapter": "lab-08",
+          "start_seconds": 1084.24,
+          "end_seconds": 1089.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1084.24
     },
     {
       "id": "08-005-azd-extensions",
@@ -5647,7 +7393,18 @@
           "start_seconds": 516.28,
           "end_seconds": 579.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 295,
+          "chapter": "lab-08",
+          "start_seconds": 1089.16,
+          "end_seconds": 1094.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1089.16
     },
     {
       "id": "08-006-init-help",
@@ -5690,7 +7447,18 @@
           "start_seconds": 516.28,
           "end_seconds": 579.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 296,
+          "chapter": "lab-08",
+          "start_seconds": 1094.28,
+          "end_seconds": 1099.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1094.28
     },
     {
       "id": "08-007-init-existing-project",
@@ -5755,7 +7523,34 @@
           "start_seconds": 581.12,
           "end_seconds": 593.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 297,
+          "chapter": "lab-08",
+          "start_seconds": 1099.28,
+          "end_seconds": 1102.92,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 298,
+          "chapter": "lab-08",
+          "start_seconds": 1102.92,
+          "end_seconds": 1104.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 299,
+          "chapter": "lab-08",
+          "start_seconds": 1104.4,
+          "end_seconds": 1107.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1099.28
     },
     {
       "id": "P03-006-model-selector",
@@ -5804,7 +7599,26 @@
           "start_seconds": 116.0,
           "end_seconds": 118.68
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 92,
+          "chapter": "lab-03",
+          "start_seconds": 365.6,
+          "end_seconds": 369.04,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 93,
+          "chapter": "lab-03",
+          "start_seconds": 369.04,
+          "end_seconds": 371.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 365.6
     },
     {
       "id": "08-008-check-local-azure-yaml",
@@ -5847,7 +7661,18 @@
           "start_seconds": 581.12,
           "end_seconds": 593.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 300,
+          "chapter": "lab-08",
+          "start_seconds": 1107.08,
+          "end_seconds": 1111.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1107.08
     },
     {
       "id": "08-009-complete-runtime-env",
@@ -5890,7 +7715,18 @@
           "start_seconds": 581.12,
           "end_seconds": 593.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 301,
+          "chapter": "lab-08",
+          "start_seconds": 1111.76,
+          "end_seconds": 1116.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1111.76
     },
     {
       "id": "P03-007-select-luna",
@@ -5928,7 +7764,18 @@
           "start_seconds": 118.68,
           "end_seconds": 134.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 94,
+          "chapter": "lab-03",
+          "start_seconds": 371.72,
+          "end_seconds": 375.2,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 371.72
     },
     {
       "id": "P03-008-agent-web-menu",
@@ -5966,7 +7813,18 @@
           "start_seconds": 118.68,
           "end_seconds": 134.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 95,
+          "chapter": "lab-03",
+          "start_seconds": 375.2,
+          "end_seconds": 378.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 375.2
     },
     {
       "id": "P03-009-agent-remove-web",
@@ -6004,7 +7862,18 @@
           "start_seconds": 118.68,
           "end_seconds": 134.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 96,
+          "chapter": "lab-03",
+          "start_seconds": 378.72,
+          "end_seconds": 382.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 378.72
     },
     {
       "id": "P03-010-paste-v2-prose",
@@ -6042,7 +7911,18 @@
           "start_seconds": 118.68,
           "end_seconds": 134.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 97,
+          "chapter": "lab-03",
+          "start_seconds": 382.04,
+          "end_seconds": 385.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 382.04
     },
     {
       "id": "P03-011-save-prompt",
@@ -6086,7 +7966,26 @@
           "start_seconds": 134.64,
           "end_seconds": 137.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 98,
+          "chapter": "lab-03",
+          "start_seconds": 385.56,
+          "end_seconds": 387.68,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 99,
+          "chapter": "lab-03",
+          "start_seconds": 387.68,
+          "end_seconds": 390.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 385.56
     },
     {
       "id": "P03-012-add-synthetic-evidence",
@@ -6124,7 +8023,18 @@
           "start_seconds": 137.36,
           "end_seconds": 143.68
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 100,
+          "chapter": "lab-03",
+          "start_seconds": 390.4,
+          "end_seconds": 394.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 390.4
     },
     {
       "id": "P03-013-save-evidence-version",
@@ -6178,7 +8088,26 @@
           "start_seconds": 143.68,
           "end_seconds": 147.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 101,
+          "chapter": "lab-03",
+          "start_seconds": 394.6,
+          "end_seconds": 396.72,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 102,
+          "chapter": "lab-03",
+          "start_seconds": 396.72,
+          "end_seconds": 400.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 394.6
     },
     {
       "id": "P03-014-review-instruction-start",
@@ -6216,7 +8145,18 @@
           "start_seconds": 147.28,
           "end_seconds": 158.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 103,
+          "chapter": "lab-03",
+          "start_seconds": 400.32,
+          "end_seconds": 403.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 400.32
     },
     {
       "id": "08-009-complete-runtime-env-attempt-2",
@@ -6259,7 +8199,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 302,
+          "chapter": "lab-08",
+          "start_seconds": 1116.56,
+          "end_seconds": 1121.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1116.56
     },
     {
       "id": "P03-015-review-evidence-end",
@@ -6297,7 +8248,18 @@
           "start_seconds": 147.28,
           "end_seconds": 158.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 104,
+          "chapter": "lab-03",
+          "start_seconds": 403.76,
+          "end_seconds": 407.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 403.76
     },
     {
       "id": "08-010-set-azure-ai-project-endpoint",
@@ -6340,7 +8302,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 303,
+          "chapter": "lab-08",
+          "start_seconds": 1121.36,
+          "end_seconds": 1126.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1121.36
     },
     {
       "id": "P03-016-collapse-instructions",
@@ -6388,7 +8361,18 @@
           "start_seconds": 147.28,
           "end_seconds": 158.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 143,
+          "chapter": "lab-03",
+          "start_seconds": 538.32,
+          "end_seconds": 542.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 538.32
     },
     {
       "id": "08-011-set-azure-ai-project-id",
@@ -6431,7 +8415,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 304,
+          "chapter": "lab-08",
+          "start_seconds": 1126.84,
+          "end_seconds": 1131.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1126.84
     },
     {
       "id": "08-012-set-azure-ai-model-deployment-name",
@@ -6474,7 +8469,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 305,
+          "chapter": "lab-08",
+          "start_seconds": 1131.72,
+          "end_seconds": 1136.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1131.72
     },
     {
       "id": "08-013-set-azure-subscription-id",
@@ -6517,7 +8523,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 306,
+          "chapter": "lab-08",
+          "start_seconds": 1136.6,
+          "end_seconds": 1141.68,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1136.6
     },
     {
       "id": "08-014-set-azure-tenant-id",
@@ -6560,7 +8577,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 307,
+          "chapter": "lab-08",
+          "start_seconds": 1141.68,
+          "end_seconds": 1146.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1141.68
     },
     {
       "id": "08-015-set-azure-location",
@@ -6603,7 +8631,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 308,
+          "chapter": "lab-08",
+          "start_seconds": 1146.6,
+          "end_seconds": 1151.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1146.6
     },
     {
       "id": "08-016-read-project-endpoint",
@@ -6646,7 +8685,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 309,
+          "chapter": "lab-08",
+          "start_seconds": 1151.56,
+          "end_seconds": 1156.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1151.56
     },
     {
       "id": "08-017-read-model-deployment",
@@ -6689,7 +8739,18 @@
           "start_seconds": 593.28,
           "end_seconds": 638.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 310,
+          "chapter": "lab-08",
+          "start_seconds": 1156.48,
+          "end_seconds": 1161.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1156.48
     },
     {
       "id": "P03-020-intro-current-new-chat",
@@ -6727,7 +8788,18 @@
           "start_seconds": 158.8,
           "end_seconds": 165.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 144,
+          "chapter": "lab-03",
+          "start_seconds": 542.92,
+          "end_seconds": 546.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 542.92
     },
     {
       "id": "P03-020-intro-current-question",
@@ -6760,7 +8832,18 @@
           "start_seconds": 158.8,
           "end_seconds": 165.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 145,
+          "chapter": "lab-03",
+          "start_seconds": 546.72,
+          "end_seconds": 549.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 546.72
     },
     {
       "id": "08-018-local-server",
@@ -6851,7 +8934,42 @@
           "start_seconds": 667.12,
           "end_seconds": 673.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 311,
+          "chapter": "lab-08",
+          "start_seconds": 1161.4,
+          "end_seconds": 1164.08,
+          "context_only": true
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 312,
+          "chapter": "lab-08",
+          "start_seconds": 1164.08,
+          "end_seconds": 1166.96,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 315,
+          "chapter": "lab-08",
+          "start_seconds": 1175.52,
+          "end_seconds": 1178.2,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 316,
+          "chapter": "lab-08",
+          "start_seconds": 1178.2,
+          "end_seconds": 1182.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1164.08
     },
     {
       "id": "P03-021-intro-current-new-chat",
@@ -6894,7 +9012,18 @@
           "start_seconds": 165.8,
           "end_seconds": 175.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 146,
+          "chapter": "lab-03",
+          "start_seconds": 549.92,
+          "end_seconds": 553.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 549.92
     },
     {
       "id": "P03-021-intro-current-question",
@@ -6932,7 +9061,18 @@
           "start_seconds": 165.8,
           "end_seconds": 175.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 147,
+          "chapter": "lab-03",
+          "start_seconds": 553.72,
+          "end_seconds": 557.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 553.72
     },
     {
       "id": "P03-021-intro-current-send",
@@ -6992,7 +9132,34 @@
           "start_seconds": 177.88,
           "end_seconds": 182.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 148,
+          "chapter": "lab-03",
+          "start_seconds": 557.16,
+          "end_seconds": 559.24,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 149,
+          "chapter": "lab-03",
+          "start_seconds": 559.24,
+          "end_seconds": 562.0,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 150,
+          "chapter": "lab-03",
+          "start_seconds": 562.0,
+          "end_seconds": 566.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 557.16
     },
     {
       "id": "P03-021-intro-historical-new-chat",
@@ -7030,7 +9197,18 @@
           "start_seconds": 182.36,
           "end_seconds": 191.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 151,
+          "chapter": "lab-03",
+          "start_seconds": 566.48,
+          "end_seconds": 570.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 566.48
     },
     {
       "id": "P03-021-intro-historical-question",
@@ -7073,7 +9251,18 @@
           "start_seconds": 182.36,
           "end_seconds": 191.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 152,
+          "chapter": "lab-03",
+          "start_seconds": 570.32,
+          "end_seconds": 573.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 570.32
     },
     {
       "id": "P03-021-intro-historical-send",
@@ -7127,7 +9316,26 @@
           "start_seconds": 191.8,
           "end_seconds": 199.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 153,
+          "chapter": "lab-03",
+          "start_seconds": 573.8,
+          "end_seconds": 575.92,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 154,
+          "chapter": "lab-03",
+          "start_seconds": 575.92,
+          "end_seconds": 583.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 573.8
     },
     {
       "id": "P03-021-intro-approval-new-chat",
@@ -7165,7 +9373,18 @@
           "start_seconds": 199.16,
           "end_seconds": 208.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 155,
+          "chapter": "lab-03",
+          "start_seconds": 583.28,
+          "end_seconds": 587.2,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 583.28
     },
     {
       "id": "P03-021-intro-approval-question",
@@ -7208,7 +9427,18 @@
           "start_seconds": 199.16,
           "end_seconds": 208.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 156,
+          "chapter": "lab-03",
+          "start_seconds": 587.2,
+          "end_seconds": 590.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 587.2
     },
     {
       "id": "P03-021-intro-approval-send",
@@ -7262,7 +9492,26 @@
           "start_seconds": 208.4,
           "end_seconds": 215.48
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 157,
+          "chapter": "lab-03",
+          "start_seconds": 590.44,
+          "end_seconds": 592.52,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 158,
+          "chapter": "lab-03",
+          "start_seconds": 592.52,
+          "end_seconds": 599.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 590.44
     },
     {
       "id": "P03-021-intro-missing-new-chat",
@@ -7300,7 +9549,18 @@
           "start_seconds": 215.48,
           "end_seconds": 225.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 159,
+          "chapter": "lab-03",
+          "start_seconds": 599.6,
+          "end_seconds": 603.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 599.6
     },
     {
       "id": "P03-021-intro-missing-question",
@@ -7338,7 +9598,18 @@
           "start_seconds": 215.48,
           "end_seconds": 225.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 160,
+          "chapter": "lab-03",
+          "start_seconds": 603.52,
+          "end_seconds": 607.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 603.52
     },
     {
       "id": "P03-021-intro-missing-send",
@@ -7392,7 +9663,26 @@
           "start_seconds": 225.04,
           "end_seconds": 231.68
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 161,
+          "chapter": "lab-03",
+          "start_seconds": 607.08,
+          "end_seconds": 609.16,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 162,
+          "chapter": "lab-03",
+          "start_seconds": 609.16,
+          "end_seconds": 615.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 607.08
     },
     {
       "id": "08-019-local-readiness",
@@ -7435,7 +9725,18 @@
           "start_seconds": 643.68,
           "end_seconds": 652.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 313,
+          "chapter": "lab-08",
+          "start_seconds": 1166.96,
+          "end_seconds": 1171.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1166.96
     },
     {
       "id": "08-020-local-invoke",
@@ -7489,7 +9790,26 @@
           "start_seconds": 659.64,
           "end_seconds": 662.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 314,
+          "chapter": "lab-08",
+          "start_seconds": 1171.84,
+          "end_seconds": 1175.52,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 317,
+          "chapter": "lab-08",
+          "start_seconds": 1182.92,
+          "end_seconds": 1185.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1171.84
     },
     {
       "id": "07-010b-native-results",
@@ -7532,7 +9852,18 @@
           "start_seconds": 662.32,
           "end_seconds": 667.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 275,
+          "chapter": "lab-07",
+          "start_seconds": 981.24,
+          "end_seconds": 986.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 981.24
     },
     {
       "id": "08-021-stop-local-server",
@@ -7570,7 +9901,18 @@
           "start_seconds": 667.12,
           "end_seconds": 673.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 318,
+          "chapter": "lab-08",
+          "start_seconds": 1185.6,
+          "end_seconds": 1192.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1185.6
     },
     {
       "id": "08-022-deploy-hosted",
@@ -7772,7 +10114,130 @@
           "start_seconds": 697.88,
           "end_seconds": 704.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 319,
+          "chapter": "lab-08",
+          "start_seconds": 1192.44,
+          "end_seconds": 1195.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 320,
+          "chapter": "lab-08",
+          "start_seconds": 1195.4,
+          "end_seconds": 1196.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 321,
+          "chapter": "lab-08",
+          "start_seconds": 1196.88,
+          "end_seconds": 1199.96,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 322,
+          "chapter": "lab-08",
+          "start_seconds": 1199.96,
+          "end_seconds": 1201.44,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 323,
+          "chapter": "lab-08",
+          "start_seconds": 1201.44,
+          "end_seconds": 1202.92,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 324,
+          "chapter": "lab-08",
+          "start_seconds": 1202.92,
+          "end_seconds": 1204.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 325,
+          "chapter": "lab-08",
+          "start_seconds": 1204.4,
+          "end_seconds": 1205.92,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 326,
+          "chapter": "lab-08",
+          "start_seconds": 1205.92,
+          "end_seconds": 1207.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 327,
+          "chapter": "lab-08",
+          "start_seconds": 1207.4,
+          "end_seconds": 1208.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 328,
+          "chapter": "lab-08",
+          "start_seconds": 1208.88,
+          "end_seconds": 1210.36,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 329,
+          "chapter": "lab-08",
+          "start_seconds": 1210.36,
+          "end_seconds": 1211.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 330,
+          "chapter": "lab-08",
+          "start_seconds": 1211.88,
+          "end_seconds": 1213.36,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 331,
+          "chapter": "lab-08",
+          "start_seconds": 1213.36,
+          "end_seconds": 1214.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 332,
+          "chapter": "lab-08",
+          "start_seconds": 1214.88,
+          "end_seconds": 1216.36,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 333,
+          "chapter": "lab-08",
+          "start_seconds": 1216.36,
+          "end_seconds": 1219.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1192.44
     },
     {
       "id": "P07-001-d01-new-chat",
@@ -7810,7 +10275,18 @@
           "start_seconds": 231.68,
           "end_seconds": 241.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 234,
+          "chapter": "lab-07",
+          "start_seconds": 830.16,
+          "end_seconds": 834.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 830.16
     },
     {
       "id": "P07-001-d01-question",
@@ -7848,7 +10324,18 @@
           "start_seconds": 231.68,
           "end_seconds": 241.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 235,
+          "chapter": "lab-07",
+          "start_seconds": 834.08,
+          "end_seconds": 837.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 834.08
     },
     {
       "id": "P07-001-d01-send",
@@ -7902,7 +10389,26 @@
           "start_seconds": 241.24,
           "end_seconds": 248.24
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 236,
+          "chapter": "lab-07",
+          "start_seconds": 837.6,
+          "end_seconds": 839.72,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 237,
+          "chapter": "lab-07",
+          "start_seconds": 839.72,
+          "end_seconds": 846.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 837.6
     },
     {
       "id": "P07-001-d02-new-chat",
@@ -7940,7 +10446,18 @@
           "start_seconds": 248.24,
           "end_seconds": 257.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 238,
+          "chapter": "lab-07",
+          "start_seconds": 846.72,
+          "end_seconds": 850.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 846.72
     },
     {
       "id": "P07-001-d02-question",
@@ -7978,7 +10495,18 @@
           "start_seconds": 248.24,
           "end_seconds": 257.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 239,
+          "chapter": "lab-07",
+          "start_seconds": 850.56,
+          "end_seconds": 854.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 850.56
     },
     {
       "id": "P07-001-d02-send",
@@ -8033,7 +10561,34 @@
           "start_seconds": 259.04,
           "end_seconds": 263.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 240,
+          "chapter": "lab-07",
+          "start_seconds": 854.0,
+          "end_seconds": 856.04,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 241,
+          "chapter": "lab-07",
+          "start_seconds": 856.04,
+          "end_seconds": 857.52,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 242,
+          "chapter": "lab-07",
+          "start_seconds": 857.52,
+          "end_seconds": 862.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 854.0
     },
     {
       "id": "P07-001-d03-new-chat",
@@ -8071,7 +10626,18 @@
           "start_seconds": 263.52,
           "end_seconds": 272.88
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 243,
+          "chapter": "lab-07",
+          "start_seconds": 862.0,
+          "end_seconds": 865.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 862.0
     },
     {
       "id": "P07-001-d03-question",
@@ -8109,7 +10675,18 @@
           "start_seconds": 263.52,
           "end_seconds": 272.88
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 244,
+          "chapter": "lab-07",
+          "start_seconds": 865.8,
+          "end_seconds": 869.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 865.8
     },
     {
       "id": "P07-001-d03-send",
@@ -8163,7 +10740,26 @@
           "start_seconds": 272.88,
           "end_seconds": 279.56
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 245,
+          "chapter": "lab-07",
+          "start_seconds": 869.28,
+          "end_seconds": 871.36,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 246,
+          "chapter": "lab-07",
+          "start_seconds": 871.36,
+          "end_seconds": 878.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 869.28
     },
     {
       "id": "P07-001-d04-new-chat",
@@ -8201,7 +10797,18 @@
           "start_seconds": 279.56,
           "end_seconds": 289.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 247,
+          "chapter": "lab-07",
+          "start_seconds": 878.04,
+          "end_seconds": 881.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 878.04
     },
     {
       "id": "P07-001-d04-question",
@@ -8239,7 +10846,18 @@
           "start_seconds": 279.56,
           "end_seconds": 289.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 248,
+          "chapter": "lab-07",
+          "start_seconds": 881.92,
+          "end_seconds": 885.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 881.92
     },
     {
       "id": "P07-001-d04-send",
@@ -8293,7 +10911,26 @@
           "start_seconds": 289.12,
           "end_seconds": 295.84
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 249,
+          "chapter": "lab-07",
+          "start_seconds": 885.48,
+          "end_seconds": 887.6,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 250,
+          "chapter": "lab-07",
+          "start_seconds": 887.6,
+          "end_seconds": 894.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 885.48
     },
     {
       "id": "P07-001-d05-new-chat",
@@ -8337,7 +10974,26 @@
           "start_seconds": 297.92,
           "end_seconds": 305.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 251,
+          "chapter": "lab-07",
+          "start_seconds": 894.32,
+          "end_seconds": 896.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 252,
+          "chapter": "lab-07",
+          "start_seconds": 896.4,
+          "end_seconds": 898.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 894.32
     },
     {
       "id": "P07-001-d05-question",
@@ -8375,7 +11031,18 @@
           "start_seconds": 297.92,
           "end_seconds": 305.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 253,
+          "chapter": "lab-07",
+          "start_seconds": 898.4,
+          "end_seconds": 901.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 898.4
     },
     {
       "id": "P07-001-d05-send",
@@ -8430,7 +11097,34 @@
           "start_seconds": 307.0,
           "end_seconds": 311.48
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 254,
+          "chapter": "lab-07",
+          "start_seconds": 901.92,
+          "end_seconds": 904.0,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 255,
+          "chapter": "lab-07",
+          "start_seconds": 904.0,
+          "end_seconds": 905.48,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 256,
+          "chapter": "lab-07",
+          "start_seconds": 905.48,
+          "end_seconds": 909.96,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 901.92
     },
     {
       "id": "P07-001-d06-new-chat",
@@ -8468,7 +11162,18 @@
           "start_seconds": 311.48,
           "end_seconds": 321.08
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 257,
+          "chapter": "lab-07",
+          "start_seconds": 909.96,
+          "end_seconds": 913.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 909.96
     },
     {
       "id": "P07-001-d06-question",
@@ -8506,7 +11211,18 @@
           "start_seconds": 311.48,
           "end_seconds": 321.08
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 258,
+          "chapter": "lab-07",
+          "start_seconds": 913.92,
+          "end_seconds": 917.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 913.92
     },
     {
       "id": "P07-001-d06-send",
@@ -8560,7 +11276,26 @@
           "start_seconds": 321.08,
           "end_seconds": 327.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 259,
+          "chapter": "lab-07",
+          "start_seconds": 917.44,
+          "end_seconds": 919.56,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 260,
+          "chapter": "lab-07",
+          "start_seconds": 919.56,
+          "end_seconds": 926.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 917.44
     },
     {
       "id": "08-023-show-hosted",
@@ -8620,7 +11355,34 @@
           "start_seconds": 705.72,
           "end_seconds": 708.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 334,
+          "chapter": "lab-08",
+          "start_seconds": 1219.76,
+          "end_seconds": 1222.72,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 335,
+          "chapter": "lab-08",
+          "start_seconds": 1222.72,
+          "end_seconds": 1224.2,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 336,
+          "chapter": "lab-08",
+          "start_seconds": 1224.2,
+          "end_seconds": 1226.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1219.76
     },
     {
       "id": "P03-F01-return-agents",
@@ -8674,7 +11436,26 @@
           "start_seconds": 331.24,
           "end_seconds": 336.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 107,
+          "chapter": "lab-03",
+          "start_seconds": 416.72,
+          "end_seconds": 420.2,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 108,
+          "chapter": "lab-03",
+          "start_seconds": 420.2,
+          "end_seconds": 423.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 416.72
     },
     {
       "id": "P03-F02-new-files-agent-menu",
@@ -8718,7 +11499,26 @@
           "start_seconds": 336.12,
           "end_seconds": 349.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 109,
+          "chapter": "lab-03",
+          "start_seconds": 423.04,
+          "end_seconds": 425.08,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 110,
+          "chapter": "lab-03",
+          "start_seconds": 425.08,
+          "end_seconds": 427.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 423.04
     },
     {
       "id": "P03-F03-build-files-agent",
@@ -8766,7 +11566,18 @@
           "start_seconds": 336.12,
           "end_seconds": 349.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 111,
+          "chapter": "lab-03",
+          "start_seconds": 427.04,
+          "end_seconds": 432.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 427.04
     },
     {
       "id": "P03-F04-files-agent-name",
@@ -8809,7 +11620,18 @@
           "start_seconds": 336.12,
           "end_seconds": 349.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 112,
+          "chapter": "lab-03",
+          "start_seconds": 432.48,
+          "end_seconds": 435.96,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 432.48
     },
     {
       "id": "P03-F05-create-files-agent",
@@ -8874,7 +11696,34 @@
           "start_seconds": 351.96,
           "end_seconds": 354.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 113,
+          "chapter": "lab-03",
+          "start_seconds": 435.96,
+          "end_seconds": 438.12,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 114,
+          "chapter": "lab-03",
+          "start_seconds": 438.12,
+          "end_seconds": 440.92,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 115,
+          "chapter": "lab-03",
+          "start_seconds": 440.92,
+          "end_seconds": 443.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 435.96
     },
     {
       "id": "P03-F06-remove-web-menu",
@@ -8912,7 +11761,18 @@
           "start_seconds": 354.64,
           "end_seconds": 371.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 116,
+          "chapter": "lab-03",
+          "start_seconds": 443.6,
+          "end_seconds": 447.12,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 443.6
     },
     {
       "id": "P03-F07-remove-web",
@@ -8950,7 +11810,18 @@
           "start_seconds": 354.64,
           "end_seconds": 371.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 117,
+          "chapter": "lab-03",
+          "start_seconds": 447.12,
+          "end_seconds": 450.68,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 447.12
     },
     {
       "id": "P03-F08-file-instructions",
@@ -8988,7 +11859,18 @@
           "start_seconds": 354.64,
           "end_seconds": 371.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 118,
+          "chapter": "lab-03",
+          "start_seconds": 450.68,
+          "end_seconds": 454.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 450.68
     },
     {
       "id": "P03-F09-upload-dialog",
@@ -9036,7 +11918,18 @@
           "start_seconds": 354.64,
           "end_seconds": 371.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 119,
+          "chapter": "lab-03",
+          "start_seconds": 454.24,
+          "end_seconds": 460.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 454.24
     },
     {
       "id": "P03-F10-vector-name",
@@ -9074,7 +11967,18 @@
           "start_seconds": 371.12,
           "end_seconds": 378.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 120,
+          "chapter": "lab-03",
+          "start_seconds": 460.08,
+          "end_seconds": 463.88,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 460.08
     },
     {
       "id": "P03-F11-select-six-files",
@@ -9133,7 +12037,26 @@
           "start_seconds": 378.4,
           "end_seconds": 383.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 121,
+          "chapter": "lab-03",
+          "start_seconds": 463.88,
+          "end_seconds": 467.36,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 122,
+          "chapter": "lab-03",
+          "start_seconds": 467.36,
+          "end_seconds": 472.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 463.88
     },
     {
       "id": "00-016-reactivate-terminal",
@@ -9176,7 +12099,26 @@
           "start_seconds": 711.08,
           "end_seconds": 718.72
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 26,
+          "chapter": "lab-00",
+          "start_seconds": 149.84,
+          "end_seconds": 152.52,
+          "context_only": true
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 27,
+          "chapter": "lab-00",
+          "start_seconds": 152.52,
+          "end_seconds": 157.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 152.52
     },
     {
       "id": "P03-F12-attach-index",
@@ -9241,7 +12183,34 @@
           "start_seconds": 387.32,
           "end_seconds": 390.88
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 123,
+          "chapter": "lab-03",
+          "start_seconds": 472.6,
+          "end_seconds": 474.76,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 124,
+          "chapter": "lab-03",
+          "start_seconds": 474.76,
+          "end_seconds": 476.28,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 125,
+          "chapter": "lab-03",
+          "start_seconds": 476.28,
+          "end_seconds": 479.84,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 472.6
     },
     {
       "id": "08-024-remote-invoke",
@@ -9311,7 +12280,34 @@
           "start_seconds": 721.8,
           "end_seconds": 729.72
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 337,
+          "chapter": "lab-08",
+          "start_seconds": 1226.88,
+          "end_seconds": 1229.76,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 338,
+          "chapter": "lab-08",
+          "start_seconds": 1229.76,
+          "end_seconds": 1232.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 339,
+          "chapter": "lab-08",
+          "start_seconds": 1232.84,
+          "end_seconds": 1237.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1226.88
     },
     {
       "id": "09-005-live-monitor",
@@ -9376,7 +12372,34 @@
           "start_seconds": 731.24,
           "end_seconds": 733.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 364,
+          "chapter": "lab-09",
+          "start_seconds": 1304.04,
+          "end_seconds": 1307.8,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 365,
+          "chapter": "lab-09",
+          "start_seconds": 1307.8,
+          "end_seconds": 1309.32,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 366,
+          "chapter": "lab-09",
+          "start_seconds": 1309.32,
+          "end_seconds": 1312.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1304.04
     },
     {
       "id": "P03-F13-save-file-search",
@@ -9425,7 +12448,26 @@
           "start_seconds": 392.92,
           "end_seconds": 402.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 126,
+          "chapter": "lab-03",
+          "start_seconds": 479.84,
+          "end_seconds": 481.88,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 127,
+          "chapter": "lab-03",
+          "start_seconds": 481.88,
+          "end_seconds": 484.72,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 479.84
     },
     {
       "id": "P03-F14-inspect-index-files",
@@ -9489,7 +12531,26 @@
           "start_seconds": 402.12,
           "end_seconds": 404.8
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 128,
+          "chapter": "lab-03",
+          "start_seconds": 484.72,
+          "end_seconds": 491.08,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 129,
+          "chapter": "lab-03",
+          "start_seconds": 491.08,
+          "end_seconds": 493.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 484.72
     },
     {
       "id": "08-025-hosted-dev-lineage",
@@ -9538,7 +12599,26 @@
           "start_seconds": 736.92,
           "end_seconds": 743.28
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 340,
+          "chapter": "lab-08",
+          "start_seconds": 1237.0,
+          "end_seconds": 1239.96,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 341,
+          "chapter": "lab-08",
+          "start_seconds": 1239.96,
+          "end_seconds": 1242.64,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1237.0
     },
     {
       "id": "P03-F15-close-index-view",
@@ -9576,7 +12656,18 @@
           "start_seconds": 404.8,
           "end_seconds": 413.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 130,
+          "chapter": "lab-03",
+          "start_seconds": 493.76,
+          "end_seconds": 497.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 493.76
     },
     {
       "id": "P03-F16-collapse-instructions",
@@ -9624,7 +12715,18 @@
           "start_seconds": 404.8,
           "end_seconds": 413.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 131,
+          "chapter": "lab-03",
+          "start_seconds": 497.56,
+          "end_seconds": 502.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 497.56
     },
     {
       "id": "08-026-generate-hosted-suite",
@@ -9678,7 +12780,26 @@
           "start_seconds": 743.28,
           "end_seconds": 745.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 342,
+          "chapter": "lab-08",
+          "start_seconds": 1242.64,
+          "end_seconds": 1246.32,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 343,
+          "chapter": "lab-08",
+          "start_seconds": 1246.32,
+          "end_seconds": 1249.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1242.64
     },
     {
       "id": "08-027-run-hosted-eval",
@@ -9754,7 +12875,42 @@
           "start_seconds": 752.52,
           "end_seconds": 755.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 344,
+          "chapter": "lab-08",
+          "start_seconds": 1249.0,
+          "end_seconds": 1252.6,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 345,
+          "chapter": "lab-08",
+          "start_seconds": 1252.6,
+          "end_seconds": 1254.08,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 346,
+          "chapter": "lab-08",
+          "start_seconds": 1254.08,
+          "end_seconds": 1255.56,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 347,
+          "chapter": "lab-08",
+          "start_seconds": 1255.56,
+          "end_seconds": 1258.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1249.0
     },
     {
       "id": "P03-F17-file-search-response-new-chat",
@@ -9792,7 +12948,18 @@
           "start_seconds": 413.12,
           "end_seconds": 419.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 132,
+          "chapter": "lab-03",
+          "start_seconds": 502.08,
+          "end_seconds": 505.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 502.08
     },
     {
       "id": "P03-F17-file-search-response-question",
@@ -9836,7 +13003,26 @@
           "start_seconds": 419.04,
           "end_seconds": 423.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 133,
+          "chapter": "lab-03",
+          "start_seconds": 505.92,
+          "end_seconds": 508.0,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 134,
+          "chapter": "lab-03",
+          "start_seconds": 508.0,
+          "end_seconds": 510.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 505.92
     },
     {
       "id": "P03-F17-file-search-response-send",
@@ -9895,7 +13081,26 @@
           "start_seconds": 423.12,
           "end_seconds": 431.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 135,
+          "chapter": "lab-03",
+          "start_seconds": 510.0,
+          "end_seconds": 512.08,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 136,
+          "chapter": "lab-03",
+          "start_seconds": 512.08,
+          "end_seconds": 520.08,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 510.0
     },
     {
       "id": "P03-F18-open-file-citation",
@@ -9933,7 +13138,18 @@
           "start_seconds": 431.12,
           "end_seconds": 435.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 137,
+          "chapter": "lab-03",
+          "start_seconds": 520.08,
+          "end_seconds": 524.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 520.08
     },
     {
       "id": "P03-F19-download-source",
@@ -9972,7 +13188,26 @@
           "start_seconds": 436.8,
           "end_seconds": 439.48
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 138,
+          "chapter": "lab-03",
+          "start_seconds": 524.28,
+          "end_seconds": 525.76,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 139,
+          "chapter": "lab-03",
+          "start_seconds": 525.76,
+          "end_seconds": 528.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 524.28
     },
     {
       "id": "P03-F20-inline-citation",
@@ -10010,7 +13245,18 @@
           "start_seconds": 439.48,
           "end_seconds": 443.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 140,
+          "chapter": "lab-03",
+          "start_seconds": 528.44,
+          "end_seconds": 532.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 528.44
     },
     {
       "id": "08-028-download-hosted-results",
@@ -10070,7 +13316,34 @@
           "start_seconds": 759.6,
           "end_seconds": 765.44
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 348,
+          "chapter": "lab-08",
+          "start_seconds": 1258.24,
+          "end_seconds": 1261.16,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 349,
+          "chapter": "lab-08",
+          "start_seconds": 1261.16,
+          "end_seconds": 1262.64,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 350,
+          "chapter": "lab-08",
+          "start_seconds": 1262.64,
+          "end_seconds": 1265.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1258.24
     },
     {
       "id": "P07-020-native-report",
@@ -10151,7 +13424,42 @@
           "start_seconds": 451.08,
           "end_seconds": 455.4
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 276,
+          "chapter": "lab-07",
+          "start_seconds": 986.04,
+          "end_seconds": 987.52,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 277,
+          "chapter": "lab-07",
+          "start_seconds": 987.52,
+          "end_seconds": 991.96,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 278,
+          "chapter": "lab-07",
+          "start_seconds": 991.96,
+          "end_seconds": 993.48,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 279,
+          "chapter": "lab-07",
+          "start_seconds": 993.48,
+          "end_seconds": 997.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 986.04
     },
     {
       "id": "03-F21-verify-stored-files",
@@ -10200,7 +13508,26 @@
           "start_seconds": 765.44,
           "end_seconds": 768.16
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 141,
+          "chapter": "lab-03",
+          "start_seconds": 532.6,
+          "end_seconds": 535.6,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 142,
+          "chapter": "lab-03",
+          "start_seconds": 535.6,
+          "end_seconds": 538.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 532.6
     },
     {
       "id": "07-011-freeze-disclosure",
@@ -10243,7 +13570,18 @@
           "start_seconds": 768.16,
           "end_seconds": 775.92
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 283,
+          "chapter": "lab-07",
+          "start_seconds": 1010.56,
+          "end_seconds": 1015.4,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1010.56
     },
     {
       "id": "P07-021-metric-overview",
@@ -10281,7 +13619,18 @@
           "start_seconds": 455.4,
           "end_seconds": 463.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 280,
+          "chapter": "lab-07",
+          "start_seconds": 997.8,
+          "end_seconds": 1001.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 997.8
     },
     {
       "id": "P07-022-failed-d05",
@@ -10319,7 +13668,18 @@
           "start_seconds": 455.4,
           "end_seconds": 463.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 281,
+          "chapter": "lab-07",
+          "start_seconds": 1001.36,
+          "end_seconds": 1005.6,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1001.36
     },
     {
       "id": "07-012-final-holdout",
@@ -10368,7 +13728,26 @@
           "start_seconds": 775.92,
           "end_seconds": 797.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 284,
+          "chapter": "lab-07",
+          "start_seconds": 1015.4,
+          "end_seconds": 1018.32,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 285,
+          "chapter": "lab-07",
+          "start_seconds": 1018.32,
+          "end_seconds": 1021.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1015.4
     },
     {
       "id": "07-013-evaluate-holdout",
@@ -10411,7 +13790,18 @@
           "start_seconds": 775.92,
           "end_seconds": 797.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 286,
+          "chapter": "lab-07",
+          "start_seconds": 1021.04,
+          "end_seconds": 1025.8,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1021.04
     },
     {
       "id": "11-001-acceptance",
@@ -10454,7 +13844,18 @@
           "start_seconds": 775.92,
           "end_seconds": 797.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 398,
+          "chapter": "lab-11",
+          "start_seconds": 1410.16,
+          "end_seconds": 1414.96,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1410.16
     },
     {
       "id": "10-001-synthetic-routing",
@@ -10497,7 +13898,18 @@
           "start_seconds": 775.92,
           "end_seconds": 797.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 396,
+          "chapter": "lab-10",
+          "start_seconds": 1403.44,
+          "end_seconds": 1408.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1403.44
     },
     {
       "id": "09-020-cleanup-plan",
@@ -10540,7 +13952,18 @@
           "start_seconds": 775.92,
           "end_seconds": 797.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 383,
+          "chapter": "lab-09",
+          "start_seconds": 1363.48,
+          "end_seconds": 1368.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1363.48
     },
     {
       "id": "P08-001-hosted-evaluation-report",
@@ -10610,7 +14033,34 @@
           "start_seconds": 467.76,
           "end_seconds": 478.48
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 351,
+          "chapter": "lab-08",
+          "start_seconds": 1265.48,
+          "end_seconds": 1266.96,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 352,
+          "chapter": "lab-08",
+          "start_seconds": 1266.96,
+          "end_seconds": 1270.04,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 353,
+          "chapter": "lab-08",
+          "start_seconds": 1270.04,
+          "end_seconds": 1275.68,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1265.48
     },
     {
       "id": "P08-002-hosted-metrics",
@@ -10648,7 +14098,18 @@
           "start_seconds": 467.76,
           "end_seconds": 478.48
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 354,
+          "chapter": "lab-08",
+          "start_seconds": 1275.68,
+          "end_seconds": 1279.28,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1275.68
     },
     {
       "id": "P09-001-hosted-version",
@@ -10708,7 +14169,34 @@
           "start_seconds": 483.28,
           "end_seconds": 485.96
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 367,
+          "chapter": "lab-09",
+          "start_seconds": 1312.04,
+          "end_seconds": 1313.52,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 368,
+          "chapter": "lab-09",
+          "start_seconds": 1313.52,
+          "end_seconds": 1318.32,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 369,
+          "chapter": "lab-09",
+          "start_seconds": 1318.32,
+          "end_seconds": 1321.0,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1312.04
     },
     {
       "id": "P09-002-traces-tab",
@@ -10762,7 +14250,26 @@
           "start_seconds": 489.36,
           "end_seconds": 493.0
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 370,
+          "chapter": "lab-09",
+          "start_seconds": 1321.0,
+          "end_seconds": 1324.4,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 371,
+          "chapter": "lab-09",
+          "start_seconds": 1324.4,
+          "end_seconds": 1328.04,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1321.0
     },
     {
       "id": "P09-003-find-exact-trace",
@@ -10817,7 +14324,34 @@
           "start_seconds": 496.64,
           "end_seconds": 502.04
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 372,
+          "chapter": "lab-09",
+          "start_seconds": 1328.04,
+          "end_seconds": 1330.16,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 373,
+          "chapter": "lab-09",
+          "start_seconds": 1330.16,
+          "end_seconds": 1331.68,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 374,
+          "chapter": "lab-09",
+          "start_seconds": 1331.68,
+          "end_seconds": 1333.68,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1328.04
     },
     {
       "id": "P09-004-open-trace",
@@ -10876,7 +14410,26 @@
           "start_seconds": 502.04,
           "end_seconds": 505.32
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 375,
+          "chapter": "lab-09",
+          "start_seconds": 1333.68,
+          "end_seconds": 1337.08,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 376,
+          "chapter": "lab-09",
+          "start_seconds": 1337.08,
+          "end_seconds": 1340.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1333.68
     },
     {
       "id": "P09-005-trace-fullscreen",
@@ -10914,7 +14467,18 @@
           "start_seconds": 505.32,
           "end_seconds": 524.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 377,
+          "chapter": "lab-09",
+          "start_seconds": 1340.36,
+          "end_seconds": 1343.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1340.36
     },
     {
       "id": "P09-006-first-storage-miss",
@@ -10957,7 +14521,18 @@
           "start_seconds": 505.32,
           "end_seconds": 524.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 378,
+          "chapter": "lab-09",
+          "start_seconds": 1343.92,
+          "end_seconds": 1347.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1343.92
     },
     {
       "id": "P09-007-second-storage-miss",
@@ -10995,7 +14570,18 @@
           "start_seconds": 505.32,
           "end_seconds": 524.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 379,
+          "chapter": "lab-09",
+          "start_seconds": 1347.92,
+          "end_seconds": 1351.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1347.92
     },
     {
       "id": "P09-008-tool-span",
@@ -11038,7 +14624,18 @@
           "start_seconds": 505.32,
           "end_seconds": 524.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 380,
+          "chapter": "lab-09",
+          "start_seconds": 1351.24,
+          "end_seconds": 1355.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1351.24
     },
     {
       "id": "P09-009-root-completed",
@@ -11076,7 +14673,18 @@
           "start_seconds": 505.32,
           "end_seconds": 524.2
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 381,
+          "chapter": "lab-09",
+          "start_seconds": 1355.24,
+          "end_seconds": 1359.24,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1355.24
     },
     {
       "id": "P09-010-close-trace",
@@ -11114,7 +14722,18 @@
           "start_seconds": 524.2,
           "end_seconds": 528.44
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 382,
+          "chapter": "lab-09",
+          "start_seconds": 1359.24,
+          "end_seconds": 1363.48,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1359.24
     },
     {
       "id": "P06-020-knowledge-page",
@@ -11174,7 +14793,34 @@
           "start_seconds": 534.96,
           "end_seconds": 537.64
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 203,
+          "chapter": "lab-06",
+          "start_seconds": 734.12,
+          "end_seconds": 739.12,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 204,
+          "chapter": "lab-06",
+          "start_seconds": 739.12,
+          "end_seconds": 740.64,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 205,
+          "chapter": "lab-06",
+          "start_seconds": 740.64,
+          "end_seconds": 743.32,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 734.12
     },
     {
       "id": "09-030-sessions-before",
@@ -11223,7 +14869,26 @@
           "start_seconds": 800.64,
           "end_seconds": 803.36
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 384,
+          "chapter": "lab-09",
+          "start_seconds": 1368.32,
+          "end_seconds": 1371.2,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 385,
+          "chapter": "lab-09",
+          "start_seconds": 1371.2,
+          "end_seconds": 1373.92,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1368.32
     },
     {
       "id": "P06-021-knowledge-ready",
@@ -11261,7 +14926,18 @@
           "start_seconds": 537.64,
           "end_seconds": 549.44
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 206,
+          "chapter": "lab-06",
+          "start_seconds": 743.32,
+          "end_seconds": 746.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 743.32
     },
     {
       "id": "P06-022-open-knowledge-base",
@@ -11314,7 +14990,18 @@
           "start_seconds": 537.64,
           "end_seconds": 549.44
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 207,
+          "chapter": "lab-06",
+          "start_seconds": 746.76,
+          "end_seconds": 755.12,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 746.76
     },
     {
       "id": "09-031-stop-session",
@@ -11363,7 +15050,26 @@
           "start_seconds": 806.28,
           "end_seconds": 811.92
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 386,
+          "chapter": "lab-09",
+          "start_seconds": 1373.92,
+          "end_seconds": 1376.84,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 387,
+          "chapter": "lab-09",
+          "start_seconds": 1376.84,
+          "end_seconds": 1379.52,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1373.92
     },
     {
       "id": "09-032-stop-session",
@@ -11412,7 +15118,26 @@
           "start_seconds": 811.92,
           "end_seconds": 817.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 388,
+          "chapter": "lab-09",
+          "start_seconds": 1379.52,
+          "end_seconds": 1382.48,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 389,
+          "chapter": "lab-09",
+          "start_seconds": 1382.48,
+          "end_seconds": 1385.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1379.52
     },
     {
       "id": "09-033-sessions-after",
@@ -11461,7 +15186,26 @@
           "start_seconds": 817.52,
           "end_seconds": 828.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 390,
+          "chapter": "lab-09",
+          "start_seconds": 1385.16,
+          "end_seconds": 1388.08,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 391,
+          "chapter": "lab-09",
+          "start_seconds": 1388.08,
+          "end_seconds": 1390.76,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1385.16
     },
     {
       "id": "07-015-native-feedback",
@@ -11504,7 +15248,18 @@
           "start_seconds": 817.52,
           "end_seconds": 828.12
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 282,
+          "chapter": "lab-07",
+          "start_seconds": 1005.6,
+          "end_seconds": 1010.56,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1005.6
     },
     {
       "id": "06-023-ga-after-portal",
@@ -11553,7 +15308,26 @@
           "start_seconds": 828.12,
           "end_seconds": 833.76
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 231,
+          "chapter": "lab-06",
+          "start_seconds": 822.48,
+          "end_seconds": 825.44,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 232,
+          "chapter": "lab-06",
+          "start_seconds": 825.44,
+          "end_seconds": 828.16,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 822.48
     },
     {
       "id": "09-034-retained-resources",
@@ -11602,7 +15376,26 @@
           "start_seconds": 833.76,
           "end_seconds": 841.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 392,
+          "chapter": "lab-09",
+          "start_seconds": 1390.76,
+          "end_seconds": 1393.68,
+          "context_only": false
+        },
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 393,
+          "chapter": "lab-09",
+          "start_seconds": 1393.68,
+          "end_seconds": 1396.36,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1390.76
     },
     {
       "id": "09-035-default-unchanged",
@@ -11645,7 +15438,18 @@
           "start_seconds": 833.76,
           "end_seconds": 841.52
         }
-      ]
+      ],
+      "combined_video_intervals": [
+        {
+          "video": "guide-walkthrough.mp4",
+          "segment": 394,
+          "chapter": "lab-09",
+          "start_seconds": 1396.36,
+          "end_seconds": 1401.44,
+          "context_only": false
+        }
+      ],
+      "combined_start_seconds": 1396.36
     }
   ]
 }

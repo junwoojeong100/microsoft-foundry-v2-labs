@@ -24,5 +24,8 @@
     }
   ],
   "signed_media_urls_saved": false,
-  "note": "Only the current edited recordings were uploaded. Access remains scoped to this private repository; repository file commits and native attachment storage are separate."
+  "note": "The existing two current recordings remain available as native GitHub attachments. The guide-ordered walkthrough is a separate local edit and has not been uploaded.",
+  "not_uploaded_videos": [
+    "guide-walkthrough.mp4"
+  ]
 }

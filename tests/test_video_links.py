@@ -9,6 +9,76 @@ ASSETS = ROOT / "docs/assets/live-20260914-action"
 
 
 class VideoLinkTests(unittest.TestCase):
+    def test_merged_video_follows_guide_order_without_losing_input_frames_or_actions(self):
+        timeline = json.loads((ASSETS / "combined-timeline.json").read_text())
+        media = json.loads((ASSETS / "media.json").read_text())
+        videos = {item["filename"]: item for item in media["videos"]}
+        ledger = json.loads((ASSETS / "actions.json").read_text())["actions"]
+        merged = videos["guide-walkthrough.mp4"]
+        self.assertEqual(media["default_video"], merged["filename"])
+        self.assertEqual([item["lab"] for item in timeline["chapters"]], list(range(12)))
+        self.assertEqual(merged["chapters"], timeline["chapters"])
+        self.assertFalse(timeline["new_azure_execution"])
+        self.assertFalse(timeline["original_videos_modified"])
+        self.assertEqual(timeline["playback_speed"], 1)
+        self.assertTrue(timeline["full_decode_verified"])
+        self.assertTrue(timeline["embedded_chapters_verified"])
+        cursor = 0
+        content_frames = 0
+        cards = []
+        footage = []
+        for segment in timeline["segments"]:
+            self.assertEqual(segment["output_first_frame"], cursor)
+            cursor += segment["frames"]
+            self.assertEqual(segment["output_last_frame"], cursor - 1)
+            if segment["kind"] == "chapter-card":
+                cards.append(segment["chapter"])
+            else:
+                footage.append(segment)
+                content_frames += segment["frames"]
+                self.assertEqual(
+                    int(segment["action_id"].removeprefix("P").split("-", 1)[0]),
+                    segment["chapter"],
+                )
+        self.assertEqual(cards, list(range(12)))
+        self.assertEqual([s["chapter"] for s in footage], sorted(s["chapter"] for s in footage))
+        self.assertEqual(cursor, timeline["expected_frames"])
+        self.assertAlmostEqual(cursor / timeline["fps"], merged["duration_seconds"], places=3)
+        self.assertEqual(content_frames, timeline["source_content_frames"])
+        self.assertEqual(
+            {segment["action_id"] for segment in footage}, {item["id"] for item in ledger}
+        )
+        for source in timeline["inputs"]:
+            self.assertEqual(source["sha256"], videos[source["filename"]]["sha256"])
+            ranges = sorted(
+                (segment["input_first_frame"], segment["input_last_frame"])
+                for segment in footage
+                if segment["input_video"] == source["filename"]
+            )
+            position = 0
+            for first, last in ranges:
+                self.assertEqual(first, position)
+                self.assertGreaterEqual(last, first)
+                position = last + 1
+            self.assertEqual(position, source["frames"])
+        for action in ledger:
+            self.assertTrue(action["combined_video_intervals"])
+            start = next(
+                item["start_seconds"]
+                for item in action["combined_video_intervals"]
+                if not item["context_only"]
+            )
+            self.assertEqual(action["combined_start_seconds"], start)
+            for interval in action["combined_video_intervals"]:
+                segment = timeline["segments"][interval["segment"]]
+                self.assertEqual(segment["action_id"], action["id"])
+                self.assertAlmostEqual(
+                    interval["start_seconds"], segment["output_first_frame"] / timeline["fps"]
+                )
+        checks = timeline["frame_verification"]
+        self.assertEqual(checks["checked_footage_segments"], len(footage))
+        self.assertGreaterEqual(checks["minimum_ssim"], 0.95)
+
     def test_lab_images_are_current_captioned_and_placed_with_the_steps(self):
         media = json.loads((ASSETS / "media.json").read_text())
         known_images = {(ASSETS / item["filename"]).resolve() for item in media["images"]}
@@ -64,6 +134,10 @@ class VideoLinkTests(unittest.TestCase):
             self.assertEqual(uploads["repository_id"], 1367892793)
             self.assertFalse(uploads["signed_media_urls_saved"])
             self.assertEqual(len(uploads["videos"]), 2)
+            self.assertEqual(
+                set(uploads.get("not_uploaded_videos", [])),
+                set(active) - {item["filename"] for item in uploads["videos"]},
+            )
             for item in uploads["videos"]:
                 self.assertEqual(item["source_sha256"], active[item["filename"]]["sha256"])
                 self.assertEqual(item["bytes"], active[item["filename"]]["bytes"])

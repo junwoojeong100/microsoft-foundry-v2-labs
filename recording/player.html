@@ -10,12 +10,18 @@
     button{font:inherit;padding:10px 18px;cursor:pointer;border:1px solid #a6bde7;border-radius:8px}
     button[aria-pressed=true]{background:#3474bd;color:white}video{width:100%;max-height:75vh;background:black}
     #status{min-height:30px}#status[role=alert]{color:#ffb1b1}small{color:#c2cee1}
+    #chapters{margin:14px 0}select{font:inherit;max-width:100%;padding:7px}
   </style>
 </head>
 <body>
-  <h1>Sweden Central · 새 액션별 실습 따라보기</h1>
-  <p>2026-09-14 새 환경에서 처음부터 촬영한 대기 제거 편집본입니다. 남긴 조작과 결과는 원래 속도로 재생합니다.</p>
+  <h1>Sweden Central · 실습 가이드 순서대로 따라보기</h1>
+  <p>2026-09-14 촬영본을 사용합니다. 통합본은 Lab 00–11 순서이며, 개별 영상도 선택할 수 있습니다.
+    장면은 원래 속도이고 통합본의 제목 화면은 별도로 표시했습니다.</p>
   <nav aria-label="영상 선택"></nav>
+  <section id="chapters" aria-label="실습 챕터" hidden>
+    <label for="chapter-select">이동할 실습</label>
+    <select id="chapter-select" aria-label="이동할 실습"></select>
+  </section>
   <p id="status" role="status">로컬 영상 목록을 확인하고 있습니다.</p>
   <video controls preload="metadata" aria-label="실습 녹화 플레이어"></video>
   <p><small>로컬 파일만 재생합니다. Azure 호출·로그인·외부 업로드는 하지 않습니다.
@@ -24,7 +30,20 @@
     const player = document.querySelector("video");
     const status = document.querySelector("#status");
     const navigation = document.querySelector("nav");
+    const chapterPanel = document.querySelector("#chapters");
+    const chapterSelect = document.querySelector("#chapter-select");
+    let selectedVideo = null;
     let pendingSeek = 0;
+    function updateLocation(video, seconds) {
+      history.replaceState(null, "", "?video=" + encodeURIComponent(video.filename) +
+        (seconds ? "&t=" + seconds : ""));
+    }
+    function updateChapter() {
+      const chapters = selectedVideo?.chapters || [];
+      const chapter = chapters.find(item =>
+        item.start_seconds <= player.currentTime && player.currentTime < item.end_seconds);
+      if (chapter) chapterSelect.value = chapter.id;
+    }
     function fail(message) {
       status.setAttribute("role", "alert");
       status.textContent = message;
@@ -38,11 +57,23 @@
         return;
       }
       player.currentTime = pendingSeek;
+      chapterSelect.disabled = false;
+      updateChapter();
+    });
+    player.addEventListener("timeupdate", updateChapter);
+    chapterSelect.addEventListener("change", () => {
+      const chapter = selectedVideo?.chapters?.find(item => item.id === chapterSelect.value);
+      if (!chapter) {
+        fail("선택한 실습 챕터를 찾을 수 없습니다.");
+        return;
+      }
+      player.currentTime = chapter.start_seconds;
+      updateLocation(selectedVideo, chapter.start_seconds);
     });
     async function initialize() {
       const response = await fetch("/media.json", {cache:"no-store"});
       if (!response.ok) throw new Error("영상 목록 요청 실패: HTTP " + response.status);
-      const {videos} = await response.json();
+      const {videos, default_video} = await response.json();
       const parameters = new URLSearchParams(location.search);
       const requested = parameters.get("video");
       const time = parameters.get("t");
@@ -55,25 +86,35 @@
         if (secondsFromStart >= video.duration_seconds)
           throw new Error("지정한 시작 시각이 영상 길이를 벗어납니다.");
         player.pause();
+        selectedVideo = video;
         pendingSeek = secondsFromStart;
+        chapterSelect.replaceChildren();
+        chapterSelect.disabled = true;
+        for (const chapter of video.chapters || []) {
+          const option = document.createElement("option");
+          option.value = chapter.id;
+          const time = Math.floor(chapter.start_seconds);
+          option.textContent = `${Math.floor(time / 60)}:${String(time % 60).padStart(2, "0")} · ${chapter.title}`;
+          chapterSelect.append(option);
+        }
+        chapterPanel.hidden = !video.chapters?.length;
         player.src = "/video/" + encodeURIComponent(video.filename);
         status.setAttribute("role", "status");
         const seconds = Math.round(video.duration_seconds);
         status.textContent = `${video.edited ? "대기 제거 편집본 · " : ""}${video.filename} · ${Math.floor(seconds / 60)}분 ${seconds % 60}초 · ${(video.bytes / 1e6).toFixed(1)} MB`;
         for (const button of navigation.children)
           button.setAttribute("aria-pressed", String(button.dataset.filename === video.filename));
-        history.replaceState(null, "", "?video=" + encodeURIComponent(video.filename) +
-          (secondsFromStart ? "&t=" + secondsFromStart : ""));
+        updateLocation(video, secondsFromStart);
       }
       for (const video of videos) {
         const button = document.createElement("button");
         button.type = "button";
         button.dataset.filename = video.filename;
-        button.textContent = video.filename.startsWith("cli-") ? "CLI 핵심 실행" : "Foundry 포털 핵심 조작";
+        button.textContent = video.title || (video.filename.startsWith("cli-") ? "CLI 핵심 실행" : "Foundry 포털 핵심 조작");
         button.addEventListener("click", () => select(video));
         navigation.append(button);
       }
-      select(videos.find(video => video.filename === requested) || videos[0], start);
+      select(videos.find(video => video.filename === (requested || default_video)) || videos[0], start);
     }
     initialize().catch(error => fail(error.message));
   </script>
