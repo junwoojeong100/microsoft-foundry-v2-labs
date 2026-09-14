@@ -120,6 +120,28 @@ class VideoLinkTests(unittest.TestCase):
     def test_current_tree_contains_only_verified_new_media(self):
         media = json.loads((ASSETS / "media.json").read_text())
         self.assertFalse((ROOT / "docs/assets/live-20260913-swc").exists())
+        media_extensions = {
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".webp",
+            ".gif",
+            ".svg",
+            ".mp4",
+            ".webm",
+            ".mov",
+            ".mkv",
+            ".avi",
+        }
+        expected_media = {ASSETS / item["filename"] for item in media["videos"] + media["images"]}
+        self.assertEqual(
+            {
+                path
+                for path in (ROOT / "docs/assets").rglob("*")
+                if path.is_file() and path.suffix.lower() in media_extensions
+            },
+            expected_media,
+        )
         self.assertTrue(media["lossless_screenshots"])
         self.assertEqual(len(media["images"]), media["screenshot_count"])
         self.assertEqual(
