@@ -40,9 +40,7 @@ flowchart TD
 5. If you encounter a classic Hub project or threads/runs code, use the
    [migration map](../reference/migration.md). Do not combine incompatible APIs.
 
-**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=94.92)
 
-![Project home entry points for model deployments and agents](../assets/english-20260915/shots/portal-0005-P01-001-endpoint-transition.webp)
 
 **What to check:** **View deployments** opens model deployments; **Start building**
 starts agent creation. They are distinct assets even inside the same project.
@@ -65,7 +63,6 @@ These steps are outside participant class time and require separate authorizatio
 Resource-creation permission does not imply model-invocation permission.
 **Management-plane and data-plane permissions differ.** Do not give every learner subscription Owner.
 
-![Instructor-created dedicated resource group in the September 14 run](../assets/live-20260914-action/shots/cli-1-0164-01-008-create-group-result.webp)
 
 **What to check:** Read `name`, `location`, and `provisioningState`. This is resource
 group creation, not model inference. Participants should not copy the creation command from the image.
@@ -97,10 +94,28 @@ Keep `/api/projects/<project>` in the project endpoint. The project SDK handles
 authentication and endpoints for default inference. Do not silently redirect to
 another endpoint or guess a different token audience.
 
-![Read-only cloud preflight for the source environment](../assets/live-20260914-action/shots/cli-1-0227-00-015-cloud-doctor-result.webp)
 
 **What to check:** Compare the deployment returned by `doctor --cloud` with your
 settings. ARM read access does not establish inference permission; complete [Lab 02](02-models.md).
+
+## New English execution evidence
+
+These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+
+![Inspect the real project in the English UI](../assets/refresh-20260915-en/screenshots/EP01-001-home-2.webp)
+
+**What to check:** Check the actual project/account endpoint and your own deployment configuration; a preflight is not inference.
+
+![Distinguish project and account endpoints](../assets/refresh-20260915-en/screenshots/EP01-002-endpoint-2.webp)
+
+**What to check:** Check the actual project/account endpoint and your own deployment configuration; a preflight is not inference.
+
+![Verify the approved existing project](../assets/refresh-20260915-en/screenshots/E01-002-preflight-2.webp)
+
+**What to check:** Check the actual project/account endpoint and your own deployment configuration; a preflight is not inference.
+
+[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
 
 ## Completion
 

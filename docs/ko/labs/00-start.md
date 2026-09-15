@@ -8,8 +8,10 @@
 
 ## 이 가이드의 화면 읽는 법
 
-각 단계의 이미지는 **2026-09-14 원본과 개별 표시한 2026-09-15 새 영문 가이드 촬영 예시**입니다.
-[새 영상과 범위](../english-recordings.md)에서 실제 호출·문서 화면·과거 보고서를 구분합니다. 클릭하면 크게 볼 수 있습니다.
+각 단계의 이미지는 **2026-09-15에 별도로 실행하고 새로 촬영한 국문 화면**입니다.
+영문 촬영본을 재사용하지 않았습니다. 이번 실행은 기존 실습 프로젝트와 설치 환경을 재사용했으며,
+설치·리소스 생성 명령을 새로 실행한 것처럼 표시하지 않습니다.
+[새 영상과 범위](../video-summary.md)에서 실제 호출·fixture·관찰·실패를 구분합니다. 클릭하면 크게 볼 수 있습니다.
 화면의 계정·프로젝트·모델·접두사를 그대로 복사하지 말고 강사가 제공한 본인 값과 대조하세요.
 터미널 이미지는 **마지막으로 입력한 명령(`workshop $` 뒤에 내용이 있는 줄)과 그 아래 결과**를 읽습니다.
 위쪽에는 앞 명령의 출력이 남아 있을 수 있고, 맨 아래의 빈 프롬프트는 명령이 끝났다는 표시입니다.
@@ -28,12 +30,11 @@
    [Lab 05](05-workflows.md)에서는 준비된 MAF 터미널에서 명령을 복사해 실행합니다.
    Python 코드를 직접 작성하거나 포털에서 workflow를 만들지는 않습니다.
 
-![프로젝트 목록에서 실습 이름으로 필터링한 화면](../../assets/live-20260914-action/shots/portal-0016-P00-003-search-new-project-screen-change.webp)
 
 **화면 확인:** 프로젝트 선택 메뉴에서 찾기 어렵다면 **View all resources**로 이동하고 검색칸에
 실습 프로젝트 이름을 입력합니다. 결과 행의 이름·부모 리소스·리전을 확인한 뒤 프로젝트 링크를 누르세요.
 
-![선택한 프로젝트 홈과 프로젝트 endpoint](../../assets/live-20260914-action/shots/portal-0021-P00-004-select-new-project-ready.webp)
+![2026-09-15 새 국문 촬영: 국문 포털의 실제 프로젝트 확인](../../assets/refresh-20260915-ko/screenshots/KP01-001-home-2.webp)
 
 **화면 확인:** 상단의 프로젝트 이름이 바뀌었는지 확인합니다. **Project endpoint**는 뒤의 `.env`에 넣을 값이며,
 현재 브라우저 주소 `ai.azure.com`과 다릅니다. 로그인·PIN 화면은 촬영하지 않았습니다.
@@ -73,9 +74,8 @@ python3.13 scripts/workshop.py doctor
 `azure_tested: false`, `result: PASS`가 있습니다.
 **이 PASS는 Azure 로그인 성공이 아닙니다.**
 
-**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=58.68)
 
-![오프라인 doctor의 문서 수와 Azure 미검증 표시](../../assets/english-20260915/shots/terminal-0021-00-004-doctor-result.webp)
+![2026-09-15 새 국문 촬영: 합성 자료와 offline/cloud 경계 확인](../../assets/refresh-20260915-ko/screenshots/K00-004-doctor-2.webp)
 
 **화면 확인:** `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`와 함께 `azure_tested: false`를 읽습니다.
 이 단계에서는 파일과 실행 환경만 확인하며 Azure 호출 성공을 판정하지 않습니다.
@@ -94,7 +94,7 @@ v1은 **고정 답변에서 인용을 제거한 검사기 연습**, v2는 고정
 두 점수의 차이를 “프롬프트 개선 실측”이라고 발표하면 안 됩니다.
 재실행하려면 `rehearsal2-v1`처럼 새 label을 사용합니다.
 
-![오프라인 fixture 비교 결과와 해석상 주의 문구](../../assets/live-20260914-action/shots/cli-1-0036-00-007-demo-compare-result.webp)
+![2026-09-15 새 국문 촬영: fixture 비교를 모델 품질과 구분](../../assets/refresh-20260915-ko/screenshots/K00-007-fixture-compare-2.webp)
 
 **화면 확인:** 상단의 `OFFLINE FIXTURE` 표시와 결과 끝의 주의 문구를 확인합니다.
 고정 답변에 대한 검사 결과이지, 두 프롬프트로 모델을 실제 호출해 얻은 성능 차이가 아닙니다.
@@ -114,7 +114,6 @@ python -m pip install -e ".[cloud,agents]"
 새 터미널을 열 때는 저장소 루트로 돌아와 `source .venv/bin/activate`를 다시 실행합니다.
 브라우저의 개발자 콘솔이나 Python의 `>>>` 프롬프트에 Bash 명령을 붙여 넣지 않습니다.
 
-![고정된 cloud와 agents 패키지 설치가 끝난 터미널](../../assets/live-20260914-action/shots/cli-1-0113-00-011-install-core-result.webp)
 
 **화면 확인:** 설치 명령이 끝나고 셸 프롬프트가 돌아왔는지 확인합니다. 설치 중 오류가 있었다면
 이 화면과 같다고 넘어가지 말고 해결하세요. 설치 완료도 Azure 연결 성공과는 별개입니다.
@@ -158,7 +157,7 @@ ARM을 읽을 권한이 없는 참가자는 강사에게 확인을 요청합니�
 검사 통과만으로 모델의 데이터 평면 권한/Structured Outputs 지원이 증명되지는 않습니다.
 그 확인은 [Lab 02](02-models.md)의 실제 호출에서 합니다.
 
-![클라우드 doctor의 모델 배포 및 사전 점검 결과](../../assets/live-20260914-action/shots/cli-1-0227-00-015-cloud-doctor-result.webp)
+![2026-09-15 새 국문 촬영: 승인된 기존 프로젝트의 배포 확인](../../assets/refresh-20260915-ko/screenshots/K01-002-cloud-doctor-2.webp)
 
 **화면 확인:** 배포의 실제 `model`·`version`, `provisioningState: Succeeded`를 확인합니다.
 `inference_tested: false`와 `next_step`도 읽으세요. 다음 랩에서 실제 응답을 받아야 추론 경로까지 확인한 것입니다.

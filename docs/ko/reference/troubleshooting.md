@@ -49,6 +49,10 @@
 | trace 누락 | 정확한 App Insights app ID·agent·기간·권한·sampling을 확인. 0건을 정상 운영으로 처리하지 않음 |
 | hybrid 차원/기존 index 충돌 | 실제 embedding 차원, 별도 본인 index, namespace/ledger 확인. 벡터 자르기·0 채우기 금지 |
 | azd raw 출력 파싱 | HTTP 상태·UTF-8 바이트 길이·알려진 notice만 허용. 오류 뒤의 임의 JSON 추출 금지 |
+| `--agent-endpoint cannot be combined with --protocol` | full endpoint가 protocol을 포함하므로 원격 smoke에서는 `--protocol`을 별도로 붙이지 않음. 로컬은 명시 |
+| batch의 API version 누락 | session ID를 추가할 때 URL query를 대체하지 않고 merge. `api-version=v1`과 `agent_session_id`를 둘 다 보존 |
+| embedding의 프로젝트 API 404 | 동일 계정 endpoint와 `WORKSHOP_EMBEDDING_API=account`를 사전에 명시. 실패 원본을 남기며 자동 endpoint 전환 금지 |
+| App Insights `InvalidTokenError` | 지정된 구독/tenant credential과 App Insights 전용 audience로 동일 query API를 호출. 잘못된 identity로 대체하지 않음 |
 | CLI 확장이 Incompatible | [버전 게이트](versions.md)를 검토하고 호환 조합을 따로 승인·설치한 후 재확인 |
 
 ## 네트워크 제한

@@ -61,9 +61,14 @@ class Settings:
     managed_identity_client_id: str | None
     max_output_tokens: int
     openai_endpoint: str | None = None
+    language: str = "ko"
+
+    def __post_init__(self):
+        if self.language not in {"ko", "en"}:
+            raise ValueError("Workshop language must be ko or en.")
 
     @classmethod
-    def from_env(cls) -> "Settings":
+    def from_env(cls, *, language: str = "ko") -> "Settings":
         mode = os.environ.get("WORKSHOP_AUTH_MODE", "cli")
         if mode not in {"cli", "managed-identity"}:
             raise ValueError("WORKSHOP_AUTH_MODE must be cli or managed-identity.")
@@ -86,6 +91,7 @@ class Settings:
             openai_endpoint=azure_endpoint(os.environ["AZURE_OPENAI_ENDPOINT"], "openai")
             if os.environ.get("AZURE_OPENAI_ENDPOINT", "").strip()
             else None,
+            language=language,
         )
 
 

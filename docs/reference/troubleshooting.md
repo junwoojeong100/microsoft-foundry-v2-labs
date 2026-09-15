@@ -2,10 +2,6 @@
 
 **English** | [한국어](../ko/reference/troubleshooting.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/reference/troubleshooting.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Do not chain deployment, evaluation, or deletion while the previous step is failing.**
 Creating a new model, subscription, or resource for the same unexplained error is not recovery.
 
@@ -37,7 +33,15 @@ Creating a new model, subscription, or resource for the same unexplained error i
 | Holdout rejected | Passed/frozen dev candidate, matching code/prompt/model/provider, explicit unlock | 07 |
 | Local succeeds; Hosted 403 | Runtime identity roles, not repeated local sign-in | 08 |
 | Missing logs/traces | App Insights, exporter, date range, retention/protected-table access | 09 |
-| English query retrieves different local documents | Keep canonical Korean policy inputs for controlled runs; translation changes keyword matching | 06–07 |
+| English query uses Korean material | Select `--language en` and the dedicated English index/source/base; never fall back to Korean after an error | 00–07 |
+| Missing English file | Restore the frozen English bundle; preserve original Korean files | 00 |
+| `--agent-endpoint` conflicts with `--protocol` | The full endpoint already specifies the protocol; local invocations still select it explicitly | 08 |
+| Batch API version missing | Merge session query parameters instead of replacing `api-version=v1` | 07–08 |
+| Project embeddings 404 | Explicitly choose the same account API and required endpoint; retain the original failure | 06 |
+| Trace-query `InvalidTokenError` | App Insights audience and the intended subscription/tenant credential; no identity/resource substitution | 09 |
+| Stop returns 409 for idle session | Re-read the exact recorded session/version and record the idle state without another stop request | 09 |
+| Host profile/contract mismatch | Exact profile language, model map, source package, actual version and retrieval configuration | 08 |
+| Native quality score is low | Preserve the completed run; review the evaluator against business requirements, not retries until a favorable score | 07 |
 
 ## Network isolation
 

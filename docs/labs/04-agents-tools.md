@@ -9,12 +9,11 @@ Path: B · Prerequisite: actual [Lab 02](02-models.md) response · Next: [Lab 05
 ## 1. Agent without tools
 
 ```bash
-python scripts/workshop.py maf --question "Foundry와 Agent Framework의 차이를 세 문장으로 설명해 주세요."
+python scripts/workshop.py --language en maf --question "Explain the difference between Foundry and Agent Framework in three sentences."
 ```
 
 The question asks for a three-sentence explanation of Foundry versus Agent Framework.
 
-![Actual output from a tool-free local MAF agent](../assets/live-20260914-action/shots/cli-1-0356-04-002-maf-single-result.webp)
 
 **What to check:** Read `mode: live`, `orchestration: local`, and `tools: none`.
 Local Python owns execution, but the answer model is called in Azure.
@@ -32,7 +31,7 @@ This one belongs to your Python process. Compare it with
 ## 2. Read-only function tool
 
 ```bash
-python scripts/workshop.py maf --tools --question "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요."
+python scripts/workshop.py --language en maf --tools --question "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure."
 ```
 
 Meaning: may I book a KRW 170000 domestic hotel in September 2026; what limit and
@@ -55,9 +54,7 @@ sequenceDiagram
     M-->>U: Answer with conditions and citations
 ```
 
-**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=340.20)
 
-![Structured decision and citations from the function-tool run](../assets/english-20260915/shots/terminal-0105-04-002-function-result.webp)
 
 **What to check:** Inspect `tools: function` and the nested `decision`, `limit_krw`,
 and `citations`. `needs_approval` means prior human approval is required, not granted.
@@ -70,7 +67,7 @@ tool description, and tracing. A connected tool alone is not success.
 ## 3. Move the same lookup into a local MCP server
 
 ```bash
-python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙박비의 1박 한도는 얼마인가요?"
+python scripts/workshop.py --language en maf --mcp --question "What was the domestic business-trip lodging limit per night in May 2026?"
 ```
 
 Meaning: what is the per-night domestic lodging limit in May 2026?
@@ -90,7 +87,6 @@ Both tool paths receive the same answer schema and validate returned JSON.
 Inspect `decision`, `limit_krw`, and `citations`, not just fluent text.
 Do not repair invalid output and call it success.
 
-![Historical-policy response through the separate stdio MCP server](../assets/live-20260914-action/shots/cli-1-0370-04-004-maf-mcp-result.webp)
 
 **What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
 for May 2026. A function-tool response cannot stand in for an MCP execution.
@@ -107,10 +103,9 @@ Generate the long question with a short command. The expected result is exit cod
 `2` and `Question must contain 1-2000 characters.`, **before a model call**.
 
 ```bash
-python scripts/workshop.py maf --tools --question "$(python -c 'print("A" * 2001)')"
+python scripts/workshop.py --language en maf --tools --question "$(python -c 'print("A" * 2001)')"
 ```
 
-![Expected rejection of an exact 2001-character input](../assets/live-20260914-action/shots/cli-1-0388-04-006-input-boundary-attempt-2-result.webp)
 
 **What to check:** Read the short generation command at the bottom and
 `FAIL: Question must contain 1-2000 characters.`. This rejection is expected;
@@ -119,6 +114,25 @@ the long pasted attempt visible above is different.
 Pasting a long string directly can hit terminal-input truncation. A model answer to
 that truncated input does not prove the application's length check failed.
 Do not create real messaging or payment tools just for this exercise.
+
+## New English execution evidence
+
+These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+
+![Run the real MAF agent](../assets/refresh-20260915-en/screenshots/E04-100-maf-2.webp)
+
+**What to check:** Read the actual command/output and distinguish no tool, the local function, and the separate MCP server.
+
+![Invoke the read-only function tool](../assets/refresh-20260915-en/screenshots/E04-101-tools-2.webp)
+
+**What to check:** Read the actual command/output and distinguish no tool, the local function, and the separate MCP server.
+
+![Use the real local MCP policy tool](../assets/refresh-20260915-en/screenshots/E04-102-mcp-2.webp)
+
+**What to check:** Read the actual command/output and distinguish no tool, the local function, and the separate MCP server.
+
+[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
 
 ## Completion and troubleshooting
 

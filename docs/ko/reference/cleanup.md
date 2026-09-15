@@ -93,36 +93,27 @@ cleanup receipt는 별도 파일이므로 frozen candidate와 regression source 
 
 ## 5. 로컬 `outputs`와 생성 디렉토리
 
-**2026-09-14 한국어 원본과 2026-09-15 새 영문 촬영본을 구분해 보존합니다.**
-[새 영문 촬영본](../english-recordings.md)의 기준 목록은 `docs/assets/english-20260915/media.json`,
-한국어 원본은 `docs/assets/live-20260914-action/media.json`입니다.
-기본 로컬 재생은 영문 촬영본이며 `--edition ko`로 한국어 원본을 선택합니다.
-다른 언어의 촬영일이 최신이라는 이유만으로 기존 언어의 미디어를 지우지 않습니다.
-날짜만 보고 지우지 말고 이 목록의 파일명·해시를 먼저 대조합니다.
-평가 입력·응답·평가자·소유권 기록은 미디어와 별개이며, Git에서 제외됐다는 이유로 삭제하지 않습니다.
+**새 국문·영문 세트를 각각 검증한 뒤 기존 미디어를 교체합니다.**
+국문은 `docs/assets/refresh-20260915-ko/media.json`,
+영문은 대응하는 `refresh-20260915-en/media.json`의 실제 파일·해시를 기준으로 검수합니다.
+한쪽만 완성한 상태에서 다른 언어의 기존 파일을 먼저 삭제하지 않습니다.
+평가 입력·응답·실패·평가자·소유권 기록은 관련 실행 증거이므로 미디어와 별도로 보존합니다.
 
 | 위치 | 보존 기준 |
 |---|---|
-| `docs/assets/english-20260915/` | 새 영상 3개·lossless 이미지 537개·234개 액션·실행/프레임/재생 계보 |
-| `outputs/english-20260915/` | 원시 실행·원본 영상 6개·캡처 계보·해시 manifest의 비공개 보관본. Git에 게시하지 않음 |
-| `docs/assets/live-20260914-action/` | 개별 편집 영상 2개와 가이드 순서 통합본 1개·236개 액션의 캡처·프레임/해시 계보. 각 버전의 역할을 구분 |
+| `docs/assets/refresh-20260915-ko/` | 별도 국문 새 캡처·영상·액션·source-frame 검증 |
+| `docs/assets/refresh-20260915-en/` | 별도 영문 새 캡처·영상·액션·source-frame 검증 |
 | `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
-| `outputs/live-20260914-action/` | 새 환경의 원시 응답·평가자·File Search·포털·정리 증거. 개인정보가 있어 Git에서 제외 |
-| `outputs/<label>/` | 해당 실행의 manifest·응답·평가 결과. 고유한 평가 계보를 보존 |
+| `outputs/benchmarks/<label>/` | 실제 matrix, 원시 오류, dataset/corpus/response/native/trace/cleanup 계보 |
+| `outputs/judge-calibration/` | target과 분리된 평가자 calibration |
+| `outputs/regressions/` | 검토된 원본 dev와 source lineage |
 | `outputs/policy-documents/` | 초보자 경로에 배포하는 합성 텍스트 파일 |
-| `outputs/live-20260914-action/sources/` | 이번 촬영의 편집 전 source 영상 4개. 해시 검증용 개인 보관본이며 기본 재생 영상과 구분 |
-| `.build/hosted/` | 현재 `azure.yaml`이 참조하는 소스와 `.foundry` 평가 계보. 통째로 삭제하지 않음 |
+| `.build/<profile>/` | 현재 배포에 사용한 source와 profile manifest. 참조 여부를 확인해 필요한 것만 유지 |
 
 캡처의 중복 파일·단순 대기 갱신·임시 인코딩 결과는 최종 파일의 해시와 원본 대응을 확인한 뒤 정리합니다.
 평가 증거를 압축 보관한다면 각 파일의 해시를 검증하고, 이미지·영상이 섞여 있는지도 확인합니다.
 촬영 제작 도구·가상환경은 참가자 저장소에 추가하지 않습니다.
 로컬 재생기, 실제 실습 명령, 합성 데이터와 회귀 검사는 유지합니다.
-
-보관 내용을 확인하려면 저장소 루트에서 다음 읽기 전용 명령을 사용합니다.
-
-```bash
-tar -tzf outputs/live-20260914-action/evidence.tar.gz
-```
 
 압축본에는 개인 환경·실행 식별자가 들어 있을 수 있으므로 외부에 게시하지 않습니다.
 `.git`, 루트 `.venv`, 현재 `.env`·`.azure`, 실습 소스·합성 원본·테스트는 정리 대상이 아닙니다.

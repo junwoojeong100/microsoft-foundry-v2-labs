@@ -2,14 +2,10 @@
 
 **English** | [한국어](ko/index.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](ko/index.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Move from building an agent to preserving your team's knowledge, evaluation criteria, and operational decisions.**
 
-This is the Pre-Ignite 2026 Edition, with English documentation, new recordings, and
-Azure checks on September 15, 2026. The September 14 source evidence remains separate. Beginners use the portal and
+This is the Pre-Ignite 2026 Edition, with separate language assets and recording sets.
+Beginners use the portal and
 a prepared MAF environment; practitioners use Python. Both solve the same
 **synthetic travel-policy scenario**. Neither path authors workflows in the portal.
 
@@ -18,11 +14,12 @@ a prepared MAF environment; practitioners use Python. Both solve the same
 | A starting point and schedule | [Learning paths](paths.md) |
 | First-run instructions | [Lab 00](labs/00-start.md) |
 | Classroom preparation | [Instructor guide](instructor.md) |
-| New English-guide recordings | [Portal 4:45 / CLI 5:15](english-recordings.md) |
-| One video in guide order | [13:09 walkthrough and chapters](english-recordings.md#chapters) |
-| A particular screen or action | [234-action / 537-image index](english-captures.md) |
-| New results and unverified features | [Execution boundaries](english-recordings.md#actual-results-and-boundaries) |
-| Original Korean-content recordings | [September 14 source videos](video-summary.md) |
+| New English recordings | [Current videos](video-summary.md) |
+| One video in guide order | [Lab 00–11 chapters](video-chapters.md) |
+| A particular screen or action | [Current action/capture index](action-captures.md) |
+| Actual results and limits | [Execution evidence](live-run.md) |
+| Separate Korean recordings | [Korean videos](ko/video-summary.md) |
+| Hosted matrices and independent gates | [Evaluation workbook](reference/evaluation-workbook.md) |
 | Final deliverables | [Capstone](labs/11-capstone.md) |
 | Supported contracts and versions | [Compatibility snapshot](reference/versions.md) |
 | Errors, roles, or quota | [Troubleshooting](reference/troubleshooting.md) |
@@ -31,8 +28,8 @@ a prepared MAF environment; practitioners use Python. Both solve the same
 
 > **Keep three things separate.** `offline-fixture` is a fixed example. Local MAF runs
 > on your computer but calls a model in Azure. Hosted Agent runs your code in the cloud.
-> Their completion criteria are different. Canonical policy inputs remain Korean,
-> and an English guide is not an English-language quality evaluation.
+> Their completion criteria are different. English execution explicitly selects its own frozen
+> English policies/prompts/datasets; Korean originals remain unchanged.
 
 ```mermaid
 flowchart TD

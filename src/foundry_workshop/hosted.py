@@ -234,11 +234,15 @@ class HostedTransport:
         return self.session_id
 
     def invoke(self, payload: dict[str, str]) -> tuple[dict[str, Any], dict[str, Any]]:
+        import httpx
+
         if not self.session_id or self.http is None or self._token_provider is None:
             raise ValueError("Create and record a pinned-version session before collecting.")
+        endpoint = httpx.URL(self.binding.endpoint).copy_merge_params(
+            {"agent_session_id": self.session_id}
+        )
         response = self.http.post(
-            self.binding.endpoint,
-            params={"agent_session_id": self.session_id},
+            endpoint,
             headers={"Authorization": "Bearer " + self._token_provider()},
             json=payload,
         )

@@ -8,7 +8,8 @@
 
 > **2026-09-15 한국어 개정:** 아래 A/B는 기존 입문 평가를 유지합니다.
 > 원본 평가 실습을 대체하는 심화 경로는 [Hosted 워크플로 평가 워크북](../reference/evaluation-workbook.md)입니다.
-> 새 코드의 Hosted 배포·평가·촬영은 아직 하지 않았으며 기존 영상은 그 성공 증거가 아닙니다.
+> 새 국문 촬영은 실제 Hosted workflow의 24/24/16행과 native 평가·trace를 포함합니다.
+> 아래 입문 B의 단일 모델 예제와 심화 C의 다중 모델 실측은 구분합니다.
 
 ## 무엇이 조직의 자산으로 남는가?
 
@@ -53,12 +54,12 @@ flowchart LR
 포털 batch 평가가 준비된 수업에서는 강사가 evaluator·judge·데이터 매핑·비용을
 확인한 뒤 같은 데이터를 사용해 별도 실행합니다.
 
-![D03의 실제 포털 답변에서 금액과 승인 경계 확인](../../assets/live-20260914-action/shots/portal-0299-P07-001-d03-send-screen-change.webp)
+![2026-09-15 새 국문 촬영: D03 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d03-send-2.webp)
 
 **화면 확인:** D03 행에는 실제 답변의 150,000원 한도, 예약 전 승인 조건, 문서 ID를 기록합니다.
 사진처럼 답했다고 가정해서 표를 채우지 말고 본인 응답을 읽어 판정하세요.
 
-![D05의 실제 해외 규정 보류 답변](../../assets/live-20260914-action/shots/portal-0336-P07-001-d05-send-ready.webp)
+![2026-09-15 새 국문 촬영: D05 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d05-send-2.webp)
 
 **화면 확인:** D05는 금액을 주지 않았다는 이유만으로 업무 실패가 되지 않습니다.
 제공된 자료에 해외 규정이 없는지, 추측을 멈추고 확인 경로를 안내했는지 평가합니다.
@@ -84,9 +85,6 @@ python scripts/workshop.py evaluate --label baseline
 수집 중 오류가 난 행도 6문항의 분모에 남습니다. 누락/중복/다른 질문이 있으면 평가를 거부합니다.
 **v1이 반드시 실패한다고 보장하지 않습니다.** 결과를 만들기 위해 실제 모델 답변을 고치지 않습니다.
 
-**새 영문 가이드 촬영: 2026-09-15.** 새 baseline은 5/6이며 D06이 실패했습니다. ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=538.76)
-
-![baseline 업무 검사에서 사례별 체크를 읽는 화면](../../assets/english-20260915/shots/terminal-0183-07-002-evaluate-baseline-result.webp)
 
 **화면 확인:** `checks` 안의 `completed`, `schema`, `decision`, `required_citations`를 읽습니다.
 사진은 출력의 마지막 사례들입니다. 전체 6개 행과 파일 위쪽 summary를 확인해야 누락 여부까지 판단할 수 있습니다.
@@ -122,7 +120,7 @@ python scripts/workshop.py feedback --label baseline --case D03 --reason "실제
 `prompts/v1.txt`와 `prompts/v2.txt`를 비교합니다.
 v2는 적용일, 증빙/승인, 문서 ID, 근거 부족 처리의 우선순위를 명확히 합니다.
 
-![같은 데이터로 비교할 v1과 v2 지침의 차이](../../assets/live-20260914-action/shots/cli-1-0509-07-006-compare-prompts-result.webp)
+![2026-09-15 새 국문 촬영: v1·v2 제공 지침의 실제 차이 읽기](../../assets/refresh-20260915-ko/screenshots/K07C-prompt-diff-2.webp)
 
 **화면 확인:** 추가·변경된 지침을 보고 어떤 누락을 막으려는지 설명합니다.
 이것은 텍스트 차이이며 평가 점수 자체가 아닙니다. 촬영에서 비교한 두 고정 지침도 성능 우위를 보장하지 않습니다.
@@ -137,15 +135,14 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 지침·코드를 바꾸었다면 새로운 label로 다시 수집합니다.
 명령은 기존 label을 덮어쓰지 않으며, 입력/응답 hash가 달라지면 비교를 거부합니다.
 
-![candidate의 사례별 업무 검사 결과](../../assets/live-20260914-action/shots/cli-1-0520-07-008-evaluate-candidate-result.webp)
 
 **화면 확인:** candidate도 baseline과 같은 항목으로 검사합니다.
 마지막 몇 행만 보고 전부 통과했다고 하지 말고 `business-evaluation.json` 전체를 확인합니다.
 
-![비교 명령이 확인한 고정 변수와 context 변경 수](../../assets/live-20260914-action/shots/cli-1-0525-07-009-compare-dev-result.webp)
 
 **화면 확인:** `variable: prompt`, `changed_context_count`, `unchanged_config`를 읽습니다.
-촬영의 두 업무 점수는 모두 6/6입니다. 같아진 점수나 짧은 실행 시간만으로 v2의 우월성을 주장하지 않습니다.
+입문 B는 실행당 6문항입니다. 새 심화 촬영의 업무 점수는 네 모델 각각 6/6, 총 24/24였습니다.
+서로 다른 경로의 점수를 옮겨 쓰거나 같은 점수만으로 v2의 우월성을 주장하지 않습니다.
 
 ### 4. 선택: Foundry cloud judge
 
@@ -164,14 +161,13 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 - timeout이면 같은 label 명령으로 조회를 재개합니다. 새 job을 몰래 다시 만들지 않습니다.
 - evaluator 오류/누락/중복은 좋은 점수로 바꾸지 않습니다.
 
-![Foundry native 평가의 실제 전체 지표와 상세 표](../../assets/live-20260914-action/shots/portal-0476-P07-020-native-report-screen-change.webp)
 
 **화면 확인:** **Run details**와 **Overall metric results**에서 어떤 run과 evaluator를 보고 있는지 확인합니다.
-아래 상세 표의 각 사례와 실패 이유까지 읽어야 하며 업무 검사 6/6과 같은 점수가 아닙니다.
+상세 표의 각 사례와 실패 이유까지 읽어야 하며 결정적 업무 검사와 같은 점수가 아닙니다.
 
-![Native judge의 12개 평가 항목과 D05 실패 이유를 확인](../../assets/live-20260914-action/shots/cli-1-0683-07-010b-native-results-result.webp)
 
-**화면 확인:** 촬영의 원시 결과를 정리한 표에서 groundedness 6/6, relevance 5/6과 **D05 2점**을 확인합니다.
+**화면 확인:** 새 심화 촬영의 baseline은 groundedness 24/24, relevance 19/24였습니다.
+실제 D05 보류 답변의 낮은 relevance 이유도 확인합니다.
 기본 relevance가 올바른 보류를 낮게 평가한 이유를 검토하되 점수는 바꾸지 않습니다.
 이 화면의 `RUN_TOOLS` 명령은 강사용 요약 도구이며 참가자는 자신의 native 결과 파일을 읽습니다.
 
@@ -195,11 +191,11 @@ holdout은 4건입니다. 실패를 보고 지침을 고치면 그 holdout은 �
 아닙니다. 새로운 holdout을 준비하기 전까지 최종 합격이라고 하지 않습니다.
 저장소 파일 분리는 교육적 절차이지 접근 통제나 데이터 비밀화를 보장하는 장치가 아닙니다.
 
-![고정 후보와 연결한 교육용 holdout의 마지막 사례 검사](../../assets/live-20260914-action/shots/cli-2-0843-07-013-evaluate-holdout-result.webp)
 
 **화면 확인:** 후보를 고정한 뒤 전체 4개 사례를 검사하고 후보와의 연결을 확인합니다.
 사진의 마지막 H03/H04만 확인하는 것으로 끝내지 않습니다.
-촬영의 4/4는 이미 사용된 교육용 세트의 인수 절차 예시이며, 새로운 미사용 holdout 합격 증거가 아닙니다.
+입문은 4문항, 새 심화 촬영은 4모델×4문항=16행입니다.
+둘 다 이미 공개된 교육용 세트의 인수 절차 예시이며 새로운 미사용 holdout의 증거가 아닙니다.
 
 ### 6. 모델 교체 실험 — 별도 실험으로
 
@@ -237,11 +233,42 @@ python scripts/workshop.py compare --baseline candidate --candidate model-b --va
 검색 근거 또는 관측 모델이 달라졌다면 순수한 prompt 개선 효과로 발표하지 않습니다.
 holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계가 깨집니다.
 
+## 2026-09-15 새 국문 실행 증거
+
+아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+
+![2026-09-15 새 국문 촬영: 실제 모델×사례 전체 수집](../../assets/refresh-20260915-ko/screenshots/K07F-collect-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 통제된 baseline 24행의 실제 native 결과](../../assets/refresh-20260915-ko/screenshots/KP07-030-controlled-baseline-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: v2 후보 24행의 실제 native 결과](../../assets/refresh-20260915-ko/screenshots/KP07-031-candidate-native-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 실제 보류 응답과 relevance의 낮은 점수 확인](../../assets/refresh-20260915-ko/screenshots/KP07-014-abstention-detail-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 정답/오답 calibration 2개: agent 응답 아님](../../assets/refresh-20260915-ko/screenshots/KP07-032-calibration-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 동결한 후보의 최종 holdout 16행 결과](../../assets/refresh-20260915-ko/screenshots/KP07-033-holdout-native-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+
+
 ## 완료 기준
 
-2026-09-14 새 실행은 같은 업무 검사에서 v1 6/6, v2 6/6을 기록했습니다.
-이미 사용된 교육용 holdout의 마지막 인수 절차도 4/4였으나 새로운 미사용 검증셋으로 주장하지 않습니다.
-이 작은 집합에서는 v2의 우월성을 주장하지 않습니다.
+2026-09-15 새 국문 실행은 네 모델의 baseline 24/24, candidate 24/24, holdout 16/16 업무 통과를 기록했습니다.
+Native groundedness는 각각 24/24, 22/24, 16/16이고 relevance는 19/24, 20/24, 13/16입니다.
+판단 결과는 `review-native-findings`이며 v2의 일괄적 우월성이나 운영 승인을 주장하지 않습니다.
 숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.
 데이터·실패 원인·분리된 평가 경로는 [실행 기록](../live-run.md)을 확인합니다.
 

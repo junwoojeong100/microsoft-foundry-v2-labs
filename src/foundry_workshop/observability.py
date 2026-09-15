@@ -1,6 +1,6 @@
 import json
 import math
-import subprocess
+import shutil
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -8,7 +8,7 @@ from uuid import UUID
 
 from .contracts import digest, read_json, write_json
 from .hosted import HostedBinding, HostedTransport
-from .settings import Settings, require_env
+from .settings import Settings, credential_for, require_env
 
 
 def trace_query(manifest: dict[str, Any], rows: list[dict[str, Any]]) -> str:
@@ -101,45 +101,71 @@ def write_trace_plan(root: Path, label: str) -> dict[str, Any]:
 
 
 def monitor_matrix(root: Path, label: str) -> dict[str, Any]:
+    import httpx
+    from azure.core.exceptions import AzureError
+
     from .benchmark import directory, load_matrix
 
     path = directory(root, label)
     if (path / "trace-verification.json").exists():
         return {**verified_traces(root, label), "cached_verified_evidence": True}
+    prior = [
+        path / name
+        for name in ("trace-query.kql", "trace-query-result.json", "trace-query-error.json")
+        if (path / name).is_file()
+    ]
+    if prior:
+        attempts = path / "trace-attempts"
+        attempts.mkdir(exist_ok=True)
+        number = 1
+        while (attempts / f"attempt-{number:03d}").exists():
+            number += 1
+        archived = attempts / f"attempt-{number:03d}"
+        archived.mkdir()
+        for artifact in prior:
+            shutil.copy2(artifact, archived / artifact.name)
     manifest, rows, _ = load_matrix(root, label)
+    settings = Settings.from_env()
+    if settings.project_endpoint != manifest["runtime_contract"]["project_endpoint"]:
+        raise ValueError("Query traces using the frozen matrix's project configuration.")
     application = require_env("AZURE_APPLICATION_INSIGHTS_APP_ID")
     subscription = require_env("AZURE_SUBSCRIPTION_ID")
     UUID(application)
     UUID(subscription)
     plan = write_trace_plan(root, label)
     print("Read-only Application Insights query:\n```kql\n" + plan["query"] + "```", flush=True)
-    result = subprocess.run(
-        [
-            "az",
-            "monitor",
-            "app-insights",
-            "query",
-            "--subscription",
-            subscription,
-            "--app",
-            application,
-            "--analytics-query",
-            plan["query"],
-            "--output",
-            "json",
-        ],
-        capture_output=True,
-        text=True,
-        check=True,
-        timeout=180,
-    )
     from .contracts import parse_json
 
-    raw = parse_json(result.stdout)
+    error_details: dict[str, Any] = {}
+    try:
+        with credential_for(settings) as credential:
+            token = credential.get_token("https://api.applicationinsights.io/.default")
+            with httpx.Client(timeout=180, follow_redirects=False) as client:
+                response = client.post(
+                    f"https://api.applicationinsights.io/v1/apps/{application}/query",
+                    headers={"Authorization": "Bearer " + token.token},
+                    json={"query": plan["query"]},
+                )
+        if not response.is_success:
+            error_details = {"status_code": response.status_code, "body": response.text}
+        response.raise_for_status()
+    except (AzureError, httpx.HTTPError) as exc:
+        write_json(
+            path / "trace-query-error.json",
+            {
+                "error_type": type(exc).__name__,
+                "query_hash": digest(plan["query"]),
+                **error_details,
+            },
+        )
+        raise ValueError(
+            f"Scoped Application Insights query failed: {type(exc).__name__}; no alternate identity/resource was used."
+        ) from exc
+    raw = parse_json(response.text)
     write_json(path / "trace-query-result.json", raw)
     normalized = validate_trace_rows(raw, [row["trace_id"] for row in rows])
     receipt = {
-        "source": "actual-azure-cli-application-insights-query",
+        "source": "actual-scoped-application-insights-rest-query",
         "verified_at": datetime.now(UTC).isoformat(),
         "application_id": application,
         "subscription_id": subscription,
@@ -165,7 +191,11 @@ def verified_traces(root: Path, label: str) -> dict[str, Any]:
     raw = read_json(path / "trace-query-result.json")
     query = (path / "trace-query.kql").read_text(encoding="utf-8")
     if (
-        receipt.get("source") != "actual-azure-cli-application-insights-query"
+        receipt.get("source")
+        not in {
+            "actual-azure-cli-application-insights-query",
+            "actual-scoped-application-insights-rest-query",
+        }
         or receipt.get("source_manifest_hash") != digest(manifest)
         or receipt.get("source_responses_hash") != manifest["responses_hash"]
         or receipt.get("query_hash") != digest(query)
@@ -193,7 +223,8 @@ def stop_matrix_session(root: Path, settings: Settings, label: str) -> dict[str,
         indicator = before.get("version_indicator", {})
         if indicator.get("agent_version") != binding.version:
             raise ValueError("The recorded session is not bound to the recorded version.")
-        after = transport.stop_session(manifest["session_id"])
+        already_idle = before.get("status") in {"idle", "stopped"}
+        after = before if already_idle else transport.stop_session(manifest["session_id"])
     if after.get("status") not in {"idle", "stopped"}:
         raise ValueError("Stop was requested but a stopped/idle state was not yet confirmed.")
     receipt = {
@@ -202,6 +233,7 @@ def stop_matrix_session(root: Path, settings: Settings, label: str) -> dict[str,
         "session_id": manifest["session_id"],
         "confirmed_at": datetime.now(UTC).isoformat(),
         "status": after["status"],
+        "stop_requested": not already_idle,
         "persistent_files_deleted": False,
         "shared_resources_deleted": False,
     }

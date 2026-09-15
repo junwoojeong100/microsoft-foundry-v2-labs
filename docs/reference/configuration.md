@@ -2,14 +2,12 @@
 
 **English** | [한국어](../ko/reference/configuration.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/reference/configuration.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Use one environment-variable vocabulary in this repository; do not mix names from the source workshops.**
 
 Every CLI reads root `.env`, but existing process variables win.
 Check for unexpected inherited values in old terminals.
+English commands explicitly use `--language en`; existing commands default to Korean.
+The language freezes prompt/corpus/dataset selection and is part of the Hosted profile.
 
 | Setting | Used by | Contract |
 |---|---|---|
@@ -28,10 +26,25 @@ Check for unexpected inherited values in old terminals.
 | `AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME` | IQ | Default `<prefix>-source` |
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | IQ | Default `<prefix>-kb` |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | Cloud judge | Explicitly separate from target |
+| `WORKSHOP_MODEL_DEPLOYMENTS_JSON` | Hosted matrix | 1–8 explicit unique key/deployment pairs; no model substitution |
+| `WORKSHOP_HOSTED_AGENT_NAME` | Hosted matrix | Exact approved agent name |
+| `WORKSHOP_HOSTED_AGENT_VERSION` | Hosted matrix | Actual fixed numeric version, never `latest` |
+| `WORKSHOP_HOSTED_AGENT_ENDPOINT` | Hosted matrix | Full returned Invocations endpoint, including API version |
+| `AZURE_APPLICATION_INSIGHTS_APP_ID` | Matrix traces | Connected application ID, not workspace ID or instrumentation key |
+| `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME` | Hybrid | Verified actual embedding deployment |
+| `WORKSHOP_EMBEDDING_DIMENSIONS` | Hybrid | Actual returned dimensions; no truncation or zero padding |
+| `WORKSHOP_EMBEDDING_API` | Hybrid | Explicit `project`/`account`; failures never switch it |
+| `WORKSHOP_IQ_RERANKER_THRESHOLD` | IQ retrieval | Optional finite 0–4 filter; empty retains the service default. This is not an evaluator threshold |
 
-`AZURE_OPENAI_ENDPOINT`, `WORKSHOP_IQ_PLANNER_DEPLOYMENT`, and
-`WORKSHOP_IQ_PLANNER_MODEL` are optional richer-Preview experiment settings,
-unused by default GA IQ code.
+`AZURE_OPENAI_ENDPOINT` is required for explicitly selected account Chat Completions or embeddings
+and must belong to the same Foundry account as the project.
+`WORKSHOP_IQ_PLANNER_DEPLOYMENT` and `WORKSHOP_IQ_PLANNER_MODEL` remain optional richer-Preview settings,
+not defaults of minimal GA IQ.
+
+`runtime-profile.json` freezes kind/pattern/retrieval/prompt/API/protocol/language.
+Legacy six-field profiles mean Korean; English profiles explicitly contain `language: en`.
+The runtime request remains exactly `question/model_key/case_id/run_id` and rejects reference answers or arbitrary endpoint overrides.
+Keep local `.env` and azd env aligned; do not bypass managed identity with client secrets.
 
 ## Previous names
 
@@ -61,4 +74,5 @@ types are rejected.
 Runs live under `outputs/<label>/`; a label is a restricted name, not a path.
 Existing run directories are not overwritten. Manifest hashes aid reproduction but
 are not digital signatures or tamper-proof storage.
-Guide language does not change dataset/prompt hashes or response schemas.
+English uses separate translated dataset/prompt/corpus hashes with unchanged schema, IDs, amounts, dates, and reference judgments.
+Missing English assets do not fall back to Korean. See [language bundles](../../data/README.md).

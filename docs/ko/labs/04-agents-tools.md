@@ -12,7 +12,7 @@
 python scripts/workshop.py maf --question "Foundry와 Agent Framework의 차이를 세 문장으로 설명해 주세요."
 ```
 
-![도구 없는 로컬 MAF 에이전트의 실제 출력](../../assets/live-20260914-action/shots/cli-1-0356-04-002-maf-single-result.webp)
+![2026-09-15 새 국문 촬영: 실제 MAF Agent 응답](../../assets/refresh-20260915-ko/screenshots/K04-100-maf-2.webp)
 
 **화면 확인:** 마지막 출력의 `mode: live`, `orchestration: local`, `tools: none`을 읽습니다.
 로컬 Python이 실행을 소유해도 답변 모델 호출은 Azure에서 이루어집니다.
@@ -52,9 +52,8 @@ sequenceDiagram
     M-->>U: 조건·인용을 포함한 답변
 ```
 
-**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=340.20)
 
-![실제 함수 도구 응답의 구조화된 판단과 인용](../../assets/english-20260915/shots/terminal-0105-04-002-function-result.webp)
+![2026-09-15 새 국문 촬영: 읽기 전용 함수 도구 호출](../../assets/refresh-20260915-ko/screenshots/K04-101-tools-2.webp)
 
 **화면 확인:** `tools: function`과 `answer` 안의 `decision`, `limit_krw`, `citations`를 확인합니다.
 사진의 `needs_approval`은 승인 완료가 아니라 사람의 사전 승인이 필요하다는 뜻입니다.
@@ -92,7 +91,7 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 `answer`의 문장뿐 아니라 `decision`, `limit_krw`, `citations`도 함께 확인합니다.
 형식이 잘못되면 응답을 임의로 고쳐 성공으로 처리하지 않습니다.
 
-![별도 stdio MCP 서버를 사용한 실제 과거 규정 응답](../../assets/live-20260914-action/shots/cli-1-0370-04-004-maf-mcp-result.webp)
+![2026-09-15 새 국문 촬영: 실제 로컬 MCP handshake와 정책 도구](../../assets/refresh-20260915-ko/screenshots/K04-102-mcp-2.webp)
 
 **화면 확인:** `tools: local-mcp`를 확인하고 2026년 5월에 과거 한도와 `TRAVEL-2025`를 적용했는지 봅니다.
 함수 도구 결과로 MCP 실행을 대신한 것이 아닙니다.
@@ -113,7 +112,6 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 python scripts/workshop.py maf --tools --question "$(python -c 'print("A" * 2001)')"
 ```
 
-![짧은 생성 명령으로 2001자 입력을 거절한 결과](../../assets/live-20260914-action/shots/cli-1-0388-04-006-input-boundary-attempt-2-result.webp)
 
 **화면 확인:** 사진 맨 아래의 짧은 생성 명령과 `FAIL: Question must contain 1-2000 characters.`를 봅니다.
 이 거절이 기대한 결과입니다. 위쪽에 남은 긴 붙여넣기 시도와 혼동하지 않습니다.

@@ -34,6 +34,12 @@ Ignite 2026 발표를 예측하지 않고, 현재 공식 문서와 소스의 계
 호환 조합을 검토해 승인된 버전으로 맞추고, `azd ai agent init --help`·샘플·실제 생성 schema를 다시 확인합니다.
 이 개정에서 CLI/확장을 자동 업그레이드하거나 실제 init/provision/deploy를 실행하지 않았습니다.
 
+후속 실제 실행에서는 공식 GitHub 릴리스 SHA-256을 확인한 **세션 전용 azd 1.34.0**을 사용했습니다.
+공유 전역 azd를 교체하지 않았고 기존 agents/projects 확장은 새 CLI에서 호환 상태가 되었습니다.
+실제 Azure 호출에서 발견한 endpoint/protocol 충돌, batch query 보존, embeddings 경로,
+App Insights 인증 scope는 오류 기록과 함께 수정했습니다.
+원래 문서/SDK 계약 검사와 이 후속 실제 실행을 혼동하지 않습니다.
+
 ## 기능별 경계
 
 | 기능 | 이 에디션의 선택 | 구분 |

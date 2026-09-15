@@ -81,9 +81,50 @@ def translation_pairs(root: Path) -> list[tuple[Path, Path]]:
     korean = {path.relative_to(root / "docs/ko") for path in (root / "docs/ko").rglob("*.md")}
     return [
         (root / "README.md", root / "README.ko.md"),
+        (root / "data/README.md", root / "data/README.ko.md"),
         (root / "data/fixtures/README.md", root / "data/fixtures/README.ko.md"),
         *((root / "docs" / path, root / "docs/ko" / path) for path in sorted(english | korean)),
     ]
+
+
+def command_translations(root: Path, errors: list[str]) -> dict[str, str]:
+    path = root / "data/guide-questions.json"
+    if not path.exists():
+        return {}
+    try:
+        value = read_json(path)
+        pairs = value["pairs"]
+        if value.get("schema_version") != 1 or not isinstance(pairs, list):
+            raise ValueError("Expected a versioned list of explicit guide translations.")
+        mapping = {}
+        sources = set()
+        for pair in pairs:
+            if set(pair) != {"ko", "en"} or any(
+                not isinstance(pair[key], str) or not pair[key].strip() for key in ("ko", "en")
+            ):
+                raise ValueError("Guide translations need nonempty Korean and English text.")
+            if pair["en"] in mapping or pair["ko"] in sources:
+                raise ValueError("Guide translation pairs must be unique.")
+            sources.add(pair["ko"])
+            mapping[pair["en"]] = pair["ko"]
+        return mapping
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"data/guide-questions.json: invalid command translation map: {exc}")
+        return {}
+
+
+def normalized_command(arguments: list[str], translations: dict[str, str]) -> list[str]:
+    result = list(arguments)
+    if "--language" in result:
+        index = result.index("--language")
+        if index + 1 < len(result) and result[index + 1] in {"ko", "en"}:
+            del result[index : index + 2]
+    for option in ("--question", "--reason"):
+        if option in result:
+            index = result.index(option) + 1
+            if index < len(result):
+                result[index] = translations.get(result[index], result[index])
+    return result
 
 
 def pending_translations(root: Path, errors: list[str]) -> set[Path]:
@@ -142,6 +183,7 @@ def pending_translations(root: Path, errors: list[str]) -> set[Path]:
 def check(root: Path) -> tuple[list[str], dict[str, int]]:
     errors = []
     pending = pending_translations(root, errors)
+    translations = command_translations(root, errors)
     counts = {
         "markdown_files": 0,
         "local_links": 0,
@@ -216,8 +258,14 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
             if navigation not in text.split("\n\n", 2)[1:2]:
                 errors.append(f"{path.relative_to(root)}: missing reciprocal language navigation.")
         try:
-            english_commands = [args for _, args in workshop_commands(english.read_text())]
-            korean_commands = [args for _, args in workshop_commands(korean.read_text())]
+            english_commands = [
+                normalized_command(args, translations)
+                for _, args in workshop_commands(english.read_text())
+            ]
+            korean_commands = [
+                normalized_command(args, translations)
+                for _, args in workshop_commands(korean.read_text())
+            ]
         except ValueError:
             continue  # Invalid quoting was reported during the per-file check.
         if english_commands != korean_commands and english not in pending:

@@ -2,30 +2,44 @@
 
 **English** | [한국어](README.ko.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
+## Background: learning loops and frontier ecosystems
 
-> **Translation pending** — The [Korean-first integration revision](README.ko.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+In his [June 14, 2026 essay](https://x.com/satyanadella/status/2066182223213293753),
+Satya Nadella argued for a **frontier ecosystem, not just a frontier model**:
+organizations should build learning systems that retain their knowledge and expertise even when the underlying model changes.
+He reiterated this in Microsoft's [July 29, 2026 earnings call](https://www.microsoft.com/en-us/Investor/events/FY-2026/earnings-fy-2026-q4),
+emphasizing each organization's own **continuous learning loop** and control of its core IP.
+The focus shifts from simply choosing the strongest model to building an ecosystem in which organizations can keep learning and creating value.
+
+This workshop turns that perspective into a practical engineering loop:
+**run → observe and evaluate → human review → improve → verify again**.
+Using only bundled synthetic data, you connect Foundry and Microsoft Agent Framework (MAF) agents,
+knowledge, tools, workflows, Hosted deployment, and evaluation into one system.
+Here, learning means reviewed improvements to instructions, retrieval, tools, and workflows—not automatic model-weight training.
+Dev data supports iteration; holdout is reserved for final acceptance.
 
 **Start with one agent. Finish with a system whose knowledge, evaluation criteria, and operational decisions your team can reuse.**
 
 English by default · Korean available · Synthetic data only
 
-**Pre-Ignite 2026 Edition / English documentation, new recordings, and Azure checks: September 15, 2026**
+**Pre-Ignite 2026 Edition / Current workflow and evaluation curriculum: September 15, 2026**
 
 Follow the **[beginner or practitioner guide](docs/paths.md)**. Each lab places reference
 images and a **What to check** explanation beside the relevant action or command.
 Read [how to use the screenshots](docs/labs/00-start.md#how-to-read-this-guide) first.
 
-**[Watch the new English-guide recordings](docs/english-recordings.md)**: **13:09 combined**,
-5:15 CLI, or 4:45 portal, with **direct GitHub playback** and no download command.
-[234 new actions / 537 screenshots](docs/english-captures.md) ·
-[New results and limitations](docs/english-recordings.md#actual-results-and-boundaries)
+**[Current English recordings](docs/video-summary.md)** ·
+[New action/capture index](docs/action-captures.md) · [Actual results and limitations](docs/live-run.md)
 
-The new footage has English guide text and UI, while **canonical synthetic policy
-questions, prompts, and datasets remain Korean** to preserve evaluation lineage.
-No new infrastructure was provisioned or deployed. The [language contract](docs/reference/languages.md)
-explains the boundary; the [September 14 Korean source recordings](docs/video-summary.md)
-remain available separately.
+The new English set contains **172 actions, 516 lossless captures, and three videos**:
+**13:53 combined**, 7:47 CLI, and 5:42 portal.
+All six English/Korean videos are hosted on GitHub and verified for playback.
+Sign in with an account that can access this private repository.
+
+English uses **separate English instructions, synthetic policies, dev/calibration/holdout datasets, and fixtures**.
+Select them explicitly with `--language en`; original Korean files remain unchanged.
+The [language contract](docs/reference/languages.md) and [versioned data bundle](data/README.md)
+preserve language-specific lineage. [Korean recordings](docs/ko/video-summary.md) are independent.
 
 This self-contained edition brings agents, workflows, knowledge, evaluation, and
 operations into **one environment and one business scenario**. It is not a list of
@@ -38,6 +52,7 @@ The labs, Python code, synthetic policies, evaluation data, and instructor guide
 |---|---|---|
 | New to Azure, AI, and coding | **[A. Four-hour beginner path](docs/paths.md)** | A portal agent, grounded answers, a six-question assessment, and an operations/cleanup checklist |
 | Familiar with Python, APIs, or Azure | **[B. Six-hour practitioner path](docs/paths.md)** | MAF/MCP/workflow code, retrieval, before/after evaluation and holdout records, and a deployment package |
+| Building an end-to-end Hosted workflow evaluation system | **[C. Advanced integration path](docs/paths.md#c-advanced-integration--additional-150180-minutes)** | Pinned versions, actual model matrices, calibration, reviewed regressions, and trace acceptance |
 | Teaching or preparing the environment | **[Instructor preparation](docs/instructor.md)** | Team environments, permissions and cost planning, smoke checks, and recovery criteria |
 | Waiting for Azure approval or quota | **[Try the checker without Azure](docs/labs/00-start.md)** | Understand run/evaluation files with offline fixtures; **not completion of the cloud labs** |
 | Returning from the previous edition | **[Migration map](docs/reference/migration.md)** | Concepts to retain and SDK, permission, and execution contracts to change |
@@ -92,9 +107,9 @@ Windows. Python 3.13 is recommended. Browser-path learners do not need these com
 
 ```bash
 # Try the checker without external packages or Azure.
-python3.13 scripts/workshop.py doctor
-python3.13 scripts/workshop.py demo --label first-offline --prompt v2
-python3.13 scripts/workshop.py evaluate --label first-offline
+python3.13 scripts/workshop.py --language en doctor
+python3.13 scripts/workshop.py --language en demo --label first-offline --prompt v2
+python3.13 scripts/workshop.py --language en evaluate --label first-offline
 ```
 
 `offline-fixture` results are **prewritten examples**, not evidence of model quality,

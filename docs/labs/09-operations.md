@@ -2,10 +2,6 @@
 
 **English** | [한국어](../ko/labs/09-operations.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/labs/09-operations.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Goal:** Preserve evidence for the next decision instead of mistaking one successful demo for a production-ready system.
 
 Previous: [Lab 07](07-evaluation.md) or [Lab 08](08-hosted.md) · Next: [Capstone](11-capstone.md)
@@ -52,32 +48,26 @@ does not enable sensitive input/output capture by default.
 4. Inspect parent/child spans, model/tools, latency, and errors.
 5. Check retention/permissions and avoid unnecessary raw-content export.
 
-![Actual Traces tab and request list for a Hosted version](../assets/live-20260914-action/shots/portal-0510-P09-002-traces-tab-screen-change.webp)
 
 **What to check:** In **Traces → Trace view**, check date range and agent version.
 The newest row is not automatically the request you just sent.
 
-**New English-guide capture: September 15, 2026.** This run's trace has 15 visible spans. ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=704.24)
 
-![Filter by the exact Trace ID returned by the CLI](../assets/english-20260915/shots/portal2-0037-P09-004-open-new-trace-before.webp)
 
 **What to check:** Search the actual Trace ID and open the matching row.
 Response, conversation, and trace IDs are different identifiers.
 
-![Span tree and Completed root for the same remote invocation](../assets/live-20260914-action/shots/portal-0542-P09-009-root-completed-transition.webp)
 
-**What to check:** Inspect root `invoke_agent` and Metadata. The source run showed
-**20 spans, two chat calls, one tool call**, and also **two errors**. Keep both facts.
+**What to check:** Inspect root `invoke_agent`, Metadata, and the actual visible span count.
+Do not equate a partially visible trace tree with the response's complete `model_calls` list.
 
 Protected tables can require additional permission beyond ordinary log reading.
 Do not repeat costly model calls while waiting for telemetry. If absent, record
 **unverified** and inspect connection, exporter, roles, and time range.
 
-![Actual runtime logs read immediately after invocation](../assets/live-20260914-action/shots/cli-2-0733-09-005-live-monitor-result.webp)
 
-**What to check:** The source run used `azd ai agent monitor` on the same session
-immediately after the call. Compare model/tool activity and final Responses HTTP
-status; distinguish this from log-connection errors after a session stops.
+Compare model/tool activity and final HTTP status; distinguish runtime failures from
+log-connection errors after a session stops. The matrix query below verifies exact root requests separately.
 
 ### 3. Explain one failure
 
@@ -87,16 +77,9 @@ and wrong policy application.
 After reviewing sources and the reason for change, return to the dev comparison in
 [Lab 07](07-evaluation.md). Automatic trace-to-dataset is optional Preview, not a core requirement.
 
-![Child error span from an initial state-store read](../assets/live-20260914-action/shots/portal-0530-P09-006-first-storage-miss-screen-change.webp)
 
-**What to check:** Select the red `GET .../storage/state_stores/...` span.
-The source run's initial GET returned 404, followed by successful creation/update.
-Do not call it a failed model answer or rewrite the run as "zero errors."
-
-![Successfully completed lookup_policy tool span](../assets/live-20260914-action/shots/portal-0539-P09-008-tool-span-screen-change.webp)
-
-**What to check:** Inspect `execute_tool lookup_policy` in the same tree.
-Explain successful tool/model work separately from the failed initialization reads.
+If a child span failed, explain that specific operation instead of rewriting the run as “zero errors.”
+Model responses, retrieval/tool work, service initialization, and native judgment failures are distinct.
 
 ## Operational approval gates
 
@@ -114,16 +97,81 @@ Do not enable automatic optimization or continuous evaluation by default.
 Sampling, evaluation charges, and data policy require separate approval.
 Six passing teaching cases do not authorize production.
 
-## Always finish with cleanup
+## C. Hosted matrix Trace/Monitor acceptance
 
-In the September 14 source run, the 20-span root completed with two chat calls and
-one tool call. Two initial state-store/item 404s remained visible; later writes and
-the final answer succeeded. `monitor` read the same Running session immediately after
-invocation. Completed overall does not mean no child errors.
-[Execution records](../live-run.md) list retained assets.
+Use a label from the [evaluation workbook](../reference/evaluation-workbook.md):
 
 ```bash
-python scripts/workshop.py cleanup-plan
+python scripts/workshop.py --language en benchmark trace-plan --label wf-candidate
+python scripts/workshop.py --language en benchmark monitor --label wf-candidate
+```
+
+The first writes KQL only. The second queries the configured App Insights application ID
+with a subscription/tenant-scoped credential and `https://api.applicationinsights.io/.default`.
+The Korean run retained a CLI `InvalidTokenError` and corrected that credential path, not the identity or target.
+Application IDs are not workspace IDs or instrumentation keys.
+
+Queries are displayed and restricted by agent, time, and exact trace IDs.
+Start from `requests`; code-level participant names are not the deployed agent name.
+Do not double-count parent and child token/latency observations.
+The default gate verifies root requests; deeper model/tool semantics need separate review.
+
+Missing, duplicate, failed, or unmeasured rows cannot pass.
+Existing verified evidence is reused only after hash checks, without pretending to query Azure again.
+
+```bash
+python scripts/workshop.py --language en benchmark stop-session --label wf-candidate
+```
+
+Only the recorded session/version is stopped or confirmed idle.
+Shared services, models, evaluation history, and persistent files remain.
+
+### Optional continuous evaluation
+
+Approve data scope, sampling, hourly caps, evaluator versions, ongoing costs, and a disable/cleanup owner.
+Follow [current recurring-evaluation guidance](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard#set-up-continuous-evaluation).
+Do not repeatedly invoke just to manufacture a sampled screenshot.
+Rule configuration and actual evaluated samples are different evidence; nothing is enabled automatically.
+
+## New English execution evidence
+
+These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+
+![Find the exact English D05 trace ID](../assets/refresh-20260915-en/screenshots/EP09-005-find-trace-2.webp)
+
+**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+
+![Open the actual English workflow trace detail](../assets/refresh-20260915-en/screenshots/EP09-006-trace-detail-2.webp)
+
+**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+
+![Inspect the actual English workflow trace graph](../assets/refresh-20260915-en/screenshots/EP09-007-graph-2.webp)
+
+**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+
+![Distinguish actual monitoring totals from evaluation correctness](../assets/refresh-20260915-en/screenshots/EP09-009-monitor-2.webp)
+
+**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+
+![Recheck the same last trace after ingestion; preserve the first 23-of-24 query](../assets/refresh-20260915-en/screenshots/E09-001-trace-ingestion-2.webp)
+
+**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+
+![Confirm or stop only this owned English evaluation session](../assets/refresh-20260915-en/screenshots/E09-cleanup-3-2.webp)
+
+**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+
+[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
+
+## Always finish with cleanup
+
+Verify this edition's exact root traces and owned session states.
+Completed overall does not mean every child span is exported or error-free.
+[Execution records](../live-run.md) list actual outcomes and retained assets.
+
+```bash
+python scripts/workshop.py --language en cleanup-plan
 ```
 
 This **prints a list and procedure; it deletes nothing**.
@@ -131,8 +179,7 @@ Follow [Cleanup](../reference/cleanup.md), preserve shared/other-team resources,
 recheck active sessions, residual resources, and costs rather than assuming a command
 means cleanup is complete.
 
-![Owned Hosted sessions reread after explicit stop](../assets/live-20260914-action/shots/cli-2-0882-09-033-sessions-after-result.webp)
 
-**What to check:** Check your session states and pagination. Both recorded sessions
-were `idle`. Use your IDs, not the screenshot's IDs. Idle does not eliminate every
+**What to check:** Check actual session states and pagination.
+Use your IDs, not screenshot IDs. Idle does not eliminate every
 filesystem, Search, or log charge.

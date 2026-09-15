@@ -2,10 +2,6 @@
 
 **English** | [한국어](../ko/labs/05-workflows.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/labs/05-workflows.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Goal:** Connect agents in MAF code and distinguish a reviewer model from an actual approver.
 
 Previous: A → [Lab 03](03-prompt-agent.md), B → [Lab 04](04-agents-tools.md) · Next: [Lab 06](06-knowledge.md)
@@ -42,13 +38,12 @@ Confirm the prepared terminal is at the repository root. This command makes real
 billable Azure model calls within the instructor's budget.
 
 ```bash
-python scripts/workshop.py workflow --pattern sequential --question "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요."
+python scripts/workshop.py --language en workflow --pattern sequential --question "My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking."
 ```
 
 Meaning: a domestic hotel costs KRW 170000 in September 2026; explain the applicable
 limit and the steps required before booking.
 
-![Prepared sequential MAF example for the beginner path](../assets/live-20260914-action/shots/cli-1-0404-05-003-beginner-sequential-result.webp)
 
 **What to check:** Read the last command's `pattern: sequential` and `outputs`.
 This is a terminal-executed MAF result, not portal Workflow Designer activity.
@@ -65,7 +60,6 @@ This is a terminal-executed MAF result, not portal Workflow Designer activity.
 Run again with a historical travel date and compare the applied policy.
 Personally read the answer and sources, then record corrections and the final guidance.
 
-![Sequential result after changing the travel date to May 2026](../assets/live-20260914-action/shots/cli-1-0410-05-004-beginner-historical-result.webp)
 
 **What to check:** Compare the changed policy and limit. Both runs must retain
 `approval_status: pending-human-review` and `external_actions_performed: false`.
@@ -97,13 +91,12 @@ Explicitly design business state, errors, and retries in code.
 ### 1. Sequential: each stage feeds the next
 
 ```bash
-python scripts/workshop.py workflow --pattern sequential
+python scripts/workshop.py --language en workflow --pattern sequential
 ```
 
 Compare `PolicyAnalyst → AnswerWriter → EvidenceReviewer` with the builder's participants
 and actual outputs. An incorrect source interpretation can propagate to the draft.
 
-![Sequential code-path output](../assets/live-20260914-action/shots/cli-1-0416-05-005-sequential-result.webp)
 
 **What to check:** Map the output to the three roles. Fluent review does not
 automatically remove an earlier evidence error.
@@ -111,7 +104,7 @@ automatically remove an earlier evidence error.
 ### 2. Concurrent: independent views of the same input
 
 ```bash
-python scripts/workshop.py workflow --pattern concurrent
+python scripts/workshop.py --language en workflow --pattern concurrent
 ```
 
 `ConcurrentBuilder` sends the same question/evidence to three roles.
@@ -119,9 +112,7 @@ It returns three perspectives, **not automatic consensus or one final answer**.
 Read and combine them yourself or design a separately validated aggregation step.
 Lower wall-clock time does not necessarily mean fewer calls or lower costs.
 
-**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=388.76)
 
-![Multiple perspectives returned by concurrent execution](../assets/english-20260915/shots/terminal-0143-05-004-concurrent-result.webp)
 
 **What to check:** Verify `pattern: concurrent` and multiple participant outputs.
 Compare them rather than treating them as an agreed answer.
@@ -129,7 +120,7 @@ Compare them rather than treating them as an agreed answer.
 ### 3. Group Chat: shared discussion with a stopping rule
 
 ```bash
-python scripts/workshop.py workflow --pattern group-chat
+python scripts/workshop.py --language en workflow --pattern group-chat
 ```
 
 The example uses a fixed speaker order and at most **three rounds**.
@@ -137,7 +128,6 @@ The example uses a fixed speaker order and at most **three rounds**.
 alone is not a business answer. The entire workflow also has a 240-second timeout.
 Calculate call/token budgets before increasing either bound.
 
-![Actual Group Chat participant output and review boundary](../assets/live-20260914-action/shots/cli-1-0428-05-007-group-chat-result.webp)
 
 **What to check:** Read `pattern: group-chat`, participant responses, and pending
 human review. Reaching the round limit is not model consensus or business approval.
@@ -161,6 +151,96 @@ retries, revalidation immediately before tools, persistence/restarts, audit reco
 and rollback or compensation.
 
 Telling a model "you are the approver" cannot replace human authorization.
+
+## C. Practitioner extension: make the workflow deployable
+
+**This path was exercised with real Azure and separately recorded in the Korean run; the English run uses independent recording sources.**
+The original `workflow` command retains its introductory output shapes.
+`workflow-agent` returns original evidence, actual service-call lineage, and one validated final answer.
+
+```bash
+python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval local --prompt v2
+python scripts/workshop.py --language en workflow-agent --pattern concurrent --retrieval local --prompt v2
+python scripts/workshop.py --language en workflow-agent --pattern group-chat --retrieval local --prompt v2
+```
+
+| Pattern | Actual MAF work | Final output |
+|---|---|---|
+| Sequential | PolicyAnalyst → AnswerWriter → EvidenceReviewer | One answer, three logical model calls |
+| Concurrent | Three independent reviews → FinalPolicyReviewer | Do not equate parallel opinions with consensus; four logical calls |
+| Group chat | Fixed selection, maximum three rounds → FinalPolicyReviewer | Explicit termination and final review; four logical calls |
+
+Retries and internal service work may add costs.
+`model_calls` preserves actual response IDs, observed models, and usage.
+Never relabel a framework-generated workflow UUID as an Azure model response ID or trace ID.
+Invalid JSON or citations are retained errors, not repaired output or a substituted model.
+
+### Code to read and modify
+
+Inspect `build_orchestration` in `src/foundry_workshop/agents.py`.
+In `runtime.py`, follow `instruction_snapshot`, `run_pipeline`, `audit`, and `build_workflow_agent`.
+These respectively assemble exact instructions, retrieve evidence and run fresh participants,
+record real `ChatResponse` metadata, and adapt a `list[Message]` workflow to an agent.
+
+The essential relationship is:
+
+```python
+workflow = SequentialBuilder(participants=[analyst, writer, reviewer]).build()
+workflow_agent = workflow.as_agent(name="PolicyWorkflow")
+server = ResponsesHostServer(workflow_agent)
+```
+
+This snippet explains the relationship between already-created objects.
+The complete repository implementation adds input/evidence validation and per-request cleanup.
+It runs actual MAF builders, not manually concatenated canned strings.
+
+Each request creates fresh participants/internal workflow state and uses only the current question.
+Previous answers, other models' outputs, and evaluator labels are not reused.
+Internal model calls are buffered; workflow completion events are not token-by-token streaming.
+A checkpoint provider does not establish durable business approval or verified crash recovery.
+
+### Use actual IQ evidence
+
+After the instructor has prepared IQ:
+
+```bash
+python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval iq --prompt v2
+```
+
+This performs the actual GA retrieval and returns documents/references/activity with their context hash.
+It does not rename local search as IQ or fall back to keyword search after an error.
+Continue with the same profile in [Lab 08](08-hosted.md).
+
+## New English execution evidence
+
+These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+
+![Execute a real English sequential MAF workflow](../assets/refresh-20260915-en/screenshots/E05-001-english-workflow-2.webp)
+
+**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
+
+![Run the sequential MAF pattern](../assets/refresh-20260915-en/screenshots/E05-101-sequential-2.webp)
+
+**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
+
+![Run the concurrent MAF pattern](../assets/refresh-20260915-en/screenshots/E05-102-concurrent-2.webp)
+
+**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
+
+![Run the bounded three-round group chat](../assets/refresh-20260915-en/screenshots/E05-103-group-2.webp)
+
+**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
+
+![Run a concurrent workflow with validated final output](../assets/refresh-20260915-en/screenshots/E05-104-wrapped-concurrent-2.webp)
+
+**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
+
+![Run group chat with a validated final output](../assets/refresh-20260915-en/screenshots/E05-105-wrapped-group-2.webp)
+
+**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
+
+[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
 
 ## Completion
 

@@ -1,134 +1,67 @@
-# Source execution: action-level run in Sweden Central
+# English live execution and evaluation results
 
 **English** | [한국어](ko/live-run.md)
 
-**New run:** [September 15 English-guide recording results](english-recordings.md#actual-results-and-boundaries).
-The evidence below remains attributed to the September 14 source execution.
+**These are this language edition's actual Azure execution results.** They are not copied from upstream repositories or the other language run.
 
-**On September 14, 2026, the guide was rerun and recorded in the new
-`rg-mfv2-action-swc-20260914` environment.**
-The designated training account was used without changing the default Azure CLI
-subscription. Only bundled synthetic data was accessed, not company or Microsoft 365 data.
+| Cohort | Version | Rows | Errors | Business | Groundedness | Relevance | Root traces |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| en-baseline-recall | 11 | 24 | 0 | 24/24 | 24/24 | 20/24 | 24/24 |
+| en-candidate | 12 | 24 | 0 | 23/24 | 24/24 | 20/24 | 24/24 |
+| en-holdout | 12 | 12 | 0 | 12/12 | 12/12 | 9/12 | 12/12 |
 
-[Videos](video-summary.md) · [236-action captures](action-captures.md) ·
-[Chapters](video-chapters.md) · [Media hashes](assets/live-20260914-action/media.json)
+Business gates and native scores measure different things. `review-native-findings` is not production approval. This is a small, public synthetic dev/holdout set, not proof of statistical superiority or an unseen production validation set.
 
-**This is an English translation of that run's evidence, not a new English-language
-Azure run.** Source media remains in `docs/assets/live-20260914-action/`.
+The initial English baseline's actual 20/24 result is preserved separately. Its missing scope-policy evidence led to an explicit same-provider retrieval-recall experiment, not a changed evaluator or reference answer. The new controlled baseline/candidate use that same recall setting. D05 remains pending human review and was not consumed as an approved regression.
 
-## Recording
+## Execution corrections
 
-| Surface | Recorded evidence |
-|---|---|
-| CLI | **131 actions** in an actual Bash PTY: typing, execution, output |
-| Portal | **105 actions** in actual `ai.azure.com`: creation, editing, saving, questions, navigation |
-| Captures | 1,065 meaningful action-boundary/change events from 1,500 originals, stored as **898 lossless WebP images** |
-| CLI video | **14:02**, waits removed, source footage at normal speed |
-| Portal video | **9:09**, waits removed, source footage at normal speed |
-| Guide-ordered video | **23:35**, all scenes rearranged into Lab 00–11 with twelve title cards |
-| Method | Playwright 1.62.0, headless Edge; no sign-in/PIN/MFA footage |
+The Korean prerequisite run identified and corrected endpoint/protocol flag conflicts, dropped API-version query parameters, explicit account embedding configuration, App Insights credential scoping, and cleanup of already-idle sessions. The English run uses the corrected code. Earlier diagnostics are retained separately; no model, endpoint, provider, or fixture is substituted automatically after errors.
 
-Agent creation via **New agent → Build an agent**, naming/model choice, removing
-Web Search, entering instructions/synthetic documents, and saving versions were
-captured separately. Every question started a new conversation.
-File selection/upload/indexing, failed evaluation rows, and child trace errors are included.
+## Lineage
 
-The [combined chapters](video-chapters.md) follow the guide, not a new run.
-**All three videos play directly on GitHub without a local server.**
-Sign in with an account authorized for this private repository.
-[Playback links](video-summary.md#play-now) point to the same current files.
-`RUN_TOOLS` is instructor support; use the learner commands in each lab.
+### Retained initial diagnostic cohort
 
-### Guide-ordered source video: 23:35
+- `en-baseline-final`: version 10, 20/24 business checks, 0 execution errors; original response hash `6dec763ba04058a5947179d03b130207c7d9f48efae4bc8c76d01709480ba374`.
+- Actual native eval/run: `eval_043b9f00f88841c4ba8f7ff8815d3c23` / `evalrun_aef67541bd7e4d65bb6cdf006712b707`.
 
-https://github.com/user-attachments/assets/c005e1a6-f577-4d07-b2c3-9a4827750c81
+### Dev-based final model selection
 
-### CLI source video: 14:02
+The English V2 candidate retained Astra's failed `citations_relevant` check on dev D05 (5/6 for that model). Only the dev-eligible Luna/Sol/Terra models were frozen for final holdout, before any holdout response was generated. Its denominator is therefore 3 models × 4 cases = 12, not 16. The original four-model candidate score remains visible.
 
-https://github.com/user-attachments/assets/1e2eb2ac-a164-4c67-8d4f-95cec33e2a3a
+### en-baseline-recall
 
-### Portal source video: 9:09
+- Agent version: `11`
+- Target run: `matrix-6b49cdf3234f4d458f313b01fa25af77`
+- Foundry eval/run: `eval_7ea2977e60c042d5a86a182b84d96870` / `evalrun_756a28a027bc47d6ba48d488a2694c16`
+- Dataset: `1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e`
+- Corpus: `9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14`
+- Runtime code: `7eeeb72da904805d20e8ca9233d343198839527590c3b142f1a172778dd14fcd`
+- Responses: `29052db55de360270317fc1810e2234250a4959b9f307319d6c49653a24c7a84`
+- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
 
-https://github.com/user-attachments/assets/714599fe-744d-40e2-a945-c4919d0fb0b3
+### en-candidate
 
-## Environment and models
+- Agent version: `12`
+- Target run: `matrix-dd16b7f1eaac4c7a8ceae602af7a0c8a`
+- Foundry eval/run: `eval_57f2a3c163734e39b70947492a1d7cb8` / `evalrun_0eefc4c313414900b60d975f01f05a1e`
+- Dataset: `1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e`
+- Corpus: `9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14`
+- Runtime code: `7eeeb72da904805d20e8ca9233d343198839527590c3b142f1a172778dd14fcd`
+- Responses: `a615918e81bcb301190cd5c2221b21f75daa89a6839e2350d13ec6fb936f45d4`
+- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
 
-| Item | Source run |
-|---|---|
-| Resource group | `rg-mfv2-action-swc-20260914` |
-| Foundry account/project | `ai-mfv2-action-swc-20260914` / `mfv2-action-20260914` |
-| Search | `srch-mfv2-action-swc-20260914`, Basic, Entra authentication |
-| Observability | Same-region Application Insights/Log Analytics, 30-day retention, 1 GB daily cap |
-| Answer model | `gpt-5.6-luna`, `2026-07-09`, Data Zone Standard 100K TPM |
-| Separate judge | `gpt-5.6-luna-judge`, same model version, Data Zone Standard 50K TPM |
-| Version policy | `NoAutoUpgrade` on both; no model/endpoint fallback |
+### en-holdout
 
-Data Zone Standard processes inference in the **EU data zone**.
-Sweden Central resource placement is not a single-datacenter inference guarantee.
-Target and judge share an underlying model, so this is not independent cross-model validation.
+- Agent version: `12`
+- Target run: `matrix-ced9f6d46031434aad9907018d73523b`
+- Foundry eval/run: `eval_322b9e08d490427599460ccddfc94462` / `evalrun_4b526d17261b41ba9d53b58421d902f2`
+- Dataset: `e276e82bbac04260e11747f802b6671b2ad2a5c340c3af4a5b44895ca2aa14b9`
+- Corpus: `9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14`
+- Runtime code: `7eeeb72da904805d20e8ca9233d343198839527590c3b142f1a172778dd14fcd`
+- Responses: `3b0f05045abe44ebfc52086994c36bea2694600450989fa3ba4efe717c6581ee`
+- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
 
-## Actual source-run results
+Original responses, native output, failures, trace-query results, and cleanup receipts are retained. Stopping sessions does not remove all persistent files, models, Search, or log costs.
 
-| Path | Evidence |
-|---|---|
-| Model | SDK/portal Luna calls; unsupported lodging amount withheld before policies were supplied |
-| A. Portal Prompt Agent | `mfv2-action-20260914-portal` **v3**, inline sources; four introductory and six dev questions, each in a fresh conversation |
-| SDK Prompt Agent | `mfv2-action-20260914-policy` **v1**, current/historical/approval/insufficient-evidence questions |
-| MAF | Single/function/local MCP; A's current/historical sequential runs; B's sequential/concurrent/Group Chat |
-| Search/IQ | Six synthetic documents, new index/source/base, actual GA `2026-04-01` retrieval; rechecked after portal observation |
-| File Search | `mfv2-action-20260914-files` **v2**, no inline evidence; six Completed files, stored bytes matched all six originals |
-| v1/v2 dev | **6/6 / 6/6**, fixed local retrieval, no collection errors |
-| Teaching holdout | Final frozen-candidate procedure **4/4**; already-exposed teaching set, not a fresh unseen set |
-| Native judge | Groundedness **6/6**, relevance **5/6**; all six cases retained in each denominator |
-| Hosted | `mfv2-action-20260914-hosted` **v1**, actual local/remote responses and managed identity |
-| Separate Hosted evaluation | Six fresh remote responses, generative rubric **6/6**; query-only target inputs verified in all raw outputs |
-| Lab 10 | Synthetic routing design; no Fabric/Work IQ/Microsoft 365 connection |
-
-Portal dev responses were reviewed for current KRW 150,000, historical KRW 120,000,
-advance approval, meals KRW 30,000, international withholding, and refusal to ignore
-policy. This was assistant review, not human production approval or statistical
-quality assurance. Group Chat stopped at three rounds and performed no booking/approval/payment.
-
-## Failures and limitations retained
-
-- **D05 native relevance = 2:** correct withholding of an unsupported international
-  amount was penalized for not providing an amount. Preserve the metric and a pending
-  dev review rather than rewriting the score to match business criteria.
-- **File Search source UI:** citation chips/numbers did not open a preview/download.
-  This was not marked successful. The same stored files were separately read via SDK
-  and compared to all six originals; neither answers nor retrieval providers changed.
-- **IQ portal editor:** an Active GA base still required a separate chat-completions
-  model. No model was added and no Preview configuration was saved. GA retrieval still worked.
-- **Hosted evaluator version:** generated YAML contained v1, but the actual run's version
-  selector was empty. Catalog v1 was retained without retroactively claiming explicit pinning.
-- **Small evaluation:** both prompts passed 6/6; no superiority claim.
-  Holdout was not used for instruction development or regression harvesting.
-
-Prerelease, serialization, and non-durable-execution warnings and capture-helper retries
-were recorded separately. No missing/error rows were removed from denominators.
-
-## Actual Hosted trace and logs
-
-The CLI's Trace ID **`e72dc58132dbc461e5fa381c67da3ed9`** was located in the same agent's
-Traces view. It showed **20 spans, two chat calls, one tool call, about 7.2 seconds,
-root Completed**.
-
-The displayed **two errors** were initial GET 404s for a new state store and conversation
-item. Subsequent creation/update, model, and `lookup_policy` calls succeeded.
-Overall completion and zero child errors are different claims.
-
-`azd ai agent monitor` was run **immediately after invocation** on the same Running
-session. Logs showed two model HTTP 200s, successful tool execution, and final
-Responses HTTP 200. Resilient tasks were disabled; durable crash recovery was not verified.
-
-## Cleanup and reproduction
-
-Both new Hosted sessions were explicitly stopped even after automatic idle, then
-reread as idle. Local server/capture processes were stopped.
-The group was retained for review, so **Search, File Search storage, logs, and future
-model calls can still incur costs**.
-
-Execution used a standalone folder outside other azd projects. Personal raw responses,
-evaluators, settings, and cleanup evidence remain Git-excluded.
-[Validation](reference/validation.md) and the [action index](action-captures.md)
-separate exactly what was verified.
+[Recordings](video-summary.md) · [Acceptance](reference/consolidation.md)

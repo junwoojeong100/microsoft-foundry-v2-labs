@@ -90,7 +90,7 @@ def load_run(
     manifest = read_json(directory / "manifest.json")
     if manifest.get("status") not in {"completed", "completed_with_errors"}:
         raise ValueError(f"{label}: incomplete collection; do not score a successful prefix.")
-    cases = load_cases(root, manifest["split"])
+    cases = load_cases(root, manifest["split"], manifest.get("language", "ko"))
     rows = read_jsonl(directory / "responses.jsonl")
     if manifest["dataset_hash"] != digest(cases) or manifest["responses_hash"] != digest(rows):
         raise ValueError(f"{label}: dataset or recorded responses changed after collection.")

@@ -13,8 +13,8 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSET_RUN = "english-20260915"
-ASSET_RUNS = {"en": ASSET_RUN, "ko": "live-20260914-action"}
+ASSET_RUN = "refresh-20260915-en"
+ASSET_RUNS = {"en": ASSET_RUN, "ko": "refresh-20260915-ko"}
 
 
 def byte_range(value: str | None, size: int) -> tuple[int, int]:

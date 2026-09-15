@@ -139,8 +139,17 @@ class Answer:
         return asdict(self)
 
 
-def load_documents(root: Path) -> list[dict[str, str]]:
-    documents = read_json(root / "data/knowledge/policies.json")
+def localized_path(root: Path, relative: str, language: str = "ko") -> Path:
+    if language not in {"ko", "en"}:
+        raise ValueError("Workshop language must be ko or en.")
+    path = Path(relative)
+    if path.is_absolute() or ".." in path.parts:
+        raise ValueError("Content paths must stay within the workshop.")
+    return root / path if language == "ko" else root / path.parent / "en" / path.name
+
+
+def load_documents(root: Path, language: str = "ko") -> list[dict[str, str]]:
+    documents = read_json(localized_path(root, "data/knowledge/policies.json", language))
     if not isinstance(documents, list) or not documents:
         raise ValueError("Knowledge corpus must be a nonempty array.")
     ids = []
@@ -160,11 +169,11 @@ def load_documents(root: Path) -> list[dict[str, str]]:
     return documents
 
 
-def load_cases(root: Path, split: str) -> list[dict[str, Any]]:
+def load_cases(root: Path, split: str, language: str = "ko") -> list[dict[str, Any]]:
     if split not in {"dev", "holdout"}:
         raise ValueError("Evaluation split must be dev or holdout.")
-    cases = read_jsonl(root / f"data/evaluation/{split}.jsonl")
-    return validate_cases(cases, load_documents(root))
+    cases = read_jsonl(localized_path(root, f"data/evaluation/{split}.jsonl", language))
+    return validate_cases(cases, load_documents(root, language))
 
 
 def validate_cases(
@@ -204,8 +213,8 @@ def validate_cases(
     return cases
 
 
-def load_prompt(root: Path, version: str) -> tuple[str, str]:
+def load_prompt(root: Path, version: str, language: str = "ko") -> tuple[str, str]:
     if version not in {"v1", "v2"}:
         raise ValueError("Prompt version must be v1 or v2.")
-    text = (root / f"prompts/{version}.txt").read_text(encoding="utf-8")
+    text = localized_path(root, f"prompts/{version}.txt", language).read_text(encoding="utf-8")
     return text, hashlib.sha256(text.encode()).hexdigest()

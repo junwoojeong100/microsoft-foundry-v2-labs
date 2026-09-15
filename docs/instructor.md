@@ -2,10 +2,6 @@
 
 **English** | [한국어](ko/instructor.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](ko/instructor.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Class time is not installation, subscription creation, or feature-approval time. Verify every team's environment first.**
 
 Parent: [Learning paths](paths.md) · Evidence: [Validation record](reference/validation.md)
@@ -42,7 +38,6 @@ translation of an evaluation dataset.
 Role names may still appear as `Azure AI ...`. Check the current
 [Foundry role table](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
-![Quota usage and limits by Luna SKU in the source recording](assets/live-20260914-action/shots/cli-1-0152-01-006-luna-quota-result.webp)
 
 **What to check:** This is a September 14, 2026 preparation example. Distinguish `used`,
 `limit`, and SKU, and query again immediately before class. These numbers and Sweden
@@ -92,18 +87,17 @@ python scripts/check_sdk.py
 python -m unittest discover -s tests -t . -v
 python -m unittest discover -s tests_sdk -t . -v
 python scripts/check_docs.py
-python scripts/workshop.py doctor
-python scripts/workshop.py doctor --cloud
-python scripts/workshop.py model --question "이 응답은 합성 워크숍 연결 확인입니다. 한국어로 짧게 답하세요."
-python scripts/workshop.py answer --prompt v2 --retrieval local
-python scripts/workshop.py workflow --pattern sequential
+python scripts/workshop.py --language en doctor
+python scripts/workshop.py --language en doctor --cloud
+python scripts/workshop.py --language en model --question "This is a synthetic workshop connectivity check. Reply briefly in English."
+python scripts/workshop.py --language en answer --prompt v2 --retrieval local
+python scripts/workshop.py --language en workflow --pattern sequential
 ```
 
 The connection-check question means: "This response checks the synthetic workshop
-connection. Answer briefly in Korean." If a real model call fails, rehearsal has not
+connection. Answer briefly in English." If a real model call fails, rehearsal has not
 passed. Resolve roles, quota, and tool/Structured Outputs support before proceeding.
 
-![Names and regions of the source run's dedicated resources](assets/live-20260914-action/shots/cli-1-0288-01-015-new-region-inventory-result.webp)
 
 **What to check:** Review project, Search, and logging resources together. One successful
 resource creation is not a ready environment. The participant's first model call is a separate gate.
@@ -111,13 +105,13 @@ resource creation is not a ready environment. The participant's first model call
 Check only the additional modules selected:
 
 ```bash
-python scripts/export_policy_docs.py
-python scripts/workshop.py maf --tools
-python scripts/workshop.py maf --mcp
-python scripts/workshop.py workflow --pattern concurrent
-python scripts/workshop.py workflow --pattern group-chat
-python scripts/workshop.py seed-search --iq --confirm-create
-python scripts/workshop.py retrieve --provider iq
+python scripts/export_policy_docs.py --language en
+python scripts/workshop.py --language en maf --tools
+python scripts/workshop.py --language en maf --mcp
+python scripts/workshop.py --language en workflow --pattern concurrent
+python scripts/workshop.py --language en workflow --pattern group-chat
+python scripts/workshop.py --language en seed-search --iq --confirm-create
+python scripts/workshop.py --language en retrieve --provider iq
 ```
 
 Export and seed operations check ownership/name collisions. Do not hide rerun failures
@@ -160,6 +154,20 @@ Calculate aggregate team quota. Do not promise an unsupported fixed low price.
 
 Recordings and demonstrations help learners but are not evidence of personal execution.
 Explain screen/version differences when using a source video.
+
+## Advanced Hosted workflow/evaluation preparation
+
+Use the [evaluation workbook](reference/evaluation-workbook.md) after the basic rehearsal.
+Prepare actual API support for every listed deployment, a separate judge, the intended runtime identity,
+the dedicated English policy index/source/base, and App Insights query access.
+The English corpus/prompts/dev/calibration/holdout are separate frozen assets selected by `--language en`.
+Never reuse Korean run outcomes or rename its footage.
+
+The local user and Hosted identity are distinct. Check account inference and Search roles separately.
+Validate actual local/remote responses, not just readiness or successful package creation.
+For four models, budget 24/24/16 target rows plus internal workflow/retrieval/retry/judge calls.
+Preserve all failures and native findings; an all-pass baseline does not need a fabricated regression.
+Keep holdout out of prompt development.
 
 ## 7. End of class and pre-Ignite freeze
 

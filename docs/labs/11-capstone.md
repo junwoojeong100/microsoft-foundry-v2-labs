@@ -2,10 +2,6 @@
 
 **English** | [한국어](../ko/labs/11-capstone.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/labs/11-capstone.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Goal:** Hand over a small system with separate knowledge, code, evaluation, and operations—not just a model demo.
 
 Parent: [Learning paths](../paths.md) · Finish: [Cleanup](../reference/cleanup.md)
@@ -32,20 +28,39 @@ learner. Add neither company data nor automatic payments.
 If you have the actual candidate and holdout from [Lab 07](07-evaluation.md):
 
 ```bash
-python scripts/workshop.py accept --candidate candidate --holdout final-holdout
+python scripts/workshop.py --language en accept --candidate candidate --holdout final-holdout
 ```
 
 The result is **evidence for human acceptance**, not permission to deploy based on a
 single `true`. If using Hosted, add its version-specific smoke/evaluation evidence.
 Do not transfer local project Responses quality scores to a different Hosted path.
 
-**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=784.68)
 
-![Acceptance artifacts linking a frozen candidate and teaching holdout](../assets/english-20260915/shots/terminal-0259-11-001-accept-result.webp)
 
 **What to check:** Inspect the output file and pending `human_approval`.
 `accepted: true` means the artifact met checker conditions, not production approval.
 The recorded holdout was already exposed teaching data, not a fresh unseen test.
+
+## Hosted workflow/evaluation acceptance evidence
+
+Keep introductory A/B outputs separate from the [advanced workbook](../reference/evaluation-workbook.md).
+Four models require 24 baseline dev, 24 candidate dev, and 16 frozen holdout rows.
+Select any accepted subset **using dev**, not favorable holdout results.
+
+```bash
+python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --require-regressions --calibration judge-calibration
+```
+
+For a legitimate all-pass path with no promoted regression, omit `--require-regressions` and record why.
+Execution, business correctness, native quality, and findings are separate.
+Neither `gate_passed` nor `ready-for-human-review` is production approval.
+Choose `--require-native-pass` beforehand if every generic native quality check must pass.
+
+Include original synthetic inputs/hashes; exact version/model/API/retrieval configuration;
+all responses/errors/model calls; evaluator versions/thresholds; trace-query receipts;
+consumed regression lineage where applicable; calibration and small-sample limits;
+and owned-session cleanup with remaining costs.
+Use this evidence for [archive acceptance](../reference/consolidation.md), not earlier recordings or upstream reports.
 
 ## Five-minute presentation
 
@@ -72,3 +87,17 @@ The recorded holdout was already exposed teaching data, not a fresh unseen test.
 Six/four cases are workshop gates. Production adoption also requires business-expert
 policy approval, broader evaluation, threat modeling, load/recovery/access reviews,
 and service-specific SLA, price, and retention reviews.
+
+## New English execution evidence
+
+These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+
+![Record the actual English results, initial failure and dev-only selection](../assets/refresh-20260915-en/screenshots/E11-002-summary-2.webp)
+
+**What to check:** Read the retained initial failure, actual four-model candidate score and dev-selected three-model holdout. Human review remains separate.
+
+![Reverify actual English acceptance after cleanup and report rendering](../assets/refresh-20260915-en/screenshots/E11-010-after-cleanup-2.webp)
+
+**What to check:** Read the retained initial failure, actual four-model candidate score and dev-selected three-model holdout. Human review remains separate.
+
+[Full action index](../action-captures.md) · [Recordings](../video-summary.md)

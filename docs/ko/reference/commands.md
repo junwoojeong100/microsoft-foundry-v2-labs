@@ -32,7 +32,7 @@
 | `cleanup-plan` | 없음 | 삭제 안 함 |
 | `python scripts/export_policy_docs.py` | 없음, 텍스트 6개 생성 | A 경로 강사 배포용 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
-| `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 새 영문 촬영본 기본·Lab 00–11 챕터 이동. `--edition ko`로 한국어 원본 선택. Azure 호출·업로드 없음 |
+| `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 영어 기본·Lab 00–11 챕터 이동. `--edition ko`로 별도 국문 새 촬영본 선택. Azure 호출·업로드 없음 |
 
 표에서 생략한 옵션은 실행용 완전한 예제가 아닙니다.
 

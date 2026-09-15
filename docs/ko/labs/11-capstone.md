@@ -35,9 +35,6 @@ python scripts/workshop.py accept --candidate candidate --holdout final-holdout
 Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별도로 추가합니다.
 로컬 프로젝트 Responses 결과를 다른 Hosted 경로의 성능으로 재사용하지 않습니다.
 
-**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=784.68)
-
-![고정 후보와 교육용 holdout을 연결한 인수 자료](../../assets/english-20260915/shots/terminal-0259-11-001-accept-result.webp)
 
 **화면 확인:** 결과 파일과 `human_approval`의 검토 대기 상태를 확인합니다.
 `accepted: true`는 검사 조건을 충족한 인수 자료라는 뜻이지 운영 배포 승인이 아닙니다.
@@ -95,3 +92,17 @@ Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--
 6문항/4문항의 통과는 워크숍 완료 기준입니다.
 실제 회사에 적용하려면 업무 전문가의 규정 승인, 더 넓은 평가셋, 위협 모델,
 부하/복구/접근 통제 검토, 서비스별 SLA·가격·보존 정책 검토가 추가로 필요합니다.
+
+## 2026-09-15 새 국문 실행 증거
+
+아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+
+![2026-09-15 새 국문 촬영: 실제 국문 24/24/16행·native·trace 결과 정리](../../assets/refresh-20260915-ko/screenshots/K11-010-live-summary-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 세션 정리 후에도 결과·계보 인수 조건 유지](../../assets/refresh-20260915-ko/screenshots/K11-011-after-cleanup-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)

@@ -27,7 +27,7 @@ def smoke(
     selected = model_key or next(
         key for key, value in contract["models"].items() if value == settings.deployment
     )
-    cases = load_cases(root, "dev")
+    cases = load_cases(root, "dev", profile.language)
     case = next((case for case in cases if case["case_id"] == case_id), None)
     if case is None:
         raise ValueError("Smoke checks use a bundled dev case, never holdout.")
@@ -51,8 +51,6 @@ def smoke(
         "ai",
         "agent",
         "invoke",
-        "--protocol",
-        "invocations",
         "--input-file",
         str(request_file),
         "--output",
@@ -63,7 +61,14 @@ def smoke(
         "--no-prompt",
     ]
     if local:
-        command.extend([require_env("WORKSHOP_HOSTED_AGENT_NAME"), "--local"])
+        command.extend(
+            [
+                require_env("WORKSHOP_HOSTED_AGENT_NAME"),
+                "--local",
+                "--protocol",
+                "invocations",
+            ]
+        )
         binding = None
     else:
         binding = HostedBinding.from_env(settings)
@@ -138,13 +143,13 @@ def execute(root: Path, args) -> dict[str, Any]:
     load_environment(root)
     if action == "monitor":
         return monitor_matrix(root, args.label)
-    settings = Settings.from_env()
+    settings = Settings.from_env(language=args.language)
     if action == "plan":
         profile = runtime_profile(args)
         if profile.protocol != "invocations":
             raise ValueError("The evaluation matrix uses the typed Invocations profile.")
         contract = runtime_contract(root, settings, profile)
-        count = len(load_cases(root, "dev")) * len(contract["models"])
+        count = len(load_cases(root, "dev", profile.language)) * len(contract["models"])
         multiplier = 1 if profile.kind == "policy" else 3 if profile.pattern == "sequential" else 4
         return {
             "azure_called": False,

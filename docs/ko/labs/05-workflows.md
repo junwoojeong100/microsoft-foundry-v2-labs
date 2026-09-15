@@ -41,7 +41,7 @@ flowchart LR
 python scripts/workshop.py workflow --pattern sequential --question "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요."
 ```
 
-![초보자 경로의 준비된 순차 MAF 실행 결과](../../assets/live-20260914-action/shots/cli-1-0404-05-003-beginner-sequential-result.webp)
+![2026-09-15 새 국문 촬영: 실제 순차 MAF 패턴](../../assets/refresh-20260915-ko/screenshots/K05-101-sequential-2.webp)
 
 **화면 확인:** 마지막 명령의 `pattern: sequential`과 `outputs`를 읽습니다.
 터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다.
@@ -58,7 +58,6 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 질문을 과거 출장일로 바꿔 한 번 더 실행하고, 어떤 규정을 적용했는지 비교합니다.
 참가자가 답변과 규정을 직접 읽고 수정 이유·최종 안내문을 기록합니다.
 
-![출장일을 2026년 5월로 바꾼 순차 워크플로 결과](../../assets/live-20260914-action/shots/cli-1-0410-05-004-beginner-historical-result.webp)
 
 **화면 확인:** 질문의 날짜를 바꾸었을 때 적용 규정과 한도가 어떻게 달라지는지 비교합니다.
 두 실행 모두 `approval_status: pending-human-review`, `external_actions_performed: false`인지 확인하세요.
@@ -100,7 +99,7 @@ python scripts/workshop.py workflow --pattern sequential
 `SequentialBuilder`의 participants 순서와 실제 출력의 흐름을 비교합니다.
 원문 오류를 초안이 그대로 이어받을 수 있다는 점도 관찰합니다.
 
-![코드 경로의 순차 워크플로 출력](../../assets/live-20260914-action/shots/cli-1-0416-05-005-sequential-result.webp)
+![2026-09-15 새 국문 촬영: 실제 순차 MAF 패턴](../../assets/refresh-20260915-ko/screenshots/K05-101-sequential-2.webp)
 
 **화면 확인:** 순차 실행의 응답 내용을 위의 세 역할과 연결해 읽습니다.
 후속 검토자가 자연스럽게 설명해도 앞 단계의 잘못된 근거가 사라졌다고 가정하지 않습니다.
@@ -116,9 +115,8 @@ python scripts/workshop.py workflow --pattern concurrent
 사용자가 읽어 통합하거나 별도의 검증된 집계 단계를 설계해야 합니다.
 벽시계 시간이 줄어도 총 모델 호출 수나 비용이 줄었다고 단정하지 않습니다.
 
-**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=388.76)
 
-![병렬 워크플로가 돌려준 여러 관점의 출력](../../assets/english-20260915/shots/terminal-0143-05-004-concurrent-result.webp)
+![2026-09-15 새 국문 촬영: 실제 병렬 MAF 패턴](../../assets/refresh-20260915-ko/screenshots/K05-102-concurrent-2.webp)
 
 **화면 확인:** `pattern: concurrent`와 여러 참여자의 출력을 확인합니다.
 여러 응답이 나왔다는 사실을 하나의 합의된 최종 답안으로 해석하지 말고 직접 비교·통합합니다.
@@ -136,7 +134,7 @@ python scripts/workshop.py workflow --pattern group-chat
 전체 workflow timeout도 240초로 제한합니다.
 큰 수로 늘리기 전에 호출량과 token budget을 먼저 계산합니다.
 
-![Group Chat의 실제 참여자 응답과 종료 경계](../../assets/live-20260914-action/shots/cli-1-0428-05-007-group-chat-result.webp)
+![2026-09-15 새 국문 촬영: 3라운드로 제한한 Group Chat](../../assets/refresh-20260915-ko/screenshots/K05-103-group-2.webp)
 
 **화면 확인:** `pattern: group-chat`, 참여자 응답과 사람 검토 대기 상태를 확인합니다.
 3라운드 상한으로 끝난 것이므로 모델 스스로 합의하거나 실제 승인을 마쳤다는 뜻은 아닙니다.
@@ -167,7 +165,7 @@ python scripts/workshop.py workflow --pattern group-chat
 
 ## C. 경험자 심화 — 같은 워크플로를 배포 가능한 Agent로
 
-**2026-09-15 코드 계약 보강. 이 절의 새 Azure 실행·촬영은 아직 수행하지 않았습니다.**
+**2026-09-15 실제 Azure 실행과 새 국문 촬영으로 확인한 경로입니다.**
 앞의 `workflow` 명령은 세 패턴의 원래 출력 형태를 비교하는 입문 경로로 유지합니다.
 아래 `workflow-agent`는 **사례별 근거·실제 모델 호출 이력·검증된 최종 답**을 함께 돌려주는 배포용 경로입니다.
 
@@ -227,6 +225,21 @@ python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --
 GA retrieve의 실제 documents/references/activity와 context hash가 함께 반환됩니다.
 실패 시 일반 Search로 전환하지 않습니다.
 프로필·요청·model calls·근거를 [Lab 08](08-hosted.md)의 패키지로 그대로 연결합니다.
+
+## 2026-09-15 새 국문 실행 증거
+
+아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+
+![2026-09-15 새 국문 촬영: 검증된 최종 답을 만드는 병렬 workflow](../../assets/refresh-20260915-ko/screenshots/K05-104-wrapped-concurrent-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 검증된 최종 답을 만드는 Group Chat](../../assets/refresh-20260915-ko/screenshots/K05-105-wrapped-group-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+
 
 ## 완료 확인
 

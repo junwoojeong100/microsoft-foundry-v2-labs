@@ -6,4 +6,5 @@ from foundry_workshop.settings import Settings
 
 if __name__ == "__main__":
     root = Path(__file__).resolve().parent
-    serve(Settings.from_env(), root, packaged_profile(root))
+    profile = packaged_profile(root)
+    serve(Settings.from_env(language=profile.language), root, profile)

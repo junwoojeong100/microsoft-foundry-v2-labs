@@ -2,21 +2,16 @@
 
 **English** | [한국어](ko/paths.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](ko/paths.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Path A runs prepared examples without writing code. Path B works directly with code and execution records.**
 Both use the same synthetic Hanbit Technology policies. Complete A first and extend
 to B later, or follow the relevant A/B section in each lab. A is portal-first, but
 its workflow exercise runs in a prepared MAF environment.
 
-Follow **action/command, reference image, then What to check**. September 14 source
-images and individually dated September 15 captures are examples, not your results.
+Follow **action/command, new image, then What to check**. Each language uses separately recorded evidence, not your own results.
 Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide),
-[new English recordings](english-recordings.md), and [new action index](english-captures.md).
-Canonical policy questions remain Korean to preserve reproducibility;
-[English meanings](reference/languages.md) are provided separately.
+[new English recordings](video-summary.md), and [new action index](action-captures.md).
+English commands select their own frozen English policy/prompt/evaluation bundle with `--language en`.
+[Language and lineage rules](reference/languages.md) distinguish translation from an unchanged-dataset comparison.
 
 ## A. Complete beginner: four hours in a prepared environment
 
@@ -71,6 +66,23 @@ as real model responses.
 
 [10. Fabric/Work IQ extensions](labs/10-iq-extensions.md) is a separate 45–90-minute
 session. Approval, licensing, and capacity preparation are additional.
+
+## C. Advanced integration — additional 150–180 minutes
+
+After B, continue in the [Hosted evaluation workbook](reference/evaluation-workbook.md).
+Prepare actual model deployments, IQ/Search roles, a Hosted identity, a judge, and App Insights access first.
+Environment creation, permissions, quotas, and encoding waits are outside class time.
+
+| Order | Work | Time | Evidence |
+|---|---|---:|---|
+| 1 | [Deployable MAF workflow](labs/05-workflows.md#c-practitioner-extension-make-the-workflow-deployable) | 25 min | Actual final answer and model-call lineage |
+| 2 | [Hosted Responses/Invocations](labs/08-hosted.md) | 30 min | Fixed profile, real local response, exact remote version |
+| 3 | Model matrix and native evaluation | 40 min | Four-model 24-row dev cohorts and pinned evaluators |
+| 4 | Reviewed regression/calibration | 25 min | Legitimate dev review/consumption or all-pass record; actual judge calibration |
+| 5 | Frozen holdout/traces/acceptance | 30 min | Four-model 16-row final set, actual root traces, human-review evidence |
+
+The corpus, reference answers, code, API, model list, retrieval, and evaluator stay frozen for each comparison.
+Optional [IQ extensions](reference/iq-workbook.md) need separate service-specific approval.
 
 ## Return to an independent module
 

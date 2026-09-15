@@ -2,7 +2,8 @@ import hashlib
 import json
 import os
 import unittest
-from unittest.mock import patch
+from types import SimpleNamespace
+from unittest.mock import MagicMock, patch
 
 from foundry_workshop.benchmark import (
     approve_regression,
@@ -16,11 +17,12 @@ from foundry_workshop.benchmark import (
     verify_release,
     wilson_interval,
 )
+from foundry_workshop.benchmark_cli import smoke
 from foundry_workshop.calibration import calibration_summary
 from foundry_workshop.contracts import digest, load_cases, load_documents, read_json, write_json
 from foundry_workshop.hosted import HostedBinding, parse_azd_http, validate_request
 from foundry_workshop.knowledge import evidence
-from foundry_workshop.observability import trace_query, validate_trace_rows
+from foundry_workshop.observability import stop_matrix_session, trace_query, validate_trace_rows
 from foundry_workshop.profiles import RuntimeProfile, model_deployments, runtime_contract
 from foundry_workshop.settings import Settings
 
@@ -110,6 +112,62 @@ class UnitTransport:
 
 
 class BenchmarkTests(unittest.TestCase):
+    def test_cleanup_records_already_idle_session_without_conflicting_stop(self):
+        manifest = {
+            "runtime_contract": {"project_endpoint": settings().project_endpoint},
+            "binding": binding().to_dict(),
+            "session_id": "unit-idle",
+        }
+        transport = MagicMock()
+        transport.project.agents.get_session.return_value.as_dict.return_value = {
+            "agent_session_id": "unit-idle",
+            "status": "idle",
+            "version_indicator": {"agent_version": "1"},
+        }
+        factory = MagicMock()
+        factory.return_value.__enter__.return_value = transport
+        with workspace() as root:
+            with patch("foundry_workshop.benchmark.load_matrix", return_value=(manifest, [], [])):
+                with patch("foundry_workshop.observability.HostedTransport", factory):
+                    result = stop_matrix_session(root, settings(), "unit")
+        transport.stop_session.assert_not_called()
+        self.assertEqual(result["status"], "idle")
+        self.assertFalse(result["stop_requested"])
+
+    def test_smoke_does_not_combine_endpoint_and_protocol_flags(self):
+        with patch.dict(
+            os.environ,
+            {
+                "WORKSHOP_HOSTED_AGENT_NAME": binding().name,
+                "WORKSHOP_HOSTED_AGENT_VERSION": binding().version,
+                "WORKSHOP_HOSTED_AGENT_ENDPOINT": binding().endpoint,
+            },
+        ):
+            for local in (True, False):
+                with workspace() as root:
+                    with patch(
+                        "foundry_workshop.benchmark_cli.subprocess.run",
+                        return_value=SimpleNamespace(
+                            returncode=1,
+                            stdout=b"",
+                            stderr=b"explicit unit-test failure",
+                        ),
+                    ) as invoked:
+                        with self.assertRaises(ValueError):
+                            smoke(
+                                root,
+                                settings(),
+                                RuntimeProfile(protocol="invocations"),
+                                label="smoke",
+                                local=local,
+                                model_key="alpha",
+                                case_id="D01",
+                                confirmed=True,
+                            )
+                    command = invoked.call_args.args[0]
+                    self.assertEqual("--protocol" in command, local)
+                    self.assertEqual("--agent-endpoint" in command, not local)
+
     def setUp(self):
         self.environment = patch.dict(
             os.environ, {"WORKSHOP_MODEL_DEPLOYMENTS_JSON": json.dumps(MODELS)}, clear=True

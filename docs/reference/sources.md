@@ -2,21 +2,18 @@
 
 **English** | [한국어](../ko/reference/sources.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/reference/sources.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **We integrated the source modules' learning structures, not their claimed execution results.**
-Source check date: September 13, 2026. The commits below remain fixed even if upstream main changes.
+Source check date: September 15, 2026. The commits below remain fixed even if upstream main changes.
+See [consolidation and archive gates](consolidation.md) for self-contained replacement paths and optional-feature limits.
 
 ## User-owned source workshops
 
 | Source | Checked commit/date | Incorporated scope |
 |---|---|---|
 | [microsoft-foundry-labs](https://github.com/junwoojeong100/microsoft-foundry-labs/tree/23e831f367b37d41ea1ad1df47f22b076bc372ff) | `23e831f367b37d41ea1ad1df47f22b076bc372ff` / 2025-12-14 | Original seven topics and portal/code paths |
-| [foundry-evaluation](https://github.com/junwoojeong100/foundry-evaluation/tree/a73c7b89169aff457b55647e4e68d1610b029860) | `a73c7b89169aff457b55647e4e68d1610b029860` / 2026-09-11 | Learning loop, dev/holdout, failure/source/evaluator lineage |
+| [foundry-evaluation](https://github.com/junwoojeong100/foundry-evaluation/tree/0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b) | `0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b` / 2026-09-15 | Typed Hosted matrices, preserved failures/lineage, traces and native evaluation |
 | [foundry-maf-workshop](https://github.com/junwoojeong100/foundry-maf-workshop/tree/d07c614a616446e63ee50b0b34540b5481aff5b2) | `d07c614a616446e63ee50b0b34540b5481aff5b2` / 2026-07-13 | Model SDK, MAF functions, code-deployment sequence |
-| [agent-framework-labs](https://github.com/junwoojeong100/agent-framework-labs/tree/1d3e3652784a421eeeed4c7f3f6b9476208ceb07) | `1d3e3652784a421eeeed4c7f3f6b9476208ceb07` / 2026-07-11 | FoundryChatClient, workflow builders, MCP patterns |
+| [agent-framework-labs](https://github.com/junwoojeong100/agent-framework-labs/tree/cca14163def4c88616dcd4c93fcfd6441fb08f30) | `cca14163def4c88616dcd4c93fcfd6441fb08f30` / 2026-09-15 | MAF builders, hosted adapters and MCP patterns |
 | [microsoft-iq-on-foundry](https://github.com/junwoojeong100/microsoft-iq-on-foundry/tree/fa16c84f9800377823edd9aea1cb20d6a56a1edf) | `fa16c84f9800377823edd9aea1cb20d6a56a1edf` / 2026-07-25 | IQ/Toolbox distinctions, read-only default, approval boundaries for M365 |
 
 This edition's scenario, synthetic data, integrated code, and guides were assembled
@@ -47,6 +44,9 @@ Document display/edit dates are not necessarily feature-release dates.
 | Hosted operations | [Concepts](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) | Service GA, regions, per-session scaling/billing |
 | Traces | [Tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup) | App Insights, sensitive data, permissions |
 | Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | Delegated users, usage billing, possible actions |
+| Workflow as agent | [MAF workflow agents](https://learn.microsoft.com/agent-framework/workflows/as-agent) | Preserve actual builder behavior when adapting a workflow |
+| Toolbox | [MAF FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | Managed MCP lifecycle and prepared connection requirements |
+| Fabric IQ | [Tool guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | Asset-specific user/app identity requirements |
 
 Package versions were compared with official PyPI release metadata. An `Unreleased`
 section was not treated as an installable release. [Validation](validation.md)

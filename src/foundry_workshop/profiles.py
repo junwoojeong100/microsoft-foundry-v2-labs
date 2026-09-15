@@ -1,6 +1,6 @@
 import os
 import re
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
@@ -22,6 +22,7 @@ class RuntimeProfile:
     prompt: str = "v2"
     api: str = "project-responses"
     protocol: str = "responses"
+    language: str = "ko"
 
     def __post_init__(self):
         choices = {
@@ -31,6 +32,7 @@ class RuntimeProfile:
             "prompt": ("v1", "v2"),
             "api": INFERENCE_APIS,
             "protocol": ("responses", "invocations"),
+            "language": ("ko", "en"),
         }
         for name, allowed in choices.items():
             if getattr(self, name) not in allowed:
@@ -39,22 +41,33 @@ class RuntimeProfile:
             raise ValueError("A workflow pattern requires kind=workflow.")
 
     def to_dict(self) -> dict[str, str]:
-        return asdict(self)
+        value = asdict(self)
+        if self.language == "ko":
+            value.pop("language")
+        return value
 
     @classmethod
     def from_dict(cls, value: Any) -> "RuntimeProfile":
-        if not isinstance(value, dict) or set(value) != set(cls.__dataclass_fields__):
-            raise ValueError("Runtime profile must contain exactly the six documented fields.")
+        fields = set(cls.__dataclass_fields__)
+        if not isinstance(value, dict) or set(value) not in (fields, fields - {"language"}):
+            raise ValueError(
+                "Runtime profile must contain the documented fields; legacy profiles default to ko."
+            )
         return cls(**value)
 
     @property
+    def legacy_agent(self) -> bool:
+        return replace(self, language="ko") == RuntimeProfile()
+
+    @property
     def package_name(self) -> str:
-        if self == RuntimeProfile():
-            return "hosted"
+        if self.legacy_agent:
+            return "hosted" if self.language == "ko" else "hosted-en"
         parts = [self.kind]
         if self.kind == "workflow":
             parts.append(self.pattern)
-        return "-".join([*parts, self.retrieval, self.prompt, self.api, self.protocol])
+        name = "-".join([*parts, self.retrieval, self.prompt, self.api, self.protocol])
+        return name if self.language == "ko" else name + "-en"
 
 
 def packaged_profile(root: Path) -> RuntimeProfile:
@@ -117,17 +130,19 @@ def validate_inference_endpoint(settings: Settings, profile: RuntimeProfile) -> 
 
 def runtime_contract(root: Path, settings: Settings, profile: RuntimeProfile) -> dict[str, Any]:
     validate_inference_endpoint(settings, profile)
-    _, prompt_hash = load_prompt(root, profile.prompt)
+    if settings.language != profile.language:
+        raise ValueError("Settings and the frozen runtime profile must select the same language.")
+    _, prompt_hash = load_prompt(root, profile.prompt, profile.language)
     from .runtime import instruction_snapshot
 
     instructions = instruction_snapshot(root, profile)
     execution_path = "case-isolated-maf-pipeline"
-    if profile == RuntimeProfile():
-        from .agents import policy_instructions
+    if profile.legacy_agent:
+        from .agents import lookup_instruction, policy_instructions
 
         instructions = {
-            "HanbitPolicyGuide": policy_instructions(root)
-            + "\n반드시 lookup_policy로 근거를 조회한 뒤 답하세요."
+            "HanbitPolicyGuide": policy_instructions(root, profile.language)
+            + lookup_instruction(profile.language)
         }
         execution_path = "legacy-maf-function-agent"
     return {
@@ -142,7 +157,7 @@ def runtime_contract(root: Path, settings: Settings, profile: RuntimeProfile) ->
         "prompt_hash": prompt_hash,
         "effective_prompt_hash": digest(instructions),
         "execution_path": execution_path,
-        "corpus_hash": digest(load_documents(root)),
+        "corpus_hash": digest(load_documents(root, profile.language)),
         "code_hash": code_hash(root),
         "retrieval_configuration": retrieval_configuration(profile),
         "side_effects": "read-only-synthetic-policy-guidance",

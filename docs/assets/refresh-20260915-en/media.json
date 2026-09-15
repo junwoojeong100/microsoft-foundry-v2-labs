@@ -1,0 +1,175 @@
+{
+  "recorded_on": "2026-09-15",
+  "edition": "en",
+  "default_video": "guide-ordered.mp4",
+  "videos": [
+    {
+      "filename": "cli-edited.mp4",
+      "bytes": 38711458,
+      "sha256": "83ea9ad4c83906ea2dcfcfd9e73f79e2ede84935a19c3ea9e24ca6f9b2041a6f",
+      "duration_seconds": 466.72,
+      "frames": 11668,
+      "guide_language": "en",
+      "scenario_language": "en",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "bytes": 13483073,
+      "sha256": "afce69cf161da8e66e96cf1e8dd2e77d5626ae5d3462c02b5db78a5a762006a5",
+      "duration_seconds": 342.28,
+      "frames": 8557,
+      "guide_language": "en",
+      "scenario_language": "en",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true
+    },
+    {
+      "filename": "guide-ordered.mp4",
+      "bytes": 52459455,
+      "sha256": "594555b0d2124562e40de3843e06deb8f067f90ea8dfb8c42433e8d195ba336d",
+      "duration_seconds": 833.0,
+      "frames": 20825,
+      "guide_language": "en",
+      "scenario_language": "en",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true,
+      "chapters": [
+        {
+          "id": "lab-00",
+          "lab": 0,
+          "title": "Lab 00 · Getting started",
+          "start_seconds": 0,
+          "end_seconds": 27.72
+        },
+        {
+          "id": "lab-01",
+          "lab": 1,
+          "title": "Lab 01 · Projects, models, and access",
+          "start_seconds": 27.72,
+          "end_seconds": 44.36
+        },
+        {
+          "id": "lab-02",
+          "lab": 2,
+          "title": "Lab 02 · Actual model requests",
+          "start_seconds": 44.36,
+          "end_seconds": 85.8
+        },
+        {
+          "id": "lab-03",
+          "lab": 3,
+          "title": "Lab 03 · Agents and evidence",
+          "start_seconds": 85.8,
+          "end_seconds": 148.84
+        },
+        {
+          "id": "lab-04",
+          "lab": 4,
+          "title": "Lab 04 · MAF functions and MCP",
+          "start_seconds": 148.84,
+          "end_seconds": 165.72
+        },
+        {
+          "id": "lab-05",
+          "lab": 5,
+          "title": "Lab 05 · MAF workflows",
+          "start_seconds": 165.72,
+          "end_seconds": 198.6
+        },
+        {
+          "id": "lab-06",
+          "lab": 6,
+          "title": "Lab 06 · Search, IQ, and real hybrid retrieval",
+          "start_seconds": 198.6,
+          "end_seconds": 330.15999999999997
+        },
+        {
+          "id": "lab-07",
+          "lab": 7,
+          "title": "Lab 07 · Evaluation and final acceptance",
+          "start_seconds": 330.15999999999997,
+          "end_seconds": 668.68
+        },
+        {
+          "id": "lab-08",
+          "lab": 8,
+          "title": "Lab 08 · Hosted workflow deployment",
+          "start_seconds": 668.68,
+          "end_seconds": 740.0
+        },
+        {
+          "id": "lab-09",
+          "lab": 9,
+          "title": "Lab 09 · Traces, monitoring, and cleanup",
+          "start_seconds": 740.0,
+          "end_seconds": 798.28
+        },
+        {
+          "id": "lab-10",
+          "lab": 10,
+          "title": "Lab 10 · Optional feature boundaries",
+          "start_seconds": 798.28,
+          "end_seconds": 804.72
+        },
+        {
+          "id": "lab-11",
+          "lab": 11,
+          "title": "Lab 11 · Results and handoff",
+          "start_seconds": 804.72,
+          "end_seconds": 833.0
+        }
+      ]
+    }
+  ],
+  "actions": 172,
+  "source_recordings": [
+    {
+      "id": "terminal",
+      "sha256": "64ea7ebb269840d13dd2abe9518c513f0ed240a64c62f7733dabe4c72519d28b",
+      "bytes": 375848596,
+      "frames": 133243,
+      "duration_seconds": 5329.72,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "local-server",
+      "sha256": "184337331c57e65fc2a2437fd831cd641d2432d3360a17053749d0b25b502f0a",
+      "bytes": 396437380,
+      "frames": 131928,
+      "duration_seconds": 5277.12,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "portal",
+      "sha256": "1a17c38e54431b4b0fc4c1686102571f6adb474cd3959a43a6713542259fb366",
+      "bytes": 345581279,
+      "frames": 129286,
+      "duration_seconds": 5171.44,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "authentication_recorded": false,
+  "original_korean_assets_preserved": true,
+  "translated_english_assets": true,
+  "new_azure_execution": true,
+  "all_failures_retained_in_private_source": true,
+  "source_frame_verification": {
+    "segments": 407,
+    "minimum_ssim": 0.985156
+  },
+  "screenshot_count": 516
+}

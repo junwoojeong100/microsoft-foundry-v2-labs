@@ -2,16 +2,12 @@
 
 **English** | [한국어](../ko/reference/commands.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/reference/commands.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Run all commands from the repository root. Do not shell-`source` `.env`.**
 Activate the dedicated virtual environment for cloud SDKs.
 
 | Command | Azure/side effects | Purpose |
 |---|---|---|
-| `python scripts/workshop.py doctor` | None | Python/synthetic-data checks |
+| `python scripts/workshop.py --language en doctor` | None | Python/synthetic-data checks |
 | `doctor --cloud` | Read-only | Explicit subscription/tenant/deployment/token preflight, not inference |
 | `demo --label demo-v2 --prompt v2` | Local output only | Fixed fixture |
 | `retrieve --provider local` | None | Local keyword search |
@@ -34,12 +30,12 @@ Activate the dedicated virtual environment for cloud SDKs.
 | `accept --candidate candidate --holdout final-holdout` | None | Human acceptance evidence, not automatic approval |
 | `serve` | Local server; paid model on invocation | Hosted SDK needed |
 | `cleanup-plan` | None | Deletes nothing |
-| `python scripts/export_policy_docs.py` | Creates six local text files | Instructor distributes them to A learners |
-| `python scripts/package_hosted.py` | Local package | No deployment/installation |
-| `python scripts/play_recordings.py` | Localhost video server | New English-guide set by default, Lab 00–11 chapters; `--edition ko` for the original source set; no Azure/upload |
+| `python scripts/export_policy_docs.py --language en` | Creates six local text files | Instructor distributes them to A learners |
+| `python scripts/package_hosted.py --language en` | Local package | No deployment/installation |
+| `python scripts/play_recordings.py` | Localhost video server | English by default; `--edition ko` selects the independently recorded Korean set |
 
 Abbreviated rows are not complete executable examples. Read
-`python scripts/workshop.py --help` and subcommand `--help` for required arguments.
+`python scripts/workshop.py --language en --help` and subcommand `--help` for required arguments.
 Full commands appear in the [labs](../paths.md).
 
 Add `--debug` before a subcommand for local diagnostics. Stack/service errors can
@@ -47,5 +43,31 @@ contain environment paths; do not publish raw logs.
 Commands do not overwrite existing run labels. Never alter raw responses or scores
 to bypass hash verification.
 
-Both language editions use identical CLI options and canonical policy inputs.
-See [Languages](languages.md) before translating a retrieval or evaluation question.
+English uses `--language en` with its own frozen policies/prompts/datasets.
+The other operational flags and schema remain aligned with Korean.
+Approved free-text query translations are explicit in `data/guide-questions.json`.
+
+## Hosted workflow and evaluation extension
+
+Prepend `python scripts/workshop.py --language en` to these abbreviated commands.
+
+| Command | Contract |
+|---|---|
+| `runtime-contract --kind workflow ...` | Local profile, language, model map and data/prompt/code hashes |
+| `workflow-agent --pattern sequential` | Actual case-isolated MAF pipeline with one validated answer |
+| `seed-search --hybrid --confirm-create --confirm-cost` | Real embeddings and a separately owned vector index |
+| `retrieve --provider hybrid` | Combined text/vector search, not a renamed keyword query |
+| `benchmark plan` | Model/case/cost shape only; no Azure call |
+| `benchmark smoke --local` | Actual local host plus billable model; request/response contract checked |
+| `benchmark smoke` | Exact remote version/endpoint, no gold labels in requests |
+| `benchmark collect` | Complete explicit model-by-case matrix; errors retained |
+| `benchmark evaluate --reference ...` | Actual native scores with a pinned catalog/version/judge |
+| `benchmark compare` | Same dataset/corpus/code/model/API/retrieval/concurrency; no cross-language shortcut |
+| `benchmark regression ... --confirm-review` | Explicit dev review and preserved source lineage |
+| `--regressions <reviewed-label>` | The next dev collection actually consumes reviewed references |
+| `calibrate-judge` | Prewritten correct/incorrect answers test the actual judge |
+| `benchmark trace-plan` / `monitor` | Local KQL versus actual scoped App Insights verification |
+| `benchmark verify` | Independent acceptance gates; not production approval |
+| `benchmark stop-session` | Stop only the recorded session/version or confirm it is already idle |
+
+Complete commands and approval boundaries are in the [evaluation workbook](evaluation-workbook.md).

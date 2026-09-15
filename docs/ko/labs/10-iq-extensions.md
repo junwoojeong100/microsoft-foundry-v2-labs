@@ -34,7 +34,6 @@ app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습�
 합성 JSON으로 세 응답 형태를 만들어 reviewer에게 맡기는 것은 라우팅 연습입니다.
 **실제 Fabric IQ/Work IQ 연결 성공으로 표시하지 않습니다.**
 
-![합성 라우팅 설계 결과와 실제 연결 미수행 표시](../../assets/live-20260914-action/shots/cli-2-0853-10-001-synthetic-routing-result.webp)
 
 **화면 확인:** 질문마다 다른 근거와 검증 항목을 정리한 설계 예시입니다.
 `fabric_connected`, `work_iq_connected`, `company_or_m365_data_accessed`가 모두 `false`임을 확인합니다.
@@ -110,3 +109,13 @@ Web IQ와 일반 Web Search를 같은 기능으로 표시하지 않습니다.
 추가 연결을 제거/복원하고, 본인 Fabric capacity·Work IQ billing·session 상태를 확인합니다.
 capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참조하는지 점검합니다.
 다른 조의 연결이나 조직 전체 consent를 임의로 삭제하지 않습니다.
+
+## 2026-09-15 새 국문 실행 증거
+
+아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+
+![2026-09-15 새 국문 촬영: 외부 Work/Fabric IQ는 별도 승인 경로](../../assets/refresh-20260915-ko/screenshots/K10-100-boundaries-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)

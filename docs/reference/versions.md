@@ -1,88 +1,79 @@
-# Versions and feature status: September 13, 2026 snapshot
+# Versions and feature boundaries — September 15, 2026
 
 **English** | [한국어](../ko/reference/versions.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
+**A compatibility check date is not a release date or a future support guarantee.**
+This edition does not predict Ignite announcements or universal tenant/region availability.
 
-> **Translation pending** — The [Korean-first integration revision](../ko/reference/versions.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+## Verified contracts
 
-**The check date is neither a release date nor a guarantee of future support.**
-This document translates the edition's recorded official-documentation/source
-contracts; it does not predict Ignite 2026 announcements.
+The workshop code edition is `2026.9.15`.
+Direct Python dependency versions remain the known-compatible set below.
+Installed-SDK/transport-stub checks and actual Azure execution are separate evidence.
 
-## Feature boundaries
+| Area | Contract |
+|---|---|
+| Current Foundry | Projects SDK 2.x and Responses, separate from classic threads/runs |
+| MAF | `Agent`, provider `model=`, sequential/concurrent/group-chat builders |
+| Workflow host | Actual `Workflow.as_agent()` and ResponsesHostServer |
+| Evaluation host | InvocationAgentServerHost, local POST `/invocations`, four query-only fields |
+| Service-call lineage | Actual ChatResponse ID/model/usage, not the workflow wrapper UUID |
+| Middleware | Pinned core 1.17.0 uses `await call_next()`, not older `next(context)` examples |
+| Functional workflows | Experimental; not a mandatory prerequisite |
+| Keyword Search | REST `2024-07-01`; do not call it hybrid |
+| Hybrid | Actual embedding dimensions and text/vector requests; explicit project/account API selection |
+| IQ GA | REST `2026-04-01`, intents/minimal/extractive |
+| Richer IQ | `2026-08-01-preview`, separate settings/approval |
+| Hosted service vs package | Service status and prerelease Python package status are independent |
+| Native evaluation | Actual catalog initialization schema and pinned evaluator/version/threshold |
+| Work IQ/Fabric/Toolbox | Separate service-specific access, identity, billing, and Preview conditions |
 
-| Feature | Choice in this edition | Boundary |
-|---|---|---|
-| Current Foundry / Agents v2 / Responses | Default | Separate from classic SDK 1.x and threads/runs |
-| Prompt Agent | Model/instructions with explicit version | Record actual creation/invocation API |
-| MAF | `Agent`, `FoundryChatClient`, `model=` | Provider and core package versions need not match |
-| Workflow authoring | Sequential/Concurrent/GroupChat builders | No portal Workflow Designer dependency |
-| Ordinary Search | REST `2024-07-01`, text index | Not vector/hybrid search |
-| IQ GA | REST `2026-04-01`, `intents` | No separate planner deployment; inspect actual activity and charges |
-| Richer IQ | `2026-08-01-preview` | Separate environment/configuration/approval |
-| Portal IQ | Portal's own Preview contract | Not assumed identical to GA REST |
-| Hosted Agent service | GA, optional deployment | Separate region/permission/session-cost gates |
-| Python hosting package | Pinned prerelease | Distinct from service GA |
-| Cloud evaluation | Project OpenAI `evals` | Check actual catalog schemas and features |
-| Automatic trace-to-dataset | Preview | Default is manual review lineage, not automatic learning |
-| Work IQ | Separate Preview, user consent, billing | Disabled by default |
+## CLI compatibility
+
+The initial environment had azd 1.31.1 and microsoft.foundry 1.0.0-beta.2.
+Installed agents 1.0.0-beta.10 and projects 1.0.0-beta.6 were marked incompatible with that CLI.
+The live follow-up used a checksum-verified **session-local azd 1.34.0**;
+the shared global CLI was not replaced, and the existing extensions became compatible.
+
+Before your deployment, verify the actual installed help/schema and an approved compatible combination.
+Do not blindly upgrade every package/extension after an error.
+See [azd installation](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
+and [Hosted quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent).
 
 ## Pinned direct dependencies
 
-`pyproject.toml` is the installation contract. The compatibility combination was
-chosen by comparing release metadata, SDK contracts, and installability in the
-authoring environment. Latest published versions may differ.
-**Installation, SDK execution, and Azure validation are separate levels**;
-[Validation](validation.md) records what was actually checked.
+`pyproject.toml` is authoritative.
 
-| Area | Package | Pinned version |
-|---|---|---|
-| Projects | `azure-ai-projects` | 2.3.0 |
-| OpenAI interface | `openai` | 2.54.0 |
-| Authentication | `azure-identity` | 1.25.3 |
-| MAF core | `agent-framework-core` | 1.17.0 |
-| Foundry provider | `agent-framework-foundry` | 1.12.0 |
-| Orchestration | `agent-framework-orchestrations` | 1.1.1 |
-| Local MCP | `mcp` | 1.28.1 |
-| Hosted adapter | `agent-framework-foundry-hosting` | 1.0.0b260903 |
-| HTTP/environment | `httpx` / `python-dotenv` | 0.28.1 / 1.2.3 |
+| Package | Version |
+|---|---|
+| `azure-ai-projects` | 2.3.0 |
+| `azure-identity` | 1.25.3 |
+| `openai` | 2.54.0 |
+| `httpx` | 0.28.1 |
+| `python-dotenv` | 1.2.3 |
+| `agent-framework-core` | 1.17.0 |
+| `agent-framework-foundry` | 1.12.0 |
+| `agent-framework-orchestrations` | 1.1.1 |
+| `mcp` | 1.28.1 |
+| `agent-framework-foundry-hosting` | 1.0.0b260903 |
 
-The MCP table entry was aligned with the existing manifest on September 15, 2026;
-this documentation correction does not claim a new Azure compatibility run.
+Use Python 3.13 for Hosted packages. Offline code is tested on 3.13–3.14.
+The provider requires Projects SDK `>=2.2.0,<2.4.0`; the newest independent package versions are not necessarily compatible.
+The resolved lock file describes the authoring platform, not every OS or remote build.
+Record the actual remote build's resolved versions.
 
-Python 3.13 is recommended; examples use Bash. Offline code targets 3.13–3.14.
-Prepare Hosted packages for 3.13. Direct pins are not a full transitive lock.
-`requirements.lock.txt` records 103 resolved packages from the authoring environment
-(macOS ARM64 / Python 3.13, excluding editable paths and development Ruff).
-Recheck installation on other operating systems and remote builders.
+## Drift found during real execution
 
-Foundry provider 1.12.0 requires Projects SDK `>=2.2.0,<2.4.0`. This edition chose
-2.3.0 rather than mixing in metadata's newer Projects 2.6.0, prioritizing
-**a mutually installable, API-compatible combination** over "latest of everything."
+- Full project endpoints retain `/api/projects/...`.
+- A full `--agent-endpoint` already identifies its protocol; do not also pass `--protocol`.
+- Adding a session parameter must preserve the endpoint's API-version query.
+- Project embeddings returned 404 in the live environment. The account API was selected explicitly, not used as an automatic fallback.
+- Project requests use the AI audience; explicitly selected account inference uses the Cognitive Services audience.
+- App Insights needs its own audience and the intended subscription/tenant credential.
+- Already-idle sessions are verified without another conflicting stop request.
 
-Prompt-agent invocation explicitly supplies
-`agent_reference: {type, name, version}` to the project OpenAI endpoint.
-This matches the installed provider's non-preview request contract; it differs from
-Preview `get_openai_client(agent_name=...)` binding or implicit latest-version invocation.
+## Freeze before teaching
 
-## Documented drift
-
-- Keep the full `/api/projects/...` endpoint even if descriptive text abbreviates it.
-- GA IQ REST uses `knowledgesources`, not `knowledge-sources`.
-- Current evaluator initialization may use `model`, while older examples use
-  `deployment_name`. Code inspects and records the actual catalog schema/version.
-- Some azd help/troubleshooting retains old manifest/extension terms.
-  Compare installed `azd ai agent ... --help` with generated `azure.yaml`.
-- Do not mix `https://ai.azure.com/.default` with old Azure OpenAI audience examples;
-  let the project SDK manage default inference authentication.
-
-## Freeze immediately before class
-
-1. Install direct/transitive dependencies in a new environment and run `pip check`.
-2. Run offline/SDK contracts and a minimal real model request.
-3. Verify service/API GA/Preview, regions, model features, quota, and prices.
-4. Revalidate prompts, code, data, CLI, both guides, and evaluation after version changes.
-5. Do not respond to failure by upgrading everything with `--upgrade --pre`.
-
-Official links and pinned upstream sources are in [Sources](sources.md).
+Check dependencies, offline/SDK contracts, one real model request, model/SKU/region/quota/cost,
+and actual generated configuration. Reverify related commands, code, data, guides, and evaluation when versions change.
+Official sources and immutable comparison points are in [sources](sources.md).

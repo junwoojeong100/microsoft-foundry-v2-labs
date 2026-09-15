@@ -3,7 +3,8 @@ import unittest
 from unittest.mock import patch
 
 from foundry_workshop.contracts import load_documents, read_json
-from foundry_workshop.search import IQ_API, SEARCH_API, SearchGateway
+from foundry_workshop.search import IQ_API, SEARCH_API, SearchGateway, search_configuration
+from foundry_workshop.settings import Settings
 
 from . import ROOT, workspace
 
@@ -22,6 +23,38 @@ class Reply:
 
 
 class SearchContractTests(unittest.TestCase):
+    def test_explicit_iq_threshold_is_sent_without_changing_provider_or_question(self):
+        requests = []
+
+        def handle(method, path, **kwargs):
+            requests.append((method, path, kwargs))
+            return Reply({"references": [], "activity": []})
+
+        gateway = self.gateway(handle)
+        gateway.configuration["iq_reranker_threshold"] = 0.0
+        value = gateway.retrieve("English dev recall question", "iq")
+        body = requests[0][2]["body"]
+        self.assertEqual(
+            body["intents"], [{"type": "semantic", "search": "English dev recall question"}]
+        )
+        self.assertEqual(body["knowledgeSourceParams"][0]["rerankerThreshold"], 0.0)
+        self.assertEqual(value["provider"], "foundry-iq")
+        self.assertEqual(value["configuration"]["iq_reranker_threshold"], 0.0)
+
+    def test_iq_threshold_rejects_nonfinite_and_out_of_range_values(self):
+        for value in ("nan", "inf", "-1", "4.1", "not-a-number"):
+            with patch.dict(
+                os.environ,
+                {
+                    "AZURE_SEARCH_ENDPOINT": "https://unit.search.windows.net",
+                    "WORKSHOP_PREFIX": "mfv2-unit",
+                    "WORKSHOP_IQ_RERANKER_THRESHOLD": value,
+                },
+                clear=True,
+            ):
+                with self.assertRaises(ValueError):
+                    search_configuration()
+
     def gateway(self, handler):
         gateway = object.__new__(SearchGateway)
         gateway.endpoint = "https://unit.search.windows.net"
@@ -29,6 +62,14 @@ class SearchContractTests(unittest.TestCase):
         gateway.source = "mfv2-unit-source"
         gateway.kb = "mfv2-unit-kb"
         gateway.configuration = {"endpoint": gateway.endpoint, "index": gateway.index}
+        gateway.settings = Settings(
+            "https://unit.services.ai.azure.com/api/projects/workshop",
+            "unit-model",
+            None,
+            "cli",
+            None,
+            2048,
+        )
         gateway.request = handler
         return gateway
 
@@ -166,7 +207,6 @@ class SearchContractTests(unittest.TestCase):
                 or Reply({"value": [load_documents(ROOT)[1]]})
             )
         )
-        gateway.settings = object()
         configuration = {
             "deployment": "unit-embedding",
             "dimensions": 3,
@@ -205,7 +245,6 @@ class SearchContractTests(unittest.TestCase):
             return Reply({}, 201)
 
         gateway = self.gateway(handle)
-        gateway.settings = object()
         configuration = {
             "deployment": "unit-embedding",
             "dimensions": 3,

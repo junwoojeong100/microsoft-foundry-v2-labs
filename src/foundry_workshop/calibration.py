@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Any
 
-from .contracts import digest, read_json, read_jsonl, safe_label, write_json
+from .contracts import digest, localized_path, read_json, read_jsonl, safe_label, write_json
 from .native import evaluate_items, verified_native
 from .profiles import model_deployments
 from .settings import Settings
@@ -65,7 +65,7 @@ def calibrate(
 ) -> dict[str, Any]:
     if not confirmed:
         raise ValueError("Calibration calls a paid judge; explicitly pass --confirm-cost.")
-    cases = read_jsonl(root / "data/evaluation/calibration.jsonl")
+    cases = read_jsonl(localized_path(root, "data/evaluation/calibration.jsonl", settings.language))
     if any(
         set(case) != {"case_id", "query", "context", "response", "expected_grounded"}
         or type(case["expected_grounded"]) is not bool
@@ -80,6 +80,8 @@ def calibrate(
         "target_responses_generated": False,
         "expected_rows": len(cases),
     }
+    if settings.language != "ko":
+        manifest["language"] = settings.language
     old = path / "manifest.json"
     if old.exists() and read_json(old) != manifest:
         raise ValueError("The calibration fixtures changed; use a new version/label.")

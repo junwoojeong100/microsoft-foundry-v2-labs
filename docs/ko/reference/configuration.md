@@ -5,6 +5,8 @@
 **한 저장소 안에서는 하나의 환경변수 이름을 씁니다. 원본 리포의 서로 다른 이름을 혼합하지 않습니다.**
 
 모든 CLI는 루트 `.env`를 읽습니다. 이미 프로세스에 있는 값이 우선합니다.
+영어 실행은 `--language en`을 명시하며 기존 기본값은 한국어입니다.
+언어별 지침·corpus·dataset을 선택하고 Hosted profile에 고정합니다.
 따라서 오래된 터미널에서 예상하지 않은 값을 상속하지 않았는지 확인합니다.
 
 | 이름 | 쓰는 곳 | 비고 |
@@ -55,9 +57,12 @@ richer Preview를 별도 실험할 때의 선택 설정입니다. 기본 GA IQ �
 | `WORKSHOP_HOSTED_AGENT_ENDPOINT` | benchmark 원격 | `azd show`의 실제 Invocations endpoint; 프로젝트/name과 대조 |
 | `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME` | hybrid | 실제 기존 embedding 배포 |
 | `WORKSHOP_EMBEDDING_DIMENSIONS` | hybrid | 실제 embedding의 차원. 자동 자르기/0 채우기 없음 |
+| `WORKSHOP_EMBEDDING_API` | hybrid | `project` 또는 `account`를 명시. 현재 실제 실행은 같은 account API 사용, 자동 fallback 없음 |
+| `WORKSHOP_IQ_RERANKER_THRESHOLD` | IQ 검색 | 선택적 0–4 필터, 빈 값은 서비스 기본값. 평가자의 통과 threshold가 아님 |
 | `AZURE_APPLICATION_INSIGHTS_APP_ID` | trace 검증 | 연결한 Application Insights의 application ID UUID |
 
-프로필의 `kind/pattern/retrieval/prompt/api/protocol`은 `runtime-profile.json`으로 패키지에 고정합니다.
+프로필의 `kind/pattern/retrieval/prompt/api/protocol/language`는 `runtime-profile.json`으로 패키지에 고정합니다.
+기존 6필드 profile은 한국어로 읽으며 영어 profile은 `language: en`을 명시합니다.
 계정·endpoint·배포 이름은 해당 환경 설정에서 읽되 runtime contract로 실제 응답과 대조합니다.
 서버 요청은 `question/model_key/case_id/run_id`만 받으며 정답·임의 model/endpoint override를 거부합니다.
 
@@ -77,3 +82,6 @@ richer Preview를 별도 실험할 때의 선택 설정입니다. 기본 GA IQ �
 실행은 `outputs/<label>/`에 저장합니다. label은 경로가 아니라 제한된 이름입니다.
 기존 실행 디렉터리는 덮어쓰지 않습니다.
 `manifest.json`의 hash는 재현을 돕는 장치이며 전자서명이나 변조 방지 저장소는 아닙니다.
+
+한국어와 영어는 별도 dataset/prompt/corpus hash를 사용하며 ID·한도·적용일·정답 기준은 동등하게 유지합니다.
+영어 파일 누락을 한국어로 대신하지 않습니다. [언어 번들](../../../data/README.ko.md)을 확인하세요.

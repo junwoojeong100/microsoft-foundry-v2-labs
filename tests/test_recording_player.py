@@ -16,7 +16,7 @@ class RecordingPlayerTests(unittest.TestCase):
     def test_recording_editions_are_explicit_and_default_to_english(self):
         from . import ROOT
 
-        for edition, date in (("en", "2026-09-15"), ("ko", "2026-09-14")):
+        for edition, date in (("en", "2026-09-15"), ("ko", "2026-09-15")):
             with self.subTest(edition=edition):
                 catalog, files = PLAYER.media_catalog(ROOT, edition)
                 self.assertEqual(catalog["edition"], edition)

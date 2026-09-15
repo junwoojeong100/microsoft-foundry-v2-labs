@@ -46,7 +46,6 @@ python scripts/package_hosted.py
 재빌드 시 기존 폴더를 자동 삭제하지 않습니다. 그 **정확한 생성 폴더만** 보관/정리한 뒤 다시 실행합니다.
 소스 변경 후 과거 패키지를 재배포하지 않도록 hash를 비교합니다.
 
-![자체 완결형 Hosted 패키지가 생성된 위치](../../assets/live-20260914-action/shots/cli-1-0581-08-002-package-result.webp)
 
 **화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted` 위치를 반환하는지 확인합니다.
 파일을 묶은 단계일 뿐 Azure 배포 성공이 아닙니다. 위 표와 manifest로 포함·제외 파일을 대조하세요.
@@ -89,7 +88,6 @@ test -f ./azure.yaml
 - 원격 런타임에 전달할 `AZURE_AI_PROJECT_ENDPOINT`, `AZURE_AI_MODEL_DEPLOYMENT_NAME`.
 - **원격의 `WORKSHOP_AUTH_MODE=managed-identity`**.
 
-![초기화 직후 생성된 azure.yaml의 실제 서비스 구성](../../assets/live-20260914-action/shots/cli-1-0616-08-008-check-local-azure-yaml-result.webp)
 
 **화면 확인:** `project`, `host: azure.ai.agent`, `codeConfiguration`, `protocols`를 찾습니다.
 촬영의 생성 직후 `env`에는 모델 변수만 있으므로 아래 블록으로 보완해야 했습니다.
@@ -116,7 +114,6 @@ azd env get-value AZURE_AI_PROJECT_ENDPOINT
 azd env get-value AZURE_AI_MODEL_DEPLOYMENT_NAME
 ```
 
-![azd에서 endpoint와 모델 배포 이름을 다시 읽은 결과](../../assets/live-20260914-action/shots/cli-1-0667-08-017-read-model-deployment-result.webp)
 
 **화면 확인:** 두 `get-value` 결과가 `.env`와 같은 프로젝트·배포인지 확인합니다.
 화면의 endpoint를 그대로 쓰지 말고 강사가 제공한 본인 값과 대조하세요.
@@ -147,15 +144,11 @@ curl --fail http://127.0.0.1:8088/readiness
 azd ai agent invoke --local --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장 숙박비 한도와 근거를 알려주세요."
 ```
 
-**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=643.28)
-
-![터미널 B에서 로컬 서버 readiness를 확인](../../assets/english-20260915/shots/terminal-0277-08-005-local-readiness-result.webp)
 
 **화면 확인:** 터미널 A를 종료하지 않고 B에서 HTTP 200을 확인합니다.
 고정 SDK의 실제 반환값은 `{"status":"healthy"}`입니다(2026-09-15 재확인). `status: ready`가 아닙니다.
 서버에 연결됐다는 뜻이지 모델 응답까지 성공했다는 뜻은 아닙니다.
 
-![별도 터미널에서 받은 실제 로컬 Hosted 응답](../../assets/live-20260914-action/shots/cli-1-0678-08-020-local-invoke-result.webp)
 
 **화면 확인:** 실제 답변의 한도·근거와 새 **Session / Conversation**을 확인합니다.
 이 로컬 호출도 Azure 모델을 사용합니다. 사진의 결과를 원격 배포 결과로 표시하지 않습니다.
@@ -179,7 +172,6 @@ azd ai agent show --output json
 활성 상태, 실제 agent version, endpoint를 기록합니다.
 실제 version을 사용해 호출합니다.
 
-![code deployment가 반환한 실제 버전과 endpoint](../../assets/live-20260914-action/shots/cli-1-0704-08-022-deploy-hosted-result.webp)
 
 **화면 확인:** 마지막 배포 명령의 완료 메시지와 **Agent playground / Agent endpoint**를 확인합니다.
 이어 `show`가 반환한 실제 version과 active 상태를 기록한 뒤 호출하세요.
@@ -188,7 +180,6 @@ azd ai agent show --output json
 azd ai agent invoke --version "<deployed-version>" --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
 ```
 
-![고정된 원격 버전의 실제 답변과 Trace ID](../../assets/live-20260914-action/shots/cli-2-0726-08-024-remote-invoke-result.webp)
 
 **화면 확인:** 답변뿐 아니라 **Session**, **Conversation**, **Trace ID**를 함께 남깁니다.
 이 Trace ID로 다음 랩에서 같은 요청을 찾습니다. 요청 하나의 성공은 dev 전체 품질 평가를 대신하지 않습니다.
@@ -208,18 +199,15 @@ Lab 07의 프로젝트 Responses + precomputed retrieval 실행과 **동일한 �
 Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습니다.
 원격 버전을 고정한 새 dev/holdout 평가를 해야 같은 품질이라고 주장할 수 있습니다.
 
-![별도 원격 Hosted 평가의 대상과 결과](../../assets/live-20260914-action/shots/portal-0492-P08-001-hosted-evaluation-report-screen-change.webp)
 
-**화면 확인:** **Evaluation type**, agent 이름·버전, 실제 사용한 evaluator와 6개 사례를 확인합니다.
-촬영의 Hosted rubric 6/6을 Lab 07의 native groundedness/relevance 점수로 바꾸어 적지 않습니다.
-
-이 실행에서는 서비스가 버전 1을 활성화했고 실제 원격 답변과 Trace ID가 반환되었습니다.
-그 smoke 응답만으로 품질 평가를 대신하지 않았습니다. 이번 실행에서는 별도의 합성 dev 6건을
-실제 원격 Hosted에 요청하고 생성형 rubric으로 평가했습니다. 기준과 한계는 [실행 기록](../live-run.md)을 확인합니다.
+앞의 기본 단일-agent 경로와 다음 workflow 경로는 서로 다른 target입니다.
+이번 새 촬영은 workflow Responses version 2를 실제 호출하고,
+통제된 평가에는 Invocations baseline version 7과 candidate/holdout version 8을 사용했습니다.
+정확한 결과와 한계는 [실행 기록](../live-run.md)을 확인합니다.
 
 ## 6. MAF 워크플로를 Hosted Agent로 배포
 
-**2026-09-15 보강된 프로필입니다. 위 single-agent 촬영/점수는 이 workflow의 실행 증거가 아닙니다.**
+**2026-09-15 실제 배포·호출·평가와 새 국문 촬영으로 확인한 프로필입니다.**
 `serve`와 `package_hosted.py`는 인자를 생략하면 이전 단일 함수 Agent 경로를 유지합니다.
 워크플로를 선택한 경우에는 `runtime-profile.json`에 kind/pattern/retrieval/prompt/API/protocol을 고정합니다.
 
@@ -295,6 +283,45 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 
 평가를 실행하려면 [자체 완결형 평가 워크북](../reference/evaluation-workbook.md)을 따릅니다.
 소스·업무·검색이 같아 보여도 single-agent/Responses/Invocations의 점수를 서로 옮겨 적지 않습니다.
+
+## 2026-09-15 새 국문 실행 증거
+
+아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+
+![2026-09-15 새 국문 촬영: 구성 도구 복구 후 동일 Responses 프로필 패키징](../../assets/refresh-20260915-ko/screenshots/K08-011-profile-responses-ready-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 터미널 B: 실제 readiness 확인](../../assets/refresh-20260915-ko/screenshots/K08-013-local-ready-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: Workflow Responses endpoint 실제 호출](../../assets/refresh-20260915-ko/screenshots/K08-014-local-invoke-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 실제 MAF workflow를 Hosted Responses로 배포](../../assets/refresh-20260915-ko/screenshots/K08-016-deploy-responses-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 배포된 실제 workflow version·endpoint 확인](../../assets/refresh-20260915-ko/screenshots/K08-017-record-responses-version-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 실제 배포·호출한 workflow version 2 열기](../../assets/refresh-20260915-ko/screenshots/KP08-001-workflow-version2-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: WF03 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP08-002-hosted-chat-send-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 실제 배포 version 기록](../../assets/refresh-20260915-ko/screenshots/K07F-binding-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+
 
 ## 완료·정리
 

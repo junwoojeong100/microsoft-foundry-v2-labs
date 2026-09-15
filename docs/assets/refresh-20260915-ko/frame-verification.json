@@ -1,0 +1,2184 @@
+{
+  "checked_segments": 435,
+  "minimum_midpoint_ssim": 0.987849,
+  "source_footage_modified": false,
+  "screenshot_slideshow": false,
+  "playback_speed": 1,
+  "comparisons": [
+    {
+      "clip": "clip-0000.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.999557
+    },
+    {
+      "clip": "clip-0001.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.999444
+    },
+    {
+      "clip": "clip-0002.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.999414
+    },
+    {
+      "clip": "clip-0003.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99928
+    },
+    {
+      "clip": "clip-0004.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.999295
+    },
+    {
+      "clip": "clip-0005.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99911
+    },
+    {
+      "clip": "clip-0006.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.999069
+    },
+    {
+      "clip": "clip-0007.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998758
+    },
+    {
+      "clip": "clip-0008.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998748
+    },
+    {
+      "clip": "clip-0009.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998854
+    },
+    {
+      "clip": "clip-0010.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998544
+    },
+    {
+      "clip": "clip-0011.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998636
+    },
+    {
+      "clip": "clip-0012.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998508
+    },
+    {
+      "clip": "clip-0013.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998548
+    },
+    {
+      "clip": "clip-0014.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998525
+    },
+    {
+      "clip": "clip-0015.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998378
+    },
+    {
+      "clip": "clip-0016.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998298
+    },
+    {
+      "clip": "clip-0017.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997841
+    },
+    {
+      "clip": "clip-0018.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997818
+    },
+    {
+      "clip": "clip-0019.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998232
+    },
+    {
+      "clip": "clip-0020.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998237
+    },
+    {
+      "clip": "clip-0021.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998443
+    },
+    {
+      "clip": "clip-0022.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998277
+    },
+    {
+      "clip": "clip-0023.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998298
+    },
+    {
+      "clip": "clip-0024.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998058
+    },
+    {
+      "clip": "clip-0025.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998167
+    },
+    {
+      "clip": "clip-0026.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997893
+    },
+    {
+      "clip": "clip-0027.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998417
+    },
+    {
+      "clip": "clip-0028.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998378
+    },
+    {
+      "clip": "clip-0029.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997837
+    },
+    {
+      "clip": "clip-0030.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997502
+    },
+    {
+      "clip": "clip-0031.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997468
+    },
+    {
+      "clip": "clip-0032.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998132
+    },
+    {
+      "clip": "clip-0033.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996471
+    },
+    {
+      "clip": "clip-0034.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996522
+    },
+    {
+      "clip": "clip-0035.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996251
+    },
+    {
+      "clip": "clip-0036.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99645
+    },
+    {
+      "clip": "clip-0037.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996734
+    },
+    {
+      "clip": "clip-0038.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996009
+    },
+    {
+      "clip": "clip-0039.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.989633
+    },
+    {
+      "clip": "clip-0040.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99281
+    },
+    {
+      "clip": "clip-0041.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993943
+    },
+    {
+      "clip": "clip-0042.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993601
+    },
+    {
+      "clip": "clip-0043.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99334
+    },
+    {
+      "clip": "clip-0044.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993736
+    },
+    {
+      "clip": "clip-0045.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993346
+    },
+    {
+      "clip": "clip-0046.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995371
+    },
+    {
+      "clip": "clip-0047.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993383
+    },
+    {
+      "clip": "clip-0048.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994887
+    },
+    {
+      "clip": "clip-0049.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994015
+    },
+    {
+      "clip": "clip-0050.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.987849
+    },
+    {
+      "clip": "clip-0051.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.992372
+    },
+    {
+      "clip": "clip-0052.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994154
+    },
+    {
+      "clip": "clip-0053.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995142
+    },
+    {
+      "clip": "clip-0054.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99653
+    },
+    {
+      "clip": "clip-0055.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996472
+    },
+    {
+      "clip": "clip-0056.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996404
+    },
+    {
+      "clip": "clip-0057.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994838
+    },
+    {
+      "clip": "clip-0058.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99374
+    },
+    {
+      "clip": "clip-0059.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994522
+    },
+    {
+      "clip": "clip-0060.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994612
+    },
+    {
+      "clip": "clip-0061.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994498
+    },
+    {
+      "clip": "clip-0062.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993761
+    },
+    {
+      "clip": "clip-0063.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995589
+    },
+    {
+      "clip": "clip-0064.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995523
+    },
+    {
+      "clip": "clip-0065.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99708
+    },
+    {
+      "clip": "clip-0066.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996872
+    },
+    {
+      "clip": "clip-0067.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997102
+    },
+    {
+      "clip": "clip-0068.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997077
+    },
+    {
+      "clip": "clip-0069.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99707
+    },
+    {
+      "clip": "clip-0070.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.992683
+    },
+    {
+      "clip": "clip-0071.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993894
+    },
+    {
+      "clip": "clip-0072.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994573
+    },
+    {
+      "clip": "clip-0073.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99507
+    },
+    {
+      "clip": "clip-0074.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994834
+    },
+    {
+      "clip": "clip-0075.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996097
+    },
+    {
+      "clip": "clip-0076.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996084
+    },
+    {
+      "clip": "clip-0077.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99572
+    },
+    {
+      "clip": "clip-0078.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996012
+    },
+    {
+      "clip": "clip-0079.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996532
+    },
+    {
+      "clip": "clip-0080.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996117
+    },
+    {
+      "clip": "clip-0081.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996102
+    },
+    {
+      "clip": "clip-0082.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99489
+    },
+    {
+      "clip": "clip-0083.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996607
+    },
+    {
+      "clip": "clip-0084.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994996
+    },
+    {
+      "clip": "clip-0085.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994457
+    },
+    {
+      "clip": "clip-0086.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993967
+    },
+    {
+      "clip": "clip-0087.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994611
+    },
+    {
+      "clip": "clip-0088.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995534
+    },
+    {
+      "clip": "clip-0089.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995539
+    },
+    {
+      "clip": "clip-0090.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99554
+    },
+    {
+      "clip": "clip-0091.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994763
+    },
+    {
+      "clip": "clip-0092.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993895
+    },
+    {
+      "clip": "clip-0093.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995125
+    },
+    {
+      "clip": "clip-0094.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995762
+    },
+    {
+      "clip": "clip-0095.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995026
+    },
+    {
+      "clip": "clip-0096.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996505
+    },
+    {
+      "clip": "clip-0097.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996282
+    },
+    {
+      "clip": "clip-0098.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997538
+    },
+    {
+      "clip": "clip-0099.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996801
+    },
+    {
+      "clip": "clip-0100.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997071
+    },
+    {
+      "clip": "clip-0101.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997224
+    },
+    {
+      "clip": "clip-0102.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997679
+    },
+    {
+      "clip": "clip-0103.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99772
+    },
+    {
+      "clip": "clip-0104.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997011
+    },
+    {
+      "clip": "clip-0105.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99721
+    },
+    {
+      "clip": "clip-0106.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997184
+    },
+    {
+      "clip": "clip-0107.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997129
+    },
+    {
+      "clip": "clip-0108.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997615
+    },
+    {
+      "clip": "clip-0109.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997593
+    },
+    {
+      "clip": "clip-0110.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997511
+    },
+    {
+      "clip": "clip-0111.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993384
+    },
+    {
+      "clip": "clip-0112.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993805
+    },
+    {
+      "clip": "clip-0113.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994892
+    },
+    {
+      "clip": "clip-0114.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.992317
+    },
+    {
+      "clip": "clip-0115.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994903
+    },
+    {
+      "clip": "clip-0116.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997422
+    },
+    {
+      "clip": "clip-0117.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99779
+    },
+    {
+      "clip": "clip-0118.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997468
+    },
+    {
+      "clip": "clip-0119.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997477
+    },
+    {
+      "clip": "clip-0120.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997259
+    },
+    {
+      "clip": "clip-0121.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996389
+    },
+    {
+      "clip": "clip-0122.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994891
+    },
+    {
+      "clip": "clip-0123.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996688
+    },
+    {
+      "clip": "clip-0124.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995957
+    },
+    {
+      "clip": "clip-0125.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995881
+    },
+    {
+      "clip": "clip-0126.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.989124
+    },
+    {
+      "clip": "clip-0127.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.991137
+    },
+    {
+      "clip": "clip-0128.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.990452
+    },
+    {
+      "clip": "clip-0129.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.991908
+    },
+    {
+      "clip": "clip-0130.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.990586
+    },
+    {
+      "clip": "clip-0131.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.991534
+    },
+    {
+      "clip": "clip-0132.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993251
+    },
+    {
+      "clip": "clip-0133.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994384
+    },
+    {
+      "clip": "clip-0134.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994808
+    },
+    {
+      "clip": "clip-0135.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994606
+    },
+    {
+      "clip": "clip-0136.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.994845
+    },
+    {
+      "clip": "clip-0137.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997801
+    },
+    {
+      "clip": "clip-0138.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997771
+    },
+    {
+      "clip": "clip-0139.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997441
+    },
+    {
+      "clip": "clip-0140.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997212
+    },
+    {
+      "clip": "clip-0141.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.993972
+    },
+    {
+      "clip": "clip-0142.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995772
+    },
+    {
+      "clip": "clip-0143.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996554
+    },
+    {
+      "clip": "clip-0144.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995852
+    },
+    {
+      "clip": "clip-0145.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997338
+    },
+    {
+      "clip": "clip-0146.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997892
+    },
+    {
+      "clip": "clip-0147.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997994
+    },
+    {
+      "clip": "clip-0148.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997906
+    },
+    {
+      "clip": "clip-0149.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996393
+    },
+    {
+      "clip": "clip-0150.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997496
+    },
+    {
+      "clip": "clip-0151.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997024
+    },
+    {
+      "clip": "clip-0152.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99761
+    },
+    {
+      "clip": "clip-0153.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997111
+    },
+    {
+      "clip": "clip-0154.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997729
+    },
+    {
+      "clip": "clip-0155.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997371
+    },
+    {
+      "clip": "clip-0156.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997264
+    },
+    {
+      "clip": "clip-0157.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996351
+    },
+    {
+      "clip": "clip-0158.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.995941
+    },
+    {
+      "clip": "clip-0159.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996714
+    },
+    {
+      "clip": "clip-0160.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996042
+    },
+    {
+      "clip": "clip-0161.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996823
+    },
+    {
+      "clip": "clip-0162.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996697
+    },
+    {
+      "clip": "clip-0163.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997277
+    },
+    {
+      "clip": "clip-0164.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.99685
+    },
+    {
+      "clip": "clip-0165.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997093
+    },
+    {
+      "clip": "clip-0166.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996663
+    },
+    {
+      "clip": "clip-0167.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997186
+    },
+    {
+      "clip": "clip-0168.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996941
+    },
+    {
+      "clip": "clip-0169.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997019
+    },
+    {
+      "clip": "clip-0170.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997151
+    },
+    {
+      "clip": "clip-0171.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997819
+    },
+    {
+      "clip": "clip-0172.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997529
+    },
+    {
+      "clip": "clip-0173.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998584
+    },
+    {
+      "clip": "clip-0174.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.998216
+    },
+    {
+      "clip": "clip-0175.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997029
+    },
+    {
+      "clip": "clip-0176.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.997074
+    },
+    {
+      "clip": "clip-0177.mp4",
+      "source_id": "terminal",
+      "midpoint_ssim": 0.996715
+    },
+    {
+      "clip": "clip-0178.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.999077
+    },
+    {
+      "clip": "clip-0179.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996663
+    },
+    {
+      "clip": "clip-0180.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998579
+    },
+    {
+      "clip": "clip-0181.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994646
+    },
+    {
+      "clip": "clip-0182.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998906
+    },
+    {
+      "clip": "clip-0183.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99897
+    },
+    {
+      "clip": "clip-0184.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998962
+    },
+    {
+      "clip": "clip-0185.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998643
+    },
+    {
+      "clip": "clip-0186.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998658
+    },
+    {
+      "clip": "clip-0187.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998121
+    },
+    {
+      "clip": "clip-0188.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997524
+    },
+    {
+      "clip": "clip-0189.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997426
+    },
+    {
+      "clip": "clip-0190.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998171
+    },
+    {
+      "clip": "clip-0191.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997743
+    },
+    {
+      "clip": "clip-0192.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.9978
+    },
+    {
+      "clip": "clip-0193.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997065
+    },
+    {
+      "clip": "clip-0194.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996467
+    },
+    {
+      "clip": "clip-0195.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996666
+    },
+    {
+      "clip": "clip-0196.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996573
+    },
+    {
+      "clip": "clip-0197.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996089
+    },
+    {
+      "clip": "clip-0198.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996392
+    },
+    {
+      "clip": "clip-0199.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996682
+    },
+    {
+      "clip": "clip-0200.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994493
+    },
+    {
+      "clip": "clip-0201.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996093
+    },
+    {
+      "clip": "clip-0202.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995645
+    },
+    {
+      "clip": "clip-0203.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.993048
+    },
+    {
+      "clip": "clip-0204.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994706
+    },
+    {
+      "clip": "clip-0205.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995152
+    },
+    {
+      "clip": "clip-0206.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99414
+    },
+    {
+      "clip": "clip-0207.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995374
+    },
+    {
+      "clip": "clip-0208.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995163
+    },
+    {
+      "clip": "clip-0209.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995825
+    },
+    {
+      "clip": "clip-0210.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995929
+    },
+    {
+      "clip": "clip-0211.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99526
+    },
+    {
+      "clip": "clip-0212.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996459
+    },
+    {
+      "clip": "clip-0213.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99618
+    },
+    {
+      "clip": "clip-0214.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996201
+    },
+    {
+      "clip": "clip-0215.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995968
+    },
+    {
+      "clip": "clip-0216.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995674
+    },
+    {
+      "clip": "clip-0217.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995891
+    },
+    {
+      "clip": "clip-0218.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995507
+    },
+    {
+      "clip": "clip-0219.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995073
+    },
+    {
+      "clip": "clip-0220.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995067
+    },
+    {
+      "clip": "clip-0221.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995507
+    },
+    {
+      "clip": "clip-0222.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995455
+    },
+    {
+      "clip": "clip-0223.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995471
+    },
+    {
+      "clip": "clip-0224.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995258
+    },
+    {
+      "clip": "clip-0225.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99545
+    },
+    {
+      "clip": "clip-0226.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995285
+    },
+    {
+      "clip": "clip-0227.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99539
+    },
+    {
+      "clip": "clip-0228.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995235
+    },
+    {
+      "clip": "clip-0229.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994776
+    },
+    {
+      "clip": "clip-0230.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995231
+    },
+    {
+      "clip": "clip-0231.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995267
+    },
+    {
+      "clip": "clip-0232.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994417
+    },
+    {
+      "clip": "clip-0233.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995625
+    },
+    {
+      "clip": "clip-0234.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.993969
+    },
+    {
+      "clip": "clip-0235.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994715
+    },
+    {
+      "clip": "clip-0236.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995672
+    },
+    {
+      "clip": "clip-0237.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.993401
+    },
+    {
+      "clip": "clip-0238.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994299
+    },
+    {
+      "clip": "clip-0239.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994709
+    },
+    {
+      "clip": "clip-0240.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994445
+    },
+    {
+      "clip": "clip-0241.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994734
+    },
+    {
+      "clip": "clip-0242.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99526
+    },
+    {
+      "clip": "clip-0243.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.993734
+    },
+    {
+      "clip": "clip-0244.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.993548
+    },
+    {
+      "clip": "clip-0245.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995069
+    },
+    {
+      "clip": "clip-0246.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995382
+    },
+    {
+      "clip": "clip-0247.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997687
+    },
+    {
+      "clip": "clip-0248.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996974
+    },
+    {
+      "clip": "clip-0249.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997302
+    },
+    {
+      "clip": "clip-0250.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996812
+    },
+    {
+      "clip": "clip-0251.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997137
+    },
+    {
+      "clip": "clip-0252.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997135
+    },
+    {
+      "clip": "clip-0253.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996605
+    },
+    {
+      "clip": "clip-0254.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99669
+    },
+    {
+      "clip": "clip-0255.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.995984
+    },
+    {
+      "clip": "clip-0256.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.996725
+    },
+    {
+      "clip": "clip-0257.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.992582
+    },
+    {
+      "clip": "clip-0258.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.99345
+    },
+    {
+      "clip": "clip-0259.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.993989
+    },
+    {
+      "clip": "clip-0260.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994043
+    },
+    {
+      "clip": "clip-0261.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.994436
+    },
+    {
+      "clip": "clip-0262.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998187
+    },
+    {
+      "clip": "clip-0263.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998208
+    },
+    {
+      "clip": "clip-0264.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998241
+    },
+    {
+      "clip": "clip-0265.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997967
+    },
+    {
+      "clip": "clip-0266.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998298
+    },
+    {
+      "clip": "clip-0267.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.997741
+    },
+    {
+      "clip": "clip-0268.mp4",
+      "source_id": "local-server",
+      "midpoint_ssim": 0.998071
+    },
+    {
+      "clip": "clip-0269.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997421
+    },
+    {
+      "clip": "clip-0270.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997521
+    },
+    {
+      "clip": "clip-0271.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997482
+    },
+    {
+      "clip": "clip-0272.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997504
+    },
+    {
+      "clip": "clip-0273.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997806
+    },
+    {
+      "clip": "clip-0274.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997188
+    },
+    {
+      "clip": "clip-0275.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998446
+    },
+    {
+      "clip": "clip-0276.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998384
+    },
+    {
+      "clip": "clip-0277.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99865
+    },
+    {
+      "clip": "clip-0278.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998129
+    },
+    {
+      "clip": "clip-0279.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998393
+    },
+    {
+      "clip": "clip-0280.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998011
+    },
+    {
+      "clip": "clip-0281.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998375
+    },
+    {
+      "clip": "clip-0282.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997899
+    },
+    {
+      "clip": "clip-0283.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999314
+    },
+    {
+      "clip": "clip-0284.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998508
+    },
+    {
+      "clip": "clip-0285.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998714
+    },
+    {
+      "clip": "clip-0286.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998584
+    },
+    {
+      "clip": "clip-0287.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997369
+    },
+    {
+      "clip": "clip-0288.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99845
+    },
+    {
+      "clip": "clip-0289.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99839
+    },
+    {
+      "clip": "clip-0290.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998023
+    },
+    {
+      "clip": "clip-0291.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99815
+    },
+    {
+      "clip": "clip-0292.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998525
+    },
+    {
+      "clip": "clip-0293.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998663
+    },
+    {
+      "clip": "clip-0294.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998678
+    },
+    {
+      "clip": "clip-0295.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998028
+    },
+    {
+      "clip": "clip-0296.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998296
+    },
+    {
+      "clip": "clip-0297.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998223
+    },
+    {
+      "clip": "clip-0298.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998438
+    },
+    {
+      "clip": "clip-0299.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998727
+    },
+    {
+      "clip": "clip-0300.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998108
+    },
+    {
+      "clip": "clip-0301.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998381
+    },
+    {
+      "clip": "clip-0302.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997845
+    },
+    {
+      "clip": "clip-0303.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997419
+    },
+    {
+      "clip": "clip-0304.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998547
+    },
+    {
+      "clip": "clip-0305.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998489
+    },
+    {
+      "clip": "clip-0306.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998337
+    },
+    {
+      "clip": "clip-0307.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997977
+    },
+    {
+      "clip": "clip-0308.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997166
+    },
+    {
+      "clip": "clip-0309.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998578
+    },
+    {
+      "clip": "clip-0310.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998587
+    },
+    {
+      "clip": "clip-0311.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998307
+    },
+    {
+      "clip": "clip-0312.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998222
+    },
+    {
+      "clip": "clip-0313.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998372
+    },
+    {
+      "clip": "clip-0314.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998484
+    },
+    {
+      "clip": "clip-0315.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998541
+    },
+    {
+      "clip": "clip-0316.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998312
+    },
+    {
+      "clip": "clip-0317.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998191
+    },
+    {
+      "clip": "clip-0318.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998221
+    },
+    {
+      "clip": "clip-0319.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998724
+    },
+    {
+      "clip": "clip-0320.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998383
+    },
+    {
+      "clip": "clip-0321.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998133
+    },
+    {
+      "clip": "clip-0322.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998179
+    },
+    {
+      "clip": "clip-0323.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997899
+    },
+    {
+      "clip": "clip-0324.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99923
+    },
+    {
+      "clip": "clip-0325.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998757
+    },
+    {
+      "clip": "clip-0326.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998147
+    },
+    {
+      "clip": "clip-0327.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999175
+    },
+    {
+      "clip": "clip-0328.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997773
+    },
+    {
+      "clip": "clip-0329.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997845
+    },
+    {
+      "clip": "clip-0330.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999214
+    },
+    {
+      "clip": "clip-0331.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999321
+    },
+    {
+      "clip": "clip-0332.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998427
+    },
+    {
+      "clip": "clip-0333.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999218
+    },
+    {
+      "clip": "clip-0334.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999361
+    },
+    {
+      "clip": "clip-0335.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999477
+    },
+    {
+      "clip": "clip-0336.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999506
+    },
+    {
+      "clip": "clip-0337.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998857
+    },
+    {
+      "clip": "clip-0338.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998769
+    },
+    {
+      "clip": "clip-0339.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998425
+    },
+    {
+      "clip": "clip-0340.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998769
+    },
+    {
+      "clip": "clip-0341.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998499
+    },
+    {
+      "clip": "clip-0342.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998628
+    },
+    {
+      "clip": "clip-0343.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998642
+    },
+    {
+      "clip": "clip-0344.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998188
+    },
+    {
+      "clip": "clip-0345.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995407
+    },
+    {
+      "clip": "clip-0346.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995951
+    },
+    {
+      "clip": "clip-0347.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.994883
+    },
+    {
+      "clip": "clip-0348.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999516
+    },
+    {
+      "clip": "clip-0349.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997548
+    },
+    {
+      "clip": "clip-0350.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997472
+    },
+    {
+      "clip": "clip-0351.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997433
+    },
+    {
+      "clip": "clip-0352.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.996811
+    },
+    {
+      "clip": "clip-0353.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998937
+    },
+    {
+      "clip": "clip-0354.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.996305
+    },
+    {
+      "clip": "clip-0355.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.996847
+    },
+    {
+      "clip": "clip-0356.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997324
+    },
+    {
+      "clip": "clip-0357.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999467
+    },
+    {
+      "clip": "clip-0358.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998449
+    },
+    {
+      "clip": "clip-0359.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998865
+    },
+    {
+      "clip": "clip-0360.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998144
+    },
+    {
+      "clip": "clip-0361.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99776
+    },
+    {
+      "clip": "clip-0362.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997454
+    },
+    {
+      "clip": "clip-0363.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998869
+    },
+    {
+      "clip": "clip-0364.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997615
+    },
+    {
+      "clip": "clip-0365.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997416
+    },
+    {
+      "clip": "clip-0366.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.9974
+    },
+    {
+      "clip": "clip-0367.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998833
+    },
+    {
+      "clip": "clip-0368.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998649
+    },
+    {
+      "clip": "clip-0369.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999012
+    },
+    {
+      "clip": "clip-0370.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995884
+    },
+    {
+      "clip": "clip-0371.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995895
+    },
+    {
+      "clip": "clip-0372.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995905
+    },
+    {
+      "clip": "clip-0373.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995983
+    },
+    {
+      "clip": "clip-0374.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995302
+    },
+    {
+      "clip": "clip-0375.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998394
+    },
+    {
+      "clip": "clip-0376.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998327
+    },
+    {
+      "clip": "clip-0377.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998043
+    },
+    {
+      "clip": "clip-0378.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999073
+    },
+    {
+      "clip": "clip-0379.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998111
+    },
+    {
+      "clip": "clip-0380.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998442
+    },
+    {
+      "clip": "clip-0381.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998387
+    },
+    {
+      "clip": "clip-0382.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.995246
+    },
+    {
+      "clip": "clip-0383.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997795
+    },
+    {
+      "clip": "clip-0384.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998039
+    },
+    {
+      "clip": "clip-0385.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997497
+    },
+    {
+      "clip": "clip-0386.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999477
+    },
+    {
+      "clip": "clip-0387.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.9984
+    },
+    {
+      "clip": "clip-0388.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99808
+    },
+    {
+      "clip": "clip-0389.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998365
+    },
+    {
+      "clip": "clip-0390.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998295
+    },
+    {
+      "clip": "clip-0391.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998155
+    },
+    {
+      "clip": "clip-0392.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99818
+    },
+    {
+      "clip": "clip-0393.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998093
+    },
+    {
+      "clip": "clip-0394.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99831
+    },
+    {
+      "clip": "clip-0395.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998466
+    },
+    {
+      "clip": "clip-0396.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998506
+    },
+    {
+      "clip": "clip-0397.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998186
+    },
+    {
+      "clip": "clip-0398.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998006
+    },
+    {
+      "clip": "clip-0399.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998181
+    },
+    {
+      "clip": "clip-0400.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998222
+    },
+    {
+      "clip": "clip-0401.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997497
+    },
+    {
+      "clip": "clip-0402.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99836
+    },
+    {
+      "clip": "clip-0403.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998397
+    },
+    {
+      "clip": "clip-0404.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997791
+    },
+    {
+      "clip": "clip-0405.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997706
+    },
+    {
+      "clip": "clip-0406.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997905
+    },
+    {
+      "clip": "clip-0407.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998047
+    },
+    {
+      "clip": "clip-0408.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998075
+    },
+    {
+      "clip": "clip-0409.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998107
+    },
+    {
+      "clip": "clip-0410.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997125
+    },
+    {
+      "clip": "clip-0411.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997834
+    },
+    {
+      "clip": "clip-0412.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997917
+    },
+    {
+      "clip": "clip-0413.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998391
+    },
+    {
+      "clip": "clip-0414.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997752
+    },
+    {
+      "clip": "clip-0415.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998476
+    },
+    {
+      "clip": "clip-0416.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998487
+    },
+    {
+      "clip": "clip-0417.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998408
+    },
+    {
+      "clip": "clip-0418.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998341
+    },
+    {
+      "clip": "clip-0419.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998047
+    },
+    {
+      "clip": "clip-0420.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997309
+    },
+    {
+      "clip": "clip-0421.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99766
+    },
+    {
+      "clip": "clip-0422.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.99782
+    },
+    {
+      "clip": "clip-0423.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997864
+    },
+    {
+      "clip": "clip-0424.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999577
+    },
+    {
+      "clip": "clip-0425.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997049
+    },
+    {
+      "clip": "clip-0426.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997526
+    },
+    {
+      "clip": "clip-0427.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999581
+    },
+    {
+      "clip": "clip-0428.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.996772
+    },
+    {
+      "clip": "clip-0429.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997414
+    },
+    {
+      "clip": "clip-0430.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999569
+    },
+    {
+      "clip": "clip-0431.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998135
+    },
+    {
+      "clip": "clip-0432.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.998787
+    },
+    {
+      "clip": "clip-0433.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.999556
+    },
+    {
+      "clip": "clip-0434.mp4",
+      "source_id": "portal",
+      "midpoint_ssim": 0.997455
+    }
+  ]
+}

@@ -15,6 +15,9 @@ from .knowledge import local_retrieve
 from .profiles import INFERENCE_APIS, PATTERNS, RETRIEVALS, RuntimeProfile
 
 DEFAULT_QUESTION = "2026년 9월 국내 출장 숙박비는 1박 얼마까지인가요?"
+DEFAULT_QUESTION_EN = (
+    "What is the domestic business-trip lodging limit per night for September 2026?"
+)
 
 
 def runtime_arguments(command: argparse.ArgumentParser, *, default_kind: str = "policy") -> None:
@@ -34,8 +37,9 @@ def runtime_profile(args: argparse.Namespace) -> RuntimeProfile:
 
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(
-        description="Microsoft Foundry v2 workshop (Korean, synthetic data only)."
+        description="Microsoft Foundry v2 workshop (separate Korean/English synthetic assets)."
     )
+    result.add_argument("--language", choices=("ko", "en"), default="ko")
     result.add_argument(
         "--debug", action="store_true", help="Print the error stack for local diagnosis."
     )
@@ -53,12 +57,12 @@ def parser() -> argparse.ArgumentParser:
         "retrieve", help="Read evidence; local keyword search by default."
     )
     retrieve.add_argument("--provider", choices=RETRIEVALS, default="local")
-    retrieve.add_argument("--question", default=DEFAULT_QUESTION)
+    retrieve.add_argument("--question")
     for name in ("model", "answer", "maf", "workflow"):
         command = commands.add_parser(
             name, help="LIVE: calls your configured billable Azure model."
         )
-        command.add_argument("--question", default=DEFAULT_QUESTION)
+        command.add_argument("--question")
         if name == "answer":
             command.add_argument("--prompt", choices=("v1", "v2"), default="v2")
             command.add_argument("--retrieval", choices=RETRIEVALS, default="local")
@@ -76,7 +80,7 @@ def parser() -> argparse.ArgumentParser:
         "workflow-agent",
         help="LIVE: run a case-isolated workflow with validated answer and model-call lineage.",
     )
-    wrapped.add_argument("--question", default=DEFAULT_QUESTION)
+    wrapped.add_argument("--question")
     runtime_arguments(wrapped, default_kind="workflow")
     contract = commands.add_parser(
         "runtime-contract",
@@ -192,7 +196,7 @@ def parser() -> argparse.ArgumentParser:
     agent.add_argument("action", choices=("create", "invoke"))
     agent.add_argument("--name", required=True)
     agent.add_argument("--version")
-    agent.add_argument("--question", default=DEFAULT_QUESTION)
+    agent.add_argument("--question")
     agent.add_argument("--confirm-create", action="store_true")
     server = commands.add_parser(
         "serve", help="Run the optional local hosted-agent server. Inference remains billable."
@@ -204,17 +208,18 @@ def parser() -> argparse.ArgumentParser:
     return result
 
 
-def doctor_offline(root: Path) -> dict[str, Any]:
+def doctor_offline(root: Path, language: str = "ko") -> dict[str, Any]:
     if not (3, 13) <= sys.version_info[:2] < (3, 15):
         raise ValueError("Use Python 3.13 (recommended) or 3.14.")
-    documents = load_documents(root)
-    dev, holdout = load_cases(root, "dev"), load_cases(root, "holdout")
+    documents = load_documents(root, language)
+    dev, holdout = load_cases(root, "dev", language), load_cases(root, "holdout", language)
     if {case["case_id"] for case in dev} & {case["case_id"] for case in holdout}:
         raise ValueError("Dev and holdout IDs overlap.")
     if {case["question"] for case in dev} & {case["question"] for case in holdout}:
         raise ValueError("Dev and holdout questions overlap.")
     return {
         "mode": "offline-check",
+        "language": language,
         "python": sys.version.split()[0],
         "documents": len(documents),
         "dev_cases": len(dev),
@@ -243,7 +248,7 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
     from .settings import Settings, load_environment
 
     load_environment(root)
-    settings = Settings.from_env()
+    settings = Settings.from_env(language=args.language)
     if hasattr(args, "question"):
         validate_question(args.question)
     try:
@@ -356,10 +361,11 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                         "api": "project-responses",
                         "max_output_tokens": settings.max_output_tokens,
                         "retrieval_configuration": retrieval_configuration(
-                            RuntimeProfile(retrieval=args.retrieval)
+                            RuntimeProfile(retrieval=args.retrieval, language=args.language)
                         ),
                     },
                     candidate=args.candidate,
+                    language=args.language,
                 )
     except (AzureError, OpenAIError, httpx.HTTPError) as exc:
         status = (
@@ -378,17 +384,19 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
 
 def main(root: Path, argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
+    if hasattr(args, "question") and args.question is None:
+        args.question = DEFAULT_QUESTION_EN if args.language == "en" else DEFAULT_QUESTION
     try:
         if args.command == "doctor" and not args.cloud:
-            result = doctor_offline(root)
+            result = doctor_offline(root, args.language)
         elif args.command == "benchmark":
             from .benchmark_cli import execute
 
             result = execute(root, args)
         elif args.command == "demo":
-            result = offline_demo(root, args.label, args.prompt)
+            result = offline_demo(root, args.label, args.prompt, language=args.language)
         elif args.command == "retrieve" and args.provider == "local":
-            result = local_retrieve(root, args.question)
+            result = local_retrieve(root, args.question, language=args.language)
         elif args.command == "evaluate":
             result = evaluate_run(root, args.label)
         elif args.command == "compare":

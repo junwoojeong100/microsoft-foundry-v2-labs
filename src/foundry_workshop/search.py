@@ -1,4 +1,5 @@
 import math
+import os
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -13,6 +14,9 @@ SEARCH_SCOPE = "https://search.azure.com/.default"
 
 
 def embedding_configuration() -> dict[str, Any]:
+    api = os.environ.get("WORKSHOP_EMBEDDING_API", "project")
+    if api not in {"project", "account"}:
+        raise ValueError("WORKSHOP_EMBEDDING_API must explicitly select project or account.")
     dimensions = int(require_env("WORKSHOP_EMBEDDING_DIMENSIONS"))
     if not 1 <= dimensions <= 65536:
         raise ValueError(
@@ -22,7 +26,12 @@ def embedding_configuration() -> dict[str, Any]:
         "deployment": require_env("AZURE_AI_EMBEDDING_DEPLOYMENT_NAME"),
         "dimensions": dimensions,
         "field": "content_vector",
-        "api": "project-embeddings",
+        "api": f"{api}-embeddings",
+        **(
+            {"endpoint": azure_endpoint(require_env("AZURE_OPENAI_ENDPOINT"), "openai")}
+            if api == "account"
+            else {}
+        ),
     }
 
 
@@ -33,7 +42,12 @@ def embed_texts(
 
     if not texts or any(not isinstance(text, str) or not text.strip() for text in texts):
         raise ValueError("Embedding inputs must be a nonempty list of nonempty texts.")
-    with project_clients(settings) as (_, client):
+    if configuration["api"] not in {"project-embeddings", "account-embeddings"}:
+        raise ValueError("Unknown explicitly selected embedding API.")
+    with project_clients(settings, account_api=configuration["api"] == "account-embeddings") as (
+        _,
+        client,
+    ):
         response = client.embeddings.create(model=configuration["deployment"], input=texts)
     vectors = {}
     for item in response.data:
@@ -55,6 +69,7 @@ def embed_texts(
         raise ValueError("Embedding response must preserve every input and the actual model name.")
     return [vectors[index] for index in range(len(texts))], {
         "deployment": configuration["deployment"],
+        "api": configuration["api"],
         "observed_model": response.model,
         "dimensions": configuration["dimensions"],
         "usage": response.usage.model_dump(mode="json") if response.usage else None,
@@ -71,8 +86,8 @@ def asset_name(variable: str, suffix: str) -> str:
     return value
 
 
-def search_configuration() -> dict[str, str]:
-    return {
+def search_configuration() -> dict[str, Any]:
+    configuration: dict[str, Any] = {
         "endpoint": azure_endpoint(require_env("AZURE_SEARCH_ENDPOINT"), "search"),
         "index": asset_name("AZURE_SEARCH_INDEX_NAME", "policies"),
         "source": asset_name("AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME", "source"),
@@ -80,6 +95,13 @@ def search_configuration() -> dict[str, str]:
         "search_api": SEARCH_API,
         "iq_api": IQ_API,
     }
+    threshold = os.environ.get("WORKSHOP_IQ_RERANKER_THRESHOLD", "").strip()
+    if threshold:
+        value = float(threshold)
+        if not math.isfinite(value) or not 0 <= value <= 4:
+            raise ValueError("WORKSHOP_IQ_RERANKER_THRESHOLD must be a finite value from 0 to 4.")
+        configuration["iq_reranker_threshold"] = value
+    return configuration
 
 
 class SearchGateway:
@@ -183,6 +205,11 @@ class SearchGateway:
                         "knowledgeSourceName": self.source,
                         "includeReferences": True,
                         "includeReferenceSourceData": True,
+                        **(
+                            {"rerankerThreshold": self.configuration["iq_reranker_threshold"]}
+                            if "iq_reranker_threshold" in self.configuration
+                            else {}
+                        ),
                     }
                 ],
             },
@@ -241,7 +268,7 @@ class SearchGateway:
         for name in (self.index, self.source, self.kb):
             if not name.startswith(prefix + "-"):
                 raise ValueError("Refusing to modify an object outside WORKSHOP_PREFIX.")
-        documents = load_documents(root)
+        documents = load_documents(root, self.settings.language)
         scope = {"search_endpoint": self.endpoint, "prefix": prefix}
         ledger_path = root / "outputs/azure-objects.json"
         ledger = (

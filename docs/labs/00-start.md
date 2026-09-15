@@ -8,9 +8,8 @@ Parent: [Learning paths](../paths.md) · Next: [Lab 01](01-foundry.md)
 
 ## How to read this guide
 
-Reference images include **September 14 source captures** and individually dated
-**September 15 English-guide captures**. [New recordings and scope](../english-recordings.md)
-separate actual calls, local document views, and historical reports.
+Reference images come from **new, separately recorded English execution**.
+[Recordings and scope](../video-summary.md) distinguish actual calls, fixtures, observations, and failures.
 Click to enlarge. Compare account, project, model, and prefix with your instructor's
 values; do not copy identifiers from images.
 
@@ -21,9 +20,9 @@ the command finished. Distinguish `OFFLINE FIXTURE` from `LIVE AZURE`.
 **Execute the code blocks in the guide**, not text transcribed from screenshots.
 More before/after views are in the [action index](../action-captures.md).
 
-Both languages use unchanged Korean synthetic policies, prompts, and policy questions.
-Copy those inputs exactly for a comparable run; use the [English meanings](../reference/languages.md)
-to interpret them. An English-language model evaluation would require a separately versioned dataset.
+Use `--language en` for the separately frozen English policies, prompts, dev/holdout/calibration data, and fixtures.
+Korean originals remain unchanged. [Language-specific hashes and labels](../reference/languages.md)
+prevent translated datasets from being presented as the same-input experiment.
 
 ## A. Browser: no coding required
 
@@ -36,12 +35,10 @@ to interpret them. An English-language model evaluation would require a separate
    In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal;
    you will not write Python or build a portal workflow.
 
-![Filter the project list by the training project name](../assets/live-20260914-action/shots/portal-0016-P00-003-search-new-project-screen-change.webp)
 
 **What to check:** If the project picker is hard to use, choose **View all resources**,
 enter the training project name, and verify the result's name, parent resource, and region before opening it.
 
-![Selected project home and project endpoint](../assets/live-20260914-action/shots/portal-0021-P00-004-select-new-project-ready.webp)
 
 **What to check:** The project name at the top must change. **Project endpoint** is the
 value for `.env`; it is not the browser's `ai.azure.com` address. Authentication/PIN screens were not recorded.
@@ -74,15 +71,13 @@ other azd projects.
 ```bash
 pwd
 python3.13 --version
-python3.13 scripts/workshop.py doctor
+python3.13 scripts/workshop.py --language en doctor
 ```
 
 Expected fields include `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`,
 `azure_tested: false`, and `result: PASS`. **PASS does not mean Azure sign-in succeeded.**
 
-**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=58.68)
 
-![Offline doctor reports document counts and untested Azure connectivity](../assets/english-20260915/shots/terminal-0021-00-004-doctor-result.webp)
 
 **What to check:** Read all three counts and `azure_tested: false`. This checks files
 and the local runtime, not a successful Azure call.
@@ -90,9 +85,9 @@ and the local runtime, not a successful Azure call.
 ### 2. Learn the output format without Azure
 
 ```bash
-python3.13 scripts/workshop.py demo --label rehearsal-v1 --prompt v1
-python3.13 scripts/workshop.py demo --label rehearsal-v2 --prompt v2
-python3.13 scripts/workshop.py compare --baseline rehearsal-v1 --candidate rehearsal-v2
+python3.13 scripts/workshop.py --language en demo --label rehearsal-v1 --prompt v1
+python3.13 scripts/workshop.py --language en demo --label rehearsal-v2 --prompt v2
+python3.13 scripts/workshop.py --language en compare --baseline rehearsal-v1 --candidate rehearsal-v2
 ```
 
 Open `manifest.json`, `responses.jsonl`, and `business-evaluation.json` in
@@ -100,7 +95,6 @@ Open `manifest.json`, `responses.jsonl`, and `business-evaluation.json` in
 checker; v2 uses the original fixture. Their score difference is **not a measured
 prompt improvement**. Use fresh labels such as `rehearsal2-v1` to rerun.
 
-![Fixture comparison and its interpretation warning](../assets/live-20260914-action/shots/cli-1-0036-00-007-demo-compare-result.webp)
 
 **What to check:** Read `OFFLINE FIXTURE` and the final warning. No model was called
 with two prompts to obtain this difference.
@@ -120,7 +114,6 @@ disabling certificate validation or using an untrusted mirror.
 In each new terminal, return to the repository root and reactivate the venv.
 Do not paste Bash into a browser developer console or Python's `>>>` prompt.
 
-![Pinned cloud and agents installation completed](../assets/live-20260914-action/shots/cli-1-0113-00-011-install-core-result.webp)
 
 **What to check:** The command has ended and the shell prompt returned. Resolve any
 installation errors; matching the final screen is not sufficient. Installation is not Azure connectivity.
@@ -155,7 +148,7 @@ No Microsoft 365 account or real customer document is needed.
 ### 5. Read-only Azure preflight
 
 ```bash
-python scripts/workshop.py doctor --cloud
+python scripts/workshop.py --language en doctor --cloud
 ```
 
 Verify subscription, tenant, underlying model/version, and deployment state `Succeeded`.
@@ -164,10 +157,32 @@ Ask the instructor if you cannot read ARM.
 Preflight does not prove data-plane permissions or Structured Outputs support;
 [Lab 02](02-models.md) tests an actual request.
 
-![Cloud doctor checks the actual model deployment](../assets/live-20260914-action/shots/cli-1-0227-00-015-cloud-doctor-result.webp)
 
 **What to check:** Read `model`, `version`, `provisioningState: Succeeded`,
 `inference_tested: false`, and `next_step`. Only an actual response verifies inference.
+
+## New English execution evidence
+
+These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+
+![Activate the verified Python environment](../assets/refresh-20260915-en/screenshots/E00-002-environment-2.webp)
+
+**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+
+![Check the separate English corpus and evaluation bundle](../assets/refresh-20260915-en/screenshots/E00-004-english-assets-2.webp)
+
+**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+
+![English V1 fixture: not a model response](../assets/refresh-20260915-en/screenshots/E00-005-fixture-v1-2.webp)
+
+**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+
+![Compare fixtures without claiming model quality](../assets/refresh-20260915-en/screenshots/E00-007-fixture-compare-2.webp)
+
+**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+
+[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
 
 ## Completion
 

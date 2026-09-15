@@ -283,7 +283,7 @@ def collect_matrix(
         frozen = {"label": candidate, "manifest_hash": digest(previous), "model_keys": selected}
     elif split != "dev" or candidate or unlock_holdout:
         raise ValueError("Use dev for development, or an explicitly frozen holdout.")
-    cases = load_cases(root, split)
+    cases = load_cases(root, split, profile.language)
     row_ids = [f"{key}-{case['case_id']}" for key in selected for case in cases]
     if len(row_ids) != len(set(row_ids)):
         raise ValueError(
@@ -310,14 +310,14 @@ def collect_matrix(
         "runtime_contract_hash": digest(contract),
         "binding": binding.to_dict(),
         "dataset_hash": digest(cases),
-        "corpus_hash": digest(load_documents(root)),
+        "corpus_hash": digest(load_documents(root, profile.language)),
         "rubric_hash": digest(RUBRIC),
         "frozen_candidate": frozen,
         "reviewed_regressions": reviewed,
         "session_retained_at_collection_end": True,
     }
     write_json(path / "dataset.json", cases)
-    write_json(path / "corpus.json", load_documents(root))
+    write_json(path / "corpus.json", load_documents(root, profile.language))
     write_json(path / "manifest.json", manifest)
     rows = []
     with transport_factory(settings, binding) as transport:
@@ -414,6 +414,8 @@ def compare_matrices(root: Path, baseline: str, candidate: str) -> dict[str, Any
         if old[key] != new[key]:
             raise ValueError(f"Controlled matrix comparison requires identical {key}.")
     a, b = old["runtime_contract"], new["runtime_contract"]
+    if a["profile"].get("language", "ko") != b["profile"].get("language", "ko"):
+        raise ValueError("Controlled comparison requires the same explicit language.")
     for key in (
         "models",
         "project_endpoint",
@@ -505,14 +507,36 @@ def approve_regression(
 def report_matrix(root: Path, label: str) -> Path:
     manifest, rows, cases = load_matrix(root, label)
     summary = summarize_matrix(rows, cases, manifest["model_keys"])
+    language = manifest["runtime_contract"]["profile"].get("language", "ko")
+    if language not in {"ko", "en"}:
+        raise ValueError("The report must use the frozen matrix language.")
+    english = language == "en"
+    title = "Workshop evaluation" if english else "실습 평가"
+    introduction = (
+        "Business checks of actual Hosted responses. Native judges, trace export verification and human production approval are separate."
+        if english
+        else "실제 Hosted 응답의 업무 검사입니다. Native judge·trace export 확인·사람의 운영 승인은 별도입니다."
+    )
+    columns = (
+        (
+            "Model key",
+            "Passed/total",
+            "Errors",
+            "p50 successful latency",
+            "p95 successful latency",
+            "Input/output tokens",
+        )
+        if english
+        else ("모델 키", "통과/전체", "오류", "p50 성공 지연", "p95 성공 지연", "입력/출력 토큰")
+    )
     body = [
-        "<!doctype html><html lang='ko'><meta charset='utf-8'><title>실습 평가 보고서</title>",
+        f"<!doctype html><html lang='{language}'><meta charset='utf-8'><title>{title}</title>",
         "<style>body{font:16px/1.6 system-ui;max-width:1200px;margin:32px auto;padding:0 20px}"
         "table{border-collapse:collapse;width:100%}td,th{border:1px solid #aaa;padding:8px}"
         "pre{white-space:pre-wrap} .fail{background:#fff1f0}</style>",
-        f"<h1>실습 평가: {html.escape(label)}</h1>",
-        "<p>실제 Hosted 응답의 업무 검사입니다. Native judge·trace export 확인·사람의 운영 승인은 별도입니다.</p>",
-        "<table><tr><th>모델 키</th><th>통과/전체</th><th>오류</th><th>p50 성공 지연</th><th>p95 성공 지연</th><th>입력/출력 토큰</th></tr>",
+        f"<h1>{title}: {html.escape(label)}</h1>",
+        f"<p>{introduction}</p>",
+        "<table><tr>" + "".join(f"<th>{column}</th>" for column in columns) + "</tr>",
     ]
     for key, item in summary["models"].items():
         body.append(
@@ -531,8 +555,14 @@ def report_matrix(root: Path, label: str) -> Path:
             + "</tr>"
         )
     body += [
-        "</table><p>None은 미측정이며 0이 아닙니다. 작은 합성 표본은 운영 SLA나 통계적 우월성을 증명하지 않습니다.</p>",
-        "<h2>모든 행과 실패</h2>",
+        "</table><p>"
+        + (
+            "None means unmeasured, not zero. Small synthetic samples do not prove an operational SLA or statistical superiority."
+            if english
+            else "None은 미측정이며 0이 아닙니다. 작은 합성 표본은 운영 SLA나 통계적 우월성을 증명하지 않습니다."
+        )
+        + "</p>",
+        "<h2>" + ("All rows and failures" if english else "모든 행과 실패") + "</h2>",
     ]
     by_case = {case["case_id"]: case for case in cases}
     for row in rows:

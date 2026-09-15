@@ -3,6 +3,7 @@ import json
 import os
 import unittest
 from contextlib import asynccontextmanager
+from dataclasses import replace
 from unittest.mock import patch
 
 import httpx
@@ -40,6 +41,10 @@ class WorkflowHostingTests(unittest.IsolatedAsyncioTestCase):
                 "limit_krw": 150000,
                 "citations": ["TRAVEL-2026", "APPROVAL-01"],
             }
+            if config.language == "en":
+                answer["answer"] = (
+                    "The synthetic limit is KRW 150000; human approval is required before booking."
+                )
             return httpx.Response(
                 200, json=response_body(json.dumps(answer, ensure_ascii=False), len(self.requests))
             )
@@ -78,6 +83,30 @@ class WorkflowHostingTests(unittest.IsolatedAsyncioTestCase):
                         "ground_truth",
                     ):
                         self.assertNotIn(forbidden, serialized)
+
+    async def test_english_invocations_use_english_prompts_and_corpus(self):
+        config = replace(settings(), language="en")
+        profile = RuntimeProfile(kind="workflow", protocol="invocations", language="en")
+        app = create_invocations_app(config, ROOT, profile)
+        request = {
+            "question": "A domestic hotel in September 2026 costs KRW 170000. Is advance approval needed?",
+            "model_key": "primary",
+            "case_id": "D03",
+            "run_id": "unit-english",
+        }
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=app), base_url="http://testserver"
+        ) as client:
+            response = await client.post("/invocations", json=request)
+        self.assertEqual(response.status_code, 200, response.text)
+        value = response.json()
+        self.assertEqual(value["runtime_contract"]["profile"]["language"], "en")
+        self.assertEqual(len(self.requests), 3)
+        self.assertIn("KRW 150000", value["answer"]["answer"])
+        import re
+
+        self.assertIsNone(re.search("[가-힣]", json.dumps(self.requests, ensure_ascii=False)))
+        self.assertIsNone(re.search("[가-힣]", json.dumps(value["documents"], ensure_ascii=False)))
 
     async def test_concurrent_requests_keep_question_and_model_call_state_separate(self):
         profile = RuntimeProfile(kind="workflow")

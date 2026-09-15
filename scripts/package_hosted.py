@@ -93,6 +93,7 @@ if __name__ == "__main__":
         "--api", choices=("project-responses", "account-chat"), default="project-responses"
     )
     parser.add_argument("--protocol", choices=("responses", "invocations"), default="responses")
+    parser.add_argument("--language", choices=("ko", "en"), default="ko")
     args = parser.parse_args()
     try:
         print(build(ROOT, RuntimeProfile(**vars(args))))

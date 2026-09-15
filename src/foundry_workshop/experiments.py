@@ -13,6 +13,7 @@ from .contracts import (
     load_cases,
     load_documents,
     load_prompt,
+    localized_path,
     read_json,
     safe_label,
     write_json,
@@ -34,30 +35,32 @@ def collect(
     recoverable_errors: tuple[type[Exception], ...] = (ValueError,),
     inference: dict[str, Any] | None = None,
     candidate: str | None = None,
+    language: str = "ko",
 ) -> dict[str, Any]:
     label = safe_label(label)
     if mode not in {"live", "offline-fixture"}:
         raise ValueError("Unknown execution mode.")
     if mode == "offline-fixture" and split != "dev":
         raise ValueError("Offline fixtures are dev-only; never fabricate holdout results.")
-    cases = load_cases(root, split)
+    cases = load_cases(root, split, language)
     if len(cases) > 20:
         raise ValueError(
             "Workshop batches are capped at 20 cases. Review costs before designing a larger experiment."
         )
-    _, prompt_hash = load_prompt(root, prompt_version)
+    _, prompt_hash = load_prompt(root, prompt_version, language)
     manifest = {
         "run_id": str(uuid.uuid4()),
         "created_at": datetime.now(UTC).isoformat(),
         "status": "collecting",
         "mode": mode,
+        "language": language,
         "split": split,
         "prompt_version": prompt_version,
         "prompt_hash": prompt_hash,
         "retrieval": retrieval,
         "deployment": deployment,
         "dataset_hash": digest(cases),
-        "corpus_hash": digest(load_documents(root)),
+        "corpus_hash": digest(load_documents(root, language)),
         "code_hash": code_hash(root),
         "inference": inference,
         "expected_rows": len(cases),
@@ -70,6 +73,8 @@ def collect(
         frozen, frozen_rows, frozen_cases = load_run(root, candidate)
         if frozen["mode"] != "live" or frozen["split"] != "dev":
             raise ValueError("The frozen candidate must be a real dev run.")
+        if frozen.get("language", "ko") != language:
+            raise ValueError("Holdout language differs from the frozen candidate.")
         if not summarize(frozen_rows, frozen_cases)["business_gate_passed"]:
             raise ValueError(
                 "Resolve the candidate's dev business failures before opening holdout."
@@ -150,9 +155,11 @@ def collect(
     return summary
 
 
-def offline_demo(root: Path, label: str, prompt_version: str) -> dict[str, Any]:
-    fixture = read_json(root / "data/fixtures/answers.json")
-    context = evidence(load_documents(root), "offline-fixture")
+def offline_demo(
+    root: Path, label: str, prompt_version: str, *, language: str = "ko"
+) -> dict[str, Any]:
+    fixture = read_json(localized_path(root, "data/fixtures/answers.json", language))
+    context = evidence(load_documents(root, language), "offline-fixture")
 
     def answer_case(case: dict[str, Any]) -> dict[str, Any]:
         answer = dict(fixture[case["case_id"]])
@@ -177,4 +184,5 @@ def offline_demo(root: Path, label: str, prompt_version: str) -> dict[str, Any]:
         mode="offline-fixture",
         deployment="not-a-model",
         answer_case=answer_case,
+        language=language,
     )

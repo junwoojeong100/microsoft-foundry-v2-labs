@@ -34,9 +34,9 @@ SDK·가상환경·학습자 계정의 모델 호출 권한을 미리 확인합�
 Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로 보일 수 있습니다.
 현재 [역할 표](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를 기준으로 확인합니다.
 
-![촬영 시점의 Luna SKU별 quota 사용량과 한도](../assets/live-20260914-action/shots/cli-1-0152-01-006-luna-quota-result.webp)
+![새 국문 촬영의 실제 모델 배포·SKU·capacity](../assets/refresh-20260915-ko/screenshots/K02-005-models-after-2.webp)
 
-**화면 확인:** 2026-09-14 준비 과정의 예시입니다. `used`, `limit`, SKU를 구분하고 수업 직전에 다시 조회합니다.
+**화면 확인:** 실제 배포의 SKU/capacity이며 quota의 `used`/`limit`와는 다릅니다. 할당량과 지역 가용 용량은 수업 직전에 별도로 다시 조회합니다.
 사진의 숫자나 Sweden Central 가용성을 다른 구독·날짜의 배포 가능 여부로 복사하지 않습니다.
 
 ### 조별로 전달할 값
@@ -94,9 +94,9 @@ python scripts/workshop.py workflow --pattern sequential
 여기서 실제 모델 호출이 실패하면 리허설은 통과가 아닙니다.
 권한, quota, 모델의 tool/Structured Outputs 지원을 해결한 뒤 다시 확인합니다.
 
-![새 전용 그룹의 리소스 이름과 지역을 대조한 결과](../assets/live-20260914-action/shots/cli-1-0288-01-015-new-region-inventory-result.webp)
+![기존 승인된 실습 환경의 사전 검증](../assets/refresh-20260915-ko/screenshots/K01-002-cloud-doctor-2.webp)
 
-**화면 확인:** 준비한 프로젝트·Search·로그 리소스의 이름과 위치를 함께 검토한 예시입니다.
+**화면 확인:** 이번 촬영은 기존 승인 환경을 재사용했습니다. 새 Resource Group을 만든 결과가 아닙니다.
 한 리소스의 생성 성공만으로 전체 환경이 준비됐다고 판단하지 않습니다. 실제 참가자 계정의 첫 모델 호출은 별도 게이트입니다.
 
 추가 모듈은 실제 선택한 것만 확인합니다.
@@ -184,7 +184,8 @@ native 실행/품질, 실제 trace export, 사용자 검토, 세션/비용 정�
 영어 캡처/녹화 → 최종 문서/명령 검사를 순서대로 수행합니다.
 영문 유예 파일과 해시는 `docs/localization.json`에 기록하고,
 유예 중인 영어 페이지에는 독자가 볼 수 있는 경고를 유지합니다.
-기존 2026-09-14/15 미디어의 파일·해시·실측은 그대로 보존하되 새 기능의 증거로 재분류하지 않습니다.
+기존 미디어는 두 새 언어 세트가 모두 검증된 뒤 최종 자료에서 교체/삭제합니다.
+원본 평가·실패·데이터 계보와 최종 자료의 재현에 필요한 실행 코드는 유지합니다.
 
 ## 7. 수업 종료 / Ignite 전 최종 동결
 

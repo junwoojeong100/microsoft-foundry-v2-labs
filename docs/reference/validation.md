@@ -1,195 +1,100 @@
-# Validation record for this edition
+# Validation boundaries and actual execution
 
 **English** | [한국어](../ko/reference/validation.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
+**Installation, offline contracts, real Azure execution, model quality, and media validation are distinct.**
+Each language uses independent execution labels and recording sources.
+Earlier videos and upstream results are not relabeled as new evidence.
 
-> **Translation pending** — The [Korean-first integration revision](../ko/reference/validation.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+## Korean prerequisite run — September 15, 2026
 
-## New English-guide recording: September 15, 2026
+The existing Sweden Central workshop project was reused; no default subscription or resource group was changed.
+Approved Sol/Terra/Astra deployments were added at 100K TPM with minimum scoped model/Search roles.
+Existing Luna, judge, and embedding deployments were reused.
 
-The documentation-first release `26d2e80` was published before the new recording.
-[New videos and boundaries](../english-recordings.md) and
-[234 action records](../english-captures.md) are separate from the September 14 evidence below.
-The new set contains **537 lossless screenshots**, a **13:09** guide-ordered video,
-**5:15** CLI, and **4:45** portal video.
+| Cohort | Version | Rows | Errors | Business | Groundedness | Relevance | Root traces |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `ko-baseline-final` | 7 | 24 | 0 | 24/24 | 24/24 | 19/24 | 24/24 |
+| `ko-candidate` | 8 | 24 | 0 | 24/24 | 22/24 | 20/24 | 24/24 |
+| `ko-holdout` | 8 | 16 | 0 | 16/16 | 16/16 | 13/16 | 16/16 |
 
-Fresh canonical dev results were **v1 5/6, v2 6/6**, with all six rows and zero collection
-errors. v1 D06's decision failure remains linked to pending review.
-The frozen candidate's already-exposed teaching holdout passed **4/4**; it is not a new
-unseen test or an English-language evaluation. An introductory portal HTTP 503 and a
-local missing-azd-context error remain alongside their separate successful retries.
-The actual local readiness body, `{"status":"healthy"}`, is now checked by the SDK contract
-test and documented in both languages; that guide segment was rerecorded after correction.
+Calibration classified both prewritten correct/incorrect examples as expected.
+It did not create two new target responses or certify the judge generally.
+The initial version-6 diagnostic cohort remains separate.
 
-The new remote Hosted request's exact trace is `94b4e5f61dc7e93016fc53a57ffa9f78`:
-**15 visible spans, one chat span, one tool span, root OK**. This is distinct from
-the older 20-span trace. Native/Hosted rubric reports were only observed, not rerun.
-No provisioning, deployment, role changes, default-subscription changes, or company/M365
-data access occurred. The owned session and local server were stopped.
+The recommendation is `review-native-findings`, not production approval.
+Correct abstentions can score poorly on generic relevance. Scores and reasons remain unchanged.
+No failure or regression promotion was manufactured for an all-pass baseline.
+The public holdout teaches final acceptance; it is not an unseen production test.
 
-The final local gate passed **70 offline tests, seven SDK contracts**, Ruff lint/format,
-Python compilation, and documentation checks over **67 Markdown files, 33 language pairs,
-and 108 matching CLI examples**. Headless Edge loaded **64 pages and 158 image references**,
-played both explicit recording sets, checked all **24 chapter selections**, language
-switching with preserved video/time, and invalid-input rejection.
+## Independent English run — September 15, 2026
 
-Actual GitHub media downloads matched all **three SHA-256 hashes**.
-Both language pages rendered three native players each; **18 playback/seek positions**
-worked, all **492 chapter/action links** survived GitHub Markdown rendering, and
-**15 direct authenticated redirect/seek checks** passed. No mocked/local replacement
-video or persisted signed CDN URL was used. See the
-[playback verification](../assets/english-20260915/playback-verification.json).
-Raw runs, six source videos, capture ledgers, and their hashes are retained privately
-under `outputs/english-20260915/`; credentials are excluded.
+English prompts, corpus, dev/calibration/fixtures and final holdout are separate frozen assets.
+The initial version-10 baseline was **20/24**: IQ's default retrieval filter omitted the scope document.
+That entire cohort remains unchanged. An explicit same-provider recall diagnostic led to a new baseline/candidate pair;
+the evaluator/reference labels and frozen prompts were not weakened or tuned on holdout.
 
-## Historical source evidence
+| Cohort | Version | Rows | Errors | Business | Groundedness | Relevance | Root traces |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `en-baseline-recall` | 11 | 24 | 0 | 24/24 | 24/24 | 20/24 | 24/24 |
+| `en-candidate` | 12 | 24 | 0 | 23/24 | 24/24 | 20/24 | 24/24 |
+| `en-holdout` | 12 | 12 | 0 | 12/12 | 12/12 | 9/12 | 12/12 |
 
-**Source Azure run: September 14, 2026, new Sweden Central environment and action-level recording.**
+Astra failed the predeclared citation-relevance check on dev D05.
+Only Luna/Sol/Terra were selected **using dev results before any holdout response**; the final denominator is 12, not 16.
+The original four-model candidate remains 23/24. English calibration classified both fixed examples correctly.
+The D05 regression candidate remains pending human review and was not promoted/consumed without approval.
+Read the [full English lineage](../live-run.md); neither language's outcomes are copied into the other.
 
-[Actual execution](../live-run.md) · [Videos](../video-summary.md) ·
-[236-action evidence](../action-captures.md)
+## Corrections established by actual calls
 
-The source run started from `8d094723d651d011592578a76609695c86570ba7` in an
-independent folder. These are that run's direct observations, not upstream results.
-**English documentation added September 15 does not reset these evidence dates
-or constitute another Azure run.**
+Endpoint/protocol CLI conflicts, dropped API-version query parameters, explicit account embeddings,
+App Insights credential scoping, and already-idle session cleanup were fixed while preserving original failures.
+Changed runtime versions and controlled comparisons remain separately labeled.
 
-## Actual Azure evidence: September 14
+## Media evidence
 
-| Area | Result |
-|---|---|
-| Environment | `rg-mfv2-action-swc-20260914`, regional resources in Sweden Central, default subscription unchanged |
-| Model | Luna `2026-07-09`, target 100K / separate judge 50K, Data Zone Standard, NoAutoUpgrade |
-| Portal/SDK | Browser agent v3: four intro/six dev questions; separate SDK agent v1 |
-| MAF | Single/function/MCP; A's two sequential cases; B's three patterns |
-| Search/IQ | Six synthetic documents and actual GA retrieval, rechecked after portal observation |
-| File Search | Separate v2, all six Completed, stored bytes identical to originals |
-| Dev | v1 6/6, v2 6/6; same local retrieval/model/data/output limit |
-| Native | Groundedness 6/6, relevance 5/6; original D05 score 2/reason preserved |
-| Teaching holdout | Final frozen-candidate procedure 4/4; not a new unseen set |
-| Hosted | New code deployment v1; actual local/remote answers; model/tool success logs |
-| Hosted evaluation | Six fresh remote responses, all query-only inputs checked, rubric 6/6 |
-| Trace | Same ID `e72dc58132dbc461e5fa381c67da3ed9`, 20 spans, two chat/one tool, root Completed |
-| Child errors | Two initial state store/item GET 404s retained; later writes/final Responses succeeded |
-| Cleanup | Both owned sessions stopped and idle, local server stopped, existing Azure environments preserved |
+The Korean set contains 182 actions, 543 lossless screenshots, and three edited videos.
+Published WebP pixels exactly match source PNGs.
+All 435 retained source-video segments were compared, with minimum midpoint SSIM 0.987849.
+Full MP4 decoding and frame counts were checked; chapter cards are labeled as non-application footage.
 
-Natural-language review, deterministic business checks, native judges, and Hosted
-rubrics are different criteria. Missing/errors remain in denominators; unmeasured
-latency is not zero. The actual Hosted evaluator version selector was empty despite
-catalog v1 lookup. No retroactive explicit-version claim is made.
-Human production approval, durable crash recovery, and real Fabric/Work IQ/M365
-connections were not performed.
+Authentication/password entry is excluded. Failures and diagnostics remain in the source ledger.
+One portal trace showed 17 spans/two chat calls while the response recorded three actual model calls:
+root trace verification is not proof that every child span was exported.
+The six uploaded synthetic files were read back through the Files API and matched byte-for-byte.
+An unconfirmed UI citation download was not reported as successful.
 
-## Guide corrections from that run
+The English set has **172 actions, 516 lossless captures, three videos and 407 checked source-video segments**.
+Its minimum midpoint SSIM is **0.985156**. Actual native playback, byte ranges and all 12 chapter jumps were verified for each language.
+All six new videos were uploaded as private-repository GitHub attachments after user approval.
+Their actual hosted bytes/hashes, native playback, and chapter seeks were verified.
+Only canonical attachment URLs are saved; temporary signed storage URLs are not retained.
+Older current-worktree media files were removed only after both replacements passed these checks.
 
-New agents can re-add Web Search; remove it before questions.
-The guide names **New agent → Build an agent**, distinguishes **Save** from **Publish**,
-and documents **Leave without saving?**.
-The 2001-character check uses a short generator to avoid terminal truncation.
-File Search citation controls did not open sources, so the same stored bytes were
-checked separately. The IQ portal's chat-model requirement did not change GA settings.
-Hosted logs were read immediately, and successful roots were distinguished from child 404s.
-
-## Source media validation
-
-CLI is **841.52 s**, portal **549.44 s**, edited from real video segments at normal speed.
-Each source's order was retained. These are not screenshot slideshows.
-
-| Check | Evidence |
-|---|---|
-| Action boundaries | 131 CLI + 105 portal actions linked to images/video intervals |
-| Captures | 1,500 originals → 1,065 retained events → 898 lossless WebP files |
-| Image equivalence | Decoded PNG/WebP RGB pixels matched |
-| Video integrity | Full-frame FFmpeg decoding |
-| Source correspondence | Start/middle/end of 227 segments: **681 comparisons** |
-| Minimum SSIM | CLI **0.984467**, portal **0.991442** |
-| Authentication | No sign-in/PIN/MFA recording |
-
-[Frame correspondence](../assets/live-20260914-action/edit-timeline.json) ·
-[Hashes](../assets/live-20260914-action/media.json)
-
-Repository publication and GitHub player attachment upload are separate.
-All three final files were hash-checked and uploaded as attachments scoped to the same
-private repository. Guides store canonical attachment URLs, not signed CDN URLs/tokens.
-
-The source verification rendered `video-summary.md` and `live-run.md` through the
-authenticated GitHub Markdown API, yielding three players each. CDN downloads matched
-file lengths/SHA-256. Headless Edge checked start/50%/90% across six players:
-**18 playback/seek checks**. No local or mock videos replaced remote media.
-Direct links returned an authenticated redirect and ultimately HTTP 200 `video/mp4`.
-Tokens were not forwarded to redirect destinations.
-
-All **12 chapter** positions survived authenticated redirects with `#t=`.
-All **236 action and 12 chapter** links retained timestamps after Markdown rendering.
-The `▶` prefix prevents GitHub from replacing timestamp-table links with duplicate
-players that lose their position.
-
-## Illustrated guides
-
-The September 14 update expanded direct image references in twelve labs from 18 to
-**77**, plus two instructor references: **79 uses of 77 distinct captures**.
-Every image explains controls, verification, and interpretation beside its step.
-Optional File Search images remain in expandable details.
-
-Original media/lineage and executable blocks were unchanged in that update.
-A local headless Edge preview loaded all 79 images across thirteen guides and expanded
-File Search. That check made no Azure calls/uploads.
-
-## Guide-ordered video
-
-The **1,414.96 s (23:35)** combined video rearranges existing CLI/portal edits into
-Lab 00–11. It is not a new Azure execution or original wall-clock order.
-
-- All **34,774 input frames** occur exactly once.
-- All **236 actions** map to combined intervals.
-- Twelve separate chapter cards add **600 frames / 24 seconds**, for **35,374 total frames**.
-- Full decoding and all twelve embedded chapter times were verified.
-- Start/middle/end of 387 footage segments produced **1,161 comparisons**,
-  minimum SSIM **0.988877**.
-
-[Combined lineage](../assets/live-20260914-action/combined-timeline.json) preserves
-input hashes and exact frame mappings. The individual source files/URLs stayed
-unchanged; the combined video was uploaded separately.
-Headless Edge verified default selection, all twelve chapters, video switching,
-direct timestamps, and invalid-time rejection in the local player.
-
-## Revalidation commands
-
-### English-default documentation: September 15, 2026
-
-The localization check passed **63 offline tests and seven installed-SDK contract
-tests**, Ruff lint/format, Python compilation, and dependency/SDK checks.
-The documentation checker verified **63 Markdown files, 2,747 local links,
-12 local heading anchors, 108 CLI examples, and 31 reciprocal language pairs**.
-Paired executable policy inputs are identical; canonical datasets/prompts and Azure
-integration code were not changed.
-
-Headless Edge loaded **60 guide pages and all 158 image references** across both
-languages. The local player defaults to English, preserves video/time on language
-switch, seeks all twelve chapters, plays all three source videos, and rejects invalid
-times, filenames, and languages. These were **local checks with zero Azure requests**.
-The historical results below remain attributed to September 14.
-
-The historical check reported **59 offline tests, seven installed-SDK contracts**,
-Ruff/format, compilation, SDK versions/dependencies, and **31 Markdown files,
-1,338 local links, 54 CLI examples**. These are the pretranslation counts, not the
-English edition's current counts or a remote GitHub Actions result.
-Eight source-video playback/seek checks covered start/25%/50%/90%, switching, and
-invalid time/file rejection with no external or mocked video.
+## Local checks to run
 
 ```bash
-python -m pip check
-python scripts/check_sdk.py
+python3.13 -S -m unittest discover -s tests -t . -q
+python3.14 -S -m unittest discover -s tests -t . -q
+python -m unittest discover -s tests_sdk -t . -q
 python -m ruff check .
 python -m ruff format --check .
 python -m compileall -q src scripts examples tests tests_sdk
-python -m unittest discover -s tests -t . -v
-python -m unittest discover -s tests_sdk -t . -v
 python scripts/check_docs.py
+python -m pip check
+python scripts/check_sdk.py
 ```
 
-SDK checks need `.[cloud,agents,hosted]`; Ruff needs `.[dev]`.
-Offline contracts are not Azure quality scores. Raw run/evaluator/cleanup evidence
-remains in Git-excluded `outputs/live-20260914-action/`.
-Do not add `.env`, authentication material, or private raw traces to Git.
+SDK tests use the actual installed libraries with explicitly stubbed transports.
+They are not counted as real Azure responses.
+Final result: **98 offline tests on each of Python 3.13 and 3.14, 21 installed-SDK tests**, Ruff check/format,
+Python compilation, dependency compatibility, and documentation checks passed.
+Documentation checks cover **35 language pairs and 200 CLI examples**, with no pending translations.
+
+## Not established
+
+Real company/Microsoft 365 data, external Work IQ/Fabric connections, operational SLAs,
+statistical superiority, automatic retraining/weight changes, human production approval,
+and deletion of other users' resources are outside this evidence.
+Stopping sessions does not eliminate all model/Search/log/storage costs.

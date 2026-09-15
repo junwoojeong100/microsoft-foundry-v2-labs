@@ -2,32 +2,43 @@
 
 [English](README.md) | **한국어**
 
+## 이 실습의 배경: Learning loops와 Frontier ecosystems
+
+사티야 나델라는 [2026년 6월 14일 글](https://x.com/satyanadella/status/2066182223213293753)에서
+**프런티어 모델 하나를 넘어 프런티어 생태계를 만들어야 한다**고 강조했습니다.
+모델을 교체하더라도 조직의 지식과 전문성이 남는 학습 시스템을 구축해야 한다는 관점입니다.
+이어 [2026년 7월 29일 Microsoft 실적 발표](https://www.microsoft.com/en-us/Investor/events/FY-2026/earnings-fy-2026-q4)에서도
+각 조직이 자체적인 **지속적 학습 루프(continuous learning loop)**를 만들고 핵심 IP를 통제해야 한다고 재차 설명했습니다.
+관심의 중심을 가장 뛰어난 모델을 고르는 데서, 조직이 계속 학습하고 가치를 축적할 수 있는 생태계를 만드는 데로 옮기는 것입니다.
+
+이 실습은 그 관점을 **실행 → 관측·평가 → 사람의 검토 → 개선 → 재검증**이라는 엔지니어링 루프로 구체화합니다.
+번들 합성 데이터만 사용해 Foundry와 Microsoft Agent Framework(MAF)의 에이전트,
+지식·도구·워크플로·Hosted 배포·평가를 하나의 시스템으로 연결합니다.
+여기서 학습은 검토를 거친 지침·검색·도구·워크플로의 개선을 뜻하며, 모델 가중치의 자동 재학습이 아닙니다.
+Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니다.
+
 **처음에는 에이전트 하나를 만들고, 마지막에는 지식·평가·운영 기준이 남는 시스템을 만듭니다.**
 
-> **한국어 우선 개정 `ko-integrated-20260915`**
-> MAF workflow→Hosted와 다중 모델 평가·calibration·회귀·trace 인수를 보강했습니다.
+> **2026-09-15 새 국문 실제 실행·촬영**
+> MAF workflow→Hosted, 네 모델의 24/24/16행, native 평가·calibration·trace 인수를 실제 실행했습니다.
 > [통합 범위와 인수 기준](docs/ko/reference/consolidation.md) ·
 > [Hosted 평가 워크북](docs/ko/reference/evaluation-workbook.md) ·
 > [IQ 확장 워크북](docs/ko/reference/iq-workbook.md).
-> 아래 영상은 개정 전 기본 경로의 참고 자료입니다. 새 기능의 한국어 촬영/보완 뒤 영어를 갱신합니다.
+> 국문과 영문은 별도 실행·별도 화면·별도 녹화본으로 제공합니다.
 
-한국어 · 합성 데이터 · **2026-09-14 실제 실행 확인 / Pre-Ignite 2026 Edition**
+한국어 · 합성 데이터 · **2026-09-15 실제 실행 / Pre-Ignite 2026 Edition**
 
-**[2026-09-15 새 영문 가이드 촬영본](docs/ko/english-recordings.md)** —
-통합본 **13분 09초**, CLI **5분 15초**, 포털 **4분 45초**.
-[234개 액션·537개 새 캡처](docs/ko/english-captures.md)를 제공합니다.
-지침·평가 입력은 한국어 합성 원본을 유지하며 아래 한국어 원본 영상과 구분합니다.
+**[새 국문 영상](docs/ko/video-summary.md)** —
+통합본 **15분 14초**, CLI **8분 56초**, 포털 **5분 53초**.
+[182개 실제 액션·543개 무손실 캡처](docs/ko/action-captures.md)를 제공합니다.
+영상은 실제 화면 녹화에서 대기를 덜어낸 것이며 스크린샷 슬라이드쇼가 아닙니다.
 
-**[새 액션별 실습 영상: 포털 9분 09초 · CLI 14분 02초](docs/ko/video-summary.md)** —
-새 환경에서 처음부터 촬영하고 대기를 제거했습니다. **GitHub 내장 플레이어에서 별도 명령 없이 재생**합니다.
+[Lab 00–11 챕터 이동](docs/ko/video-chapters.md) · [실측 결과와 한계](docs/ko/live-run.md)
 
-**[실습 순서 통합본 — 23분 35초](docs/ko/video-summary.md#실습-가이드-순서-통합본)**도 제공합니다.
-Lab 00–11별로 CLI와 포털을 교차 편집했으며,
-**[통합본도 GitHub에서 바로 재생](https://github.com/user-attachments/assets/c005e1a6-f577-4d07-b2c3-9a4827750c81)**합니다.
+국문·영문 영상 6개는 GitHub에 게시하고 실제 재생·챕터 이동을 확인했습니다.
+비공개 저장소이므로 접근 권한이 있는 GitHub 계정으로 로그인해 재생하세요.
 
-[236개 액션의 전·후 화면](docs/ko/action-captures.md) · [실행 결과와 검증 한계](docs/ko/live-run.md)
-
-각 랩 본문에는 조작·명령 바로 옆에 **2026-09-14 원본과 개별 표시한 2026-09-15 새 캡처·화면 확인 포인트**를 배치했습니다.
+각 랩 본문에는 새 국문 캡처와 화면 확인 포인트를 배치했습니다.
 먼저 [화면 읽는 법](docs/ko/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
 
 에이전트·워크플로·지식·평가·운영을 **하나의 환경과 업무 시나리오**로 구성했습니다.

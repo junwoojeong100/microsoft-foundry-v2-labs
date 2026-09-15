@@ -86,6 +86,32 @@ class DocumentationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             DOCS.workshop_commands('python scripts/workshop.py model --question "unclosed')
 
+    def test_language_parity_only_normalizes_explicit_translations(self):
+        mapping = {"Approved English question": "승인된 한국어 질문"}
+        english = [
+            "--language",
+            "en",
+            "answer",
+            "--question",
+            "Approved English question",
+            "--retrieval",
+            "iq",
+        ]
+        korean = ["answer", "--question", "승인된 한국어 질문", "--retrieval", "iq"]
+        self.assertEqual(DOCS.normalized_command(english, mapping), korean)
+        changed = [*english[:-1], "local"]
+        self.assertNotEqual(DOCS.normalized_command(changed, mapping), korean)
+        unknown = [
+            "--language",
+            "en",
+            "answer",
+            "--question",
+            "Unreviewed question",
+            "--retrieval",
+            "iq",
+        ]
+        self.assertNotEqual(DOCS.normalized_command(unknown, mapping), korean)
+
     def test_language_pair_discovery_keeps_orphans_visible(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

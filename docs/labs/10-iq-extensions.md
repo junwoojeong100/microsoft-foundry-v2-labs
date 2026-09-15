@@ -2,10 +2,6 @@
 
 **English** | [한국어](../ko/labs/10-iq-extensions.md)
 
-<!-- translation-pending: ko-integrated-20260915 -->
-
-> **Translation pending** — The [Korean-first integration revision](../ko/labs/10-iq-extensions.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
-
 **Optional advanced work. Complete the core labs without accessing actual Fabric or Microsoft 365 accounts.**
 
 Prerequisite: [Lab 06](06-knowledge.md) · Parent: [Learning paths](../paths.md)
@@ -34,7 +30,6 @@ Without signing into services, design this routing table:
 Mocking three response shapes with synthetic JSON is a routing exercise,
 **not proof of an actual Fabric IQ or Work IQ connection**.
 
-![Synthetic routing design with explicit no-connection fields](../assets/live-20260914-action/shots/cli-2-0853-10-001-synthetic-routing-result.webp)
 
 **What to check:** Review the evidence/verification route for each question.
 `fabric_connected`, `work_iq_connected`, and `company_or_m365_data_accessed` are all
@@ -48,7 +43,7 @@ Record prerequisites before connecting:
 2. A published Data Agent/semantic model and source-read permissions.
 3. Tenant, network, region, and processing requirements across Foundry/Search/Fabric.
 4. Current supported MCP or Foundry tool/knowledge-source integration.
-5. Required delegated-user/OBO authentication and the actual caller's permissions.
+5. Asset-specific identity: ontology/semantic-model paths require delegated/OBO context; published Data Agent MCP may support a separately authorized service principal.
 6. Capacity uptime, request costs, and shutdown/restoration plan.
 
 If assets are absent, start with the
@@ -72,6 +67,10 @@ Preview Work IQ may **perform actions**, not merely read.
 No repository script automatically enables Work IQ or creates accounts/service
 principals. Do not force personal sign-in or paste Graph/M365 tokens.
 Owning M365 Copilot alone does not satisfy these requirements.
+The September 15 contract includes a Copilot Studio usage-based billing plan with per-user assignments,
+tenant enablement, user assertions, `WorkIQAgent.Ask` delegated consent, and a customer-owned Entra app/federated credential
+for the `2026-08-01-preview` path. `applicationId` is the client ID; `federatedCredentialId` is the credential object ID.
+Do not generalize old same-tenant examples or replace user context with the host identity.
 
 **Stop:** if approval, billing, tenant, delegated access, or action scope is unclear,
 remain with synthetic routing. Do not make a real connection.
@@ -90,6 +89,8 @@ public documentation such as Microsoft Learn.
 
 Web IQ and ordinary Web Search are not interchangeable.
 Tool registration is not proof of a correct result under real permissions.
+`FoundryToolbox` belongs to the prerelease hosting package; it does not create the upstream project connection.
+Read the [IQ workbook](../reference/iq-workbook.md) for the actual lifecycle, credential, Fabric, and Work IQ boundaries.
 
 ## 5. Richer IQ Preview: separate from GA code
 
@@ -101,6 +102,17 @@ Use a separate experiment copy, prefix, and configuration following
 [official API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate).
 Install any Preview SDK in its own environment; do not upgrade all GA dependencies.
 Optional planner fields in `.env.example` illustrate this extension and are unused by default GA commands.
+
+## New English execution evidence
+
+These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+
+![External Work/Fabric IQ remain separate opt-in paths](../assets/refresh-20260915-en/screenshots/E10-100-boundaries-2.webp)
+
+**What to check:** No external company, Fabric or Microsoft 365 data was queried. This is an inventory/boundary exercise, not a live connection.
+
+[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
 
 ## Finish
 

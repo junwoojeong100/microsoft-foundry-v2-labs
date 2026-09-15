@@ -52,31 +52,26 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 4. span의 부모/자식 관계, 모델·도구 호출, 지연·오류를 확인합니다.
 5. 보존 정책과 권한을 확인하고, 필요 이상의 원문을 export하지 않습니다.
 
-![해당 Hosted 버전의 Traces 탭과 실제 요청 목록](../../assets/live-20260914-action/shots/portal-0510-P09-002-traces-tab-screen-change.webp)
 
 **화면 확인:** 본인 에이전트의 **Traces → Trace view**에서 날짜 범위와 agent version을 먼저 확인합니다.
 최신 행이라는 이유만으로 방금 보낸 요청이라고 판단하지 않습니다.
 
-**새 영문 가이드 촬영: 2026-09-15.** 이번 새 Trace의 보이는 span은 15개입니다. ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=704.24)
-
-![CLI에서 받은 Trace ID로 필터링한 동일 요청](../../assets/english-20260915/shots/portal2-0037-P09-004-open-new-trace-before.webp)
 
 **화면 확인:** 검색칸에 실제 Trace ID를 넣고 정확히 같은 ID의 행을 엽니다.
 `response_id`, conversation ID, Trace ID는 서로 다른 값입니다.
 
-![같은 원격 요청의 span 트리와 완료된 root](../../assets/live-20260914-action/shots/portal-0542-P09-009-root-completed-transition.webp)
 
 **화면 확인:** 트리의 최상위 `invoke_agent`와 Metadata의 상태를 확인합니다.
-촬영에서는 **20 spans, chat 2회, 도구 1회**였으며, 상단의 **2 errors**도 함께 읽어야 합니다.
+새 촬영에서 선택한 trace는 **17개 span과 chat 2개**가 포털에 보였습니다.
+응답의 `model_calls`에는 실제 호출 3개가 있으므로 포털의 일부 span 관측을 전체 호출 수로 바꾸어 적지 않습니다.
 
 보호된 테이블은 일반 로그 조회 역할 외에 추가 권한을 요구할 수 있습니다.
 트레이스가 늦게 도착하는 동안 호출을 반복해 비용을 늘리지 않습니다.
 없으면 **미확인**으로 남기고 연결·exporter·역할·시간 범위를 점검합니다.
 
-![호출 직후 같은 세션에서 읽은 실제 런타임 로그](../../assets/live-20260914-action/shots/cli-2-0733-09-005-live-monitor-result.webp)
 
-**화면 확인:** 촬영은 호출 직후 `azd ai agent monitor`로 같은 세션의 로그를 확인한 예시입니다.
-모델·도구 처리와 최종 Responses HTTP 상태를 대조합니다. 중지된 세션에서 발생하는 로그 연결 오류와 구분하세요.
+전체 요청의 존재는 아래 `benchmark monitor`로 별도 검증합니다.
+포털의 부분 span 관측과 해당 요청의 성공/실패·사용량을 분리합니다.
 
 ### 3. 실패 하나를 설명하기
 
@@ -87,15 +82,10 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 원문을 바탕으로 사람이 개선 이유를 검토한 뒤 [Lab 07](07-evaluation.md)의 dev 비교로 돌아갑니다.
 자동 trace-to-dataset 기능은 Preview이므로 이 기본 경로의 필수 조건이 아닙니다.
 
-![새 상태 저장소 조회에서 발생한 하위 오류 span](../../assets/live-20260914-action/shots/portal-0530-P09-006-first-storage-miss-screen-change.webp)
 
-**화면 확인:** 빨간 `GET .../storage/state_stores/...` span을 선택해 어떤 접근이 실패했는지 봅니다.
-촬영에서는 초기 GET 404 이후 생성·갱신이 성공했습니다. 이를 모델 답변 실패나 “오류 0개”로 바꾸어 기록하지 않습니다.
-
-![정상 완료한 lookup_policy 도구 span](../../assets/live-20260914-action/shots/portal-0539-P09-008-tool-span-screen-change.webp)
-
-**화면 확인:** 같은 트리에서 `execute_tool lookup_policy`를 선택해 호출과 완료를 확인합니다.
-실패한 저장소 조회와 성공한 도구·모델 처리를 분리해 설명해야 합니다.
+이번 실행에서는 CLI 인자 충돌, API query 누락 가능성, embedding API 404,
+App Insights 인증 오류, idle 세션 stop 충돌을 구분해 보존하고 수정했습니다.
+서비스 실행 오류와 native 평가자의 낮은 점수를 같은 실패로 합치지 않습니다.
 
 ## 운영 승인 게이트
 
@@ -115,7 +105,7 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 
 ## C. 새 Hosted matrix의 Trace·Monitor 인수
 
-**2026-09-15 추가 경로이며 기존 15/20-span 영상과 별도입니다.**
+**2026-09-15 실제 새 국문 실행으로 확인한 경로입니다.**
 [평가 워크북](../reference/evaluation-workbook.md)에서 만든 label에 대해:
 
 ```bash
@@ -125,6 +115,10 @@ python scripts/workshop.py benchmark monitor --label wf-candidate
 
 `trace-plan`은 로컬 KQL만 작성하며 Azure를 조회하지 않습니다.
 `monitor`는 `.env`의 **AZURE_APPLICATION_INSIGHTS_APP_ID**와 명시적 구독을 사용해 실제 조회합니다.
+credential은 지정된 구독/tenant로 scope를 고정하고
+`https://api.applicationinsights.io/.default` 토큰으로 동일 Application Insights query API를 호출합니다.
+실제 실행에서 일반 CLI query의 `InvalidTokenError`를 보존한 뒤 이 인증 경로를 수정했습니다.
+다른 사용자·다른 App Insights로 바꾸는 우회가 아닙니다.
 Application ID는 workspace ID나 instrumentation key와 다릅니다.
 쿼리는 실행 전에 표시하고, 해당 run의 agent·기간·trace ID만 조회합니다.
 
@@ -154,12 +148,43 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 성공 화면을 만들지 않습니다. Rule enabled와 실제 평가 sample의 존재를 따로 기록합니다.
 이 개정은 continuous evaluation을 자동으로 켜지 않습니다.
 
+## 2026-09-15 새 국문 실행 증거
+
+아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+
+![2026-09-15 새 국문 촬영: 기간 선택 상태를 유지하고 정확한 trace 검색](../../assets/refresh-20260915-ko/screenshots/KP09-007-search-trace-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 동일 trace의 실제 span·모델 호출 관찰](../../assets/refresh-20260915-ko/screenshots/KP09-009-trace-observe-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 실제 workflow trace 그래프 보기](../../assets/refresh-20260915-ko/screenshots/KP09-010-graph-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 실제 운영 집계와 요청별 trace 구분](../../assets/refresh-20260915-ko/screenshots/KP09-012-monitor-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 동일 App Insights·계정에 정확한 token scope 적용](../../assets/refresh-20260915-ko/screenshots/K09-003-scoped-trace-query-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+![2026-09-15 새 국문 촬영: 본인 session의 실제 idle/stopped 상태 확인](../../assets/refresh-20260915-ko/screenshots/K09-cleanup-3-2.webp)
+
+**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+
+[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+
+
 ## 반드시 정리하고 끝내기
 
-2026-09-14 원격 호출은 20-span trace에서 root Completed, chat 2회·도구 1회를 확인했습니다.
-초기 state store/item 조회의 404 두 개도 보존했으며 이후 생성·갱신과 최종 응답은 성공했습니다.
-이번 `monitor`는 호출 직후 같은 Running 세션의 실제 로그를 확인했습니다.
-전체 완료와 하위 오류 0개를 같은 뜻으로 쓰지 않습니다. 남은 자산은 [실행 기록](../live-run.md)에 적었습니다.
+통제된 국문 baseline/candidate/holdout의 **64개 root trace ID**를 실제 App Insights에서 확인했습니다.
+전체 요청의 확인을 모든 하위 span이 빠짐없이 export되었다는 의미로 확대하지 않습니다.
+이미 idle인 세션은 다시 stop을 호출해 409를 만들지 않고 실제 상태를 확인합니다.
+활성 세션은 중지 후 재조회하고 [실행 기록](../live-run.md)에 별도 receipt를 남깁니다.
 
 ```bash
 python scripts/workshop.py cleanup-plan
@@ -170,7 +195,6 @@ python scripts/workshop.py cleanup-plan
 공유 서비스와 다른 조의 데이터를 유지합니다.
 정리 완료는 “명령을 실행했다”가 아니라 **활성 session·잔여 리소스·과금 상태를 다시 확인했다**는 뜻입니다.
 
-![명시적 stop 뒤 본인 Hosted 세션들을 다시 조회](../../assets/live-20260914-action/shots/cli-2-0882-09-033-sessions-after-result.webp)
 
-**화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다. 촬영의 두 세션은 모두 `idle`이었습니다.
+**화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다. 새 촬영의 평가 세션 네 개는 최종 `idle`을 확인했습니다.
 화면의 세션 ID를 그대로 중지하지 말고 자신의 ID를 사용합니다. idle이어도 파일 저장소·Search·로그 비용이 모두 사라지는 것은 아닙니다.
