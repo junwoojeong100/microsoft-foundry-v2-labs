@@ -71,7 +71,10 @@ Check these separately:
 
 Scripts do not silently change billing to `standard`. An administrator reviews
 [official migration/configuration guidance](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate).
-Richer Preview's planner model and Search identity model-access roles are separate.
+For a Chat completion model, give **the Search service's identity** `Cognitive Services User` on the model's Foundry account.
+Selecting managed identity is supported; it does not borrow the local user's or Hosted agent's role.
+The model-based Preview path is separate from the default direct-intent retrieval experiment.
+Rehearse the [normal configuration and actual activity checks](reference/iq-model-identity.md) before teaching that path.
 
 ## 4. The day before: rehearse the same edition
 

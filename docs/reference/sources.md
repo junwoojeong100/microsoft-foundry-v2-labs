@@ -36,6 +36,8 @@ Document display/edit dates are not necessarily feature-release dates.
 | Foundry IQ concepts | [What is Foundry IQ?](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq) | Product roles, portal/REST distinction |
 | IQ versions | [Retrieval migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate) | GA `2026-04-01` vs. `2026-08-01-preview` |
 | IQ GA REST | [Retrieve](https://learn.microsoft.com/rest/api/searchservice/knowledge-retrieval/retrieve?view=rest-searchservice-2026-04-01&preserve-view=true) | OData paths, intents, references/activity |
+| IQ model identity | [Portal keyless model setup](https://learn.microsoft.com/azure/search/get-started-portal-agentic-retrieval#create-a-knowledge-base) · [Model/source/API support](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-create-knowledge-base) | Search identity, `Cognitive Services User`, source-specific LLM mode |
+| IQ Preview request | [2026-08-01-preview retrieve](https://learn.microsoft.com/rest/api/searchservice/knowledge-retrieval/retrieve?view=rest-searchservice-2026-08-01-preview&preserve-view=true) | `messages`, planning/synthesis, tested `maxOutputSize`; retain endpoint/schema discrepancies |
 | Search exercise | [Retrieval quickstart](https://learn.microsoft.com/azure/search/search-get-started-agentic-retrieval?pivots=python) | Index, semantic configuration, identity, costs |
 | Evaluation inputs | [Cloud datasets](https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation-datasets) | Item schema, inline `file_content` |
 | Evaluation outputs | [Cloud results](https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation-results) | Run state, every output page, native scores |

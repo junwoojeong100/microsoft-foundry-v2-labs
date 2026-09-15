@@ -27,8 +27,10 @@
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | IQ | 기본 `<prefix>-kb` |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | cloud judge | target와 구분해 명시 |
 
-`WORKSHOP_IQ_PLANNER_DEPLOYMENT`, `WORKSHOP_IQ_PLANNER_MODEL`은
-richer Preview를 별도 실험할 때의 선택 설정입니다. 기본 GA IQ 코드에서 사용하지 않습니다.
+IQ Chat 모델과 Search의 호출 identity는 **knowledge base의 모델 연결**에서 설정합니다.
+Seed/retrieve 명령은 planner 환경변수 placeholder를 읽거나 그 모델 연결을 자동 설정하지 않습니다.
+`WORKSHOP_AUTH_MODE`/`AZURE_CLIENT_ID`는 Python 호출자를 선택하며 Search identity 설정이 아닙니다.
+[Keyless IQ 모델 설정](iq-model-identity.md)을 확인하세요.
 
 ## 구버전 변수와의 대응
 

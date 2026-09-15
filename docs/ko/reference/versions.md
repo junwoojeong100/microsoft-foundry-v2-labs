@@ -53,6 +53,7 @@ App Insights 인증 scope는 오류 기록과 함께 수정했습니다.
 | IQ GA | REST `2026-04-01`, `intents` | 별도 planner 배포 없이 사용; 실제 activity/요금은 별도 확인 |
 | richer IQ | `2026-08-01-preview` | 별도 환경·설정·승인; 기본 코드와 혼합 금지 |
 | 포털 IQ | 포털이 사용하는 Preview 계약 | GA REST 코드와 동일하다고 가정하지 않음 |
+| IQ Chat 모델 + managed identity | 2026-09-15 실측: Search SMI→Luna, `low` 계획·`answerSynthesis`, HTTP 200 | MI 자체가 Preview 기능은 아님. [정확한 설정과 요청](iq-model-identity.md) |
 | Hosted Agent 서비스 | GA, 선택 배포 | 지역·권한·session 비용은 별도 |
 | Python hosting 패키지 | 고정 prerelease 패키지 | 서비스 GA와 패키지 상태를 따로 표시 |
 | cloud evaluation | 프로젝트 OpenAI `evals` | evaluator/카탈로그의 기능·스키마를 별도 확인 |

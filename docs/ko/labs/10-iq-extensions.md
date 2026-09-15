@@ -101,8 +101,9 @@ Web IQ와 일반 Web Search를 같은 기능으로 표시하지 않습니다.
 별도 실험 복사본·접두사·설정에서 [공식 API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate)을
 따릅니다. Preview Search SDK가 필요하면 별도 환경에 해당 버전을 설치합니다.
 기본 GA 실습의 패키지를 한꺼번에 업그레이드하지 않습니다.
-`.env.example`의 planner 관련 선택 필드는 이 확장의 개념을 설명하기 위한 것으로
-기본 GA 명령에서 사용되지 않습니다.
+사용되지 않는 planner 환경변수 대신 실제 KB 모델 연결을 설정합니다.
+Managed identity 지원 여부와 Preview 여부는 별개입니다.
+[IQ 모델 identity 가이드](../reference/iq-model-identity.md)에 검증한 계획·합성 경로와 버전별 요청 필드를 설명합니다.
 
 ## 종료
 

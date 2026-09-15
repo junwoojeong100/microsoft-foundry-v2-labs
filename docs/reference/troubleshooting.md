@@ -27,6 +27,9 @@ Creating a new model, subscription, or resource for the same unexplained error i
 | Partial Search upload | Per-document status, count/keys, index fields | 06 |
 | Existing Search object rejected | Prefix and ownership ledger; no shared-object overwrite | 06 |
 | IQ 400 | GA intents mixed with Preview messages; actual API version | 06 |
+| `Chat completions model is required` | Missing model selection, not MI failure. Configure a supported deployment and the **Search** identity's `Cognitive Services User` role | 06 |
+| IQ model 401/403 | Search → model identity, account scope, role propagation and network access; the Hosted/user role is not inherited by Search | 06 |
+| Preview rejects `maxOutputSizeInTokens` | Preserve the parameter-validation error and use the tested version-specific `maxOutputSize` request; do not classify it as authentication failure | 06 |
 | IQ references/activity error | sourceData/docKey, sources, semantic settings, billing consent | 06 |
 | Cloud judge timeout | Poll the same label and saved evaluation/run IDs | 07 |
 | Evaluator schema error | Actual catalog's `model`/`deployment_name` and version | 07 |
@@ -44,6 +47,8 @@ Creating a new model, subscription, or resource for the same unexplained error i
 | Native quality score is low | Preserve the completed run; review the evaluator against business requirements, not retries until a favorable score | 07 |
 
 ## Network isolation
+
+The [IQ model-identity guide](iq-model-identity.md) separates the default model-free GA path from the supported MI-backed planning/synthesis path and records the actual verification.
 
 For `PublicNetworkAccessDisabled`, private-endpoint 403, or timeout, check whether
 the caller is outside the project's allowed network.

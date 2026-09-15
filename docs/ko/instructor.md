@@ -68,7 +68,10 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 스크립트가 billing 설정을 자동으로 `standard`로 바꾸지 않습니다.
 과금 동의와 feature availability는 관리자가
 [공식 migration/설정 안내](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate)를
-확인합니다. richer Preview의 planner 모델·Search identity 모델 호출 권한은 별도 항목입니다.
+확인합니다. Chat completion model을 쓸 때는 **Search 서비스 identity**에 모델의 Foundry 계정 범위로
+`Cognitive Services User`를 부여해야 합니다. Managed identity 선택은 정상 지원되며,
+사용자나 Hosted agent의 역할을 대신 사용하는 것이 아닙니다.
+모델 기반 Preview는 기본 직접 intents 검색과 별도 실험이므로 [정상 설정·activity 확인](reference/iq-model-identity.md)을 사전 점검합니다.
 
 ## 4. 하루 전: 같은 배포본으로 리허설
 

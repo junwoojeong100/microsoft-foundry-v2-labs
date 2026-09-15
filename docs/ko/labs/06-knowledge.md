@@ -28,10 +28,11 @@
 5. “숙박 한도를 초과했다”는 질문에서 승인 규정이 함께 설명되는지 확인합니다.
 6. 강사가 준비한 IQ 에이전트가 있으면 같은 질문을 보내 보고 원문 근거를 비교합니다.
 
-포털의 IQ 생성 UI는 Preview 기능을 사용할 수 있습니다.
-**이 랩의 GA REST 경로와 포털 내부의 계약이 같다고 가정하지 않습니다.**
-포털로 IQ를 직접 만들려면 강사가 현재 UI·리전·요금·필요 권한을 확인해야 합니다.
-관찰만 했다면 `강사 IQ 데모 관찰`로 남깁니다.
+**Chat completion model은 managed identity로 정상 구성할 수 있습니다.**
+모델을 호출하는 주체는 Search 서비스의 identity이며, 모델이 있는 Foundry 계정의 `Cognitive Services User`가 필요합니다.
+포털의 모델 기반 계획·답변 합성 경로와 아래의 모델 없는 GA 직접 검색은 서로 다른 실행 모드입니다.
+Preview 여부와 MI 인증 지원을 혼동하지 않습니다.
+[정상 설정 순서와 실제 HTTP 200 확인](../reference/iq-model-identity.md)을 참고하세요.
 
 ![2026-09-15 새 국문 촬영: 국문 포털에서 실제 Knowledge 목록 확인](../../assets/refresh-20260915-ko/screenshots/KP06-001-knowledge-2.webp)
 
@@ -107,9 +108,10 @@ python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국�
 **화면 확인:** `iq_created: true`, source/base 이름, `api_version: 2026-04-01`을 확인합니다.
 위의 일반 Search 생성 결과와 구분하고, 본인의 소유권 기록도 유지합니다.
 
-기본 IQ 코드는 **REST `2026-04-01` GA의 minimal/extractive 계약**을 사용합니다.
-명시적인 semantic `intents`로 요청하며, `messages`나 별도 planner 모델 설정을
-요청에 넣지 않습니다. 최종 답변은 다음 단계의 모델 호출에서 생성합니다.
+기본 IQ 코드는 **REST `2026-04-01` GA의 직접 intents·extractive 검색**을 사용합니다.
+`seed-search --iq`는 Search-index source를 참조하는 KB를 만들되 **KB의 `models`를 설정하지 않습니다.**
+조회에는 명시적 semantic `intents`를 보내며 최종 답변은 다음 단계의 별도 모델 호출에서 생성합니다.
+이는 Search→Chat 모델의 managed identity 인증을 검증한 경로가 아닙니다.
 서비스 내부 처리가 없다는 보장은 아니며 실제 activity에 보고된 reasoning 항목도 확인합니다.
 검색 응답의 `maxOutputSizeInTokens`는 6000으로 제한합니다. 실제 GA 호출에서 5000 초과가
 필요함을 확인했으며, 이는 답변 모델의 `WORKSHOP_MAX_OUTPUT_TOKENS`와 다른 설정입니다.
@@ -206,18 +208,21 @@ python scripts/package_hosted.py --kind workflow --pattern sequential --retrieva
 Toolbox/Fabric/Work IQ의 승인·원문·OBO 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)에서 따로 다룹니다.
 외부 원본 저장소로 이동해야 실행되는 숨은 선행 단계는 없습니다.
 
-## Preview 확장은 별도 실험
+## 모델 기반 IQ와 기본 GA 검색을 구분하기
 
-`2026-08-01-preview`의 messages·추론 노력·답변 합성·추가 source와 GA body를 섞으면
-400 오류가 날 수 있습니다. `outputMode`, `models`, `retrievalReasoningEffort`를
-기본 GA 설정에 추가하지 않습니다.
-[Lab 10](10-iq-extensions.md)과 [API 호환성](../reference/versions.md)에서 별도로 다룹니다.
+이 Search-index source에서 Chat 모델이 query planning과 답변 합성을 수행하도록 하려면
+지원되는 Preview 계약을 명시하고 모델·Search identity 권한·reasoning effort·출력 모드를 함께 구성합니다.
+Managed identity는 이 경로의 정상적인 keyless 인증 방식이며 실제로 확인했습니다.
+GA schema의 `models` 존재와 모든 source에 대한 LLM 기능 지원은 같은 뜻이 아닙니다.
+요청 필드도 API별로 확인하며, 검증 예시는 [MI 모델 연결 가이드](../reference/iq-model-identity.md)에 있습니다.
+기존 평가를 같은 조건으로 재현할 때만 기존 KB를 유지하고, 다른 실행 모드는 새 소유 base에서 비교합니다.
 
 ![2026-09-15 새 국문 촬영: 실제 IQ 지식 원본과 상태 확인](../../assets/refresh-20260915-ko/screenshots/KP06-002-kb-2.webp)
 
-**화면 확인:** GA 검색이 성공해도 포털 편집기에 **Chat completions model is required**가 나타날 수 있습니다.
-이 화면을 통과하려고 임의 모델을 추가하거나 **Save**로 GA 구성을 바꾸지 않습니다.
-실제 activity와 차이는 [실행 기록](../live-run.md)에 남겼습니다.
+**화면 확인:** 이 기존 캡처는 `models: []`인 base를 연 상태입니다.
+**Chat completions model is required**는 모델 미선택 메시지이지 MI 실패가 아닙니다.
+정상 모델 기반 구성을 원하면 지원 배포와 Search MI 역할을 명시적으로 설정한 뒤 저장·검증합니다.
+기존 평가용 base를 덮어쓰지 않으려고 별도 base를 사용하는 것이며, 모델 설정 자체를 금지하는 것이 아닙니다.
 
 ## 2026-09-15 새 국문 실행 증거
 

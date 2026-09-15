@@ -30,9 +30,11 @@ python scripts/package_hosted.py --kind workflow --pattern sequential --retrieva
 | `activity` | 실제 검색 처리 정보 | 측정되지 않은 비용·지연을 0으로 채우기 |
 | `context_hash` | 실제 반환된 원문 집합 | 로컬 corpus hash만으로 원격 index 불변성 보장하기 |
 
-현재 GA 코드는 `2026-04-01`의 intents/minimal/extractive 계약입니다.
-별도 planner나 richer Preview 설정을 자동 추가하지 않습니다.
-포털이 chat model을 요구하더라도 GA 검색 설정을 임의로 Save하지 않습니다.
+현재 기본 코드는 `2026-04-01`의 직접 intents·extractive 검색이며 KB 모델을 구성하지 않습니다.
+**Chat 모델을 managed identity로 구성하는 경로는 정상 지원됩니다.**
+Search identity에 모델 권한을 부여하고 별도 base에서 모델 기반 계획·합성을 검증합니다.
+포털의 모델 미선택 메시지와 MI 인증 오류를 구분하세요.
+[설정 순서·호출 주체·실제 확인 결과](iq-model-identity.md)를 따릅니다.
 
 ## 2. 하이브리드와 IQ의 선택
 

@@ -27,6 +27,9 @@
 | Search 부분 upload 실패 | 개별 `status`, 문서 수·키, index 필드 | 06 |
 | 기존 Search 객체 거부 | 내 접두사/소유권 ledger인지 확인; 공유 객체 덮어쓰기 금지 | 06 |
 | IQ 400 | GA intents와 Preview messages를 혼합했는지, 실제 API 버전 | 06 |
+| `Chat completions model is required` | 모델 미선택이지 MI 실패가 아님. 지원 배포와 **Search** identity의 `Cognitive Services User` 역할 확인 | 06 |
+| IQ 모델 호출 401/403 | Search→모델 identity·계정 scope·RBAC 전파·네트워크 확인. Hosted/사용자 역할이 Search에 상속되지 않음 | 06 |
+| Preview가 `maxOutputSizeInTokens` 거절 | 파라미터 검증 오류를 보존하고 확인한 버전별 `maxOutputSize` 요청 사용. 인증 실패로 분류하지 않음 | 06 |
 | IQ references/activity 오류 | sourceData/docKey, source 설정, semantic·사용/과금 동의 | 06 |
 | cloud judge timeout | 같은 label로 재조회; 저장된 eval/run ID 재사용 | 07 |
 | evaluator 초기화 schema 오류 | 실제 catalog의 `model`/`deployment_name` 및 버전 확인 | 07 |
@@ -56,6 +59,8 @@
 | CLI 확장이 Incompatible | [버전 게이트](versions.md)를 검토하고 호환 조합을 따로 승인·설치한 후 재확인 |
 
 ## 네트워크 제한
+
+[IQ 모델 identity 가이드](iq-model-identity.md)에 기본 모델 없는 GA 경로와 지원되는 MI 계획·합성 경로, 실제 확인 결과를 구분했습니다.
 
 `PublicNetworkAccessDisabled`, private endpoint 403 또는 timeout이면 공용 네트워크에서
 격리된 프로젝트에 접근하는 상황인지 확인합니다.

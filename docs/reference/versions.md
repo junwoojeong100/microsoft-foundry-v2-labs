@@ -24,6 +24,7 @@ Installed-SDK/transport-stub checks and actual Azure execution are separate evid
 | Hybrid | Actual embedding dimensions and text/vector requests; explicit project/account API selection |
 | IQ GA | REST `2026-04-01`, intents/minimal/extractive |
 | Richer IQ | `2026-08-01-preview`, separate settings/approval |
+| IQ Chat model + managed identity | Verified on 2026-09-15: Search SMI → Luna, `low` planning + `answerSynthesis`, HTTP 200. MI itself is not the Preview feature; [exact setup and request contract](iq-model-identity.md) |
 | Hosted service vs package | Service status and prerelease Python package status are independent |
 | Native evaluation | Actual catalog initialization schema and pinned evaluator/version/threshold |
 | Work IQ/Fabric/Toolbox | Separate service-specific access, identity, billing, and Preview conditions |

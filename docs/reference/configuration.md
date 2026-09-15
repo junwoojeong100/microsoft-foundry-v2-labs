@@ -38,8 +38,10 @@ The language freezes prompt/corpus/dataset selection and is part of the Hosted p
 
 `AZURE_OPENAI_ENDPOINT` is required for explicitly selected account Chat Completions or embeddings
 and must belong to the same Foundry account as the project.
-`WORKSHOP_IQ_PLANNER_DEPLOYMENT` and `WORKSHOP_IQ_PLANNER_MODEL` remain optional richer-Preview settings,
-not defaults of minimal GA IQ.
+The IQ Chat model and its outbound Search identity are configured in the **knowledge-base model binding**.
+The seed/retrieve commands do not read planner environment placeholders or automatically configure that binding.
+`WORKSHOP_AUTH_MODE`/`AZURE_CLIENT_ID` select the Python caller, not the Search service identity.
+See [keyless IQ model configuration](iq-model-identity.md).
 
 `runtime-profile.json` freezes kind/pattern/retrieval/prompt/API/protocol/language.
 Legacy six-field profiles mean Korean; English profiles explicitly contain `language: en`.

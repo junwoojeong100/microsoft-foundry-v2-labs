@@ -35,6 +35,8 @@ MIT가 명시된 MAF Workshop/Agent Framework 원본의 저작권 표기는 루�
 | Foundry IQ 개념 | [What is Foundry IQ?](https://learn.microsoft.com/azure/foundry/agents/concepts/what-is-foundry-iq) | IQ별 역할, 포털/REST 계약 차이 |
 | IQ 버전 | [Agentic retrieval migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate) | GA `2026-04-01`와 `2026-08-01-preview` |
 | IQ GA REST | [Retrieve](https://learn.microsoft.com/rest/api/searchservice/knowledge-retrieval/retrieve?view=rest-searchservice-2026-04-01&preserve-view=true) | OData 경로, intents, references/activity |
+| IQ 모델 identity | [포털 keyless 모델 설정](https://learn.microsoft.com/azure/search/get-started-portal-agentic-retrieval#create-a-knowledge-base) · [모델/source/API 지원](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-create-knowledge-base) | Search identity, `Cognitive Services User`, source별 LLM 모드 |
+| IQ Preview 요청 | [2026-08-01-preview retrieve](https://learn.microsoft.com/rest/api/searchservice/knowledge-retrieval/retrieve?view=rest-searchservice-2026-08-01-preview&preserve-view=true) | `messages`, 계획·합성, 실측 `maxOutputSize`; endpoint/schema 차이 기록 |
 | Search 실습 | [Agentic retrieval quickstart](https://learn.microsoft.com/azure/search/search-get-started-agentic-retrieval?pivots=python) | index·semantic·identity·비용 |
 | 평가 입력 | [Cloud evaluation datasets](https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation-datasets) | item schema, inline `file_content` |
 | 평가 출력 | [Cloud evaluation results](https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation-results) | run status, 모든 output page, native score |

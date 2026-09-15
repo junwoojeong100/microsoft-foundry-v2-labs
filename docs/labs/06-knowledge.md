@@ -28,9 +28,10 @@ Never rename ordinary text search as hybrid retrieval.
 5. Check that an over-limit question also explains the approval policy.
 6. If an instructor-prepared IQ agent exists, ask the same question and compare sources.
 
-The portal IQ creation UI may use Preview features. **Do not assume its internal
-contract matches this lab's GA REST API.** Direct portal creation requires instructor
-verification of UI, region, pricing, and roles. Record observation as **instructor IQ demo observed**.
+**The IQ Chat completion model supports managed identity.**
+The caller is the Search service's identity, which needs `Cognitive Services User` on the Foundry account hosting the model.
+Portal model-based planning/synthesis and this lab's model-free GA retrieval are different execution modes, not supported versus broken authentication.
+See the [normal configuration and actual HTTP 200 verification](../reference/iq-model-identity.md).
 
 
 **What to check:** Under **Knowledge → Knowledge bases**, verify your **Connection**,
@@ -104,9 +105,10 @@ Meaning: advance-approval conditions for a KRW 170000 domestic hotel in Septembe
 **What to check:** Verify `iq_created: true`, source/base names, and
 `api_version: 2026-04-01`. Preserve your ownership record separately from the ordinary-index result.
 
-Default IQ uses the **REST `2026-04-01` GA minimal/extractive contract**, with explicit
-semantic `intents`, not `messages` or a separate planner model in the request.
-The next step generates the final answer. This does not promise no internal service
+Default IQ uses **REST `2026-04-01` GA direct intents and extractive retrieval**.
+The seed command references the Search-index source but **does not configure a KB model**.
+The next step generates the answer through a separate model call; that is not a test of Search-to-model MI authentication.
+This does not promise no internal service
 reasoning; read any reasoning activity actually reported.
 
 Retrieval `maxOutputSizeInTokens` is 6000: the recorded GA call required a value above
@@ -203,17 +205,20 @@ Continue in [Lab 08](08-hosted.md) and the [evaluation workbook](../reference/ev
 The [IQ workbook](../reference/iq-workbook.md) documents separate Toolbox/Fabric/Work IQ approval and identity gates.
 No hidden prerequisite requires another repository.
 
-## Preview extensions are separate experiments
+## Distinguish model-based IQ from the default GA path
 
-Mixing `2026-08-01-preview` messages, reasoning effort, synthesis, or extra sources
-with a GA body can cause HTTP 400. Do not add `outputMode`, `models`, or
-`retrievalReasoningEffort` to the basic GA configuration.
-See [Lab 10](10-iq-extensions.md) and [Versions](../reference/versions.md).
+To have a model plan queries and synthesize answers for this Search-index source, explicitly select the supported Preview contract
+and configure the model, Search identity permissions, reasoning effort, and output mode together.
+Managed identity is a normal keyless authentication option for that path and was verified with actual calls.
+A `models` property in the GA schema does not imply that every source's LLM features are GA.
+Use version-matched request fields from the [MI model-binding guide](../reference/iq-model-identity.md).
+Preserve an old base only when reproducing its frozen evaluation; use a new owned base for a different execution mode.
 
 
-**What to check:** **Chat completions model is required** can appear despite successful
-GA retrieval. Do not add an arbitrary model or **Save** over the GA configuration to
-clear the message. The [execution record](../live-run.md) preserves this distinction.
+**What to check:** The earlier screenshot shows a base with `models: []`.
+**Chat completions model is required** means no model was selected, not that MI failed.
+For the normal model-based path, configure a supported deployment and the Search MI role, then save and test.
+Using another owned base protects the existing evaluation; it does not prohibit model configuration.
 
 ## New English execution evidence
 

@@ -101,7 +101,9 @@ bodies from GA `2026-04-01`. Do not insert Preview fields into `seed-search --iq
 Use a separate experiment copy, prefix, and configuration following
 [official API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate).
 Install any Preview SDK in its own environment; do not upgrade all GA dependencies.
-Optional planner fields in `.env.example` illustrate this extension and are unused by default GA commands.
+Configure the actual KB model binding rather than unused planner environment placeholders.
+Managed identity is supported independently of Preview status.
+The [IQ model-identity guide](../reference/iq-model-identity.md) shows the tested planning/synthesis path and its version-specific request fields.
 
 ## New English execution evidence
 

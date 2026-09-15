@@ -29,9 +29,11 @@ Continue in [Lab 08](../labs/08-hosted.md) and the [evaluation workbook](evaluat
 | Activity | Actual retrieval processing evidence | Invented zero cost or latency |
 | Context hash | Actual returned document set | Proof that a remote index never changed |
 
-The default uses the `2026-04-01` intents/minimal/extractive contract.
-It does not silently add a planner or richer Preview configuration.
-Do not Save an unexpected portal chat-model configuration just because the GA base opened in a different UI contract.
+The default `2026-04-01` path uses direct intents and extractive retrieval without a KB model.
+**Configuring a Chat model with managed identity is supported.**
+Grant model access to the Search identity and verify model-based planning/synthesis in a separate owned base.
+A missing-model form message is not an MI authentication failure.
+Follow the [configuration, caller identity, and actual verification guide](iq-model-identity.md).
 
 ## 2. Choose hybrid and IQ explicitly
 
