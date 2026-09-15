@@ -217,6 +217,85 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 그 smoke 응답만으로 품질 평가를 대신하지 않았습니다. 이번 실행에서는 별도의 합성 dev 6건을
 실제 원격 Hosted에 요청하고 생성형 rubric으로 평가했습니다. 기준과 한계는 [실행 기록](../live-run.md)을 확인합니다.
 
+## 6. MAF 워크플로를 Hosted Agent로 배포
+
+**2026-09-15 보강된 프로필입니다. 위 single-agent 촬영/점수는 이 workflow의 실행 증거가 아닙니다.**
+`serve`와 `package_hosted.py`는 인자를 생략하면 이전 단일 함수 Agent 경로를 유지합니다.
+워크플로를 선택한 경우에는 `runtime-profile.json`에 kind/pattern/retrieval/prompt/API/protocol을 고정합니다.
+
+```bash
+python scripts/workshop.py workflow-agent --pattern sequential --retrieval local --prompt v2
+python scripts/package_hosted.py --kind workflow --pattern sequential
+```
+
+기본값을 포함한 생성 경로는
+`.build/workflow-sequential-local-v2-project-responses-responses/`입니다.
+`--pattern concurrent` 또는 `group-chat`도 각각 별도 폴더/프로필로 생성됩니다.
+기존 패키지를 덮어쓰지 않으며 정답·holdout·native evaluator 파일은 포함하지 않습니다.
+
+독립된 새 실습 복사본에서 강사가 확인한 실제 값으로 초기화합니다.
+이 명령을 실행하기 전 현재 azd/확장이 호환되는지 확인하며, 충돌을 `--force`나 반복 init으로 숨기지 않습니다.
+
+```bash
+azd ai agent init --src ./.build/workflow-sequential-local-v2-project-responses-responses --agent-name "<unique-workflow-agent-name>" --project-id "<existing-project-arm-id>" --model-deployment "<existing-model-deployment-name>" --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
+```
+
+앞 절과 동일하게 생성된 service env의 프로젝트·모델과 원격 `WORKSHOP_AUTH_MODE=managed-identity`를 맞춥니다.
+터미널 A에서:
+
+```bash
+python scripts/workshop.py serve --kind workflow --pattern sequential
+```
+
+터미널 B에서:
+
+```bash
+curl --fail http://127.0.0.1:8088/readiness
+azd ai agent invoke --local --new-session --new-conversation --timeout 270 "2026년 9월 국내 출장 호텔 170000원의 한도와 사전 승인 조건을 알려주세요."
+```
+
+단순 `healthy`가 아니라 JSON의 `runtime_profile.kind=workflow`, `participants`,
+실제 `model_calls`, 최종 `answer`·근거·`approval_status`까지 확인합니다.
+외부 workflow wrapper의 UUID와 JSON 안의 실제 모델 response ID는 다른 값일 수 있습니다.
+
+승인된 전용 agent만 배포한 뒤 **실제 새 version**을 지정해 호출합니다.
+여러 service가 있으면 해당 service만 배포합니다.
+
+```bash
+azd deploy
+azd ai agent show --output json
+azd ai agent invoke --version "<actual-workflow-version>" --new-session --new-conversation --timeout 270 "2026년 9월 국내 출장 호텔 170000원의 한도와 사전 승인 조건을 알려주세요."
+```
+
+```mermaid
+flowchart LR
+    I["현재 사용자 질문"] --> H["ResponsesHostServer"]
+    H --> W["Workflow.as_agent"]
+    W --> P["입력/근거 검증"]
+    P --> M["실제 MAF builder\nsequential / concurrent / group-chat"]
+    M --> V["최종 schema·인용·호출 계보 검사"]
+    V --> O["답변 + model calls + 근거"]
+```
+
+이 경로는 실제 SDK의 workflow agent를 호스팅합니다. 요청마다 내부 참여자를 새로 만들어
+평가 질문 사이에 답을 공유하지 않습니다. 내구성 옵션이나 실제 사람 승인 서비스가 자동으로 켜지지는 않습니다.
+
+## 7. 평가용 Invocations와 Responses의 구분
+
+대화형 흐름에는 위 Responses를 사용합니다.
+배포 버전·모델 키·case/run ID를 엄격히 검증하는 matrix는 별도 Invocations 프로필을 사용합니다.
+
+```bash
+python scripts/package_hosted.py --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --protocol invocations
+```
+
+이 입력 계약에는 **question/model_key/case_id/run_id만** 들어갑니다.
+gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이름은 요청으로 받지 않습니다.
+정확한 기존 배포 allowlist, 실제 service response/model ID, 사용량, 근거 hash가 응답에 남습니다.
+
+평가를 실행하려면 [자체 완결형 평가 워크북](../reference/evaluation-workbook.md)을 따릅니다.
+소스·업무·검색이 같아 보여도 single-agent/Responses/Invocations의 점수를 서로 옮겨 적지 않습니다.
+
 ## 완료·정리
 
 패키지 생성 / 로컬 응답 / 원격 배포 / 원격 평가를 별도 칸으로 기록합니다.

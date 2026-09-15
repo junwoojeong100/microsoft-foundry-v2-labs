@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/labs/08-hosted.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/labs/08-hosted.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Goal:** Package the same read-only MAF agent and deploy it only when prerequisites and approvals are in place.
 
 Path: B, optional · Previous: [Lab 07](07-evaluation.md) · Next: [Lab 09](09-operations.md)

@@ -1,3 +1,5 @@
+import hashlib
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +11,47 @@ DOCS = load_script("check_docs")
 
 
 class DocumentationTests(unittest.TestCase):
+    def test_readmes_do_not_present_upstream_source_columns(self):
+        for name in ("README.md", "README.ko.md"):
+            tables = "\n".join(
+                line for line in (ROOT / name).read_text().splitlines() if line.startswith("|")
+            )
+            self.assertNotIn("Main source modules", tables)
+            self.assertNotIn("주요 통합 원본", tables)
+            self.assertNotIn("Agent Framework Labs", tables)
+            self.assertNotIn("Foundry Evaluation", tables)
+
+    def test_korean_first_exception_requires_visible_notice_and_exact_hashes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "docs").mkdir()
+            english, korean = root / "README.md", root / "README.ko.md"
+            english.write_text(
+                "# Guide\n\n**English** | [한국어](README.ko.md)\n\n"
+                "<!-- translation-pending: ko-revision -->\n\n"
+                "> **Translation pending** — read the Korean revision.\n"
+            )
+            korean.write_text("# 새 가이드\n\n[English](README.md) | **한국어**\n")
+            state = {
+                "schema_version": 1,
+                "revision": "ko-revision",
+                "source_language": "ko",
+                "pending_files": {
+                    "README.md": {
+                        "english_sha256": hashlib.sha256(english.read_bytes()).hexdigest(),
+                        "korean_sha256": hashlib.sha256(korean.read_bytes()).hexdigest(),
+                    }
+                },
+            }
+            (root / "docs/localization.json").write_text(json.dumps(state))
+            failures = []
+            self.assertEqual(DOCS.pending_translations(root, failures), {english})
+            self.assertEqual(failures, [])
+            korean.write_text(korean.read_text() + "\nChanged command\n")
+            failures = []
+            self.assertEqual(DOCS.pending_translations(root, failures), set())
+            self.assertTrue(any("hashes" in failure for failure in failures))
+
     def test_all_language_pairs_links_anchors_and_cli_examples_are_valid(self):
         failures, counts = DOCS.check(ROOT)
         self.assertEqual(failures, [])

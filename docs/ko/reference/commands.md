@@ -35,6 +35,35 @@
 | `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 새 영문 촬영본 기본·Lab 00–11 챕터 이동. `--edition ko`로 한국어 원본 선택. Azure 호출·업로드 없음 |
 
 표에서 생략한 옵션은 실행용 완전한 예제가 아닙니다.
+
+## 한국어 통합 개정의 추가 명령
+
+| 명령 | 부작용 | 목적 |
+|---|---|---|
+| `workflow-agent --pattern sequential --retrieval iq` | 실제 모델·검색 호출 | 배포용 MAF workflow와 검증된 최종 답 |
+| `runtime-contract --kind workflow --protocol invocations` | 로컬 설정/파일 읽기 | code/prompt/corpus/model/retrieval 계약. Azure 검증은 아님 |
+| `serve --kind workflow --protocol responses` | 로컬 서버, 요청 시 모델 호출 | 실제 Workflow.as_agent 호스팅 |
+| `serve --kind workflow --protocol invocations` | 위와 같음 | strict query-only 평가 endpoint |
+| `seed-search --hybrid --confirm-create --confirm-cost` | 본인 index + 실제 embedding | 6개 합성 원문으로 별도 hybrid index |
+| `retrieve --provider hybrid` | 실제 embedding·Search 조회 | text + vector query |
+| `benchmark plan ...` | 없음 | 명시적 모델 목록과 호출량 계획 |
+| `benchmark smoke ... --confirm-cost` | 실제 local/remote 모델 호출 | exact runtime contract와 응답 검사 |
+| `benchmark collect ... --confirm-cost` | 원격 session + 전체 matrix | 모델×case, 오류/원문/계보 보존 |
+| `benchmark evaluate --label LABEL --confirm-cost` | 실제 native judge | frozen responses의 평가 |
+| `benchmark evaluate ... --reference BASELINE` | 위와 같음 | 같은 evaluator/version/judge/threshold |
+| `benchmark evaluate ... --retry-failed` | 새 유료 시도 | 실패/invalid 시도만 재실행, 원본 보존 |
+| `benchmark regression ... --confirm-review` | 로컬 승인 기록 | 원본 dev만, 다음 dev의 `--regressions`로 소비 |
+| `calibrate-judge ... --confirm-cost` | 실제 judge | 고정 정답/오답 fixture의 오탐·미탐 |
+| `benchmark compare ...` / `benchmark report --label LABEL` | 로컬 보고서 | controlled dev 비교 / 모든 행의 HTML |
+| `benchmark trace-plan --label LABEL` | 로컬 KQL | 실제 조회 아님 |
+| `benchmark monitor --label LABEL` | App Insights 읽기 | agent·기간·모든 trace ID의 실제 대조 |
+| `benchmark verify ...` | 로컬 gate | native/trace/regression/calibration과 최종 후보 인수 |
+| `benchmark stop-session --label LABEL` | 기록한 session 중지 | 파일·공유 서비스 삭제 없음 |
+
+위 표의 `...`, `LABEL`은 설명용입니다.
+완전한 복사 명령은 [평가 워크북](evaluation-workbook.md)과 [Lab 08](../labs/08-hosted.md)에 있습니다.
+`benchmark`의 `stop-session`은 해당 label에서 생성한 session만 대상으로 하며 일반 Azure 정리 도구가 아닙니다.
+
 정확한 필수 인자는 `python scripts/workshop.py --help`와 각 하위 명령의 `--help`로 확인합니다.
 전체 실행 예는 해당 [실습 모듈](../paths.md)에 있습니다.
 

@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/versions.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/versions.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **The check date is neither a release date nor a guarantee of future support.**
 This document translates the edition's recorded official-documentation/source
 contracts; it does not predict Ignite 2026 announcements.

@@ -6,6 +6,10 @@
 
 이전: [Lab 06](06-knowledge.md) · 다음: A는 [Lab 09](09-operations.md), B는 [Lab 08](08-hosted.md)
 
+> **2026-09-15 한국어 개정:** 아래 A/B는 기존 입문 평가를 유지합니다.
+> 원본 평가 실습을 대체하는 심화 경로는 [Hosted 워크플로 평가 워크북](../reference/evaluation-workbook.md)입니다.
+> 새 코드의 Hosted 배포·평가·촬영은 아직 하지 않았으며 기존 영상은 그 성공 증거가 아닙니다.
+
 ## 무엇이 조직의 자산으로 남는가?
 
 ```mermaid
@@ -208,6 +212,30 @@ python scripts/workshop.py compare --baseline candidate --candidate model-b --va
 
 검색 근거가 달라졌다면 모델만의 순위가 아니라 end-to-end 결과로 해석합니다.
 작은 6문항/4문항은 교육용 게이트이며 통계적 우월성·운영 SLA의 증거가 아닙니다.
+
+## C. Hosted 모델 matrix와 평가자까지 검증하기
+
+실제 배포 버전의 답을 평가하려면 [평가 워크북](../reference/evaluation-workbook.md)을 순서대로 진행합니다.
+핵심 차이는 다음과 같습니다.
+
+| 기준 | 기존 입문 B | Hosted 심화 |
+|---|---|---|
+| target | 프로젝트 Responses + 사전 검색 | 정확한 Hosted version의 MAF policy/workflow |
+| 모델 | 실행당 한 배포 | 명시적 모델 목록 1–8개, 4개면 dev 24행 |
+| 입력 | question + 근거 | query-only 요청 4필드; evaluator 라벨은 server에 전달하지 않음 |
+| 업무 검사 | schema·판단·한도·인용 | 위 + 답변 본문의 한도·관련 인용, p50/p95·불확실성 |
+| 회귀 | 검토 대기 기록 | 명시적 dev 검토 후 다음 matrix가 실제 소비 |
+| judge | native 결과 별도 기록 | evaluator snapshot 재사용·실패 시도 보존·정답/오답 calibration |
+| trace | 없는 값은 null | 실제 App Insights 조회로 모든 trace의 존재와 요청 상태 확인 |
+| 인수 | 고정 candidate + holdout | 모델별 gate·native findings·회귀·calibration·trace의 묶음 |
+
+평가기는 답을 고치지 않습니다. `benchmark report`의 HTML도 저장된 응답과 실제 점수를
+표시할 뿐이며, 실패한 native 점수를 통과로 바꾸지 않습니다.
+초기 baseline에 실패가 없어도 그 사실을 유지합니다.
+
+심화의 같은 데이터 전후 비교에는 **동일한 code/corpus/model map/API/retrieval/concurrency/evaluator**가 필요합니다.
+검색 근거 또는 관측 모델이 달라졌다면 순수한 prompt 개선 효과로 발표하지 않습니다.
+holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계가 깨집니다.
 
 ## 완료 기준
 

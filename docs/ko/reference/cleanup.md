@@ -75,6 +75,22 @@ azd ai agent sessions stop "<my-session-id>"
 비용 화면은 지연되어 반영될 수 있습니다. 마지막 조회 시각과 담당자를 기록합니다.
 예산 알림은 자동 중지 장치가 아닙니다.
 
+## Hosted matrix의 세션과 증거
+
+새 `benchmark` 경로는 생성한 session ID와 exact version을 immutable manifest에 남깁니다.
+실제 trace 확인 후 해당 label의 세션만 중지합니다.
+
+```bash
+python scripts/workshop.py benchmark stop-session --label wf-baseline
+python scripts/workshop.py benchmark stop-session --label wf-candidate
+python scripts/workshop.py benchmark stop-session --label wf-final
+```
+
+cleanup receipt는 별도 파일이므로 frozen candidate와 regression source hash를 바꾸지 않습니다.
+`outputs/benchmarks/`, `outputs/judge-calibration/`, `outputs/regressions/`의 원본·실패 시도·검토 계보는 보존합니다.
+새 `.build/workflow-*` 프로필을 정리하기 전 현재 `azure.yaml`의 실제 참조 경로와 hash를 확인합니다.
+별도 smoke 세션은 raw HTTP/azd 목록에서 본인의 ID를 확인해 중지합니다.
+
 ## 5. 로컬 `outputs`와 생성 디렉토리
 
 **2026-09-14 한국어 원본과 2026-09-15 새 영문 촬영본을 구분해 보존합니다.**

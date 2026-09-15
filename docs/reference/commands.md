@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/commands.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/commands.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Run all commands from the repository root. Do not shell-`source` `.env`.**
 Activate the dedicated virtual environment for cloud SDKs.
 

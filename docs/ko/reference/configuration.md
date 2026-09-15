@@ -25,7 +25,7 @@
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | IQ | 기본 `<prefix>-kb` |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | cloud judge | target와 구분해 명시 |
 
-`AZURE_OPENAI_ENDPOINT`, `WORKSHOP_IQ_PLANNER_DEPLOYMENT`, `WORKSHOP_IQ_PLANNER_MODEL`은
+`WORKSHOP_IQ_PLANNER_DEPLOYMENT`, `WORKSHOP_IQ_PLANNER_MODEL`은
 richer Preview를 별도 실험할 때의 선택 설정입니다. 기본 GA IQ 코드에서 사용하지 않습니다.
 
 ## 구버전 변수와의 대응
@@ -43,6 +43,27 @@ richer Preview를 별도 실험할 때의 선택 설정입니다. 기본 GA IQ �
 여러 계정이 Azure CLI에 로그인되어 있어도 인증은 설정된 구독에 고정합니다.
 `--tenant`만 지정하면 다른 기본 계정이 선택될 수 있고, Azure CLI는
 `--tenant`와 `--subscription`을 동시에 받지 않으므로 구독의 tenant를 먼저 검증합니다.
+
+## 한국어 통합 개정의 명시적 설정
+
+| 이름 | 쓰는 곳 | 계약 |
+|---|---|---|
+| `WORKSHOP_MODEL_DEPLOYMENTS_JSON` | typed Hosted matrix | 1–8개 key→실제 배포 이름. key/배포 중복 금지, 기본 배포 포함 |
+| `AZURE_OPENAI_ENDPOINT` | `--api account-chat` | 같은 Foundry account의 root. 오류 후 자동 사용하지 않음 |
+| `WORKSHOP_HOSTED_AGENT_NAME` | benchmark | 실제 `mfv2-...` 이름 |
+| `WORKSHOP_HOSTED_AGENT_VERSION` | benchmark 원격 | 실제 숫자 version, `latest` 금지 |
+| `WORKSHOP_HOSTED_AGENT_ENDPOINT` | benchmark 원격 | `azd show`의 실제 Invocations endpoint; 프로젝트/name과 대조 |
+| `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME` | hybrid | 실제 기존 embedding 배포 |
+| `WORKSHOP_EMBEDDING_DIMENSIONS` | hybrid | 실제 embedding의 차원. 자동 자르기/0 채우기 없음 |
+| `AZURE_APPLICATION_INSIGHTS_APP_ID` | trace 검증 | 연결한 Application Insights의 application ID UUID |
+
+프로필의 `kind/pattern/retrieval/prompt/api/protocol`은 `runtime-profile.json`으로 패키지에 고정합니다.
+계정·endpoint·배포 이름은 해당 환경 설정에서 읽되 runtime contract로 실제 응답과 대조합니다.
+서버 요청은 `question/model_key/case_id/run_id`만 받으며 정답·임의 model/endpoint override를 거부합니다.
+
+로컬 `.env`와 azd env를 혼합하지 않습니다.
+원격 설정에서 client secret/API key로 managed identity 오류를 우회하지 않습니다.
+기본 protocol은 Responses이며, 평가 matrix의 명령은 Invocations를 명시적으로 사용합니다.
 
 ## 데이터·출력 계약
 

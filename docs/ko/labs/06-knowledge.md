@@ -6,17 +6,18 @@
 
 이전: [Lab 05](05-workflows.md) · 다음: [Lab 07](07-evaluation.md)
 
-## 세 단계는 같은 기능이 아닙니다
+## 네 검색 경로는 같은 기능이 아닙니다
 
 | 방식 | 이 저장소의 실행 | 무엇을 확인하나요? |
 |---|---|---|
 | 로컬 키워드 검색 | `retrieve --provider local` | 합성 파일에 대한 학습용 문자열 검색 |
 | Azure AI Search | `retrieve --provider search` | 실제 Search index의 텍스트 검색 |
+| 하이브리드 Search | `retrieve --provider hybrid` | 명시적 embedding + text/vector 검색을 함께 수행 |
 | Foundry IQ | `retrieve --provider iq` | 실제 knowledge base의 retrieve, references·activity |
 
-임베딩을 쓰지 않는 작은 텍스트/semantic 실습입니다. 일반 Search 경로를
+기본 local/Search/IQ 경로는 임베딩을 쓰지 않는 작은 텍스트/semantic 실습입니다. 일반 Search 경로를
 **벡터·하이브리드 검색**이라고 표시하지 않습니다.
-확장하려면 임베딩 모델·차원·벡터 필드·검색 전략을 별도 구성하고 다시 평가해야 합니다.
+아래 선택 절에서 실제 embedding·차원·벡터 필드를 구성한 경우에만 하이브리드라고 표시합니다.
 
 ## A. 브라우저 — 인용이 보이면 끝인가?
 
@@ -159,6 +160,50 @@ flowchart LR
     E --> V["근거 hash·평가 이력"]
     A --> V
 ```
+
+## C. 선택 — 실제 하이브리드 RAG
+
+**2026-09-15 코드 추가. 새 live 확인/캡처는 별도 단계입니다.**
+이미 만든 텍스트 index의 필드를 몰래 바꾸지 않습니다.
+같은 실습 prefix 아래 별도 index 이름을 `.env`에 정하고, 강사가 확인한 embedding 배포와
+**실제 반환 차원**을 입력합니다. embedding 모델을 새로 배포하는 작업은 별도 승인 대상입니다.
+
+```dotenv
+AZURE_SEARCH_INDEX_NAME=<your-mfv2-prefix>-policies-hybrid
+AZURE_AI_EMBEDDING_DEPLOYMENT_NAME=<verified-embedding-deployment>
+WORKSHOP_EMBEDDING_DIMENSIONS=<actual-dimensions>
+```
+
+```bash
+python scripts/workshop.py seed-search --hybrid --confirm-create --confirm-cost
+python scripts/workshop.py retrieve --provider hybrid --question "2026년 9월 국내 출장 숙박비 한도는?"
+python scripts/workshop.py answer --retrieval hybrid --prompt v2
+```
+
+`--confirm-create`는 준비된 Search의 본인 index 작성, `--confirm-cost`는 실제 embedding 요청을 확인합니다.
+6개 합성 문서의 embedding을 일괄 요청하고 `content_vector`의 차원·HNSW profile을 맞춥니다.
+조회에는 `"search"`와 `"vectorQueries"`가 동시에 들어가며 `top=6`입니다.
+벡터를 0으로 채우거나 다른 차원으로 잘라 맞추지 않습니다.
+
+**확인할 것:** `provider: azure-ai-search-hybrid`, `embedding_query.observed_model`,
+차원, index 이름, 실제 source IDs와 context hash입니다.
+기존 텍스트 index를 같은 이름으로 hybrid로 바꾸거나, hybrid index에 text-only 업로드로
+벡터를 지우려 하면 거부합니다. 소유권·index별 설정은 `outputs/azure-objects.json`에 남습니다.
+
+일반/IQ/Hybrid를 비교할 때는 `AZURE_SEARCH_INDEX_NAME`이 어느 index인지 다시 확인합니다.
+IQ의 source/base는 원래 연결한 index를 참조하므로 환경변수만 바꿨다고 원격 base가 바뀌지 않습니다.
+이 실험의 index 변경을 Lab 07의 prompt-only 전후 비교 사이에 섞지 않습니다.
+
+## D. IQ를 Hosted 워크플로와 평가로 연결
+
+```bash
+python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
+python scripts/package_hosted.py --kind workflow --pattern sequential --retrieval iq --prompt v2 --protocol responses
+```
+
+같은 v2 폴더의 [Lab 08](08-hosted.md)과 [평가 워크북](../reference/evaluation-workbook.md)으로 이어집니다.
+Toolbox/Fabric/Work IQ의 승인·원문·OBO 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)에서 따로 다룹니다.
+외부 원본 저장소로 이동해야 실행되는 숨은 선행 단계는 없습니다.
 
 ## Preview 확장은 별도 실험
 

@@ -5,6 +5,11 @@
 **개념은 이어받고, 실행 계약과 학습 경로는 다시 구성했습니다.**
 원본 종합 랩의 마지막 확인 커밋은 2025-12-14입니다.
 
+**2026-09-15 통합 보강:** `workflow-agent`, 프로필별 Hosted 패키지,
+typed Invocations model matrix, native snapshot 재사용, 실제 dev regression 소비,
+judge calibration·trace 인수는 [통합 범위](consolidation.md)와 [평가 워크북](evaluation-workbook.md)을 따릅니다.
+원본 저장소를 추가 clone할 필요가 없으며 영어 번역/새 촬영은 한국어 인수 다음 단계입니다.
+
 | 기존 종합 랩 | v2에서 이어지는 위치 | 달라진 점 |
 |---|---|---|
 | 01 환경 설정 | 00–01 | 브라우저와 Python 분리, 학습자에게 구독 Owner를 요구하지 않음 |

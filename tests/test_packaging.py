@@ -2,6 +2,7 @@ import importlib.util
 import unittest
 
 from foundry_workshop.contracts import read_json
+from foundry_workshop.profiles import RuntimeProfile, packaged_profile
 
 from . import ROOT, workspace
 
@@ -14,6 +15,19 @@ def load_script(name):
 
 
 class PackagingTests(unittest.TestCase):
+    def test_workflow_profiles_are_immutable_and_packaged_without_judge_data(self):
+        with workspace() as root:
+            builder = load_script("package_hosted")
+            for pattern in ("sequential", "concurrent", "group-chat"):
+                profile = RuntimeProfile(kind="workflow", pattern=pattern, protocol="invocations")
+                destination = builder.build(root, profile)
+                self.assertEqual(packaged_profile(destination), profile)
+                manifest = read_json(destination / "package-manifest.json")
+                self.assertEqual(manifest["runtime_profile"], profile.to_dict())
+                self.assertIn("runtime-profile.json", manifest["files"])
+                self.assertFalse((destination / "data/evaluation").exists())
+                self.assertFalse(manifest["cloud_deployed"])
+
     def test_hosted_package_is_self_contained_and_excludes_evaluation(self):
         with workspace() as root:
             (root / ".env").write_text("SYNTHETIC_TEST_SECRET=must-not-be-packaged\n")

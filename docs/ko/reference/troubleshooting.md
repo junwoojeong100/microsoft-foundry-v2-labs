@@ -34,6 +34,23 @@
 | 로컬은 성공, Hosted는 403 | 런타임 identity의 역할; 로컬 `az login` 반복 금지 | 08 |
 | 로그/trace가 없음 | App Insights 연결, exporter, 시간 범위, 보존/보호 테이블 권한 | 09 |
 
+## 새 workflow / benchmark 복구 기준
+
+| 오류 | 확인할 것 |
+|---|---|
+| `runtime-profile.json` 없음 | 새 코드로 생성한 올바른 profile 패키지인지 확인. 이전 패키지를 새 workflow라고 재사용하지 않음 |
+| runtime contract/code/prompt hash 불일치 | 로컬 프로필·소스와 실제 배포 version을 맞춘 뒤 새 label로 수집. manifest를 고쳐 통과시키지 않음 |
+| model key가 allowlist에 없음 | `.env`와 remote service env의 같은 JSON map, 기본 배포 포함 여부 |
+| `account-chat` endpoint 불일치 | 같은 Foundry account의 실제 OpenAI root. 실패했다고 자동 URL 전환 금지 |
+| native timeout | 같은 label로 조회 재개. 새 job 자동 생성 금지 |
+| native failed/invalid | 원본 시도를 보존한 `--retry-failed`. 완료된 낮은 점수의 반복 재시도는 거부 |
+| 회귀 파일이 질문/정답을 바꿈 | 기존 dev 계약을 유지하거나 별도 dataset version 설계. holdout을 회귀로 사용하지 않음 |
+| matrix 누락/중복 | 성공 prefix를 평가하지 않음. 원인을 해결한 후 새 label로 완전 수집 |
+| trace 누락 | 정확한 App Insights app ID·agent·기간·권한·sampling을 확인. 0건을 정상 운영으로 처리하지 않음 |
+| hybrid 차원/기존 index 충돌 | 실제 embedding 차원, 별도 본인 index, namespace/ledger 확인. 벡터 자르기·0 채우기 금지 |
+| azd raw 출력 파싱 | HTTP 상태·UTF-8 바이트 길이·알려진 notice만 허용. 오류 뒤의 임의 JSON 추출 금지 |
+| CLI 확장이 Incompatible | [버전 게이트](versions.md)를 검토하고 호환 조합을 따로 승인·설치한 후 재확인 |
+
 ## 네트워크 제한
 
 `PublicNetworkAccessDisabled`, private endpoint 403 또는 timeout이면 공용 네트워크에서

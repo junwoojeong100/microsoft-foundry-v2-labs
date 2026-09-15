@@ -2,6 +2,10 @@
 
 **English** | [한국어](ko/instructor.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](ko/instructor.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Class time is not installation, subscription creation, or feature-approval time. Verify every team's environment first.**
 
 Parent: [Learning paths](paths.md) · Evidence: [Validation record](reference/validation.md)

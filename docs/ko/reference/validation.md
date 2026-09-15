@@ -2,6 +2,46 @@
 
 [English](../../reference/validation.md) | **한국어**
 
+## 한국어 통합 개정 `ko-integrated-20260915`
+
+**이 절은 아래의 개정 전 촬영 결과와 구분합니다.**
+새 workflow/Invocations/profile/모델 matrix/calibration/회귀/trace/hybrid 코드를 추가했습니다.
+실제 설치 SDK를 사용하는 transport-stub/ASGI 계약과 offline 회귀 검사를 수행합니다.
+새 Azure 배포·유료 matrix/judge 실행·한국어 촬영·영문 번역/촬영은 이번 단계에서 수행하지 않았습니다.
+
+기존 2026-09-14/15 영상과 upstream `foundry-evaluation`의 64응답·trace 기록을
+새 구현의 성공으로 재사용하지 않습니다. [아카이브 인수 게이트](consolidation.md)와
+[평가 워크북](evaluation-workbook.md)의 실제 실행이 다음 단계입니다.
+조회한 CLI/확장의 Incompatible 상태는 [버전 기준](versions.md)에 기록했으며 자동 업그레이드하지 않았습니다.
+
+### 이 개정에서 실제로 수행한 로컬 검사
+
+- Python **3.13 / 3.14**, site packages를 비활성화한 offline 검사 **각 90개 통과**.
+- 고정 설치 SDK 계약 **17개 통과**: 세 workflow의 실제 builder, Responses/Invocations ASGI host,
+  요청별 상태 격리, 실제 SDK의 두 추론 API 직렬화·token audience, native version 고정·실패 재시도 보존.
+- Ruff lint/format, Python compilation, `pip check`, SDK 직접 의존성 버전 검사 통과.
+- 문서 **73개**, 언어 쌍 **36개**, CLI 예제 **152개** 검사.
+  영어 유예 **23개**는 visible warning과 양쪽 파일 hash로 제한하며 명령 파서는 그대로 적용.
+- Headless Edge에서 한국어 **35페이지·이미지 참조 79개**의 로컬 렌더링 확인.
+  이 과정의 Azure 요청·새 스크린샷·동영상 녹화는 **0회**.
+
+SDK 검사는 실제 설치 라이브러리를 사용하지만 모델 HTTP transport와 evaluator service 응답은
+명시적인 test stub입니다. 이를 live Azure 성공이나 새 모델 품질 점수로 집계하지 않습니다.
+표본 24/24/16행, calibration confusion matrix, 누락·오류·tamper 거절, query-only 계약,
+회귀 소비와 holdout 차단은 테스트로 확인했습니다.
+
+```bash
+python3.13 -S -m unittest discover -s tests -t . -q
+python3.14 -S -m unittest discover -s tests -t . -q
+python -m unittest discover -s tests_sdk -t . -q
+python -m ruff check .
+python -m ruff format --check .
+python -m compileall -q src scripts examples tests tests_sdk
+python scripts/check_docs.py
+python -m pip check
+python scripts/check_sdk.py
+```
+
 ## 2026-09-15 새 영문 가이드 촬영·검증
 
 영문 문서 `26d2e80`을 먼저 게시한 뒤 촬영했습니다.

@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/labs/06-knowledge.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/labs/06-knowledge.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Goal:** Distinguish ordinary search from actual IQ retrieval and preserve source evidence.
 
 Previous: [Lab 05](05-workflows.md) · Next: [Lab 07](07-evaluation.md)

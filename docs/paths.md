@@ -2,6 +2,10 @@
 
 **English** | [한국어](ko/paths.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](ko/paths.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Path A runs prepared examples without writing code. Path B works directly with code and execution records.**
 Both use the same synthetic Hanbit Technology policies. Complete A first and extend
 to B later, or follow the relevant A/B section in each lab. A is portal-first, but

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import contextlib
+import hashlib
 import io
 import os
 import re
@@ -13,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from foundry_workshop.cli import parser  # noqa: E402
+from foundry_workshop.contracts import read_json  # noqa: E402
 
 IGNORED = {
     ".git",
@@ -84,14 +86,69 @@ def translation_pairs(root: Path) -> list[tuple[Path, Path]]:
     ]
 
 
+def pending_translations(root: Path, errors: list[str]) -> set[Path]:
+    path = root / "docs/localization.json"
+    if not path.exists():
+        return set()
+    try:
+        state = read_json(path)
+    except (OSError, ValueError) as exc:
+        errors.append(f"docs/localization.json: invalid localization state: {exc}")
+        return set()
+    if (
+        not isinstance(state, dict)
+        or type(state.get("schema_version")) is not int
+        or state["schema_version"] != 1
+        or state.get("source_language") != "ko"
+        or not isinstance(state.get("revision"), str)
+        or not re.fullmatch(r"[a-z0-9-]+", state["revision"])
+        or not isinstance(state.get("pending_files"), dict)
+    ):
+        errors.append(
+            "docs/localization.json: expected explicit, versioned Korean-first localization state."
+        )
+        return set()
+    pairs = {
+        english.relative_to(root).as_posix(): (english, korean)
+        for english, korean in translation_pairs(root)
+    }
+    valid = set()
+    for name, record in state["pending_files"].items():
+        if name not in pairs or not isinstance(record, dict):
+            errors.append(f"docs/localization.json: unknown language pair {name}.")
+            continue
+        english, korean = pairs[name]
+        if not english.is_file() or not korean.is_file():
+            errors.append(f"{name}: pending translation still requires both language entry pages.")
+            continue
+        hashes = {
+            "english_sha256": hashlib.sha256(english.read_bytes()).hexdigest(),
+            "korean_sha256": hashlib.sha256(korean.read_bytes()).hexdigest(),
+        }
+        if record != hashes:
+            errors.append(
+                f"{name}: localization hashes changed; review and update the explicit pending record."
+            )
+            continue
+        beginning = english.read_text(encoding="utf-8")[:1200]
+        marker = f"<!-- translation-pending: {state['revision']} -->"
+        if marker not in beginning or "**Translation pending**" not in beginning:
+            errors.append(f"{name}: an English reader must see the Korean-first revision warning.")
+            continue
+        valid.add(english)
+    return valid
+
+
 def check(root: Path) -> tuple[list[str], dict[str, int]]:
     errors = []
+    pending = pending_translations(root, errors)
     counts = {
         "markdown_files": 0,
         "local_links": 0,
         "local_anchors": 0,
         "cli_examples": 0,
         "language_pairs": 0,
+        "pending_translations": len(pending),
     }
     for path in markdown_files(root):
         counts["markdown_files"] += 1
@@ -141,6 +198,13 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
             errors.append(f"Missing language counterpart: {english.relative_to(root)}.")
             continue
         counts["language_pairs"] += 1
+        if (
+            "<!-- translation-pending:" in english.read_text(encoding="utf-8")[:1200]
+            and english not in pending
+        ):
+            errors.append(
+                f"{english.relative_to(root)}: a pending translation needs a valid hash-bound record."
+            )
         for path, counterpart, language in ((english, korean, "en"), (korean, english, "ko")):
             text = path.read_text(encoding="utf-8")
             target = os.path.relpath(counterpart, path.parent)
@@ -156,7 +220,7 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
             korean_commands = [args for _, args in workshop_commands(korean.read_text())]
         except ValueError:
             continue  # Invalid quoting was reported during the per-file check.
-        if english_commands != korean_commands:
+        if english_commands != korean_commands and english not in pending:
             errors.append(f"{english.relative_to(root)}: English/Korean CLI examples differ.")
     return errors, counts
 

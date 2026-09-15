@@ -1,9 +1,38 @@
-# 버전과 기능 상태 — 2026-09-13
+# 버전과 기능 상태 — 2026-09-15 한국어 개정
 
 [English](../../reference/versions.md) | **한국어**
 
 **이 문서의 확인일은 기능 출시일이나 향후 지원 보장일이 아닙니다.**
 Ignite 2026 발표를 예측하지 않고, 현재 공식 문서와 소스의 계약을 기준으로 작성했습니다.
+
+## 이번 개정에서 확인한 계약
+
+실행 코드 버전은 `2026.9.15`입니다. 아래 Python 직접 의존성은 기존 호환 조합을 유지합니다.
+새 기능은 실제 설치 SDK의 signature·직렬화·로컬 ASGI adapter와 transport stub으로 확인했으며,
+그 검사를 새 Azure 배포나 모델 품질 실측으로 표현하지 않습니다.
+
+| 항목 | 2026-09-15 기준 |
+|---|---|
+| workflow host | 실제 `Workflow.as_agent()` → `ResponsesHostServer` |
+| 평가용 host | `InvocationAgentServerHost`, 로컬 POST `/invocations`, query-only 4필드 |
+| 결과 계보 | `ChatResponse.response_id/model/usage_details` 보존. workflow wrapper UUID와 구분 |
+| middleware | 설치한 core 1.17.0의 continuation은 `await call_next()`; 일부 reference 예제의 `next(context)`를 그대로 복사하지 않음 |
+| account-chat | `AIProjectClient.get_openai_client`의 명시적 base URL/AAD token provider, 같은 account |
+| functional `@workflow` | 공식 문서가 experimental로 표시. 핵심은 기존 graph/builder API |
+| hybrid | Search REST `2024-07-01`, 실제 embedding 차원과 text/vector query |
+| native evaluation | 실제 catalog의 initialization schema를 읽고 version/threshold를 고정, 실패 시도 별도 보존 |
+
+### CLI 동결 게이트
+
+조회 환경의 `azd`는 **1.31.1**, `microsoft.foundry`는 **1.0.0-beta.2**였습니다.
+동시에 설치된 `azure.ai.agents 1.0.0-beta.10`, `azure.ai.projects 1.0.0-beta.6`는
+`azd ext list`에서 **Incompatible**로 표시됐고 azd **1.34.0** 업데이트 안내가 있었습니다.
+이를 무시하고 새로운 배포를 성공했다고 주장하지 않습니다.
+
+새 실제 실행 전에 강사가 [공식 azd 설치](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)와
+[Hosted quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)의
+호환 조합을 검토해 승인된 버전으로 맞추고, `azd ai agent init --help`·샘플·실제 생성 schema를 다시 확인합니다.
+이 개정에서 CLI/확장을 자동 업그레이드하거나 실제 init/provision/deploy를 실행하지 않았습니다.
 
 ## 기능별 경계
 
@@ -14,6 +43,7 @@ Ignite 2026 발표를 예측하지 않고, 현재 공식 문서와 소스의 계
 | MAF | `Agent`, `FoundryChatClient`, `model=` | 공급자 패키지의 버전이 core와 같을 필요 없음 |
 | 워크플로 작성 | MAF의 Sequential/Concurrent/GroupChat builder | 포털 Workflow Designer에 의존하지 않음 |
 | 일반 Search | REST `2024-07-01`, 텍스트 index | 벡터/하이브리드 검색으로 부르지 않음 |
+| Hybrid Search | 같은 REST의 vector field/profile + 실제 embedding | 별도 index와 명시적 비용 승인 |
 | IQ GA | REST `2026-04-01`, `intents` | 별도 planner 배포 없이 사용; 실제 activity/요금은 별도 확인 |
 | richer IQ | `2026-08-01-preview` | 별도 환경·설정·승인; 기본 코드와 혼합 금지 |
 | 포털 IQ | 포털이 사용하는 Preview 계약 | GA REST 코드와 동일하다고 가정하지 않음 |
@@ -70,8 +100,9 @@ Python 3.13을 권장하며 본문 명령은 Bash 기준입니다.
   코드가 실제 catalog schema를 확인하고 그 스키마와 버전을 기록합니다.
 - azd 도움말/트러블슈팅 일부에는 이전 manifest/extension 표현이 남아 있습니다.
   실제 설치된 `azd ai agent ... --help`와 생성된 `azure.yaml`을 대조합니다.
-- `https://ai.azure.com/.default`와 예전 Azure OpenAI audience 예제를 섞지 않습니다.
-  기본 모델 호출은 프로젝트 SDK가 인증을 처리하도록 합니다.
+- 기본 프로젝트 경로는 `https://ai.azure.com/.default`를 사용합니다.
+  명시적으로 선택한 같은 account의 Chat Completions 경로만
+  `https://cognitiveservices.azure.com/.default`를 사용하며, 오류 후 자동 전환하지 않습니다.
 
 ## 수업 직전 동결 체크
 

@@ -7,6 +7,7 @@ from typing import Any
 
 from .contracts import ANSWER_SCHEMA, Answer, load_prompt, validate_question
 from .knowledge import local_retrieve
+from .profiles import RuntimeProfile
 from .settings import Settings, credential_for
 
 
@@ -93,11 +94,6 @@ async def run_workflow(
 ) -> dict[str, Any]:
     from agent_framework import Agent
     from agent_framework.foundry import FoundryChatClient
-    from agent_framework.orchestrations import (
-        ConcurrentBuilder,
-        GroupChatBuilder,
-        SequentialBuilder,
-    )
 
     validate_question(question)
     context = json.dumps(local_retrieve(root, question)["documents"], ensure_ascii=False)
@@ -127,26 +123,7 @@ async def run_workflow(
                 )
                 await stack.enter_async_context(agent)
                 participants.append(agent)
-            if pattern == "sequential":
-                workflow = SequentialBuilder(participants=participants).build()
-            elif pattern == "concurrent":
-                workflow = ConcurrentBuilder(
-                    participants=participants, output_from=participants
-                ).build()
-            elif pattern == "group-chat":
-                names = [agent.name for agent in participants]
-
-                def select_speaker(state) -> str:
-                    return names[state.current_round % len(names)]
-
-                workflow = GroupChatBuilder(
-                    participants=participants,
-                    selection_func=select_speaker,
-                    max_rounds=3,
-                    output_from=participants,
-                ).build()
-            else:
-                raise ValueError("Unknown workflow pattern.")
+            workflow = build_orchestration(participants, pattern)
             result = await asyncio.wait_for(workflow.run(task), timeout=240)
             outputs = result.get_outputs()
             if not outputs:
@@ -160,11 +137,55 @@ async def run_workflow(
             }
 
 
-def serve(settings: Settings, root: Path) -> None:
+def build_orchestration(participants, pattern: str):
+    from agent_framework.orchestrations import (
+        ConcurrentBuilder,
+        GroupChatBuilder,
+        SequentialBuilder,
+    )
+
+    if pattern == "sequential":
+        return SequentialBuilder(participants=participants).build()
+    if pattern == "concurrent":
+        return ConcurrentBuilder(participants=participants, output_from=participants).build()
+    if pattern == "group-chat":
+        names = [agent.name for agent in participants]
+
+        def select_speaker(state) -> str:
+            return names[state.current_round % len(names)]
+
+        return GroupChatBuilder(
+            participants=participants,
+            selection_func=select_speaker,
+            max_rounds=3,
+            output_from=participants,
+        ).build()
+    raise ValueError("Unknown workflow pattern.")
+
+
+def serve(settings: Settings, root: Path, profile: RuntimeProfile | None = None) -> None:
     from agent_framework.observability import enable_instrumentation
     from agent_framework_foundry_hosting import ResponsesHostServer
 
+    from .profiles import runtime_contract
+
+    profile = RuntimeProfile() if profile is None else profile
+    runtime_contract(root, settings, profile)
     enable_instrumentation(enable_sensitive_data=False)
+    if profile.protocol == "invocations":
+        from .hosted import create_invocations_app
+
+        create_invocations_app(settings, root, profile).run(
+            host="127.0.0.1" if settings.auth_mode == "cli" else "0.0.0.0"
+        )
+        return
+    if profile != RuntimeProfile():
+        from .runtime import build_workflow_agent
+
+        ResponsesHostServer(build_workflow_agent(settings, root, profile)).run(
+            host="127.0.0.1" if settings.auth_mode == "cli" else "0.0.0.0"
+        )
+        return
     with credential_for(settings) as credential:
         agent = build_policy_agent(settings, root, credential)
         ResponsesHostServer(agent).run(

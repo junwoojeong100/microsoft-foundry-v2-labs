@@ -4,6 +4,13 @@
 
 **처음에는 에이전트 하나를 만들고, 마지막에는 지식·평가·운영 기준이 남는 시스템을 만듭니다.**
 
+> **한국어 우선 개정 `ko-integrated-20260915`**
+> MAF workflow→Hosted와 다중 모델 평가·calibration·회귀·trace 인수를 보강했습니다.
+> [통합 범위와 인수 기준](docs/ko/reference/consolidation.md) ·
+> [Hosted 평가 워크북](docs/ko/reference/evaluation-workbook.md) ·
+> [IQ 확장 워크북](docs/ko/reference/iq-workbook.md).
+> 아래 영상은 개정 전 기본 경로의 참고 자료입니다. 새 기능의 한국어 촬영/보완 뒤 영어를 갱신합니다.
+
 한국어 · 합성 데이터 · **2026-09-14 실제 실행 확인 / Pre-Ignite 2026 Edition**
 
 **[2026-09-15 새 영문 가이드 촬영본](docs/ko/english-recordings.md)** —
@@ -23,9 +30,8 @@ Lab 00–11별로 CLI와 포털을 교차 편집했으며,
 각 랩 본문에는 조작·명령 바로 옆에 **2026-09-14 원본과 개별 표시한 2026-09-15 새 캡처·화면 확인 포인트**를 배치했습니다.
 먼저 [화면 읽는 법](docs/ko/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
 
-2025년 12월의 `microsoft-foundry-labs`를 바탕으로, 이후 분리해 만든 Foundry Evaluation,
-MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업무 시나리오**로
-다시 구성했습니다. 다른 리포를 차례로 방문하는 링크 모음이 아닙니다.
+에이전트·워크플로·지식·평가·운영을 **하나의 환경과 업무 시나리오**로 구성했습니다.
+다른 리포를 차례로 방문하는 링크 모음이 아닙니다.
 이 폴더에 실습 본문, Python 코드, 정책 문서, 평가 데이터, 강사 가이드가 있습니다.
 
 ## 여기에서 시작하세요
@@ -34,6 +40,7 @@ MAF Workshop, Agent Framework, Microsoft IQ 실습을 **하나의 환경과 업�
 |---|---|---|
 | Azure·AI·코딩이 처음 | **[A. 완전초보자 4시간 경로](docs/ko/paths.md)** | 포털 에이전트, 근거 있는 답변, 6문항 평가표, 운영·정리 체크리스트 |
 | Python/API/Azure를 사용해 봄 | **[B. 경험자 6시간 경로](docs/ko/paths.md)** | MAF·MCP·워크플로 코드, 검색, 전후 평가·holdout, 배포 패키지 |
+| Hosted workflow와 평가 체계를 끝까지 구축 | **[C. 통합 심화 경로](docs/ko/paths.md#c-통합-심화--150180분-추가)** | 고정 원격 version, 모델 matrix, 실제 회귀 소비, judge calibration·trace 인수 |
 | 강사·환경 준비 담당자 | **[강사 사전 준비](docs/ko/instructor.md)** | 조별 환경, 권한·비용 계획, 수업 전 smoke test, 중단·복구 기준 |
 | Azure 승인이나 할당량을 기다리는 중 | **[Azure 없이 검사기 체험](docs/ko/labs/00-start.md)** | 오프라인 fixture로 실행·평가 파일 구조 이해. **클라우드 실습 완료와는 다름** |
 | 구버전을 이미 진행함 | **[구버전 → v2 변경 지도](docs/ko/reference/migration.md)** | 재사용할 개념, 바꿔야 할 SDK·권한·실행 방식 |
@@ -64,20 +71,20 @@ flowchart LR
     E --> O["Trace / Monitor / 비용"]
 ```
 
-| 모듈 | 내용 | 주요 통합 원본 |
-|---|---|---|
-| [00. 시작과 환경](docs/ko/labs/00-start.md) | 학습 경로, 브라우저/코드 준비, offline/cloud 구분 | MAF Workshop |
-| [01. Foundry와 프로젝트](docs/ko/labs/01-foundry.md) | 플랫폼·SDK 구분, 리소스·프로젝트·권한 | 기존 종합 랩 |
-| [02. 모델](docs/ko/labs/02-models.md) | 배포 이름, Playground, SDK, 모델 비교·Router | 기존 종합 랩 + MAF Workshop |
-| [03. 첫 에이전트](docs/ko/labs/03-prompt-agent.md) | 지침, 합성 문서, 인용, 도구와 권한 경계 | 기존 종합 랩 |
-| [04. MAF와 도구](docs/ko/labs/04-agents-tools.md) | 단일 에이전트, 함수, 로컬 MCP | MAF Workshop + Agent Framework Labs |
-| [05. MAF 워크플로](docs/ko/labs/05-workflows.md) | 준비된 예제 실행 → 순차·병렬·Group Chat 코드, 사람의 검토 | Agent Framework Labs |
-| [06. RAG와 Foundry IQ](docs/ko/labs/06-knowledge.md) | 검색과 IQ의 차이, GA API, 원문 인용 | Microsoft IQ on Foundry |
-| [07. 평가와 학습 루프](docs/ko/labs/07-evaluation.md) | dev → 실패 분석 → 지침 개선 → holdout | Foundry Evaluation |
-| [08. Hosted Agent](docs/ko/labs/08-hosted.md) | 안전한 패키징, 로컬 서버, code deployment | MAF Workshop + IQ |
-| [09. 관측·운영·정리](docs/ko/labs/09-operations.md) | trace, 운영 게이트, 비용과 소유권 기반 정리 | 기존 Control Plane + Evaluation |
-| [10. IQ 확장](docs/ko/labs/10-iq-extensions.md) | Fabric·Work IQ·Toolbox·Preview 승인 경계 | Microsoft IQ on Foundry |
-| [11. 캡스톤](docs/ko/labs/11-capstone.md) | 지식·모델·평가·운영을 묶은 최종 인수 | 전체 통합 |
+| 모듈 | 내용 |
+|---|---|
+| [00. 시작과 환경](docs/ko/labs/00-start.md) | 학습 경로, 브라우저/코드 준비, offline/cloud 구분 |
+| [01. Foundry와 프로젝트](docs/ko/labs/01-foundry.md) | 플랫폼·SDK 구분, 리소스·프로젝트·권한 |
+| [02. 모델](docs/ko/labs/02-models.md) | 배포 이름, Playground, SDK, 모델 비교·Router |
+| [03. 첫 에이전트](docs/ko/labs/03-prompt-agent.md) | 지침, 합성 문서, 인용, 도구와 권한 경계 |
+| [04. MAF와 도구](docs/ko/labs/04-agents-tools.md) | 단일 에이전트, 함수, 로컬 MCP |
+| [05. MAF 워크플로](docs/ko/labs/05-workflows.md) | 순차·병렬·Group Chat → Workflow.as_agent, 최종 검토와 실제 호출 계보 |
+| [06. RAG와 Foundry IQ](docs/ko/labs/06-knowledge.md) | 텍스트·실제 하이브리드·GA IQ, 원문/embedding/검색 계보 |
+| [07. 평가와 학습 루프](docs/ko/labs/07-evaluation.md) | 기본 평가 + Hosted 모델 matrix·native·회귀·calibration·holdout |
+| [08. Hosted Agent](docs/ko/labs/08-hosted.md) | 프로필 고정 패키지, workflow Responses/Invocations, 로컬/원격 인수 |
+| [09. 관측·운영·정리](docs/ko/labs/09-operations.md) | trace, 운영 게이트, 비용과 소유권 기반 정리 |
+| [10. IQ 확장](docs/ko/labs/10-iq-extensions.md) | Fabric·Work IQ·Toolbox·Preview 승인 경계 |
+| [11. 캡스톤](docs/ko/labs/11-capstone.md) | 지식·모델·평가·운영을 묶은 최종 인수 |
 
 ## 코드 경로의 가장 짧은 시작
 

@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/validation.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/validation.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 ## New English-guide recording: September 15, 2026
 
 The documentation-first release `26d2e80` was published before the new recording.

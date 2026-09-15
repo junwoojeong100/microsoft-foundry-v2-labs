@@ -60,6 +60,7 @@ class Settings:
     auth_mode: str
     managed_identity_client_id: str | None
     max_output_tokens: int
+    openai_endpoint: str | None = None
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -82,11 +83,17 @@ class Settings:
             auth_mode=mode,
             managed_identity_client_id=client_id,
             max_output_tokens=tokens,
+            openai_endpoint=azure_endpoint(os.environ["AZURE_OPENAI_ENDPOINT"], "openai")
+            if os.environ.get("AZURE_OPENAI_ENDPOINT", "").strip()
+            else None,
         )
 
 
-def credential_for(settings: Settings):
-    from azure.identity import AzureCliCredential, ManagedIdentityCredential
+def credential_for(settings: Settings, *, asynchronous: bool = False):
+    if asynchronous:
+        from azure.identity.aio import AzureCliCredential, ManagedIdentityCredential
+    else:
+        from azure.identity import AzureCliCredential, ManagedIdentityCredential
 
     if settings.auth_mode == "cli":
         subscription = require_env("AZURE_SUBSCRIPTION_ID")

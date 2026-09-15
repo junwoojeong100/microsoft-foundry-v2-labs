@@ -3,16 +3,17 @@
 [English](../../reference/sources.md) | **한국어**
 
 **원본 모듈의 학습 구조를 통합했고, 실행 결과까지 물려받았다고 주장하지 않습니다.**
-확인일: 2026-09-13. 외부 리포의 main이 바뀌어도 아래 커밋은 고정된 비교 기준입니다.
+확인일: 2026-09-15. 외부 리포의 main이 바뀌어도 아래 커밋은 고정된 비교 기준입니다.
+원본 기능의 v2 대체 위치와 미실행 게이트는 [통합·아카이브 기준](consolidation.md)에 구분했습니다.
 
 ## 통합한 사용자 소유 원본
 
 | 원본 | 확인 커밋 / 커밋 날짜 | 반영 범위 |
 |---|---|---|
 | [microsoft-foundry-labs](https://github.com/junwoojeong100/microsoft-foundry-labs/tree/23e831f367b37d41ea1ad1df47f22b076bc372ff) | `23e831f367b37d41ea1ad1df47f22b076bc372ff` / 2025-12-14 | 기존 7개 주제와 포털/코드 이원 경로 |
-| [foundry-evaluation](https://github.com/junwoojeong100/foundry-evaluation/tree/a73c7b89169aff457b55647e4e68d1610b029860) | `a73c7b89169aff457b55647e4e68d1610b029860` / 2026-09-11 | learning loop, dev/holdout, 실패·원문·평가 계보 |
+| [foundry-evaluation](https://github.com/junwoojeong100/foundry-evaluation/tree/0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b) | `0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b` / 2026-09-15 KST | Hosted model matrix·native 평가·회귀 소비·trace/운영 인수 대조 |
 | [foundry-maf-workshop](https://github.com/junwoojeong100/foundry-maf-workshop/tree/d07c614a616446e63ee50b0b34540b5481aff5b2) | `d07c614a616446e63ee50b0b34540b5481aff5b2` / 2026-07-13 | 모델 SDK, MAF 함수, code deployment 학습 순서 |
-| [agent-framework-labs](https://github.com/junwoojeong100/agent-framework-labs/tree/1d3e3652784a421eeeed4c7f3f6b9476208ceb07) | `1d3e3652784a421eeeed4c7f3f6b9476208ceb07` / 2026-07-11 | FoundryChatClient, workflow builder, MCP 패턴 |
+| [agent-framework-labs](https://github.com/junwoojeong100/agent-framework-labs/tree/cca14163def4c88616dcd4c93fcfd6441fb08f30) | `cca14163def4c88616dcd4c93fcfd6441fb08f30` / 2026-09-15 | 세 builder·Workflow.as_agent·MCP·hybrid/IQ·Hosted 경로 대조 |
 | [microsoft-iq-on-foundry](https://github.com/junwoojeong100/microsoft-iq-on-foundry/tree/fa16c84f9800377823edd9aea1cb20d6a56a1edf) | `fa16c84f9800377823edd9aea1cb20d6a56a1edf` / 2026-07-25 | IQ/Toolbox 구분, read-only 기본, 실제 M365 연결의 승인 경계 |
 
 이 에디션의 시나리오·합성 데이터·통합 코드·문서는 새로 구성했습니다.
@@ -44,5 +45,25 @@ MIT가 명시된 MAF Workshop/Agent Framework 원본의 저작권 표기는 루�
 | Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | delegated 사용자, usage billing, 행동 가능성 |
 
 패키지 버전은 각 프로젝트의 PyPI 공식 release metadata와 대조했습니다.
+
+## 이번 한국어 개정에서 다시 확인한 공식 계약
+
+| 주제 | 공식 문서 | 적용/주의 |
+|---|---|---|
+| Workflow → Agent | [Using workflows as agents](https://learn.microsoft.com/agent-framework/workflows/as-agents) | start executor는 `list[Message]`, 실제 `.as_agent()` |
+| Hosted adapter | [Foundry Hosted Agents](https://learn.microsoft.com/agent-framework/hosting/foundry-hosted-agent) | service GA와 Python prerelease 분리, Responses/Invocations |
+| Functional API | [Functional workflow](https://learn.microsoft.com/agent-framework/concepts/workflows/functional) | experimental; 기본 선행 조건으로 강제하지 않음 |
+| MAF evaluation | [Foundry evaluation integration](https://learn.microsoft.com/agent-framework/integrations/by-component/evaluation/microsoft-foundry) | existing-response와 agent-target 평가 구분 |
+| Agent-target 평가 | [Evaluate agents](https://learn.microsoft.com/azure/foundry/observability/how-to/evaluate-agent) | 서버가 target을 다시 호출하는 별도 경로 |
+| Hybrid query | [Hybrid query](https://learn.microsoft.com/azure/search/hybrid-search-how-to-query) | text와 vector를 함께 전달 |
+| Toolbox | [FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | 실제 endpoint·credential·연결 lifecycle, prerelease |
+| Fabric IQ | [Fabric tools](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | 자산별 delegated/OBO와 Data Agent MCP의 app-only를 구분 |
+| Work IQ | [Work IQ source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | 사용량 과금·user assertion·customer-owned app·federated credential |
+| 운영/recurring evaluation | [Monitoring dashboard](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard) | batch, trace, recurring sampling은 별도 조건 |
+
+공식 문서의 오래된 `ChatAgent`/middleware 예제와 설치 SDK의 현재 signature가 다를 수 있습니다.
+실제 설치본의 `Agent`, `ChatContext`, `Workflow.as_agent`, host route를 SDK 계약 검사로 대조했습니다.
+확인일은 전 세계 모든 구독·리전의 기능 지원을 보장하지 않습니다.
+
 문서의 `Unreleased` 절을 설치 가능한 릴리스로 가정하지 않았습니다.
 본문 예시의 URL/ID/점수와 실제 실행 결과는 [검증 기록](validation.md)에서 구분합니다.

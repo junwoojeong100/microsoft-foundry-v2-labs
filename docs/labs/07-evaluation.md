@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/labs/07-evaluation.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/labs/07-evaluation.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Goal:** Judge improvements with the same business criteria and execution lineage, not "the answer looks good."
 
 Previous: [Lab 06](06-knowledge.md) · Next: A → [Lab 09](09-operations.md), B → [Lab 08](08-hosted.md)

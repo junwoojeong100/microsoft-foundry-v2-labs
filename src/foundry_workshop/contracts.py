@@ -60,6 +60,13 @@ def parse_json(text: str) -> Any:
     return json.loads(text, object_pairs_hook=_unique_object, parse_constant=_invalid_constant)
 
 
+def parse_json_prefix(text: str) -> tuple[Any, int]:
+    start = len(text) - len(text.lstrip())
+    return json.JSONDecoder(
+        object_pairs_hook=_unique_object, parse_constant=_invalid_constant
+    ).raw_decode(text, start)
+
+
 def read_json(path: Path) -> Any:
     return parse_json(path.read_text(encoding="utf-8"))
 
@@ -157,8 +164,16 @@ def load_cases(root: Path, split: str) -> list[dict[str, Any]]:
     if split not in {"dev", "holdout"}:
         raise ValueError("Evaluation split must be dev or holdout.")
     cases = read_jsonl(root / f"data/evaluation/{split}.jsonl")
+    return validate_cases(cases, load_documents(root))
+
+
+def validate_cases(
+    cases: list[dict[str, Any]], documents: list[dict[str, str]]
+) -> list[dict[str, Any]]:
+    if not isinstance(cases, list) or not cases:
+        raise ValueError("Evaluation cases must be a nonempty list.")
     ids = []
-    known_documents = {document["id"] for document in load_documents(root)}
+    known_documents = {document["id"] for document in documents}
     for case in cases:
         required = {
             "case_id",
@@ -167,7 +182,7 @@ def load_cases(root: Path, split: str) -> list[dict[str, Any]]:
             "expected_limit_krw",
             "required_citations",
         }
-        if set(case) != required:
+        if not isinstance(case, dict) or set(case) != required:
             raise ValueError("Evaluation cases must contain exactly the documented case fields.")
         if not isinstance(case.get("case_id"), str):
             raise ValueError("Each case must have a string case_id.")

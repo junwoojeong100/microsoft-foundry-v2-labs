@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/labs/11-capstone.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/labs/11-capstone.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Goal:** Hand over a small system with separate knowledge, code, evaluation, and operations—not just a model demo.
 
 Parent: [Learning paths](../paths.md) · Finish: [Cleanup](../reference/cleanup.md)

@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/sources.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/sources.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **We integrated the source modules' learning structures, not their claimed execution results.**
 Source check date: September 13, 2026. The commits below remain fixed even if upstream main changes.
 

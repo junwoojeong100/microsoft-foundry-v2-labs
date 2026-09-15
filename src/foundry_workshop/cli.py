@@ -12,8 +12,24 @@ from .contracts import load_cases, load_documents, read_json, validate_question
 from .evaluation import acceptance_report, compare_runs, evaluate_run, record_feedback
 from .experiments import collect, offline_demo
 from .knowledge import local_retrieve
+from .profiles import INFERENCE_APIS, PATTERNS, RETRIEVALS, RuntimeProfile
 
 DEFAULT_QUESTION = "2026년 9월 국내 출장 숙박비는 1박 얼마까지인가요?"
+
+
+def runtime_arguments(command: argparse.ArgumentParser, *, default_kind: str = "policy") -> None:
+    command.add_argument("--kind", choices=("policy", "workflow"), default=default_kind)
+    command.add_argument("--pattern", choices=PATTERNS, default="sequential")
+    command.add_argument("--retrieval", choices=RETRIEVALS, default="local")
+    command.add_argument("--prompt", choices=("v1", "v2"), default="v2")
+    command.add_argument("--api", choices=INFERENCE_APIS, default="project-responses")
+    command.add_argument("--protocol", choices=("responses", "invocations"), default="responses")
+
+
+def runtime_profile(args: argparse.Namespace) -> RuntimeProfile:
+    return RuntimeProfile(
+        **{key: getattr(args, key) for key in RuntimeProfile.__dataclass_fields__}
+    )
 
 
 def parser() -> argparse.ArgumentParser:
@@ -36,7 +52,7 @@ def parser() -> argparse.ArgumentParser:
     retrieve = commands.add_parser(
         "retrieve", help="Read evidence; local keyword search by default."
     )
-    retrieve.add_argument("--provider", choices=("local", "search", "iq"), default="local")
+    retrieve.add_argument("--provider", choices=RETRIEVALS, default="local")
     retrieve.add_argument("--question", default=DEFAULT_QUESTION)
     for name in ("model", "answer", "maf", "workflow"):
         command = commands.add_parser(
@@ -45,7 +61,7 @@ def parser() -> argparse.ArgumentParser:
         command.add_argument("--question", default=DEFAULT_QUESTION)
         if name == "answer":
             command.add_argument("--prompt", choices=("v1", "v2"), default="v2")
-            command.add_argument("--retrieval", choices=("local", "search", "iq"), default="local")
+            command.add_argument("--retrieval", choices=RETRIEVALS, default="local")
         if name == "maf":
             group = command.add_mutually_exclusive_group()
             group.add_argument("--tools", action="store_true")
@@ -56,13 +72,84 @@ def parser() -> argparse.ArgumentParser:
                 choices=("sequential", "concurrent", "group-chat"),
                 default="sequential",
             )
+    wrapped = commands.add_parser(
+        "workflow-agent",
+        help="LIVE: run a case-isolated workflow with validated answer and model-call lineage.",
+    )
+    wrapped.add_argument("--question", default=DEFAULT_QUESTION)
+    runtime_arguments(wrapped, default_kind="workflow")
+    contract = commands.add_parser(
+        "runtime-contract",
+        help="Read local code/prompt/configuration hashes; no Azure request or deployment.",
+    )
+    runtime_arguments(contract)
+    benchmark = commands.add_parser(
+        "benchmark",
+        help="Version-pinned Hosted model matrix, native judges, regressions and release evidence.",
+    )
+    benchmark_actions = benchmark.add_subparsers(dest="benchmark_action", required=True)
+    for action in ("plan", "collect", "smoke"):
+        operation = benchmark_actions.add_parser(action)
+        runtime_arguments(operation)
+        operation.set_defaults(protocol="invocations")
+        if action == "collect":
+            operation.add_argument("--label", required=True)
+            operation.add_argument("--split", choices=("dev", "holdout"), default="dev")
+            operation.add_argument("--model-key", action="append")
+            operation.add_argument("--concurrency", type=int, default=1)
+            operation.add_argument("--candidate")
+            operation.add_argument("--unlock-holdout", action="store_true")
+            operation.add_argument("--regressions")
+            operation.add_argument("--confirm-cost", action="store_true")
+        elif action == "smoke":
+            operation.add_argument("--label", required=True)
+            operation.add_argument("--local", action="store_true")
+            operation.add_argument("--case", default="D01")
+            operation.add_argument("--model-key")
+            operation.add_argument("--confirm-cost", action="store_true")
+    matrix_eval = benchmark_actions.add_parser("evaluate")
+    matrix_eval.add_argument("--label", required=True)
+    matrix_eval.add_argument("--reference")
+    matrix_eval.add_argument("--timeout", type=int, default=300)
+    matrix_eval.add_argument("--retry-failed", action="store_true")
+    matrix_eval.add_argument("--confirm-cost", action="store_true")
+    matrix_compare = benchmark_actions.add_parser("compare")
+    matrix_compare.add_argument("--baseline", required=True)
+    matrix_compare.add_argument("--candidate", required=True)
+    for action in ("report", "trace-plan", "monitor", "stop-session"):
+        operation = benchmark_actions.add_parser(action)
+        operation.add_argument("--label", required=True)
+    regression = benchmark_actions.add_parser("regression")
+    regression.add_argument("--label", required=True)
+    regression.add_argument("--row-id", required=True)
+    regression.add_argument("--regression-label", required=True)
+    regression.add_argument("--reviewer", required=True)
+    regression.add_argument("--reason", required=True)
+    regression.add_argument("--confirm-review", action="store_true")
+    verify = benchmark_actions.add_parser("verify")
+    verify.add_argument("--baseline", required=True)
+    verify.add_argument("--candidate", required=True)
+    verify.add_argument("--holdout", required=True)
+    verify.add_argument("--require-native", action="store_true")
+    verify.add_argument("--require-traces", action="store_true")
+    verify.add_argument("--require-native-pass", action="store_true")
+    verify.add_argument("--require-regressions", action="store_true")
+    verify.add_argument("--calibration")
+    calibration = commands.add_parser(
+        "calibrate-judge",
+        help="LIVE judge over bundled calibration fixtures; no target-agent responses.",
+    )
+    calibration.add_argument("--label", required=True)
+    calibration.add_argument("--reference")
+    calibration.add_argument("--timeout", type=int, default=300)
+    calibration.add_argument("--confirm-cost", action="store_true")
     batch = commands.add_parser(
         "collect", help="LIVE: collect all cases, keeping errors in the denominator."
     )
     batch.add_argument("--label", required=True)
     batch.add_argument("--split", choices=("dev", "holdout"), default="dev")
     batch.add_argument("--prompt", choices=("v1", "v2"), default="v1")
-    batch.add_argument("--retrieval", choices=("local", "search", "iq"), default="local")
+    batch.add_argument("--retrieval", choices=RETRIEVALS, default="local")
     batch.add_argument("--unlock-holdout", action="store_true")
     batch.add_argument("--candidate", help="Frozen real dev label; required for holdout.")
     grade = commands.add_parser(
@@ -96,6 +183,8 @@ def parser() -> argparse.ArgumentParser:
         "seed-search", help="Create namespaced Search objects in an existing service."
     )
     seed.add_argument("--iq", action="store_true")
+    seed.add_argument("--hybrid", action="store_true")
+    seed.add_argument("--confirm-cost", action="store_true")
     seed.add_argument("--confirm-create", action="store_true")
     agent = commands.add_parser(
         "prompt-agent", help="Create/invoke a real, service-managed prompt agent."
@@ -105,9 +194,10 @@ def parser() -> argparse.ArgumentParser:
     agent.add_argument("--version")
     agent.add_argument("--question", default=DEFAULT_QUESTION)
     agent.add_argument("--confirm-create", action="store_true")
-    commands.add_parser(
+    server = commands.add_parser(
         "serve", help="Run the optional local hosted-agent server. Inference remains billable."
     )
+    runtime_arguments(server)
     commands.add_parser(
         "cleanup-plan", help="List local ownership records. Does NOT delete Azure resources."
     )
@@ -157,6 +247,39 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
     if hasattr(args, "question"):
         validate_question(args.question)
     try:
+        if args.command == "runtime-contract":
+            from .contracts import digest
+            from .profiles import runtime_contract
+
+            contract = runtime_contract(root, settings, runtime_profile(args))
+            return {
+                "runtime_contract": contract,
+                "contract_hash": digest(contract),
+                "azure_verified": False,
+            }
+        if args.command == "calibrate-judge":
+            from .benchmark import directory
+            from .calibration import calibrate
+
+            return calibrate(
+                root,
+                settings,
+                args.label,
+                confirmed=args.confirm_cost,
+                timeout=args.timeout,
+                reference_catalog=directory(root, args.reference) / "evaluator-catalog.json"
+                if args.reference
+                else None,
+            )
+        if args.command == "workflow-agent":
+            from .runtime import run_pipeline
+
+            async def execute_workflow():
+                return await asyncio.wait_for(
+                    run_pipeline(settings, root, args.question, runtime_profile(args)), timeout=240
+                )
+
+            return asyncio.run(execute_workflow())
         if args.command == "doctor":
             return doctor_cloud(settings)
         if args.command == "retrieve":
@@ -165,7 +288,13 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
             from .search import SearchGateway
 
             with SearchGateway(settings) as gateway:
-                return gateway.seed(root, include_iq=args.iq, confirmed=args.confirm_create)
+                return gateway.seed(
+                    root,
+                    include_iq=args.iq,
+                    confirmed=args.confirm_create,
+                    hybrid=args.hybrid,
+                    confirm_embedding_cost=args.confirm_cost,
+                )
         if args.command == "cloud-evaluate":
             from .cloud_evaluation import evaluate_cloud
 
@@ -181,7 +310,7 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                 )
             if args.command == "workflow":
                 return asyncio.run(run_workflow(settings, root, args.question, args.pattern))
-            serve(settings, root)
+            serve(settings, root, runtime_profile(args))
             return None
         if args.command == "collect" and args.split == "holdout" and not args.unlock_holdout:
             raise ValueError("Freeze the candidate first, then explicitly pass --unlock-holdout.")
@@ -204,7 +333,7 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                     client, settings, root, args.question, args.prompt, context
                 )
             if args.command == "collect":
-                from .search import search_configuration
+                from .profiles import retrieval_configuration
 
                 def answer_case(case: dict[str, Any]) -> dict[str, Any]:
                     context = retrieve(root, settings, case["question"], args.retrieval)
@@ -226,10 +355,8 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                         "project_endpoint": settings.project_endpoint,
                         "api": "project-responses",
                         "max_output_tokens": settings.max_output_tokens,
-                        "retrieval_configuration": (
-                            {"provider": "local-keyword", "max_documents": 6}
-                            if args.retrieval == "local"
-                            else search_configuration()
+                        "retrieval_configuration": retrieval_configuration(
+                            RuntimeProfile(retrieval=args.retrieval)
                         ),
                     },
                     candidate=args.candidate,
@@ -254,6 +381,10 @@ def main(root: Path, argv: list[str] | None = None) -> int:
     try:
         if args.command == "doctor" and not args.cloud:
             result = doctor_offline(root)
+        elif args.command == "benchmark":
+            from .benchmark_cli import execute
+
+            result = execute(root, args)
         elif args.command == "demo":
             result = offline_demo(root, args.label, args.prompt)
         elif args.command == "retrieve" and args.provider == "local":
@@ -289,6 +420,8 @@ def main(root: Path, argv: list[str] | None = None) -> int:
         if args.command in {"evaluate", "accept"} and not result["business_gate_passed"]:
             return 1
         if args.command == "collect" and result["errors"]:
+            return 1
+        if isinstance(result, dict) and result.get("gate_passed") is False:
             return 1
         return 0
     except (OSError, ValueError, ImportError, TimeoutError, subprocess.SubprocessError) as exc:

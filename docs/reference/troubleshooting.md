@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/troubleshooting.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/troubleshooting.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Do not chain deployment, evaluation, or deletion while the previous step is failing.**
 Creating a new model, subscription, or resource for the same unexplained error is not recovery.
 

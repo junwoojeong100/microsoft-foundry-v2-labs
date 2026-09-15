@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/configuration.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/configuration.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Use one environment-variable vocabulary in this repository; do not mix names from the source workshops.**
 
 Every CLI reads root `.env`, but existing process variables win.

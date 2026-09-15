@@ -115,8 +115,8 @@ def answer_with_context(
 def retrieve(root: Path, settings: Settings, question: str, provider: str) -> dict[str, Any]:
     if provider == "local":
         return local_retrieve(root, question)
-    if provider not in {"search", "iq"}:
-        raise ValueError("Retrieval provider must be local, search or iq.")
+    if provider not in {"search", "iq", "hybrid"}:
+        raise ValueError("Retrieval provider must be local, search, hybrid or iq.")
     from .search import SearchGateway
 
     with SearchGateway(settings) as gateway:

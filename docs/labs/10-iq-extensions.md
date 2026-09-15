@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/labs/10-iq-extensions.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/labs/10-iq-extensions.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Optional advanced work. Complete the core labs without accessing actual Fabric or Microsoft 365 accounts.**
 
 Prerequisite: [Lab 06](06-knowledge.md) · Parent: [Learning paths](../paths.md)

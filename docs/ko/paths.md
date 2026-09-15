@@ -7,6 +7,8 @@
 각 랩의 A와 B 중 자기 경로를 따라갑니다. A는 포털 중심이지만 워크플로는 준비된 MAF 환경에서 실행합니다.
 
 본문의 **조작·명령 → 참고 이미지 → 화면 확인** 순서로 진행하세요.
+한국어 통합 개정의 새 workflow/benchmark 기능은 아직 별도 촬영 전입니다.
+아래 기존 자료를 새 기능의 실제 성공 증거로 사용하지 않습니다.
 이미지는 2026-09-14 원본과 개별 표시한 2026-09-15 새 촬영 예시이므로 본인의 값과 결과를 따로 확인합니다.
 [새 영문 촬영본](english-recordings.md)과 [새 액션 인덱스](english-captures.md)도 제공합니다.
 [화면 읽는 법](labs/00-start.md#이-가이드의-화면-읽는-법)과 [전체 액션 인덱스](action-captures.md)를 보조 자료로 사용하세요.
@@ -61,6 +63,27 @@ Python 기초, JSON, 터미널, `async/await`를 읽을 수 있어야 합니다.
 [10. Fabric/Work IQ 확장](labs/10-iq-extensions.md)은 45–90분의 별도 세션입니다.
 승인·라이선스·capacity 준비 시간은 이 시간에 포함하지 않습니다.
 
+## C. 통합 심화 — 150–180분 추가
+
+B의 기본 모델·MAF·IQ 개념을 익힌 뒤 [평가 워크북](reference/evaluation-workbook.md)을 진행합니다.
+전체 주제를 하나의 6시간 수업에 억지로 압축하지 않습니다. B+C는 **8.5–9시간의 준비된 실습**이며
+리소스 준비·권한 전파·배포/평가 대기는 별도입니다.
+
+| 순서 | 직접 수행 | 남길 자산 |
+|---|---|---|
+| 1 | Lab 05의 배포용 workflow와 Lab 08 프로필 패키지 | 실제 MAF builder, runtime/profile/code hash |
+| 2 | 전용 Hosted Invocations version과 명시적 모델 목록 | query-only 계약·배포 허용 목록·smoke |
+| 3 | 완전한 dev model matrix와 native 평가 | 4모델이면 24행, 전체 오류·점수 |
+| 4 | 실제 trace 검토, dev regression 승인/소비 | 원래 정답·source response/trace·검토 기록 |
+| 5 | 새 version, 동일 dev/evaluator, calibration | 전후 비교·평가자 오탐/미탐 |
+| 6 | 후보 고정 후 holdout과 통합 인수 | 4모델이면 16행, 독립 gate·사람 판단 |
+| 7 | 본인 session 정리 및 잔여 비용 확인 | 해시가 유지된 실행 이력·cleanup receipt |
+
+질문 수 64개와 실제 모델 호출 수는 다릅니다.
+순차 workflow이면 논리 모델 호출만 최대 192회이고 검색·retry·judge는 추가입니다.
+`benchmark plan`으로 본인의 모델 목록과 예상량을 확인합니다.
+이 경로의 완료는 기존 single-agent 영상이나 upstream 성공 횟수로 대신할 수 없습니다.
+
 ## 독립 모듈로 다시 방문하기
 
 | 필요한 모듈 | 최소 선행 결과 | 재시작 지점 |
@@ -70,6 +93,7 @@ Python 기초, JSON, 터미널, `async/await`를 읽을 수 있어야 합니다.
 | Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | 06 |
 | 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | 07 |
 | Hosted Agent | `maf --tools` 성공 + hosted SDK + 배포 권한 | 08 |
+| Hosted workflow 평가 | 프로필·모델 목록·고정 Invocations version·IQ·judge·App Insights 준비 | C 워크북 |
 | IQ 확장 | IQ 기본 완료 + 서비스별 별도 승인 | 10 |
 
 **실습 경로를 바꾸지 않는 원칙:** 모델이 실패하면 다른 모델로 자동 교체하지 않습니다.

@@ -1,3 +1,4 @@
+import math
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -9,6 +10,55 @@ from .settings import Settings, azure_endpoint, credential_for, owned_prefix, re
 SEARCH_API = "2024-07-01"
 IQ_API = "2026-04-01"
 SEARCH_SCOPE = "https://search.azure.com/.default"
+
+
+def embedding_configuration() -> dict[str, Any]:
+    dimensions = int(require_env("WORKSHOP_EMBEDDING_DIMENSIONS"))
+    if not 1 <= dimensions <= 65536:
+        raise ValueError(
+            "WORKSHOP_EMBEDDING_DIMENSIONS must match the verified embedding model (1-65536)."
+        )
+    return {
+        "deployment": require_env("AZURE_AI_EMBEDDING_DEPLOYMENT_NAME"),
+        "dimensions": dimensions,
+        "field": "content_vector",
+        "api": "project-embeddings",
+    }
+
+
+def embed_texts(
+    settings: Settings, texts: list[str], configuration: dict[str, Any]
+) -> tuple[list[list[float]], dict[str, Any]]:
+    from .cloud import project_clients
+
+    if not texts or any(not isinstance(text, str) or not text.strip() for text in texts):
+        raise ValueError("Embedding inputs must be a nonempty list of nonempty texts.")
+    with project_clients(settings) as (_, client):
+        response = client.embeddings.create(model=configuration["deployment"], input=texts)
+    vectors = {}
+    for item in response.data:
+        if (
+            type(item.index) is not int
+            or not 0 <= item.index < len(texts)
+            or item.index in vectors
+            or len(item.embedding) != configuration["dimensions"]
+            or any(
+                type(number) not in (int, float) or not math.isfinite(number)
+                for number in item.embedding
+            )
+        ):
+            raise ValueError(
+                "Embedding response has missing/duplicate indices, wrong dimensions or invalid numbers."
+            )
+        vectors[item.index] = item.embedding
+    if len(vectors) != len(texts) or not isinstance(response.model, str) or not response.model:
+        raise ValueError("Embedding response must preserve every input and the actual model name.")
+    return [vectors[index] for index in range(len(texts))], {
+        "deployment": configuration["deployment"],
+        "observed_model": response.model,
+        "dimensions": configuration["dimensions"],
+        "usage": response.usage.model_dump(mode="json") if response.usage else None,
+    }
 
 
 def asset_name(variable: str, suffix: str) -> str:
@@ -37,6 +87,7 @@ class SearchGateway:
         import httpx
 
         self.configuration = search_configuration()
+        self.settings = settings
         self.endpoint = self.configuration["endpoint"]
         self.index = self.configuration["index"]
         self.source = self.configuration["source"]
@@ -74,27 +125,49 @@ class SearchGateway:
 
     def retrieve(self, question: str, provider: str) -> dict[str, Any]:
         validate_question(question)
-        if provider == "search":
+        if provider in {"search", "hybrid"}:
+            body: dict[str, Any] = {
+                "search": question,
+                "top": 6,
+                "select": "id,title,content,effective_from,effective_to",
+            }
+            embedding = None
+            configuration: dict[str, Any] = dict(self.configuration)
+            if provider == "hybrid":
+                configuration["embedding"] = embedding_configuration()
+                vectors, embedding = embed_texts(
+                    self.settings, [question], configuration["embedding"]
+                )
+                body["vectorQueries"] = [
+                    {
+                        "kind": "vector",
+                        "vector": vectors[0],
+                        "fields": configuration["embedding"]["field"],
+                        "k": 6,
+                    }
+                ]
             response = self.request(
                 "POST",
                 f"indexes/{self.index}/docs/search",
                 api=SEARCH_API,
-                body={
-                    "search": question,
-                    "top": 6,
-                    "select": "id,title,content,effective_from,effective_to",
-                },
+                body=body,
             )
             response.raise_for_status()
             payload = response.json()
             if not isinstance(payload.get("value"), list):
                 raise ValueError("Search response has no document list.")
             return {
-                **evidence(payload["value"], "azure-ai-search-keyword"),
-                "configuration": self.configuration,
+                **evidence(
+                    payload["value"],
+                    "azure-ai-search-hybrid" if provider == "hybrid" else "azure-ai-search-keyword",
+                ),
+                "configuration": configuration,
+                **({"embedding_query": embedding} if embedding is not None else {}),
             }
         if provider != "iq":
-            raise ValueError("SearchGateway supports search or iq, never an automatic fallback.")
+            raise ValueError(
+                "SearchGateway supports search, hybrid or iq, never an automatic fallback."
+            )
         response = self.request(
             "POST",
             f"knowledgebases('{self.kb}')/retrieve",
@@ -147,10 +220,22 @@ class SearchGateway:
             "configuration": self.configuration,
         }
 
-    def seed(self, root: Path, *, include_iq: bool, confirmed: bool) -> dict[str, Any]:
+    def seed(
+        self,
+        root: Path,
+        *,
+        include_iq: bool,
+        confirmed: bool,
+        hybrid: bool = False,
+        confirm_embedding_cost: bool = False,
+    ) -> dict[str, Any]:
         if not confirmed:
             raise ValueError(
                 "Cloud writes require --confirm-create. Review the lab prerequisites first."
+            )
+        if hybrid and not confirm_embedding_cost:
+            raise ValueError(
+                "Hybrid indexing makes paid embedding requests; explicitly pass --confirm-cost."
             )
         prefix = owned_prefix()
         for name in (self.index, self.source, self.kb):
@@ -204,6 +289,30 @@ class SearchGateway:
                 ],
             },
         }
+        embedding = embedding_configuration() if hybrid else None
+        if embedding is not None:
+            index_body["fields"].append(
+                {
+                    "name": embedding["field"],
+                    "type": "Collection(Edm.Single)",
+                    "searchable": True,
+                    "retrievable": False,
+                    "dimensions": embedding["dimensions"],
+                    "vectorSearchProfile": "policy-vector",
+                }
+            )
+            index_body["vectorSearch"] = {
+                "algorithms": [{"name": "policy-hnsw", "kind": "hnsw"}],
+                "profiles": [{"name": "policy-vector", "algorithm": "policy-hnsw"}],
+            }
+        index_configuration = {"hybrid": hybrid, "embedding": embedding}
+        configurations = ledger.get("index_configurations", {})
+        if not isinstance(configurations, dict):
+            raise ValueError("The index ownership configuration must be an object.")
+        if self.index in configurations and configurations[self.index] != index_configuration:
+            raise ValueError(
+                "The owned index has a different vector contract; use a new explicit prefix/index."
+            )
         definitions = [(f"indexes/{self.index}", SEARCH_API, index_body)]
         if include_iq:
             definitions.extend(
@@ -243,17 +352,44 @@ class SearchGateway:
             elif existing.status_code == 200:
                 if path not in {item["path"] for item in ledger["objects"]}:
                     raise ValueError(f"Refusing to overwrite an unowned Search object: {path}")
+                if path.startswith("indexes/"):
+                    fields = existing.json().get("fields", [])
+                    vector = next(
+                        (field for field in fields if field.get("name") == "content_vector"), None
+                    )
+                    if hybrid and (
+                        vector is None
+                        or vector.get("dimensions") != embedding["dimensions"]
+                        or vector.get("vectorSearchProfile") != "policy-vector"
+                    ):
+                        raise ValueError(
+                            "The existing index does not match the explicit hybrid schema; do not overwrite it."
+                        )
+                    if not hybrid and vector is not None:
+                        raise ValueError(
+                            "Do not erase an owned hybrid index's vectors with a text-only upload."
+                        )
             else:
                 existing.raise_for_status()
             if path.startswith("indexes/"):
+                uploaded = documents
+                if embedding is not None:
+                    vectors, metadata = embed_texts(
+                        self.settings,
+                        [document["title"] + "\n" + document["content"] for document in documents],
+                        embedding,
+                    )
+                    uploaded = [
+                        {**document, embedding["field"]: vector}
+                        for document, vector in zip(documents, vectors, strict=True)
+                    ]
+                    ledger["embedding_model"] = metadata
                 response = self.request(
                     "POST",
                     f"{path}/docs/index",
                     api=SEARCH_API,
                     body={
-                        "value": [
-                            {"@search.action": "upload", **document} for document in documents
-                        ]
+                        "value": [{"@search.action": "upload", **document} for document in uploaded]
                     },
                 )
                 response.raise_for_status()
@@ -268,11 +404,14 @@ class SearchGateway:
                     raise ValueError(
                         "Partial/missing Search indexing results. Inspect the owned index before retrying."
                     )
+                ledger.setdefault("index_configurations", {})[self.index] = index_configuration
+                write_json(ledger_path, ledger)
         return {
             "mode": "live",
             "index": self.index,
             "knowledge_base": self.kb if include_iq else None,
             "document_count": len(documents),
+            "hybrid": hybrid,
             "ledger": str(ledger_path),
             "note": "Resource creation is not retrieval verification. Run retrieve separately.",
         }

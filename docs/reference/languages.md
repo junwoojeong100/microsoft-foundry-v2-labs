@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/languages.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/languages.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Documentation localization: September 15, 2026. English is the default; Korean remains a complete parallel path.**
 
 `README.md` and `docs/` are English. `README.ko.md` and `docs/ko/` are Korean.

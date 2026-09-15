@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/labs/05-workflows.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/labs/05-workflows.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Goal:** Connect agents in MAF code and distinguish a reviewer model from an actual approver.
 
 Previous: A → [Lab 03](03-prompt-agent.md), B → [Lab 04](04-agents-tools.md) · Next: [Lab 06](06-knowledge.md)

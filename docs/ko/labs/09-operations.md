@@ -113,6 +113,47 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 운영 중 샘플링·평가 비용·데이터 정책을 승인한 뒤 별도 설정합니다.
 수업의 6문항 통과만으로 운영 배포를 승인하지 않습니다.
 
+## C. 새 Hosted matrix의 Trace·Monitor 인수
+
+**2026-09-15 추가 경로이며 기존 15/20-span 영상과 별도입니다.**
+[평가 워크북](../reference/evaluation-workbook.md)에서 만든 label에 대해:
+
+```bash
+python scripts/workshop.py benchmark trace-plan --label wf-candidate
+python scripts/workshop.py benchmark monitor --label wf-candidate
+```
+
+`trace-plan`은 로컬 KQL만 작성하며 Azure를 조회하지 않습니다.
+`monitor`는 `.env`의 **AZURE_APPLICATION_INSIGHTS_APP_ID**와 명시적 구독을 사용해 실제 조회합니다.
+Application ID는 workspace ID나 instrumentation key와 다릅니다.
+쿼리는 실행 전에 표시하고, 해당 run의 agent·기간·trace ID만 조회합니다.
+
+조회는 `requests`에서 Foundry agent 이름을 찾습니다.
+코드 내부 참여자 이름을 가진 `dependencies`를 같은 agent 이름으로 무작정 필터링하거나
+부모 요청과 자식 span의 token/latency를 합산하지 않습니다.
+현재 구현의 기본 trace gate는 root 요청의 성공/존재 검사이며, 개별 모델·도구·검색의 의미적 검토는 별도입니다.
+
+누락·중복·실패 요청·미측정 duration은 인수 통과가 아닙니다.
+한 번 확인한 정확한 immutable run의 receipt는 hash를 검증해 재사용하며,
+새 live 조회를 한 것처럼 시간을 갱신하지 않습니다.
+
+```bash
+python scripts/workshop.py benchmark stop-session --label wf-candidate
+```
+
+이 명령은 그 label에서 만든 agent/version/session만 중지하고 상태를 다시 확인합니다.
+공유 서비스·모델·평가 이력이나 persistent filesystem은 삭제하지 않습니다.
+별도 smoke 세션은 자기 목록과 raw HTTP 기록으로 확인해 정리합니다.
+
+### 선택: continuous evaluation
+
+기본 batch/trace 검증과 다른 운영 기능입니다. 데이터 범위, sample 비율, 시간당 상한,
+평가자 버전, 지속 비용, 비활성화 책임자를 먼저 승인합니다.
+현재 [공식 recurring/continuous evaluation 안내](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard#set-up-continuous-evaluation)를
+확인하고 별도 rule을 구성합니다. 한 번의 요청이 sampling되지 않았다고 모델을 반복 호출해
+성공 화면을 만들지 않습니다. Rule enabled와 실제 평가 sample의 존재를 따로 기록합니다.
+이 개정은 continuous evaluation을 자동으로 켜지 않습니다.
+
 ## 반드시 정리하고 끝내기
 
 2026-09-14 원격 호출은 20-span trace에서 root Completed, chat 2회·도구 1회를 확인했습니다.

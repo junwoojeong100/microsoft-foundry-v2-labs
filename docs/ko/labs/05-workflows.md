@@ -165,6 +165,69 @@ python scripts/workshop.py workflow --pattern group-chat
 
 모델에게 “너는 승인자”라는 지침을 준 것으로 사람 승인을 대체하지 않습니다.
 
+## C. 경험자 심화 — 같은 워크플로를 배포 가능한 Agent로
+
+**2026-09-15 코드 계약 보강. 이 절의 새 Azure 실행·촬영은 아직 수행하지 않았습니다.**
+앞의 `workflow` 명령은 세 패턴의 원래 출력 형태를 비교하는 입문 경로로 유지합니다.
+아래 `workflow-agent`는 **사례별 근거·실제 모델 호출 이력·검증된 최종 답**을 함께 돌려주는 배포용 경로입니다.
+
+```bash
+python scripts/workshop.py workflow-agent --pattern sequential --retrieval local --prompt v2
+python scripts/workshop.py workflow-agent --pattern concurrent --retrieval local --prompt v2
+python scripts/workshop.py workflow-agent --pattern group-chat --retrieval local --prompt v2
+```
+
+| 배포용 패턴 | 실제 MAF 구성 | 읽을 결과 |
+|---|---|---|
+| sequential | PolicyAnalyst → AnswerWriter → EvidenceReviewer | 최종 답 한 개, 모델 호출 이력 3개 |
+| concurrent | 세 역할의 병렬 검토 → FinalPolicyReviewer | 병렬 결과를 그대로 합의로 취급하지 않고 최종 답 생성, 논리 호출 4회 |
+| group-chat | 고정 순서·최대 3라운드 → FinalPolicyReviewer | 종료 조건과 별도 최종 검토, 논리 호출 4회 |
+
+도구/SDK 내부 재시도까지 포함한 청구 횟수는 별도입니다.
+`model_calls`에는 실제 서비스의 response ID·관측 모델·사용량을 남깁니다.
+MAF가 만든 workflow 응답 UUID를 Azure 모델 response ID나 trace ID로 바꾸어 적지 않습니다.
+형식/인용이 틀리면 원문을 보존한 오류이며, 다른 모델이나 fixture로 성공을 만들지 않습니다.
+
+### 직접 읽고 고칠 코드
+
+`src/foundry_workshop/agents.py`의 `build_orchestration`에서 builder 선택을 확인합니다.
+`src/foundry_workshop/runtime.py`에서는 다음 순서를 찾습니다.
+
+1. `instruction_snapshot`: v1/v2 + 역할 + 출력 schema의 실제 지침.
+2. `run_pipeline`: 한 번의 실제 retrieval → 새 참여자 → 선택한 MAF builder → 최종 검사.
+3. `audit`: 실제 `ChatResponse.response_id`, `model`, `usage_details`를 수집하는 middleware.
+4. `build_workflow_agent`: `list[Message]`를 받는 실제 `WorkflowBuilder`를 만들고 `.as_agent()`로 감싸는 경계.
+
+개념을 가장 작게 보면 다음과 같습니다.
+
+```python
+workflow = SequentialBuilder(participants=[analyst, writer, reviewer]).build()
+workflow_agent = workflow.as_agent(name="PolicyWorkflow")
+server = ResponsesHostServer(workflow_agent)
+```
+
+위 세 줄은 이미 만든 객체 사이의 관계를 설명합니다.
+이 저장소의 완전한 실행 코드는 입력/근거 검증과 요청별 자원 정리를 더한 `build_workflow_agent`입니다.
+내부에서도 실제 MAF builder가 세 참여자를 실행하며, 문자열 답을 사람이 이어 붙인 모형이 아닙니다.
+
+**상태 경계:** 각 요청마다 새 참여자와 내부 workflow를 만듭니다.
+현재 질문만 실행에 넣고 이전 응답·다른 모델의 답·정답 라벨을 재사용하지 않습니다.
+내부 모델 호출은 buffered이며 workflow 완료/상태 이벤트와 token별 streaming을 같은 것으로 부르지 않습니다.
+SDK 호스트가 checkpoint store를 제공해도 이 코드가 durable 승인·crash recovery를 검증했다는 뜻은 아닙니다.
+
+### IQ 근거를 같은 pipeline에 넣기
+
+강사가 준비한 IQ가 있다면:
+
+```bash
+python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
+```
+
+이것은 `local` 검색 결과를 IQ로 이름만 바꾼 실행이 아닙니다.
+GA retrieve의 실제 documents/references/activity와 context hash가 함께 반환됩니다.
+실패 시 일반 Search로 전환하지 않습니다.
+프로필·요청·model calls·근거를 [Lab 08](08-hosted.md)의 패키지로 그대로 연결합니다.
+
 ## 완료 확인
 
 각 패턴의 실제 실행·참여자 출력과 액션별 녹화는 [실행 기록](../live-run.md)에 있습니다.

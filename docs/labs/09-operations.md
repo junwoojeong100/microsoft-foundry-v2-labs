@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/labs/09-operations.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/labs/09-operations.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Goal:** Preserve evidence for the next decision instead of mistaking one successful demo for a production-ready system.
 
 Previous: [Lab 07](07-evaluation.md) or [Lab 08](08-hosted.md) · Next: [Capstone](11-capstone.md)

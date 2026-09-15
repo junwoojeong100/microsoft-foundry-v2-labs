@@ -43,6 +43,33 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 `accepted: true`는 검사 조건을 충족한 인수 자료라는 뜻이지 운영 배포 승인이 아닙니다.
 사진의 holdout은 이미 사용된 교육용 세트이므로 새로운 미사용 검증셋의 합격으로 주장하지 않습니다.
 
+## Hosted workflow/evaluation 심화 인수 자료
+
+기본 A/B 산출물과 [심화 평가 워크북](../reference/evaluation-workbook.md)의 산출물을 구분합니다.
+4개 모델을 선택했다면 24행 dev baseline, 24행 dev candidate, 16행 frozen holdout이 필요합니다.
+일부 모델만 인수한다면 **dev에서 사전에 선택한 목록**과 실제 행 수를 기록합니다.
+
+```bash
+python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --require-regressions --calibration judge-calibration
+```
+
+검토된 회귀를 만들지 않은 정당한 all-pass 경로는 `--require-regressions`를 생략하고 이유를 남깁니다.
+이 명령은 실행 검증, 업무 gate, native 품질과 findings를 각각 표시합니다.
+`gate_passed` 또는 `ready-for-human-review`를 실제 배포 승인으로 해석하지 않습니다.
+Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--require-native-pass`를 요구합니다.
+
+다음 자료를 함께 인계합니다.
+
+- 원래 synthetic corpus/dataset/prompt와 실제 runtime/profile/code hash.
+- 정확한 Hosted version·모델 목록·추론 API·retrieval 설정.
+- 모든 응답·원시 오류·model calls·평가자 version/threshold·실제 trace 조회 receipt.
+- 실제로 소비된 dev regression과 그 원래 질문/정답/검토자 기록.
+- calibration 오탐·미탐, 작은 표본의 한계, 아직 미실행인 선택 기능.
+- 본인 session 정리와 남는 서비스 비용.
+
+[통합·아카이브 인수 기준](../reference/consolidation.md)은 이 자료로 판단합니다.
+기존 single-agent 녹화나 원본 저장소의 성공 기록으로 새 workflow 인수를 대신하지 않습니다.
+
 ## 5분 발표 순서
 
 1. **무엇을 해결했는가:** 어떤 질문에 답하고 어떤 질문은 보류하는가.

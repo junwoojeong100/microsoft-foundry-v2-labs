@@ -4,6 +4,10 @@
 
 **에이전트를 만드는 경험에서, 조직의 지식·평가·운영 기준을 남기는 경험으로.**
 
+> **현재 한국어 개정:** `ko-integrated-20260915`.
+> 새 Hosted workflow·평가 matrix 경로는 [통합 인수 기준](reference/consolidation.md)에 정리했습니다.
+> 한국어 실제 실행/촬영 후 보완하고, 그다음 영어를 갱신합니다. 기존 영상은 새 기능의 검증 증거가 아닙니다.
+
 이 자료는 2026-09-14 실제 실행을 확인한 Pre-Ignite 2026 Edition입니다.
 완전초보자는 포털과 준비된 MAF 실행 환경에서, 경험자는 Python 코드에서
 같은 **합성 출장 규정 상담 업무**를 해결합니다. 워크플로를 포털에서 작성하는 단계는 없습니다.
@@ -11,6 +15,8 @@
 | 찾는 것 | 바로가기 |
 |---|---|
 | 나에게 맞는 시작점과 시간표 | [학습 경로](paths.md) |
+| 고정 Hosted version의 다중 모델 평가 | [평가·학습 루프 워크북](reference/evaluation-workbook.md) |
+| IQ·Toolbox·Fabric·Work IQ의 선택 경계 | [IQ 확장 워크북](reference/iq-workbook.md) |
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
 | 새 영상으로 실제 조작 따라가기 | [대기 제거 편집본: 포털 9분 09초 · CLI 14분 02초](video-summary.md) |

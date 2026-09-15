@@ -6,6 +6,10 @@
 
 선행: [Lab 06](06-knowledge.md) · 상위: [학습 경로](../paths.md)
 
+**2026-09-15 보강:** 단계별 준비·Toolbox 결합·Fabric 자산별 인증·Work IQ federated app·
+Hosted OBO 확인은 [이 저장소의 IQ 확장 워크북](../reference/iq-workbook.md)에서 진행합니다.
+외부 원본 저장소의 clone은 필요하지 않으며 실제 회사/M365 연결은 이번 기본 경로에서 수행하지 않습니다.
+
 ## 세 IQ를 같은 API로 보지 않기
 
 | 구분 | 주된 맥락 | 이번 통합 가이드의 기본 범위 |
@@ -49,8 +53,9 @@ app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습�
 
 자산이 없다면 [공식 Fabric Data Agent 튜토리얼](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial)에서
 합성 자산을 먼저 만듭니다. 자산 준비는 이 랩의 45–90분에 포함하지 않습니다.
-원본 모듈의 세부 실습은 [고정된 Fabric 가이드](https://github.com/junwoojeong100/microsoft-iq-on-foundry/blob/fa16c84f9800377823edd9aea1cb20d6a56a1edf/docs/fabric-iq.md)에서
-참고하되, 과거 SKU/CLI/권한 조건을 현재 문서와 대조합니다.
+자산별 연결 순서는 [통합 IQ 워크북](../reference/iq-workbook.md)과
+[현재 공식 Fabric IQ 가이드](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq)를 사용합니다.
+Data Agent MCP의 app-only 지원을 ontology/semantic model의 delegated/OBO 지원과 혼동하지 않습니다.
 
 **완료 증거:** 실제 사용자의 질문, 선택된 Data Agent/데이터 원본, 응답·근거,
 user-context/OBO 검증 결과. 관리자 계정으로 한 번 성공했다고 모든 사용자에게 권한이 있는 것은 아닙니다.

@@ -2,6 +2,10 @@
 
 **English** | [한국어](README.ko.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](README.ko.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Start with one agent. Finish with a system whose knowledge, evaluation criteria, and operational decisions your team can reuse.**
 
 English by default · Korean available · Synthetic data only
@@ -23,9 +27,9 @@ No new infrastructure was provisioned or deployed. The [language contract](docs/
 explains the boundary; the [September 14 Korean source recordings](docs/video-summary.md)
 remain available separately.
 
-This edition brings the December 2025 `microsoft-foundry-labs`, Foundry Evaluation,
-MAF Workshop, Agent Framework, and Microsoft IQ exercises into **one environment and
-one business scenario**. It is not a list of repositories to visit in sequence.
+This self-contained edition brings agents, workflows, knowledge, evaluation, and
+operations into **one environment and one business scenario**. It is not a list of
+repositories to visit in sequence.
 The labs, Python code, synthetic policies, evaluation data, and instructor guide are here.
 
 ## Start here
@@ -66,20 +70,20 @@ flowchart LR
     E --> O["Trace / Monitor / costs"]
 ```
 
-| Module | Topics | Main source modules |
-|---|---|---|
-| [00. Getting started](docs/labs/00-start.md) | Learning paths, browser/code setup, offline/cloud boundaries | MAF Workshop |
-| [01. Foundry and projects](docs/labs/01-foundry.md) | Platform vs. SDK, resources, projects, roles | Original integrated labs |
-| [02. Models](docs/labs/02-models.md) | Deployment names, Playground, SDK, comparison and Router | Original labs + MAF Workshop |
-| [03. Your first agent](docs/labs/03-prompt-agent.md) | Instructions, synthetic documents, citations, tool/permission boundaries | Original labs |
-| [04. MAF and tools](docs/labs/04-agents-tools.md) | Single agent, functions, local MCP | MAF Workshop + Agent Framework Labs |
-| [05. MAF workflows](docs/labs/05-workflows.md) | Prepared example, sequential/concurrent/Group Chat code, human review | Agent Framework Labs |
-| [06. RAG and Foundry IQ](docs/labs/06-knowledge.md) | Search vs. IQ, GA API, source citations | Microsoft IQ on Foundry |
-| [07. Evaluation and learning](docs/labs/07-evaluation.md) | Dev, failure analysis, instruction improvements, holdout | Foundry Evaluation |
-| [08. Hosted Agent](docs/labs/08-hosted.md) | Safe packaging, local server, code deployment | MAF Workshop + IQ |
-| [09. Operations and cleanup](docs/labs/09-operations.md) | Traces, release gates, costs, ownership-aware cleanup | Control Plane + Evaluation |
-| [10. IQ extensions](docs/labs/10-iq-extensions.md) | Fabric, Work IQ, Toolbox, Preview approval boundaries | Microsoft IQ on Foundry |
-| [11. Capstone](docs/labs/11-capstone.md) | Final handoff across knowledge, models, evaluation, and operations | All modules |
+| Module | Topics |
+|---|---|
+| [00. Getting started](docs/labs/00-start.md) | Learning paths, browser/code setup, offline/cloud boundaries |
+| [01. Foundry and projects](docs/labs/01-foundry.md) | Platform vs. SDK, resources, projects, roles |
+| [02. Models](docs/labs/02-models.md) | Deployment names, Playground, SDK, comparison and Router |
+| [03. Your first agent](docs/labs/03-prompt-agent.md) | Instructions, synthetic documents, citations, tool/permission boundaries |
+| [04. MAF and tools](docs/labs/04-agents-tools.md) | Single agent, functions, local MCP |
+| [05. MAF workflows](docs/labs/05-workflows.md) | Prepared example, sequential/concurrent/Group Chat code, human review |
+| [06. RAG and Foundry IQ](docs/labs/06-knowledge.md) | Search vs. IQ, GA API, source citations |
+| [07. Evaluation and learning](docs/labs/07-evaluation.md) | Dev, failure analysis, instruction improvements, holdout |
+| [08. Hosted Agent](docs/labs/08-hosted.md) | Safe packaging, local server, code deployment |
+| [09. Operations and cleanup](docs/labs/09-operations.md) | Traces, release gates, costs, ownership-aware cleanup |
+| [10. IQ extensions](docs/labs/10-iq-extensions.md) | Fabric, Work IQ, Toolbox, Preview approval boundaries |
+| [11. Capstone](docs/labs/11-capstone.md) | Final handoff across knowledge, models, evaluation, and operations |
 
 ## Shortest code-path start
 

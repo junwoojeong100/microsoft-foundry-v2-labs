@@ -2,6 +2,10 @@
 
 **English** | [한국어](ko/index.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](ko/index.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **Move from building an agent to preserving your team's knowledge, evaluation criteria, and operational decisions.**
 
 This is the Pre-Ignite 2026 Edition, with English documentation, new recordings, and

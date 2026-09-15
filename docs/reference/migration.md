@@ -2,6 +2,10 @@
 
 **English** | [한국어](../ko/reference/migration.md)
 
+<!-- translation-pending: ko-integrated-20260915 -->
+
+> **Translation pending** — The [Korean-first integration revision](../ko/reference/migration.md) is current for the new workflow/evaluation curriculum. This English page retains the earlier material. English expansion and new media follow Korean execution, capture, and corrections.
+
 **The concepts continue; execution contracts and learning paths were rebuilt.**
 The original integrated workshop's last checked commit is dated December 14, 2025.
 
