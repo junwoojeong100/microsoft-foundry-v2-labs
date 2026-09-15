@@ -190,6 +190,24 @@ def parser() -> argparse.ArgumentParser:
     seed.add_argument("--hybrid", action="store_true")
     seed.add_argument("--confirm-cost", action="store_true")
     seed.add_argument("--confirm-create", action="store_true")
+    iq_chat = commands.add_parser(
+        "iq-chat",
+        help="Fixed Luna + Search managed identity preset; separate from model-free GA retrieval.",
+    )
+    iq_actions = iq_chat.add_subparsers(dest="iq_chat_action", required=True)
+    iq_actions.add_parser(
+        "check", help="Read-only model, Search identity, role and source preflight."
+    )
+    iq_setup = iq_actions.add_parser(
+        "setup", help="Create only the owned chat base after a successful preflight."
+    )
+    iq_setup.add_argument("--confirm-create", action="store_true")
+    iq_ask = iq_actions.add_parser(
+        "ask", help="Billable IQ planning and answer synthesis with recorded evidence."
+    )
+    iq_ask.add_argument("--question")
+    iq_ask.add_argument("--label", required=True)
+    iq_ask.add_argument("--confirm-cost", action="store_true")
     agent = commands.add_parser(
         "prompt-agent", help="Create/invoke a real, service-managed prompt agent."
     )
@@ -252,6 +270,14 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
     if hasattr(args, "question"):
         validate_question(args.question)
     try:
+        if args.command == "iq-chat":
+            from .iq_chat import ask, check, setup
+
+            if args.iq_chat_action == "check":
+                return check(root, settings)
+            if args.iq_chat_action == "setup":
+                return setup(root, settings, confirmed=args.confirm_create)
+            return ask(root, settings, args.question, args.label, confirmed=args.confirm_cost)
         if args.command == "runtime-contract":
             from .contracts import digest
             from .profiles import runtime_contract

@@ -27,7 +27,10 @@
 | Search 부분 upload 실패 | 개별 `status`, 문서 수·키, index 필드 | 06 |
 | 기존 Search 객체 거부 | 내 접두사/소유권 ledger인지 확인; 공유 객체 덮어쓰기 금지 | 06 |
 | IQ 400 | GA intents와 Preview messages를 혼합했는지, 실제 API 버전 | 06 |
-| `Chat completions model is required` | 모델 미선택이지 MI 실패가 아님. 지원 배포와 **Search** identity의 `Cognitive Services User` 역할 확인 | 06 |
+| `Chat completions model is required` | 모델 미선택이지 MI 실패가 아님. **Luna + Search SMI**로 준비된 chat base를 열고 모델 없는 GA base에 포털 기본값을 저장하지 않음 | 06 |
+| `iq-chat check`의 모델/버전/역할 실패 | [고정 preset](iq-model-identity.md)의 `gpt-5.6-luna` / `2026-07-09`·Search SMI·계정 범위 역할 확인. 담당자가 준비를 해결하며 대체 모델을 고르지 않음 | 06 |
+| `ready_for_setup: true`, `configured: false` | 선행 조건은 통과했지만 별도 chat base는 아직 없음. Source를 소유한 작업 폴더에서 담당자가 승인된 setup 진행 | 06 |
+| IQ Chat label이 이미 있음 | 이전 요청·응답·실패부터 읽고 명시적으로 승인한 새 유료 시도에만 새 label 사용 | 06 |
 | IQ 모델 호출 401/403 | Search→모델 identity·계정 scope·RBAC 전파·네트워크 확인. Hosted/사용자 역할이 Search에 상속되지 않음 | 06 |
 | Preview가 `maxOutputSizeInTokens` 거절 | 파라미터 검증 오류를 보존하고 확인한 버전별 `maxOutputSize` 요청 사용. 인증 실패로 분류하지 않음 | 06 |
 | IQ references/activity 오류 | sourceData/docKey, source 설정, semantic·사용/과금 동의 | 06 |

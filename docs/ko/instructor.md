@@ -20,10 +20,16 @@
 포털 workflow 작성 환경은 준비하지 않습니다. A의 Lab 05도 기존 MAF 예제를 실행하므로,
 SDK·가상환경·학습자 계정의 모델 호출 권한을 미리 확인합니다.
 
+영어·한국어는 ID·날짜·금액·정답 기준이 동등한 **별도 동결 언어 번들**입니다.
+영어 명령은 `--language en`을 명시하며 서로를 자동 대체하지 않습니다.
+학습자에게 정답 레코드나 JSON 조립 과제 대신 [준비 카드·완성된 ZIP](setup.md)을 전달합니다.
+완성 지침·TXT 원문 6개·질문 전용 파일·빈 평가표가 있으며 [언어 계보](reference/languages.md)를 유지합니다.
+
 ## 2. 3–7일 전: 계정·권한·비용
 
 1. 실습용 구독/Resource Group과 담당자를 정합니다. 운영 자원과 섞지 않습니다.
-2. 현재 Foundry 프로젝트, 지원되는 모델 배포, quota/SKU/리전을 확인합니다.
+2. 현재 Foundry 프로젝트와 **`gpt-5.6-luna` / `2026-07-09`**, 배포 이름 **`gpt-5.6-luna`**를 확인합니다.
+   Quota/SKU/리전을 점검하며 초보자에게 대체 모델을 추측하게 하지 않습니다.
 3. 참가자에게 프로젝트의 `Foundry User` 등 필요한 역할을 부여합니다.
 4. Search에는 데이터 읽기/작성 역할을 따로 준비합니다.
 5. 원격 agent identity가 모델/도구에 접근할 때 필요한 역할을 별도로 준비합니다.
@@ -45,11 +51,14 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 
 - 구독·tenant, Resource Group, Foundry 리소스 이름.
 - `/api/projects/...`까지 포함한 프로젝트 endpoint.
-- 지원 확인한 모델의 실제 배포 이름.
+- 응답용 배포 `gpt-5.6-luna`와 확인한 실제 모델 버전 `2026-07-09`.
 - 조별 `WORKSHOP_PREFIX`.
-- 선택 Search endpoint 및 이름.
+- 선택 Search endpoint·계정 OpenAI root·**`iq-chat setup`이 출력한 chat-base 이름**. GA base와 구분.
 - 선택 judge 배포와 실제 underlying model.
 - Hosted를 선택한 경우 실제 프로젝트 ARM ID와 고유 agent 이름.
+
+Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화한 MAF 터미널도 전달합니다.
+혼자 학습하면 [Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)가 전체 준비 경로이며 강사의 숨은 조작을 전제로 하지 않습니다.
 
 ## 3. Search/IQ 준비
 
@@ -60,7 +69,7 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 |---|---|
 | 서비스 tier·리전 | 사용하려는 기능의 지원 범위 |
 | 데이터 평면 인증 | Entra ID로 문서 조회/작성이 가능한가 |
-| 참가자 역할 | Reader, 필요한 작성자에만 Service/Index Data Contributor |
+| 참가자 역할 | Reader + Search Index Data Reader. 필요한 작성자에만 Search Service/Index Data Contributor |
 | semantic ranker | GA semantic intent에 필요한 구성·별도 요금 |
 | knowledge retrieval | 서비스 관리 평면의 사용/과금 동의; `free`/`standard` 조건 |
 | source 인용 | `id`, `title`, `content`를 돌려주는가 |
@@ -71,12 +80,20 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 확인합니다. Chat completion model을 쓸 때는 **Search 서비스 identity**에 모델의 Foundry 계정 범위로
 `Cognitive Services User`를 부여해야 합니다. Managed identity 선택은 정상 지원되며,
 사용자나 Hosted agent의 역할을 대신 사용하는 것이 아닙니다.
-모델 기반 Preview는 기본 직접 intents 검색과 별도 실험이므로 [정상 설정·activity 확인](reference/iq-model-identity.md)을 사전 점검합니다.
+선택 Preview 실습은 **Luna + Search system-assigned identity + `low` + `answerSynthesis`** preset으로 고정합니다.
+[담당자 실행 순서](setup.md#4-환경-담당자의-준비)를 한 번 완료하고 출력된 정확한 chat-base 이름을 전달합니다.
+모델 없는 GA base를 채팅 준비 완료로 전달하지 않습니다.
+`iq-chat check`는 읽기 전용, `iq-chat setup --confirm-create`는 별도 본인 base 생성,
+`iq-chat ask --label <new-label> --confirm-cost`는 실제 유료 계획·합성 확인입니다.
+모델 배포나 역할 부여는 하지 않습니다. [상세 설정·복구](reference/iq-model-identity.md)를 확인하세요.
+학습자 CLI에는 실습 Foundry 계정·Search의 Reader와 검색용 Search Index Data Reader도 확인합니다.
+프로젝트 권한만으로 계정 ARM/역할 조회가 되는 것은 아니므로 Lab 06 중간에 이 선행 조건을 발견하지 않도록 합니다.
 
 ## 4. 하루 전: 같은 배포본으로 리허설
 
 문서/코드 버전을 고정한 뒤 새 폴더에서 진행합니다.
 Hosted 초기화는 상위 `azure.yaml`을 찾을 수 있으므로 기존 azd 프로젝트 바깥의 독립된 폴더를 사용합니다.
+먼저 Lab 00 B의 `.env`·학습자 로그인을 완료하고 승인된 실습 값으로만 아래를 실행합니다.
 
 ```bash
 python3.13 -m venv .venv
@@ -114,6 +131,7 @@ python scripts/workshop.py seed-search --iq --confirm-create
 python scripts/workshop.py retrieve --provider iq
 ```
 
+완성 학습자 ZIP에는 동일한 TXT 원문이 이미 있습니다. Export는 선택적인 재생성이지 A의 숨은 필수 단계가 아닙니다.
 첫 export와 seed는 소유권/이름 충돌을 확인합니다. 재실행 실패를 `--force`로 숨기지 않습니다.
 공유 리소스 대신 조별 전용 접두사와 소유권 기록을 사용합니다.
 
@@ -182,12 +200,12 @@ native 실행/품질, 실제 trace export, 사용자 검토, 세션/비용 정�
 
 ### 촬영과 언어 갱신 순서
 
-현재는 **한국어 우선 개정**입니다.
+다음 미디어 갱신도 **한국어 우선** 순서를 따릅니다.
 한국어 새 실습 실행·캡처/녹화 → 한국어 오류/설명 보완 → 영어 번역/보강 →
 영어 캡처/녹화 → 최종 문서/명령 검사를 순서대로 수행합니다.
-영문 유예 파일과 해시는 `docs/localization.json`에 기록하고,
-유예 중인 영어 페이지에는 독자가 볼 수 있는 경고를 유지합니다.
-기존 미디어는 두 새 언어 세트가 모두 검증된 뒤 최종 자료에서 교체/삭제합니다.
+현재 두 언어의 자료·촬영본이 있으며 영문 유예 목록은 비어 있습니다.
+향후 유예가 생기면 파일·해시를 `docs/localization.json`에 기록하고 영어 페이지에 경고를 유지합니다.
+이전 미디어는 두 새 언어 세트가 모두 검증된 뒤에만 교체/삭제합니다.
 원본 평가·실패·데이터 계보와 최종 자료의 재현에 필요한 실행 코드는 유지합니다.
 
 ## 7. 수업 종료 / Ignite 전 최종 동결

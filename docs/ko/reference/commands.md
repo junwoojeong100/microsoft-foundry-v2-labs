@@ -19,6 +19,9 @@
 | `workflow --pattern sequential` | 유료 모델 호출 | 대안: concurrent, group-chat |
 | `seed-search --confirm-create` | 본인 Search 객체 생성/업로드 | 기존 서비스만 사용 |
 | `seed-search --iq --confirm-create` | 위 + GA source/base | 소유권 검사 |
+| `iq-chat check` | 읽기 전용 | 고정 Luna/버전·Search identity/역할/source·별도 chat-base 준비 확인 |
+| `iq-chat setup --confirm-create` | 본인 Preview chat base만 생성 | 모델 배포·역할 부여·GA base 변경 없음 |
+| `iq-chat ask --label iq-chat-first --confirm-cost` | 유료 계획·합성 | 고정 Luna + Search MI; 원시 응답·원문 근거·실패 저장 |
 | `prompt-agent create ... --confirm-create` | 실제 agent version 생성 | 정확한 접두사 필요 |
 | `prompt-agent invoke ... --version ...` | 실제 agent 호출 | 버전 고정 |
 | `collect --label baseline --prompt v1` | dev 전체 유료 호출 | 오류 보존, 동시성 1 |
@@ -30,11 +33,15 @@
 | `accept --candidate candidate --holdout final-holdout` | 없음 | 사람의 인수 자료, 자동 승인 아님 |
 | `serve` | 로컬 서버 시작, 호출 시 유료 모델 | Hosted SDK 필요 |
 | `cleanup-plan` | 없음 | 삭제 안 함 |
-| `python scripts/export_policy_docs.py` | 없음, 텍스트 6개 생성 | A 경로 강사 배포용 |
+| `python scripts/export_policy_docs.py` | 없음, 텍스트 6개 생성 | 선택 export. A의 학습자 ZIP에 이미 포함 |
+| `python scripts/build_learner_materials.py` | 없음 | 두 언어의 학습자 자료를 canonical dev/지침/정책과 대조 |
+| `python scripts/build_learner_materials.py --write` | 두 로컬 학습자 번들 재생성 | 관리자용 생성. 모델·holdout 사용 없음 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
 | `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 영어 기본·Lab 00–11 챕터 이동. `--edition ko`로 별도 국문 새 촬영본 선택. Azure 호출·업로드 없음 |
 
 표에서 생략한 옵션은 실행용 완전한 예제가 아닙니다.
+첫 IQ Chat 설정은 [담당자 실행 순서](../setup.md#4-환경-담당자의-준비)를 한 번 진행합니다.
+기본 GA `retrieve --provider iq`는 의도적으로 다른 경로입니다.
 
 ## 한국어 통합 개정의 추가 명령
 

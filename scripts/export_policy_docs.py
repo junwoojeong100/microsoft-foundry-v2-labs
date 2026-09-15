@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from foundry_workshop.contracts import load_documents  # noqa: E402
+from foundry_workshop.materials import policy_document_text  # noqa: E402
 
 
 def export(root: Path, language: str = "ko") -> Path:
@@ -16,14 +17,9 @@ def export(root: Path, language: str = "ko") -> Path:
     documents = load_documents(root, language)
     destination.mkdir(parents=True, exist_ok=False)
     for document in documents:
-        text = (
-            "SYNTHETIC WORKSHOP POLICY - NOT A REAL COMPANY POLICY\n\n"
-            f"Document ID: {document['id']}\n"
-            f"Title: {document['title']}\n"
-            f"Effective: {document['effective_from']} through {document['effective_to']}\n\n"
-            f"{document['content']}\n"
+        (destination / f"{document['id']}.txt").write_text(
+            policy_document_text(document), encoding="utf-8"
         )
-        (destination / f"{document['id']}.txt").write_text(text, encoding="utf-8")
     return destination
 
 

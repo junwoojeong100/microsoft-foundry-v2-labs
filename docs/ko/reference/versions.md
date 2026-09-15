@@ -32,7 +32,7 @@ Ignite 2026 발표를 예측하지 않고, 현재 공식 문서와 소스의 계
 새 실제 실행 전에 강사가 [공식 azd 설치](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)와
 [Hosted quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)의
 호환 조합을 검토해 승인된 버전으로 맞추고, `azd ai agent init --help`·샘플·실제 생성 schema를 다시 확인합니다.
-이 개정에서 CLI/확장을 자동 업그레이드하거나 실제 init/provision/deploy를 실행하지 않았습니다.
+초기 오프라인 개정 단계에서는 CLI/확장 업그레이드나 실제 init/provision/deploy를 실행하지 않았습니다.
 
 후속 실제 실행에서는 공식 GitHub 릴리스 SHA-256을 확인한 **세션 전용 azd 1.34.0**을 사용했습니다.
 공유 전역 azd를 교체하지 않았고 기존 agents/projects 확장은 새 CLI에서 호환 상태가 되었습니다.
@@ -54,6 +54,7 @@ App Insights 인증 scope는 오류 기록과 함께 수정했습니다.
 | richer IQ | `2026-08-01-preview` | 별도 환경·설정·승인; 기본 코드와 혼합 금지 |
 | 포털 IQ | 포털이 사용하는 Preview 계약 | GA REST 코드와 동일하다고 가정하지 않음 |
 | IQ Chat 모델 + managed identity | 2026-09-15 실측: Search SMI→Luna, `low` 계획·`answerSynthesis`, HTTP 200 | MI 자체가 Preview 기능은 아님. [정확한 설정과 요청](iq-model-identity.md) |
+| 첫 Chat preset | `iq-chat check/setup/ask`: 배포/모델 `gpt-5.6-luna`, 버전 `2026-07-09`, Search SMI, `2026-08-01-preview`, 별도 소유 base | 새 명령의 실제 사전 검사는 읽기 전용. 이전 임시 base 추론과 구분 |
 | Hosted Agent 서비스 | GA, 선택 배포 | 지역·권한·session 비용은 별도 |
 | Python hosting 패키지 | 고정 prerelease 패키지 | 서비스 GA와 패키지 상태를 따로 표시 |
 | cloud evaluation | 프로젝트 OpenAI `evals` | evaluator/카탈로그의 기능·스키마를 별도 확인 |

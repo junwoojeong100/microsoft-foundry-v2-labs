@@ -4,7 +4,19 @@
 
 **Goal:** Hand over a small system with separate knowledge, code, evaluation, and operations—not just a model demo.
 
-Parent: [Learning paths](../paths.md) · Finish: [Cleanup](../reference/cleanup.md)
+Next: A → [Cleanup](../reference/cleanup.md) · B → [Cleanup](../reference/cleanup.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A submits the learner worksheet plus agent/workflow/source/cleanup evidence. B/C use only the acceptance command for the path actually run.
+
+**Need:** Your own completed earlier outputs, not copied scores or recordings.
+
+**Continue when:** Another learner can identify what ran, with which inputs, and what remains unverified.
+
+**If blocked:** Do not run an acceptance command for absent labels or treat a model review as human approval.
+
+[One-time setup and learner files](../setup.md).
 
 ## Assignment
 
@@ -23,9 +35,25 @@ learner. Add neither company data nor automatic payments.
 | Operations | Permissions, cost, cleanup | Reproduction settings, optional remote version, actual trace |
 | Limitations | Observed-only and unrun features | SDK/cloud/Preview verification boundaries |
 
+## A. Fifteen-minute handoff, no new Azure calls
+
+Put these in your own evidence folder, without `.env`, credentials or another learner's outputs:
+
+| File/result | Completion check |
+|---|---|
+| Setup card and small architecture sketch | Your actual project, Luna deployment, agent name/version, and source path are identifiable |
+| Actual saved instructions plus the learner ZIP's `SOURCE.json` | Original text and any browser edits/version changes remain distinguishable |
+| `assessment-baseline.csv`; candidate sheet only if changed | All D01–D06 actual answers/citations/reasons, not copied answer keys |
+| `workflow-review.txt` | One real sequential command/output and your review |
+| `operations-checklist.txt` | Owned/shared assets, cleanup outcomes or pending owner action, remaining costs, unrun optional features |
+
+Open each file and check it against the table. For self-study, review it yourself; for a class, hand it over only through the agreed channel.
+A does **not** run the B/C acceptance commands below or open holdout. Finish with the reviewer checklist and cleanup.
+
 ## Practitioner acceptance command
 
-If you have the actual candidate and holdout from [Lab 07](07-evaluation.md):
+If you have the actual candidate and holdout from [Lab 07](07-evaluation.md), use their labels.
+If already run in Lab 07, open `outputs/final-holdout/acceptance.json` instead of repeating the command:
 
 ```bash
 python scripts/workshop.py --language en accept --candidate candidate --holdout final-holdout
@@ -37,13 +65,18 @@ Do not transfer local project Responses quality scores to a different Hosted pat
 
 
 
-**What to check:** Inspect the output file and pending `human_approval`.
-`accepted: true` means the artifact met checker conditions, not production approval.
+**What to check:** Read `candidate_grade`, `holdout_grade`, `business_gate_passed`,
+and `recommendation` (`ready-for-human-review` or `reject`).
+`deployment_approved: false` and `cloud_judge_results_included: false` are explicit limits, not missing approvals to bypass.
 The recorded holdout was already exposed teaching data, not a fresh unseen test.
 
 ## Hosted workflow/evaluation acceptance evidence
 
+<details>
+<summary>Advanced C only: expand after completing the Hosted evaluation workbook</summary>
+
 Keep introductory A/B outputs separate from the [advanced workbook](../reference/evaluation-workbook.md).
+The `wf-*` labels below must exist as real matrix runs; introductory `candidate`/`final-holdout` are not substitutes.
 Four models require 24 baseline dev, 24 candidate dev, and 16 frozen holdout rows.
 Select any accepted subset **using dev**, not favorable holdout results.
 
@@ -62,11 +95,13 @@ consumed regression lineage where applicable; calibration and small-sample limit
 and owned-session cleanup with remaining costs.
 Use this evidence for [archive acceptance](../reference/consolidation.md), not earlier recordings or upstream reports.
 
+</details>
+
 ## Five-minute presentation
 
 1. **Problem:** which questions are answered and which are withheld?
 2. **Evidence:** actual document IDs, effective dates, and retrieval path.
-3. **Verification:** all cases, failures, improvements, and holdout.
+3. **Verification:** all cases, failures, improvements, and holdout only for the B/C path that ran it.
 4. **Control:** approval boundaries, user/agent identities, sensitive data, costs.
 5. **Unknowns:** unrun features, Preview boundaries, subscription-specific limitations.
 
@@ -88,7 +123,8 @@ Six/four cases are workshop gates. Production adoption also requires business-ex
 policy approval, broader evaluation, threat modeling, load/recovery/access reviews,
 and service-specific SLA, price, and retention reviews.
 
-## New English execution evidence
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -101,3 +137,7 @@ These are newly recorded English actions using the separate English prompt/data 
 **What to check:** Read the retained initial failure, actual four-model candidate score and dev-selected three-model holdout. Human review remains separate.
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
+</details>
+
+Next: A → [Cleanup](../reference/cleanup.md) · B → [Cleanup](../reference/cleanup.md)

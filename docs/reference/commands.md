@@ -19,6 +19,9 @@ Activate the dedicated virtual environment for cloud SDKs.
 | `workflow --pattern sequential` | Paid model calls | Alternatives: concurrent, group-chat |
 | `seed-search --confirm-create` | Creates/uploads owned Search objects | Existing service only |
 | `seed-search --iq --confirm-create` | Above plus GA source/base | Ownership checks |
+| `iq-chat check` | Read-only | Fixed Luna/version, Search identity/role/source and separate chat-base readiness |
+| `iq-chat setup --confirm-create` | Creates only the owned Preview chat base | No model deployment, role assignment or GA-base rewrite |
+| `iq-chat ask --label iq-chat-first --confirm-cost` | Paid planning/synthesis | Fixed Luna + Search MI; saves raw response, source evidence and failures |
 | `prompt-agent create ... --confirm-create` | Creates an actual agent version | Exact prefix required |
 | `prompt-agent invoke ... --version ...` | Calls a real agent | Explicit version |
 | `collect --label baseline --prompt v1` | Paid calls for all dev cases | Preserves errors; concurrency one |
@@ -30,13 +33,17 @@ Activate the dedicated virtual environment for cloud SDKs.
 | `accept --candidate candidate --holdout final-holdout` | None | Human acceptance evidence, not automatic approval |
 | `serve` | Local server; paid model on invocation | Hosted SDK needed |
 | `cleanup-plan` | None | Deletes nothing |
-| `python scripts/export_policy_docs.py --language en` | Creates six local text files | Instructor distributes them to A learners |
+| `python scripts/export_policy_docs.py --language en` | Creates six local text files | Optional export; A's learner ZIP already contains them |
+| `python scripts/build_learner_materials.py` | None | Checks both committed learner bundles against canonical dev/prompt/policy inputs |
+| `python scripts/build_learner_materials.py --write` | Regenerates the two local learner bundles | Maintainer-only generation; no model or holdout use |
 | `python scripts/package_hosted.py --language en` | Local package | No deployment/installation |
 | `python scripts/play_recordings.py` | Localhost video server | English by default; `--edition ko` selects the independently recorded Korean set |
 
 Abbreviated rows are not complete executable examples. Read
 `python scripts/workshop.py --language en --help` and subcommand `--help` for required arguments.
 Full commands appear in the [labs](../paths.md).
+For the first IQ Chat setup, use [the owner sequence](../setup.md#4-environment-owner-checklist) once;
+the default GA `retrieve --provider iq` is intentionally a different path.
 
 Add `--debug` before a subcommand for local diagnostics. Stack/service errors can
 contain environment paths; do not publish raw logs.

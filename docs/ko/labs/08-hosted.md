@@ -4,28 +4,41 @@
 
 **완료 목표:** 같은 읽기 전용 MAF 에이전트를 패키징하고, 조건이 준비되면 Foundry에 배포합니다.
 
-경로: B 선택 · 이전: [Lab 07](07-evaluation.md) · 다음: [Lab 09](09-operations.md)
+다음: A: [Lab 09로 이동](09-operations.md) · B → [Lab 09](09-operations.md) · [학습 경로](../paths.md)
 
 > **서비스와 SDK를 구분하세요.** Hosted Agent 서비스는 현재 GA입니다.
 > 이 에디션의 `agent-framework-foundry-hosting` 패키지와 일부 azd 기능은 prerelease입니다.
 > 이 단계를 선택으로 둔 이유는 서비스 전체가 Preview라서가 아니라 권한·SDK·비용 조건이 더 많기 때문입니다.
 
+## 시작 전
+
+**이번 순서:** A는 Lab 09로 이동합니다. B는 단일 agent 패키지/로컬 경로부터 진행하고 workflow·Invocations는 심화 대안입니다.
+
+**준비물:** 패키징은 저장소·Python. 로컬 호출은 Hosted SDK·Lab 04 응답·azd·실제 project ARM ID. 원격은 별도 배포 승인도 필요합니다.
+
+**다음으로 갈 기준:** 패키지·로컬·원격 결과를 구분합니다. 고정 버전의 실제 원격 응답만 배포 증거입니다.
+
+**막히면:** ARM ID·역할·비용 승인이 없으면 패키징에서 멈춥니다. 다른 azd 프로젝트 안에서 init을 반복하지 않습니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
+
 ## 시작 전 게이트
 
-- `maf --tools`의 실제 응답을 확인했음.
-- Python 3.13, hosted SDK 설치, azd 및 `microsoft.foundry` 확장 준비.
-- **기존 실습 프로젝트의 실제 ARM resource ID**를 강사가 제공했음.
-- Hosted 지원 리전과 모델/SKU/할당량을 각각 확인했음.
-- 배포/identity 권한과 활성 session 비용을 승인했음.
-- 실습 전용 고유 agent 이름을 정했음.
+**시작 전에 어디까지 할지 하나를 고릅니다.** B 핵심은 패키징이며 로컬·원격 실행은 추가 결과입니다.
 
-이 조건이 없으면 **패키지 생성까지만** 하고 배포를 `미실행`으로 남깁니다.
+| 멈출 지점 | 선행 조건 | 진행 |
+|---|---|---|
+| 패키지만 | 저장소·Python. Azure 쓰기·Hosted SDK 불필요 | 1절 후 Lab 09 |
+| 패키지 + 로컬 응답 | Lab 04 `maf --tools` 성공·Python 3.13·Hosted SDK·호환 azd/확장·실제 프로젝트 값·추론 비용 승인 | 1–3절과 5절 |
+| 원격 단일 agent | 위 + Hosted 리전/capacity·배포/런타임 identity 권한·session 비용 승인 | 1–5절 |
+| 심화 workflow/matrix | Lab 05 C·별도 준비된 작업 폴더 | 6절 또는 7절 워크북. 모두 기본 실행하지 않음 |
+
+권한 유무를 알아보기 위해 뒷단계를 실행하지 않습니다. 선행 조건이 없으면 그 결과를 **미실행**으로 남깁니다.
 Docker/ACR 로컬 설치는 code deployment의 필수 조건이 아닙니다.
 
-## 1. 선택 패키지 설치와 안전한 묶음 만들기
+## 1. Azure 없이 안전한 패키지 만들기
 
 ```bash
-python -m pip install -e ".[hosted]"
 python scripts/package_hosted.py
 ```
 
@@ -45,6 +58,7 @@ python scripts/package_hosted.py
 `package-manifest.json`과 `requirements.txt`를 확인합니다.
 재빌드 시 기존 폴더를 자동 삭제하지 않습니다. 그 **정확한 생성 폴더만** 보관/정리한 뒤 다시 실행합니다.
 소스 변경 후 과거 패키지를 재배포하지 않도록 hash를 비교합니다.
+패키지만 선택했다면 manifest를 보관하고 [Lab 09](09-operations.md)로 이동합니다.
 
 
 **화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted` 위치를 반환하는지 확인합니다.
@@ -55,6 +69,7 @@ python scripts/package_hosted.py
 설치·로그인은 학습자가 수행합니다. 이미 설치된 도구를 수업 중 무조건 업그레이드하지 않습니다.
 
 ```bash
+python -m pip install -e ".[hosted]"
 azd version
 azd ext list
 azd auth login
@@ -64,21 +79,34 @@ azd ai agent init --help
 확장이 없다면 [공식 Hosted quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)의
 현재 설치 절차를 따릅니다.
 
-아래의 세 값을 **강사가 확인한 실제 값으로 바꾼 뒤** 실행합니다.
-ARM ID를 endpoint 문자열에서 추측해 조립하지 않습니다.
+초기화 **전에** 아래 실제 값을 준비합니다. ARM ID는 포털 URL이나 project endpoint가 아닙니다.
+
+| 입력값 | 정확한 출처 |
+|---|---|
+| `PROJECT_ARM_ID` | 담당자가 확인한 project resource ID. 혼자 준비하면 Azure 포털의 프로젝트 리소스 **JSON View → id**. 부모 계정 ID가 아님 |
+| `PROJECT_ENDPOINT` | 준비 카드의 `/api/projects/...`까지 포함한 endpoint |
+| `HOSTED_AGENT_NAME` | 본인 prefix에 `-hosted`를 붙인 것과 같은 새 소유 이름 |
+| 모델 배포 | Lab 02에서 확인한 **`gpt-5.6-luna`** |
 
 **실습 폴더는 다른 azd 프로젝트의 하위 폴더가 아닌 독립된 위치에 둡니다.**
 `azd`는 상위 디렉토리의 `azure.yaml`을 발견하면 그 프로젝트에 서비스를 추가할 수 있습니다.
-초기화 후 파일이 현재 실습 루트에 생겼는지 확인합니다.
+이미 이 복사본에 `azure.yaml`이 있으면 다시 초기화하지 않습니다. 새 독립 복사본을 쓰거나 담당자와 기존 프로젝트를 검토합니다.
+입력한 값이 유지되도록 아래 명령은 같은 터미널에서 진행합니다.
 
 ```bash
-azd ai agent init --src ./.build/hosted --agent-name "<unique-agent-name>" --project-id "<existing-project-arm-id>" --model-deployment "<existing-model-deployment-name>" --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
+printf 'Actual project ARM resource ID: '
+read -r PROJECT_ARM_ID
+printf 'Full project endpoint: '
+read -r PROJECT_ENDPOINT
+printf 'New owned Hosted agent name: '
+read -r HOSTED_AGENT_NAME
+azd ai agent init --src ./.build/hosted --agent-name "$HOSTED_AGENT_NAME" --project-id "$PROJECT_ARM_ID" --model-deployment gpt-5.6-luna --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
 test -f ./azure.yaml
 ```
 
-`<...>`는 그대로 실행할 수 없는 자리표시자입니다.
-이 명령은 로컬 azd 프로젝트/환경을 생성합니다. 기본 모델을 새로 선택하지 않도록
-기존 프로젝트와 배포 이름을 모두 지정합니다.
+이 명령은 로컬 azd 프로젝트/환경을 생성합니다. `init` 또는 `test`가 실패하면 배포로 넘어가지 않습니다.
+현재 루트의 `azure.yaml`에 **의도한 agent 서비스 하나만** 있어야 하며 다른 조의 서비스가 있으면 멈춥니다.
+기존 프로젝트와 배포를 모두 지정해 새 기본 모델을 고르지 않습니다.
 
 생성된 `azure.yaml`에서 다음을 확인합니다.
 
@@ -93,8 +121,9 @@ test -f ./azure.yaml
 촬영의 생성 직후 `env`에는 모델 변수만 있으므로 아래 블록으로 보완해야 했습니다.
 파일 전체를 촬영 예시로 덮어쓰지 않습니다.
 
-초기화가 이 환경변수를 모두 넣어 준다고 가정하지 않습니다. 생성된 **agent 서비스의 `env`만**
-다음과 같이 보완하고, 프로젝트 연결·서비스 이름·코드 경로는 그대로 유지합니다.
+초기화가 변수를 모두 넣어 준다고 가정하지 않습니다. VS Code에서 루트 `azure.yaml`을 열고
+**`services` → 생성된 서비스 이름 → `env`**를 찾아 아래 값을 병합합니다.
+두 번째 `env`를 만들거나 전체 파일·생성된 연결/서비스/코드 경로를 바꾸지 않습니다.
 
 ```yaml
 env:
@@ -107,9 +136,9 @@ env:
 그다음 azd 환경에 실제 값을 설정하고 다시 읽어 확인합니다. 이 명령은 기본 Azure CLI 구독을 바꾸지 않습니다.
 
 ```bash
-azd env set AZURE_AI_PROJECT_ENDPOINT "<existing-project-endpoint>"
-azd env set AZURE_AI_PROJECT_ID "<existing-project-arm-id>"
-azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME "<existing-model-deployment-name>"
+azd env set AZURE_AI_PROJECT_ENDPOINT "$PROJECT_ENDPOINT"
+azd env set AZURE_AI_PROJECT_ID "$PROJECT_ARM_ID"
+azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME gpt-5.6-luna
 azd env get-value AZURE_AI_PROJECT_ENDPOINT
 azd env get-value AZURE_AI_MODEL_DEPLOYMENT_NAME
 ```
@@ -139,6 +168,8 @@ python scripts/workshop.py serve
 서버를 계속 실행해 둡니다. 기본 로컬 포트는 8088입니다.
 **터미널 B:**
 
+**같은 저장소 루트**에서 두 번째 터미널을 열고 같은 azd 환경을 사용합니다.
+
 ```bash
 curl --fail http://127.0.0.1:8088/readiness
 azd ai agent invoke --local --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장 숙박비 한도와 근거를 알려주세요."
@@ -163,6 +194,7 @@ readiness의 HTTP 200은 서버 준비 상태일 뿐 모델 추론 성공이 아
 생성된 인프라 계획이 필요한 추가 리소스·identity를 포함하는지 강사와 확인합니다.
 프로젝트가 이미 있다는 이유만으로 준비가 모두 끝났다고 가정하지 않습니다.
 `azd provision`이 필요한 생성 계획이라면 **실습 전용 범위에 대해 검토·승인한 뒤** 실행합니다.
+첫 경로는 의도한 서비스가 하나여야 합니다. 여러 개가 보이면 전체를 배포하지 말고 범위를 먼저 검토합니다.
 
 ```bash
 azd deploy
@@ -177,7 +209,9 @@ azd ai agent show --output json
 이어 `show`가 반환한 실제 version과 active 상태를 기록한 뒤 호출하세요.
 
 ```bash
-azd ai agent invoke --version "<deployed-version>" --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
+printf 'Actual version returned by show: '
+read -r HOSTED_AGENT_VERSION
+azd ai agent invoke --version "$HOSTED_AGENT_VERSION" --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
 ```
 
 
@@ -206,6 +240,9 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 정확한 결과와 한계는 [실행 기록](../live-run.md)을 확인합니다.
 
 ## 6. MAF 워크플로를 Hosted Agent로 배포
+
+<details>
+<summary>심화 C — 별도 workflow target입니다. 첫 회차 B는 Lab 09로 이동합니다</summary>
 
 **2026-09-15 실제 배포·호출·평가와 새 국문 촬영으로 확인한 프로필입니다.**
 `serve`와 `package_hosted.py`는 인자를 생략하면 이전 단일 함수 Agent 경로를 유지합니다.
@@ -268,7 +305,12 @@ flowchart LR
 이 경로는 실제 SDK의 workflow agent를 호스팅합니다. 요청마다 내부 참여자를 새로 만들어
 평가 질문 사이에 답을 공유하지 않습니다. 내구성 옵션이나 실제 사람 승인 서비스가 자동으로 켜지지는 않습니다.
 
+</details>
+
 ## 7. 평가용 Invocations와 Responses의 구분
+
+<details>
+<summary>심화 C — Hosted 평가 워크북을 선택할 때만 펼칩니다</summary>
 
 대화형 흐름에는 위 Responses를 사용합니다.
 배포 버전·모델 키·case/run ID를 엄격히 검증하는 matrix는 별도 Invocations 프로필을 사용합니다.
@@ -284,7 +326,10 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 평가를 실행하려면 [자체 완결형 평가 워크북](../reference/evaluation-workbook.md)을 따릅니다.
 소스·업무·검색이 같아 보여도 single-agent/Responses/Invocations의 점수를 서로 옮겨 적지 않습니다.
 
-## 2026-09-15 새 국문 실행 증거
+</details>
+
+<details>
+<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
 
 아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
 
@@ -322,6 +367,7 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 
 [새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
 
+</details>
 
 ## 완료·정리
 
@@ -329,3 +375,5 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 활성 session은 호출 사이에 재사용될 수 있고 session별 컴퓨트 비용이 쌓입니다.
 `azd ai agent sessions list`로 확인하고 [정리 가이드](../reference/cleanup.md)에 따라
 본인 session만 중지합니다. `azd down`을 모든 환경에 무조건 실행하지 않습니다.
+
+다음: A: [Lab 09로 이동](09-operations.md) · B → [Lab 09](09-operations.md)

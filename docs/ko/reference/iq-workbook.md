@@ -35,6 +35,8 @@ python scripts/package_hosted.py --kind workflow --pattern sequential --retrieva
 Search identity에 모델 권한을 부여하고 별도 base에서 모델 기반 계획·합성을 검증합니다.
 포털의 모델 미선택 메시지와 MI 인증 오류를 구분하세요.
 [설정 순서·호출 주체·실제 확인 결과](iq-model-identity.md)를 따릅니다.
+선택 Chat 실험의 첫 선택은 **`iq-chat`의 `gpt-5.6-luna` / `2026-07-09`, Search SMI, `low`, `answerSynthesis`**입니다.
+[준비 순서](../setup.md#4-환경-담당자의-준비)는 별도 base를 만들며 위 GA workflow/평가 target을 변경하지 않습니다.
 
 ## 2. 하이브리드와 IQ의 선택
 

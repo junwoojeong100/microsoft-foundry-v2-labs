@@ -48,6 +48,10 @@ The labs, Python code, synthetic policies, evaluation data, and instructor guide
 
 ## Start here
 
+**First visit: [complete the setup card](docs/setup.md) → [download the learner ZIP](data/learner/en/learner-materials.zip) → [start Lab 00](docs/labs/00-start.md).**
+The ZIP has ready-to-paste instructions, six synthetic policy files, questions only, and a blank assessment.
+Choose **A** for your first pass; open advanced branches and recorded-screen galleries only when needed.
+
 | Your starting point | Recommended path | What you will produce |
 |---|---|---|
 | New to Azure, AI, and coding | **[A. Four-hour beginner path](docs/paths.md)** | A portal agent, grounded answers, a six-question assessment, and an operations/cleanup checklist |
@@ -57,9 +61,9 @@ The labs, Python code, synthetic policies, evaluation data, and instructor guide
 | Waiting for Azure approval or quota | **[Try the checker without Azure](docs/labs/00-start.md)** | Understand run/evaluation files with offline fixtures; **not completion of the cloud labs** |
 | Returning from the previous edition | **[Migration map](docs/reference/migration.md)** | Concepts to retain and SDK, permission, and execution contracts to change |
 
-**Beginners do not start by installing a terminal.** They primarily use the portal,
-then copy commands into an instructor-prepared MAF environment for workflows.
-They do not author workflows in the portal Workflow Designer.
+**A starts in the browser**, then copies one command into a prepared MAF terminal.
+If no terminal was supplied, [Lab 00 B](docs/labs/00-start.md#b-code-one-folder-one-environment)
+is the explicit self-setup route. Learners do not author workflows in the portal Workflow Designer.
 The advertised times start **after** accounts, resources, roles, and models are ready.
 Subscription creation, access approvals, quota increases, installation, and RBAC propagation are separate.
 
@@ -121,7 +125,8 @@ existing runs are not overwritten.
 
 - Current Foundry and Projects SDK **2.x**; no mixing with classic threads/runs code.
 - **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded.
-- Use an instructor-verified **deployment name**, not a mandatory `gpt-...` model name.
+- The first-pass preset is **`gpt-5.6-luna`**, deployed with that exact name, model version **`2026-07-09`**.
+  The optional IQ Chat path checks that model and Search managed identity before use; other models belong to explicit comparison experiments.
 - Service GA and SDK Preview are separate. The Hosted Agent service is GA, while this
   edition's Python hosting package is prerelease. Foundry IQ GA and richer Preview contracts are distinct.
 - Model replacement, instruction improvement, and accumulating evaluation evidence are included.
@@ -148,6 +153,7 @@ scripts/               Workshop CLI, packaging, and documentation checks
 data/knowledge/        Six canonical synthetic policies (Korean)
 data/evaluation/       Six dev / four holdout / two judge-calibration cases
 data/fixtures/         Fixed examples for the offline checker
+data/learner/          Ready-to-use English/Korean browser materials and ZIPs
 prompts/               Canonical v1 / v2 instructions (Korean)
 examples/              Local MCP server and Hosted Agent entry point
 tests/                 Offline logic and contract checks

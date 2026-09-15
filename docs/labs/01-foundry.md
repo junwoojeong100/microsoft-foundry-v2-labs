@@ -4,7 +4,19 @@
 
 **Goal:** Explain the relationship between Foundry, Agent Framework, model deployments, and agents.
 
-Previous: [Lab 00](00-start.md) · Next: [Lab 02](02-models.md)
+Next: A → [Lab 02](02-models.md) · B: [skip to Lab 02](02-models.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A verifies the prepared project; environment owners use section 2 only if it is not prepared.
+
+**Need:** The setup card's tenant, project, account and gpt-5.6-luna deployment.
+
+**Continue when:** You can distinguish account, project, deployment and agent, and identify your own endpoint.
+
+**If blocked:** Stop if the project is missing; resolve tenant/RBAC rather than following a similarly named project.
+
+[One-time setup and learner files](../setup.md).
 
 ## Distinguish four concepts
 
@@ -12,7 +24,7 @@ Previous: [Lab 00](00-start.md) · Next: [Lab 02](02-models.md)
 |---|---|---|
 | Foundry resource | Azure resource operating AI services | Training Foundry account |
 | Project | Workspace for agents, connections, and evaluations | Hanbit Technology training project |
-| Model deployment | Configuration exposing a model/version/SKU for calls | Instructor-selected name such as `workshop-chat` |
+| Model deployment | Configuration exposing a model/version/SKU for calls | This preset's invocation name: `gpt-5.6-luna` |
 | Agent | Model plus instructions, tools, and execution behavior | Travel-policy assistant |
 
 **Foundry is the cloud platform. Microsoft Agent Framework (MAF) is the open-source
@@ -55,7 +67,8 @@ These steps are outside participant class time and require separate authorizatio
 3. Verify **model/SKU/quota** before choosing a region. If using Hosted, separately
    check [Hosted regions](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents);
    the region lists need not match.
-4. Deploy the model and give participants its exact deployment name.
+4. Prepare `gpt-5.6-luna`, model version `2026-07-09`, with the exact deployment name `gpt-5.6-luna`.
+   Check availability rather than copying a recording's region/SKU/capacity.
 5. Assign necessary project roles and wait for propagation.
 6. Verify an actual model request with a learner account.
 7. Prepare Search, Application Insights, and Hosted only for selected modules.
@@ -64,8 +77,8 @@ Resource-creation permission does not imply model-invocation permission.
 **Management-plane and data-plane permissions differ.** Do not give every learner subscription Owner.
 
 
-**What to check:** Read `name`, `location`, and `provisioningState`. This is resource
-group creation, not model inference. Participants should not copy the creation command from the image.
+The September 15 recording reused an existing approved resource group/project; it did not create them.
+Use [the environment-owner checklist](../setup.md#4-environment-owner-checklist) for preparation, not commands transcribed from a recording.
 
 ## 3. Starting points for least privilege
 
@@ -98,7 +111,8 @@ another endpoint or guess a different token audience.
 **What to check:** Compare the deployment returned by `doctor --cloud` with your
 settings. ARM read access does not establish inference permission; complete [Lab 02](02-models.md).
 
-## New English execution evidence
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -116,9 +130,12 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion
 
 Explain whether knowledge and evaluation criteria can remain when a model is replaced.
 A deployment can change, but that does not automatically revalidate knowledge,
 instructions, evaluation, or permissions. Later modules deliberately reuse the same data and criteria.
+
+Next: A → [Lab 02](02-models.md) · B: [skip to Lab 02](02-models.md)

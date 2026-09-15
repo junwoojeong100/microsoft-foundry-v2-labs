@@ -4,7 +4,19 @@
 
 **완료 목표:** MAF 코드로 에이전트를 연결해 실행하고, 검토자 모델과 실제 승인자를 구분합니다.
 
-이전: A는 [Lab 03](03-prompt-agent.md), B는 [Lab 04](04-agents-tools.md) · 다음: [Lab 06](06-knowledge.md)
+다음: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md) · [학습 경로](../paths.md)
+
+## 시작 전
+
+**이번 순서:** A는 준비된 터미널에서 순차 명령 하나, B는 세 패턴을 비교합니다. 배포용 wrapper는 심화입니다.
+
+**준비물:** A도 Lab 00 B의 활성 환경이 필요합니다. 제공받지 않았다면 그 설치를 한 번 완료한 뒤 돌아옵니다.
+
+**다음으로 갈 기준:** 실제 MAF 출력과 사람의 검토 기록이 남았습니다. pending-human-review는 승인이 아닙니다.
+
+**막히면:** 포털 Workflow Designer나 답변 수동 복사로 명령 실행을 대신하지 않습니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
 
 ## 이 랩은 MAF 워크플로만 사용합니다
 
@@ -18,6 +30,8 @@ Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측�
 코드를 직접 작성하지 않아도 됩니다. 강사가 **준비된 MAF 실행 환경**을 제공합니다:
 이 저장소, Python/SDK, 학습자 권한의 Azure 로그인, `.env`, 활성화된 가상환경입니다.
 브라우저 IDE나 VS Code의 준비된 터미널을 사용하며, 관리자 계정을 참가자에게 공유하지 않습니다.
+제공받은 환경이 없다면 [Lab 00 B](00-start.md#b-코드--한-폴더-한-환경)와
+Lab 02 B를 한 번 완료한 뒤 돌아옵니다. Python 설치만 마치고 넘어오지 않습니다.
 
 같은 출장 질문을 다음 세 역할이 처리합니다.
 
@@ -55,12 +69,14 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 | `approval_status: pending-human-review` | 모델 검토를 실제 사람 승인으로 오해하지 않았는가 |
 | `external_actions_performed: false` | 실제 예약·지급을 수행하지 않았는가 |
 
-질문을 과거 출장일로 바꿔 한 번 더 실행하고, 어떤 규정을 적용했는지 비교합니다.
-참가자가 답변과 규정을 직접 읽고 수정 이유·최종 안내문을 기록합니다.
+JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합니다.
+본인의 `workflow-review.txt`에 명령·실제 출력·인용 정책 ID와
+맞는 부분/수정할 부분/이유를 저장합니다. 안내문 검토이지 업무 승인이 아닙니다.
+과거 날짜로 한 번 더 실행하는 것은 선택이며 A는 순차 실행 한 번과 검토로 완료합니다.
 
 
-**화면 확인:** 질문의 날짜를 바꾸었을 때 적용 규정과 한도가 어떻게 달라지는지 비교합니다.
-두 실행 모두 `approval_status: pending-human-review`, `external_actions_performed: false`인지 확인하세요.
+**화면 확인:** 170000원 요청에 적용 규정의 사전 승인이 필요한지 읽습니다.
+저장하는 출력에 `approval_status: pending-human-review`, `external_actions_performed: false`를 그대로 남깁니다.
 
 ### 3. 완료 판정
 
@@ -68,6 +84,7 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 여러 포털 대화의 답변을 사람이 복사해 이어 붙이는 것을 MAF 실행으로 기록하지 않습니다.
 환경이 준비되지 않아 강사 실행만 봤다면 `MAF 관찰 / 직접 실행 미완료`로 구분합니다.
 이 단계는 로컬 MAF 실행이며 관리형 workflow 리소스나 Hosted Agent를 만든 것이 아닙니다.
+**A는 [Lab 06](06-knowledge.md), B는 아래 비교로 진행합니다.**
 
 ## B. 코드 — 세 가지 오케스트레이션 비교
 
@@ -165,6 +182,9 @@ python scripts/workshop.py workflow --pattern group-chat
 
 ## C. 경험자 심화 — 같은 워크플로를 배포 가능한 Agent로
 
+<details>
+<summary>심화 C — 입문 패턴을 마친 뒤 배포용 wrapper 펼치기</summary>
+
 **2026-09-15 실제 Azure 실행과 새 국문 촬영으로 확인한 경로입니다.**
 앞의 `workflow` 명령은 세 패턴의 원래 출력 형태를 비교하는 입문 경로로 유지합니다.
 아래 `workflow-agent`는 **사례별 근거·실제 모델 호출 이력·검증된 최종 답**을 함께 돌려주는 배포용 경로입니다.
@@ -226,7 +246,10 @@ GA retrieve의 실제 documents/references/activity와 context hash가 함께 �
 실패 시 일반 Search로 전환하지 않습니다.
 프로필·요청·model calls·근거를 [Lab 08](08-hosted.md)의 패키지로 그대로 연결합니다.
 
-## 2026-09-15 새 국문 실행 증거
+</details>
+
+<details>
+<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
 
 아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
 
@@ -240,6 +263,7 @@ GA retrieve의 실제 documents/references/activity와 context hash가 함께 �
 
 [새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
 
+</details>
 
 ## 완료 확인
 
@@ -249,3 +273,5 @@ A는 순차 MAF 실행과 사람의 검토 결과를 남깁니다.
 B는 같은 질문에 대해 세 패턴의 호출 수·출력 형태·검토 부담을 비교한 표를 남깁니다.
 우리 출장 상담에 단일 에이전트가 더 적절하다고 결론 내려도 좋습니다.
 multi-agent 개수 자체가 성공 기준은 아닙니다.
+
+다음: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md)

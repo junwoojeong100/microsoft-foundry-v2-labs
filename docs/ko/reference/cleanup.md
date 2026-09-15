@@ -17,6 +17,8 @@ python scripts/workshop.py cleanup-plan
 
 ## 2. 실행 중인 로컬 프로세스와 Hosted session
 
+로컬 서버·Hosted를 실행하지 않았다면 이 절을 건너뜁니다.
+
 1. `serve`를 실행한 터미널에서 `Ctrl+C`로 **그 서버만** 종료합니다.
 2. azd 프로젝트 폴더에서 자신의 Hosted session을 조회합니다.
 
@@ -26,10 +28,14 @@ azd ai agent sessions list --limit 10
 
 continuation token이 있으면 다음 페이지도 확인합니다.
 여러 서비스가 있으면 실제 서비스 이름으로 `--agent-name`을 지정합니다.
-자신의 session ID와 agent를 확인한 뒤:
+본인 session ID와 agent를 확인합니다. 이미 idle/stopped이면 상태만 기록하고 다시 중지하지 않습니다.
+본인의 **활성** session에만 실행합니다.
 
 ```bash
-azd ai agent sessions stop "<my-session-id>"
+printf 'Owned active session ID from the list: '
+read -r OWNED_SESSION_ID
+azd ai agent sessions stop "$OWNED_SESSION_ID"
+azd ai agent sessions list --limit 10
 ```
 
 중지는 컴퓨트를 종료하지만 persistent filesystem을 보존합니다.
@@ -52,6 +58,10 @@ azd ai agent sessions stop "<my-session-id>"
 
 포털에서 정확한 자산 이름·구독·삭제 경고를 읽고 최종 삭제를 수행합니다.
 리소스 그룹 전체를 지우는 복사-붙여넣기 명령은 제공하지 않습니다.
+선택 `iq-chat setup`은 API `2026-08-01-preview`의 **별도 chat base**를 같은 ledger에 추가합니다.
+삭제 승인 후 source/index보다 먼저 그 source를 참조하는 본인 base를 모두 정리합니다.
+GA base를 유지한다면 공유 source/index도 유지합니다. Chat base만 삭제하면서 GA 평가를 깨뜨리지 않습니다.
+이 base 하나를 지웠다는 이유로 Search identity의 공유 모델 역할까지 회수하지 않습니다.
 
 ## `azd down`은 모든 환경의 같은 정리 명령이 아닙니다
 
@@ -76,6 +86,8 @@ azd ai agent sessions stop "<my-session-id>"
 예산 알림은 자동 중지 장치가 아닙니다.
 
 ## Hosted matrix의 세션과 증거
+
+아래의 실제 matrix label이 있을 때만 실행합니다. A와 입문 B는 건너뜁니다.
 
 새 `benchmark` 경로는 생성한 session ID와 exact version을 immutable manifest에 남깁니다.
 실제 trace 확인 후 해당 label의 세션만 중지합니다.
@@ -107,7 +119,9 @@ cleanup receipt는 별도 파일이므로 frozen candidate와 regression source 
 | `outputs/benchmarks/<label>/` | 실제 matrix, 원시 오류, dataset/corpus/response/native/trace/cleanup 계보 |
 | `outputs/judge-calibration/` | target과 분리된 평가자 calibration |
 | `outputs/regressions/` | 검토된 원본 dev와 source lineage |
-| `outputs/policy-documents/` | 초보자 경로에 배포하는 합성 텍스트 파일 |
+| `outputs/iq-chat/<label>/` | 모델/KB 사전 확인·요청·실제 응답/근거·실패. Benchmark 점수가 아님 |
+| `data/learner/<language>/` | 저장소의 시작 자료. 학습자의 작성 평가표는 다른 곳에 보관 |
+| `outputs/policy-documents/` | 학습자 ZIP에 이미 있는 동일 합성 TXT 6개의 선택 export |
 | `.build/<profile>/` | 현재 배포에 사용한 source와 profile manifest. 참조 여부를 확인해 필요한 것만 유지 |
 
 캡처의 중복 파일·단순 대기 갱신·임시 인코딩 결과는 최종 파일의 해시와 원본 대응을 확인한 뒤 정리합니다.

@@ -28,3 +28,15 @@ Do not compare different-language datasets as an isolated model or prompt experi
 but translated text has its own dataset hash. English development assets and effective workflow instructions were frozen
 before the translated holdout was prepared. Holdout is final-acceptance material only.
 Fixtures are prewritten examples, never Azure responses.
+
+## Ready browser materials
+
+[English learner ZIP](learner/en/learner-materials.zip) · [Korean learner ZIP](learner/ko/learner-materials.zip) · [Setup and file-by-file use](../docs/setup.md)
+
+`data/learner/<language>/` is generated from that language's canonical v2 prompt, six policies and **dev only**.
+It includes inline/browser instructions, six TXT sources, questions without reference-answer fields, and a blank six-row assessment.
+The browser-only prose override is explicit; it does not change the frozen prompts or evaluation data.
+`SOURCE.json` and the per-file manifest retain input/output hashes. The ZIP excludes holdout and answer keys.
+
+Maintainers check the committed bytes with `python scripts/build_learner_materials.py`;
+`--write` explicitly regenerates both bundles. Learners save their filled worksheets elsewhere, not in this generated directory.

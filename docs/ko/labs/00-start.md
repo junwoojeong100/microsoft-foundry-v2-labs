@@ -4,11 +4,25 @@
 
 **완료 목표:** 내가 사용할 계정·프로젝트·경로를 알고, 다음 실습의 출발점을 확인합니다.
 
-상위: [학습 경로](../paths.md) · 다음: [Lab 01](01-foundry.md)
+다음: A → [Lab 01](01-foundry.md) · B → [Lab 02](02-models.md) · [학습 경로](../paths.md)
+
+## 시작 전
+
+**이번 순서:** 시작 카드를 읽고 학습자 ZIP을 받습니다. A는 브라우저, B는 코드 환경 준비까지 진행합니다.
+
+**준비물:** 본인 계정·준비된 프로젝트와 모델. B는 Python 3.13·터미널도 필요합니다.
+
+**다음으로 갈 기준:** A: 정확한 프로젝트와 값 기록. B: offline 검사와 cloud 사전 검사의 의미 확인.
+
+**막히면:** 계정·권한·quota가 없으면 준비 미완료입니다. 다른 리소스를 임의로 선택하지 않습니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
 
 ## 이 가이드의 화면 읽는 법
 
 각 단계의 이미지는 **2026-09-15에 별도로 실행하고 새로 촬영한 국문 화면**입니다.
+시작 카드와 학습자 파일은 녹화 뒤에 보강했습니다. 현재 본문을 따르며,
+기존 화면을 새 준비 순서를 촬영한 증거로 표시하지 않습니다.
 영문 촬영본을 재사용하지 않았습니다. 이번 실행은 기존 실습 프로젝트와 설치 환경을 재사용했으며,
 설치·리소스 생성 명령을 새로 실행한 것처럼 표시하지 않습니다.
 [새 영상과 범위](../video-summary.md)에서 실제 호출·fixture·관찰·실패를 구분합니다. 클릭하면 크게 볼 수 있습니다.
@@ -26,7 +40,8 @@
    개인 Microsoft 계정·GitHub 로그인과 Azure 업무 계정은 같은 개념이 아닙니다.
 3. 강사가 알려 준 프로젝트를 선택합니다. 이름이 비슷한 운영 프로젝트를 선택하지 않습니다.
 4. 아래 워크시트의 앞 네 칸을 적습니다. 화면 전체나 개인 정보를 공유 채팅에 올리지 않습니다.
-5. [Lab 01](01-foundry.md)로 이동합니다. 설치 절은 강사가 준비하므로 여기서는 건너뜁니다.
+5. [학습자 ZIP](../../../data/learner/ko/learner-materials.zip)을 내려받아 풀고 [Lab 01](01-foundry.md)로 이동합니다.
+   `START-HERE.txt`를 열어 둡니다. 혼자 학습하면 [준비 카드](../setup.md)에서 환경 준비를 먼저 확인합니다.
    [Lab 05](05-workflows.md)에서는 준비된 MAF 터미널에서 명령을 복사해 실행합니다.
    Python 코드를 직접 작성하거나 포털에서 workflow를 만들지는 않습니다.
 
@@ -44,7 +59,7 @@
 | 실습용 tenant / 구독 | 강사가 지정한 값 |
 | Foundry 리소스 / 프로젝트 | 강사가 지정한 값 |
 | 사용할 모델의 **배포 이름** | 카탈로그 모델 이름과 구분 |
-| 개인/조별 에이전트 접두사 | 예: `mfv2-team01-0913` |
+| 개인/조별 에이전트 접두사 | 예: `mfv2-team01-0915` |
 | 경로 | A / B |
 | 실행 상태 | 직접 실행 / 강사 관찰 / 미실행 |
 
@@ -59,10 +74,12 @@ Python 3.14는 오프라인 코드에 사용할 수 있지만 hosted 런타임�
 
 ### 1. 폴더 열기
 
-배포받은 ZIP을 풀거나 이 작업 폴더를 VS Code로 엽니다.
-터미널의 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
-새 원격 리포가 아직 게시되지 않았다면 존재하지 않는 GitHub URL을 추측해 clone하지 않습니다.
+접근 권한이 있는 GitHub 계정으로 [이 저장소](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)를 열고
+**Code → Download ZIP**을 선택합니다. 압축을 풀고 그 폴더를 VS Code로 엽니다.
+작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
+**Terminal → New Terminal**을 열면 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
 Hosted까지 확인하려면 다른 azd 프로젝트의 하위 폴더가 아닌 독립된 실습 폴더를 사용합니다.
+Python이 없다면 [Python 3.13](https://www.python.org/downloads/)을 먼저 설치합니다. `command not found`를 무시하고 넘어가지 않습니다.
 
 ```bash
 pwd
@@ -125,7 +142,11 @@ Azure CLI 설치는 [공식 설치 가이드](https://learn.microsoft.com/cli/az
 
 ```bash
 az login
-cp .env.example .env
+if [ -e .env ] || [ -L .env ]; then
+  printf '%s\n' '.env exists; edit it without replacing it.'
+else
+  cp .env.example .env
+fi
 ```
 
 VS Code에서 `.env`를 열어 강사가 제공한 값을 입력합니다.
@@ -136,7 +157,7 @@ VS Code에서 `.env`를 열어 강사가 제공한 값을 입력합니다.
 | `AZURE_SUBSCRIPTION_ID`, `AZURE_TENANT_ID` | 지정된 구독과 디렉터리의 ID |
 | `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME` | 강사가 준비한 실습 리소스 |
 | `AZURE_AI_PROJECT_ENDPOINT` | 프로젝트의 **전체** endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | 프로젝트가 사용하는 실제 모델 배포 이름 |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-5.6-luna`; 담당자가 모델 버전 `2026-07-09` 확인 |
 | `WORKSHOP_PREFIX` | 본인/조의 고유한 `mfv2-...` 접두사 |
 | `WORKSHOP_AUTH_MODE` | 로컬은 `cli`; 실제 Azure 런타임만 `managed-identity` |
 
@@ -159,11 +180,15 @@ ARM을 읽을 권한이 없는 참가자는 강사에게 확인을 요청합니�
 
 ![2026-09-15 새 국문 촬영: 승인된 기존 프로젝트의 배포 확인](../../assets/refresh-20260915-ko/screenshots/K01-002-cloud-doctor-2.webp)
 
-**화면 확인:** 배포의 실제 `model`·`version`, `provisioningState: Succeeded`를 확인합니다.
-`inference_tested: false`와 `next_step`도 읽으세요. 다음 랩에서 실제 응답을 받아야 추론 경로까지 확인한 것입니다.
+**화면 확인:** `deployment.name`, `deployment.model.name`, `deployment.model.version`,
+`deployment.state: Succeeded`, `inference_tested: false`, `note`를 읽습니다.
+실제 응답을 받아야 추론 경로까지 확인한 것입니다.
+Lab 05 환경 준비 때문에 왔다면 Lab 02 B의 실제 응답 확인까지 완료하고 Lab 05로 돌아갑니다.
 
 ## 이 랩의 완료 기준
 
 - A: 올바른 프로젝트를 열고, 배포 이름과 내 경로를 설명할 수 있습니다.
 - B: 오프라인 검사와 SDK 설치를 마쳤고, cloud preflight의 결과를 이해합니다.
 - 승인 대기자: 오프라인 체험만 마쳤다면 `Azure 실습 미실행`으로 기록합니다.
+
+다음: A → [Lab 01](01-foundry.md) · B → [Lab 02](02-models.md)

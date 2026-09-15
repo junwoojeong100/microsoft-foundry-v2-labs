@@ -4,7 +4,19 @@
 
 **Optional advanced work. Complete the core labs without accessing actual Fabric or Microsoft 365 accounts.**
 
-Prerequisite: [Lab 06](06-knowledge.md) · Parent: [Learning paths](../paths.md)
+Next: A/B → [Lab 11](11-capstone.md) · Optional prerequisite: [Lab 06](06-knowledge.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** Optional extension only. A/B can finish at Lab 11 without this module.
+
+**Need:** Only the synthetic routing exercise is unconditional; external services require separate prepared assets and approval.
+
+**Continue when:** A design-only result is labeled design-only. No Work IQ/Fabric access is implied.
+
+**If blocked:** Stop without consent, billing or user-context requirements; never connect real company data by default.
+
+[One-time setup and learner files](../setup.md).
 
 ## Three IQs are not one API
 
@@ -27,13 +39,15 @@ Without signing into services, design this routing table:
 | What are quarterly travel totals by department? | Synthetic analytics model / Fabric | Aggregation definition, user data permissions |
 | What did the travel-review meeting agree? | Approved work context / Work IQ | Consent, delegated permission, sensitive-data protection |
 
-Mocking three response shapes with synthetic JSON is a routing exercise,
-**not proof of an actual Fabric IQ or Work IQ connection**.
+Copy the table into your own `iq-routing-design.txt` and add **source available / identity needed / run or not run** to each row.
+Only the bundled policy source exists in the core workshop; no quarterly analytics or meeting dataset is supplied.
+Mark Fabric and Work IQ **design-only / not run**. Do not invent their response JSON or company data.
 
+**What to check:** This task produces your own design note. No command here prints connection-status flags or proves a service connection.
+If this is your selected scope, stop here and continue to [Lab 11](11-capstone.md).
 
-**What to check:** Review the evidence/verification route for each question.
-`fabric_connected`, `work_iq_connected`, and `company_or_m365_data_accessed` are all
-`false`. This is not a live service-query command.
+<details>
+<summary>Optional preparation reference: external services need separate assets, permission and cost approval</summary>
 
 ## 2. Fabric: only with prepared synthetic assets
 
@@ -49,8 +63,9 @@ Record prerequisites before connecting:
 If assets are absent, start with the
 [official Fabric Data Agent tutorial](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial).
 Preparation is outside the 45–90-minute module.
-The [pinned source Fabric guide](https://github.com/junwoojeong100/microsoft-iq-on-foundry/blob/fa16c84f9800377823edd9aea1cb20d6a56a1edf/docs/fabric-iq.md)
-is background reading; recheck historical SKU/CLI/role assumptions against current documentation.
+Use the [self-contained IQ workbook](../reference/iq-workbook.md) and
+[current official Fabric IQ guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq);
+no source-repository clone is required.
 
 **Evidence:** actual user question, selected agent/source, answer/evidence, and
 user-context/OBO verification. An administrator's success does not establish every user's access.
@@ -104,8 +119,13 @@ Install any Preview SDK in its own environment; do not upgrade all GA dependenci
 Configure the actual KB model binding rather than unused planner environment placeholders.
 Managed identity is supported independently of Preview status.
 The [IQ model-identity guide](../reference/iq-model-identity.md) shows the tested planning/synthesis path and its version-specific request fields.
+For the bundled Search source, choose the existing **`iq-chat` Luna/SMI preset** in Lab 06 rather than designing a new model binding.
+It uses the pinned HTTP client and does not require installing a Preview Search SDK.
 
-## New English execution evidence
+</details>
+
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -115,9 +135,13 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Finish
 
+Design-only work created no cloud resources. Do not perform cleanup for services you did not use.
 Remove/restore only approved added connections and check owned Fabric capacity,
 Work IQ billing, and sessions. Check shared-agent dependencies before stopping capacity.
 Never arbitrarily remove another team's connection or organization-wide consent.
+
+Next: A: [skip to Lab 11](11-capstone.md) · B: [skip to Lab 11](11-capstone.md)

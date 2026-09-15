@@ -4,7 +4,19 @@
 
 **Goal:** Connect agents in MAF code and distinguish a reviewer model from an actual approver.
 
-Previous: A → [Lab 03](03-prompt-agent.md), B → [Lab 04](04-agents-tools.md) · Next: [Lab 06](06-knowledge.md)
+Next: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A runs one sequential command in a prepared terminal; B compares three patterns. The deployable wrapper is advanced.
+
+**Need:** An activated Lab 00 B environment, even for A. If none was supplied, complete that setup once and return here.
+
+**Continue when:** Actual MAF outputs and a human review note exist; pending-human-review is not approval.
+
+**If blocked:** Do not substitute portal Workflow Designer or manually pasted agent answers for the command.
+
+[One-time setup and learner files](../setup.md).
 
 ## This lab uses MAF workflows only
 
@@ -18,6 +30,8 @@ Using the Agent Playground is different from authoring a workflow in the portal.
 No code authoring is required. The instructor provides the repository, Python/SDKs,
 learner-authorized Azure sign-in, `.env`, and an activated venv in a **prepared MAF
 environment**. Use its browser IDE or VS Code terminal; never share an administrator account.
+If you were not given that environment, complete [Lab 00 B](00-start.md#b-code-one-folder-one-environment)
+and Lab 02 B once, then return here. Do not stop at merely installing Python.
 
 Three roles process the same travel question:
 
@@ -57,12 +71,14 @@ This is a terminal-executed MAF result, not portal Workflow Designer activity.
 | `approval_status: pending-human-review` | Model review has not become human approval |
 | `external_actions_performed: false` | No actual booking/payment |
 
-Run again with a historical travel date and compare the applied policy.
-Personally read the answer and sources, then record corrections and the final guidance.
+Read the complete JSON output and compare its source IDs with the learner ZIP's policies.
+In your own `workflow-review.txt`, save the command, actual output, cited policy IDs,
+and your review: what is correct, what needs correction, and why. This is review of guidance, not business approval.
+A historical-date rerun is optional; one reviewed sequential run completes A.
 
 
-**What to check:** Compare the changed policy and limit. Both runs must retain
-`approval_status: pending-human-review` and `external_actions_performed: false`.
+**What to check:** The KRW 170000 request needs prior approval under the applicable policy.
+Keep `approval_status: pending-human-review` and `external_actions_performed: false` in the saved output.
 
 ### 3. Determine completion
 
@@ -70,6 +86,7 @@ You need an **actual MAF run and human review record**.
 Manually copying answers between portal conversations is not MAF execution.
 If you only watched an instructor, record **MAF observed; personal execution incomplete**.
 Local MAF does not create a managed workflow resource or Hosted Agent.
+**A continues to [Lab 06](06-knowledge.md); B follows the comparison below.**
 
 ## B. Code: compare three orchestration patterns
 
@@ -154,6 +171,9 @@ Telling a model "you are the approver" cannot replace human authorization.
 
 ## C. Practitioner extension: make the workflow deployable
 
+<details>
+<summary>Advanced C: expand the deployable wrapper after completing the introductory patterns</summary>
+
 **This path was exercised with real Azure and separately recorded in the Korean run; the English run uses independent recording sources.**
 The original `workflow` command retains its introductory output shapes.
 `workflow-agent` returns original evidence, actual service-call lineage, and one validated final answer.
@@ -211,7 +231,10 @@ This performs the actual GA retrieval and returns documents/references/activity 
 It does not rename local search as IQ or fall back to keyword search after an error.
 Continue with the same profile in [Lab 08](08-hosted.md).
 
-## New English execution evidence
+</details>
+
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -241,6 +264,7 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion
 
@@ -248,3 +272,5 @@ These are newly recorded English actions using the separate English prompt/data 
 A retains a sequential run and human review. B compares call counts, output shapes,
 and review effort for all three patterns. Concluding that one agent is better for this
 scenario is valid; the number of agents is not a success metric.
+
+Next: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md)

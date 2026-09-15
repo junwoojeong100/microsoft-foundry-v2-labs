@@ -16,6 +16,24 @@ Unknown ownership is a reason to stop, not to widen the deletion scope.
 
 ## 2. Hosted compute and persistent state
 
+Skip this section if you did not run a local server or Hosted agent. Otherwise stop your own `serve` with `Ctrl+C` in its terminal.
+From the same azd project folder, list the selected agent's sessions:
+
+```bash
+azd ai agent sessions list --limit 10
+```
+
+Follow any continuation token. With multiple agents, select the actual `--agent-name`.
+If your session is already idle/stopped, record that state without another stop request.
+For your own **active** session only:
+
+```bash
+printf 'Owned active session ID from the list: '
+read -r OWNED_SESSION_ID
+azd ai agent sessions stop "$OWNED_SESSION_ID"
+azd ai agent sessions list --limit 10
+```
+
 Use stop when persistent files must remain. Deleting a session removes compute and persistent filesystem state.
 Inspect the selected agent/session and stop only IDs you created.
 An already-idle session is verified as idle without submitting another conflicting stop request.
@@ -25,6 +43,10 @@ Never treat an unverified stop request as a confirmed stopped state.
 
 `outputs/azure-objects.json` is ownership evidence for index/source/base operations.
 It is not permission to delete an entire Search service.
+The optional `iq-chat setup` adds a **separate chat base** to that ledger with API `2026-08-01-preview`.
+After deletion approval, remove every owned base that references a source **before** its source/index.
+If retaining the GA base, retain its shared source/index too; deleting only the chat base must not break the GA evaluation.
+Do not revoke the Search identity's shared model role merely because this one chat base is removed.
 Models, Search capacity, evaluation, telemetry retention, and persistent storage have separate costs.
 Stopping a Hosted session does not stop every one of them.
 Do not use `azd down`, subscription changes, or resource-group deletion as a shortcut in a shared environment.
@@ -40,6 +62,8 @@ Do not delete failed rows to improve a score.
 Holdout remains final-acceptance material, not a regression source.
 
 ## Hosted matrix sessions
+
+Only run this block if these actual matrix labels exist; A and introductory B skip it.
 
 The matrix manifest records the created session and exact agent version.
 After actual trace verification:
@@ -67,7 +91,9 @@ Do not delete one language's old assets while only the other replacement is read
 | `outputs/judge-calibration/` | Calibration kept separate from target responses |
 | `outputs/regressions/` | Reviewed original dev references and source lineage |
 | `outputs/azure-objects.json` | Ownership of Azure objects |
-| `outputs/policy-documents/` | The six synthetic files used by the browser path |
+| `outputs/iq-chat/<label>/` | Model/KB preflight, request, actual response/source evidence and failures; not benchmark scores |
+| `data/learner/<language>/` | Committed starter materials; keep learner-filled worksheets elsewhere |
+| `outputs/policy-documents/` | Optional export of the same six synthetic files already in the learner ZIP |
 | `.build/<profile>/` | Needed deployment source/profile manifests after checking active references |
 
 After both language sets and final checks pass, remove obsolete media, duplicate temporary encodes, and files unrelated to the final workshop.

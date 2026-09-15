@@ -4,11 +4,23 @@
 
 **선택 심화입니다. 기본 실습은 실제 Fabric/Microsoft 365 계정에 접근하지 않고 완료됩니다.**
 
-선행: [Lab 06](06-knowledge.md) · 상위: [학습 경로](../paths.md)
+다음: A/B → [Lab 11](11-capstone.md) · 선택 선행: [Lab 06](06-knowledge.md) · [학습 경로](../paths.md)
 
 **2026-09-15 보강:** 단계별 준비·Toolbox 결합·Fabric 자산별 인증·Work IQ federated app·
 Hosted OBO 확인은 [이 저장소의 IQ 확장 워크북](../reference/iq-workbook.md)에서 진행합니다.
 외부 원본 저장소의 clone은 필요하지 않으며 실제 회사/M365 연결은 이번 기본 경로에서 수행하지 않습니다.
+
+## 시작 전
+
+**이번 순서:** 선택 확장입니다. A/B는 이 모듈 없이 Lab 11에서 끝낼 수 있습니다.
+
+**준비물:** 합성 라우팅 설계만 기본이며 외부 서비스에는 별도 자산·승인이 필요합니다.
+
+**다음으로 갈 기준:** 설계 결과는 설계로 기록합니다. Work IQ/Fabric 연결을 실행했다고 표시하지 않습니다.
+
+**막히면:** 동의·과금·사용자 context 조건이 없으면 멈추며 회사 데이터를 기본 연결하지 않습니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
 
 ## 세 IQ를 같은 API로 보지 않기
 
@@ -31,13 +43,15 @@ app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습�
 | 이번 분기 부서별 출장비 합계는? | 합성 분석 모델 / Fabric | 집계 정의·사용자 데이터 권한 |
 | 출장 검토 회의에서 합의한 내용은? | 승인된 업무 맥락 / Work IQ | 사용자 동의·위임 권한·민감정보 보호 |
 
-합성 JSON으로 세 응답 형태를 만들어 reviewer에게 맡기는 것은 라우팅 연습입니다.
-**실제 Fabric IQ/Work IQ 연결 성공으로 표시하지 않습니다.**
+본인의 `iq-routing-design.txt`에 표를 복사하고 행마다 **원본 준비 여부 / 필요한 identity / 실행·미실행**을 적습니다.
+기본 실습에는 번들 정책 원본만 있으며 분기별 분석·회의 dataset은 제공하지 않습니다.
+Fabric과 Work IQ는 **설계만 / 미실행**으로 표시하고 응답 JSON이나 회사 데이터를 만들어 넣지 않습니다.
 
+**확인:** 이 과제의 결과는 본인의 설계 기록입니다. 연결 상태 flag를 출력하거나 실제 연결을 입증하는 명령은 없습니다.
+선택한 범위가 설계뿐이면 여기서 멈추고 [Lab 11](11-capstone.md)로 이동합니다.
 
-**화면 확인:** 질문마다 다른 근거와 검증 항목을 정리한 설계 예시입니다.
-`fabric_connected`, `work_iq_connected`, `company_or_m365_data_accessed`가 모두 `false`임을 확인합니다.
-이것은 실제 서비스 조회나 새 연결을 실행하는 명령 예시가 아닙니다.
+<details>
+<summary>선택 준비 참고 — 외부 서비스는 별도 자산·권한·비용 승인이 필요합니다</summary>
 
 ## 2. Fabric 연결 — 준비된 합성 자산이 있을 때만
 
@@ -104,14 +118,20 @@ Web IQ와 일반 Web Search를 같은 기능으로 표시하지 않습니다.
 사용되지 않는 planner 환경변수 대신 실제 KB 모델 연결을 설정합니다.
 Managed identity 지원 여부와 Preview 여부는 별개입니다.
 [IQ 모델 identity 가이드](../reference/iq-model-identity.md)에 검증한 계획·합성 경로와 버전별 요청 필드를 설명합니다.
+번들 Search 원본에는 새 모델 연결을 설계하지 말고 Lab 06의 **`iq-chat` Luna/SMI preset**을 선택합니다.
+고정 HTTP 클라이언트를 사용하므로 Preview Search SDK를 추가 설치할 필요가 없습니다.
+
+</details>
 
 ## 종료
 
+설계만 했다면 cloud 자산을 만들지 않았습니다. 사용하지 않은 서비스를 정리하지 않습니다.
 추가 연결을 제거/복원하고, 본인 Fabric capacity·Work IQ billing·session 상태를 확인합니다.
 capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참조하는지 점검합니다.
 다른 조의 연결이나 조직 전체 consent를 임의로 삭제하지 않습니다.
 
-## 2026-09-15 새 국문 실행 증거
+<details>
+<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
 
 아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
 
@@ -120,3 +140,7 @@ capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참�
 **화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
 
 [새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+
+</details>
+
+다음: A: [Lab 11로 이동](11-capstone.md) · B: [Lab 11로 이동](11-capstone.md)

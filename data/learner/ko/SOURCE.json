@@ -1,0 +1,10 @@
+{
+  "kind": "generated-learner-materials",
+  "language": "ko",
+  "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+  "prompt_hash": "2b4a2b5e322a85349559fd55436521edf29334b8e69556bfbb4b43239edb9e25",
+  "dev_dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
+  "contains_reference_answer_fields": false,
+  "contains_holdout": false,
+  "instruction_format": "v2 rules plus an explicit browser-only prose override"
+}

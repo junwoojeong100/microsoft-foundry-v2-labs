@@ -4,11 +4,33 @@
 
 **Goal:** Preserve evidence for the next decision instead of mistaking one successful demo for a production-ready system.
 
-Previous: [Lab 07](07-evaluation.md) or [Lab 08](08-hosted.md) · Next: [Capstone](11-capstone.md)
+Next: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A completes the four browser checks and cleanup inventory. B correlates its own records; matrix commands require the advanced workbook.
+
+**Need:** Your agent/version and output labels; actual trace access is an additional prerequisite, not assumed.
+
+**Continue when:** You can identify the used version, evidence, costs and owned cleanup targets without deleting shared resources.
+
+**If blocked:** Missing telemetry is unverified, not zero errors. Do not replay model calls just to obtain a screenshot.
+
+[One-time setup and learner files](../setup.md).
 
 ## A. Browser: what needs management?
 
-Observe only the training project's assets visible with your permissions.
+Complete these four checks using **your own existing results**, without sending another model request:
+
+1. **Agents → your Lab 03 agent**: compare name/version/model with the worksheet. Do not select a recording's version.
+2. **Instructions / Tools / Knowledge**: verify the six synthetic sources or the selected File Search/IQ connection; no unapproved Web Search or company connection.
+3. Open your **six-row assessment** and `workflow-review.txt`. Record manual assessment versus actual native evaluation separately.
+   If traces are available, match an existing recorded request; otherwise write **trace unverified**, not “no errors.”
+4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, optional files/chat base, and any sessions.
+   Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
+
+Save `operations-checklist.txt` with those four outcomes. A then goes to [Lab 11](11-capstone.md); no matrix command is required.
+The following table is an optional deeper review, limited to assets visible with your permissions.
 
 | Area | Question to answer |
 |---|---|
@@ -99,7 +121,11 @@ Six passing teaching cases do not authorize production.
 
 ## C. Hosted matrix Trace/Monitor acceptance
 
-Use a label from the [evaluation workbook](../reference/evaluation-workbook.md):
+<details>
+<summary>Advanced C only: expand after collecting the Hosted matrix, not after introductory Lab 07</summary>
+
+Use an existing matrix label from the [evaluation workbook](../reference/evaluation-workbook.md).
+`wf-candidate` is not the introductory `candidate` run; substitute your actual matrix label in every command.
 
 ```bash
 python scripts/workshop.py --language en benchmark trace-plan --label wf-candidate
@@ -133,7 +159,10 @@ Follow [current recurring-evaluation guidance](https://learn.microsoft.com/azure
 Do not repeatedly invoke just to manufacture a sampled screenshot.
 Rule configuration and actual evaluated samples are different evidence; nothing is enabled automatically.
 
-## New English execution evidence
+</details>
+
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -163,12 +192,15 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Always finish with cleanup
 
 Verify this edition's exact root traces and owned session states.
 Completed overall does not mean every child span is exported or error-free.
 [Execution records](../live-run.md) list actual outcomes and retained assets.
+
+A uses the checklist and owner handoff above. B/C can also print the local inventory:
 
 ```bash
 python scripts/workshop.py --language en cleanup-plan
@@ -183,3 +215,5 @@ means cleanup is complete.
 **What to check:** Check actual session states and pagination.
 Use your IDs, not screenshot IDs. Idle does not eliminate every
 filesystem, Search, or log charge.
+
+Next: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md)

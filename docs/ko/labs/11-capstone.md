@@ -4,7 +4,19 @@
 
 **완료 목표:** 특정 모델의 데모가 아니라 지식·코드·평가·운영을 분리한 작은 시스템을 인계합니다.
 
-상위: [학습 경로](../paths.md) · 종료: [정리](../reference/cleanup.md)
+다음: A → [정리](../reference/cleanup.md) · B → [정리](../reference/cleanup.md) · [학습 경로](../paths.md)
+
+## 시작 전
+
+**이번 순서:** A는 평가표와 agent·workflow·원문·정리 증거를 제출합니다. B/C는 실제로 실행한 경로의 인수 명령만 사용합니다.
+
+**준비물:** 앞 단계의 본인 결과. 다른 실행의 점수나 영상을 복사하지 않습니다.
+
+**다음으로 갈 기준:** 다른 학습자가 무엇을 어떤 입력으로 실행했고 무엇이 미확인인지 알 수 있습니다.
+
+**막히면:** 없는 label에 인수 명령을 실행하거나 모델의 검토를 사람의 승인으로 처리하지 않습니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
 
 ## 과제
 
@@ -23,9 +35,25 @@
 | 운영 | 권한·비용·정리 확인 | 재현 설정·선택적 원격 버전·실제 trace 확인 |
 | 제한 사항 | 관찰만 한 기능과 미실행 기능 | SDK/클라우드/Preview별 확인 범위 |
 
+## A. 새 Azure 호출 없이 15분 인계
+
+`.env`·인증정보·다른 학습자의 결과를 빼고 본인 증거 폴더에 다음을 모읍니다.
+
+| 파일/결과 | 완료 확인 |
+|---|---|
+| 준비 카드·작은 구조 그림 | 본인 프로젝트·Luna 배포·agent 이름/버전·원문 경로를 식별 가능 |
+| 실제 저장한 지침·학습자 ZIP의 `SOURCE.json` | 원문과 브라우저 수정/버전 변경을 구분 가능 |
+| `assessment-baseline.csv`, 바꾼 경우만 candidate 표 | D01–D06 실제 응답·인용·이유 전부. 정답표 복사 금지 |
+| `workflow-review.txt` | 실제 순차 명령/출력 한 번과 본인의 검토 |
+| `operations-checklist.txt` | 본인/공유 자산·정리 결과 또는 담당자 대기 항목·잔여 비용·선택 기능 미실행 여부 |
+
+각 파일을 열어 표와 대조합니다. 혼자 학습하면 직접 검토하고, 수업이면 합의한 경로로만 인계합니다.
+A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다. 리뷰어 체크리스트와 정리로 마칩니다.
+
 ## 경험자 인수 명령
 
-[Lab 07](07-evaluation.md)의 실제 후보와 holdout이 있다면:
+[Lab 07](07-evaluation.md)의 실제 후보·holdout label을 사용합니다.
+이미 Lab 07에서 실행했다면 반복하는 대신 `outputs/final-holdout/acceptance.json`을 엽니다.
 
 ```bash
 python scripts/workshop.py accept --candidate candidate --holdout final-holdout
@@ -36,13 +64,18 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 로컬 프로젝트 Responses 결과를 다른 Hosted 경로의 성능으로 재사용하지 않습니다.
 
 
-**화면 확인:** 결과 파일과 `human_approval`의 검토 대기 상태를 확인합니다.
-`accepted: true`는 검사 조건을 충족한 인수 자료라는 뜻이지 운영 배포 승인이 아닙니다.
+**화면 확인:** `candidate_grade`, `holdout_grade`, `business_gate_passed`,
+`recommendation`(`ready-for-human-review` 또는 `reject`)을 읽습니다.
+`deployment_approved: false`, `cloud_judge_results_included: false`는 명시적인 범위 제한이며 우회할 승인 오류가 아닙니다.
 사진의 holdout은 이미 사용된 교육용 세트이므로 새로운 미사용 검증셋의 합격으로 주장하지 않습니다.
 
 ## Hosted workflow/evaluation 심화 인수 자료
 
+<details>
+<summary>심화 C 전용 — Hosted 평가 워크북을 완료한 뒤 펼칩니다</summary>
+
 기본 A/B 산출물과 [심화 평가 워크북](../reference/evaluation-workbook.md)의 산출물을 구분합니다.
+아래 `wf-*` label은 실제 matrix 실행으로 존재해야 합니다. 입문의 `candidate`/`final-holdout`으로 대신하지 않습니다.
 4개 모델을 선택했다면 24행 dev baseline, 24행 dev candidate, 16행 frozen holdout이 필요합니다.
 일부 모델만 인수한다면 **dev에서 사전에 선택한 목록**과 실제 행 수를 기록합니다.
 
@@ -67,11 +100,13 @@ Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--
 [통합·아카이브 인수 기준](../reference/consolidation.md)은 이 자료로 판단합니다.
 기존 single-agent 녹화나 원본 저장소의 성공 기록으로 새 workflow 인수를 대신하지 않습니다.
 
+</details>
+
 ## 5분 발표 순서
 
 1. **무엇을 해결했는가:** 어떤 질문에 답하고 어떤 질문은 보류하는가.
 2. **어디에서 근거를 얻는가:** 실제 문서 ID·적용 시점·검색 방식.
-3. **어떻게 확인했는가:** 전체 사례, 실패, 개선, holdout.
+3. **어떻게 확인했는가:** 전체 사례·실패·개선, holdout은 실제 수행한 B/C 경로만 해당.
 4. **누가 통제하는가:** 승인 경계, 사용자와 agent identity, 민감정보·비용.
 5. **무엇을 아직 확인하지 않았는가:** 미실행/Preview/구독별 제한.
 
@@ -93,7 +128,8 @@ Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--
 실제 회사에 적용하려면 업무 전문가의 규정 승인, 더 넓은 평가셋, 위협 모델,
 부하/복구/접근 통제 검토, 서비스별 SLA·가격·보존 정책 검토가 추가로 필요합니다.
 
-## 2026-09-15 새 국문 실행 증거
+<details>
+<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
 
 아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
 
@@ -106,3 +142,7 @@ Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--
 **화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
 
 [새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+
+</details>
+
+다음: A → [정리](../reference/cleanup.md) · B → [정리](../reference/cleanup.md)

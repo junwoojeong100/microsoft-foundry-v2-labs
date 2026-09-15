@@ -1,0 +1,114 @@
+# Start checklist: one environment, one set of values
+
+**English** | [한국어](ko/setup.md)
+
+**Do this once before Lab 00.** The guide can explain every lab step, but it cannot grant an Azure subscription,
+permissions, model quota or billing approval. If you already have the checked items below, no instructor needs to operate the labs for you.
+
+## 1. Choose your starting point
+
+| Your situation | Do this |
+|---|---|
+| A training environment is ready | Fill the environment card below, download the learner materials, then start Lab 00 |
+| You own an Azure subscription but have no environment | Complete the environment-owner checklist in section 4, then use the same card |
+| You have no Azure permission/quota yet | Use Lab 00's offline exercise only. Record cloud labs as not run |
+
+Do not follow A, B and C simultaneously. **First-time users choose A** in [Learning paths](paths.md).
+A uses the browser until the prepared MAF step in Lab 05; B/C add code and optional deployment/evaluation.
+Keep one language for the whole pass. Switching languages changes the input bundle and requires new run labels, not reuse of the other language's scores.
+
+## 2. Fill this environment card
+
+The owner supplies actual values, not values copied from a recording. No passwords, keys or tokens belong in this card.
+
+| Value | Where to get it / required choice |
+|---|---|
+| Azure tenant and subscription IDs | Azure portal → Subscriptions / directory |
+| Foundry account, project and resource group | Your training project's resource details |
+| Full project endpoint | Foundry project home; retain `/api/projects/<project>` |
+| **Answer deployment** | **`gpt-5.6-luna`**, underlying model of the same name, version **`2026-07-09`** for this dated workshop preset |
+| Prefix | One unique lowercase ASCII prefix, for example `mfv2-team01-0915`, maximum 32 characters |
+| Search endpoint | Existing training Search service; required only if selecting Lab 06 IQ |
+| Account OpenAI endpoint | `https://<your-account>.openai.azure.com`; same account as the project |
+| IQ chat base | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
+| Code environment | Repository folder, Python 3.13, activated `.venv`, learner's own Azure sign-in |
+| Optional Hosted inputs | Actual project ARM ID, owned agent name, deployment approval; needed only for Lab 08/C |
+
+**Model choice is not a learner experiment on the first pass.** Use Luna, not `-judge`, Astra or a router.
+If this exact deployment/version is unavailable, the owner must resolve availability or explicitly revalidate another edition.
+The code never silently selects a replacement. A fixed model prevents a common mismatch; it cannot guarantee service uptime or quota.
+
+## 3. Download the ready learner materials
+
+Open [English learner-materials.zip](../data/learner/en/learner-materials.zip), choose **Download raw file**, and extract it.
+This small ZIP requires no Python and does not include videos, holdout or reference-answer fields.
+For private repositories, use a GitHub account with read access.
+
+| File | Use |
+|---|---|
+| `START-HERE.txt` | File-by-file instructions |
+| `instructions-with-policies.txt` | Copy the entire file into a new Prompt Agent's **Instructions**, then Save |
+| `instructions.txt` | Instructions without inline evidence, for the optional File Search path |
+| `policies/` | Exactly six synthetic TXT files to upload for File Search |
+| `dev-questions.txt` | Copy one question, not the case ID or an evaluation record, into each new chat |
+| `assessment.csv` | Blank six-case worksheet; record your actual answers/citations/pass or fail |
+| `SOURCE.json` | Language and canonical input hashes |
+
+You can also open [the complete inline instructions](../data/learner/en/instructions-with-policies.txt) or
+[questions-only file](../data/learner/en/dev-questions.txt) directly.
+Do not paste `dev.jsonl` reference-answer columns into an agent.
+
+## 4. Environment-owner checklist
+
+If you are learning alone, you are also the environment owner. These are preparation steps, not hidden prerequisites inside a later lab.
+
+1. Select a dedicated training subscription/resource group and a region with the required model quota.
+   Use the [current Foundry setup guide](https://learn.microsoft.com/azure/foundry/quickstarts/get-started-code);
+   do not choose a classic Hub/threads-runs tutorial.
+2. Prepare **`gpt-5.6-luna` / `2026-07-09`** with deployment name **`gpt-5.6-luna`**.
+   Verify its state is `Succeeded`. Do not create another model after an unexplained error.
+3. Give the learner the appropriate Foundry project/model permissions.
+   The CLI's deployment preflight also needs **Reader on the training Foundry account**. Test with that learner's account, not only an administrator.
+4. If selecting the optional IQ segment, prepare Basic-or-higher Search, its system-assigned identity, semantic/knowledge retrieval access,
+   and Search read/write permissions for the person who seeds the synthetic index.
+5. On the model's Foundry account, give **the Search identity** `Cognitive Services User`.
+   A role assigned to the user or Hosted agent does not grant it to Search.
+6. Complete [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment), including `.env`, before running the owner commands below.
+   That same setup is the self-service route if no prepared MAF terminal is available for Lab 05.
+
+For an IQ Chat learner, **Reader on Search** allows inspection of service/object definitions,
+and **Search Index Data Reader** allows retrieval; these are separate from the model-account Reader above.
+The read-only `check` also reads role assignments at the model-account scope.
+Only the owner who seeds/creates objects needs Search Service Contributor and Search Index Data Contributor.
+Use resource-level scopes, not subscription Owner for everyone. [Official Search role matrix](https://learn.microsoft.com/azure/search/search-security-rbac#summary-of-permissions), checked September 15, 2026.
+
+**After authorization for these training objects**, prepare the separate fixed-model chat base:
+
+```bash
+python scripts/workshop.py --language en seed-search --iq --confirm-create
+python scripts/workshop.py --language en iq-chat check
+python scripts/workshop.py --language en iq-chat setup --confirm-create
+python scripts/workshop.py --language en iq-chat ask --label iq-chat-first --confirm-cost
+```
+
+`check` is read-only and rejects a wrong model version, missing Search identity/role, or wrong source.
+`setup` creates only the new owned chat base; it does not deploy a model, grant roles, or rewrite the GA evaluation base.
+`ask` is billable and records actual planning, synthesis and original evidence under `outputs/iq-chat/iq-chat-first/`.
+Use a **new label** for each new request; do not overwrite the first result.
+
+As checked on **September 15, 2026**, the optional Preview preset fixes Luna, Search system-assigned identity,
+`2026-08-01-preview`, `low`, and `answerSynthesis`. Preview planning/synthesis is not required for A's source checks or B's GA retrieval.
+It uses the verified `maxOutputSize` request field rather than the field rejected in the earlier diagnostic.
+Return the printed chat-base name to the learner. They should open **that base**, not the model-free `<prefix>-kb`.
+
+## 5. Ready to start
+
+- [ ] I can open the intended project with my own account.
+- [ ] The actual Luna deployment/version is prepared.
+- [ ] I have the learner ZIP and know which file goes into Instructions versus chat.
+- [ ] For Lab 05, I have a prepared terminal or will complete Lab 00 B setup first.
+- [ ] If selecting Lab 06 IQ Chat, the owner has checked the fixed chat base and its actual model activity; otherwise it is explicitly not selected.
+- [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
+
+If a box is not ready, stop at that preparation step; do not substitute a fixture for a live result.
+**Next: [Lab 00](labs/00-start.md).**

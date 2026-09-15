@@ -27,3 +27,15 @@ python scripts/workshop.py --language en demo --label english-offline --prompt v
 `localization.json`은 원본·번역 파일 해시를 고정합니다. ID·날짜·금액·판단·필수 인용은 동등하지만 번역 텍스트의 hash는 별도입니다.
 영문 개발 자료와 실제 workflow 지침을 먼저 고정한 뒤 영어 holdout을 준비했습니다.
 Holdout은 최종 인수용이며 fixture는 미리 작성한 예제이지 Azure 응답이 아닙니다.
+
+## 바로 쓰는 브라우저 자료
+
+[국문 학습자 ZIP](learner/ko/learner-materials.zip) · [영문 학습자 ZIP](learner/en/learner-materials.zip) · [준비·파일별 사용 순서](../docs/ko/setup.md)
+
+`data/learner/<language>/`는 해당 언어의 canonical v2 지침·정책 6개·**dev만**으로 생성합니다.
+인라인/브라우저 지침, TXT 원문 6개, 정답 필드 없는 질문, 빈 6행 평가표가 있습니다.
+브라우저 문장 출력 지시는 명시적인 추가 규칙이며 동결 지침·평가 데이터를 바꾸지 않습니다.
+`SOURCE.json`과 파일별 manifest가 입력/출력 hash를 보존합니다. ZIP에는 holdout·정답표가 없습니다.
+
+관리자는 `python scripts/build_learner_materials.py`로 저장된 바이트를 검사하고
+`--write`로 두 번들을 명시적으로 재생성합니다. 학습자의 작성 평가표는 이 생성 폴더 밖에 저장합니다.

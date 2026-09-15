@@ -4,11 +4,34 @@
 
 **완료 목표:** 한 번 잘 답한 데모를 운영 가능한 시스템으로 착각하지 않고, 다음 판단의 근거를 남깁니다.
 
-이전: [Lab 07](07-evaluation.md) 또는 [Lab 08](08-hosted.md) · 다음: [캡스톤](11-capstone.md)
+다음: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md) · [학습 경로](../paths.md)
+
+## 시작 전
+
+**이번 순서:** A는 브라우저 네 확인과 정리 목록을 완료합니다. B는 본인 이력을 대조하고 matrix 명령은 심화 워크북 이후에만 씁니다.
+
+**준비물:** 본인 agent/version과 output label. 실제 trace 접근은 추가 선행 조건이며 자동으로 주어지지 않습니다.
+
+**다음으로 갈 기준:** 사용 버전·근거·비용·본인 정리 대상을 구분하며 공유 리소스를 삭제하지 않습니다.
+
+**막히면:** Telemetry 없음은 미확인이지 오류 0개가 아닙니다. 캡처를 위해 모델 호출을 반복하지 않습니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
 
 ## A. 브라우저 — 무엇을 관리해야 하나?
 
-실습 프로젝트에서 본인 권한으로 보이는 범위를 관찰합니다.
+모델을 다시 호출하지 말고 **본인의 기존 결과**로 다음 네 항목을 확인합니다.
+
+1. **Agents → Lab 03의 본인 agent**에서 이름·버전·모델을 평가표와 대조합니다. 녹화의 버전을 고르지 않습니다.
+2. **Instructions / Tools / Knowledge**에서 합성 원문 6개 또는 선택한 File Search/IQ 연결을 확인합니다.
+   승인하지 않은 Web Search·회사 연결이 없어야 합니다.
+3. 본인의 **6행 평가표**와 `workflow-review.txt`를 엽니다. 수동 평가와 실제 native 실행을 구분합니다.
+   Trace를 볼 수 있으면 기존 요청과 대조하고, 없다면 오류 0개가 아니라 **trace 미확인**으로 적습니다.
+4. [정리 체크리스트](../reference/cleanup.md)로 본인 agent·선택 파일/chat base·session을 목록화합니다.
+   공유 서비스는 **담당자 관리**로 표시하고 잔여 비용과 승인된 자산별 중지/삭제 담당자를 확인합니다.
+
+네 결과를 `operations-checklist.txt`에 저장하고 A는 [Lab 11](11-capstone.md)로 이동합니다. Matrix 명령은 필요 없습니다.
+아래 표는 본인 권한으로 보이는 자산에 한한 선택적인 추가 검토입니다.
 
 | 관찰 대상 | 직접 확인할 질문 |
 |---|---|
@@ -105,8 +128,12 @@ App Insights 인증 오류, idle 세션 stop 충돌을 구분해 보존하고 �
 
 ## C. 새 Hosted matrix의 Trace·Monitor 인수
 
+<details>
+<summary>심화 C 전용 — 입문 Lab 07이 아니라 Hosted matrix를 수집한 뒤 펼칩니다</summary>
+
 **2026-09-15 실제 새 국문 실행으로 확인한 경로입니다.**
-[평가 워크북](../reference/evaluation-workbook.md)에서 만든 label에 대해:
+[평가 워크북](../reference/evaluation-workbook.md)에서 실제 만든 matrix label을 사용합니다.
+`wf-candidate`는 입문의 `candidate`가 아닙니다. 모든 명령에서 본인의 실제 matrix label로 바꿉니다.
 
 ```bash
 python scripts/workshop.py benchmark trace-plan --label wf-candidate
@@ -148,7 +175,10 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 성공 화면을 만들지 않습니다. Rule enabled와 실제 평가 sample의 존재를 따로 기록합니다.
 이 개정은 continuous evaluation을 자동으로 켜지 않습니다.
 
-## 2026-09-15 새 국문 실행 증거
+</details>
+
+<details>
+<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
 
 아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
 
@@ -178,6 +208,7 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 
 [새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
 
+</details>
 
 ## 반드시 정리하고 끝내기
 
@@ -185,6 +216,8 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 전체 요청의 확인을 모든 하위 span이 빠짐없이 export되었다는 의미로 확대하지 않습니다.
 이미 idle인 세션은 다시 stop을 호출해 409를 만들지 않고 실제 상태를 확인합니다.
 활성 세션은 중지 후 재조회하고 [실행 기록](../live-run.md)에 별도 receipt를 남깁니다.
+
+A는 위 체크리스트·담당자 인계를 사용합니다. B/C는 로컬 목록도 출력할 수 있습니다.
 
 ```bash
 python scripts/workshop.py cleanup-plan
@@ -198,3 +231,5 @@ python scripts/workshop.py cleanup-plan
 
 **화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다. 새 촬영의 평가 세션 네 개는 최종 `idle`을 확인했습니다.
 화면의 세션 ID를 그대로 중지하지 말고 자신의 ID를 사용합니다. idle이어도 파일 저장소·Search·로그 비용이 모두 사라지는 것은 아닙니다.
+
+다음: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md)

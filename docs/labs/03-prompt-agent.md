@@ -4,7 +4,19 @@
 
 **Goal:** Add synthetic business instructions and documents so the agent can explain its sources and limitations.
 
-Previous: [Lab 02](02-models.md) · Next: A → [Lab 05](05-workflows.md), B → [Lab 04](04-agents-tools.md)
+Next: A → [Lab 05](05-workflows.md) · B: [skip to Lab 04](04-agents-tools.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A creates one Prompt Agent with the ready inline instruction file. File Search and SDK creation are separate optional branches.
+
+**Need:** The learner ZIP, your prefix and the model that succeeded in Lab 02.
+
+**Continue when:** The saved agent name/version and your own answers to the four checks are recorded.
+
+**If blocked:** Paste into Instructions, not chat; never copy a recording's agent name or assume version 1.
+
+[One-time setup and learner files](../setup.md).
 
 ## A. Browser: the smallest useful agent
 
@@ -18,7 +30,7 @@ In the training project, choose **Agents → New agent → Build an agent**.
 **What to check:** This is a Prompt Agent with editable instructions. Do not select
 **Code an agent** or an external-agent connection.
 
-Use your own prefix, for example `mfv2-team01-0913-policy`.
+Use your own prefix, for example `mfv2-team01-0915-policy`.
 Select **Create and open playground** and wait for completion.
 
 
@@ -42,13 +54,12 @@ Do not connect company data or tools that modify external systems.
 
 #### Instructions and saving
 
-Open `prompts/en/v2.txt` in an editor and paste its complete contents into Instructions.
-Append this canonical **browser output override**:
+Open **`instructions-with-policies.txt` from the [learner ZIP](../setup.md#3-download-the-ready-learner-materials)** in a text editor.
+Select all its text, copy it into **Instructions**, then **Save**.
+It already includes v2 rules, all six synthetic policies, and the browser-only English prose override.
+Do not assemble JSON files, append another prompt, or paste the ZIP itself.
 
-> Explain in English in this order: answer, applicable date and amount, conditions or reason for withholding, and source document IDs.
-> For this browser exercise, use readable prose instead of JSON.
-
-This browser format is separate from the strict JSON contract of the executable evaluation pipeline.
+This generated browser format is separate from the strict JSON contract of the executable evaluation pipeline.
 [The language reference](../reference/languages.md) describes the independent English bundle.
 
 
@@ -56,14 +67,12 @@ This browser format is separate from the strict JSON contract of the executable 
 Check the end of long text, select **Save**, and record the returned version.
 **Publish** is a separate external-channel action and is not needed here.
 
-### 2. Supply synthetic policies
+### 2. Verify the supplied policies
 
-Open `data/knowledge/en/policies.json`. Initially, you may paste all six documents'
-`id`, `title`, `content`, and effective periods into a separate **Synthetic evidence**
-section of the instructions. Document text is evidence, not an instruction source.
-This is **direct context for small documents**, not File Search or Foundry IQ.
-
-After adding evidence, select **Save** again and record the new version.
+The file you just pasted contains `TRAVEL-2025`, `TRAVEL-2026`, `APPROVAL-01`,
+`RECEIPT-01`, `MEAL-01`, and `SCOPE-01`. Compare their IDs, content and effective periods with the ZIP's `policies/` files.
+Document text is evidence, not instructions. This is **direct context for small documents**, not File Search or Foundry IQ.
+No second paste/save is required unless you found an omission.
 
 
 **What to check:** Inspect **Version** and the disabled **Save** button. The source run
@@ -75,13 +84,11 @@ documents and effective periods, not just the end visible in the image.
 
 Proceed only if File Search is available and the instructor has approved storage/retrieval costs.
 
-1. Obtain the six text files exported with `python scripts/export_policy_docs.py --language en`
-   into `outputs/policy-documents/en/`. **Path A learners do not need Python; the instructor supplies them.**
-2. Upload only those synthetic text files to the agent's File Search/file-knowledge tool.
-3. Wait for indexing. Successful upload and completed indexing are different.
-4. Open a response citation and inspect the actual filename/content where supported.
-5. When comparing direct context and File Search, remove one evidence path so you know
-   which supplied the answer. Do not delete a teammate's files.
+1. Create a **separate** agent using your prefix plus `-files`; keep the inline agent unchanged for Lab 07.
+2. Paste the ZIP's **`instructions.txt`** into its Instructions, select Luna, remove Web Search, and Save.
+3. Upload only the six **`.txt` files inside `policies/`**, not the ZIP, CSV, or inline instruction file. No Python/export step is needed.
+4. Wait for every file's indexing status to be **Completed**.
+5. Ask one question, then compare the cited filename/content with the supplied original. Do not combine inline policies and File Search in this comparison.
 
 
 **What to check:** In **Upload files → Attach files**, check **Create a new index** and
@@ -97,10 +104,10 @@ Resolve missing or failed files before asking questions.
 
 
 **What to check:** Inspect the **File search** tool, filenames, and citation numbers.
-This source screenshot shows a separate File Search agent v2, not the inline agent.
+The September 15 English recording shows a separate File Search agent v3, not the inline agent.
 One response is not a full-dev evaluation score.
 
-The September 14 portal used **Upload files → Attach files** to select files and a
+The September 15 English portal used **Upload files → Attach files** to select files and a
 new vector index. That index is a File Search store, not Lab 06's Azure AI Search index.
 After upload `Success`, all six stored files were checked for `Completed`.
 
@@ -109,21 +116,22 @@ they did: compare the cited filename with the supplied original. The instructor
 separately read those same six stored files through the SDK and verified byte-for-byte
 agreement. No response or retrieval provider was substituted.
 
-If the menu or format is unsupported, ask the instructor. Complete the first agent
-with direct context and mark File Search **not run**.
+If the menu is unavailable, leave this optional branch unselected. If an attempted upload/retrieval fails,
+retain that failure and stop the branch; do not relabel the inline response as File Search.
 
 </details>
 
 ### 3. Check four questions
 
-Copy the canonical question; its meaning is provided in the second column.
+For each row below, copy **only its question** from the ZIP's `dev-questions.txt`.
+These are D01, D02, D03 and D05; do not send the expected-criteria column.
 
-| Question | English meaning | Expected business criteria |
+| Case | Topic | Expected business criteria |
 |---|---|---|
-| Domestic lodging limit in September 2026? | Current travel | Current KRW 150000, `TRAVEL-2026` |
-| Domestic lodging limit in May 2026? | Historical travel | Historical KRW 120000, `TRAVEL-2025` |
-| May I book a KRW 170000 hotel for September 2026? | Over-limit booking | Advance approval; the agent cannot approve |
-| What is the international-travel lodging limit? | Missing policy | Withhold the amount; insufficient evidence |
+| D01 | September 2026 lodging | Current KRW 150000, `TRAVEL-2026` |
+| D02 | May 2026 lodging | Historical KRW 120000, `TRAVEL-2025` |
+| D03 | Over-limit booking | Advance approval; the agent cannot approve |
+| D05 | International travel | Withhold the amount; insufficient evidence |
 
 These amounts are **synthetic ground-truth criteria**, not proof of a correct model
 response. Start a new conversation for each question so earlier answers do not leak into later checks.
@@ -149,10 +157,15 @@ The assistant must not claim approval or an actual booking.
 **What to check:** Without an international policy, ask for confirmation rather than
 inventing an amount. Record your own responses and failures, not the screenshot's outcomes.
 
-## B. Code: managed Prompt Agent versus local MAF
+## B. Optional SDK branch: managed Prompt Agent versus local MAF
+
+This is not required for A or B's first pass. It creates a separate agent.
+Enter a new name starting with your `.env` `WORKSHOP_PREFIX`; do not reuse the browser agent's name.
 
 ```bash
-python scripts/workshop.py --language en prompt-agent create --name mfv2-team01-0913-policy --confirm-create
+printf 'New agent name (<your prefix>-policy-sdk): '
+read -r AGENT_NAME
+python scripts/workshop.py --language en prompt-agent create --name "$AGENT_NAME" --confirm-create
 ```
 
 Replace the name with one matching your `.env` `WORKSHOP_PREFIX`.
@@ -164,11 +177,12 @@ The SDK example includes small document context for comparison and does not clai
 The recorded SDK agent v1 and browser agent v3 are different agents.
 
 ```bash
-python scripts/workshop.py --language en prompt-agent invoke --name mfv2-team01-0913-policy --version 1 --question "What is the domestic business-trip lodging limit for September 2026?"
+printf 'agent_version returned above: '
+read -r AGENT_VERSION
+python scripts/workshop.py --language en prompt-agent invoke --name "$AGENT_NAME" --version "$AGENT_VERSION" --question "What is the domestic business-trip lodging limit for September 2026?"
 ```
 
-The question asks for the September 2026 domestic lodging limit. `1` is also an example:
-use the actual created version. Do not implicitly invoke "latest."
+Use the actual returned version in the same terminal. Do not type `1` from a recording or invoke "latest."
 [Versions](../reference/versions.md) documents the SDK's explicit binding.
 
 ## Boundaries become more important as tools grow
@@ -179,7 +193,8 @@ use the actual created version. Do not implicitly invoke "latest."
 - Content Safety/guardrails and instructions do not replace authorization checks.
 - Limit Web Search/Toolbox to approved domains in the [optional extension](10-iq-extensions.md).
 
-## New English execution evidence
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -225,10 +240,13 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion
 
-The [execution record](../live-run.md) separates browser v3, SDK v1, File Search v2,
+The [execution record](../live-run.md) separates browser v3, SDK v1, File Search v3,
 and IQ verification. Record your agent name/version, all four real responses, evidence
 method, and one wrong or withheld answer. Fluent prose and correct policy application
 are different; [Lab 07](07-evaluation.md) turns that distinction into evaluation criteria.
+
+Next: A → [Lab 05](05-workflows.md) · B: [skip to Lab 04](04-agents-tools.md)

@@ -27,7 +27,10 @@ Creating a new model, subscription, or resource for the same unexplained error i
 | Partial Search upload | Per-document status, count/keys, index fields | 06 |
 | Existing Search object rejected | Prefix and ownership ledger; no shared-object overwrite | 06 |
 | IQ 400 | GA intents mixed with Preview messages; actual API version | 06 |
-| `Chat completions model is required` | Missing model selection, not MI failure. Configure a supported deployment and the **Search** identity's `Cognitive Services User` role | 06 |
+| `Chat completions model is required` | Missing model selection, not MI failure. Open the prepared chat base with **Luna + Search SMI**; do not save portal defaults over the model-free GA base | 06 |
+| `iq-chat check` model/version/role failure | Use the [fixed preset](iq-model-identity.md): `gpt-5.6-luna` / `2026-07-09`, Search SMI, account-scoped role. The owner resolves preparation; no replacement model | 06 |
+| `ready_for_setup: true`, `configured: false` | Prerequisites pass but the separate chat base does not exist. Owner completes the authorized setup in the source-owning workshop copy | 06 |
+| IQ Chat label exists | Read the prior request/response/failure first; use a new label only for an explicitly new paid attempt | 06 |
 | IQ model 401/403 | Search → model identity, account scope, role propagation and network access; the Hosted/user role is not inherited by Search | 06 |
 | Preview rejects `maxOutputSizeInTokens` | Preserve the parameter-validation error and use the tested version-specific `maxOutputSize` request; do not classify it as authentication failure | 06 |
 | IQ references/activity error | sourceData/docKey, sources, semantic settings, billing consent | 06 |

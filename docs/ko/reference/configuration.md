@@ -16,21 +16,31 @@
 | `AZURE_RESOURCE_GROUP` | 배포 확인 | 실제 실습 그룹 |
 | `AZURE_AI_ACCOUNT_NAME` | 배포 확인 | 실제 Foundry account |
 | `AZURE_AI_PROJECT_ENDPOINT` | 모델·agent·평가 SDK | 전체 `/api/projects/...` endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | target 모델 | 배포 이름, 자동 대체 없음 |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | target 모델 | 템플릿 기본 `gpt-5.6-luna`; 실제 배포를 먼저 준비. 자동 대체 없음 |
 | `WORKSHOP_AUTH_MODE` | 인증 | `cli` 또는 `managed-identity` |
 | `AZURE_CLIENT_ID` | 선택 user-assigned managed identity | 실제 런타임에 필요할 때만 |
 | `WORKSHOP_PREFIX` | 생성할 agent/Search 이름 | 고유한 `mfv2-...`, 최대 32자 |
 | `WORKSHOP_MAX_OUTPUT_TOKENS` | 모델 출력 상한 | 기본 2048, 허용 256–8192 |
 | `AZURE_SEARCH_ENDPOINT` | Search/IQ | 서비스 루트 |
+| `AZURE_SEARCH_RESOURCE_GROUP` | `iq-chat check` ARM 조회 | 선택값. Search가 같은 그룹에 있으면 `AZURE_RESOURCE_GROUP` 사용 |
 | `AZURE_SEARCH_INDEX_NAME` | 일반 검색/IQ 원문 | 기본 `<prefix>-policies` |
 | `AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME` | IQ | 기본 `<prefix>-source` |
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | IQ | 기본 `<prefix>-kb` |
+| `AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME` | 선택 IQ Chat preset | 별도 소유 base. 국문 기본 `<prefix>-chat-ko-kb`, 영문 `<prefix>-chat-en-kb` |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | cloud judge | target와 구분해 명시 |
 
 IQ Chat 모델과 Search의 호출 identity는 **knowledge base의 모델 연결**에서 설정합니다.
 Seed/retrieve 명령은 planner 환경변수 placeholder를 읽거나 그 모델 연결을 자동 설정하지 않습니다.
 `WORKSHOP_AUTH_MODE`/`AZURE_CLIENT_ID`는 Python 호출자를 선택하며 Search identity 설정이 아닙니다.
 [Keyless IQ 모델 설정](iq-model-identity.md)을 확인하세요.
+
+**2026-09-15 IQ Chat preset:** 배포/모델 `gpt-5.6-luna`, 실제 버전 `2026-07-09`,
+Search **system-assigned** identity, `2026-08-01-preview`, `low`, `answerSynthesis`입니다.
+응답 모델 환경변수를 바꿔도 이 preset은 바뀌지 않습니다.
+`AZURE_OPENAI_ENDPOINT`에는 프로젝트와 같은 Foundry 계정의 OpenAI root가 필요합니다.
+`iq-chat check`가 실제 배포·source·명시된 역할을 검사하고 `setup`은 source/corpus가 맞는 로컬 소유권 기록을 요구합니다.
+기본 GA base는 변경하지 않으며 새 chat-base 이름은 본인 prefix로 시작해야 합니다.
+[준비 명령](../setup.md#4-환경-담당자의-준비)을 따릅니다.
 
 ## 구버전 변수와의 대응
 

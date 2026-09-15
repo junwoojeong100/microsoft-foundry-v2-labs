@@ -9,8 +9,13 @@ Beginners use the portal and
 a prepared MAF environment; practitioners use Python. Both solve the same
 **synthetic travel-policy scenario**. Neither path authors workflows in the portal.
 
+**First pass: [setup card and learner ZIP](setup.md) → [Lab 00](labs/00-start.md) → follow A's next link on each page.**
+Use the ready files rather than assembling JSON documents or copying reference-answer records.
+Advanced sections and recordings are optional reading, not extra steps required between labs.
+
 | What you need | Start here |
 |---|---|
+| Accounts, exact model, input files, and a self-setup route | [One-time setup](setup.md) |
 | A starting point and schedule | [Learning paths](paths.md) |
 | First-run instructions | [Lab 00](labs/00-start.md) |
 | Classroom preparation | [Instructor guide](instructor.md) |

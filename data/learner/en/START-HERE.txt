@@ -1,0 +1,7 @@
+Synthetic workshop materials only; no real company data.
+1. Use the prepared gpt-5.6-luna deployment, not the judge or a router.
+2. Paste instructions-with-policies.txt into the agent's Instructions field, then Save.
+3. Copy one question at a time from dev-questions.txt into a new chat. Do not paste assessment columns.
+4. Record your own responses in assessment.csv; it contains no answer keys.
+5. policies/ contains the six original text files for the optional File Search path.
+Follow docs/labs/00-start.md and docs/setup.md for prerequisites, costs and permissions.

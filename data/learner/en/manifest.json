@@ -1,0 +1,64 @@
+{
+  "kind": "generated-learner-materials",
+  "language": "en",
+  "corpus_hash": "9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14",
+  "prompt_hash": "05c0d23b0f56b08077cbb436cae4b51fdb438f41493ca476bb02394938043ea8",
+  "dev_dataset_hash": "1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e",
+  "contains_reference_answer_fields": false,
+  "contains_holdout": false,
+  "instruction_format": "v2 rules plus an explicit browser-only prose override",
+  "files": {
+    "SOURCE.json": {
+      "bytes": 479,
+      "sha256": "d6072bccf25bd8947d05158a55b10297f6a53e40a1dedfbfbd5840c24cbdb879"
+    },
+    "START-HERE.txt": {
+      "bytes": 571,
+      "sha256": "eac7547362d05588b68fb5171c8f3c916bb76bea8623958f4f88375138b40924"
+    },
+    "assessment.csv": {
+      "bytes": 766,
+      "sha256": "921f03159ebd0063711ce9178feae071dd0b2b482361119bf704841b8e8a6c03"
+    },
+    "dev-questions.txt": {
+      "bytes": 668,
+      "sha256": "9be081bff43f75086bdba0e9ba60ee41db2120008faeaa4e0a44d8e43d8149bf"
+    },
+    "instructions-with-policies.txt": {
+      "bytes": 4842,
+      "sha256": "0311bd763661c960f32a0d554ebd47e2f6551efb3d2a40bb09b3dafd45f9114f"
+    },
+    "instructions.txt": {
+      "bytes": 1804,
+      "sha256": "a321716ce28a91276ade062c91e52babbc51bc6052bd29ccec798af75c91f5ff"
+    },
+    "learner-materials.zip": {
+      "bytes": 13474,
+      "sha256": "13510c9828b9e709d49bbc89f2a6a0b6a720f16916960aabf95fe6f406e20d6d"
+    },
+    "policies/APPROVAL-01.txt": {
+      "bytes": 515,
+      "sha256": "77c1c45f94c74abd90912793347e1c8b271f9250fbb0881788bda7ca6b518c2b"
+    },
+    "policies/MEAL-01.txt": {
+      "bytes": 441,
+      "sha256": "d1c942ba9ce61ef0d75283548abfb1e1096b21b520ab5d00eecdaf9af068019c"
+    },
+    "policies/RECEIPT-01.txt": {
+      "bytes": 458,
+      "sha256": "b82e63290573f10b4fac4af8856257a6cadc7e0a5fec8c1c5f515ae3d43f2289"
+    },
+    "policies/SCOPE-01.txt": {
+      "bytes": 584,
+      "sha256": "defc70824cc7d7091f5c878c032436193ea33ea9cf3fab505173ee0e56eaa921"
+    },
+    "policies/TRAVEL-2025.txt": {
+      "bytes": 400,
+      "sha256": "91e956d44bc368aeada1a134c2ed81d984155f7fd65eba9760c42541aa352590"
+    },
+    "policies/TRAVEL-2026.txt": {
+      "bytes": 536,
+      "sha256": "139a6b8244a996c610ca4267f4e21448bfb52e38adc10a2698e07d8a1ddc6a8a"
+    }
+  }
+}

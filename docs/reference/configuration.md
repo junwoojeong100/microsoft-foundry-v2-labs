@@ -16,15 +16,17 @@ The language freezes prompt/corpus/dataset selection and is part of the Hosted p
 | `AZURE_RESOURCE_GROUP` | Deployment verification | Actual training group |
 | `AZURE_AI_ACCOUNT_NAME` | Deployment verification | Actual Foundry account |
 | `AZURE_AI_PROJECT_ENDPOINT` | Model/agent/evaluation SDK | Full `/api/projects/...` endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Target model | Actual deployment; no automatic replacement |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Target model | Template default `gpt-5.6-luna`; prepare the real deployment first. No automatic replacement |
 | `WORKSHOP_AUTH_MODE` | Authentication | `cli` or `managed-identity` |
 | `AZURE_CLIENT_ID` | Optional user-assigned managed identity | Only when needed in the actual runtime |
 | `WORKSHOP_PREFIX` | Agent/Search object names | Unique `mfv2-...`, at most 32 characters |
 | `WORKSHOP_MAX_OUTPUT_TOKENS` | Model output limit | Default 2048; allowed 256–8192 |
 | `AZURE_SEARCH_ENDPOINT` | Search/IQ | Service root |
+| `AZURE_SEARCH_RESOURCE_GROUP` | `iq-chat check` ARM lookup | Optional; defaults to `AZURE_RESOURCE_GROUP` when Search is in the same group |
 | `AZURE_SEARCH_INDEX_NAME` | Ordinary search/IQ sources | Default `<prefix>-policies` |
 | `AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME` | IQ | Default `<prefix>-source` |
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | IQ | Default `<prefix>-kb` |
+| `AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME` | Optional IQ Chat preset | Separate owned base; default `<prefix>-chat-en-kb` for English or `<prefix>-chat-ko-kb` for Korean |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | Cloud judge | Explicitly separate from target |
 | `WORKSHOP_MODEL_DEPLOYMENTS_JSON` | Hosted matrix | 1–8 explicit unique key/deployment pairs; no model substitution |
 | `WORKSHOP_HOSTED_AGENT_NAME` | Hosted matrix | Exact approved agent name |
@@ -36,12 +38,18 @@ The language freezes prompt/corpus/dataset selection and is part of the Hosted p
 | `WORKSHOP_EMBEDDING_API` | Hybrid | Explicit `project`/`account`; failures never switch it |
 | `WORKSHOP_IQ_RERANKER_THRESHOLD` | IQ retrieval | Optional finite 0–4 filter; empty retains the service default. This is not an evaluator threshold |
 
-`AZURE_OPENAI_ENDPOINT` is required for explicitly selected account Chat Completions or embeddings
+`AZURE_OPENAI_ENDPOINT` is required for explicitly selected account Chat Completions, embeddings, or `iq-chat`
 and must belong to the same Foundry account as the project.
 The IQ Chat model and its outbound Search identity are configured in the **knowledge-base model binding**.
 The seed/retrieve commands do not read planner environment placeholders or automatically configure that binding.
 `WORKSHOP_AUTH_MODE`/`AZURE_CLIENT_ID` select the Python caller, not the Search service identity.
 See [keyless IQ model configuration](iq-model-identity.md).
+
+**September 15, 2026 IQ Chat preset:** deployment/model `gpt-5.6-luna`, underlying version `2026-07-09`,
+Search **system-assigned** identity, `2026-08-01-preview`, `low`, `answerSynthesis`.
+Changing the answer deployment does not change this preset. `iq-chat check` verifies its actual deployment, source and documented role;
+`setup` requires the matching local source/corpus ownership ledger. Neither modifies the default GA base.
+The new chat-base name must start with your prefix. [Setup sequence](../setup.md#4-environment-owner-checklist).
 
 `runtime-profile.json` freezes kind/pattern/retrieval/prompt/API/protocol/language.
 Legacy six-field profiles mean Korean; English profiles explicitly contain `language: en`.

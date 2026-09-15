@@ -4,12 +4,24 @@
 
 **완료 목표:** “답변이 좋아 보인다” 대신 같은 업무 기준과 실행 이력으로 개선을 판단합니다.
 
-이전: [Lab 06](06-knowledge.md) · 다음: A는 [Lab 09](09-operations.md), B는 [Lab 08](08-hosted.md)
+다음: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md) · [학습 경로](../paths.md)
 
 > **2026-09-15 한국어 개정:** 아래 A/B는 기존 입문 평가를 유지합니다.
 > 원본 평가 실습을 대체하는 심화 경로는 [Hosted 워크플로 평가 워크북](../reference/evaluation-workbook.md)입니다.
 > 새 국문 촬영은 실제 Hosted workflow의 24/24/16행과 native 평가·trace를 포함합니다.
 > 아래 입문 B의 단일 모델 예제와 심화 C의 다중 모델 실측은 구분합니다.
+
+## 시작 전
+
+**이번 순서:** A는 질문 전용 파일·빈 평가표, B는 6문항 dev 비교를 사용합니다. cloud judge/matrix는 선택입니다.
+
+**준비물:** A: Lab 03에서 저장한 agent와 학습자 ZIP. B: 동작하는 코드 환경과 새 label.
+
+**다음으로 갈 기준:** 실제 응답 6개·실패 또는 전부 통과 기록·검토 이유가 남았습니다.
+
+**막히면:** 정답 JSON을 agent에 붙여 넣지 않습니다. Dev 실패를 고치려고 holdout을 열지 않습니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
 
 ## 무엇이 조직의 자산으로 남는가?
 
@@ -31,11 +43,15 @@ flowchart LR
 
 ## A. 브라우저 — 6문항의 실제 답변을 직접 평가
 
-1. `data/evaluation/dev.jsonl`의 질문 6개를 편집기로 엽니다. holdout은 아직 열지 않습니다.
-2. [Lab 03](03-prompt-agent.md)의 에이전트에 질문마다 **새 대화**로 요청합니다.
-3. 아래 표에 실제 답변의 판단·금액·근거와 실패 이유를 기록합니다.
-4. 지침에서 빠진 조건 하나를 고치고, 같은 6문항을 다시 질문합니다.
-5. 전후의 모든 결과를 남깁니다. 성공한 질문만 골라 표에 넣지 않습니다.
+1. ZIP의 **`dev-questions.txt`**를 열고 **`assessment.csv`**를 `assessment-baseline.csv`로 복사해 저장합니다.
+   저장소의 생성 파일 `data/learner/`가 아니라 본인 증거 폴더에서 작업합니다. Holdout은 열지 않습니다.
+2. [Lab 03](03-prompt-agent.md)의 agent 이름/버전을 기록합니다. **New chat**마다 **질문 텍스트 하나만** 보냅니다.
+   ID·정답·평가 열은 보내지 않습니다.
+3. 6개 행을 모두 채웁니다. `actual_answer`는 실제 응답, `actual_document_ids`는 실제 인용,
+   `pass_or_fail`은 통과/실패, `review_note`는 판단 이유입니다.
+4. 검토에서 지침 누락을 찾았다면 원래 지침·평가표를 보존하고 그 조건을 고친 뒤 **Save**하여 새 버전을 기록합니다.
+5. 같은 6문항을 새 대화로 다시 묻고 `assessment-candidate.csv`에 저장합니다.
+   두 버전과 모든 실패를 남깁니다. 정당한 변경 이유가 없으면 전부 통과했다는 검토로 대신합니다.
 
 모든 사례가 통과하고 빠진 조건이 없다면 그 사실을 기록합니다.
 실패를 만들거나 불필요한 지침 변경을 강요하지 않습니다. 코드 경로의 고정 v1/v2 비교는 별도로 확인할 수 있습니다.
@@ -46,13 +62,14 @@ flowchart LR
 | D02 | 과거 숙박 120000원 / 과거 규정 | 직접 기록 | 직접 기록 |
 | D03 | 초과 → 사전 승인 / 현행+승인 규정 | 직접 기록 | 직접 기록 |
 | D04 | 식비 1일 30000원 / 식비 규정 | 직접 기록 | 직접 기록 |
-| D05 | 해외 규정 없음 → 보류 | 직접 기록 | 직접 기록 |
+| D05 | 해외 규정 없음 → 보류, `SCOPE-01` 인용 | 직접 기록 | 직접 기록 |
 | D06 | 규정 무시 요구에도 승인 불가 | 직접 기록 | 직접 기록 |
 
 이 표는 **실제 응답에 대한 수동 업무 평가**입니다.
 포털의 Foundry Evaluation을 실행한 결과로 표현하지 않습니다.
 포털 batch 평가가 준비된 수업에서는 강사가 evaluator·judge·데이터 매핑·비용을
 확인한 뒤 같은 데이터를 사용해 별도 실행합니다.
+**A는 여기서 [Lab 09](09-operations.md)로 이동합니다.** 아래 명령은 별도 B 실험이지 브라우저 경로의 추가 단계가 아닙니다.
 
 ![2026-09-15 새 국문 촬영: D03 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d03-send-2.webp)
 
@@ -70,6 +87,9 @@ flowchart LR
 완료할 수 있도록 `--retrieval local`을 사용합니다.
 IQ를 평가하려면 **세 실행 모두** `--retrieval iq`로 바꿉니다.
 서로 다른 검색 방식을 같은 단일변수 실험으로 비교하지 않습니다.
+첫 회차는 `local`을 유지하고 **1 → 실패가 있을 때만 2 → 3 → 5**로 진행합니다.
+4의 judge와 6의 모델 교체는 선택입니다. 기본 target 요청은 **6 + 6 + 4 = 16개**이며 서비스/도구/재시도는 추가입니다.
+기존 label이 있으면 새 baseline/candidate/holdout 이름 묶음을 정해 모든 참조를 함께 바꿉니다. 기존 실행을 삭제·덮어쓰지 않습니다.
 프로그램은 프로젝트·출력 한도·Search endpoint/index/source/base 설정도 고정해 비교합니다.
 `corpus_hash`는 로컬 합성 원본의 hash이지 원격 index의 불변성을 증명하는 값은 아닙니다.
 실험 중 원격 자료를 수정하지 말고, 실제 반환된 근거와 `context_hash`도 함께 확인합니다.
@@ -101,10 +121,15 @@ python scripts/workshop.py evaluate --label baseline
 | 승인됐다고 주장함 | 업무 권한 경계·도구 구현 |
 | JSON/요청 오류 | 모델 지원·출력 제한·SDK·서비스 오류 |
 
-실패 case가 D03이라고 가정한 예입니다. 실제 실패 ID와 실제 이유를 사용합니다.
+**실제 baseline 실패가 있을 때만** 아래를 실행하고 그 case ID와 **15자 이상**의 구체적인 검토 이유를 입력합니다.
+6개가 모두 통과했다면 그 사실을 기록하고 3으로 이동합니다. D03 실패 기록을 억지로 만들지 않습니다.
 
 ```bash
-python scripts/workshop.py feedback --label baseline --case D03 --reason "실제 응답의 승인 조건과 인용을 원문 규정과 대조하고 누락 원인을 검토합니다."
+printf 'Actual failed dev case ID: '
+read -r FAILED_CASE
+printf 'Your specific review reason: '
+read -r REVIEW_REASON
+python scripts/workshop.py feedback --label baseline --case "$FAILED_CASE" --reason "$REVIEW_REASON"
 ```
 
 이 명령은 **사람의 검토 대기 기록**을 만들 뿐 승인 처리하지 않습니다.
@@ -146,6 +171,9 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 
 ### 4. 선택: Foundry cloud judge
 
+<details>
+<summary>Judge 준비·별도 비용 승인이 있을 때만 펼치고, 아니라면 5로 이동합니다</summary>
+
 추가 비용·평가 권한·별도 judge 배포가 필요합니다.
 `.env`의 `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME`을 설정합니다.
 다른 배포 이름이어도 같은 모델일 수 있으므로 underlying model의 편향도 기록합니다.
@@ -176,6 +204,8 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 확인합니다. 이 두 고정 예제를 target 모델이 생성한 응답으로 집계하지 않습니다.
 두 예만 통과해도 judge 전체가 신뢰할 만하다는 뜻은 아닙니다.
 
+</details>
+
 ### 5. 후보를 고정한 뒤 holdout 한 번
 
 후보의 지침·모델·검색 설정을 더 이상 고치지 않을 때 진행합니다.
@@ -197,7 +227,10 @@ holdout은 4건입니다. 실패를 보고 지침을 고치면 그 holdout은 �
 입문은 4문항, 새 심화 촬영은 4모델×4문항=16행입니다.
 둘 다 이미 공개된 교육용 세트의 인수 절차 예시이며 새로운 미사용 holdout의 증거가 아닙니다.
 
-### 6. 모델 교체 실험 — 별도 실험으로
+### 6. 선택 — 모델 교체는 별도 실험으로
+
+<details>
+<summary>별도 모델 실험 펼치기 — 첫 회차에 필수는 아닙니다</summary>
 
 `.env`에서 **검증된 다른 배포 이름만** 바꾸고 지침·코드·검색·dev를 고정합니다.
 
@@ -208,8 +241,14 @@ python scripts/workshop.py compare --baseline candidate --candidate model-b --va
 
 검색 근거가 달라졌다면 모델만의 순위가 아니라 end-to-end 결과로 해석합니다.
 작은 6문항/4문항은 교육용 게이트이며 통계적 우월성·운영 SLA의 증거가 아닙니다.
+이 새 dev 실험이 이전 holdout을 튜닝용으로 다시 열거나 교체 모델의 인수를 증명하는 것은 아닙니다.
+
+</details>
 
 ## C. Hosted 모델 matrix와 평가자까지 검증하기
+
+<details>
+<summary>심화 C — Hosted matrix 게이트와 입문 평가 비교 펼치기</summary>
 
 실제 배포 버전의 답을 평가하려면 [평가 워크북](../reference/evaluation-workbook.md)을 순서대로 진행합니다.
 핵심 차이는 다음과 같습니다.
@@ -233,7 +272,10 @@ python scripts/workshop.py compare --baseline candidate --candidate model-b --va
 검색 근거 또는 관측 모델이 달라졌다면 순수한 prompt 개선 효과로 발표하지 않습니다.
 holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계가 깨집니다.
 
-## 2026-09-15 새 국문 실행 증거
+</details>
+
+<details>
+<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
 
 아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
 
@@ -263,6 +305,7 @@ holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계
 
 [새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
 
+</details>
 
 ## 완료 기준
 
@@ -272,6 +315,9 @@ Native groundedness는 각각 24/24, 22/24, 16/16이고 relevance는 19/24, 20/2
 숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.
 데이터·실패 원인·분리된 평가 경로는 [실행 기록](../live-run.md)을 확인합니다.
 
-실제 baseline/candidate 이력, 실패 검토 또는 전부 통과했다는 기록, 고정 후보의 holdout
+A: 6문항 평가표·실제 agent 버전/지침·실패 또는 전부 통과 검토가 남습니다. Holdout·CLI 인수는 필요 없습니다.
+B: 실제 baseline/candidate 이력, 실패 검토 또는 전부 통과했다는 기록, 고정 후보의 holdout
 결과와 사람의 판단이 남습니다. `accept`는 인수 자료를 만들며 **자동 배포/운영 승인을 하지 않습니다.**
 업무 검사의 100% 통과가 답변 전체의 의미적 정확성·보안·법적 적합성을 보장하지 않습니다.
+
+다음: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md)

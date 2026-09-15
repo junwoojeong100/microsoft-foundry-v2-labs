@@ -4,14 +4,27 @@
 
 **Goal:** Distinguish model names from deployment names and obtain one actual response.
 
-Previous: [Lab 01](01-foundry.md) · Next: [Lab 03](03-prompt-agent.md)
+Next: A → [Lab 03](03-prompt-agent.md) · B → [Lab 04](04-agents-tools.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A runs the Playground steps; B runs the two CLI checks and Structured Outputs. Skip model comparison on the first pass.
+
+**Need:** The prepared gpt-5.6-luna deployment; B needs Lab 00's activated environment and .env.
+
+**Continue when:** A real response and the actual deployment are recorded. B also has a validated structured answer.
+
+**If blocked:** A missing model, 403 or 429 is a setup/access/capacity issue. Do not switch models silently.
+
+[One-time setup and learner files](../setup.md).
 
 ## A. Browser: start in the Playground
 
 ### 1. Identify the deployment
 
-Open the training project's model/deployment list. Select the prepared deployment
-and record its catalog model, version, and deployment name separately.
+Open the training project's model/deployment list. Select **`gpt-5.6-luna`**
+and verify model **`gpt-5.6-luna`**, version **`2026-07-09`**.
+Record catalog model, version, and deployment name separately even though the two names match here.
 
 
 **What to check:** **Name** is the invocation name; **Model / Version** identifies the
@@ -42,13 +55,12 @@ Recheck tools whenever you switch Playgrounds or create an agent.
 
 
 **What to check:** Record the model name, time, and token information as well as the
-answer. The source screenshot used the Korean equivalent; it is not your own response.
+answer. The English recording is a separate historical run, not your own response.
 
 ### 4. Compare a question without evidence
 
 Start **New chat**, then ask the canonical question:
 `What is Hanbit Technology's lodging limit for September 2026?`
-(What is Hanbit Technology's lodging limit in September 2026?)
 
 **No synthetic policies have been supplied yet, so the model should not pretend to
 know an amount.** This is not a test of knowledge about an actual company.
@@ -68,12 +80,10 @@ Discard only the temporary settings you intended to leave unsaved.
 
 ### If no deployment exists
 
-An authorized instructor selects a deployable model supporting **text input, tools,
-and Structured Outputs**. Review deployment name, SKU, capacity, region, pricing,
-and quota before creating it. Access to a particular new model is not a prerequisite.
-
-`workshop-chat` is an illustrative name, not a resource that already exists.
-Do not force-create resources using model versions, regions, or TPM numbers copied from this guide.
+Stop and complete [the setup card](../setup.md) with the authorized environment owner.
+This dated first-pass route uses **Luna**, whose text/tools/Structured Outputs and IQ chat path were verified.
+Do not select `-judge`, a router, or another available model to get past a missing deployment.
+Another model is an explicitly revalidated variant, not the same preset. Review quota/SKU/region/pricing before any authorized creation.
 
 ## B. Code: call the same project through Responses
 
@@ -82,9 +92,8 @@ python scripts/workshop.py --language en doctor --cloud
 python scripts/workshop.py --language en model --question "Explain the difference between Foundry and Agent Framework in three English sentences."
 ```
 
-The question asks for a three-sentence Korean explanation of Foundry versus Agent
-Framework. Model-only questions may be translated freely; canonical policy/evaluation
-questions should remain unchanged for comparison.
+The question requests three English sentences. Model-only questions may be translated freely;
+keep the selected language's canonical policy/evaluation questions unchanged during a comparison.
 
 Read `project_clients` and `call_model` in `src/foundry_workshop/cloud.py`.
 
@@ -143,7 +152,8 @@ Without routing policy, candidate models, and the actual response model, do not
 present a fixed-model ranking. Verify access and the model list immediately before
 class. This lab can be completed without Router.
 
-## New English execution evidence
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -173,6 +183,7 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion and recovery
 
@@ -182,3 +193,5 @@ These are newly recorded English actions using the separate English prompt/data 
 - 401/403: check [authentication and roles](../reference/troubleshooting.md), not blanket Owner access.
 - 404: check the full project endpoint and **deployment name** first.
 - 429: stop concurrent calls and inspect quota/TPM; no endless retries.
+
+Next: A → [Lab 03](03-prompt-agent.md) · B → [Lab 04](04-agents-tools.md)

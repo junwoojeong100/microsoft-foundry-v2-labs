@@ -82,15 +82,37 @@ python -m ruff check .
 python -m ruff format --check .
 python -m compileall -q src scripts examples tests tests_sdk
 python scripts/check_docs.py
+python scripts/build_learner_materials.py
 python -m pip check
 python scripts/check_sdk.py
 ```
 
 SDK tests use the actual installed libraries with explicitly stubbed transports.
 They are not counted as real Azure responses.
-Final result: **98 offline tests on each of Python 3.13 and 3.14, 21 installed-SDK tests**, Ruff check/format,
+After the guide/preset revision: **126 offline tests on each of Python 3.13 and 3.14, 27 installed-SDK tests**, Ruff check/format,
 Python compilation, dependency compatibility, and documentation checks passed.
-Documentation checks cover **35 language pairs and 200 CLI examples**, with no pending translations.
+Documentation checks cover **37 language pairs and 218 CLI examples**, with no pending translations.
+Both deterministic learner bundles match their canonical inputs on Python 3.13 and 3.14.
+
+## Guide and IQ preset revision — September 15, 2026
+
+All 24 language lab pages now have scope, prerequisites, completion/recovery and next-step cards.
+The A route includes its capstone and totals 240 minutes **after preparation**.
+Ready browser instructions, questions-only files and blank assessments derive from canonical v2/policies/dev;
+neither reference-answer columns nor holdout enter the learner ZIP. Original prompts/datasets and media were not changed.
+
+The final **read-only Azure preflight** confirmed `gpt-5.6-luna` / `2026-07-09` in `Succeeded` state,
+the actual Search system-assigned identity, its documented account role, and the intended synthetic source.
+It returned `ready_for_setup: true`, **`configured: false`**, `model_inference_verified: false`, and `cloud_changes: false`.
+The new permanent chat base was **not created**. No new role assignment, deployment or paid inference/evaluation was performed for this revision.
+
+The earlier successful MI binding/response was replayed **locally**, without another Azure request.
+This confirmed API-key `null` serialization and the actual `id/title/content` source projection.
+Returned fields are checked against the canonical corpus; missing date fields are not invented.
+Transport tests cover configuration/model drift before paid requests, explicit errors, ownership, and preserved failures.
+
+These checks are not a new end-to-end Azure run, a novice classroom pilot, or a rerecording of the revised preparation steps.
+Earlier live scores/footage retain their original versions and hashes; they do not prove execution of the newly changed code.
 
 ## Not established
 

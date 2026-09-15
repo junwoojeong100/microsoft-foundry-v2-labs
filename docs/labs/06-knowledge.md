@@ -4,7 +4,19 @@
 
 **Goal:** Distinguish ordinary search from actual IQ retrieval and preserve source evidence.
 
-Previous: [Lab 05](05-workflows.md) · Next: [Lab 07](07-evaluation.md)
+Next: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A checks its agent's sources, then optionally the prepared fixed-model IQ chat base. B follows the numbered GA retrieval path; hybrid is optional.
+
+**Need:** A: Lab 03 responses and learner files; the owner's chat-base name only if IQ Chat is selected. B: .env, Search permissions and an owned synthetic source.
+
+**Continue when:** The selected path's real evidence is recorded; IQ chat shows Luna planning and answer synthesis.
+
+**If blocked:** Do not open the model-free GA base expecting a chat model. Use iq-chat check for the fixed chat preset.
+
+[One-time setup and learner files](../setup.md).
 
 ## Four different retrieval paths
 
@@ -21,21 +33,44 @@ Never rename ordinary text search as hybrid retrieval.
 
 ## A. Browser: a visible citation is not enough
 
-1. Ask current and historical travel questions in your [Lab 03](03-prompt-agent.md) agent.
+1. Open your current/historical/over-limit responses from [Lab 03](03-prompt-agent.md). If a response is missing, copy that question from `dev-questions.txt` into a new chat.
 2. Open the cited name/content where supported; for direct context, compare the document ID with the original file.
 3. Compare the effective periods of `TRAVEL-2025` and `TRAVEL-2026`.
 4. Record a current-policy citation for May 2026 as incorrect evidence selection.
 5. Check that an over-limit question also explains the approval policy.
-6. If an instructor-prepared IQ agent exists, ask the same question and compare sources.
 
-**The IQ Chat completion model supports managed identity.**
-The caller is the Search service's identity, which needs `Cognitive Services User` on the Foundry account hosting the model.
-Portal model-based planning/synthesis and this lab's model-free GA retrieval are different execution modes, not supported versus broken authentication.
-See the [normal configuration and actual HTTP 200 verification](../reference/iq-model-identity.md).
+### Optional IQ Chat: one prepared configuration, one actual test
 
+Choose this segment only when the owner has completed [IQ preparation](../setup.md#4-environment-owner-checklist).
+Otherwise record **IQ Chat not selected**, complete the source checks above, and continue to Lab 07.
+Planning/synthesis for this Search-index source is **Preview as of September 15, 2026**; MI itself is supported.
 
-**What to check:** Under **Knowledge → Knowledge bases**, verify your **Connection**,
-base, and source. `Active` is an object state; actual retrieval/source evidence needs a separate request.
+1. In Foundry, open **Knowledge → Knowledge bases** and select the **exact chat-base name on your setup card**, normally `<prefix>-chat-en-kb`.
+   Confirm its Search connection and synthetic source. Do not select the original model-free GA base.
+2. Inspect **Chat completions model** using the table below. Do not save defaults over an existing base.
+3. In the same prepared terminal used for Lab 05, run `check` below. Continue only when `configured: true`; `ready_for_setup: true` alone means prerequisites, not a saved chat base.
+4. After cost approval, run `ask` **once**. Use the CLI for this test so its API/request fields and returned activity are preserved; do not also send a duplicate portal chat.
+5. Compare `answer`, `source_ids`, `references`, and both model activities with the synthetic originals. Record a failure unchanged.
+
+| Setting | Exact first-pass choice |
+|---|---|
+| Chat deployment / underlying model | **`gpt-5.6-luna` / `gpt-5.6-luna`**, model version **`2026-07-09`** |
+| Authentication | **System assigned identity** of **Search**, not the learner or Hosted agent |
+| Model-account role | Search identity has **`Cognitive Services User`** on the Foundry account |
+| Reasoning / output | **`low` / `answerSynthesis`** |
+| API | **`2026-08-01-preview`**; no API key |
+
+```bash
+python scripts/workshop.py --language en iq-chat check
+python scripts/workshop.py --language en iq-chat ask --label iq-chat-lab06 --confirm-cost
+```
+
+The result must show `model_planning_verified: true`, `model_synthesis_verified: true`,
+and actual `modelQueryPlanning` / `modelAnswerSynthesis` for Luna.
+Request, response, source evidence and failures stay in `outputs/iq-chat/iq-chat-lab06/`; use a new label for another request.
+`check` does not change Azure and `ask` never chooses another model/provider.
+For `configured: false`, missing permissions, a wrong version, 403 or 429, stop and use [the fixed-preset recovery guide](../reference/iq-model-identity.md).
+A fixed model removes a common configuration mismatch; it cannot guarantee quota or service availability.
 
 ## B. Code: add Search to the shared configuration
 
@@ -56,10 +91,9 @@ Search service or roles; they create **your prefixed objects inside a prepared s
 python scripts/workshop.py --language en retrieve --provider local --question "What is the domestic business-trip lodging limit for September 2026?"
 ```
 
-Meaning: the September 2026 domestic lodging limit. Inspect `documents`, `source_ids`,
-and `context_hash`. This educational search is not Korean morphological or semantic
-search. If evidence is missing, record the limitation instead of hardcoding answers.
-Keep the canonical Korean query: translating it changes this keyword experiment.
+Inspect `documents`, `source_ids`, and `context_hash`. This educational keyword search is not a production semantic search engine.
+If evidence is missing, record the limitation instead of hardcoding answers.
+Keep the selected English question unchanged within this experiment; `--language en` selects English documents.
 
 
 **What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
@@ -85,8 +119,8 @@ Use a new prefix or ask the instructor to recover ownership. Partial document up
 failure is not overall success.
 
 
-**What to check:** Verify `mode: live`, your index, and `documents_uploaded: 6`.
-`iq_created: false` means only ordinary Search was created.
+**What to check:** The seed result has `mode: live`, your `index`, `document_count: 6`,
+`hybrid: false`, and `knowledge_base: null`. It created ordinary Search objects, not IQ.
 
 
 **What to check:** Read the result of `--provider search`; verify endpoint/index.
@@ -102,8 +136,9 @@ python scripts/workshop.py --language en retrieve --provider iq --question "What
 Meaning: advance-approval conditions for a KRW 170000 domestic hotel in September 2026.
 
 
-**What to check:** Verify `iq_created: true`, source/base names, and
-`api_version: 2026-04-01`. Preserve your ownership record separately from the ordinary-index result.
+**What to check:** The seed result now has a non-null `knowledge_base` and `document_count: 6`.
+The **retrieve** result reports the source/base configuration and `api_version: 2026-04-01`.
+Keep the `ledger` file, `outputs/azure-objects.json`, which records ownership.
 
 Default IQ uses **REST `2026-04-01` GA direct intents and extractive retrieval**.
 The seed command references the Search-index source but **does not configure a KB model**.
@@ -154,6 +189,11 @@ flowchart LR
 
 ## C. Optional real hybrid RAG
 
+**First pass: continue to [Lab 07](07-evaluation.md).** C and D are separate advanced branches, not missing steps in the GA path.
+
+<details>
+<summary>Expand the optional embedding and hybrid-index exercise</summary>
+
 Use a separate owned index instead of silently changing the existing text index.
 Configure a verified embedding deployment and its actual dimensions.
 
@@ -185,7 +225,12 @@ Ownership/per-index configuration stays in `outputs/azure-objects.json`.
 Changing an environment index name does not rewire a remote IQ source/base.
 Do not mix retrieval changes into a prompt-only evaluation comparison.
 
+</details>
+
 ## D. Connect IQ to Hosted workflows and evaluation
+
+<details>
+<summary>Expand the advanced workflow/evaluation connection</summary>
 
 ### Recall is part of the experiment
 
@@ -205,6 +250,8 @@ Continue in [Lab 08](08-hosted.md) and the [evaluation workbook](../reference/ev
 The [IQ workbook](../reference/iq-workbook.md) documents separate Toolbox/Fabric/Work IQ approval and identity gates.
 No hidden prerequisite requires another repository.
 
+</details>
+
 ## Distinguish model-based IQ from the default GA path
 
 To have a model plan queries and synthesize answers for this Search-index source, explicitly select the supported Preview contract
@@ -220,7 +267,8 @@ Preserve an old base only when reproducing its frozen evaluation; use a new owne
 For the normal model-based path, configure a supported deployment and the Search MI role, then save and test.
 Using another owned base protects the existing evaluation; it does not prohibit model configuration.
 
-## New English execution evidence
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -254,9 +302,13 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion
 
-Call Search and IQ separately, explain their difference, and verify cited sources and
-effective periods. `outputs/azure-objects.json` records ownership of your Search objects;
+A: verify source IDs/effective periods and record whether IQ Chat was selected and actually run.
+B: call Search and GA IQ separately and explain the returned evidence.
+`outputs/azure-objects.json` records ownership of your Search objects;
 it is not authorization to delete a shared service.
+
+Next: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md)

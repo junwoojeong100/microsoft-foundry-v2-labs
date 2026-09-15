@@ -3,11 +3,13 @@
 **English** | [한국어](ko/paths.md)
 
 **Path A runs prepared examples without writing code. Path B works directly with code and execution records.**
-Both use the same synthetic Hanbit Technology policies. Complete A first and extend
+Both use equivalent language-specific synthetic Hanbit Technology policies. Complete A first and extend
 to B later, or follow the relevant A/B section in each lab. A is portal-first, but
 its workflow exercise runs in a prepared MAF environment.
 
-Follow **action/command, new image, then What to check**. Each language uses separately recorded evidence, not your own results.
+**Start with [the setup card and learner ZIP](setup.md), then follow only your path's next link.**
+Read the start card, perform the action/command, and check its completion criterion.
+Images and collapsed recording galleries are optional references, not your own results.
 Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide),
 [new English recordings](video-summary.md), and [new action index](action-captures.md).
 English commands select their own frozen English policy/prompt/evaluation bundle with `--language en`.
@@ -16,11 +18,11 @@ English commands select their own frozen English policy/prompt/evaluation bundle
 ## A. Complete beginner: four hours in a prepared environment
 
 You need a browser, an Entra account, and an instructor-prepared Foundry project and
-model deployment. Lab 05 also needs a **prepared MAF environment** with SDKs installed
+**`gpt-5.6-luna` deployment**. Lab 05 also needs a **prepared MAF environment** with SDKs installed
 and the learner signed in. Copy commands and read their results; Python authoring,
 installation, and subscription billing setup are preparation, not class exercises.
-To create the environment yourself, complete the administrator steps in
-[Instructor preparation](instructor.md) first.
+For self-study, complete [the environment-owner checklist](setup.md#4-environment-owner-checklist)
+and [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment) first.
 
 | Order | Lab | Time | Your evidence |
 |---|---|---:|---|
@@ -32,14 +34,17 @@ To create the environment yourself, complete the administrator steps in
 | 6 | [06. Knowledge: A](labs/06-knowledge.md) | 35 min | Source citation and effective-date check |
 | 7 | [07. Evaluation: A](labs/07-evaluation.md) | 30 min | Manual business assessment of all six dev cases |
 | 8 | [09. Operations: A](labs/09-operations.md) | 25 min | Risks, costs, and cleanup record |
-| — | Breaks and buffer | 25 min | **240 minutes total** |
+| 9 | [11. Capstone: A](labs/11-capstone.md) | 15 min | Your worksheet and evidence handoff |
+| — | Breaks and buffer | 10 min | **240 minutes total** |
 
 **A is complete** when you have actual Playground/agent responses, a prepared MAF
-sequential run, source checks, a dev assessment, and cleanup evidence. Writing Python
+sequential run, source checks, a dev assessment, and a Lab 11 cleanup/evidence handoff. Writing Python
 or deploying a server is not required.
 
 Distinguish observing MAF from running it yourself. Portal workflow authoring is not
-a substitute. Watching the instructor's IQ demo is not your own IQ deployment.
+a substitute. The Preview IQ Chat segment is optional: select it only when prepared,
+otherwise label it **not run** and complete the source checks with the already-created agent.
+This is a declared scope choice before execution, never fallback after an IQ error.
 
 ## B. Practitioner: six hours in a prepared environment
 

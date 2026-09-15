@@ -72,22 +72,42 @@ python -m ruff check .
 python -m ruff format --check .
 python -m compileall -q src scripts examples tests tests_sdk
 python scripts/check_docs.py
+python scripts/build_learner_materials.py
 python -m pip check
 python scripts/check_sdk.py
 ```
 
 SDK 테스트는 실제 설치 라이브러리와 명시적 transport stub을 사용합니다.
 그 성공을 Azure 실제 응답으로 집계하지 않습니다.
-최종 영어 확장과 미디어 교체 후 전체 검사를 다시 수행합니다.
-
-최종 검사에서 Python 3.13·3.14의 offline 테스트는 **각 98개**, 설치 SDK 테스트는 **21개**가 통과했습니다.
+가이드/preset 보강 후 Python 3.13·3.14의 offline 테스트는 **각 126개**, 설치 SDK 테스트는 **27개**가 통과했습니다.
 Ruff·format·Python compilation·의존성·SDK 계약·문서 검사도 통과했습니다.
-문서 검사는 **35개 언어 쌍·200개 CLI 예제**와 번역 유예 0개를 확인했습니다.
+문서 검사는 **37개 언어 쌍·218개 CLI 예제**와 번역 유예 0개를 확인했습니다.
+Python 3.13·3.14에서 두 학습자 번들의 생성 바이트와 canonical 입력 일치도 확인했습니다.
 영문 새 자료는 172개 액션·516개 무손실 캡처·영상 3개이며,
 407개 편집 구간의 원본 대비 최소 SSIM은 0.985156입니다.
 두 언어의 새 파일을 검수한 뒤 이전 미디어 1,452개와 중복된 구버전 진입 문서를 제거했습니다.
 사용자 승인 후 새 영상 6개를 비공개 저장소의 GitHub 첨부로 게시했습니다.
 실제 업로드 파일의 byte/hash·재생·챕터 이동을 확인했으며 임시 서명 storage URL은 저장하지 않았습니다.
+
+## 가이드·IQ preset 보강 — 2026-09-15
+
+두 언어의 랩 24페이지에 범위·준비물·완료/복구·다음 단계 카드를 추가했습니다.
+A는 캡스톤을 포함하며 **사전 준비 뒤** 합계 240분입니다.
+브라우저 지침·질문 전용 파일·빈 평가표는 canonical v2/정책/dev에서 생성하며
+학습자 ZIP에는 정답 열·holdout을 넣지 않았습니다. 기존 지침·dataset·미디어는 변경하지 않았습니다.
+
+최종 **읽기 전용 Azure 사전 검사**에서 `gpt-5.6-luna` / `2026-07-09`의 `Succeeded`,
+실제 Search system-assigned identity·명시된 계정 역할·의도한 합성 source를 확인했습니다.
+결과는 `ready_for_setup: true`, **`configured: false`**, `model_inference_verified: false`, `cloud_changes: false`입니다.
+새 영구 chat base는 **만들지 않았으며** 이 보강을 위해 역할 부여·배포·유료 추론/평가를 새로 실행하지 않았습니다.
+
+이전에 성공한 MI 모델 연결/응답을 **로컬에서 재생 검사**했으며 Azure를 다시 호출하지 않았습니다.
+API key `null` 직렬화와 실제 `id/title/content` source projection을 확인했습니다.
+반환 필드만 canonical 원문과 대조하고 없는 날짜 필드는 만들어 넣지 않습니다.
+Transport 검사는 유료 요청 전 설정/모델 변경 거절·명시적 오류·소유권·실패 보존을 확인합니다.
+
+새 end-to-end Azure 실행·초보자 수업 실험·개정 준비 단계의 재촬영을 수행했다는 뜻은 아닙니다.
+기존 실제 점수/영상은 원래 버전·hash를 유지하며 새로 바뀐 코드의 실행 증거로 재분류하지 않습니다.
 
 ## 확인하지 않은 것
 

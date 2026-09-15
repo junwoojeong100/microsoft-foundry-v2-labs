@@ -20,14 +20,16 @@ Give each team a unique agent/Search prefix. Only instructors manage shared serv
 creation and deletion. Do not prepare a portal Workflow Designer exercise: A's Lab 05
 runs existing MAF code. Check the SDK, venv, and each learner's model-call permission.
 
-English and Korean guides use the same canonical Korean data and executable policy
-questions. Provide the [language reference](reference/languages.md), not an untracked
-translation of an evaluation dataset.
+English and Korean use **separate frozen language bundles** with equivalent IDs, dates, amounts and judgments.
+English commands explicitly select `--language en`; neither language silently substitutes the other.
+Give each learner [the setup card and ready ZIP](setup.md), not raw evaluation records or a request to assemble policy JSON.
+The ZIP supplies complete instructions, six TXT sources, questions only and a blank assessment. [Language lineage](reference/languages.md) stays intact.
 
 ## 2. Three to seven days before: accounts, permissions, costs
 
 1. Assign an owner and a dedicated training subscription/resource group; keep production separate.
-2. Verify the current Foundry project, deployable model, quota, SKU, and region.
+2. Verify the current Foundry project and **`gpt-5.6-luna` / `2026-07-09`**, deployed as **`gpt-5.6-luna`**.
+   Check quota, SKU and region; do not let first-time learners guess a replacement.
 3. Assign the required project roles, such as `Foundry User`, to participants.
 4. Prepare separate Search data read/write roles.
 5. Prepare the roles the remote agent identity needs for models and tools.
@@ -49,11 +51,14 @@ Distribute **values only**, separately, in `.env.example` format. Never distribu
 
 - Subscription/tenant IDs, resource group, and Foundry account.
 - Full project endpoint, including `/api/projects/...`.
-- Actual deployment name with verified model capabilities.
+- Exact `gpt-5.6-luna` answer deployment and verified model version `2026-07-09`.
 - Unique `WORKSHOP_PREFIX`.
-- Optional Search endpoint and names.
+- Optional Search endpoint, account OpenAI root, and the **chat-base name printed by `iq-chat setup`**, distinct from the GA base.
 - Optional judge deployment and underlying model.
 - Actual project ARM ID and unique agent name if Hosted is selected.
+
+Also hand over the repository location and an activated, participant-signed-in MAF terminal for Lab 05.
+For self-study, [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) is the full setup route, not an assumed instructor action.
 
 ## 3. Prepare Search/IQ
 
@@ -64,7 +69,7 @@ Check these separately:
 |---|---|
 | Service tier/region | Support for the selected features |
 | Data-plane authentication | Document reads/writes with Entra ID |
-| Participant roles | Reader; Service/Index Data Contributor only for required writers |
+| Participant roles | Reader + Search Index Data Reader; Search Service/Index Data Contributor only for required writers |
 | Semantic ranker | Configuration and separate charges for GA semantic intent |
 | Knowledge retrieval | Management-plane usage/billing consent; `free`/`standard` conditions |
 | Source citations | Returned `id`, `title`, and `content` |
@@ -74,12 +79,21 @@ Scripts do not silently change billing to `standard`. An administrator reviews
 For a Chat completion model, give **the Search service's identity** `Cognitive Services User` on the model's Foundry account.
 Selecting managed identity is supported; it does not borrow the local user's or Hosted agent's role.
 The model-based Preview path is separate from the default direct-intent retrieval experiment.
-Rehearse the [normal configuration and actual activity checks](reference/iq-model-identity.md) before teaching that path.
+For that optional segment, use the fixed **Luna + Search system-assigned identity + `low` + `answerSynthesis`** preset.
+Follow [the owner sequence](setup.md#4-environment-owner-checklist) once and give learners its exact chat-base name.
+Do not hand out the model-free GA base as a ready-to-chat configuration.
+`iq-chat check` is read-only; `iq-chat setup --confirm-create` creates only the owned separate base;
+`iq-chat ask --label <new-label> --confirm-cost` verifies actual paid planning/synthesis.
+Neither command deploys a model or grants roles. [Details and recovery](reference/iq-model-identity.md).
+For the learner's CLI checks, verify Reader on the training Foundry account/Search service
+and Search Index Data Reader for retrieval. Project-only access is not account-level ARM/role visibility;
+do not discover that missing prerequisite halfway through Lab 06.
 
 ## 4. The day before: rehearse the same edition
 
 Freeze the documentation/code version and rehearse in a fresh, independent folder.
 Hosted initialization can discover a parent `azure.yaml`; stay outside another azd project.
+Complete Lab 00 B's `.env` and participant sign-in first. Run the block below only with the approved training values.
 
 ```bash
 python3.13 -m venv .venv
@@ -117,6 +131,7 @@ python scripts/workshop.py --language en seed-search --iq --confirm-create
 python scripts/workshop.py --language en retrieve --provider iq
 ```
 
+The ready learner ZIP already contains those same exported policies; an export is optional regeneration, not a missing A prerequisite.
 Export and seed operations check ownership/name collisions. Do not hide rerun failures
 with `--force`. Use dedicated prefixes and ownership records instead of shared objects.
 

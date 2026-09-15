@@ -47,6 +47,10 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 
 ## 여기에서 시작하세요
 
+**처음 방문: [준비 카드 작성](docs/ko/setup.md) → [학습자 ZIP 받기](data/learner/ko/learner-materials.zip) → [Lab 00 시작](docs/ko/labs/00-start.md).**
+ZIP에는 그대로 붙여 넣는 지침, 합성 정책 6개, 질문 전용 파일, 빈 평가표가 있습니다.
+첫 회차는 **A**를 따라가고 심화 분기·녹화 참고 화면은 필요할 때만 펼칩니다.
+
 | 지금 내 상태 | 시작점 | 끝나면 남는 것 |
 |---|---|---|
 | Azure·AI·코딩이 처음 | **[A. 완전초보자 4시간 경로](docs/ko/paths.md)** | 포털 에이전트, 근거 있는 답변, 6문항 평가표, 운영·정리 체크리스트 |
@@ -56,8 +60,9 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 | Azure 승인이나 할당량을 기다리는 중 | **[Azure 없이 검사기 체험](docs/ko/labs/00-start.md)** | 오프라인 fixture로 실행·평가 파일 구조 이해. **클라우드 실습 완료와는 다름** |
 | 구버전을 이미 진행함 | **[구버전 → v2 변경 지도](docs/ko/reference/migration.md)** | 재사용할 개념, 바꿔야 할 SDK·권한·실행 방식 |
 
-**초보자는 터미널 설치부터 시작하지 않습니다.** 기본은 포털이며, 워크플로 단계에서는
-강사가 준비한 MAF 환경에서 명령을 복사해 실행합니다. 포털 Workflow Designer로 작성하지 않습니다.
+**A는 브라우저부터 시작**하고 워크플로 단계에서 준비된 MAF 터미널에 명령 하나를 복사합니다.
+터미널을 제공받지 않았다면 [Lab 00 B](docs/ko/labs/00-start.md#b-코드--한-폴더-한-환경)가 명시적인 직접 준비 경로입니다.
+포털 Workflow Designer로 작성하지 않습니다.
 아래 시간은 강사가 계정·리소스·권한·모델을 준비한 뒤의 수업 시간입니다.
 구독 개설, 기능 승인, 할당량 증설, 설치·RBAC 전파는 별도입니다.
 
@@ -117,7 +122,8 @@ python3.13 scripts/workshop.py evaluate --label first-offline
 
 - 현재 Foundry / Projects SDK **2.x**를 사용합니다. classic의 threads/runs 코드를 혼합하지 않습니다.
 - 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다.
-- 모델을 `gpt-...` 이름으로 강제하지 않습니다. 강사가 해당 구독에서 확인한 **실제 배포 이름**을 씁니다.
+- 첫 실습 preset은 **`gpt-5.6-luna`**, 같은 이름의 배포, 모델 버전 **`2026-07-09`**입니다.
+  선택 IQ Chat 경로는 이 모델과 Search 관리 ID를 사전 검사합니다. 다른 모델은 명시적인 비교 실험에서 사용합니다.
 - 서비스 GA와 SDK Preview는 따로 표시합니다. Hosted Agent 서비스는 GA지만 이 랩의 Python hosting
   패키지는 prerelease입니다. Foundry IQ도 GA 계약과 richer Preview 계약을 구분합니다.
 - 모델 교체, 지침 개선, 평가 데이터 축적을 다룹니다. **자동 가중치 학습·fine-tuning·RL을 수행하지 않습니다.**
@@ -144,6 +150,7 @@ scripts/               실습 CLI, 패키징, 문서 검사
 data/knowledge/        합성 정책 6건
 data/evaluation/       dev 6건 / holdout 4건 / judge calibration 2건
 data/fixtures/         Azure 없이 검사기만 체험하는 고정 예제
+data/learner/          바로 쓰는 국문·영문 브라우저 자료와 ZIP
 prompts/               비교할 v1 / v2 지침
 examples/              로컬 MCP 서버와 Hosted Agent 진입점
 tests/                 Azure 없는 로직·계약 검사

@@ -6,6 +6,42 @@
 Do not confuse authentication with the optional model-based retrieval mode.
 The workshop's default model-free GA path is a curriculum choice, not evidence that managed identity or the portal model setting is unsupported.
 
+## First pass: use the fixed executable preset
+
+Use **deployment/model `gpt-5.6-luna`, model version `2026-07-09`, Search system-assigned identity**.
+Do not make a first-time learner choose among arbitrary chat models.
+After [the owner prerequisites and synthetic seed](../setup.md#4-environment-owner-checklist) are complete, run:
+
+```bash
+python scripts/workshop.py --language en iq-chat check
+python scripts/workshop.py --language en iq-chat setup --confirm-create
+python scripts/workshop.py --language en iq-chat ask --label iq-chat-first --confirm-cost
+```
+
+This is the same sequence as the setup card, not another mandatory test. Do not repeat the paid request if it is already recorded.
+`check` verifies the exact underlying model/version, Search identity/role and source without changing Azure.
+`setup` creates a **separate owned** `<prefix>-chat-en-kb` (override: `AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME`).
+It will not overwrite an unowned/mismatched base, deploy models, grant roles, or change the GA base.
+`ask` preserves request/response/evidence under `outputs/iq-chat/<label>/` and requires actual Luna planning **and** synthesis.
+It rechecks the underlying model/version before the paid POST and rejects evidence that differs from the selected canonical language corpus.
+`model-preflight.json`, `knowledge-base-response.json` and failure stages distinguish model preparation, KB reads, retrieval and answer validation.
+The existing source returns `id`, `title`, and `content`, not separate date fields.
+Only returned fields are compared with the canonical policy; missing date metadata is never invented.
+The preset uses the tested `maxOutputSize` field. All new requests need a new label.
+
+| Result/error | Do this next |
+|---|---|
+| `ready_for_setup: true`, `configured: false` | Owner runs the authorized `setup`; no chat base exists yet |
+| `configured: true`, `model_inference_verified: false` | Configuration is ready; only the explicitly paid `ask` verifies inference |
+| Wrong model/version or missing Search role | Owner fixes that prerequisite; do not switch deployment, identity or API key |
+| Missing ownership ledger | Return to the same workshop copy that seeded the synthetic source; do not invent ownership |
+| Existing base has another model/mode | Review it and choose a new owned name; no automatic rewrite |
+| 403 / 429 / service error | Preserve `failure.json`; check RBAC propagation/network/quota before an explicitly new attempt |
+
+A fixed model prevents avoidable mismatches, not outages or quota exhaustion.
+The new command's live check on September 15 was **read-only** (`configured: false`); it did not create a permanent chat base.
+The earlier actual model-call evidence below belongs to the separately approved temporary MI test.
+
 ## 1. Separate the callers and permissions
 
 ```mermaid
@@ -24,6 +60,12 @@ Giving a role to the user or Hosted agent does not give that role to Search.
 `WORKSHOP_AUTH_MODE` and `AZURE_CLIENT_ID` configure this repository's Python caller; they do not configure Search's outbound model identity.
 Managed identity support requires a Basic-or-higher Search service.
 
+**Local preset caller:** `Reader` on the training Foundry account and Search service for model/role/object preflight,
+plus `Search Index Data Reader` for retrieval. Existing Foundry project/model permissions still apply.
+Reader alone cannot retrieve; the data-reader role alone cannot inspect object definitions.
+Writers need their separately approved Search contributor roles. See the [official role matrix](https://learn.microsoft.com/azure/search/search-security-rbac#summary-of-permissions).
+Do not add subscription-wide Owner merely to run a read-only check.
+
 ## 2. Normal portal configuration
 
 After the instructor approves the configuration and costs:
@@ -31,11 +73,11 @@ After the instructor approves the configuration and costs:
 1. Enable the Search service's managed identity if it is not already enabled.
 2. On the **Foundry account hosting the model**, assign `Cognitive Services User` to that Search identity.
    Keep the scope at the training account, not the whole subscription. Allow RBAC propagation.
-3. In the knowledge base, use **Chat completion model → Add model deployment**, choose the actual account/project and a supported deployment,
+3. In the knowledge base, use **Chat completion model → Add model deployment**, choose the actual account/project and **`gpt-5.6-luna`**,
    and select **System assigned identity**. Foundry portal wording can differ.
 4. Save the model binding. With API-key authentication disabled, the notice that Search will use managed identity is informational—not a reason to enable API keys.
-5. For model-based planning, choose an appropriate reasoning effort such as `low`.
-   Choose `answerSynthesis` if Search should generate the final answer, or `extractiveData` if another agent should do so.
+5. For this preset, choose **`low`** and **`answerSynthesis`**.
+   `extractiveData` is a different explicit experiment where another agent generates the answer.
 6. Submit a synthetic question and inspect actual `modelQueryPlanning` activity.
    When synthesis is selected, also verify `modelAnswerSynthesis`, references, and the returned answer.
 
@@ -71,7 +113,7 @@ The tested underlying model was `gpt-5.6-luna`, supported by the documented `202
     "kind": "azureOpenAI",
     "azureOpenAIParameters": {
       "resourceUri": "https://<foundry-account>.openai.azure.com",
-      "deploymentId": "<verified-chat-deployment>",
+      "deploymentId": "gpt-5.6-luna",
       "modelName": "gpt-5.6-luna",
       "authIdentity": null
     }

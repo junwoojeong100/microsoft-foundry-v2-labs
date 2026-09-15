@@ -4,7 +4,19 @@
 
 **완료 목표:** 일반 검색과 실제 IQ retrieval을 구분하고, 답변의 원문 근거를 보존합니다.
 
-이전: [Lab 05](05-workflows.md) · 다음: [Lab 07](07-evaluation.md)
+다음: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md) · [학습 경로](../paths.md)
+
+## 시작 전
+
+**이번 순서:** A는 agent의 원문을 확인하고 고정 모델 IQ chat base는 준비된 경우 선택합니다. B는 번호 순서의 GA 검색 경로, hybrid는 선택입니다.
+
+**준비물:** A: Lab 03 응답·학습자 파일, IQ Chat 선택 시 담당자의 chat-base 이름. B: .env·Search 권한·본인 합성 source.
+
+**다음으로 갈 기준:** 선택한 경로의 실제 근거를 기록했습니다. IQ chat은 Luna 계획·답변 합성을 확인합니다.
+
+**막히면:** 모델 없는 GA base를 열고 Chat 모델을 기대하지 않습니다. 고정 preset은 iq-chat check로 점검합니다.
+
+[한 번만 하는 준비와 학습자 파일](../setup.md).
 
 ## 네 검색 경로는 같은 기능이 아닙니다
 
@@ -21,23 +33,52 @@
 
 ## A. 브라우저 — 인용이 보이면 끝인가?
 
-1. [Lab 03](03-prompt-agent.md)의 실제 에이전트에서 현행과 과거 출장 질문을 각각 입력합니다.
+1. [Lab 03](03-prompt-agent.md)의 현행·과거·한도 초과 실제 응답을 엽니다. 없다면 `dev-questions.txt`의 해당 질문만 새 대화에 보냅니다.
 2. 인용/근거의 문서 이름과 본문을 엽니다. 직접 컨텍스트 방식이면 해당 문서 ID를 원본 파일과 대조합니다.
 3. `TRAVEL-2025`와 `TRAVEL-2026`의 적용 기간을 비교합니다.
 4. 2026년 5월 질문에 현행 문서를 인용하면 잘못된 근거 선택으로 기록합니다.
 5. “숙박 한도를 초과했다”는 질문에서 승인 규정이 함께 설명되는지 확인합니다.
-6. 강사가 준비한 IQ 에이전트가 있으면 같은 질문을 보내 보고 원문 근거를 비교합니다.
 
-**Chat completion model은 managed identity로 정상 구성할 수 있습니다.**
-모델을 호출하는 주체는 Search 서비스의 identity이며, 모델이 있는 Foundry 계정의 `Cognitive Services User`가 필요합니다.
-포털의 모델 기반 계획·답변 합성 경로와 아래의 모델 없는 GA 직접 검색은 서로 다른 실행 모드입니다.
-Preview 여부와 MI 인증 지원을 혼동하지 않습니다.
-[정상 설정 순서와 실제 HTTP 200 확인](../reference/iq-model-identity.md)을 참고하세요.
+### 선택 IQ Chat — 준비된 설정 하나, 실제 검사 한 번
+
+담당자가 [IQ 준비](../setup.md#4-환경-담당자의-준비)를 마친 경우에만 선택합니다.
+아니라면 **IQ Chat 미선택**으로 기록하고 위 원문 확인을 마친 뒤 Lab 07로 이동합니다.
+이 Search-index source의 계획·합성은 **2026-09-15 기준 Preview**이며 MI 자체는 정상 지원됩니다.
+
+1. Foundry에서 **Knowledge → Knowledge bases**를 열고 **준비 카드의 정확한 chat-base 이름**, 기본 `<prefix>-chat-ko-kb`를 선택합니다.
+   Search 연결과 합성 source를 확인합니다. 기존 모델 없는 GA base를 고르지 않습니다.
+2. **Chat completions model**을 아래 표와 대조합니다. 기존 base에 포털 기본값을 덮어 저장하지 않습니다.
+3. Lab 05에서 사용한 준비된 터미널에서 아래 `check`를 실행합니다. `configured: true`여야 합니다.
+   `ready_for_setup: true`만으로는 저장된 chat base가 있다는 뜻이 아닙니다.
+4. 비용 승인 후 `ask`를 **한 번** 실행합니다. API·요청 필드·실제 activity를 보존하기 위해 이 검사는 CLI로 합니다.
+   포털에서 같은 채팅을 추가 전송하지 않습니다.
+5. `answer`, `source_ids`, `references`, 두 모델 activity를 합성 원문과 비교합니다. 실패는 그대로 기록합니다.
+
+| 설정 | 첫 실습의 정확한 선택 |
+|---|---|
+| Chat 배포 / 실제 모델 | **`gpt-5.6-luna` / `gpt-5.6-luna`**, 모델 버전 **`2026-07-09`** |
+| 인증 | **Search**의 **System assigned identity**. 학습자/Hosted agent identity가 아님 |
+| 모델 계정 역할 | Foundry 계정 범위에서 Search identity에 **`Cognitive Services User`** |
+| Reasoning / 출력 | **`low` / `answerSynthesis`** |
+| API | **`2026-08-01-preview`**, API key 없음 |
+
+```bash
+python scripts/workshop.py iq-chat check
+python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
+```
+
+결과의 `model_planning_verified: true`, `model_synthesis_verified: true`와
+Luna의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
+요청·응답·원문 근거·실패는 `outputs/iq-chat/iq-chat-lab06/`에 남습니다. 새 요청은 새 label을 사용합니다.
+`check`는 Azure를 변경하지 않고 `ask`는 모델/provider를 자동 대체하지 않습니다.
+`configured: false`, 권한 누락, 다른 모델 버전, 403/429이면 멈추고 [고정 preset 복구 안내](../reference/iq-model-identity.md)를 따릅니다.
+모델 고정은 흔한 설정 불일치를 없애지만 quota와 서비스 가동까지 보장하지는 않습니다.
 
 ![2026-09-15 새 국문 촬영: 국문 포털에서 실제 Knowledge 목록 확인](../../assets/refresh-20260915-ko/screenshots/KP06-001-knowledge-2.webp)
 
 **화면 확인:** **Knowledge → Knowledge bases**에서 본인의 **Connection**, base 이름과 source를 대조합니다.
-`Active`는 객체 상태입니다. 실제 검색 결과와 원문 근거는 아래의 retrieval 명령으로 따로 확인합니다.
+이 사진은 기존 GA base 목록의 참고 화면이며 새 chat preset을 촬영한 것이 아닙니다.
+`Active`는 객체 상태일 뿐입니다. 실제 계획·합성은 위 명령으로 따로 확인합니다.
 
 ## B. 코드 — 공통 환경에 Search만 추가
 
@@ -89,8 +130,8 @@ python scripts/workshop.py retrieve --provider search --question "2026년 9월 �
 문서 업로드가 부분 실패하면 전체 성공으로 처리하지 않습니다.
 
 
-**화면 확인:** `mode: live`, 본인의 index 이름, `documents_uploaded: 6`을 확인합니다.
-`iq_created: false`이면 이 단계에서는 일반 Search만 만든 것입니다.
+**화면 확인:** seed 결과의 `mode: live`, 본인의 `index`, `document_count: 6`,
+`hybrid: false`, `knowledge_base: null`을 확인합니다. IQ가 아니라 일반 Search 객체를 만든 단계입니다.
 
 ![2026-09-15 새 국문 촬영: 일반 Search는 vector/IQ와 구분](../../assets/refresh-20260915-ko/screenshots/K06-100-keyword-2.webp)
 
@@ -105,8 +146,9 @@ python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국�
 ```
 
 
-**화면 확인:** `iq_created: true`, source/base 이름, `api_version: 2026-04-01`을 확인합니다.
-위의 일반 Search 생성 결과와 구분하고, 본인의 소유권 기록도 유지합니다.
+**화면 확인:** seed 결과의 `knowledge_base`가 이제 null이 아니며 `document_count: 6`입니다.
+Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확인합니다.
+`ledger`에 표시된 `outputs/azure-objects.json` 소유권 기록을 유지합니다.
 
 기본 IQ 코드는 **REST `2026-04-01` GA의 직접 intents·extractive 검색**을 사용합니다.
 `seed-search --iq`는 Search-index source를 참조하는 KB를 만들되 **KB의 `models`를 설정하지 않습니다.**
@@ -161,7 +203,12 @@ flowchart LR
 
 ## C. 선택 — 실제 하이브리드 RAG
 
-**2026-09-15 코드 추가. 새 live 확인/캡처는 별도 단계입니다.**
+**첫 회차는 [Lab 07](07-evaluation.md)로 이동합니다.** C·D는 별도 심화이며 GA 경로에서 빠진 단계가 아닙니다.
+
+<details>
+<summary>선택 embedding·하이브리드 index 실습 펼치기</summary>
+
+**2026-09-15 실제 실행·촬영 결과는 기록 당시의 환경에 해당합니다.**
 이미 만든 텍스트 index의 필드를 몰래 바꾸지 않습니다.
 같은 실습 prefix 아래 별도 index 이름을 `.env`에 정하고, 강사가 확인한 embedding 배포와
 **실제 반환 차원**을 입력합니다. embedding 모델을 새로 배포하는 작업은 별도 승인 대상입니다.
@@ -197,7 +244,12 @@ python scripts/workshop.py answer --retrieval hybrid --prompt v2
 IQ의 source/base는 원래 연결한 index를 참조하므로 환경변수만 바꿨다고 원격 base가 바뀌지 않습니다.
 이 실험의 index 변경을 Lab 07의 prompt-only 전후 비교 사이에 섞지 않습니다.
 
+</details>
+
 ## D. IQ를 Hosted 워크플로와 평가로 연결
+
+<details>
+<summary>심화 workflow·평가 연결 펼치기</summary>
 
 ```bash
 python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
@@ -207,6 +259,8 @@ python scripts/package_hosted.py --kind workflow --pattern sequential --retrieva
 같은 v2 폴더의 [Lab 08](08-hosted.md)과 [평가 워크북](../reference/evaluation-workbook.md)으로 이어집니다.
 Toolbox/Fabric/Work IQ의 승인·원문·OBO 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)에서 따로 다룹니다.
 외부 원본 저장소로 이동해야 실행되는 숨은 선행 단계는 없습니다.
+
+</details>
 
 ## 모델 기반 IQ와 기본 GA 검색을 구분하기
 
@@ -224,7 +278,8 @@ GA schema의 `models` 존재와 모든 source에 대한 LLM 기능 지원은 같
 정상 모델 기반 구성을 원하면 지원 배포와 Search MI 역할을 명시적으로 설정한 뒤 저장·검증합니다.
 기존 평가용 base를 덮어쓰지 않으려고 별도 base를 사용하는 것이며, 모델 설정 자체를 금지하는 것이 아닙니다.
 
-## 2026-09-15 새 국문 실행 증거
+<details>
+<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
 
 영문 후속 실험에서 D05의 실제 IQ 근거에 `SCOPE-01`이 빠져 필수 인용 검사가 실패했습니다.
 문서의 관측 reranker score는 약 1.775였으며 같은 endpoint·질문·corpus에
@@ -249,9 +304,13 @@ GA schema의 `models` 존재와 모든 source에 대한 LLM 기능 지원은 같
 
 [새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
 
+</details>
 
 ## 완료 확인
 
-Search와 IQ를 각각 호출하고 구분할 수 있으며, 실제 인용의 원문과 적용 기간을 확인합니다.
+A: 원문 ID·적용 기간을 확인하고 IQ Chat의 선택 여부와 실제 실행 여부를 기록합니다.
+B: Search와 GA IQ를 각각 호출하고 반환된 근거를 구분합니다.
 `outputs/azure-objects.json`은 내 Search 객체의 소유권 기록입니다.
 공유 서비스 자체를 삭제하는 권한 증명이 아닙니다.
+
+다음: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md)

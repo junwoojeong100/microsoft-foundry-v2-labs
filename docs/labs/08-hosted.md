@@ -4,27 +4,42 @@
 
 **Goal:** Package the same read-only MAF agent and deploy it only when prerequisites and approvals are in place.
 
-Path: B, optional · Previous: [Lab 07](07-evaluation.md) · Next: [Lab 09](09-operations.md)
+Next: A: [skip to Lab 09](09-operations.md) · B → [Lab 09](09-operations.md) · [Paths](../paths.md)
 
 > **Separate service and SDK status.** In this edition's dated compatibility snapshot,
 > Hosted Agent is a GA service, while `agent-framework-foundry-hosting` and some azd
 > capabilities are prerelease. The module is optional because of permissions, SDKs,
 > and costs, not because the entire service is Preview.
 
+## Before you start
+
+**This pass:** A skips to Lab 09. B follows the single-agent package/local path first; workflow and Invocations sections are advanced alternatives.
+
+**Need:** Packaging: repository and Python. Local invocation: Hosted SDK, Lab 04 response, azd and actual project ARM ID. Remote work also requires explicit deployment approval.
+
+**Continue when:** Record package/local/remote as separate outcomes; only a real version-pinned remote response proves deployment.
+
+**If blocked:** Without ARM ID, role or cost approval, stop at packaging. Do not rerun init inside another azd project.
+
+[One-time setup and learner files](../setup.md).
+
 ## Entry gates
 
-You need a successful real `maf --tools` response; Python 3.13 and hosted SDKs;
-azd and the `microsoft.foundry` extension; an instructor-verified **actual project ARM ID**;
-independently checked Hosted regions and model/SKU/quota; deployment/identity
-permissions and session-cost approval; and a unique training agent name.
+**Choose one stopping point before starting.** B's core requires packaging; local and remote execution are additional outcomes.
 
-Without these, stop after **packaging** and record deployment **not run**.
+| Stopping point | Prerequisites | Follow |
+|---|---|---|
+| Package only | Repository and Python; no Azure writes or Hosted SDK needed | Section 1, then Lab 09 |
+| Package + local response | Lab 04 `maf --tools` success, Python 3.13, Hosted SDK, compatible azd/extension, actual project values, inference cost approval | Sections 1–3 and 5 |
+| Remote single agent | Above plus Hosted region/capacity, deployment/runtime-identity permission, session-cost approval | Sections 1–5 |
+| Advanced workflow/matrix | Lab 05 C and a separate prepared workspace | Section 6 or the section 7 workbook, not both by default |
+
+Do not run later sections to discover whether you have permission. Without their prerequisites, record them **not run**.
 Local Docker/ACR installation is not required for code deployment.
 
-## 1. Install the optional package and build a safe bundle
+## 1. Build a safe bundle without Azure
 
 ```bash
-python -m pip install -e ".[hosted]"
 python scripts/package_hosted.py --language en
 ```
 
@@ -43,6 +58,7 @@ so evaluation answers do not enter a redeployment package.
 Inspect `package-manifest.json` and `requirements.txt`.
 Rebuilding does not delete an existing folder automatically. Preserve or clean up only
 that **exact generated directory** first. Compare hashes after source changes.
+For package-only completion, retain the manifest and continue to [Lab 09](09-operations.md).
 
 
 **What to check:** `package_hosted.py` returns `.build/hosted-en`. This is packaging, not
@@ -53,6 +69,7 @@ Azure deployment. Check included/excluded files against the manifest.
 Learners install and sign in themselves. Do not unconditionally upgrade installed tools during class.
 
 ```bash
+python -m pip install -e ".[hosted]"
 azd version
 azd ext list
 azd auth login
@@ -61,20 +78,34 @@ azd ai agent init --help
 
 If the extension is absent, follow the current
 [official Hosted quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent).
-Replace all three placeholders below with **verified actual values**.
-Do not assemble an ARM ID by guessing from an endpoint.
+Collect these values **before** initialization. An ARM ID is not a portal URL or project endpoint.
+
+| Input | Exact source |
+|---|---|
+| `PROJECT_ARM_ID` | Owner's verified project resource ID; for self-study, the project resource's Azure portal **JSON View → id**, not the parent account ID |
+| `PROJECT_ENDPOINT` | Your setup card's full `/api/projects/...` endpoint |
+| `HOSTED_AGENT_NAME` | New owned name, such as your prefix plus `-hosted` |
+| Model deployment | **`gpt-5.6-luna`**, already verified in Lab 02 |
 
 Use a standalone workshop directory, **not a child of another azd project**.
 azd may discover a parent `azure.yaml` and add a service there.
-Check that generated files are in the current repository root.
+If this copy already has `azure.yaml`, do not initialize again; use a fresh independent copy or review the existing project with its owner.
+Keep the following commands in the same terminal so the entered values remain available.
 
 ```bash
-azd ai agent init --src ./.build/hosted-en --agent-name "<unique-agent-name>" --project-id "<existing-project-arm-id>" --model-deployment "<existing-model-deployment-name>" --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
+printf 'Actual project ARM resource ID: '
+read -r PROJECT_ARM_ID
+printf 'Full project endpoint: '
+read -r PROJECT_ENDPOINT
+printf 'New owned Hosted agent name: '
+read -r HOSTED_AGENT_NAME
+azd ai agent init --src ./.build/hosted-en --agent-name "$HOSTED_AGENT_NAME" --project-id "$PROJECT_ARM_ID" --model-deployment gpt-5.6-luna --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
 test -f ./azure.yaml
 ```
 
-`<...>` placeholders are not executable as-is. Initialization creates local project/
-environment files. Specify both the existing project and deployment to avoid choosing a new default model.
+Initialization creates local project/environment files. If `init` or `test` fails, stop; do not proceed to deploy.
+The current root's `azure.yaml` must contain **one intended agent service**, not another team's services.
+Specifying the existing project and deployment avoids choosing a new default model.
 
 Check the generated `azure.yaml`: `host: azure.ai.agent`, agent name/source directory,
 Python 3.13/`main.py` code configuration, Responses protocol, existing project,
@@ -85,8 +116,9 @@ runtime endpoint/model variables, and **remote `WORKSHOP_AUTH_MODE=managed-ident
 The source run initially had only a model variable in `env`; it needed the following
 addition. Do not overwrite the whole file with screenshot content.
 
-Do not assume initialization supplies every variable. Complete **only the generated
-agent service's `env`**, retaining connection, service name, and code path:
+Do not assume initialization supplies every variable. In VS Code open root `azure.yaml`, find
+**`services` → the generated service name → `env`**, and merge the values below into that mapping.
+Do not create a second `env`, replace the whole file, or change the generated connection/service/code path.
 
 ```yaml
 env:
@@ -99,9 +131,9 @@ env:
 Set and reread actual azd values. These commands do not change the default Azure CLI subscription.
 
 ```bash
-azd env set AZURE_AI_PROJECT_ENDPOINT "<existing-project-endpoint>"
-azd env set AZURE_AI_PROJECT_ID "<existing-project-arm-id>"
-azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME "<existing-model-deployment-name>"
+azd env set AZURE_AI_PROJECT_ENDPOINT "$PROJECT_ENDPOINT"
+azd env set AZURE_AI_PROJECT_ID "$PROJECT_ARM_ID"
+azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME gpt-5.6-luna
 azd env get-value AZURE_AI_PROJECT_ENDPOINT
 azd env get-value AZURE_AI_MODEL_DEPLOYMENT_NAME
 ```
@@ -130,6 +162,8 @@ Leave the server running on its default local port 8088.
 
 **Terminal B:**
 
+Open a second terminal at the **same repository root**, with the same selected azd environment.
+
 ```bash
 curl --fail http://127.0.0.1:8088/readiness
 azd ai agent invoke --local --new-session --new-conversation --timeout 120 "Explain the domestic lodging limit and evidence for September 2026."
@@ -156,6 +190,7 @@ Review any additional resource/identity plan with the instructor.
 An existing project does not make every prerequisite complete.
 If provisioning is required, run it only after **review and authorization for the
 dedicated training scope**.
+The first-pass project must have one intended service. If more are listed, stop and review the scope rather than deploying them all.
 
 ```bash
 azd deploy
@@ -169,7 +204,9 @@ Record active state, actual version, and endpoint before invocation.
 endpoint**, then verify the real version and active state from `show`.
 
 ```bash
-azd ai agent invoke --version "<deployed-version>" --new-session --new-conversation --timeout 120 "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
+printf 'Actual version returned by show: '
+read -r HOSTED_AGENT_VERSION
+azd ai agent invoke --version "$HOSTED_AGENT_VERSION" --new-session --new-conversation --timeout 120 "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
 ```
 
 The question asks for advance approval for the over-limit September 2026 hotel.
@@ -196,6 +233,9 @@ The new English recording deploys and measures the workflow extension below.
 See [execution records](../live-run.md); do not transfer scores between these targets.
 
 ## 6. Deploy a MAF workflow as a Hosted Agent
+
+<details>
+<summary>Advanced C: a separate workflow target; first-pass B continues to Lab 09</summary>
 
 Default serve/package commands retain the earlier single-function-agent path.
 Explicit workflow profiles freeze kind, pattern, retrieval, prompt, API, protocol, and language.
@@ -253,7 +293,12 @@ flowchart LR
 Fresh internal participants isolate requests.
 Durable approval, crash recovery, and external business actions are not enabled automatically.
 
+</details>
+
 ## 7. Typed Invocations versus Responses
+
+<details>
+<summary>Advanced C: open only when selecting the Hosted evaluation workbook</summary>
 
 Use Responses for conversation and a separate Invocations profile for strict model/case/run matrices.
 
@@ -266,7 +311,10 @@ No reference answers, evaluator configuration, corpus paths, or arbitrary model/
 Actual deployment/service IDs, usage, and evidence hashes remain in the response.
 Follow the [evaluation workbook](../reference/evaluation-workbook.md); do not transfer scores between target paths.
 
-## New English execution evidence
+</details>
+
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -304,6 +352,7 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion and cleanup
 
@@ -311,3 +360,5 @@ Record packaging, local response, remote deployment, and remote evaluation separ
 Sessions may be reused and accumulate compute cost. Inspect `azd ai agent sessions list`
 and stop only your sessions using [Cleanup](../reference/cleanup.md).
 Do not apply `azd down` indiscriminately to every environment.
+
+Next: A: [skip to Lab 09](09-operations.md) · B → [Lab 09](09-operations.md)

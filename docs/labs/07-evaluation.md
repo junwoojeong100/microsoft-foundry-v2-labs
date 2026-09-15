@@ -4,7 +4,19 @@
 
 **Goal:** Judge improvements with the same business criteria and execution lineage, not "the answer looks good."
 
-Previous: [Lab 06](06-knowledge.md) · Next: A → [Lab 09](09-operations.md), B → [Lab 08](08-hosted.md)
+Next: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** A uses the questions-only file and blank worksheet. B runs the six-case dev comparison; cloud judges/matrices are optional.
+
+**Need:** A: your saved Lab 03 agent and learner ZIP. B: a working code environment and new output labels.
+
+**Continue when:** All six actual answers, failures or all-pass evidence, and review notes are retained.
+
+**If blocked:** Do not paste reference-answer JSON into the agent. Never open holdout to fix a dev failure.
+
+[One-time setup and learner files](../setup.md).
 
 ## What becomes a reusable team asset?
 
@@ -23,16 +35,17 @@ flowchart LR
 
 Collecting logs does not automatically train model weights. This learning loop improves
 **knowledge, instructions, evaluation, and human decisions**.
-The canonical data/prompt language remains Korean in both guide editions;
-[translation alone is not an English quality evaluation](../reference/languages.md).
+English and Korean use separate frozen prompts, policies and evaluation datasets.
+[Language-specific lineage](../reference/languages.md) prevents translated inputs from being labeled the same-input comparison.
 
 ## A. Browser: assess all six actual answers
 
-1. Open the six questions in `data/evaluation/en/dev.jsonl`; do not open holdout yet.
-2. Send each to your [Lab 03](03-prompt-agent.md) agent in a **new conversation**.
-3. Record the actual decision, amount, evidence, and failure reason below.
-4. If an instruction is missing a condition, fix it and ask the same six questions again.
-5. Retain all before/after answers, not only successes.
+1. Open the ZIP's **`dev-questions.txt`** and save a working copy of **`assessment.csv`** as `assessment-baseline.csv`.
+   Use your own evidence folder, not the repository's generated `data/learner/` files. Do not open holdout.
+2. Record your [Lab 03](03-prompt-agent.md) agent name/version. Copy **only one question's text** into each **New chat**; do not send IDs, expected answers or assessment columns.
+3. Fill all six rows: `actual_answer` with the real answer, `actual_document_ids` with its citations, `pass_or_fail`, and `review_note` with the reason.
+4. If review finds a missing instruction, preserve the original instructions and worksheet, change that condition, **Save** and record the new version.
+5. Ask the same six questions in new chats and save `assessment-candidate.csv`. Keep both versions and all failures. If no justified change is needed, retain the all-pass review instead.
 
 If every case passes and no condition is missing, record that honestly. Do not
 manufacture failures or force unnecessary edits. The fixed v1/v2 code comparison is separate.
@@ -43,12 +56,13 @@ manufacture failures or force unnecessary edits. The fixed v1/v2 code comparison
 | D02 | Historical lodging KRW 120000 / historical policy | Record yourself | Record yourself |
 | D03 | Over limit → advance approval / current + approval policies | Record yourself | Record yourself |
 | D04 | Meals KRW 30000 per day / meal policy | Record yourself | Record yourself |
-| D05 | No international policy → withhold | Record yourself | Record yourself |
+| D05 | No international policy → withhold, cite `SCOPE-01` | Record yourself | Record yourself |
 | D06 | Cannot approve despite a request to ignore policy | Record yourself | Record yourself |
 
 This is a **manual business assessment of real answers**, not a Foundry Evaluation
 portal run. If using portal batch evaluation, the instructor separately verifies the
 evaluator, judge, mappings, and cost before running the same data.
+**A stops here and continues to [Lab 09](09-operations.md).** The commands below are a separate B experiment, not extra browser steps.
 
 
 **What to check:** Record the actual KRW 150,000 limit, approval-before-booking condition,
@@ -63,6 +77,9 @@ Assess whether the evidence lacks that policy and the assistant explains how to 
 The following collection commands call Azure. Defaults use `--retrieval local` so
 learners without Search can complete them. To evaluate IQ, change **all three
 collections** to `--retrieval iq`; mixing providers is not a single-variable experiment.
+For the first pass, keep `local` and follow **1 → 2 if a failure exists → 3 → 5**.
+Section 4's judge and section 6's model replacement are optional. Plan **6 + 6 + 4 = 16** target-case requests, plus service/tool/retry work.
+If labels already exist, choose a new consistent baseline/candidate/holdout label set and update every reference; do not delete or overwrite the old run.
 
 Comparisons also freeze project, output limit, and Search endpoint/index/source/base.
 `corpus_hash` hashes the local synthetic corpus; it does not prove an immutable remote
@@ -98,14 +115,18 @@ Find the actual failed case in `outputs/baseline/responses.jsonl`.
 | Claimed approval | Business authority boundary and tools |
 | JSON/request error | Model support, output limit, SDK, service |
 
-The following assumes D03 actually failed. Use the real failed ID and reason.
+Run this block **only when a real baseline case failed**. Enter that case ID and your own specific review reason of **at least 15 characters**.
+If all six pass, record that finding and go to step 3; do not manufacture D03 feedback.
 
 ```bash
-python scripts/workshop.py --language en feedback --label baseline --case D03 --reason "Review the approval conditions and citations in the actual response against the original policy and investigate omissions."
+printf 'Actual failed dev case ID: '
+read -r FAILED_CASE
+printf 'Your specific review reason: '
+read -r REVIEW_REASON
+python scripts/workshop.py --language en feedback --label baseline --case "$FAILED_CASE" --reason "$REVIEW_REASON"
 ```
 
-The reason means: compare approval conditions/citations with the source and review
-why something was omitted. This creates a **pending-human-review record**, not approval.
+This creates a **pending-human-review record**, not approval.
 It links the original dev expected answer and source run/response/request/trace IDs.
 The model's answer is not promoted to ground truth. Missing traces remain `null`;
 do not invent UUIDs as Azure trace IDs.
@@ -142,6 +163,9 @@ Use this language's actual results, not the other edition's scores.
 
 ### 4. Optional: Foundry cloud judge
 
+<details>
+<summary>Expand only with a prepared judge and separate cost approval; otherwise go to step 5</summary>
+
 This requires additional cost approval, evaluation permissions, and an explicit judge
 deployment in `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME`.
 A different deployment can use the same underlying model; record correlated bias.
@@ -170,6 +194,8 @@ Review any low score on correct withholding without changing the score.
 Use them in a separate evaluator experiment before production. They are not generated
 target-model answers, and passing two examples does not establish a universally reliable judge.
 
+</details>
+
 ### 5. Freeze the candidate, then use holdout once
 
 Proceed only when instructions, model, and retrieval will no longer change.
@@ -190,7 +216,10 @@ Repository file separation is an educational procedure, not access control or se
 The source 4/4 uses an already-exposed teaching set; it is not evidence from a newly
 unseen holdout.
 
-### 6. Model replacement is a separate experiment
+### 6. Optional: model replacement is a separate experiment
+
+<details>
+<summary>Expand the separate model experiment; not required for the first pass</summary>
 
 Change only to another **verified deployment name** in `.env`, keeping code, prompt,
 retrieval, and dev data fixed.
@@ -202,8 +231,14 @@ python scripts/workshop.py --language en compare --baseline candidate --candidat
 
 Changed retrieval context makes this an end-to-end result, not a model-only ranking.
 Six/four cases are teaching gates, not statistical superiority or a production SLA.
+This new dev experiment does not reopen the previous holdout for tuning or establish acceptance of the replacement.
+
+</details>
 
 ## C. Verify Hosted matrices and the evaluators
+
+<details>
+<summary>Advanced C: compare Hosted matrix gates with the introductory evaluation</summary>
 
 Follow the [Hosted evaluation workbook](../reference/evaluation-workbook.md) for actual deployed-version results.
 
@@ -224,7 +259,10 @@ Controlled comparisons require unchanged code, corpus, model map, API, retrieval
 Changed evidence/observed models prevent isolated prompt-improvement claims.
 Holdout is never prompt-development or regression-harvesting material.
 
-## New English execution evidence
+</details>
+
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -266,6 +304,7 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion
 
@@ -273,7 +312,10 @@ The introductory path uses six dev/four holdout cases; the four-model Hosted pat
 See the [actual English run](../live-run.md) for its own scores, failures, and native findings.
 Do not infer superiority or unseen-set quality from this small public teaching dataset.
 
-Retain actual baseline/candidate lineage, failure review or all-pass evidence, frozen
+A: retain the six-case worksheet, actual agent version/instructions, and failure or all-pass review; no holdout or CLI acceptance is required.
+B: retain actual baseline/candidate lineage, failure review or all-pass evidence, frozen
 holdout results, and human judgment. `accept` prepares handoff evidence; it **does not
 deploy or grant operational approval**. A 100% business-check score does not prove
 complete semantic accuracy, security, or legal suitability.
+
+Next: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md)

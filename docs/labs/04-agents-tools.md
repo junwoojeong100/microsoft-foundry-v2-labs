@@ -4,7 +4,19 @@
 
 **Goal:** Distinguish model invocation, application-owned agents, and tool execution.
 
-Path: B · Prerequisite: actual [Lab 02](02-models.md) response · Next: [Lab 05](05-workflows.md)
+Next: A: [skip to Lab 05](05-workflows.md) · B → [Lab 05](05-workflows.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** B runs no-tool, function-tool and MCP commands in order. A skips directly to Lab 05.
+
+**Need:** Lab 00 environment plus a real Lab 02 response; no separate MCP server terminal is required.
+
+**Continue when:** You have the no-tool response plus function/MCP responses with their source IDs. The long-input rejection is an optional negative test.
+
+**If blocked:** Check the same venv and server path. A function response is not a substitute for a failed MCP run.
+
+[One-time setup and learner files](../setup.md).
 
 ## 1. Agent without tools
 
@@ -91,7 +103,12 @@ Do not repair invalid output and call it success.
 **What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
 for May 2026. A function-tool response cannot stand in for an MCP execution.
 
-## 4. Change one tool safely
+## 4. Optional: inspect tool boundaries and reject invalid input
+
+Your first pass can continue to [Lab 05](05-workflows.md) after the three real outputs above.
+
+<details>
+<summary>Expand the optional negative test; its expected result is a failure message</summary>
 
 1. Explain "read-only," "synthetic," and "cannot approve" from the `lookup_policy` docstring.
 2. Ask an unsupported question and check whether an empty search causes invented amounts.
@@ -107,15 +124,17 @@ python scripts/workshop.py --language en maf --tools --question "$(python -c 'pr
 ```
 
 
-**What to check:** Read the short generation command at the bottom and
-`FAIL: Question must contain 1-2000 characters.`. This rejection is expected;
-the long pasted attempt visible above is different.
+**What to check:** Read `FAIL: Question must contain 1-2000 characters.` and exit code `2`.
+This is expected input rejection before Azure, not a broken environment.
 
 Pasting a long string directly can hit terminal-input truncation. A model answer to
 that truncated input does not prove the application's length check failed.
 Do not create real messaging or payment tools just for this exercise.
 
-## New English execution evidence
+</details>
+
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -133,6 +152,7 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion and troubleshooting
 
@@ -140,3 +160,5 @@ The [source execution record](../live-run.md) includes function/MCP calls and ex
 2001-character rejection. Keep all three actual outputs and explain the tool boundaries.
 For MCP failures, use [Troubleshooting](../reference/troubleshooting.md);
 never substitute a function-tool answer while claiming MCP success.
+
+Next: A: [skip to Lab 05](05-workflows.md) · B → [Lab 05](05-workflows.md)

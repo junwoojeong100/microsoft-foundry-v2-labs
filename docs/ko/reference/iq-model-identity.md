@@ -6,6 +6,42 @@
 인증 방식과 모델을 사용하는 검색 모드를 구분해야 합니다.
 기본 실습의 모델 없는 GA 경로는 교육 구성상의 선택이지 MI나 포털 모델 설정이 지원되지 않는다는 뜻이 아닙니다.
 
+## 첫 실습: 고정된 실행 preset 사용
+
+**배포/모델 `gpt-5.6-luna`, 모델 버전 `2026-07-09`, Search system-assigned identity**를 사용합니다.
+초보자에게 임의의 Chat 모델을 고르게 하지 않습니다.
+[담당자 준비와 합성 seed](../setup.md#4-환경-담당자의-준비)를 완료한 뒤 실행합니다.
+
+```bash
+python scripts/workshop.py iq-chat check
+python scripts/workshop.py iq-chat setup --confirm-create
+python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
+```
+
+준비 카드와 같은 순서이며 추가 필수 검사가 아닙니다. 유료 요청이 이미 기록됐으면 반복하지 않습니다.
+`check`는 Azure 변경 없이 정확한 실제 모델/버전·Search identity/역할·source를 검사합니다.
+`setup`은 **별도의 본인 소유** `<prefix>-chat-ko-kb`를 만듭니다(`AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME`으로 명시적 변경).
+소유권/설정이 다른 base 덮어쓰기, 모델 배포, 역할 부여, GA base 변경은 하지 않습니다.
+`ask`는 `outputs/iq-chat/<label>/`에 요청·응답·근거를 남기며 실제 Luna 계획 **및** 합성을 요구합니다.
+유료 POST 전에 실제 모델/버전을 다시 확인하고 선택 언어의 canonical 원문과 다른 근거를 거부합니다.
+`model-preflight.json`, `knowledge-base-response.json`, 실패 단계로 모델 준비·KB 읽기·검색·답변 검사를 구분합니다.
+기존 source는 별도 날짜 필드 없이 `id`, `title`, `content`를 반환합니다.
+반환된 필드만 canonical 정책과 비교하며 없는 날짜 메타데이터를 만들어 넣지 않습니다.
+검증된 `maxOutputSize` 필드를 사용하고 새 요청은 새 label이 필요합니다.
+
+| 결과/오류 | 다음 조치 |
+|---|---|
+| `ready_for_setup: true`, `configured: false` | 아직 chat base가 없으므로 담당자가 승인된 `setup` 진행 |
+| `configured: true`, `model_inference_verified: false` | 설정 준비만 완료. 명시적으로 승인한 유료 `ask`가 실제 추론 확인 |
+| 다른 모델/버전·Search 역할 누락 | 담당자가 해당 선행 조건 해결. 배포·identity·API key로 우회하지 않음 |
+| 소유권 ledger 없음 | 합성 source를 seed한 동일 작업 폴더로 복귀. 소유권을 임의 작성하지 않음 |
+| 기존 base의 모델/모드가 다름 | 기존 구성을 검토하고 새 소유 이름 선택. 자동 덮어쓰기 없음 |
+| 403 / 429 / 서비스 오류 | `failure.json` 보존. RBAC 전파·네트워크·quota 확인 후 명시적인 새 시도 |
+
+모델 고정은 예방 가능한 불일치를 줄이지 장애·quota 소진까지 없애지는 않습니다.
+2026-09-15 새 명령의 실제 확인은 **읽기 전용**(`configured: false`)이며 영구 chat base를 만들지 않았습니다.
+아래 실제 모델 호출 증거는 별도 승인을 받은 이전 임시 MI 검사입니다.
+
 ## 1. 어느 identity가 호출하는가?
 
 ```mermaid
@@ -24,6 +60,12 @@ flowchart LR
 `WORKSHOP_AUTH_MODE`와 `AZURE_CLIENT_ID`는 이 저장소의 Python 호출자를 설정하며 Search의 모델 호출 identity를 설정하지 않습니다.
 Search의 managed identity 지원에는 Basic 이상 tier가 필요합니다.
 
+**로컬 preset 호출자:** 실습 Foundry 계정·Search 서비스의 `Reader`로 모델/역할/객체 사전 조회,
+`Search Index Data Reader`로 검색합니다. 기존 Foundry 프로젝트/모델 권한도 필요합니다.
+Reader만으로는 검색할 수 없고 data-reader만으로는 객체 정의를 볼 수 없습니다.
+작성자는 별도 승인된 Search contributor 역할을 사용합니다.
+[공식 권한 표](https://learn.microsoft.com/azure/search/search-security-rbac#summary-of-permissions)를 따르며 읽기 검사를 위해 구독 전체 Owner를 추가하지 않습니다.
+
 ## 2. 정상적인 포털 설정 순서
 
 강사가 설정 변경·비용을 승인한 뒤:
@@ -31,12 +73,12 @@ Search의 managed identity 지원에는 Basic 이상 tier가 필요합니다.
 1. Search 서비스의 managed identity가 없으면 활성화합니다.
 2. **모델이 배포된 Foundry 계정**에서 Search identity에 `Cognitive Services User`를 부여합니다.
    실습 계정 범위로 제한하며 구독 전체에 부여하지 않습니다. RBAC 반영 시간을 고려합니다.
-3. Knowledge base의 **Chat completion model → Add model deployment**에서 실제 계정/프로젝트와 지원되는 배포를 선택하고
+3. Knowledge base의 **Chat completion model → Add model deployment**에서 실제 계정/프로젝트와 **`gpt-5.6-luna`**를 선택하고
    인증을 **System assigned identity**로 설정합니다. Foundry 포털의 메뉴 표현은 다를 수 있습니다.
 4. 모델 연결을 저장합니다. API key 인증이 비활성화되어 Search가 managed identity를 사용한다는 안내는 정보성 메시지입니다.
    이 안내를 없애려고 API key를 활성화하지 않습니다.
-5. 모델 기반 계획을 실행하려면 `low` 같은 적절한 reasoning effort를 선택합니다.
-   Search가 답변까지 생성하면 `answerSynthesis`, 별도 agent가 답변을 만들면 `extractiveData`를 선택합니다.
+5. 이 preset은 **`low`**와 **`answerSynthesis`**를 선택합니다.
+   `extractiveData`는 별도 agent가 답변을 생성하는 다른 명시적 실험입니다.
 6. 합성 질문을 전송하고 실제 `modelQueryPlanning` activity를 확인합니다.
    답변 합성을 선택한 경우 `modelAnswerSynthesis`, references와 생성된 답변도 확인합니다.
 
@@ -72,7 +114,7 @@ Placeholder를 바꾸고, 새 소유 base를 사용하며, 쓰기 전에 승인�
     "kind": "azureOpenAI",
     "azureOpenAIParameters": {
       "resourceUri": "https://<foundry-account>.openai.azure.com",
-      "deploymentId": "<verified-chat-deployment>",
+      "deploymentId": "gpt-5.6-luna",
       "modelName": "gpt-5.6-luna",
       "authIdentity": null
     }

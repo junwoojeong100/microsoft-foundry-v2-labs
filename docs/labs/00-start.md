@@ -4,11 +4,25 @@
 
 **Goal:** Identify your account, project, and learning path, and verify the starting point for the next lab.
 
-Parent: [Learning paths](../paths.md) · Next: [Lab 01](01-foundry.md)
+Next: A → [Lab 01](01-foundry.md) · B → [Lab 02](02-models.md) · [Paths](../paths.md)
+
+## Before you start
+
+**This pass:** Read the setup card and download the learner ZIP. A uses the browser; B also completes environment setup.
+
+**Need:** Your own account, prepared project and model; B additionally needs Python 3.13 and a terminal.
+
+**Continue when:** A: the right project is open and the values are recorded. B: offline checks and cloud preflight are understood.
+
+**If blocked:** Missing account/permission/quota means preparation is incomplete, not permission to choose another resource.
+
+[One-time setup and learner files](../setup.md).
 
 ## How to read this guide
 
 Reference images come from **new, separately recorded English execution**.
+The setup cards and ready learner files were added after those recordings. Follow the current text;
+historical screens do not claim the new preparation sequence was filmed.
 [Recordings and scope](../video-summary.md) distinguish actual calls, fixtures, observations, and failures.
 Click to enlarge. Compare account, project, model, and prefix with your instructor's
 values; do not copy identifiers from images.
@@ -31,7 +45,8 @@ prevent translated datasets from being presented as the same-input experiment.
    Personal Microsoft, GitHub, and Azure work-account sign-ins are different.
 3. Select the training project, not a similarly named production project.
 4. Fill the first four worksheet rows below. Do not post whole screens or personal information in shared chat.
-5. Continue to [Lab 01](01-foundry.md). The instructor handles installation.
+5. Download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip), then continue to [Lab 01](01-foundry.md).
+   Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
    In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal;
    you will not write Python or build a portal workflow.
 
@@ -48,7 +63,7 @@ value for `.env`; it is not the browser's `ai.azure.com` address. Authentication
 | Training tenant/subscription | Supplied by the instructor |
 | Foundry resource/project | Supplied by the instructor |
 | Model **deployment name** | Distinct from its catalog name |
-| Personal/team agent prefix | Example: `mfv2-team01-0913` |
+| Personal/team agent prefix | Example: `mfv2-team01-0915` |
 | Path | A / B |
 | Execution status | Personally run / instructor observation / not run |
 
@@ -63,10 +78,12 @@ Do not install into global Python or change the system's default Azure subscript
 
 ### 1. Open the folder
 
-Extract the supplied ZIP or open this repository in VS Code. The terminal directory
-must contain `README.md`, `pyproject.toml`, and `scripts/`. Use the actual repository
-URL rather than guessing a clone URL. For Hosted, use a standalone directory outside
-other azd projects.
+Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs) with a GitHub account that has access,
+then **Code → Download ZIP**, extract it and open the extracted folder in VS Code.
+This is the **source repository ZIP**, not the small learner-materials ZIP.
+Open **Terminal → New Terminal**; its directory must contain `README.md`, `pyproject.toml`, and `scripts/`.
+For Hosted, use a standalone directory outside other azd projects.
+If Python is missing, install [Python 3.13](https://www.python.org/downloads/) first; do not continue past a `command not found` error.
 
 ```bash
 pwd
@@ -125,7 +142,11 @@ Learners sign in themselves.
 
 ```bash
 az login
-cp .env.example .env
+if [ -e .env ] || [ -L .env ]; then
+  printf '%s\n' '.env exists; edit it without replacing it.'
+else
+  cp .env.example .env
+fi
 ```
 
 Open `.env` in VS Code and enter instructor-provided values. If it already exists,
@@ -136,7 +157,7 @@ inspect it instead of overwriting it with the copy command.
 | `AZURE_SUBSCRIPTION_ID`, `AZURE_TENANT_ID` | IDs of the designated subscription/directory |
 | `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME` | Prepared training resources |
 | `AZURE_AI_PROJECT_ENDPOINT` | **Full** project endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Actual model deployment name |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-5.6-luna`; owner verifies model version `2026-07-09` |
 | `WORKSHOP_PREFIX` | Unique personal/team `mfv2-...` prefix |
 | `WORKSHOP_AUTH_MODE` | `cli` locally; `managed-identity` only in an actual Azure runtime |
 
@@ -158,10 +179,12 @@ Preflight does not prove data-plane permissions or Structured Outputs support;
 [Lab 02](02-models.md) tests an actual request.
 
 
-**What to check:** Read `model`, `version`, `provisioningState: Succeeded`,
-`inference_tested: false`, and `next_step`. Only an actual response verifies inference.
+**What to check:** Read `deployment.name`, `deployment.model.name`, `deployment.model.version`,
+`deployment.state: Succeeded`, `inference_tested: false`, and `note`.
+Only an actual response verifies inference. If you came here to prepare Lab 05, complete Lab 02 B's actual response check and then return to Lab 05.
 
-## New English execution evidence
+<details>
+<summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
 These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
 
@@ -183,9 +206,12 @@ These are newly recorded English actions using the separate English prompt/data 
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
+</details>
 
 ## Completion
 
 - A: Open the correct project and explain the deployment name and chosen path.
 - B: Complete offline checks and SDK installation, and understand cloud preflight results.
 - Waiting for approval: record **Azure labs not run** if you completed only the offline exercise.
+
+Next: A → [Lab 01](01-foundry.md) · B → [Lab 02](02-models.md)
