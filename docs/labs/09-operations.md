@@ -53,7 +53,9 @@ does not enable sensitive input/output capture by default.
 **What to check:** In **Traces → Trace view**, check date range and agent version.
 The newest row is not automatically the request you just sent.
 
-![Filter by the exact Trace ID returned by the CLI](../assets/live-20260914-action/shots/portal-0515-P09-003-find-exact-trace-screen-change.webp)
+**New English-guide capture: September 15, 2026.** This run's trace has 15 visible spans. ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=704.24)
+
+![Filter by the exact Trace ID returned by the CLI](../assets/english-20260915/shots/portal2-0037-P09-004-open-new-trace-before.webp)
 
 **What to check:** Search the actual Trace ID and open the matching row.
 Response, conversation, and trace IDs are different identifiers.

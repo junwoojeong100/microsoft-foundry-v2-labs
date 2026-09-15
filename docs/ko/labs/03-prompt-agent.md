@@ -135,7 +135,9 @@ Lab 02에서 제거했더라도 새 에이전트에 다시 추가될 수 있습�
 **화면 확인:** 질문을 바꾸기 전에 대화 영역 위의 **New chat**을 누릅니다.
 이전 응답이 없어졌는지 확인하고 입력란에 남은 초안도 다음 질문으로 바꿉니다.
 
-![현행 국내 숙박비 질문의 실제 답변](../../assets/live-20260914-action/shots/portal-0188-P03-021-intro-current-send-ready.webp)
+**새 영문 가이드 촬영: 2026-09-15.** 같은 v3 재시도이며 최초 HTTP 503은 액션 인덱스에 보존했습니다. ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=232.32)
+
+![현행 국내 숙박비 질문의 실제 답변](../../assets/english-20260915/shots/portal-0096-P03-010-current-retry-response-result.webp)
 
 **화면 확인:** 현행 날짜에 150,000원과 `TRAVEL-2026`을 연결하는지 읽습니다.
 금액만 맞는지 보지 말고 영수증·승인 조건도 원문과 비교합니다.

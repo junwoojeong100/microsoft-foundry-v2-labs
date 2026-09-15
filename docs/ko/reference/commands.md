@@ -32,7 +32,7 @@
 | `cleanup-plan` | 없음 | 삭제 안 함 |
 | `python scripts/export_policy_docs.py` | 없음, 텍스트 6개 생성 | A 경로 강사 배포용 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
-| `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 검증된 통합본을 기본 선택하고 Lab 00–11 챕터 이동 지원. 개별 영상도 선택 가능. Azure 호출·업로드 없음 |
+| `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 새 영문 촬영본 기본·Lab 00–11 챕터 이동. `--edition ko`로 한국어 원본 선택. Azure 호출·업로드 없음 |
 
 표에서 생략한 옵션은 실행용 완전한 예제가 아닙니다.
 정확한 필수 인자는 `python scripts/workshop.py --help`와 각 하위 명령의 `--help`로 확인합니다.

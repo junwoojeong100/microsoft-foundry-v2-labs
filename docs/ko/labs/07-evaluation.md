@@ -80,7 +80,9 @@ python scripts/workshop.py evaluate --label baseline
 수집 중 오류가 난 행도 6문항의 분모에 남습니다. 누락/중복/다른 질문이 있으면 평가를 거부합니다.
 **v1이 반드시 실패한다고 보장하지 않습니다.** 결과를 만들기 위해 실제 모델 답변을 고치지 않습니다.
 
-![baseline 업무 검사에서 사례별 체크를 읽는 화면](../../assets/live-20260914-action/shots/cli-1-0494-07-004-evaluate-baseline-result.webp)
+**새 영문 가이드 촬영: 2026-09-15.** 새 baseline은 5/6이며 D06이 실패했습니다. ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=538.76)
+
+![baseline 업무 검사에서 사례별 체크를 읽는 화면](../../assets/english-20260915/shots/terminal-0183-07-002-evaluate-baseline-result.webp)
 
 **화면 확인:** `checks` 안의 `completed`, `schema`, `decision`, `required_citations`를 읽습니다.
 사진은 출력의 마지막 사례들입니다. 전체 6개 행과 파일 위쪽 summary를 확인해야 누락 여부까지 판단할 수 있습니다.

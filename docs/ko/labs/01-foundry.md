@@ -41,7 +41,9 @@ flowchart TD
 5. classic Hub 기반 프로젝트나 과거 threads/runs 코드를 보게 되면
    [마이그레이션 지도](../reference/migration.md)를 확인합니다. 서로 다른 API를 섞지 않습니다.
 
-![프로젝트 홈의 모델과 에이전트 진입점](../../assets/live-20260914-action/shots/portal-0021-P00-004-select-new-project-ready.webp)
+**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=94.92)
+
+![프로젝트 홈의 모델과 에이전트 진입점](../../assets/english-20260915/shots/portal-0005-P01-001-endpoint-transition.webp)
 
 **화면 확인:** **View deployments**는 모델 배포, **Start building**은 에이전트 제작의 진입점입니다.
 같은 프로젝트 안에 있어도 모델 배포와 에이전트는 다른 자산이라는 점을 위 관계 그림과 연결해 보세요.

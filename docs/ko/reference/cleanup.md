@@ -77,13 +77,18 @@ azd ai agent sessions stop "<my-session-id>"
 
 ## 5. 로컬 `outputs`와 생성 디렉토리
 
-**가이드용 미디어는 2026-09-14 액션별 재촬영본만 사용합니다.**
-이미지·영상의 기준 목록은 `docs/assets/live-20260914-action/media.json`입니다.
+**2026-09-14 한국어 원본과 2026-09-15 새 영문 촬영본을 구분해 보존합니다.**
+[새 영문 촬영본](../english-recordings.md)의 기준 목록은 `docs/assets/english-20260915/media.json`,
+한국어 원본은 `docs/assets/live-20260914-action/media.json`입니다.
+기본 로컬 재생은 영문 촬영본이며 `--edition ko`로 한국어 원본을 선택합니다.
+다른 언어의 촬영일이 최신이라는 이유만으로 기존 언어의 미디어를 지우지 않습니다.
 날짜만 보고 지우지 말고 이 목록의 파일명·해시를 먼저 대조합니다.
 평가 입력·응답·평가자·소유권 기록은 미디어와 별개이며, Git에서 제외됐다는 이유로 삭제하지 않습니다.
 
 | 위치 | 보존 기준 |
 |---|---|
+| `docs/assets/english-20260915/` | 새 영상 3개·lossless 이미지 537개·234개 액션·실행/프레임/재생 계보 |
+| `outputs/english-20260915/` | 원시 실행·원본 영상 6개·캡처 계보·해시 manifest의 비공개 보관본. Git에 게시하지 않음 |
 | `docs/assets/live-20260914-action/` | 개별 편집 영상 2개와 가이드 순서 통합본 1개·236개 액션의 캡처·프레임/해시 계보. 각 버전의 역할을 구분 |
 | `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
 | `outputs/live-20260914-action/` | 새 환경의 원시 응답·평가자·File Search·포털·정리 증거. 개인정보가 있어 Git에서 제외 |

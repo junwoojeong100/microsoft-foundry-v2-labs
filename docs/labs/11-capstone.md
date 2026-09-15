@@ -35,7 +35,9 @@ The result is **evidence for human acceptance**, not permission to deploy based 
 single `true`. If using Hosted, add its version-specific smoke/evaluation evidence.
 Do not transfer local project Responses quality scores to a different Hosted path.
 
-![Acceptance artifacts linking a frozen candidate and teaching holdout](../assets/live-20260914-action/shots/cli-2-0848-11-001-acceptance-result.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=784.68)
+
+![Acceptance artifacts linking a frozen candidate and teaching holdout](../assets/english-20260915/shots/terminal-0259-11-001-accept-result.webp)
 
 **What to check:** Inspect the output file and pending `human_approval`.
 `accepted: true` means the artifact met checker conditions, not production approval.

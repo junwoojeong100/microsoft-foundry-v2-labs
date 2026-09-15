@@ -2,6 +2,8 @@
 
 **English** | [한국어](ko/video-chapters.md)
 
+For the new English-guide footage, use the [September 15 chapters](english-recordings.md#chapters).
+
 **Recorded September 14, 2026 · Combined 23:35 · Lab 00–11 · 236 actions**
 
 [Play the combined source video](https://github.com/user-attachments/assets/c005e1a6-f577-4d07-b2c3-9a4827750c81) ·

@@ -2,6 +2,45 @@
 
 **English** | [한국어](../ko/reference/validation.md)
 
+## New English-guide recording: September 15, 2026
+
+The documentation-first release `26d2e80` was published before the new recording.
+[New videos and boundaries](../english-recordings.md) and
+[234 action records](../english-captures.md) are separate from the September 14 evidence below.
+The new set contains **537 lossless screenshots**, a **13:09** guide-ordered video,
+**5:15** CLI, and **4:45** portal video.
+
+Fresh canonical dev results were **v1 5/6, v2 6/6**, with all six rows and zero collection
+errors. v1 D06's decision failure remains linked to pending review.
+The frozen candidate's already-exposed teaching holdout passed **4/4**; it is not a new
+unseen test or an English-language evaluation. An introductory portal HTTP 503 and a
+local missing-azd-context error remain alongside their separate successful retries.
+The actual local readiness body, `{"status":"healthy"}`, is now checked by the SDK contract
+test and documented in both languages; that guide segment was rerecorded after correction.
+
+The new remote Hosted request's exact trace is `94b4e5f61dc7e93016fc53a57ffa9f78`:
+**15 visible spans, one chat span, one tool span, root OK**. This is distinct from
+the older 20-span trace. Native/Hosted rubric reports were only observed, not rerun.
+No provisioning, deployment, role changes, default-subscription changes, or company/M365
+data access occurred. The owned session and local server were stopped.
+
+The final local gate passed **70 offline tests, seven SDK contracts**, Ruff lint/format,
+Python compilation, and documentation checks over **67 Markdown files, 33 language pairs,
+and 108 matching CLI examples**. Headless Edge loaded **64 pages and 158 image references**,
+played both explicit recording sets, checked all **24 chapter selections**, language
+switching with preserved video/time, and invalid-input rejection.
+
+Actual GitHub media downloads matched all **three SHA-256 hashes**.
+Both language pages rendered three native players each; **18 playback/seek positions**
+worked, all **492 chapter/action links** survived GitHub Markdown rendering, and
+**15 direct authenticated redirect/seek checks** passed. No mocked/local replacement
+video or persisted signed CDN URL was used. See the
+[playback verification](../assets/english-20260915/playback-verification.json).
+Raw runs, six source videos, capture ledgers, and their hashes are retained privately
+under `outputs/english-20260915/`; credentials are excluded.
+
+## Historical source evidence
+
 **Source Azure run: September 14, 2026, new Sweden Central environment and action-level recording.**
 
 [Actual execution](../live-run.md) · [Videos](../video-summary.md) ·

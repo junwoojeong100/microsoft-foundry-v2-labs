@@ -72,6 +72,10 @@ the original evidence without altering pixels or reclassifying it as a new run.
 New English-guide captures must have their own date, provenance, and explicit
 offline/live/observation scope. Never replace a failed Azure call with fixture footage.
 
+The [September 15 English-guide recordings](../english-recordings.md) now provide
+234 new actions and 537 lossless screenshots. New calls, local guide views, and
+historical evaluation reports are labeled separately; the same Korean input corpus remains in use.
+
 The bundled holdout has already appeared in teaching evidence. It is for demonstrating
 final acceptance, not prompt development or a claim of fresh unseen-set quality.
 

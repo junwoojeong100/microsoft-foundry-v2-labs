@@ -121,7 +121,9 @@ python scripts/workshop.py answer --prompt v2 --retrieval local
 JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 `local`은 검색 위치를 뜻할 뿐 **모델 호출이 오프라인이라는 뜻이 아닙니다.**
 
-![구조화 답변 실행에서 보존한 요청과 검색 이력](../../assets/live-20260914-action/shots/cli-1-0300-02-004-structured-answer-result.webp)
+**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=175.32)
+
+![구조화 답변 실행에서 보존한 요청과 검색 이력](../../assets/english-20260915/shots/terminal-0064-02-002-answer-result.webp)
 
 **화면 확인:** 사진은 긴 출력의 하단입니다. `source_ids`, `response_id`, `usage`,
 `trace_export`를 확인하고, 출력 위쪽의 `answer`·`decision`·`limit_krw`·`citations`와 함께 읽습니다.

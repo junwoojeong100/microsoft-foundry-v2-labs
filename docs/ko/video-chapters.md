@@ -2,6 +2,8 @@
 
 [English](../video-chapters.md) | **한국어**
 
+새 영문 촬영본은 [2026-09-15 챕터](english-recordings.md#실습별-챕터)를 이용하세요.
+
 **2026-09-14 촬영 · 통합본 23분 35초 · Lab 00–11 · 236개 액션**
 
 [통합본 바로 재생](https://github.com/user-attachments/assets/c005e1a6-f577-4d07-b2c3-9a4827750c81) ·

@@ -40,7 +40,9 @@ flowchart TD
 5. If you encounter a classic Hub project or threads/runs code, use the
    [migration map](../reference/migration.md). Do not combine incompatible APIs.
 
-![Project home entry points for model deployments and agents](../assets/live-20260914-action/shots/portal-0021-P00-004-select-new-project-ready.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=94.92)
+
+![Project home entry points for model deployments and agents](../assets/english-20260915/shots/portal-0005-P01-001-endpoint-transition.webp)
 
 **What to check:** **View deployments** opens model deployments; **Start building**
 starts agent creation. They are distinct assets even inside the same project.

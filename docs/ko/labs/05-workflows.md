@@ -116,7 +116,9 @@ python scripts/workshop.py workflow --pattern concurrent
 사용자가 읽어 통합하거나 별도의 검증된 집계 단계를 설계해야 합니다.
 벽시계 시간이 줄어도 총 모델 호출 수나 비용이 줄었다고 단정하지 않습니다.
 
-![병렬 워크플로가 돌려준 여러 관점의 출력](../../assets/live-20260914-action/shots/cli-1-0422-05-006-concurrent-result.webp)
+**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=388.76)
+
+![병렬 워크플로가 돌려준 여러 관점의 출력](../../assets/english-20260915/shots/terminal-0143-05-004-concurrent-result.webp)
 
 **화면 확인:** `pattern: concurrent`와 여러 참여자의 출력을 확인합니다.
 여러 응답이 나왔다는 사실을 하나의 합의된 최종 답안으로 해석하지 말고 직접 비교·통합합니다.

@@ -16,9 +16,7 @@
 <body>
   <p><a id="english" href="?lang=en" lang="en">English</a> | <a id="korean" href="?lang=ko" lang="ko">한국어</a></p>
   <h1 data-text="heading">Sweden Central · Follow the guide in order</h1>
-  <p data-text="introduction">September 14, 2026 source recordings with Korean sample content.
-    The combined video follows Lab 00–11; individual videos are also available.
-    Footage stays at original speed and chapter cards are identified separately.</p>
+  <p data-text="introduction">Loading the verified recording date, language, and scope.</p>
   <nav aria-label="Choose a video"></nav>
   <section id="chapters" aria-label="Lab chapters" hidden>
     <label for="chapter-select" data-text="chapter">Jump to a lab</label>
@@ -36,7 +34,9 @@
       en: {
         title: "Foundry workshop recordings",
         heading: "Sweden Central · Follow the guide in order",
-        introduction: "September 14, 2026 source recordings with Korean sample content. The combined video follows Lab 00–11; individual videos are also available. Footage stays at original speed and chapter cards are identified separately.",
+        introduction: "Loading the verified recording date, language, and scope.",
+        englishIntroduction: "English guide and UI recordings with unchanged Korean synthetic policy inputs. Actual CLI/portal calls, local document views, and historical evaluation reports are distinct. No new provisioning or deployment.",
+        koreanIntroduction: "Original Korean-content recordings. The combined video follows Lab 00–11; individual videos are also available. Footage stays at original speed and chapter cards are identified separately.",
         chapter: "Jump to a lab", chapters: "Lab chapters", choose: "Choose a video",
         loading: "Checking the local video catalog.", player: "Workshop recording player",
         footer: "Local files only. No Azure calls, sign-in, or external uploads. Seek with the playback bar or change speed using the player's menu.",
@@ -47,12 +47,15 @@
         invalidTime: "Invalid start time: ", invalidVideo: "Unknown video: ",
         edited: "Waits removed · ",
         videos: {"guide-walkthrough.mp4": "Guide-ordered walkthrough · Korean source", "cli-edited.mp4": "CLI execution · Korean source", "portal-edited.mp4": "Foundry portal · Korean source"},
+        englishVideos: {"guide-walkthrough.mp4": "English guide-ordered walkthrough", "cli-edited.mp4": "Actual CLI execution · English guide", "portal-edited.mp4": "Foundry portal · English UI"},
         labs: ["Getting started", "Foundry and projects", "Models", "First agent", "MAF tools and MCP", "MAF workflows", "Search and Foundry IQ", "Evaluation", "Hosted Agent", "Operations and cleanup", "IQ extensions", "Capstone"]
       },
       ko: {
         title: "Foundry 실습 녹화 재생",
         heading: "Sweden Central · 실습 가이드 순서대로 따라보기",
-        introduction: "2026-09-14 한국어 원본 촬영본입니다. 통합본은 Lab 00–11 순서이며, 개별 영상도 선택할 수 있습니다. 장면은 원래 속도이고 통합본의 제목 화면은 별도로 표시했습니다.",
+        introduction: "검증된 촬영일·언어·실행 범위를 불러오는 중입니다.",
+        englishIntroduction: "영문 가이드·UI 촬영본이며 한국어 합성 정책 입력은 유지합니다. 실제 CLI·포털 호출, 로컬 문서 화면, 과거 평가 보고서를 구분합니다. 새 리소스 생성·배포는 하지 않았습니다.",
+        koreanIntroduction: "한국어 원본 촬영본입니다. 통합본은 Lab 00–11 순서이며, 개별 영상도 선택할 수 있습니다. 장면은 원래 속도이고 통합본의 제목 화면은 별도로 표시했습니다.",
         chapter: "이동할 실습", chapters: "실습 챕터", choose: "영상 선택",
         loading: "로컬 영상 목록을 확인하고 있습니다.", player: "실습 녹화 플레이어",
         footer: "로컬 파일만 재생합니다. Azure 호출·로그인·외부 업로드는 하지 않습니다. 재생 막대를 움직여 원하는 위치로 이동하거나 플레이어 메뉴에서 재생 속도를 바꾸세요.",
@@ -63,6 +66,7 @@
         invalidTime: "유효하지 않은 시작 시각입니다: ", invalidVideo: "존재하지 않는 영상 이름입니다: ",
         edited: "대기 제거 편집본 · ",
         videos: {"guide-walkthrough.mp4": "실습 순서 통합본", "cli-edited.mp4": "CLI 핵심 실행", "portal-edited.mp4": "Foundry 포털 핵심 조작"},
+        englishVideos: {"guide-walkthrough.mp4": "영문 가이드 순서 통합본", "cli-edited.mp4": "영문 가이드의 실제 CLI 실행", "portal-edited.mp4": "영문 UI의 Foundry 포털"},
         labs: ["시작과 공통 환경", "Foundry와 프로젝트", "모델", "첫 에이전트", "MAF 함수와 MCP", "MAF 워크플로", "Search와 Foundry IQ", "평가", "Hosted Agent", "운영과 정리", "IQ 확장", "캡스톤"]
       }
     };
@@ -133,7 +137,13 @@
         throw new Error("Unsupported language: " + requestedLanguage);
       const response = await fetch("/media.json", {cache:"no-store"});
       if (!response.ok) throw new Error(text.catalogError + response.status);
-      const {videos, default_video} = await response.json();
+      const catalog = await response.json();
+      const {videos, default_video, edition, recorded_on} = catalog;
+      if (!["en", "ko"].includes(edition) || !/^\d{4}-\d{2}-\d{2}$/.test(recorded_on))
+        throw new Error("The recording catalog has no valid edition or recording date.");
+      document.querySelector('[data-text="introduction"]').textContent =
+        recorded_on + " · " + (edition === "en" ? text.englishIntroduction : text.koreanIntroduction);
+      const videoTitles = edition === "en" ? text.englishVideos : text.videos;
       const requested = parameters.get("video");
       const time = parameters.get("t");
       if (time !== null && (!/^\d+(?:\.\d+)?$/.test(time) || !Number.isFinite(Number(time))))
@@ -171,7 +181,7 @@
         const button = document.createElement("button");
         button.type = "button";
         button.dataset.filename = video.filename;
-        button.textContent = text.videos[video.filename] || video.title || video.filename;
+        button.textContent = videoTitles[video.filename] || video.title || video.filename;
         button.addEventListener("click", () => select(video));
         navigation.append(button);
       }

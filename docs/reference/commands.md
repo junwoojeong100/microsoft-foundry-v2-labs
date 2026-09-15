@@ -32,7 +32,7 @@ Activate the dedicated virtual environment for cloud SDKs.
 | `cleanup-plan` | None | Deletes nothing |
 | `python scripts/export_policy_docs.py` | Creates six local text files | Instructor distributes them to A learners |
 | `python scripts/package_hosted.py` | Local package | No deployment/installation |
-| `python scripts/play_recordings.py` | Localhost video server | Verified guide-ordered default with Lab 00–11 chapters; individual videos selectable; no Azure/upload |
+| `python scripts/play_recordings.py` | Localhost video server | New English-guide set by default, Lab 00–11 chapters; `--edition ko` for the original source set; no Azure/upload |
 
 Abbreviated rows are not complete executable examples. Read
 `python scripts/workshop.py --help` and subcommand `--help` for required arguments.

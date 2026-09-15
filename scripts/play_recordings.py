@@ -13,7 +13,8 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSET_RUN = "live-20260914-action"
+ASSET_RUN = "english-20260915"
+ASSET_RUNS = {"en": ASSET_RUN, "ko": "live-20260914-action"}
 
 
 def byte_range(value: str | None, size: int) -> tuple[int, int]:
@@ -36,8 +37,10 @@ def byte_range(value: str | None, size: int) -> tuple[int, int]:
     return start, end
 
 
-def media_catalog(root: Path) -> tuple[dict, dict[str, Path]]:
-    directory = root / "docs/assets" / ASSET_RUN
+def media_catalog(root: Path, edition: str = "en") -> tuple[dict, dict[str, Path]]:
+    if edition not in ASSET_RUNS:
+        raise ValueError("Choose recording edition en or ko.")
+    directory = root / "docs/assets" / ASSET_RUNS[edition]
     metadata = json.loads((directory / "media.json").read_text(encoding="utf-8"))
     videos = metadata["videos"]
     if not isinstance(videos, list) or not videos:
@@ -81,7 +84,12 @@ def media_catalog(root: Path) -> tuple[dict, dict[str, Path]]:
     default_video = metadata.get("default_video", videos[0]["filename"])
     if not isinstance(default_video, str) or default_video not in files:
         raise ValueError("The default recording is not in the verified media catalog.")
-    return {"videos": videos, "default_video": default_video}, files
+    return {
+        "videos": videos,
+        "default_video": default_video,
+        "edition": edition,
+        "recorded_on": metadata.get("recorded_on"),
+    }, files
 
 
 class RecordingHandler(BaseHTTPRequestHandler):
@@ -150,8 +158,8 @@ class RecordingHandler(BaseHTTPRequestHandler):
             self.log_message("Player closed or replaced a byte-range request.")
 
 
-def create_server(root: Path, port: int) -> ThreadingHTTPServer:
-    catalog, files = media_catalog(root)
+def create_server(root: Path, port: int, edition: str = "en") -> ThreadingHTTPServer:
+    catalog, files = media_catalog(root, edition)
     handler = functools.partial(
         RecordingHandler,
         player=(root / "recording/player.html").read_bytes(),
@@ -164,11 +172,17 @@ def create_server(root: Path, port: int) -> ThreadingHTTPServer:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument(
+        "--edition",
+        choices=tuple(ASSET_RUNS),
+        default="en",
+        help="Recording set: English-guide recordings (default) or the Korean source recordings.",
+    )
     args = parser.parse_args()
     if not 1024 <= args.port <= 65535:
         parser.error("--port must be between 1024 and 65535.")
     try:
-        with create_server(ROOT, args.port) as server:
+        with create_server(ROOT, args.port, args.edition) as server:
             print(f"Recording player: http://127.0.0.1:{args.port}/", flush=True)
             print("Local files only; no Azure calls or uploads. Press Ctrl+C to stop.", flush=True)
             try:

@@ -82,6 +82,11 @@ class VideoLinkTests(unittest.TestCase):
     def test_lab_images_are_current_captioned_and_placed_with_the_steps(self):
         media = json.loads((ASSETS / "media.json").read_text())
         known_images = {(ASSETS / item["filename"]).resolve() for item in media["images"]}
+        english_assets = ROOT / "docs/assets/english-20260915"
+        english_media = json.loads((english_assets / "media.json").read_text())
+        known_images.update(
+            (english_assets / item["filename"]).resolve() for item in english_media["images"]
+        )
         minimums = {
             "00-start.md": 5,
             "01-foundry.md": 3,
@@ -284,7 +289,7 @@ class VideoLinkTests(unittest.TestCase):
             for screenshot in action["screenshots"]:
                 self.assertIn(screenshot["image"], images)
 
-    def test_current_tree_contains_only_verified_new_media(self):
+    def test_current_tree_contains_only_verified_recording_editions(self):
         media = json.loads((ASSETS / "media.json").read_text())
         self.assertFalse((ROOT / "docs/assets/live-20260913-swc").exists())
         media_extensions = {
@@ -300,7 +305,12 @@ class VideoLinkTests(unittest.TestCase):
             ".mkv",
             ".avi",
         }
-        expected_media = {ASSETS / item["filename"] for item in media["videos"] + media["images"]}
+        expected_media = set()
+        for directory in (ASSETS, ROOT / "docs/assets/english-20260915"):
+            edition = json.loads((directory / "media.json").read_text())
+            expected_media.update(
+                directory / item["filename"] for item in edition["videos"] + edition["images"]
+            )
         self.assertEqual(
             {
                 path

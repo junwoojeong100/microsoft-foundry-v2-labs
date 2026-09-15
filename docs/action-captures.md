@@ -2,6 +2,8 @@
 
 **English** | [한국어](ko/action-captures.md)
 
+The [new September 15 English-guide captures](english-captures.md) are indexed separately.
+
 **September 14, 2026 source run: 131 CLI actions and 105 portal actions.**
 
 [Results](live-run.md) · [Playback](video-summary.md) · [Files and hashes](assets/live-20260914-action/media.json)

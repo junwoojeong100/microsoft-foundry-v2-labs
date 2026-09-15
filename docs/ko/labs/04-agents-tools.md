@@ -52,7 +52,9 @@ sequenceDiagram
     M-->>U: 조건·인용을 포함한 답변
 ```
 
-![실제 함수 도구 응답의 구조화된 판단과 인용](../../assets/live-20260914-action/shots/cli-1-0362-04-003-maf-tool-result.webp)
+**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=340.20)
+
+![실제 함수 도구 응답의 구조화된 판단과 인용](../../assets/english-20260915/shots/terminal-0105-04-002-function-result.webp)
 
 **화면 확인:** `tools: function`과 `answer` 안의 `decision`, `limit_krw`, `citations`를 확인합니다.
 사진의 `needs_approval`은 승인 완료가 아니라 사람의 사전 승인이 필요하다는 뜻입니다.

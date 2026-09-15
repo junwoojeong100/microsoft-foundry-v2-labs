@@ -125,7 +125,9 @@ The command performs local keyword retrieval over synthetic documents, then call
 **real Azure model**. Inspect `answer`, `decision`, `limit_krw`, and `citations`.
 `local` describes retrieval, **not an offline model**.
 
-![Structured-answer request and retrieval lineage](../assets/live-20260914-action/shots/cli-1-0300-02-004-structured-answer-result.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=175.32)
+
+![Structured-answer request and retrieval lineage](../assets/english-20260915/shots/terminal-0064-02-002-answer-result.webp)
 
 **What to check:** The screenshot shows the bottom of a long output. Read `source_ids`,
 `response_id`, `usage`, and `trace_export` together with the answer fields above.

@@ -57,7 +57,9 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 **화면 확인:** 본인 에이전트의 **Traces → Trace view**에서 날짜 범위와 agent version을 먼저 확인합니다.
 최신 행이라는 이유만으로 방금 보낸 요청이라고 판단하지 않습니다.
 
-![CLI에서 받은 Trace ID로 필터링한 동일 요청](../../assets/live-20260914-action/shots/portal-0515-P09-003-find-exact-trace-screen-change.webp)
+**새 영문 가이드 촬영: 2026-09-15.** 이번 새 Trace의 보이는 span은 15개입니다. ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=704.24)
+
+![CLI에서 받은 Trace ID로 필터링한 동일 요청](../../assets/english-20260915/shots/portal2-0037-P09-004-open-new-trace-before.webp)
 
 **화면 확인:** 검색칸에 실제 Trace ID를 넣고 정확히 같은 ID의 행을 엽니다.
 `response_id`, conversation ID, Trace ID는 서로 다른 값입니다.

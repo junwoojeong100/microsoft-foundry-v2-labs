@@ -127,7 +127,9 @@ python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국�
 **빈 결과는 0건 검색입니다.** 이 경우에도 정상 답변처럼 금액을 채우지 않습니다.
 실패 시 Search로 자동 대체하지 않습니다.
 
-![GA IQ 검색의 activity와 실제 요청 설정](../../assets/live-20260914-action/shots/cli-1-0462-06-010-retrieve-iq-result.webp)
+**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=439.52)
+
+![GA IQ 검색의 activity와 실제 요청 설정](../../assets/english-20260915/shots/terminal-0166-06-003-iq-result.webp)
 
 **화면 확인:** 사진 하단의 `activity`, knowledge base 이름과 API 버전을 읽습니다.
 출력 위쪽의 `references`·`documents`도 함께 확인하세요. activity에 보고되지 않은 지연이나 사용량을 임의로 채우지 않습니다.

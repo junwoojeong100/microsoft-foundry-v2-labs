@@ -83,7 +83,9 @@ Errored collection rows stay in the six-case denominator; missing, duplicate, or
 different questions cause evaluation rejection. **v1 is not guaranteed to fail.**
 Never edit actual model responses to manufacture a result.
 
-![Per-case baseline business checks](../assets/live-20260914-action/shots/cli-1-0494-07-004-evaluate-baseline-result.webp)
+**New English-guide capture: September 15, 2026.** New baseline: 5/6; D06 failed. ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=538.76)
+
+![Per-case baseline business checks](../assets/english-20260915/shots/terminal-0183-07-002-evaluate-baseline-result.webp)
 
 **What to check:** Read `completed`, `schema`, `decision`, and `required_citations`
 inside `checks`. The image shows the final cases; also inspect the summary and all six rows.

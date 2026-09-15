@@ -14,6 +14,8 @@
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
 | 새 영상으로 실제 조작 따라가기 | [대기 제거 편집본: 포털 9분 09초 · CLI 14분 02초](video-summary.md) |
+| 2026-09-15 영문 가이드 새 촬영 | [통합본 13분 09초·CLI 5분 15초·포털 4분 45초](english-recordings.md) |
+| 새 영문 촬영본의 액션별 화면 | [234개 액션·537개 캡처](english-captures.md) |
 | 가이드 순서대로 한 영상에서 보기 | [CLI·포털 통합본 23분 35초와 챕터](video-chapters.md) |
 | 단계별로 필요한 화면 찾기 | [236개 액션의 전·후 캡처](action-captures.md) |
 | 실제 결과와 아직 확인하지 않은 것 | [실행·검증 기록](live-run.md) |

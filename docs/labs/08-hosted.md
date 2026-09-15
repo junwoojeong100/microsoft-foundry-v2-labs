@@ -140,9 +140,12 @@ azd ai agent invoke --local --new-session --new-conversation --timeout 120 "2026
 
 The question requests the September 2026 domestic lodging limit and sources.
 
-![Terminal B checking the local server's readiness](../assets/live-20260914-action/shots/cli-1-0672-08-019-local-readiness-result.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=643.28)
 
-**What to check:** Leave A running and read `status: ready` in B.
+![Terminal B checking the local server's readiness](../assets/english-20260915/shots/terminal-0277-08-005-local-readiness-result.webp)
+
+**What to check:** Leave A running and check HTTP 200 in B. The pinned SDK returns
+`{"status":"healthy"}` (rechecked September 15, 2026), not `status: ready`.
 HTTP readiness proves server availability, not model inference.
 
 ![Actual local Hosted response in a second terminal](../assets/live-20260914-action/shots/cli-1-0678-08-020-local-invoke-result.webp)

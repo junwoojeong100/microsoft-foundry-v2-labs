@@ -2,6 +2,9 @@
 
 **English** | [한국어](ko/live-run.md)
 
+**New run:** [September 15 English-guide recording results](english-recordings.md#actual-results-and-boundaries).
+The evidence below remains attributed to the September 14 source execution.
+
 **On September 14, 2026, the guide was rerun and recorded in the new
 `rg-mfv2-action-swc-20260914` environment.**
 The designated training account was used without changing the default Azure CLI

@@ -13,6 +13,20 @@ PLAYER = load_script("play_recordings")
 
 
 class RecordingPlayerTests(unittest.TestCase):
+    def test_recording_editions_are_explicit_and_default_to_english(self):
+        from . import ROOT
+
+        for edition, date in (("en", "2026-09-15"), ("ko", "2026-09-14")):
+            with self.subTest(edition=edition):
+                catalog, files = PLAYER.media_catalog(ROOT, edition)
+                self.assertEqual(catalog["edition"], edition)
+                self.assertEqual(catalog["recorded_on"], date)
+                self.assertIn(catalog["default_video"], files)
+        catalog, _ = PLAYER.media_catalog(ROOT)
+        self.assertEqual(catalog["edition"], "en")
+        with self.assertRaisesRegex(ValueError, "edition"):
+            PLAYER.media_catalog(ROOT, "unknown")
+
     def test_default_video_and_chapter_ranges_are_validated(self):
         with tempfile.TemporaryDirectory(prefix="recording-chapters-test-") as directory:
             root = Path(directory)

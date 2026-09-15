@@ -145,7 +145,9 @@ response. Start a new conversation for each question so earlier answers do not l
 **What to check:** Select **New chat** above the conversation. Verify the old response
 is gone and replace any remaining draft with the next question.
 
-![Actual current-policy answer](../assets/live-20260914-action/shots/portal-0188-P03-021-intro-current-send-ready.webp)
+**New English-guide capture: September 15, 2026.** Same-v3 retry; the original HTTP 503 remains in the capture index. ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=232.32)
+
+![Actual current-policy answer](../assets/english-20260915/shots/portal-0096-P03-010-current-retry-response-result.webp)
 
 **What to check:** Link September 2026 to KRW 150,000 and `TRAVEL-2026`.
 Compare receipt/approval conditions as well as the amount.

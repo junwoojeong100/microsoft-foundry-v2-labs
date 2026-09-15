@@ -4,8 +4,8 @@
 
 **Move from building an agent to preserving your team's knowledge, evaluation criteria, and operational decisions.**
 
-This is the Pre-Ignite 2026 Edition, with Azure execution recorded on September 14,
-2026 and English documentation added on September 15. Beginners use the portal and
+This is the Pre-Ignite 2026 Edition, with English documentation, new recordings, and
+Azure checks on September 15, 2026. The September 14 source evidence remains separate. Beginners use the portal and
 a prepared MAF environment; practitioners use Python. Both solve the same
 **synthetic travel-policy scenario**. Neither path authors workflows in the portal.
 
@@ -14,10 +14,11 @@ a prepared MAF environment; practitioners use Python. Both solve the same
 | A starting point and schedule | [Learning paths](paths.md) |
 | First-run instructions | [Lab 00](labs/00-start.md) |
 | Classroom preparation | [Instructor guide](instructor.md) |
-| Action-by-action recordings | [Portal 9:09 / CLI 14:02](video-summary.md) |
-| One video in guide order | [23:35 walkthrough and chapters](video-chapters.md) |
-| A particular screen or action | [236-action capture index](action-captures.md) |
-| Actual results and unverified features | [Execution record](live-run.md) |
+| New English-guide recordings | [Portal 4:45 / CLI 5:15](english-recordings.md) |
+| One video in guide order | [13:09 walkthrough and chapters](english-recordings.md#chapters) |
+| A particular screen or action | [234-action / 537-image index](english-captures.md) |
+| New results and unverified features | [Execution boundaries](english-recordings.md#actual-results-and-boundaries) |
+| Original Korean-content recordings | [September 14 source videos](video-summary.md) |
 | Final deliverables | [Capstone](labs/11-capstone.md) |
 | Supported contracts and versions | [Compatibility snapshot](reference/versions.md) |
 | Errors, roles, or quota | [Troubleshooting](reference/troubleshooting.md) |
@@ -26,8 +27,8 @@ a prepared MAF environment; practitioners use Python. Both solve the same
 
 > **Keep three things separate.** `offline-fixture` is a fixed example. Local MAF runs
 > on your computer but calls a model in Azure. Hosted Agent runs your code in the cloud.
-> Their completion criteria are different. The original recordings contain Korean
-> sample content; an English guide is not a new Azure validation result.
+> Their completion criteria are different. Canonical policy inputs remain Korean,
+> and an English guide is not an English-language quality evaluation.
 
 ```mermaid
 flowchart TD

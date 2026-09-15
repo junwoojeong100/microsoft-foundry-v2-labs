@@ -1,0 +1,41 @@
+{
+  "status": "published",
+  "recorded_on": "2026-09-15",
+  "repository": "junwoojeong100/microsoft-foundry-v2-labs",
+  "repository_id": 1367892793,
+  "private_repository": true,
+  "edited_recordings_published": true,
+  "signed_media_urls_saved": false,
+  "videos": [
+    {
+      "filename": "guide-walkthrough.mp4",
+      "url": "https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9",
+      "bytes": 39814723,
+      "source_sha256": "4a85924e62bc877f98b2bb5452bf9f1eac60805192cd3b13129ec0c015aad93b",
+      "repository_id": 1367892793
+    },
+    {
+      "filename": "cli-edited.mp4",
+      "url": "https://github.com/user-attachments/assets/e29e5b98-b7c9-4e3f-825d-be56adf4c6a2",
+      "bytes": 18103232,
+      "source_sha256": "10577086790754fa93d302b469e478ddb6c6a4c4289135cef066b2858e4243e9",
+      "repository_id": 1367892793
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "url": "https://github.com/user-attachments/assets/ef769e93-598a-458a-a2e3-fc21f6a788c2",
+      "bytes": 10666884,
+      "source_sha256": "f0d6f67a56be455e40b22ff3268344582a5c5b8d88d43e2874cdfce72160c019",
+      "repository_id": 1367892793
+    }
+  ],
+  "verification": {
+    "hosted_hashes_verified": 3,
+    "native_player_positions_verified": 18,
+    "direct_redirect_and_seek_checks": 15,
+    "rendered_time_links_verified": 492,
+    "mocked_media": false,
+    "signed_urls_saved": false,
+    "credentials_forwarded_to_asset_storage": false
+  }
+}

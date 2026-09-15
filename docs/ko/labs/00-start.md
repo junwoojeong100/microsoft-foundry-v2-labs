@@ -8,7 +8,8 @@
 
 ## 이 가이드의 화면 읽는 법
 
-각 단계의 이미지는 **2026-09-14 실제 촬영 예시**입니다. 클릭하면 큰 화면으로 볼 수 있습니다.
+각 단계의 이미지는 **2026-09-14 원본과 개별 표시한 2026-09-15 새 영문 가이드 촬영 예시**입니다.
+[새 영상과 범위](../english-recordings.md)에서 실제 호출·문서 화면·과거 보고서를 구분합니다. 클릭하면 크게 볼 수 있습니다.
 화면의 계정·프로젝트·모델·접두사를 그대로 복사하지 말고 강사가 제공한 본인 값과 대조하세요.
 터미널 이미지는 **마지막으로 입력한 명령(`workshop $` 뒤에 내용이 있는 줄)과 그 아래 결과**를 읽습니다.
 위쪽에는 앞 명령의 출력이 남아 있을 수 있고, 맨 아래의 빈 프롬프트는 명령이 끝났다는 표시입니다.
@@ -72,7 +73,9 @@ python3.13 scripts/workshop.py doctor
 `azure_tested: false`, `result: PASS`가 있습니다.
 **이 PASS는 Azure 로그인 성공이 아닙니다.**
 
-![오프라인 doctor의 문서 수와 Azure 미검증 표시](../../assets/live-20260914-action/shots/cli-1-0021-00-004-offline-doctor-result.webp)
+**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=58.68)
+
+![오프라인 doctor의 문서 수와 Azure 미검증 표시](../../assets/english-20260915/shots/terminal-0021-00-004-doctor-result.webp)
 
 **화면 확인:** `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`와 함께 `azure_tested: false`를 읽습니다.
 이 단계에서는 파일과 실행 환경만 확인하며 Azure 호출 성공을 판정하지 않습니다.

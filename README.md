@@ -6,20 +6,22 @@
 
 English by default · Korean available · Synthetic data only
 
-**Pre-Ignite 2026 Edition / Azure execution recorded September 14, 2026 / English documentation September 15, 2026**
+**Pre-Ignite 2026 Edition / English documentation, new recordings, and Azure checks: September 15, 2026**
 
 Follow the **[beginner or practitioner guide](docs/paths.md)**. Each lab places reference
 images and a **What to check** explanation beside the relevant action or command.
 Read [how to use the screenshots](docs/labs/00-start.md#how-to-read-this-guide) first.
 
-**[Watch the guide-ordered walkthrough](docs/video-summary.md)**: 23:35 combined,
-14:02 CLI, or 9:09 portal, with **direct GitHub playback** and no download command.
-[All 236 recorded actions](docs/action-captures.md) · [Results and limitations](docs/live-run.md)
+**[Watch the new English-guide recordings](docs/english-recordings.md)**: **13:09 combined**,
+5:15 CLI, or 4:45 portal, with **direct GitHub playback** and no download command.
+[234 new actions / 537 screenshots](docs/english-captures.md) ·
+[New results and limitations](docs/english-recordings.md#actual-results-and-boundaries)
 
-The September 14 recordings use the original Korean workshop content. Translating the
-guide does **not** turn those recordings into a new English Azure run.
-The [language contract](docs/reference/languages.md) explains why canonical policy
-questions, prompts, and evaluation data remain unchanged.
+The new footage has English guide text and UI, while **canonical synthetic policy
+questions, prompts, and datasets remain Korean** to preserve evaluation lineage.
+No new infrastructure was provisioned or deployed. The [language contract](docs/reference/languages.md)
+explains the boundary; the [September 14 Korean source recordings](docs/video-summary.md)
+remain available separately.
 
 This edition brings the December 2025 `microsoft-foundry-labs`, Foundry Evaluation,
 MAF Workshop, Agent Framework, and Microsoft IQ exercises into **one environment and

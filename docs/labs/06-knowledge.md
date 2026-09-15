@@ -122,7 +122,9 @@ Activity errors must not be silently accepted as partial success.
 **An empty result means zero retrieved documents**, not permission to invent an amount.
 IQ failure never automatically becomes Search.
 
-![GA IQ activity and actual request settings](../assets/live-20260914-action/shots/cli-1-0462-06-010-retrieve-iq-result.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=439.52)
+
+![GA IQ activity and actual request settings](../assets/english-20260915/shots/terminal-0166-06-003-iq-result.webp)
 
 **What to check:** Read activity, base, and API version at the bottom, and references/
 documents above. Do not fill unreported latency or usage with invented values.

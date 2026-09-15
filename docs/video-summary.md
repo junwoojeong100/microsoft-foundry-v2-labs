@@ -1,6 +1,9 @@
-# Action-by-action workshop videos
+# September 14 source workshop videos
 
 **English** | [한국어](ko/video-summary.md)
+
+**Looking for the new English-guide videos?** [Play the September 15 recordings](english-recordings.md):
+13:09 combined, 5:15 CLI, and 4:45 portal. The archive below remains the Korean-content source run.
 
 [Learning paths](paths.md) · [12 chapters](video-chapters.md) ·
 [236 actions and screenshots](action-captures.md) · [Results and limits](live-run.md)
@@ -59,10 +62,11 @@ Only use this if the repository is already on your computer and you want local p
 **None of the GitHub links above require this command.**
 
 ```bash
-python scripts/play_recordings.py
+python scripts/play_recordings.py --edition ko
 ```
 
-Open the printed address. The combined source video is selected by default and the
+Open the printed address. `--edition ko` explicitly selects this source set; without it,
+the new English-guide set is selected. The combined source video is selected and the
 chapter selector navigates among labs. Stop with `Ctrl+C`; use `--port 8766` if needed.
 The local player defaults to English. Its **한국어** link switches the interface while
 preserving the selected video and playback position; it does not translate the footage.

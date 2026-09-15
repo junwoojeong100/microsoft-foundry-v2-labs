@@ -227,6 +227,7 @@ class AgentSDKTests(unittest.IsolatedAsyncioTestCase):
         ) as client:
             response = await client.get("/readiness")
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "healthy"})
         self.assertEqual(self.captured, [])
 
 

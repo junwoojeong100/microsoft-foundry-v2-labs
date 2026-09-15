@@ -74,6 +74,11 @@ Budget alerts are not automatic shutdown controls.
 
 ## 5. Local outputs and generated directories
 
+Keep the [new English-guide recording](../english-recordings.md) and the Korean source
+recording as separate, manifest-verified editions. The default English catalog is
+`docs/assets/english-20260915/media.json`; `--edition ko` selects the original set.
+Do not delete one language's assets merely because the other has a newer recording date.
+
 The source guide media is the **September 14 action-level recording** in
 `docs/assets/live-20260914-action/media.json`. Compare manifest filenames/hashes
 before cleanup; dates alone are insufficient.
@@ -82,6 +87,8 @@ from media. Git exclusion does not make them disposable.
 
 | Location | Retention rule |
 |---|---|
+| `docs/assets/english-20260915/` | Three new videos, 537 lossless images, 234 action records, run/frame/playback lineage |
+| `outputs/english-20260915/` | Private raw runs, six source videos, capture ledgers, and hash manifest; not for Git publication |
 | `docs/assets/live-20260914-action/` | Two edited videos, one guide-ordered video, 236-action captures, frame/hash lineage |
 | `outputs/azure-objects.json` | Current Search ownership; not a disposable log |
 | `outputs/live-20260914-action/` | Raw responses/evaluators/File Search/portal/cleanup evidence; private and Git-excluded |

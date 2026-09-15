@@ -8,9 +8,11 @@ Parent: [Learning paths](../paths.md) · Next: [Lab 01](01-foundry.md)
 
 ## How to read this guide
 
-Reference images are **actual September 14, 2026 captures of the Korean-content workshop**.
-Click to enlarge. Compare the account, project, model, and prefix with your instructor's
-values; do not copy identifiers from images. English documentation is not a new Azure run.
+Reference images include **September 14 source captures** and individually dated
+**September 15 English-guide captures**. [New recordings and scope](../english-recordings.md)
+separate actual calls, local document views, and historical reports.
+Click to enlarge. Compare account, project, model, and prefix with your instructor's
+values; do not copy identifiers from images.
 
 In terminal images, read the **last entered command** (the line with text after `workshop $`)
 and its output. Earlier output can remain above it. An empty prompt at the bottom means
@@ -78,7 +80,9 @@ python3.13 scripts/workshop.py doctor
 Expected fields include `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`,
 `azure_tested: false`, and `result: PASS`. **PASS does not mean Azure sign-in succeeded.**
 
-![Offline doctor reports document counts and untested Azure connectivity](../assets/live-20260914-action/shots/cli-1-0021-00-004-offline-doctor-result.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=58.68)
+
+![Offline doctor reports document counts and untested Azure connectivity](../assets/english-20260915/shots/terminal-0021-00-004-doctor-result.webp)
 
 **What to check:** Read all three counts and `azure_tested: false`. This checks files
 and the local runtime, not a successful Azure call.

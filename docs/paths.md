@@ -7,9 +7,10 @@ Both use the same synthetic Hanbit Technology policies. Complete A first and ext
 to B later, or follow the relevant A/B section in each lab. A is portal-first, but
 its workflow exercise runs in a prepared MAF environment.
 
-Follow **action/command, reference image, then What to check**. September 14, 2026
-images are examples, not your results. Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide)
-and [complete action index](action-captures.md) as references.
+Follow **action/command, reference image, then What to check**. September 14 source
+images and individually dated September 15 captures are examples, not your results.
+Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide),
+[new English recordings](english-recordings.md), and [new action index](english-captures.md).
 Canonical policy questions remain Korean to preserve reproducibility;
 [English meanings](reference/languages.md) are provided separately.
 

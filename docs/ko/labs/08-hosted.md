@@ -147,9 +147,12 @@ curl --fail http://127.0.0.1:8088/readiness
 azd ai agent invoke --local --new-session --new-conversation --timeout 120 "2026년 9월 국내 출장 숙박비 한도와 근거를 알려주세요."
 ```
 
-![터미널 B에서 로컬 서버 readiness를 확인](../../assets/live-20260914-action/shots/cli-1-0672-08-019-local-readiness-result.webp)
+**새 영문 가이드 촬영: 2026-09-15.** ▶ [이 액션 재생](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=643.28)
 
-**화면 확인:** 터미널 A는 종료하지 않고 둔 채, B에서 `curl` 결과의 `status: ready`를 확인합니다.
+![터미널 B에서 로컬 서버 readiness를 확인](../../assets/english-20260915/shots/terminal-0277-08-005-local-readiness-result.webp)
+
+**화면 확인:** 터미널 A를 종료하지 않고 B에서 HTTP 200을 확인합니다.
+고정 SDK의 실제 반환값은 `{"status":"healthy"}`입니다(2026-09-15 재확인). `status: ready`가 아닙니다.
 서버에 연결됐다는 뜻이지 모델 응답까지 성공했다는 뜻은 아닙니다.
 
 ![별도 터미널에서 받은 실제 로컬 Hosted 응답](../../assets/live-20260914-action/shots/cli-1-0678-08-020-local-invoke-result.webp)

@@ -55,7 +55,9 @@ sequenceDiagram
     M-->>U: Answer with conditions and citations
 ```
 
-![Structured decision and citations from the function-tool run](../assets/live-20260914-action/shots/cli-1-0362-04-003-maf-tool-result.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=340.20)
+
+![Structured decision and citations from the function-tool run](../assets/english-20260915/shots/terminal-0105-04-002-function-result.webp)
 
 **What to check:** Inspect `tools: function` and the nested `decision`, `limit_krw`,
 and `citations`. `needs_approval` means prior human approval is required, not granted.

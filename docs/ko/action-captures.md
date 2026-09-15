@@ -2,6 +2,8 @@
 
 [English](../action-captures.md) | **한국어**
 
+[2026-09-15 새 영문 가이드 캡처](english-captures.md)는 별도 인덱스로 제공합니다.
+
 **2026-09-14 새 실행 · 131개 CLI 액션 · 105개 포털 액션**
 
 [실행 결과](live-run.md) · [재생 방법](video-summary.md) · [모든 파일·해시](../assets/live-20260914-action/media.json)

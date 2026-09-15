@@ -115,7 +115,9 @@ It returns three perspectives, **not automatic consensus or one final answer**.
 Read and combine them yourself or design a separately validated aggregation step.
 Lower wall-clock time does not necessarily mean fewer calls or lower costs.
 
-![Multiple perspectives returned by concurrent execution](../assets/live-20260914-action/shots/cli-1-0422-05-006-concurrent-result.webp)
+**New English-guide capture: September 15, 2026.** ▶ [Watch this action](https://github.com/user-attachments/assets/082ede4b-d363-474c-ad47-598b20f593e9#t=388.76)
+
+![Multiple perspectives returned by concurrent execution](../assets/english-20260915/shots/terminal-0143-05-004-concurrent-result.webp)
 
 **What to check:** Verify `pattern: concurrent` and multiple participant outputs.
 Compare them rather than treating them as an agreed answer.
