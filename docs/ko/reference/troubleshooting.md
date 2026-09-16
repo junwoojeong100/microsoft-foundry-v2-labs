@@ -5,6 +5,39 @@
 **오류가 난 단계를 해결하기 전에는 배포·평가·삭제를 연속 실행하지 않습니다.**
 같은 에러에 새 모델/새 구독/새 리소스를 무작정 만드는 것은 복구가 아닙니다.
 
+<a id="resume-safely"></a>
+
+## 유료 작업을 반복하지 않고 재개하기
+
+기록에서 마지막 완료 단계와 정확한 버전·label을 읽고 **처음 해당하는 행**을 따릅니다.
+
+| 상황 | 안전한 다음 행동 | 하지 않을 일 |
+|---|---|---|
+| 브라우저를 닫았음 | 같은 프로젝트·agent·저장 버전을 열고 기존 대화 확인 | 새 agent 생성·모든 질문 재전송 |
+| 새 터미널을 열었음 | 저장소 루트로 돌아와 `source .venv/bin/activate` | 전체 재설치·`.env` 덮어쓰기·셸 `source .env` |
+| Label이 이미 있음 | `outputs/<label>/manifest.json`, `responses.jsonl` 확인. `evaluate`는 로컬 재조회 가능 | 결과 삭제·같은 label로 `collect` |
+| `collect`가 0이 아닌 종료 코드 반환 | 모든 행·오류 보존, `evaluate`로 확인, 원인 해결 후 명시적인 새 dev label로 수집 | 실패 행을 fixture로 대체·모델/provider 자동 변경 |
+| `evaluate`가 `1` 반환 | `total`, `passed`, `errors`, 사례별 `checks` 확인. Baseline 실패는 검토하되 실패한 candidate는 holdout을 열지 않음 | 요청 완료를 업무 게이트 통과로 해석 |
+| Candidate·holdout이 이미 있음 | `outputs/<holdout-label>/acceptance.json`을 읽거나 정확한 기존 label로 로컬 `accept` 재실행 | 같은 노출 holdout을 재수집해 좋은 점수 만들기 |
+| Hosted 패키지가 이미 있음 | Manifest 확인. 재빌드 시 그 정확한 생성 폴더를 다른 이름으로 보관 | 소스·`.build` 전체·`outputs`·azd 상태 삭제 |
+| Cloud judge가 timeout | 저장한 job ID와 **같은** `cloud-evaluate --label` 명령으로 조회 재개 | 이미 제출한 judge job에 새 수집 label 규칙 적용 |
+
+새 dev 실험에는 새로운 **baseline/candidate/final-holdout** 이름 묶음을 정해 Lab 07·11에서 일관되게 사용합니다.
+새 후보가 통과하고 고정되기 전에는 holdout을 열지 않습니다. 읽기 전용 재조회는 새 추론 증거가 아닙니다.
+
+## 자주 막히는 지점
+
+| 증상 | 첫 확인 | 바로 복귀 |
+|---|---|---|
+| `scripts/workshop.py`를 찾지 못함 | 현재 폴더에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 함. 학습자 ZIP과 소스 ZIP은 다름 | [00 B](../labs/00-start.md#path-b) |
+| Python·패키지 없음 | 지원 Python·활성 `.venv`·고정 설치 단계 확인. 설치 오류를 무시하지 않음 | [00 B](../labs/00-start.md#path-b) |
+| 401/403·프로젝트 없음 | 의도한 tenant·실제 호출 주체·리소스 범위 권한. 담당자가 접근 해결 | [00](../labs/00-start.md) / [준비](../setup.md) |
+| 모델 404 / 429 | 전체 project endpoint·배포 이름 / quota·동시성. 모델 대체 금지 | [02 B](../labs/02-models.md#path-b) |
+| IQ에 Chat 모델이 없다고 나옴 | 기본 B는 모델 없는 GA 검색. 선택 A IQ Chat은 별도로 준비한 base 필요 | [06](../labs/06-knowledge.md) |
+
+<details>
+<summary>전체 오류 참조 — 위 짧은 표에 없는 오류일 때 펼칩니다</summary>
+
 | 증상 | 먼저 확인 | 복귀 |
 |---|---|---|
 | 프로젝트가 안 보임 | tenant, 계정, project 역할; 잘못된 운영 프로젝트 선택 금지 | 00–01 |
@@ -60,6 +93,8 @@
 | embedding의 프로젝트 API 404 | 동일 계정 endpoint와 `WORKSHOP_EMBEDDING_API=account`를 사전에 명시. 실패 원본을 남기며 자동 endpoint 전환 금지 |
 | App Insights `InvalidTokenError` | 지정된 구독/tenant credential과 App Insights 전용 audience로 동일 query API를 호출. 잘못된 identity로 대체하지 않음 |
 | CLI 확장이 Incompatible | [버전 게이트](versions.md)를 검토하고 호환 조합을 따로 승인·설치한 후 재확인 |
+
+</details>
 
 ## 네트워크 제한
 

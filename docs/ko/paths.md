@@ -8,6 +8,8 @@
 
 **전용 경로:** [A — 입문](paths/a-beginner.md) · [B — 구현](paths/b-practitioner.md) ·
 [C — 고급 모듈](paths/c-advanced.md) · [기능·근거 상태](coverage.md).
+**처음 방문이면 A를 선택합니다.** 해당 경로 페이지를 체크리스트로 사용하며 아래 시간표는 추가 과제가 아닙니다.
+각 랩의 `path-a` / `path-b`로 바로 들어가 **A 완료 / B 완료** 링크로 나옵니다.
 아래 시간은 기존 준비된 핵심 과정의 시간입니다.
 새 추가 모듈을 같은 4/6시간 안에 몰래 포함하지 않습니다.
 
@@ -29,15 +31,15 @@ Lab 05에는 SDK 설치와 본인 계정 로그인이 끝난 **준비된 MAF 실
 
 | 순서 | 실습 | 시간 | 직접 남길 결과 |
 |---|---|---:|---|
-| 1 | [00. 시작](labs/00-start.md) | 20분 | 계정·프로젝트·진행 경로 확인 |
-| 2 | [01. Foundry](labs/01-foundry.md) | 25분 | 리소스·프로젝트·모델 구분 그림 |
-| 3 | [02. 모델 — A](labs/02-models.md) | 20분 | Playground 실제 응답과 배포 이름 |
-| 4 | [03. 에이전트 — A](labs/03-prompt-agent.md) | 35분 | 합성 정책을 사용하는 에이전트 |
-| 5 | [05. MAF 워크플로 — A](labs/05-workflows.md) | 25분 | 준비된 순차 MAF 실행 + 사람 검토 기록 |
-| 6 | [06. 지식 — A](labs/06-knowledge.md) | 35분 | 원문 인용·적용 시점 확인 |
-| 7 | [07. 평가 — A](labs/07-evaluation.md) | 30분 | dev 6문항의 수동 업무 평가표 |
-| 8 | [09. 운영 — A](labs/09-operations.md) | 25분 | 운영 위험·비용·정리 확인 |
-| 9 | [11. 캡스톤 — A](labs/11-capstone.md) | 15분 | 본인 평가표·실행 증거 인계 |
+| 1 | [00. 시작](labs/00-start.md#path-a) | 20분 | 계정·프로젝트·진행 경로 확인 |
+| 2 | [01. Foundry](labs/01-foundry.md#path-a) | 25분 | 리소스·프로젝트·모델 구분 그림 |
+| 3 | [02. 모델 — A](labs/02-models.md#path-a) | 20분 | Playground 실제 응답과 배포 이름 |
+| 4 | [03. 에이전트 — A](labs/03-prompt-agent.md#path-a) | 35분 | 인라인 합성 정책을 사용하는 에이전트 |
+| 5 | [05. MAF 워크플로 — A](labs/05-workflows.md#path-a) | 25분 | 준비된 순차 MAF 실행 + 사람 검토 기록 |
+| 6 | [06. 지식 — A](labs/06-knowledge.md#path-a) | 35분 | 원문 인용·적용 시점 확인. IQ Chat은 기본 미선택 |
+| 7 | [07. 평가 — A](labs/07-evaluation.md#path-a) | 30분 | dev 6문항의 수동 업무 평가표 |
+| 8 | [09. 운영 — A](labs/09-operations.md#path-a) | 25분 | 운영 위험·비용·정리 확인 |
+| 9 | [11. 캡스톤 — A](labs/11-capstone.md#path-a) | 15분 | 본인 평가표·실행 증거 인계 |
 | — | 휴식·진행 버퍼 | 10분 | 합계 240분 |
 
 **A의 완료:** 실제 Playground/에이전트 응답, 준비된 MAF 순차 실행, 근거 문서 확인,
@@ -54,19 +56,20 @@ Python 기초, JSON, 터미널, `async/await`를 읽을 수 있어야 합니다.
 
 | 순서 | 실습 | 시간 | 직접 남길 결과 |
 |---|---|---:|---|
-| 1 | [00. doctor와 공통 설정](labs/00-start.md) | 15분 | 환경 검사 |
-| 2 | [02. SDK — B](labs/02-models.md) | 20분 | 실제 Responses 응답 |
-| 3 | [04. MAF·함수·MCP](labs/04-agents-tools.md) | 45분 | 세 실행 방식의 차이 |
-| 4 | [05. MAF 워크플로 — B](labs/05-workflows.md) | 40분 | 순차·병렬·Group Chat 코드와 결과 |
-| 5 | [06. Search/IQ — B](labs/06-knowledge.md) | 45분 | references·activity·context hash |
-| 6 | [07. 학습 루프 — B](labs/07-evaluation.md) | 50분 | baseline/candidate/holdout 이력 |
-| 7 | [08. Hosted Agent](labs/08-hosted.md) | 40분 | 로컬 패키지와 선택적 원격 응답 |
-| 8 | [09. 관측·운영](labs/09-operations.md) | 30분 | 실행 ID 상관관계·운영 게이트 |
-| 9 | [11. 캡스톤](labs/11-capstone.md) | 45분 | 인수 체크리스트 |
+| 1 | [00. doctor와 공통 설정](labs/00-start.md#path-b) | 15분 | 환경 검사 |
+| 2 | [02. SDK — B](labs/02-models.md#path-b) | 20분 | 실제 Responses 응답 |
+| 3 | [04. MAF·함수·MCP](labs/04-agents-tools.md#path-b) | 45분 | 세 실행 방식의 차이 |
+| 4 | [05. MAF 워크플로 — B](labs/05-workflows.md#path-b) | 40분 | 순차·병렬·Group Chat 코드와 결과 |
+| 5 | [06. Search/IQ — B](labs/06-knowledge.md#path-b) | 45분 | GA references·activity·context hash |
+| 6 | [07. 학습 루프 — B](labs/07-evaluation.md#path-b) | 50분 | 로컬 검색·실제 모델의 baseline/candidate/holdout 이력 |
+| 7 | [08. Hosted Agent](labs/08-hosted.md#path-b) | 40분 | 패키지·manifest 검토. 서버 실행·배포는 필수 아님 |
+| 8 | [09. 관측·운영](labs/09-operations.md#path-b) | 30분 | 기존 실행 ID 이력과 읽기 전용 정리 계획 |
+| 9 | [11. 캡스톤](labs/11-capstone.md#path-b) | 45분 | 기존 인수 보고서·산출물 체크리스트 |
 | — | 휴식·진행 버퍼 | 30분 | 합계 360분 |
 
-**B의 핵심 완료:** 실제 Azure 모델을 사용한 코드 응답과 비교 가능한 dev 실행 이력이
-있습니다. Hosted 배포·유료 cloud judge는 선택 게이트이며, 수행하지 않았으면
+**B의 핵심 완료:** 표에 있는 실제 모델·도구·workflow·Search/IQ 결과,
+비교 가능한 dev 이력·고정된 최종 평가·패키지·정리 인계가 있습니다.
+Hosted 서버/배포·실제 telemetry·유료 cloud judge는 선택 게이트이며, 수행하지 않았으면
 캡스톤에 `미실행`으로 남깁니다. 할당량이 없다고 fixture를 실제 응답 대신 제출하지 않습니다.
 
 [10. Fabric/Work IQ 확장](labs/10-iq-extensions.md)은 45–90분의 별도 세션입니다.
@@ -97,13 +100,13 @@ B의 기본 모델·MAF·IQ 개념을 익힌 뒤 [평가 워크북](reference/ev
 
 | 필요한 모듈 | 최소 선행 결과 | 재시작 지점 |
 |---|---|---|
-| 모델/프롬프트 | 프로젝트·배포·Foundry User 권한 | 02 |
-| MAF·MCP·워크플로 | SDK 설치, `doctor --cloud`, `model` 성공 | 04 |
-| Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | 06 |
-| 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | 07 |
-| Hosted Agent | `maf --tools` 성공 + hosted SDK + 배포 권한 | 08 |
+| 모델/프롬프트 | 프로젝트·배포·Foundry User 권한 | [02 B](labs/02-models.md#path-b) |
+| MAF·MCP·워크플로 | SDK 설치, `doctor --cloud`, `model` 성공 | [04 B](labs/04-agents-tools.md#path-b) |
+| Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | [06 B](labs/06-knowledge.md#path-b) |
+| 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | [07 B](labs/07-evaluation.md#path-b). Fixture로 실제 인수를 열지 않음 |
+| Hosted 패키징 | 저장소·Python. 런타임 게이트는 별도 | [08 B](labs/08-hosted.md#path-b) |
 | Hosted workflow 평가 | 프로필·모델 목록·고정 Invocations version·IQ·judge·App Insights 준비 | C 워크북 |
-| IQ 확장 | IQ 기본 완료 + 서비스별 별도 승인 | 10 |
+| IQ 확장 | IQ 기본 완료 + 서비스별 별도 승인 | [10](labs/10-iq-extensions.md) |
 
 **실습 경로를 바꾸지 않는 원칙:** 모델이 실패하면 다른 모델로 자동 교체하지 않습니다.
 IQ가 실패하면 일반 검색을 IQ 결과로 표시하지 않습니다. SDK 설치가 실패하면

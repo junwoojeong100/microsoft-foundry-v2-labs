@@ -4,7 +4,7 @@
 
 **Goal:** Explain the relationship between Foundry, Agent Framework, model deployments, and agents.
 
-Next: A → [Lab 02](02-models.md) · B: [skip to Lab 02](02-models.md) · [Paths](../paths.md)
+**Open your section:** [A — prepared project](#path-a) · B: [skip to Lab 02 B](02-models.md#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -17,6 +17,8 @@ Next: A → [Lab 02](02-models.md) · B: [skip to Lab 02](02-models.md) · [Path
 **If blocked:** Stop if the project is missing; resolve tenant/RBAC rather than following a similarly named project.
 
 [One-time setup and learner files](../setup.md).
+
+<a id="path-a"></a>
 
 ## Distinguish four concepts
 
@@ -57,6 +59,28 @@ flowchart TD
 **What to check:** **View deployments** opens model deployments; **Start building**
 starts agent creation. They are distinct assets even inside the same project.
 
+<a id="4-do-not-confuse-endpoints"></a>
+
+## Check the endpoint on your setup card
+
+| Purpose | Shape |
+|---|---|
+| Project SDK | `https://<account>.services.ai.azure.com/api/projects/<project>` |
+| Account Azure OpenAI API | `https://<account>.openai.azure.com/openai/v1/` |
+| Azure AI Search | `https://<search>.search.windows.net` |
+| Browser portal | `https://ai.azure.com` — **not an SDK endpoint** |
+
+Keep `/api/projects/<project>` in the project endpoint. The project SDK handles
+authentication and endpoints for default inference. Do not silently redirect to
+another endpoint or guess a different token audience.
+
+**A done:** add the four-object sketch and your actual project endpoint to `session-notes.txt`.
+Explain which knowledge/instructions must be rechecked when replacing a model, then continue to [Lab 02 A](02-models.md#path-a).
+You do not create resources or assign roles in this prepared-project exercise.
+
+<details>
+<summary>Owner reference only — resource creation and role assignments are not learner steps</summary>
+
 ## 2. No environment yet: instructor/administrator preparation
 
 These steps are outside participant class time and require separate authorization.
@@ -94,22 +118,10 @@ Names may still display as `Azure AI User`; renaming does not change existing ro
 Check additional permissions and IDs in [official RBAC guidance](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 The user, Search managed identity, and Hosted agent identity are separate principals.
 
-## 4. Do not confuse endpoints
-
-| Purpose | Shape |
-|---|---|
-| Project SDK | `https://<account>.services.ai.azure.com/api/projects/<project>` |
-| Account Azure OpenAI API | `https://<account>.openai.azure.com/openai/v1/` |
-| Azure AI Search | `https://<search>.search.windows.net` |
-| Browser portal | `https://ai.azure.com` — **not an SDK endpoint** |
-
-Keep `/api/projects/<project>` in the project endpoint. The project SDK handles
-authentication and endpoints for default inference. Do not silently redirect to
-another endpoint or guess a different token audience.
-
-
 **What to check:** Compare the deployment returned by `doctor --cloud` with your
 settings. ARM read access does not establish inference permission; complete [Lab 02](02-models.md).
+
+</details>
 
 <details>
 <summary>Recorded reference screens (optional; not steps to repeat)</summary>
@@ -138,4 +150,4 @@ Explain whether knowledge and evaluation criteria can remain when a model is rep
 A deployment can change, but that does not automatically revalidate knowledge,
 instructions, evaluation, or permissions. Later modules deliberately reuse the same data and criteria.
 
-Next: A → [Lab 02](02-models.md) · B: [skip to Lab 02](02-models.md)
+Next: A → [Lab 02](02-models.md#path-a) · B: [skip to Lab 02](02-models.md#path-b)

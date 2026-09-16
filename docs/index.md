@@ -2,20 +2,27 @@
 
 **English** | [한국어](ko/index.md)
 
-**Move from building an agent to preserving your team's knowledge, evaluation criteria, and operational decisions.**
+**Start with [the setup card and learner ZIP](setup.md), then follow [A. Beginner](paths/a-beginner.md).**
+Already comfortable with Python/APIs: choose [B. Implementation](paths/b-practitioner.md) instead.
+Each route links directly to its own lab section. Stop at the **A done / B done** link rather than continuing into another path.
 
 This is the Pre-Ignite 2026 Edition, with separate language assets and recording sets.
 Beginners use the portal and
 a prepared MAF environment; practitioners use Python. Both solve the same
 **synthetic travel-policy scenario**. Neither path authors workflows in the portal.
 
-**First pass: [setup card and learner ZIP](setup.md) → [Lab 00](labs/00-start.md) → follow A's next link on each page.**
 Use the ready files rather than assembling JSON documents or copying reference-answer records.
 Advanced sections and recordings are optional reading, not extra steps required between labs.
 
-Choose a dedicated route: **[A — Beginner](paths/a-beginner.md)**,
-**[B — Implementation](paths/b-practitioner.md)**, or **[C — Advanced](paths/c-advanced.md)**.
-They share code, data and existing lab URLs. [Coverage and evidence](coverage.md) records new-module status separately.
+Keep the extracted ZIP as your personal evidence folder: fill `session-notes.txt`,
+`workflow-review.txt`, `operations-checklist.txt` and a copy of `assessment.csv` as you go.
+Do not put credentials or your filled files in the repository's generated data directory.
+
+<details>
+<summary>Reference directory — open only for the item you need</summary>
+
+[C — Advanced](paths/c-advanced.md) adds selected modules after the core route.
+[Coverage and evidence](coverage.md) records new-module status separately.
 
 | What you need | Start here |
 |---|---|
@@ -34,6 +41,8 @@ They share code, data and existing lab URLs. [Coverage and evidence](coverage.md
 | Errors, roles, or quota | [Troubleshooting](reference/troubleshooting.md) |
 | Finishing without overlooked costs | [Cleanup](reference/cleanup.md) |
 | English/Korean scope and sample translations | [Language contract](reference/languages.md) |
+
+</details>
 
 > **Keep three things separate.** `offline-fixture` is a fixed example. Local MAF runs
 > on your computer but calls a model in Azure. Hosted Agent runs your code in the cloud.

@@ -69,6 +69,31 @@ class LearnerMaterialTests(unittest.TestCase):
                 self.assertIn(document["effective_from"], rendered)
                 self.assertIn(document["effective_to"], rendered)
 
+    def test_evidence_templates_are_blank_localized_and_in_the_start_sequence(self):
+        for language, marker in (("en", "BLANK WORKSHEET"), ("ko", "빈 기록 양식")):
+            with self.subTest(language=language):
+                files = learner_files(ROOT, language)
+                start = files["START-HERE.txt"].decode()
+                for name in (
+                    "session-notes.txt",
+                    "workflow-review.txt",
+                    "operations-checklist.txt",
+                ):
+                    text = files[name].decode()
+                    self.assertTrue(text.startswith(marker))
+                    self.assertIn(name, start)
+                    fields = [line for line in text.splitlines() if ":" in line]
+                    self.assertGreaterEqual(len(fields), 7)
+                    self.assertTrue(all(line.endswith(":") for line in fields))
+                    for answer_key in ("expected_limit_krw", "required_citations", "H01"):
+                        self.assertNotIn(answer_key, text)
+                notes = files["session-notes.txt"].decode()
+                for lab in ("00", "01", "02", "03", "06"):
+                    self.assertIn(f"Lab {lab}", notes)
+                self.assertIn("assessment-baseline.csv", start)
+                self.assertIn("approval_status", files["workflow-review.txt"].decode())
+                self.assertIn("external_actions_performed", files["workflow-review.txt"].decode())
+
     def test_unexpected_files_stop_both_language_writes_without_deleting_them(self):
         with workspace() as root:
             BUILDER.write(root)

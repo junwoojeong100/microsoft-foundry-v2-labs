@@ -1,7 +1,12 @@
 Synthetic workshop materials only; no real company data.
-1. Use the prepared gpt-5.6-luna deployment, not the judge or a router.
-2. Paste instructions-with-policies.txt into the agent's Instructions field, then Save.
-3. Copy one question at a time from dev-questions.txt into a new chat. Do not paste assessment columns.
-4. Record your own responses in assessment.csv; it contains no answer keys.
-5. policies/ contains the six original text files for the optional File Search path.
-Follow docs/labs/00-start.md and docs/setup.md for prerequisites, costs and permissions.
+This is the small learner ZIP, not the source repository or a ready code environment.
+Keep this extracted personal copy outside the repository; never commit filled notes or credentials.
+1. Complete docs/setup.md and the setup section of session-notes.txt. Use prepared gpt-5.6-luna, not the judge or a router.
+2. Follow docs/paths/a-beginner.md. Record Labs 00-03 and 06 in session-notes.txt.
+3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Do not paste it into chat.
+4. Copy only a question from dev-questions.txt into each new chat, not IDs or assessment columns.
+5. In Lab 05, fill workflow-review.txt with your complete actual command/output and review.
+6. In Lab 07, save assessment.csv as assessment-baseline.csv and fill all six rows. No answer keys are included.
+7. In Lab 09, fill operations-checklist.txt; Lab 11 hands over these files without new Azure calls.
+Optional only: policies/ and instructions.txt are for a separately selected File Search agent.
+Use session-notes.txt to save your last completed step and next link before pausing.

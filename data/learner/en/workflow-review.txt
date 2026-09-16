@@ -1,0 +1,10 @@
+BLANK WORKSHEET - one personally executed Lab 05 workflow, not an instructor recording.
+
+Execution date / language / deployment:
+Exact command:
+Complete actual JSON output, including mode, pattern, outputs, approval_status and external_actions_performed:
+
+Actual cited policy IDs and applicable dates:
+What is correct and why:
+What needs correction and why, or an explained all-pass finding:
+My review of the guidance (not booking, payment or business approval):

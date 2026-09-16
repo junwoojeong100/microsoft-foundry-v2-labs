@@ -4,7 +4,7 @@
 
 **Goal:** Distinguish ordinary search from actual IQ retrieval and preserve source evidence.
 
-Next: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md) · [Paths](../paths.md)
+**Open your section:** [A — check existing sources](#path-a) · [B — GA Search/IQ](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -31,6 +31,8 @@ The default local/keyword/minimal-IQ paths do not use client-generated embedding
 Only the optional hybrid path below uses an explicitly configured embedding model, dimensions, and vector fields.
 Never rename ordinary text search as hybrid retrieval.
 
+<a id="path-a"></a>
+
 ## A. Browser: a visible citation is not enough
 
 1. Open your current/historical/over-limit responses from [Lab 03](03-prompt-agent.md). If a response is missing, copy that question from `dev-questions.txt` into a new chat.
@@ -39,7 +41,14 @@ Never rename ordinary text search as hybrid retrieval.
 4. Record a current-policy citation for May 2026 as incorrect evidence selection.
 5. Check that an over-limit question also explains the approval policy.
 
+**A done:** fill Lab 06 in `session-notes.txt` with the compared policy IDs, dates and your findings.
+The default route makes no new retrieval request: mark **IQ Chat not selected** and continue to [Lab 07 A](07-evaluation.md#path-a).
+Only expand the branch below if it was separately selected and prepared before execution.
+
 ### Optional IQ Chat: one prepared configuration, one actual test
+
+<details>
+<summary>Optional Preview IQ Chat — requires a prepared chat base and separate cost approval</summary>
 
 Choose this segment only when the owner has completed [IQ preparation](../setup.md#4-environment-owner-checklist).
 Otherwise record **IQ Chat not selected**, complete the source checks above, and continue to Lab 07.
@@ -71,6 +80,10 @@ Request, response, source evidence and failures stay in `outputs/iq-chat/iq-chat
 `check` does not change Azure and `ask` never chooses another model/provider.
 For `configured: false`, missing permissions, a wrong version, 403 or 429, stop and use [the fixed-preset recovery guide](../reference/iq-model-identity.md).
 A fixed model removes a common configuration mismatch; it cannot guarantee quota or service availability.
+
+</details>
+
+<a id="path-b"></a>
 
 ## B. Code: add Search to the shared configuration
 
@@ -105,7 +118,6 @@ retrieval, not Search/IQ. Settings visible in the screenshot alone do not identi
 
 ```bash
 python scripts/workshop.py --language en seed-search --confirm-create
-python scripts/workshop.py --language en retrieve --provider search --question "What is the domestic business-trip lodging limit for September 2026?"
 ```
 
 | Optional setting | Default object name |
@@ -122,6 +134,11 @@ failure is not overall success.
 **What to check:** The seed result has `mode: live`, your `index`, `document_count: 6`,
 `hybrid: false`, and `knowledge_base: null`. It created ordinary Search objects, not IQ.
 
+Only after successful seeding, query that index:
+
+```bash
+python scripts/workshop.py --language en retrieve --provider search --question "What is the domestic business-trip lodging limit for September 2026?"
+```
 
 **What to check:** Read the result of `--provider search`; verify endpoint/index.
 Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
@@ -130,6 +147,12 @@ Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
 
 ```bash
 python scripts/workshop.py --language en seed-search --iq --confirm-create
+```
+
+Continue only after the seed output has `document_count: 6` and the intended non-null `knowledge_base`.
+Keep `outputs/azure-objects.json`; do not delete the ownership ledger when pausing.
+
+```bash
 python scripts/workshop.py --language en retrieve --provider iq --question "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
 ```
 
@@ -186,6 +209,10 @@ flowchart LR
     E --> V["Evidence hashes and evaluation lineage"]
     A --> V
 ```
+
+**B done:** save the complete local/Search/IQ retrieval and IQ answer outputs in your evidence folder,
+including original IDs, `references`, `activity`, `context_hash` and the ownership ledger.
+Continue to [Lab 07 B](07-evaluation.md#path-b). That lesson starts a **declared local-retrieval experiment**; it does not reuse this IQ answer as an evaluation result.
 
 ## C. Optional real hybrid RAG
 
@@ -311,4 +338,4 @@ B: call Search and GA IQ separately and explain the returned evidence.
 `outputs/azure-objects.json` records ownership of your Search objects;
 it is not authorization to delete a shared service.
 
-Next: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md)
+Next: A → [Lab 07](07-evaluation.md#path-a) · B → [Lab 07](07-evaluation.md#path-b)

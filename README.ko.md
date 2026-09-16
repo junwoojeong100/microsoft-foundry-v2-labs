@@ -2,6 +2,29 @@
 
 [English](README.md) | **한국어**
 
+## 여기에서 시작하세요
+
+**처음 방문: [준비 카드](docs/ko/setup.md)를 완료한 뒤 [A. 입문](docs/ko/paths/a-beginner.md)을 따라갑니다.**
+동봉한 합성 데이터만으로 출장 규정 안내 도우미 하나를 만듭니다.
+배경 설명을 읽거나 영상을 보거나 고급 모듈을 먼저 고를 필요는 없습니다.
+
+| 경로 하나만 선택 | 할 일 | 끝나면 남는 것 |
+|---|---|---|
+| **A — Azure·agent가 처음** | 브라우저 조작과 준비된 MAF 터미널의 명령 한 번. Python 작성 없음 | 내 agent·6문항 평가표·workflow 검토·정리 인계 |
+| **[B — Python·API에 익숙함](docs/ko/paths/b-practitioner.md)** | SDK·도구·workflow·GA Search/IQ·통제된 평가·로컬 패키징 | 재현 가능한 실제 실행 기록. 원격 호스팅·cloud judge는 선택 |
+
+준비 카드에서 **작은 학습자 ZIP**과 빈 기록 양식을 받습니다.
+코드 터미널에 필요한 **소스 저장소 ZIP**은 다른 파일입니다.
+A의 Lab 05 터미널을 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)를 완료합니다.
+**준비 완료 후 A 4시간 / B 6시간**이며 계정·설치·권한·quota 대기는 별도입니다.
+Azure 권한이 없으면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 진행하고 cloud는 **미실행**으로 기록합니다.
+
+기본 과정을 마쳤다면 [C. 고급 모듈](docs/ko/paths/c-advanced.md), 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),
+구버전에서 돌아왔다면 [변경 지도](docs/ko/reference/migration.md)를 사용합니다.
+
+<details>
+<summary>배경과 이전 녹화 — 선택 참고 자료이며 선행 조건이 아닙니다</summary>
+
 ## 이 실습의 배경: Learning loops와 Frontier ecosystems
 
 사티야 나델라는 [2026년 6월 14일 글](https://x.com/satyanadella/status/2066182223213293753)에서
@@ -45,7 +68,7 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 다른 리포를 차례로 방문하는 링크 모음이 아닙니다.
 이 폴더에 실습 본문, Python 코드, 정책 문서, 평가 데이터, 강사 가이드가 있습니다.
 
-## 여기에서 시작하세요
+## 추가 모듈과 실행 근거
 
 **9월 16일 확장 경로:** [A — 입문](docs/ko/paths/a-beginner.md) ·
 [B — 구현](docs/ko/paths/b-practitioner.md) · [C — 고급 모듈](docs/ko/paths/c-advanced.md).
@@ -54,24 +77,7 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 [국문 확장 영상](docs/ko/edition-videos.md)은 **12분 23초 통합본, 172개 동작·516장 캡처**를 제공합니다.
 실제 게시 상태는 영상 페이지에 별도로 표시하며 영문 영상을 국문 실행으로 재사용하지 않습니다.
 
-**처음 방문: [준비 카드 작성](docs/ko/setup.md) → [학습자 ZIP 받기](data/learner/ko/learner-materials.zip) → [Lab 00 시작](docs/ko/labs/00-start.md).**
-ZIP에는 그대로 붙여 넣는 지침, 합성 정책 6개, 질문 전용 파일, 빈 평가표가 있습니다.
-첫 회차는 **A**를 따라가고 심화 분기·녹화 참고 화면은 필요할 때만 펼칩니다.
-
-| 지금 내 상태 | 시작점 | 끝나면 남는 것 |
-|---|---|---|
-| Azure·AI·코딩이 처음 | **[A. 입문](docs/ko/paths/a-beginner.md)** | 포털 agent, 근거 있는 답변, 6문항 평가표, 운영·정리 확인 |
-| Python/API/Azure를 사용해 봄 | **[B. 구현](docs/ko/paths/b-practitioner.md)** | MAF/MCP/workflow, 검색, 통제된 평가, 패키지와 관리형 도구 확장 |
-| 구현한 agent 시스템을 확장 | **[C. 고급 모듈](docs/ko/paths/c-advanced.md)** | 기존 Hosted matrix와 선택한 도구·대화·최적화·복구·Memory·A2A·운영 |
-| 강사·환경 준비 담당자 | **[강사 사전 준비](docs/ko/instructor.md)** | 조별 환경, 권한·비용 계획, 수업 전 smoke test, 중단·복구 기준 |
-| Azure 승인이나 할당량을 기다리는 중 | **[Azure 없이 검사기 체험](docs/ko/labs/00-start.md)** | 오프라인 fixture로 실행·평가 파일 구조 이해. **클라우드 실습 완료와는 다름** |
-| 구버전을 이미 진행함 | **[구버전 → v2 변경 지도](docs/ko/reference/migration.md)** | 재사용할 개념, 바꿔야 할 SDK·권한·실행 방식 |
-
-**A는 브라우저부터 시작**하고 워크플로 단계에서 준비된 MAF 터미널에 명령 하나를 복사합니다.
-터미널을 제공받지 않았다면 [Lab 00 B](docs/ko/labs/00-start.md#b-코드--한-폴더-한-환경)가 명시적인 직접 준비 경로입니다.
-포털 Workflow Designer로 작성하지 않습니다.
-아래 시간은 강사가 계정·리소스·권한·모델을 준비한 뒤의 수업 시간입니다.
-구독 개설, 기능 승인, 할당량 증설, 설치·RBAC 전파는 별도입니다.
+</details>
 
 ## 하나의 시나리오, 점점 확장되는 시스템
 

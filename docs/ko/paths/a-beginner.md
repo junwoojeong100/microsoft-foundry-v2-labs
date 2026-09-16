@@ -9,22 +9,28 @@
 
 [설정 카드](../setup.md)를 채우고 국문 학습자 ZIP의 `START-HERE.txt`를 엽니다.
 준비된 **gpt-5.6-luna** 배포와 `instructions-with-policies.txt`, `dev-questions.txt`,
-복사한 `assessment.csv`를 사용합니다. MAF 실습 한 번에는 학습자 계정으로 로그인된
-준비 터미널이 필요합니다. 없다면 [Lab 00 B](../labs/00-start.md#b-코드--한-폴더-한-환경)를 한 번 진행합니다.
+복사한 `assessment.csv`를 사용합니다. ZIP의 빈 `session-notes.txt`, `workflow-review.txt`,
+`operations-checklist.txt`를 쓰므로 보고서 형식을 따로 만들 필요가 없습니다.
+MAF 실습 한 번에는 학습자 계정으로 로그인된 준비 터미널이 필요합니다.
+없다면 시간표를 시작하기 전에 [Lab 00 B](../labs/00-start.md#path-b)와 Lab 02 B를 완료합니다.
+
+**첫 회차의 선택은 정해져 있습니다:** 인라인 정책, 순차 MAF 한 번, 수동 dev 평가입니다.
+File Search·IQ Chat·Hosted·cloud judge·C 모듈은 별도로 선택하지 않는 한 **미선택**입니다.
+아래 번호 링크는 A의 정확한 구간을 열며, 각 랩에서 **A 완료** 링크로 나갑니다.
 
 ## 진행 순서
 
 | 순서 | 열고 실행할 곳 | 여기까지 확인하면 다음으로 |
 |---|---|---|
-| 1 | [Lab 00 A](../labs/00-start.md): 계정·프로젝트·파일 | 내 설정 카드가 채워짐 |
-| 2 | [Lab 01](../labs/01-foundry.md): account/project/deployment/agent 구분 | 실제 endpoint와 답변 배포를 식별함 |
-| 3 | [Lab 02 A](../labs/02-models.md): Playground | 실제 답변과 근거 부족 사례를 기록함 |
-| 4 | [Lab 03 A](../labs/03-prompt-agent.md): 전체 지침 붙여넣기·저장 | 실제 agent 버전과 답변을 기록함 |
-| 5 | [Lab 05 A](../labs/05-workflows.md): 준비된 순차 명령 한 번 | `workflow-review.txt`에 결과와 내 검토가 있음 |
-| 6 | [Lab 06 A](../labs/06-knowledge.md): 정책 ID·날짜 확인 | 원문 확인을 기록하고 IQ Chat 실행 여부를 구분함 |
-| 7 | [Lab 07 A](../labs/07-evaluation.md): dev 6문항 평가 | 모든 행에 내 실제 결과와 이유가 있음 |
-| 8 | [Lab 09 A](../labs/09-operations.md): 운영 확인 4가지 | `operations-checklist.txt`에 소유 자산과 잔여 비용이 있음 |
-| 9 | [Lab 11 A](../labs/11-capstone.md): 인계 | 근거 폴더와 정리 책임자가 명확함 |
+| 1 | [Lab 00 A](../labs/00-start.md#path-a): 계정·프로젝트·파일 | `session-notes.txt`의 설정 카드가 채워짐 |
+| 2 | [Lab 01 A](../labs/01-foundry.md#path-a): account/project/deployment/agent 구분 | 네 객체의 관계 그림과 실제 endpoint 추가 |
+| 3 | [Lab 02 A](../labs/02-models.md#path-a): Playground | 실제 답변과 근거 부족 관찰을 `session-notes.txt`에 기록 |
+| 4 | [Lab 03 A](../labs/03-prompt-agent.md#path-a): 전체 지침 붙여넣기·저장 | `session-notes.txt`에 agent/버전·저장 지침·실제 확인 4건 기록 |
+| 5 | [Lab 05 A](../labs/05-workflows.md#path-a): 준비된 순차 명령 한 번 | `workflow-review.txt`에 실제 출력 전체와 내 검토가 있음 |
+| 6 | [Lab 06 A](../labs/06-knowledge.md#path-a): 정책 ID·날짜 확인 | `session-notes.txt`에 원문 확인 기록. 기본 경로는 IQ Chat 미선택 |
+| 7 | [Lab 07 A](../labs/07-evaluation.md#path-a): dev 6문항 평가 | `assessment-baseline.csv`의 6행 모두 실제 결과와 이유가 있음 |
+| 8 | [Lab 09 A](../labs/09-operations.md#path-a): 운영 확인 4가지 | `operations-checklist.txt`에 소유 자산과 잔여 비용이 있음 |
+| 9 | [Lab 11 A](../labs/11-capstone.md#path-a): 인계 | 근거 폴더와 정리 책임자가 명확함 |
 
 **A 아래에 B/C 설명이 있어도 계속 따라가지 않습니다.**
 준비된 A 과정은 인계와 짧은 여유 시간을 포함해 240분입니다.
@@ -44,5 +50,9 @@ Toolbox 생성, Hosted 배포, workflow 작성, Optimizer 실행, 회사/Microso
 잘못된 답변도 평가표에 그대로 남깁니다. 다른 사람의 결과, fixture, 녹화 속 답변으로 교체하지 않습니다.
 선택 기능이 없으면 **미실행**으로 남깁니다.
 
-**완료:** [Lab 11 인계](../labs/11-capstone.md).
+**중단·재개:** `session-notes.txt`에 마지막 완료 Lab/단계·agent 버전·다음 링크를 적습니다.
+같은 프로젝트와 저장한 버전을 다시 열고, 새 유료 질문을 보내기 전에 기존 결과부터 확인합니다.
+재개하려고 agent를 다시 만들거나 앞 랩을 전부 반복하지 않습니다.
+
+**완료:** [Lab 11 인계](../labs/11-capstone.md#path-a).
 **나중에 확장:** 같은 저장소의 [B. 구현](b-practitioner.md).

@@ -4,7 +4,7 @@
 
 **Goal:** Preserve evidence for the next decision instead of mistaking one successful demo for a production-ready system.
 
-Next: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md) · [Paths](../paths.md)
+**Open your section:** [A — four existing-result checks](#path-a) · [B — lineage and cleanup](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -18,6 +18,8 @@ Next: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md) · [Paths
 
 [One-time setup and learner files](../setup.md).
 
+<a id="path-a"></a>
+
 ## A. Browser: what needs management?
 
 Complete these four checks using **your own existing results**, without sending another model request:
@@ -29,7 +31,8 @@ Complete these four checks using **your own existing results**, without sending 
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, optional files/chat base, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
 
-Save `operations-checklist.txt` with those four outcomes. A then goes to [Lab 11](11-capstone.md); no matrix command is required.
+Fill the learner ZIP's blank `operations-checklist.txt` with those four outcomes.
+**A done:** continue to [Lab 11 A](11-capstone.md#path-a); no new model, trace or matrix command is required.
 The following table is an optional deeper review, limited to assets visible with your permissions.
 
 | Area | Question to answer |
@@ -45,6 +48,8 @@ The following table is an optional deeper review, limited to assets visible with
 This integrates the original Control Plane perspective. Missing Fleet/management
 menus can be normal for your role. Gaining subscription-wide permissions is not the objective.
 
+<a id="path-b"></a>
+
 ## B. Code: link execution lineage and actual telemetry
 
 ### 1. Find local lineage first
@@ -57,7 +62,30 @@ token usage, and latency.
 Request/response IDs **do not automatically become Azure Monitor traces**.
 Report `trace_id: null` and `trace_export: not-configured` when that is what you have.
 
-### 2. Prepare server-side tracing
+### 2. Explain one failure or an all-pass result
+
+Use an existing dev response. Distinguish a model/request error, tool error, missing evidence and wrong policy application.
+Record which identity accessed which service and the actual request/response ID.
+If all cases passed, retain that finding and the remaining limitations; do not invent a failure.
+Review changes only on dev in [Lab 07](07-evaluation.md#path-b), not the exposed holdout.
+
+### 3. Print the cleanup inventory
+
+```bash
+python scripts/workshop.py --language en cleanup-plan
+```
+
+This **prints a list and procedure; it deletes nothing**. Add the inventory to your
+`operations-checklist.txt`, separating owned objects, shared services, authorized owner actions and residual costs.
+Use [Cleanup](../reference/cleanup.md) for any separately approved action.
+
+**B done:** your own lineage, failure/all-pass review and cleanup inventory are saved.
+Continue to [Lab 11 B](11-capstone.md#path-b). Without configured tracing, record **trace unverified**; do not create a Hosted deployment or make a new request to finish this core step.
+
+### Optional: prepare server-side tracing
+
+<details>
+<summary>Actual telemetry needs a prepared agent, trace access and separate call/cost approval</summary>
 
 The instructor verifies the project/Application Insights connection, retention, costs,
 and permissions. Follow [official tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup).
@@ -91,7 +119,7 @@ Do not repeat costly model calls while waiting for telemetry. If absent, record
 Compare model/tool activity and final HTTP status; distinguish runtime failures from
 log-connection errors after a session stops. The matrix query below verifies exact root requests separately.
 
-### 3. Explain one failure
+### Explain a trace failure
 
 Do not stop at "D03 returned 403." Identify which user/project/agent identity attempted
 to access which service. Separate model failure, tool failure, missing evidence,
@@ -102,6 +130,8 @@ After reviewing sources and the reason for change, return to the dev comparison 
 
 If a child span failed, explain that specific operation instead of rewriting the run as “zero errors.”
 Model responses, retrieval/tool work, service initialization, and native judgment failures are distinct.
+
+</details>
 
 ## Operational approval gates
 
@@ -200,13 +230,7 @@ Verify this edition's exact root traces and owned session states.
 Completed overall does not mean every child span is exported or error-free.
 [Execution records](../live-run.md) list actual outcomes and retained assets.
 
-A uses the checklist and owner handoff above. B/C can also print the local inventory:
-
-```bash
-python scripts/workshop.py --language en cleanup-plan
-```
-
-This **prints a list and procedure; it deletes nothing**.
+A uses the checklist and owner handoff above. B has already printed the local inventory in step 3.
 Follow [Cleanup](../reference/cleanup.md), preserve shared/other-team resources, and
 recheck active sessions, residual resources, and costs rather than assuming a command
 means cleanup is complete.
@@ -216,4 +240,4 @@ means cleanup is complete.
 Use your IDs, not screenshot IDs. Idle does not eliminate every
 filesystem, Search, or log charge.
 
-Next: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md)
+Next: A → [Lab 11](11-capstone.md#path-a) · B → [Lab 11](11-capstone.md#path-b)

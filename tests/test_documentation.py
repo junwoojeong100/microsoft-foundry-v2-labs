@@ -70,6 +70,27 @@ class DocumentationTests(unittest.TestCase):
         self.assertGreaterEqual(counts["cli_examples"], 108)
         self.assertGreater(counts["local_anchors"], 0)
 
+    def test_completed_pairs_in_the_active_revision_retain_exact_file_hashes(self):
+        state = json.loads((ROOT / "docs/localization.json").read_text())
+        pairs = {
+            english.relative_to(ROOT).as_posix(): (english, korean)
+            for english, korean in DOCS.translation_pairs(ROOT)
+        }
+        for name, record in state.get("completed_translations", {}).items():
+            if record["revision"] != state["revision"] or name in state["pending_files"]:
+                continue
+            with self.subTest(pair=name):
+                english, korean = pairs[name]
+                self.assertEqual(
+                    record["english_sha256_at_completion"],
+                    hashlib.sha256(english.read_bytes()).hexdigest(),
+                )
+                self.assertEqual(
+                    record["korean_sha256_at_completion"],
+                    hashlib.sha256(korean.read_bytes()).hexdigest(),
+                )
+                self.assertIs(record["cli_parity_verified"], True)
+
     def test_english_first_revision_warns_korean_readers_and_pins_both_files(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

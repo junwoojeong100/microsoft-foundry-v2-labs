@@ -4,7 +4,7 @@
 
 **Goal:** Add synthetic business instructions and documents so the agent can explain its sources and limitations.
 
-Next: A → [Lab 05](05-workflows.md) · B: [skip to Lab 04](04-agents-tools.md) · [Paths](../paths.md)
+**Open your section:** [A — inline agent](#path-a) · B: [skip to Lab 04 B](04-agents-tools.md#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -18,7 +18,12 @@ Next: A → [Lab 05](05-workflows.md) · B: [skip to Lab 04](04-agents-tools.md)
 
 [One-time setup and learner files](../setup.md).
 
+<a id="path-a"></a>
+
 ## A. Browser: the smallest useful agent
+
+This creates an agent, saves a version and makes billable test calls. Use the approved training project and your own prefix.
+Keep `session-notes.txt` open for the returned version and actual answers; no deployment or Publish action is required.
 
 ### 1. Create the agent
 
@@ -157,7 +162,13 @@ The assistant must not claim approval or an actual booking.
 **What to check:** Without an international policy, ask for confirmation rather than
 inventing an amount. Record your own responses and failures, not the screenshot's outcomes.
 
+**A done:** keep the actual saved instructions, agent version and four checks in your evidence folder.
+Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the SDK branch below are not required for A.
+
 ## B. Optional SDK branch: managed Prompt Agent versus local MAF
+
+<details>
+<summary>Optional SDK agent — creates a different agent; not required by either core route</summary>
 
 This is not required for A or B's first pass. It creates a separate agent.
 Enter a new name starting with your `.env` `WORKSHOP_PREFIX`; do not reuse the browser agent's name.
@@ -184,6 +195,8 @@ python scripts/workshop.py --language en prompt-agent invoke --name "$AGENT_NAME
 
 Use the actual returned version in the same terminal. Do not type `1` from a recording or invoke "latest."
 [Versions](../reference/versions.md) documents the SDK's explicit binding.
+
+</details>
 
 ## Boundaries become more important as tools grow
 
@@ -249,4 +262,4 @@ and IQ verification. Record your agent name/version, all four real responses, ev
 method, and one wrong or withheld answer. Fluent prose and correct policy application
 are different; [Lab 07](07-evaluation.md) turns that distinction into evaluation criteria.
 
-Next: A → [Lab 05](05-workflows.md) · B: [skip to Lab 04](04-agents-tools.md)
+Next: A → [Lab 05](05-workflows.md#path-a) · B: [skip to Lab 04](04-agents-tools.md#path-b)

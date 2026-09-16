@@ -6,5 +6,6 @@
   "dev_dataset_hash": "1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e",
   "contains_reference_answer_fields": false,
   "contains_holdout": false,
+  "contains_completed_results": false,
   "instruction_format": "v2 rules plus an explicit browser-only prose override"
 }

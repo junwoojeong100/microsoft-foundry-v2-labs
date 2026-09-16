@@ -4,7 +4,7 @@
 
 **완료 목표:** “답변이 좋아 보인다” 대신 같은 업무 기준과 실행 이력으로 개선을 판단합니다.
 
-다음: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 수동 평가](#path-a) · [B — 코드 실험 네 단계](#path-b) · [학습 경로](../paths.md)
 
 > **2026-09-15 한국어 개정:** 아래 A/B는 기존 입문 평가를 유지합니다.
 > 원본 평가 실습을 대체하는 심화 경로는 [Hosted 워크플로 평가 워크북](../reference/evaluation-workbook.md)입니다.
@@ -41,6 +41,8 @@ flowchart LR
 로그를 모은다고 모델 가중치가 자동 학습되지 않습니다.
 이번 실습의 learning loop는 **지식·지침·평가·사람의 판단을 개선하는 과정**입니다.
 
+<a id="path-a"></a>
+
 ## A. 브라우저 — 6문항의 실제 답변을 직접 평가
 
 1. ZIP의 **`dev-questions.txt`**를 열고 **`assessment.csv`**를 `assessment-baseline.csv`로 복사해 저장합니다.
@@ -69,7 +71,8 @@ flowchart LR
 포털의 Foundry Evaluation을 실행한 결과로 표현하지 않습니다.
 포털 batch 평가가 준비된 수업에서는 강사가 evaluator·judge·데이터 매핑·비용을
 확인한 뒤 같은 데이터를 사용해 별도 실행합니다.
-**A는 여기서 [Lab 09](09-operations.md)로 이동합니다.** 아래 명령은 별도 B 실험이지 브라우저 경로의 추가 단계가 아닙니다.
+**A 완료:** `assessment-baseline.csv`·정당한 변경이 있었을 때의 candidate 표·실패/전체 통과 검토를 저장합니다.
+[Lab 09 A](09-operations.md#path-a)로 이동합니다. 아래 명령은 별도 B 실험이지 브라우저 경로의 추가 단계가 아닙니다.
 
 ![2026-09-15 새 국문 촬영: D03 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d03-send-2.webp)
 
@@ -81,15 +84,29 @@ flowchart LR
 **화면 확인:** D05는 금액을 주지 않았다는 이유만으로 업무 실패가 되지 않습니다.
 제공된 자료에 해외 규정이 없는지, 추측을 멈추고 확인 경로를 안내했는지 평가합니다.
 
+<a id="path-b"></a>
+
 ## B. 코드 — 재현 가능한 실행 단위
 
 여기부터는 실제 Azure 모델 호출입니다. 기본 예시는 Search를 만들지 않은 사람도
 완료할 수 있도록 `--retrieval local`을 사용합니다.
 IQ를 평가하려면 **세 실행 모두** `--retrieval iq`로 바꿉니다.
 서로 다른 검색 방식을 같은 단일변수 실험으로 비교하지 않습니다.
-첫 회차는 `local`을 유지하고 **1 → 실패가 있을 때만 2 → 3 → 5**로 진행합니다.
-4의 judge와 6의 모델 교체는 선택입니다. 기본 target 요청은 **6 + 6 + 4 = 16개**이며 서비스/도구/재시도는 추가입니다.
+첫 회차는 `local`을 유지하고 **1 → 2 → 3 → 4**로 진행합니다.
+5–6은 기본 결과 이후의 선택 확장입니다. 기본 target 요청은 **6 + 6 + 4 = 16개**이며 서비스/도구/재시도는 추가입니다.
 기존 label이 있으면 새 baseline/candidate/holdout 이름 묶음을 정해 모든 참조를 함께 바꿉니다. 기존 실행을 삭제·덮어쓰지 않습니다.
+
+| 실행 | 저장소 루트 아래 저장 위치 | 기대 사례 수 |
+|---|---|---:|
+| Baseline / v1 | `outputs/baseline/` | dev 6 |
+| Candidate / v2 | `outputs/candidate/` | dev 6 |
+| Final / 고정 v2 | `outputs/final-holdout/` | 후보 통과 후에만 holdout 4 |
+
+**블록 하나 실행 → 결과 확인 → 다음 블록** 순서입니다. `collect`는 Azure 호출,
+`evaluate`·`compare`·`feedback`·`accept`는 모델 호출 없는 로컬 근거 조회/작성입니다.
+수집 오류는 파일을 보존하고 다음 수집 전에 원인을 해결합니다. 저장된 오류 확인을 위한 `evaluate`는 실행해도 됩니다.
+업무 검사 실패와 요청 실패는 다릅니다.
+
 프로그램은 프로젝트·출력 한도·Search endpoint/index/source/base 설정도 고정해 비교합니다.
 `corpus_hash`는 로컬 합성 원본의 hash이지 원격 index의 불변성을 증명하는 값은 아닙니다.
 실험 중 원격 자료를 수정하지 말고, 실제 반환된 근거와 `context_hash`도 함께 확인합니다.
@@ -98,12 +115,18 @@ IQ를 평가하려면 **세 실행 모두** `--retrieval iq`로 바꿉니다.
 
 ```bash
 python scripts/workshop.py collect --split dev --label baseline --prompt v1 --retrieval local
+```
+
+`outputs/baseline/manifest.json`과 `responses.jsonl`에서 성공/오류를 포함한 6행을 보관한 뒤 로컬 평가를 실행합니다.
+
+```bash
 python scripts/workshop.py evaluate --label baseline
 ```
 
 `evaluate`의 종료 코드 `1`은 업무 게이트 불합격입니다. 파일을 열고 실패 항목을 확인합니다.
 수집 중 오류가 난 행도 6문항의 분모에 남습니다. 누락/중복/다른 질문이 있으면 평가를 거부합니다.
 **v1이 반드시 실패한다고 보장하지 않습니다.** 결과를 만들기 위해 실제 모델 답변을 고치지 않습니다.
+`business-evaluation.json`의 `total`, `passed`, `errors`, `business_gate_passed`와 모든 사례의 `checks`를 읽습니다.
 
 
 **화면 확인:** `checks` 안의 `completed`, `schema`, `decision`, `required_citations`를 읽습니다.
@@ -122,7 +145,7 @@ python scripts/workshop.py evaluate --label baseline
 | JSON/요청 오류 | 모델 지원·출력 제한·SDK·서비스 오류 |
 
 **실제 baseline 실패가 있을 때만** 아래를 실행하고 그 case ID와 **15자 이상**의 구체적인 검토 이유를 입력합니다.
-6개가 모두 통과했다면 그 사실을 기록하고 3으로 이동합니다. D03 실패 기록을 억지로 만들지 않습니다.
+6개가 모두 통과했다면 검토 기록에 그 사실을 저장하고 3으로 이동합니다. D03 실패 기록을 억지로 만들지 않습니다.
 
 ```bash
 printf 'Actual failed dev case ID: '
@@ -152,6 +175,11 @@ v2는 적용일, 증빙/승인, 문서 ID, 근거 부족 처리의 우선순위�
 
 ```bash
 python scripts/workshop.py collect --split dev --label candidate --prompt v2 --retrieval local
+```
+
+후보 6행 전체를 확인한 뒤 로컬 검사를 실행합니다.
+
+```bash
 python scripts/workshop.py evaluate --label candidate
 python scripts/workshop.py compare --baseline baseline --candidate candidate --variable prompt
 ```
@@ -165,14 +193,48 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 마지막 몇 행만 보고 전부 통과했다고 하지 말고 `business-evaluation.json` 전체를 확인합니다.
 
 
-**화면 확인:** `variable: prompt`, `changed_context_count`, `unchanged_config`를 읽습니다.
+**화면 확인:** `outputs/candidate/comparison-vs-baseline.json`에서
+`variable: prompt`, `baseline_metrics`, `candidate_metrics`, `changed_context_cases`를 읽습니다.
+`changed_context_cases`가 빈 목록이면 검색 근거가 같습니다. 비교 조건이 다르면 보고서를 쓰기 전에 거부합니다.
 입문 B는 실행당 6문항입니다. 새 심화 촬영의 업무 점수는 네 모델 각각 6/6, 총 24/24였습니다.
 서로 다른 경로의 점수를 옮겨 쓰거나 같은 점수만으로 v2의 우월성을 주장하지 않습니다.
 
-### 4. 선택: Foundry cloud judge
+### 4. 후보를 고정한 뒤 holdout 한 번
+
+**Holdout 호출 전 게이트:** `outputs/candidate/business-evaluation.json`에
+`total: 6`, `passed: 6`, `errors: 0`, `business_gate_passed: true`가 있어야 하며 비교에서 고정 설정을 인정해야 합니다.
+아니라면 여기서 멈추고 dev 실패·반려 후보를 보존합니다. Holdout을 열거나 검사 기준을 낮추지 않습니다.
+오류 없는 수집이나 `compare` 종료 코드 `0`만으로는 이 게이트를 통과하지 않습니다.
+
+지침·모델·검색 설정을 더 이상 고치지 않을 때 진행합니다.
+`--candidate`는 어떤 dev 후보를 고정했는지 연결합니다.
+
+```bash
+python scripts/workshop.py collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout
+```
+
+실패를 포함한 실제 4행을 모두 보관한 뒤 로컬 평가와 사람 검토용 보고서를 만듭니다.
+
+```bash
+python scripts/workshop.py evaluate --label final-holdout
+python scripts/workshop.py accept --candidate candidate --holdout final-holdout
+```
+
+Holdout은 4건입니다. 실패를 보고 지침을 고치면 더 이상 미사용 검증셋이 아닙니다.
+새 holdout 없이 최종 합격이라고 하지 않습니다. 저장소 파일 분리는 교육적 절차이지 접근 통제나 비밀 보장이 아닙니다.
+`accept` 종료 코드 `1`은 업무 게이트 반려입니다. 같은 holdout이 통과할 때까지 재시도하지 않고 그 결과를 보존합니다.
+
+**화면 확인:** 4개 사례와 후보 연결을 확인한 뒤 `outputs/final-holdout/acceptance.json`을 엽니다.
+`recommendation`, `deployment_approved: false`를 유지합니다.
+기존 촬영의 교육용 세트는 이미 노출된 자료이며 새로운 미사용 holdout의 증거가 아닙니다.
+
+**B 완료:** 실행 폴더 세 개·비교·검토 기록·인수/반려 보고서를 보관합니다.
+[Lab 08 B](08-hosted.md#path-b)에서 **패키징만** 진행합니다. 인수 보고서는 배포 승인이 아닙니다.
+
+### 5. 선택: Foundry cloud judge
 
 <details>
-<summary>Judge 준비·별도 비용 승인이 있을 때만 펼치고, 아니라면 5로 이동합니다</summary>
+<summary>Judge 준비·별도 비용 승인이 있을 때만 펼칩니다. B 완료에 필수는 아닙니다</summary>
 
 추가 비용·평가 권한·별도 judge 배포가 필요합니다.
 `.env`의 `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME`을 설정합니다.
@@ -205,27 +267,6 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 두 예만 통과해도 judge 전체가 신뢰할 만하다는 뜻은 아닙니다.
 
 </details>
-
-### 5. 후보를 고정한 뒤 holdout 한 번
-
-후보의 지침·모델·검색 설정을 더 이상 고치지 않을 때 진행합니다.
-`--candidate`는 어떤 dev 후보를 고정했는지 연결합니다.
-
-```bash
-python scripts/workshop.py collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout
-python scripts/workshop.py evaluate --label final-holdout
-python scripts/workshop.py accept --candidate candidate --holdout final-holdout
-```
-
-holdout은 4건입니다. 실패를 보고 지침을 고치면 그 holdout은 더 이상 미사용 검증셋이
-아닙니다. 새로운 holdout을 준비하기 전까지 최종 합격이라고 하지 않습니다.
-저장소 파일 분리는 교육적 절차이지 접근 통제나 데이터 비밀화를 보장하는 장치가 아닙니다.
-
-
-**화면 확인:** 후보를 고정한 뒤 전체 4개 사례를 검사하고 후보와의 연결을 확인합니다.
-사진의 마지막 H03/H04만 확인하는 것으로 끝내지 않습니다.
-입문은 4문항, 새 심화 촬영은 4모델×4문항=16행입니다.
-둘 다 이미 공개된 교육용 세트의 인수 절차 예시이며 새로운 미사용 holdout의 증거가 아닙니다.
 
 ### 6. 선택 — 모델 교체는 별도 실험으로
 
@@ -320,4 +361,4 @@ B: 실제 baseline/candidate 이력, 실패 검토 또는 전부 통과했다는
 결과와 사람의 판단이 남습니다. `accept`는 인수 자료를 만들며 **자동 배포/운영 승인을 하지 않습니다.**
 업무 검사의 100% 통과가 답변 전체의 의미적 정확성·보안·법적 적합성을 보장하지 않습니다.
 
-다음: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md)
+다음: A → [Lab 09](09-operations.md#path-a) · B → [Lab 08](08-hosted.md#path-b)

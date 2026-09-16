@@ -4,7 +4,7 @@
 
 **Goal:** Identify your account, project, and learning path, and verify the starting point for the next lab.
 
-Next: A → [Lab 01](01-foundry.md) · B → [Lab 02](02-models.md) · [Paths](../paths.md)
+**Open your section:** [A — browser](#path-a) · [B — code](#path-b) · [Offline only](#offline-rehearsal) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -19,6 +19,9 @@ Next: A → [Lab 01](01-foundry.md) · B → [Lab 02](02-models.md) · [Paths](.
 [One-time setup and learner files](../setup.md).
 
 ## How to read this guide
+
+<details>
+<summary>Optional screenshot help — execute the current text, not the recording</summary>
 
 Reference images come from **new, separately recorded English execution**.
 The setup cards and ready learner files were added after those recordings. Follow the current text;
@@ -38,14 +41,18 @@ Use `--language en` for the separately frozen English policies, prompts, dev/hol
 Korean originals remain unchanged. [Language-specific hashes and labels](../reference/languages.md)
 prevent translated datasets from being presented as the same-input experiment.
 
+</details>
+
+<a id="path-a"></a>
+
 ## A. Browser: no coding required
 
 1. Open `https://ai.azure.com` in Edge or Chrome.
 2. Sign in with the instructor-specified **Microsoft Entra account and directory (tenant)**.
    Personal Microsoft, GitHub, and Azure work-account sign-ins are different.
 3. Select the training project, not a similarly named production project.
-4. Fill the first four worksheet rows below. Do not post whole screens or personal information in shared chat.
-5. Download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip), then continue to [Lab 01](01-foundry.md).
+4. Fill the setup section of the learner ZIP's `session-notes.txt` using the rows below. Do not post whole screens or personal information in shared chat.
+5. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip).
    Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
    In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal;
    you will not write Python or build a portal workflow.
@@ -70,13 +77,25 @@ value for `.env`; it is not the browser's `ai.azure.com` address. Authentication
 If the project is missing, **do not create another resource with a random account**.
 Use the tenant/RBAC section of [Troubleshooting](../reference/troubleshooting.md).
 
+**A done:** your intended project is open and `session-notes.txt` contains your setup values.
+Continue to [Lab 01 A](01-foundry.md#path-a); the B installation instructions are not an extra A exercise.
+
+<a id="path-b"></a>
+
 ## B. Code: one folder, one environment
 
 Use macOS/Linux or WSL on Windows, Bash/zsh, and preferably Python 3.13.
 Offline code also targets Python 3.14, but the hosted runtime uses 3.13.
 Do not install into global Python or change the system's default Azure subscription.
 
+If an activated, configured terminal was supplied, complete steps **1, 2 and 5**;
+do not reinstall SDKs or replace its `.env`. Otherwise complete **1–5** in order.
+
+<a id="offline-rehearsal"></a>
+
 ### 1. Open the folder
+
+**Waiting for Azure approval?** Complete only steps 1–2 below. Neither requires Azure credentials or external Python packages.
 
 Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs) with a GitHub account that has access,
 then **Code → Download ZIP**, extract it and open the extracted folder in VS Code.
@@ -115,6 +134,9 @@ prompt improvement**. Use fresh labels such as `rehearsal2-v1` to rerun.
 
 **What to check:** Read `OFFLINE FIXTURE` and the final warning. No model was called
 with two prompts to obtain this difference.
+
+**Offline-only stop:** keep the two fixture folders and record cloud labs **not run**.
+The following SDK/sign-in steps are for the code route, not required to finish this rehearsal.
 
 ### 3. Install a virtual environment and SDKs
 
@@ -183,6 +205,9 @@ Preflight does not prove data-plane permissions or Structured Outputs support;
 `deployment.state: Succeeded`, `inference_tested: false`, and `note`.
 Only an actual response verifies inference. If you came here to prepare Lab 05, complete Lab 02 B's actual response check and then return to Lab 05.
 
+**B done:** the local checks pass and the intended deployment passes read-only preflight.
+Continue to [Lab 02 B](02-models.md#path-b) for actual inference. Keep all later terminal commands at this repository root with `.venv` active.
+
 <details>
 <summary>Recorded reference screens (optional; not steps to repeat)</summary>
 
@@ -214,4 +239,4 @@ These are newly recorded English actions using the separate English prompt/data 
 - B: Complete offline checks and SDK installation, and understand cloud preflight results.
 - Waiting for approval: record **Azure labs not run** if you completed only the offline exercise.
 
-Next: A → [Lab 01](01-foundry.md) · B → [Lab 02](02-models.md)
+Next: A → [Lab 01](01-foundry.md#path-a) · B → [Lab 02](02-models.md#path-b)

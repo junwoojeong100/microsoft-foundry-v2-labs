@@ -4,7 +4,7 @@
 
 **완료 목표:** 한 번 잘 답한 데모를 운영 가능한 시스템으로 착각하지 않고, 다음 판단의 근거를 남깁니다.
 
-다음: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 기존 결과 네 항목](#path-a) · [B — 이력·정리](#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -18,6 +18,8 @@
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
+<a id="path-a"></a>
+
 ## A. 브라우저 — 무엇을 관리해야 하나?
 
 모델을 다시 호출하지 말고 **본인의 기존 결과**로 다음 네 항목을 확인합니다.
@@ -30,7 +32,8 @@
 4. [정리 체크리스트](../reference/cleanup.md)로 본인 agent·선택 파일/chat base·session을 목록화합니다.
    공유 서비스는 **담당자 관리**로 표시하고 잔여 비용과 승인된 자산별 중지/삭제 담당자를 확인합니다.
 
-네 결과를 `operations-checklist.txt`에 저장하고 A는 [Lab 11](11-capstone.md)로 이동합니다. Matrix 명령은 필요 없습니다.
+학습자 ZIP의 빈 `operations-checklist.txt`에 네 결과를 채웁니다.
+**A 완료:** [Lab 11 A](11-capstone.md#path-a)로 이동합니다. 새 모델·trace·matrix 명령은 필요 없습니다.
 아래 표는 본인 권한으로 보이는 자산에 한한 선택적인 추가 검토입니다.
 
 | 관찰 대상 | 직접 확인할 질문 |
@@ -47,6 +50,8 @@
 Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습니다.
 전체 구독 권한을 추가하는 것이 학습의 목표가 아닙니다.
 
+<a id="path-b"></a>
+
 ## B. 코드 — 실행 이력과 실제 telemetry 연결
 
 ### 1. 로컬 이력부터 찾기
@@ -62,7 +67,31 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 여기 있는 request/response ID는 **자동으로 Azure Monitor trace가 되지 않습니다.**
 `trace_id: null`, `trace_export: not-configured`이면 그렇게 보고해야 합니다.
 
-### 2. 서버 측 tracing부터 준비
+### 2. 실제 실패 또는 전체 통과 결과 설명
+
+기존 dev 응답을 사용합니다. 모델/요청 오류·도구 오류·근거 누락·잘못된 규정 적용을 구분합니다.
+어떤 identity가 어느 서비스에 접근했는지와 실제 request/response ID를 적습니다.
+모두 통과했다면 그 사실과 남은 한계를 기록하며 실패를 만들지 않습니다.
+변경은 [Lab 07](07-evaluation.md#path-b)의 dev로만 검토하고 노출된 holdout은 사용하지 않습니다.
+
+### 3. 정리 목록 출력
+
+```bash
+python scripts/workshop.py cleanup-plan
+```
+
+이 명령은 **목록과 절차만 출력하며 삭제하지 않습니다**.
+`operations-checklist.txt`에 본인 객체·공유 서비스·승인된 담당자 작업·남은 비용을 구분해 적습니다.
+별도로 승인된 작업은 [정리](../reference/cleanup.md)를 따릅니다.
+
+**B 완료:** 본인 이력·실패/전체 통과 검토·정리 목록을 저장했습니다.
+[Lab 11 B](11-capstone.md#path-b)로 이동합니다. Tracing이 준비되지 않았다면 **trace 미검증**으로 기록합니다.
+이 기본 단계를 마치려고 Hosted를 배포하거나 새 모델 요청을 보내지 않습니다.
+
+### 선택: 서버 측 tracing 준비
+
+<details>
+<summary>실제 telemetry는 준비된 agent·trace 접근·별도 호출/비용 승인이 필요합니다</summary>
 
 강사는 프로젝트와 Application Insights 연결, 로그 보존·비용·접근 권한을 확인합니다.
 [공식 tracing 설정](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup)을
@@ -96,7 +125,7 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 전체 요청의 존재는 아래 `benchmark monitor`로 별도 검증합니다.
 포털의 부분 span 관측과 해당 요청의 성공/실패·사용량을 분리합니다.
 
-### 3. 실패 하나를 설명하기
+### Trace 실패 설명
 
 > “D03은 403이었다”에서 멈추지 말고, 사용자/프로젝트/agent identity 중 누가
 > 어느 서비스에 접근하다 실패했는지 설명합니다.
@@ -109,6 +138,8 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 이번 실행에서는 CLI 인자 충돌, API query 누락 가능성, embedding API 404,
 App Insights 인증 오류, idle 세션 stop 충돌을 구분해 보존하고 수정했습니다.
 서비스 실행 오류와 native 평가자의 낮은 점수를 같은 실패로 합치지 않습니다.
+
+</details>
 
 ## 운영 승인 게이트
 
@@ -217,13 +248,7 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 이미 idle인 세션은 다시 stop을 호출해 409를 만들지 않고 실제 상태를 확인합니다.
 활성 세션은 중지 후 재조회하고 [실행 기록](../live-run.md)에 별도 receipt를 남깁니다.
 
-A는 위 체크리스트·담당자 인계를 사용합니다. B/C는 로컬 목록도 출력할 수 있습니다.
-
-```bash
-python scripts/workshop.py cleanup-plan
-```
-
-이 명령은 **목록과 절차만 출력**하며 삭제하지 않습니다.
+A는 위 체크리스트·담당자 인계를 사용합니다. B는 3단계에서 로컬 목록을 이미 출력했습니다.
 [정리 체크리스트](../reference/cleanup.md)를 따라 본인 자산을 확인하고,
 공유 서비스와 다른 조의 데이터를 유지합니다.
 정리 완료는 “명령을 실행했다”가 아니라 **활성 session·잔여 리소스·과금 상태를 다시 확인했다**는 뜻입니다.
@@ -232,4 +257,4 @@ python scripts/workshop.py cleanup-plan
 **화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다. 새 촬영의 평가 세션 네 개는 최종 `idle`을 확인했습니다.
 화면의 세션 ID를 그대로 중지하지 말고 자신의 ID를 사용합니다. idle이어도 파일 저장소·Search·로그 비용이 모두 사라지는 것은 아닙니다.
 
-다음: A → [Lab 11](11-capstone.md) · B → [Lab 11](11-capstone.md)
+다음: A → [Lab 11](11-capstone.md#path-a) · B → [Lab 11](11-capstone.md#path-b)

@@ -4,7 +4,7 @@
 
 **완료 목표:** 같은 읽기 전용 MAF 에이전트를 패키징하고, 조건이 준비되면 Foundry에 배포합니다.
 
-다음: A: [Lab 09로 이동](09-operations.md) · B → [Lab 09](09-operations.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** A: [Lab 09 A로 이동](09-operations.md#path-a) · [B — 패키징만](#path-b) · [학습 경로](../paths.md)
 
 > **서비스와 SDK를 구분하세요.** Hosted Agent 서비스는 현재 GA입니다.
 > 이 에디션의 `agent-framework-foundry-hosting` 패키지와 일부 azd 기능은 prerelease입니다.
@@ -12,7 +12,7 @@
 
 ## 시작 전
 
-**이번 순서:** A는 Lab 09로 이동합니다. B는 단일 agent 패키지/로컬 경로부터 진행하고 workflow·Invocations는 심화 대안입니다.
+**이번 순서:** A는 Lab 09로 이동합니다. B는 단일 agent를 패키징하고 멈춥니다. 로컬/원격 실행·workflow·Invocations는 선택입니다.
 
 **준비물:** 패키징은 저장소·Python. 로컬 호출은 Hosted SDK·Lab 04 응답·azd·실제 project ARM ID. 원격은 별도 배포 승인도 필요합니다.
 
@@ -22,9 +22,12 @@
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
+<a id="path-b"></a>
+
 ## 시작 전 게이트
 
-**시작 전에 어디까지 할지 하나를 고릅니다.** B 핵심은 패키징이며 로컬·원격 실행은 추가 결과입니다.
+**기본 B는 패키징 후 Lab 09로 이동합니다.** 이 중단점에는 azd·project ARM ID·Hosted SDK가 필요 없습니다.
+다른 중단점은 선행 조건이 준비된 경우만 선택합니다. 로컬·원격 실행은 추가 결과입니다.
 
 | 멈출 지점 | 선행 조건 | 진행 |
 |---|---|---|
@@ -63,6 +66,13 @@ python scripts/package_hosted.py
 
 **화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted` 위치를 반환하는지 확인합니다.
 파일을 묶은 단계일 뿐 Azure 배포 성공이 아닙니다. 위 표와 manifest로 포함·제외 파일을 대조하세요.
+
+**B 완료:** `cloud_deployed: false`인 `.build/hosted/package-manifest.json`을 보관합니다.
+로컬 호출·원격 배포는 **미실행**으로 적고 [Lab 09 B](09-operations.md#path-b)로 이동합니다.
+패키지가 이미 있다면 manifest부터 확인합니다. 재빌드가 필요하면 그 정확한 생성 폴더를 다른 이름으로 보관하고 소스·outputs·azd 상태는 삭제하지 않습니다.
+
+<details>
+<summary>선택 로컬/원격 단일 agent 실행 — 해당 시작 게이트를 충족할 때만 펼칩니다</summary>
 
 ## 2. azd로 기존 프로젝트에 연결
 
@@ -239,6 +249,8 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 통제된 평가에는 Invocations baseline version 7과 candidate/holdout version 8을 사용했습니다.
 정확한 결과와 한계는 [실행 기록](../live-run.md)을 확인합니다.
 
+</details>
+
 ## 6. MAF 워크플로를 Hosted Agent로 배포
 
 <details>
@@ -376,4 +388,4 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 `azd ai agent sessions list`로 확인하고 [정리 가이드](../reference/cleanup.md)에 따라
 본인 session만 중지합니다. `azd down`을 모든 환경에 무조건 실행하지 않습니다.
 
-다음: A: [Lab 09로 이동](09-operations.md) · B → [Lab 09](09-operations.md)
+다음: A: [Lab 09로 이동](09-operations.md#path-a) · B → [Lab 09](09-operations.md#path-b)

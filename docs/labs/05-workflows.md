@@ -4,7 +4,7 @@
 
 **Goal:** Connect agents in MAF code and distinguish a reviewer model from an actual approver.
 
-Next: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md) · [Paths](../paths.md)
+**Open your section:** [A — one prepared run](#path-a) · [B — three patterns](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -24,6 +24,8 @@ Do not create/connect/publish nodes in the portal Workflow Designer.
 **Microsoft Agent Framework Python code** owns roles, order, and termination.
 Foundry supplies the model and optional hosting/observability.
 Using the Agent Playground is different from authoring a workflow in the portal.
+
+<a id="path-a"></a>
 
 ## A. Beginner: run the prepared example yourself
 
@@ -72,7 +74,7 @@ This is a terminal-executed MAF result, not portal Workflow Designer activity.
 | `external_actions_performed: false` | No actual booking/payment |
 
 Read the complete JSON output and compare its source IDs with the learner ZIP's policies.
-In your own `workflow-review.txt`, save the command, actual output, cited policy IDs,
+In the learner ZIP's blank `workflow-review.txt`, save the command, actual output, cited policy IDs,
 and your review: what is correct, what needs correction, and why. This is review of guidance, not business approval.
 A historical-date rerun is optional; one reviewed sequential run completes A.
 
@@ -86,7 +88,10 @@ You need an **actual MAF run and human review record**.
 Manually copying answers between portal conversations is not MAF execution.
 If you only watched an instructor, record **MAF observed; personal execution incomplete**.
 Local MAF does not create a managed workflow resource or Hosted Agent.
-**A continues to [Lab 06](06-knowledge.md); B follows the comparison below.**
+**A done:** your personal run and completed `workflow-review.txt` are saved.
+Continue to [Lab 06 A](06-knowledge.md#path-a); do not run the three B commands as additional A steps.
+
+<a id="path-b"></a>
 
 ## B. Code: compare three orchestration patterns
 
@@ -155,6 +160,10 @@ human review. Reaching the round limit is not model consensus or business approv
 | Concurrent | Independent perspectives | Aggregation criteria and cost |
 | Group Chat | Short mutual review/coordination | Stopping rules, repetition, conformity |
 | Single agent | Simple rules | Do not add agents without a reason |
+
+**B done:** save all three complete terminal outputs and your comparison/review in the evidence folder.
+Each must retain `approval_status: pending-human-review` and `external_actions_performed: false`.
+Continue to [Lab 06 B](06-knowledge.md#path-b); durable approval and deployable wrappers are separate extensions.
 
 ## Understand human-in-the-loop precisely
 
@@ -273,4 +282,4 @@ A retains a sequential run and human review. B compares call counts, output shap
 and review effort for all three patterns. Concluding that one agent is better for this
 scenario is valid; the number of agents is not a success metric.
 
-Next: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md)
+Next: A → [Lab 06](06-knowledge.md#path-a) · B → [Lab 06](06-knowledge.md#path-b)

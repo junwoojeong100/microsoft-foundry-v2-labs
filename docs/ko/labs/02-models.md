@@ -1,10 +1,10 @@
-# Lab 02. 모델을 배포하고 실제로 호출하기
+# Lab 02. 준비된 모델을 실제로 호출하기
 
 [English](../../labs/02-models.md) | **한국어**
 
 **완료 목표:** 모델 이름과 배포 이름을 구분하고, 한 번의 실제 응답을 확인합니다.
 
-다음: A → [Lab 03](03-prompt-agent.md) · B → [Lab 04](04-agents-tools.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — Playground](#path-a) · [B — SDK](#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -18,7 +18,11 @@
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
+<a id="path-a"></a>
+
 ## A. 브라우저 — Playground에서 시작
+
+승인된 수업 예산으로 실제 모델을 호출합니다. 두 실제 관찰을 `session-notes.txt`에 저장합니다.
 
 ### 1. 사용할 배포 확인
 
@@ -92,10 +96,22 @@ Tools에 기본 Web Search가 있으면 **Actions → Remove**로 제거합니�
 다른 모델은 명시적으로 재검증한 별도 변형이며 같은 preset이 아닙니다.
 승인된 생성 작업 전에도 quota/SKU/리전/가격을 확인합니다.
 
+**A 완료:** 실제 배포·버전, 개념 응답 한 건, 정책 근거 없는 관찰 한 건이 있습니다.
+[Lab 03 A](03-prompt-agent.md#path-a)로 이동합니다. Lab 05 터미널을 직접 준비하는 경우가 아니라면 B의 SDK 호출은 실행하지 않습니다.
+
+<a id="path-b"></a>
+
 ## B. 코드 — 같은 프로젝트를 Responses API로 호출
+
+저장소 루트·활성 `.venv`에서 실행합니다. 사전 검사는 읽기 전용이며 모델·구조화 답변 요청은 유료입니다.
 
 ```bash
 python scripts/workshop.py doctor --cloud
+```
+
+의도한 배포가 `Succeeded`인지 사전 확인한 뒤에만 실제 요청을 보냅니다.
+
+```bash
 python scripts/workshop.py model --question "Foundry와 Agent Framework의 차이를 한국어로 세 문장으로 설명해 주세요."
 ```
 
@@ -140,7 +156,13 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 코드는 일반 텍스트로 몰래 전환하거나 JSON을 임의로 고치지 않습니다.
 강사가 지원 여부를 확인한 배포로 명시적으로 다시 구성한 후 새 실행으로 기록합니다.
 
+**B 완료:** 두 JSON 출력 전체를 response ID·사용량·원문 ID와 함께 개인 증거 폴더에 저장합니다.
+[Lab 04 B](04-agents-tools.md#path-b)로 이동합니다. A 터미널 준비 때문에 왔다면 [Lab 05 A](05-workflows.md#path-a)로 돌아갑니다.
+
 ## 경험자 확장: 모델을 어떻게 비교할까?
+
+<details>
+<summary>선택 모델 비교·Router — 첫 요청의 필수 단계가 아닙니다</summary>
 
 같은 질문 하나만으로 모델 순위를 정하지 않습니다.
 [Lab 07](07-evaluation.md)에서 **같은 dev·지식·지침·출력 한도·동시성**을 사용하고
@@ -156,6 +178,8 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 Router의 접근 권한/모델 목록은 수업 직전 공식 모델 문서와 포털에서 확인합니다.
 Router가 없어도 이 랩은 완료할 수 있습니다.
 
+</details>
+
 ## 완료·복구
 
 모델·배포·실제 평가 범위는 [실행 기록](../live-run.md)에 구분했습니다.
@@ -165,4 +189,4 @@ Router가 없어도 이 랩은 완료할 수 있습니다.
 - 404: 프로젝트 endpoint와 **배포 이름**부터 확인합니다.
 - 429: 동시 호출을 멈추고 quota/TPM을 확인합니다. 무한 재시도하지 않습니다.
 
-다음: A → [Lab 03](03-prompt-agent.md) · B → [Lab 04](04-agents-tools.md)
+다음: A → [Lab 03](03-prompt-agent.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)

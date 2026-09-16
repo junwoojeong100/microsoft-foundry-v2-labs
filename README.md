@@ -2,6 +2,29 @@
 
 **English** | [한국어](README.ko.md)
 
+## Start here
+
+**First visit: [complete the setup card](docs/setup.md), then follow [A. Beginner](docs/paths/a-beginner.md).**
+Build one travel-policy assistant using only the supplied synthetic data.
+You do not need to read the background, watch a video, or choose an advanced module first.
+
+| Choose one route | What to do | Finish with |
+|---|---|---|
+| **A — first time with Azure or agents** | Browser steps plus one command in a prepared MAF terminal; no Python authoring | Your agent, six-question assessment, workflow review and cleanup handoff |
+| **[B — comfortable with Python and APIs](docs/paths/b-practitioner.md)** | SDK, tools, workflows, GA Search/IQ, controlled evaluation and local packaging | Reproducible real run records; remote hosting and cloud judges remain optional |
+
+Setup includes the **small learner ZIP** and ready-to-fill evidence files.
+The **source repository ZIP** is a different download, needed for a code terminal.
+If no terminal was supplied for A's Lab 05, complete [Lab 00 B](docs/labs/00-start.md#path-b) before class.
+Allow **4 hours for A / 6 hours for B after preparation**; account, installation, permissions and quota waits are extra.
+Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and record cloud work as **not run**.
+
+Already completed the core route: [C. Advanced modules](docs/paths/c-advanced.md).
+Preparing a class: [Instructor guide](docs/instructor.md). Returning from the old edition: [Migration map](docs/reference/migration.md).
+
+<details>
+<summary>Background and previous recordings — optional context, not prerequisites</summary>
+
 ## Background: learning loops and frontier ecosystems
 
 In his [June 14, 2026 essay](https://x.com/satyanadella/status/2066182223213293753),
@@ -46,7 +69,7 @@ operations into **one environment and one business scenario**. It is not a list 
 repositories to visit in sequence.
 The labs, Python code, synthetic policies, evaluation data, and instructor guide are here.
 
-## Start here
+## Additional modules and their evidence
 
 **September 16 English-first expansion:** [A — Beginner](docs/paths/a-beginner.md) ·
 [B — Implementation](docs/paths/b-practitioner.md) · [C — Advanced modules](docs/paths/c-advanced.md).
@@ -57,24 +80,7 @@ separately, including their failures and unverified boundaries.
 [New English extension recordings](docs/edition-videos.md) provide a **13:21 module-ordered walkthrough**,
 166 actions and 496 lossless captures; publication status is stated on that page.
 
-**First visit: [complete the setup card](docs/setup.md) → [download the learner ZIP](data/learner/en/learner-materials.zip) → [start Lab 00](docs/labs/00-start.md).**
-The ZIP has ready-to-paste instructions, six synthetic policy files, questions only, and a blank assessment.
-Choose **A** for your first pass; open advanced branches and recorded-screen galleries only when needed.
-
-| Your starting point | Recommended path | What you will produce |
-|---|---|---|
-| New to Azure, AI, and coding | **[A. Beginner](docs/paths/a-beginner.md)** | A portal agent, grounded answers, a six-question assessment, and an operations/cleanup checklist |
-| Familiar with Python, APIs, or Azure | **[B. Implementation](docs/paths/b-practitioner.md)** | MAF/MCP/workflow code, retrieval, controlled evaluation, a deployment package, and optional managed-tool extensions |
-| Extending an implemented agent system | **[C. Advanced modules](docs/paths/c-advanced.md)** | Existing Hosted matrices plus selected tooling, conversation, optimization, resilience, memory, A2A and operations modules |
-| Teaching or preparing the environment | **[Instructor preparation](docs/instructor.md)** | Team environments, permissions and cost planning, smoke checks, and recovery criteria |
-| Waiting for Azure approval or quota | **[Try the checker without Azure](docs/labs/00-start.md)** | Understand run/evaluation files with offline fixtures; **not completion of the cloud labs** |
-| Returning from the previous edition | **[Migration map](docs/reference/migration.md)** | Concepts to retain and SDK, permission, and execution contracts to change |
-
-**A starts in the browser**, then copies one command into a prepared MAF terminal.
-If no terminal was supplied, [Lab 00 B](docs/labs/00-start.md#b-code-one-folder-one-environment)
-is the explicit self-setup route. Learners do not author workflows in the portal Workflow Designer.
-The advertised times start **after** accounts, resources, roles, and models are ready.
-Subscription creation, access approvals, quota increases, installation, and RBAC propagation are separate.
+</details>
 
 ## One scenario, an expanding system
 

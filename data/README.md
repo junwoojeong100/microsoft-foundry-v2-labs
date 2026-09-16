@@ -35,6 +35,8 @@ Fixtures are prewritten examples, never Azure responses.
 
 `data/learner/<language>/` is generated from that language's canonical v2 prompt, six policies and **dev only**.
 It includes inline/browser instructions, six TXT sources, questions without reference-answer fields, and a blank six-row assessment.
+Blank `session-notes.txt`, `workflow-review.txt` and `operations-checklist.txt` guide setup, observations,
+pause/resume and final handoff. They contain no completed results; fill personal copies outside the repository.
 The browser-only prose override is explicit; it does not change the frozen prompts or evaluation data.
 `SOURCE.json` and the per-file manifest retain input/output hashes. The ZIP excludes holdout and answer keys.
 

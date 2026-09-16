@@ -4,7 +4,7 @@
 
 **완료 목표:** 모델 호출, 애플리케이션이 소유한 에이전트, 도구 실행의 경계를 구분합니다.
 
-다음: A: [Lab 05로 이동](05-workflows.md) · B → [Lab 05](05-workflows.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** A: [Lab 05 A로 이동](05-workflows.md#path-a) · [B — 세 도구 경로](#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -18,7 +18,12 @@
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
+<a id="path-b"></a>
+
 ## 1. 도구 없는 에이전트
+
+저장소 루트·활성 `.venv`에서 실행합니다. 세 명령 모두 유료 모델 호출입니다.
+각 명령 성공 후 실제 JSON 출력 전체를 개인 증거 폴더에 복사합니다. 이 명령들은 label별 결과 폴더를 자동 생성하지 않습니다.
 
 ```bash
 python scripts/workshop.py maf --question "Foundry와 Agent Framework의 차이를 세 문장으로 설명해 주세요."
@@ -108,6 +113,9 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 **화면 확인:** `tools: local-mcp`를 확인하고 2026년 5월에 과거 한도와 `TRAVEL-2025`를 적용했는지 봅니다.
 함수 도구 결과로 MCP 실행을 대신한 것이 아닙니다.
 
+**B 완료:** 실제 출력 세 개를 보관하고 도구 없음·함수·로컬 MCP의 차이를 설명합니다.
+[Lab 05 B](05-workflows.md#path-b)로 이동합니다. 아래 실패 검사는 선택입니다.
+
 ## 4. 선택 — 도구 경계와 잘못된 입력 거절 확인
 
 첫 회차는 위 세 실제 출력을 확인한 뒤 [Lab 05](05-workflows.md)로 이동해도 됩니다.
@@ -148,4 +156,4 @@ Azure 호출 전 입력 거절이며 환경이 망가졌다는 뜻이 아닙니�
 MCP 실행 실패 시 [환경/도구 문제 해결](../reference/troubleshooting.md)을 확인합니다.
 함수 도구 응답으로 바꾸어 MCP 실행이 성공한 것처럼 기록하지 않습니다.
 
-다음: A: [Lab 05로 이동](05-workflows.md) · B → [Lab 05](05-workflows.md)
+다음: A: [Lab 05로 이동](05-workflows.md#path-a) · B → [Lab 05](05-workflows.md#path-b)

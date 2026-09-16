@@ -22,6 +22,135 @@ BROWSER_OUTPUT = {
     ),
 }
 
+WORKSHEETS = {
+    "en": {
+        "session-notes.txt": (
+            "BLANK WORKSHEET - fill with your own results; this is not execution evidence.\n"
+            "Keep this personal copy outside the repository. No passwords, keys, tokens or .env.\n\n"
+            "Lab 00 - setup card\n"
+            "Language / path:\n"
+            "Tenant / subscription:\n"
+            "Resource group / Foundry account / project:\n"
+            "Full project endpoint:\n"
+            "Answer deployment / model version:\n"
+            "Personal prefix:\n"
+            "Cost and permission owner:\n"
+            "Prepared MAF terminal location:\n"
+            "Optional IQ Chat selected or not selected:\n\n"
+            "Lab 01 - sketch account -> project / deployment -> agent\n"
+            "My sketch and explanation:\n\n"
+            "Lab 02 - actual Playground observations\n"
+            "Deployment / time / usage:\n"
+            "Actual concept-explanation response:\n"
+            "Actual response to the question without policy evidence:\n"
+            "My finding:\n\n"
+            "Lab 03 - saved agent and four actual checks\n"
+            "Agent name / saved version / deployment:\n"
+            "Evidence method / saved instructions filename:\n"
+            "Actual D01 answer and citations:\n"
+            "Actual D02 answer and citations:\n"
+            "Actual D03 answer and citations:\n"
+            "Actual D05 answer and citations:\n"
+            "Errors or incorrect answers and my review:\n\n"
+            "Lab 06 - compare citations with the original policies\n"
+            "Current-policy ID / effective dates / finding:\n"
+            "Historical-policy ID / effective dates / finding:\n"
+            "Over-limit approval source / finding:\n"
+            "Optional IQ Chat outcome or not run:\n\n"
+            "Pause / resume\n"
+            "Last completed lab and step:\n"
+            "Exact agent version / output labels:\n"
+            "Last error, time and request ID, if any:\n"
+            "Next guide link and action:\n"
+        ),
+        "workflow-review.txt": (
+            "BLANK WORKSHEET - one personally executed Lab 05 workflow, not an instructor recording.\n\n"
+            "Execution date / language / deployment:\n"
+            "Exact command:\n"
+            "Complete actual JSON output, including mode, pattern, outputs, approval_status and external_actions_performed:\n\n"
+            "Actual cited policy IDs and applicable dates:\n"
+            "What is correct and why:\n"
+            "What needs correction and why, or an explained all-pass finding:\n"
+            "My review of the guidance (not booking, payment or business approval):\n"
+        ),
+        "operations-checklist.txt": (
+            "BLANK WORKSHEET - inspect existing evidence; do not call Azure merely to fill a box.\n\n"
+            "1. Actual agent name / version / model checked against Lab 03:\n"
+            "2. Instructions / tools / sources checked; unapproved connections, if any:\n"
+            "3. Six-row assessment and workflow review locations:\n"
+            "Actual trace evidence, or unverified when unavailable:\n"
+            "4. Owned assets and separately approved cleanup actions:\n"
+            "Shared assets to retain and responsible owner:\n"
+            "Actual cleanup outcomes or pending owner actions:\n"
+            "Remaining costs and responsible owner:\n"
+            "Optional modules not run:\n"
+        ),
+    },
+    "ko": {
+        "session-notes.txt": (
+            "빈 기록 양식 - 본인의 실제 결과로 채우세요. 이 파일 자체는 실행 증거가 아닙니다.\n"
+            "저장소 밖의 개인 복사본을 사용하세요. 비밀번호·key·token·.env는 넣지 않습니다.\n\n"
+            "Lab 00 - 설정 카드\n"
+            "언어 / 경로:\n"
+            "Tenant / subscription:\n"
+            "리소스 그룹 / Foundry 계정 / 프로젝트:\n"
+            "전체 project endpoint:\n"
+            "응답 배포 / 모델 버전:\n"
+            "개인 prefix:\n"
+            "비용·권한 담당자:\n"
+            "준비된 MAF 터미널 위치:\n"
+            "선택 IQ Chat의 선택 또는 미선택:\n\n"
+            "Lab 01 - account -> project / deployment -> agent 관계\n"
+            "내 그림과 설명:\n\n"
+            "Lab 02 - 실제 Playground 관찰\n"
+            "배포 / 시각 / 사용량:\n"
+            "개념 설명의 실제 응답:\n"
+            "정책 근거가 없는 질문의 실제 응답:\n"
+            "내 관찰 결과:\n\n"
+            "Lab 03 - 저장한 agent와 실제 확인 4건\n"
+            "Agent 이름 / 저장 버전 / 배포:\n"
+            "근거 방식 / 저장한 지침 파일명:\n"
+            "실제 D01 응답과 인용:\n"
+            "실제 D02 응답과 인용:\n"
+            "실제 D03 응답과 인용:\n"
+            "실제 D05 응답과 인용:\n"
+            "오류·잘못된 답변과 내 검토:\n\n"
+            "Lab 06 - 인용과 정책 원문 비교\n"
+            "현재 정책 ID / 적용일 / 확인 결과:\n"
+            "과거 정책 ID / 적용일 / 확인 결과:\n"
+            "한도 초과 승인 근거 / 확인 결과:\n"
+            "선택 IQ Chat의 결과 또는 미실행:\n\n"
+            "중단 / 재개\n"
+            "마지막으로 완료한 Lab과 단계:\n"
+            "정확한 agent 버전 / output label:\n"
+            "마지막 오류·시각·request ID(있다면):\n"
+            "다음 가이드 링크와 할 일:\n"
+        ),
+        "workflow-review.txt": (
+            "빈 기록 양식 - 강사 녹화가 아닌 본인이 실행한 Lab 05 workflow 한 건입니다.\n\n"
+            "실행 날짜 / 언어 / 배포:\n"
+            "정확한 명령:\n"
+            "mode, pattern, outputs, approval_status, external_actions_performed를 포함한 실제 JSON 출력 전체:\n\n"
+            "실제 인용 정책 ID와 적용일:\n"
+            "올바른 부분과 이유:\n"
+            "수정할 부분과 이유 또는 근거 있는 전체 통과 관찰:\n"
+            "안내에 대한 내 검토(예약·지급·업무 승인이 아님):\n"
+        ),
+        "operations-checklist.txt": (
+            "빈 기록 양식 - 기존 결과를 확인합니다. 칸을 채우려고 Azure를 다시 호출하지 않습니다.\n\n"
+            "1. Lab 03과 대조한 실제 agent 이름 / 버전 / 모델:\n"
+            "2. 확인한 지침 / 도구 / 원문과 승인되지 않은 연결(있다면):\n"
+            "3. 6행 평가표와 workflow 검토 파일 위치:\n"
+            "실제 trace 근거 또는 조회할 수 없을 때 미검증:\n"
+            "4. 소유 자산과 별도로 승인받은 정리 작업:\n"
+            "보존할 공유 자산과 담당자:\n"
+            "실제 정리 결과 또는 담당자 처리 대기:\n"
+            "남은 비용과 담당자:\n"
+            "실행하지 않은 선택 모듈:\n"
+        ),
+    },
+}
+
 
 def policy_document_text(document: dict[str, Any]) -> str:
     return (
@@ -50,20 +179,30 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
     files = {
         "START-HERE.txt": (
             "Synthetic workshop materials only; no real company data.\n"
-            "1. Use the prepared gpt-5.6-luna deployment, not the judge or a router.\n"
-            "2. Paste instructions-with-policies.txt into the agent's Instructions field, then Save.\n"
-            "3. Copy one question at a time from dev-questions.txt into a new chat. Do not paste assessment columns.\n"
-            "4. Record your own responses in assessment.csv; it contains no answer keys.\n"
-            "5. policies/ contains the six original text files for the optional File Search path.\n"
-            "Follow docs/labs/00-start.md and docs/setup.md for prerequisites, costs and permissions.\n"
+            "This is the small learner ZIP, not the source repository or a ready code environment.\n"
+            "Keep this extracted personal copy outside the repository; never commit filled notes or credentials.\n"
+            "1. Complete docs/setup.md and the setup section of session-notes.txt. Use prepared gpt-5.6-luna, not the judge or a router.\n"
+            "2. Follow docs/paths/a-beginner.md. Record Labs 00-03 and 06 in session-notes.txt.\n"
+            "3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Do not paste it into chat.\n"
+            "4. Copy only a question from dev-questions.txt into each new chat, not IDs or assessment columns.\n"
+            "5. In Lab 05, fill workflow-review.txt with your complete actual command/output and review.\n"
+            "6. In Lab 07, save assessment.csv as assessment-baseline.csv and fill all six rows. No answer keys are included.\n"
+            "7. In Lab 09, fill operations-checklist.txt; Lab 11 hands over these files without new Azure calls.\n"
+            "Optional only: policies/ and instructions.txt are for a separately selected File Search agent.\n"
+            "Use session-notes.txt to save your last completed step and next link before pausing.\n"
             if language == "en"
             else "합성 실습 자료만 포함하며 실제 회사 데이터가 아닙니다.\n"
-            "1. 준비된 gpt-5.6-luna 배포를 사용합니다. judge나 router를 고르지 않습니다.\n"
-            "2. instructions-with-policies.txt 전체를 agent의 Instructions(지침)에 붙여 넣고 Save(저장)합니다.\n"
-            "3. dev-questions.txt에서 질문 하나만 복사해 새 대화에 보냅니다. 평가 열을 붙여 넣지 않습니다.\n"
-            "4. 실제 응답을 assessment.csv에 기록합니다. 이 파일에는 정답표가 없습니다.\n"
-            "5. policies/는 선택 File Search 경로에 올릴 원문 텍스트 6개입니다.\n"
-            "준비물·비용·권한은 docs/ko/labs/00-start.md와 docs/ko/setup.md를 따릅니다.\n"
+            "작은 학습자 ZIP이며 소스 저장소나 준비된 코드 실행 환경이 아닙니다.\n"
+            "압축을 푼 개인 복사본은 저장소 밖에 보관합니다. 작성한 기록이나 인증정보를 커밋하지 않습니다.\n"
+            "1. docs/ko/setup.md와 session-notes.txt의 설정 카드를 채웁니다. judge/router가 아닌 준비된 gpt-5.6-luna를 사용합니다.\n"
+            "2. docs/ko/paths/a-beginner.md를 따릅니다. Lab 00-03과 06은 session-notes.txt에 기록합니다.\n"
+            "3. Lab 03에서 instructions-with-policies.txt 전체를 대화창이 아닌 Instructions(지침)에 붙여 넣고 Save(저장)합니다.\n"
+            "4. dev-questions.txt에서 질문 하나만 복사해 매번 새 대화에 보냅니다. ID나 평가 열은 보내지 않습니다.\n"
+            "5. Lab 05에서 실제 명령·출력 전체와 내 검토로 workflow-review.txt를 채웁니다.\n"
+            "6. Lab 07에서 assessment.csv를 assessment-baseline.csv로 저장하고 6행 모두 채웁니다. 정답표는 없습니다.\n"
+            "7. Lab 09에서 operations-checklist.txt를 채우고, Lab 11에서 새 Azure 호출 없이 이 파일들을 인계합니다.\n"
+            "선택 전용: policies/와 instructions.txt는 별도로 선택한 File Search agent에만 사용합니다.\n"
+            "중단하기 전 session-notes.txt에 마지막 완료 단계와 다음 링크를 적습니다.\n"
         ).encode(),
         "instructions.txt": instructions.encode(),
         "instructions-with-policies.txt": inline.encode(),
@@ -72,6 +211,7 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
         ).encode()
         + b"\n",
     }
+    files.update({name: text.encode() for name, text in WORKSHEETS[language].items()})
     assessment = io.StringIO(newline="")
     writer = csv.writer(assessment, lineterminator="\n")
     writer.writerow(
@@ -97,6 +237,7 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
         "dev_dataset_hash": digest(cases),
         "contains_reference_answer_fields": False,
         "contains_holdout": False,
+        "contains_completed_results": False,
         "instruction_format": "v2 rules plus an explicit browser-only prose override",
     }
     files["SOURCE.json"] = (json.dumps(source, indent=2) + "\n").encode()

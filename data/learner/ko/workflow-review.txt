@@ -1,0 +1,10 @@
+빈 기록 양식 - 강사 녹화가 아닌 본인이 실행한 Lab 05 workflow 한 건입니다.
+
+실행 날짜 / 언어 / 배포:
+정확한 명령:
+mode, pattern, outputs, approval_status, external_actions_performed를 포함한 실제 JSON 출력 전체:
+
+실제 인용 정책 ID와 적용일:
+올바른 부분과 이유:
+수정할 부분과 이유 또는 근거 있는 전체 통과 관찰:
+안내에 대한 내 검토(예약·지급·업무 승인이 아님):

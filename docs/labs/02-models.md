@@ -1,10 +1,10 @@
-# Lab 02. Deploy a model and make a real request
+# Lab 02. Use the prepared model and make a real request
 
 **English** | [한국어](../ko/labs/02-models.md)
 
 **Goal:** Distinguish model names from deployment names and obtain one actual response.
 
-Next: A → [Lab 03](03-prompt-agent.md) · B → [Lab 04](04-agents-tools.md) · [Paths](../paths.md)
+**Open your section:** [A — Playground](#path-a) · [B — SDK](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -18,7 +18,11 @@ Next: A → [Lab 03](03-prompt-agent.md) · B → [Lab 04](04-agents-tools.md) �
 
 [One-time setup and learner files](../setup.md).
 
+<a id="path-a"></a>
+
 ## A. Browser: start in the Playground
+
+These requests call the real model and use the approved training budget. Save both actual observations in `session-notes.txt`.
 
 ### 1. Identify the deployment
 
@@ -85,10 +89,22 @@ This dated first-pass route uses **Luna**, whose text/tools/Structured Outputs a
 Do not select `-judge`, a router, or another available model to get past a missing deployment.
 Another model is an explicitly revalidated variant, not the same preset. Review quota/SKU/region/pricing before any authorized creation.
 
+**A done:** you have the actual deployment/version, one concept response and one observation without policy evidence.
+Continue to [Lab 03 A](03-prompt-agent.md#path-a). Do not run B's SDK calls unless preparing your own Lab 05 terminal.
+
+<a id="path-b"></a>
+
 ## B. Code: call the same project through Responses
+
+Use the repository root and activated `.venv`. The preflight is read-only; the model and structured-answer requests are billable.
 
 ```bash
 python scripts/workshop.py --language en doctor --cloud
+```
+
+Continue only after preflight identifies the intended deployment in `Succeeded` state. Then make one actual request:
+
+```bash
 python scripts/workshop.py --language en model --question "Explain the difference between Foundry and Agent Framework in three English sentences."
 ```
 
@@ -136,7 +152,13 @@ Stop if the model rejects `json_schema`. The code does not silently switch to pl
 text or repair invalid JSON. Explicitly configure an instructor-verified deployment
 and record a new run after resolving support.
 
+**B done:** save both complete JSON outputs, including response IDs, usage and source IDs, in your personal evidence folder.
+Continue to [Lab 04 B](04-agents-tools.md#path-b). If you came only to prepare A's terminal, return to [Lab 05 A](05-workflows.md#path-a).
+
 ## Practitioner extension: compare models correctly
+
+<details>
+<summary>Optional model comparison and Router — not part of this first request</summary>
 
 A single question cannot establish a model ranking. In [Lab 07](07-evaluation.md),
 hold **dev data, knowledge, instructions, output limit, and concurrency** fixed and
@@ -151,6 +173,8 @@ Router usage is not the same experiment as evaluating two fixed deployments.
 Without routing policy, candidate models, and the actual response model, do not
 present a fixed-model ranking. Verify access and the model list immediately before
 class. This lab can be completed without Router.
+
+</details>
 
 <details>
 <summary>Recorded reference screens (optional; not steps to repeat)</summary>
@@ -194,4 +218,4 @@ These are newly recorded English actions using the separate English prompt/data 
 - 404: check the full project endpoint and **deployment name** first.
 - 429: stop concurrent calls and inspect quota/TPM; no endless retries.
 
-Next: A → [Lab 03](03-prompt-agent.md) · B → [Lab 04](04-agents-tools.md)
+Next: A → [Lab 03](03-prompt-agent.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)

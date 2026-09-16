@@ -5,6 +5,40 @@
 **Do not chain deployment, evaluation, or deletion while the previous step is failing.**
 Creating a new model, subscription, or resource for the same unexplained error is not recovery.
 
+<a id="resume-safely"></a>
+
+## Resume without repeating paid work
+
+Read the last completed step and exact version/labels in your notes. Use the **first matching row**:
+
+| What happened | Safe next action | Do not |
+|---|---|---|
+| Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
+| Opened a new terminal | Return to the repository root; run `source .venv/bin/activate` | Reinstall everything, overwrite or shell-`source` `.env` |
+| A label already exists | Inspect `outputs/<label>/manifest.json` and `responses.jsonl`; `evaluate` can reread them locally | Delete the run or invoke `collect` with that same label |
+| `collect` returned a nonzero exit code | Preserve all rows/errors; use `evaluate` to inspect them, resolve the cause, then collect a new explicitly labeled dev run | Replace failed rows with fixtures or silently change the provider/model |
+| `evaluate` returned `1` | Read `total`, `passed`, `errors` and per-case `checks`; review a baseline failure, but keep holdout closed for a failing candidate | Treat a completed request as a passed business gate |
+| Candidate and holdout already exist | Read `outputs/<holdout-label>/acceptance.json`, or rerun local `accept` with those exact labels | Recollect an exposed holdout to get a better result |
+| Hosted package already exists | Inspect its manifest; preserve that exact generated directory under a new name before a rebuild | Delete source code, the whole `.build`, `outputs`, or azd state |
+| Cloud judge timed out | Resume polling with the **same** `cloud-evaluate --label` command and saved job IDs | Apply the new-collection-label rule to an already submitted judge job |
+
+For a genuinely new dev experiment, choose one fresh **baseline/candidate/final-holdout** label set and
+use it consistently in Lab 07 and Lab 11. Do not unlock holdout until the new candidate passes and is frozen.
+Read-only reinspection does not create new inference evidence.
+
+## Common blockers
+
+| Symptom | First check | Return directly to |
+|---|---|---|
+| Cannot find `scripts/workshop.py` | The terminal must contain `README.md`, `pyproject.toml`, and `scripts/`; the learner ZIP is not the source ZIP | [00 B](../labs/00-start.md#path-b) |
+| Missing Python/package | Supported Python, active `.venv`, then the pinned install step; stop on installation errors | [00 B](../labs/00-start.md#path-b) |
+| 401/403 or project missing | Intended tenant, actual caller identity and resource-scoped permissions; owner resolves access | [00](../labs/00-start.md) / [setup](../setup.md) |
+| Model 404 / 429 | Full project endpoint and deployment name / quota and concurrency; no replacement model | [02 B](../labs/02-models.md#path-b) |
+| IQ reports no chat model | Default B uses model-free GA retrieval; optional A IQ Chat needs a different prepared base | [06](../labs/06-knowledge.md) |
+
+<details>
+<summary>Full error reference — open if the short table does not cover your failure</summary>
+
 | Symptom | Check first | Return to lab |
 |---|---|---|
 | Project missing | Tenant, account, project role; never select an unrelated production project | 00–01 |
@@ -48,6 +82,8 @@ Creating a new model, subscription, or resource for the same unexplained error i
 | Stop returns 409 for idle session | Re-read the exact recorded session/version and record the idle state without another stop request | 09 |
 | Host profile/contract mismatch | Exact profile language, model map, source package, actual version and retrieval configuration | 08 |
 | Native quality score is low | Preserve the completed run; review the evaluator against business requirements, not retries until a favorable score | 07 |
+
+</details>
 
 ## Network isolation
 

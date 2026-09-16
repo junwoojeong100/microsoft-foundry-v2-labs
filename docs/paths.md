@@ -9,6 +9,8 @@ its workflow exercise runs in a prepared MAF environment.
 
 **Route pages:** [A — Beginner](paths/a-beginner.md) · [B — Implementation](paths/b-practitioner.md) ·
 [C — Advanced modules](paths/c-advanced.md) · [Coverage and evidence](coverage.md).
+**First visit: choose A.** Use its route page as the checklist; the tables below are schedules, not additional tasks.
+Each lab has a direct `path-a` / `path-b` entry and an **A done / B done** exit.
 The original times below describe the existing prepared core routes.
 New capability modules add separate sessions; they are not silently squeezed into the same four/six-hour promise.
 
@@ -31,15 +33,15 @@ and [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment) first.
 
 | Order | Lab | Time | Your evidence |
 |---|---|---:|---|
-| 1 | [00. Start](labs/00-start.md) | 20 min | Account, project, and chosen path |
-| 2 | [01. Foundry](labs/01-foundry.md) | 25 min | Resource/project/model relationship diagram |
-| 3 | [02. Models: A](labs/02-models.md) | 20 min | Actual Playground response and deployment name |
-| 4 | [03. Agent: A](labs/03-prompt-agent.md) | 35 min | Agent using synthetic policies |
-| 5 | [05. MAF workflow: A](labs/05-workflows.md) | 25 min | Prepared sequential run and human review record |
-| 6 | [06. Knowledge: A](labs/06-knowledge.md) | 35 min | Source citation and effective-date check |
-| 7 | [07. Evaluation: A](labs/07-evaluation.md) | 30 min | Manual business assessment of all six dev cases |
-| 8 | [09. Operations: A](labs/09-operations.md) | 25 min | Risks, costs, and cleanup record |
-| 9 | [11. Capstone: A](labs/11-capstone.md) | 15 min | Your worksheet and evidence handoff |
+| 1 | [00. Start](labs/00-start.md#path-a) | 20 min | Account, project, and chosen path |
+| 2 | [01. Foundry](labs/01-foundry.md#path-a) | 25 min | Resource/project/model relationship diagram |
+| 3 | [02. Models: A](labs/02-models.md#path-a) | 20 min | Actual Playground response and deployment name |
+| 4 | [03. Agent: A](labs/03-prompt-agent.md#path-a) | 35 min | Agent using inline synthetic policies |
+| 5 | [05. MAF workflow: A](labs/05-workflows.md#path-a) | 25 min | Prepared sequential run and human review record |
+| 6 | [06. Knowledge: A](labs/06-knowledge.md#path-a) | 35 min | Source citation and effective-date check; IQ Chat not selected by default |
+| 7 | [07. Evaluation: A](labs/07-evaluation.md#path-a) | 30 min | Manual business assessment of all six dev cases |
+| 8 | [09. Operations: A](labs/09-operations.md#path-a) | 25 min | Risks, costs, and cleanup record |
+| 9 | [11. Capstone: A](labs/11-capstone.md#path-a) | 15 min | Your worksheet and evidence handoff |
 | — | Breaks and buffer | 10 min | **240 minutes total** |
 
 **A is complete** when you have actual Playground/agent responses, a prepared MAF
@@ -58,19 +60,20 @@ Region/model/permission approvals, SDK downloads, and Search service creation ha
 
 | Order | Lab | Time | Your evidence |
 |---|---|---:|---|
-| 1 | [00. Doctor and settings](labs/00-start.md) | 15 min | Environment checks |
-| 2 | [02. SDK: B](labs/02-models.md) | 20 min | Actual Responses result |
-| 3 | [04. MAF, functions, MCP](labs/04-agents-tools.md) | 45 min | Differences among three execution paths |
-| 4 | [05. MAF workflows: B](labs/05-workflows.md) | 40 min | Sequential, concurrent, and Group Chat code/results |
-| 5 | [06. Search/IQ: B](labs/06-knowledge.md) | 45 min | References, activity, and context hash |
-| 6 | [07. Learning loop: B](labs/07-evaluation.md) | 50 min | Baseline/candidate/holdout lineage |
-| 7 | [08. Hosted Agent](labs/08-hosted.md) | 40 min | Local package and optional remote response |
-| 8 | [09. Observability and operations](labs/09-operations.md) | 30 min | Run-ID correlation and operational gates |
-| 9 | [11. Capstone](labs/11-capstone.md) | 45 min | Acceptance checklist |
+| 1 | [00. Doctor and settings](labs/00-start.md#path-b) | 15 min | Environment checks |
+| 2 | [02. SDK: B](labs/02-models.md#path-b) | 20 min | Actual Responses result |
+| 3 | [04. MAF, functions, MCP](labs/04-agents-tools.md#path-b) | 45 min | Differences among three execution paths |
+| 4 | [05. MAF workflows: B](labs/05-workflows.md#path-b) | 40 min | Sequential, concurrent, and Group Chat code/results |
+| 5 | [06. Search/IQ: B](labs/06-knowledge.md#path-b) | 45 min | GA references, activity, and context hash |
+| 6 | [07. Learning loop: B](labs/07-evaluation.md#path-b) | 50 min | Local-retrieval baseline/candidate/holdout lineage with real model calls |
+| 7 | [08. Hosted Agent](labs/08-hosted.md#path-b) | 40 min | Package and manifest review; serving/deployment not required |
+| 8 | [09. Observability and operations](labs/09-operations.md#path-b) | 30 min | Existing run-ID lineage and read-only cleanup plan |
+| 9 | [11. Capstone](labs/11-capstone.md#path-b) | 45 min | Existing acceptance report and artifact checklist |
 | — | Breaks and buffer | 30 min | **360 minutes total** |
 
-**B's core completion** requires code responses from a real Azure model and comparable
-dev run records. Hosted deployment and paid cloud judges have separate optional gates.
+**B's core completion** requires the listed real model/tool/workflow and Search/IQ results,
+comparable dev records, frozen final evaluation, package and cleanup handoff.
+Hosted serving/deployment, actual telemetry and paid cloud judges have separate optional gates.
 Mark them **not run** if omitted; unavailable quota is not permission to submit fixtures
 as real model responses.
 
@@ -98,12 +101,12 @@ Optional [IQ extensions](reference/iq-workbook.md) need separate service-specifi
 
 | Module | Minimum prerequisite | Restart at |
 |---|---|---|
-| Model/prompt | Project, deployment, Foundry User permission | 02 |
-| MAF/MCP/workflow | SDKs, successful `doctor --cloud` and `model` | 04 |
-| Foundry IQ | Above plus prepared Search, retrieval configuration, and roles | 06 |
-| Evaluation | A complete real run or an explicitly labeled fixture in `outputs/<label>` | 07 |
-| Hosted Agent | Successful `maf --tools`, hosted SDK, and deployment permission | 08 |
-| IQ extensions | IQ basics and separate service approvals | 10 |
+| Model/prompt | Project, deployment, Foundry User permission | [02 B](labs/02-models.md#path-b) |
+| MAF/MCP/workflow | SDKs, successful `doctor --cloud` and `model` | [04 B](labs/04-agents-tools.md#path-b) |
+| Foundry IQ | Above plus prepared Search, retrieval configuration, and roles | [06 B](labs/06-knowledge.md#path-b) |
+| Evaluation | A complete real run or an explicitly labeled fixture in `outputs/<label>` | [07 B](labs/07-evaluation.md#path-b); fixtures do not unlock real acceptance |
+| Hosted packaging | Repository and Python; runtime gates are separate | [08 B](labs/08-hosted.md#path-b) |
+| IQ extensions | IQ basics and separate service approvals | [10](labs/10-iq-extensions.md) |
 
 **Never silently switch paths.** A model error must not select another model. Failed
 IQ must not become ordinary Search labeled as IQ. For installation failures, return to

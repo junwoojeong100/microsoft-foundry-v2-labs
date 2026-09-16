@@ -6,15 +6,16 @@
   "dev_dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
   "contains_reference_answer_fields": false,
   "contains_holdout": false,
+  "contains_completed_results": false,
   "instruction_format": "v2 rules plus an explicit browser-only prose override",
   "files": {
     "SOURCE.json": {
-      "bytes": 479,
-      "sha256": "e79993470fc469d7bfec59a2a21c687f3191e4660a8f1460a26c9788d7e91917"
+      "bytes": 518,
+      "sha256": "ed29612b3776d5fafb7fd706654d01b90250e87a6031a82a91200f59570d00e1"
     },
     "START-HERE.txt": {
-      "bytes": 686,
-      "sha256": "4737aeacf4d25547bbc5d1650f6739b395673bd7e48993f6a1a432574c56ec62"
+      "bytes": 1381,
+      "sha256": "d8e10c7165ea2d671191938f9fd46327681890fadde32c7a21ef5def79a71ed6"
     },
     "assessment.csv": {
       "bytes": 694,
@@ -33,8 +34,12 @@
       "sha256": "2088e56ce66d49a4190aee367c44c13f612ab92ac06f46fc207b714bb1515680"
     },
     "learner-materials.zip": {
-      "bytes": 13259,
-      "sha256": "d58b9e48dd62bba3ba89469206d06224b1e05bdb0cd8c4894cdd316139c71985"
+      "bytes": 16835,
+      "sha256": "0c0494c32b3eb4db8d1f993c190ccd2a9807c50eed25e2e0a4e9eba6c15c7bed"
+    },
+    "operations-checklist.txt": {
+      "bytes": 587,
+      "sha256": "79a4f2d6611c97fea0c9b58c107dd3a8bd35b744c57e6ff473c54caf52e80f7b"
     },
     "policies/APPROVAL-01.txt": {
       "bytes": 517,
@@ -59,6 +64,14 @@
     "policies/TRAVEL-2026.txt": {
       "bytes": 464,
       "sha256": "36bb0f33fed757588d56b71fe611c34576f14218e63f919350a8b4a839ba4dc2"
+    },
+    "session-notes.txt": {
+      "bytes": 1442,
+      "sha256": "544cb3bb5d211594aa70508e8ae1ca4e08a6ebad5ce6b995acbd298a9b85a0d8"
+    },
+    "workflow-review.txt": {
+      "bytes": 465,
+      "sha256": "5cada4c1076cfd7f7f848b3d2a42f703803ea6ce8fea325c51850147d975b32d"
     }
   }
 }

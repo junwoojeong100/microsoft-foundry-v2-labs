@@ -4,7 +4,7 @@
 
 **Goal:** Package the same read-only MAF agent and deploy it only when prerequisites and approvals are in place.
 
-Next: A: [skip to Lab 09](09-operations.md) · B → [Lab 09](09-operations.md) · [Paths](../paths.md)
+**Open your section:** A: [skip to Lab 09 A](09-operations.md#path-a) · [B — package only](#path-b) · [Paths](../paths.md)
 
 > **Separate service and SDK status.** In this edition's dated compatibility snapshot,
 > Hosted Agent is a GA service, while `agent-framework-foundry-hosting` and some azd
@@ -13,7 +13,7 @@ Next: A: [skip to Lab 09](09-operations.md) · B → [Lab 09](09-operations.md) 
 
 ## Before you start
 
-**This pass:** A skips to Lab 09. B follows the single-agent package/local path first; workflow and Invocations sections are advanced alternatives.
+**This pass:** A skips to Lab 09. B packages the single agent and stops; local/remote execution, workflow and Invocations sections are optional.
 
 **Need:** Packaging: repository and Python. Local invocation: Hosted SDK, Lab 04 response, azd and actual project ARM ID. Remote work also requires explicit deployment approval.
 
@@ -23,9 +23,12 @@ Next: A: [skip to Lab 09](09-operations.md) · B → [Lab 09](09-operations.md) 
 
 [One-time setup and learner files](../setup.md).
 
+<a id="path-b"></a>
+
 ## Entry gates
 
-**Choose one stopping point before starting.** B's core requires packaging; local and remote execution are additional outcomes.
+**Default B: package only, then Lab 09.** You do not need azd, a project ARM ID or the Hosted SDK for that stopping point.
+Choose a different stopping point only with its prerequisites already met; local and remote execution are additional outcomes.
 
 | Stopping point | Prerequisites | Follow |
 |---|---|---|
@@ -63,6 +66,13 @@ For package-only completion, retain the manifest and continue to [Lab 09](09-ope
 
 **What to check:** `package_hosted.py` returns `.build/hosted-en`. This is packaging, not
 Azure deployment. Check included/excluded files against the manifest.
+
+**B done:** retain `.build/hosted-en/package-manifest.json` with `cloud_deployed: false`;
+mark local invocation and remote deployment **not run**, then continue to [Lab 09 B](09-operations.md#path-b).
+If the package already exists, inspect its manifest first. For a rebuild, preserve the exact directory under another name; do not delete your source, outputs or azd state.
+
+<details>
+<summary>Optional local/remote single-agent execution — expand only with the matching entry gate</summary>
 
 ## 2. Connect azd to an existing project
 
@@ -232,6 +242,8 @@ Verify evaluation type, exact agent/version, evaluator, and the complete case de
 The new English recording deploys and measures the workflow extension below.
 See [execution records](../live-run.md); do not transfer scores between these targets.
 
+</details>
+
 ## 6. Deploy a MAF workflow as a Hosted Agent
 
 <details>
@@ -361,4 +373,4 @@ Sessions may be reused and accumulate compute cost. Inspect `azd ai agent sessio
 and stop only your sessions using [Cleanup](../reference/cleanup.md).
 Do not apply `azd down` indiscriminately to every environment.
 
-Next: A: [skip to Lab 09](09-operations.md) · B → [Lab 09](09-operations.md)
+Next: A: [skip to Lab 09](09-operations.md#path-a) · B → [Lab 09](09-operations.md#path-b)

@@ -4,7 +4,7 @@
 
 **완료 목표:** 특정 모델의 데모가 아니라 지식·코드·평가·운영을 분리한 작은 시스템을 인계합니다.
 
-다음: A → [정리](../reference/cleanup.md) · B → [정리](../reference/cleanup.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 증거 폴더](#path-a) · [B — 기존 인수 기록](#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -35,20 +35,26 @@
 | 운영 | 권한·비용·정리 확인 | 재현 설정·선택적 원격 버전·실제 trace 확인 |
 | 제한 사항 | 관찰만 한 기능과 미실행 기능 | SDK/클라우드/Preview별 확인 범위 |
 
+<a id="path-a"></a>
+
 ## A. 새 Azure 호출 없이 15분 인계
 
 `.env`·인증정보·다른 학습자의 결과를 빼고 본인 증거 폴더에 다음을 모읍니다.
 
 | 파일/결과 | 완료 확인 |
 |---|---|
-| 준비 카드·작은 구조 그림 | 본인 프로젝트·Luna 배포·agent 이름/버전·원문 경로를 식별 가능 |
+| 작성한 `session-notes.txt` | 설정 카드·구조 그림·실제 프로젝트/배포/agent 버전·모델 관찰·원문 확인을 식별 가능 |
 | 실제 저장한 지침·학습자 ZIP의 `SOURCE.json` | 원문과 브라우저 수정/버전 변경을 구분 가능 |
 | `assessment-baseline.csv`, 바꾼 경우만 candidate 표 | D01–D06 실제 응답·인용·이유 전부. 정답표 복사 금지 |
 | `workflow-review.txt` | 실제 순차 명령/출력 한 번과 본인의 검토 |
 | `operations-checklist.txt` | 본인/공유 자산·정리 결과 또는 담당자 대기 항목·잔여 비용·선택 기능 미실행 여부 |
 
 각 파일을 열어 표와 대조합니다. 혼자 학습하면 직접 검토하고, 수업이면 합의한 경로로만 인계합니다.
-A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다. 리뷰어 체크리스트와 정리로 마칩니다.
+A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다.
+**A 완료:** [리뷰어 체크리스트](#리뷰어의-인수-체크리스트)와 [정리 인계](../reference/cleanup.md)로 마칩니다.
+이 파일들을 제출하려고 선택 모듈이나 새 Azure 요청을 실행할 필요는 없습니다.
+
+<a id="path-b"></a>
 
 ## 경험자 인수 명령
 
@@ -68,6 +74,10 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 `recommendation`(`ready-for-human-review` 또는 `reject`)을 읽습니다.
 `deployment_approved: false`, `cloud_judge_results_included: false`는 명시적인 범위 제한이며 우회할 승인 오류가 아닙니다.
 사진의 holdout은 이미 사용된 교육용 세트이므로 새로운 미사용 검증셋의 합격으로 주장하지 않습니다.
+
+**B 완료:** 기존 baseline/candidate/holdout 폴더·비교·검토·Lab 04–06 출력·패키지 manifest·`operations-checklist.txt`를 인계합니다.
+[리뷰어 체크리스트](#리뷰어의-인수-체크리스트)와 [정리 인계](../reference/cleanup.md)로 마칩니다.
+업무 게이트 실패는 **반려**, 생략한 로컬/원격 호스팅·cloud judge·trace는 **미실행/미검증**으로 남깁니다.
 
 ## Hosted workflow/evaluation 심화 인수 자료
 

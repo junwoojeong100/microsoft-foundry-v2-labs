@@ -4,7 +4,7 @@
 
 **완료 목표:** MAF 코드로 에이전트를 연결해 실행하고, 검토자 모델과 실제 승인자를 구분합니다.
 
-다음: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 준비된 실행 한 번](#path-a) · [B — 세 패턴](#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -24,6 +24,8 @@ Foundry 포털의 Workflow Designer에서 노드를 생성·연결·게시하는
 워크플로의 역할·순서·종료 조건은 **Microsoft Agent Framework(MAF) Python 코드**가 소유합니다.
 Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측을 제공합니다.
 포털의 Agent Playground를 사용하는 것과 포털에서 workflow를 작성하는 것은 다릅니다.
+
+<a id="path-a"></a>
 
 ## A. 초보자 — 준비된 MAF 예제를 직접 실행
 
@@ -70,7 +72,7 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 | `external_actions_performed: false` | 실제 예약·지급을 수행하지 않았는가 |
 
 JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합니다.
-본인의 `workflow-review.txt`에 명령·실제 출력·인용 정책 ID와
+학습자 ZIP의 빈 `workflow-review.txt`에 명령·실제 출력·인용 정책 ID와
 맞는 부분/수정할 부분/이유를 저장합니다. 안내문 검토이지 업무 승인이 아닙니다.
 과거 날짜로 한 번 더 실행하는 것은 선택이며 A는 순차 실행 한 번과 검토로 완료합니다.
 
@@ -84,7 +86,10 @@ JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합�
 여러 포털 대화의 답변을 사람이 복사해 이어 붙이는 것을 MAF 실행으로 기록하지 않습니다.
 환경이 준비되지 않아 강사 실행만 봤다면 `MAF 관찰 / 직접 실행 미완료`로 구분합니다.
 이 단계는 로컬 MAF 실행이며 관리형 workflow 리소스나 Hosted Agent를 만든 것이 아닙니다.
-**A는 [Lab 06](06-knowledge.md), B는 아래 비교로 진행합니다.**
+**A 완료:** 본인의 실행과 작성한 `workflow-review.txt`를 저장했습니다.
+[Lab 06 A](06-knowledge.md#path-a)로 이동합니다. B의 세 명령을 A의 추가 단계로 실행하지 않습니다.
+
+<a id="path-b"></a>
 
 ## B. 코드 — 세 가지 오케스트레이션 비교
 
@@ -162,6 +167,10 @@ python scripts/workshop.py workflow --pattern group-chat
 | 병렬 | 서로 다른 관점의 독립 검토 | 집계 기준과 비용 |
 | Group Chat | 짧은 상호 검토·조정 | 종료 조건, 반복·동조 편향 |
 | 단일 에이전트 | 규칙이 단순한 질문 | 불필요하게 multi-agent로 만들지 않기 |
+
+**B 완료:** 세 패턴의 터미널 출력 전체와 비교·검토를 개인 증거 폴더에 저장합니다.
+각 결과의 `approval_status: pending-human-review`, `external_actions_performed: false`를 보존합니다.
+[Lab 06 B](06-knowledge.md#path-b)로 이동합니다. Durable 승인·배포용 wrapper는 별도 확장입니다.
 
 ## Human-in-the-loop를 정확히 이해하기
 
@@ -274,4 +283,4 @@ B는 같은 질문에 대해 세 패턴의 호출 수·출력 형태·검토 부
 우리 출장 상담에 단일 에이전트가 더 적절하다고 결론 내려도 좋습니다.
 multi-agent 개수 자체가 성공 기준은 아닙니다.
 
-다음: A → [Lab 06](06-knowledge.md) · B → [Lab 06](06-knowledge.md)
+다음: A → [Lab 06](06-knowledge.md#path-a) · B → [Lab 06](06-knowledge.md#path-b)

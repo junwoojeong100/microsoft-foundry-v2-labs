@@ -4,7 +4,7 @@
 
 **Goal:** Distinguish model invocation, application-owned agents, and tool execution.
 
-Next: A: [skip to Lab 05](05-workflows.md) · B → [Lab 05](05-workflows.md) · [Paths](../paths.md)
+**Open your section:** A: [skip to Lab 05 A](05-workflows.md#path-a) · [B — three tool paths](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -18,7 +18,12 @@ Next: A: [skip to Lab 05](05-workflows.md) · B → [Lab 05](05-workflows.md) ·
 
 [One-time setup and learner files](../setup.md).
 
+<a id="path-b"></a>
+
 ## 1. Agent without tools
+
+Run from the repository root with `.venv` active. All three commands make billable model calls.
+After each succeeds, copy its complete JSON output into your personal evidence folder; these commands do not create labeled run folders.
 
 ```bash
 python scripts/workshop.py --language en maf --question "Explain the difference between Foundry and Agent Framework in three sentences."
@@ -103,6 +108,9 @@ Do not repair invalid output and call it success.
 **What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
 for May 2026. A function-tool response cannot stand in for an MCP execution.
 
+**B done:** retain the three actual outputs and explain no tool, function and local MCP.
+Continue to [Lab 05 B](05-workflows.md#path-b); the negative test below is optional.
+
 ## 4. Optional: inspect tool boundaries and reject invalid input
 
 Your first pass can continue to [Lab 05](05-workflows.md) after the three real outputs above.
@@ -161,4 +169,4 @@ The [source execution record](../live-run.md) includes function/MCP calls and ex
 For MCP failures, use [Troubleshooting](../reference/troubleshooting.md);
 never substitute a function-tool answer while claiming MCP success.
 
-Next: A: [skip to Lab 05](05-workflows.md) · B → [Lab 05](05-workflows.md)
+Next: A: [skip to Lab 05](05-workflows.md#path-a) · B → [Lab 05](05-workflows.md#path-b)

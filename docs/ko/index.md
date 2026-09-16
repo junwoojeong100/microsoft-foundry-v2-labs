@@ -2,7 +2,9 @@
 
 [English](../index.md) | **한국어**
 
-**에이전트를 만드는 경험에서, 조직의 지식·평가·운영 기준을 남기는 경험으로.**
+**[준비 카드·학습자 ZIP](setup.md)에서 시작한 뒤 [A. 입문](paths/a-beginner.md)을 따라갑니다.**
+Python·API에 익숙하다면 대신 [B. 구현](paths/b-practitioner.md)을 선택합니다.
+각 경로는 자기 랩 구간으로 바로 연결됩니다. 다른 경로까지 계속 실행하지 말고 **A 완료 / B 완료** 링크로 이동합니다.
 
 > **현재 통합 개정:** `ko-integrated-20260915`.
 > 새 Hosted workflow·평가 matrix 경로는 [통합 인수 기준](reference/consolidation.md)에 정리했습니다.
@@ -12,13 +14,18 @@
 완전초보자는 포털과 준비된 MAF 실행 환경에서, 경험자는 Python 코드에서
 같은 **합성 출장 규정 상담 업무**를 해결합니다. 워크플로를 포털에서 작성하는 단계는 없습니다.
 
-**첫 순서: [준비 카드·학습자 ZIP](setup.md) → [Lab 00](labs/00-start.md) → 각 페이지의 A 다음 링크.**
 JSON 문서를 직접 조립하거나 정답 레코드를 복사하지 말고 준비된 파일을 사용합니다.
 심화 절과 녹화본은 선택 참고 자료이지 랩 사이에 추가로 수행해야 할 단계가 아닙니다.
 
-전용 경로 **[A — 입문](paths/a-beginner.md)**, **[B — 구현](paths/b-practitioner.md)**,
-**[C — 고급 모듈](paths/c-advanced.md)** 중 하나를 선택합니다.
-코드·데이터·기존 Lab URL을 공유하고 새 모듈의 실행 상태는 [기능·근거 기록](coverage.md)에 따로 표시합니다.
+압축을 푼 ZIP을 개인 증거 폴더로 사용하며 `session-notes.txt`, `workflow-review.txt`,
+`operations-checklist.txt`, 복사한 `assessment.csv`를 진행하면서 채웁니다.
+인증정보나 작성한 파일을 저장소의 생성 데이터 폴더에 넣지 않습니다.
+
+<details>
+<summary>참고 문서 목록 — 필요한 항목만 펼쳐 보세요</summary>
+
+[C — 고급 모듈](paths/c-advanced.md)은 기본 과정 뒤의 선택 확장입니다.
+새 모듈의 실행 상태는 [기능·근거 기록](coverage.md)에 따로 표시합니다.
 
 | 찾는 것 | 바로가기 |
 |---|---|
@@ -38,6 +45,8 @@ JSON 문서를 직접 조립하거나 정답 레코드를 복사하지 말고 �
 | 현재 지원 상태와 버전 | [호환성 기준](reference/versions.md) |
 | 오류·권한·할당량 문제 | [문제 해결](reference/troubleshooting.md) |
 | 비용을 남기지 않고 마치기 | [정리](reference/cleanup.md) |
+
+</details>
 
 > **세 가지를 구분합니다.** `offline-fixture`는 고정 예제, 로컬 MAF는 내 PC에서
 > 실행하지만 모델은 Azure에 호출하는 코드, Hosted Agent는 내 코드를 클라우드에서

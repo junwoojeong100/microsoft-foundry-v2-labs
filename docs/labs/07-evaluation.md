@@ -4,7 +4,7 @@
 
 **Goal:** Judge improvements with the same business criteria and execution lineage, not "the answer looks good."
 
-Next: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md) · [Paths](../paths.md)
+**Open your section:** [A — manual assessment](#path-a) · [B — four-step code experiment](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -38,6 +38,8 @@ Collecting logs does not automatically train model weights. This learning loop i
 English and Korean use separate frozen prompts, policies and evaluation datasets.
 [Language-specific lineage](../reference/languages.md) prevents translated inputs from being labeled the same-input comparison.
 
+<a id="path-a"></a>
+
 ## A. Browser: assess all six actual answers
 
 1. Open the ZIP's **`dev-questions.txt`** and save a working copy of **`assessment.csv`** as `assessment-baseline.csv`.
@@ -62,7 +64,8 @@ manufacture failures or force unnecessary edits. The fixed v1/v2 code comparison
 This is a **manual business assessment of real answers**, not a Foundry Evaluation
 portal run. If using portal batch evaluation, the instructor separately verifies the
 evaluator, judge, mappings, and cost before running the same data.
-**A stops here and continues to [Lab 09](09-operations.md).** The commands below are a separate B experiment, not extra browser steps.
+**A done:** save `assessment-baseline.csv`, any justified candidate sheet, and your failure/all-pass review.
+Continue to [Lab 09 A](09-operations.md#path-a). The commands below are a separate B experiment, not extra browser steps.
 
 
 **What to check:** Record the actual KRW 150,000 limit, approval-before-booking condition,
@@ -72,14 +75,27 @@ and IDs. Do not fill your table by assuming your answer matches the screenshot.
 **What to check:** Withholding an amount is not automatically a business failure.
 Assess whether the evidence lacks that policy and the assistant explains how to confirm it.
 
+<a id="path-b"></a>
+
 ## B. Code: reproducible run units
 
 The following collection commands call Azure. Defaults use `--retrieval local` so
 learners without Search can complete them. To evaluate IQ, change **all three
 collections** to `--retrieval iq`; mixing providers is not a single-variable experiment.
-For the first pass, keep `local` and follow **1 → 2 if a failure exists → 3 → 5**.
-Section 4's judge and section 6's model replacement are optional. Plan **6 + 6 + 4 = 16** target-case requests, plus service/tool/retry work.
+For the first pass, keep `local` and follow **1 → 2 → 3 → 4**.
+Steps 5–6 are optional extensions after the core result. Plan **6 + 6 + 4 = 16** target-case requests, plus service/tool/retry work.
 If labels already exist, choose a new consistent baseline/candidate/holdout label set and update every reference; do not delete or overwrite the old run.
+
+| Run | Saved under the repository root | Expected cases |
+|---|---|---:|
+| Baseline / v1 | `outputs/baseline/` | 6 dev |
+| Candidate / v2 | `outputs/candidate/` | 6 dev |
+| Final / frozen v2 | `outputs/final-holdout/` | 4 holdout, only after the candidate passes |
+
+**Run one block, read its result, then continue.** `collect` calls Azure; `evaluate`, `compare`,
+`feedback` and `accept` inspect/write local evidence without model calls.
+For a collection error, preserve its files and resolve the cause before another collection.
+You may still run `evaluate` to inspect saved errors. A business-check failure is different from a request failure.
 
 Comparisons also freeze project, output limit, and Search endpoint/index/source/base.
 `corpus_hash` hashes the local synthetic corpus; it does not prove an immutable remote
@@ -90,6 +106,11 @@ evidence and each `context_hash`.
 
 ```bash
 python scripts/workshop.py --language en collect --split dev --label baseline --prompt v1 --retrieval local
+```
+
+Open `outputs/baseline/manifest.json` and `responses.jsonl`; retain all six success/error rows. Then grade them locally:
+
+```bash
 python scripts/workshop.py --language en evaluate --label baseline
 ```
 
@@ -97,6 +118,7 @@ python scripts/workshop.py --language en evaluate --label baseline
 Errored collection rows stay in the six-case denominator; missing, duplicate, or
 different questions cause evaluation rejection. **v1 is not guaranteed to fail.**
 Never edit actual model responses to manufacture a result.
+Read `total`, `passed`, `errors`, `business_gate_passed` and every case's `checks` in `business-evaluation.json`.
 
 
 
@@ -116,7 +138,7 @@ Find the actual failed case in `outputs/baseline/responses.jsonl`.
 | JSON/request error | Model support, output limit, SDK, service |
 
 Run this block **only when a real baseline case failed**. Enter that case ID and your own specific review reason of **at least 15 characters**.
-If all six pass, record that finding and go to step 3; do not manufacture D03 feedback.
+If all six pass, save that finding in your review notes and go to step 3; do not manufacture D03 feedback.
 
 ```bash
 printf 'Actual failed dev case ID: '
@@ -145,6 +167,11 @@ not an evaluation score; these fixed prompts do not guarantee a performance orde
 
 ```bash
 python scripts/workshop.py --language en collect --split dev --label candidate --prompt v2 --retrieval local
+```
+
+Inspect all six candidate rows, then run the local checks:
+
+```bash
 python scripts/workshop.py --language en evaluate --label candidate
 python scripts/workshop.py --language en compare --baseline baseline --candidate candidate --variable prompt
 ```
@@ -157,14 +184,49 @@ a new label. Existing labels are protected; changed input/response hashes invali
 criteria as baseline. The last few passing rows do not establish full success.
 
 
-**What to check:** Read `variable: prompt`, `changed_context_count`, and
-`unchanged_config`. Equal scores or shorter elapsed time do not establish v2 superiority.
+**What to check:** open `outputs/candidate/comparison-vs-baseline.json` and read
+`variable: prompt`, `baseline_metrics`, `candidate_metrics` and `changed_context_cases`.
+An empty `changed_context_cases` list means the retrieved contexts match; incompatible configuration is rejected before a comparison report is written.
+Equal scores or shorter elapsed time do not establish v2 superiority.
 Use this language's actual results, not the other edition's scores.
 
-### 4. Optional: Foundry cloud judge
+### 4. Freeze the candidate, then use holdout once
+
+**Gate before any holdout request:** `outputs/candidate/business-evaluation.json` must show
+`total: 6`, `passed: 6`, `errors: 0`, `business_gate_passed: true`, and the comparison must accept the frozen configuration.
+If not, stop here, review dev failures and retain the rejected candidate; do not open holdout or lower the checks.
+An error-free collection or `compare` exit code `0` alone is not this gate.
+
+Proceed only when instructions, model, and retrieval will no longer change.
+`--candidate` links the frozen dev candidate.
+
+```bash
+python scripts/workshop.py --language en collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout
+```
+
+Keep all four actual rows, including failures. Grade and produce the human-review report locally:
+
+```bash
+python scripts/workshop.py --language en evaluate --label final-holdout
+python scripts/workshop.py --language en accept --candidate candidate --holdout final-holdout
+```
+
+Holdout has four cases. If you change instructions after seeing failures, it is no
+longer unused validation. Do not claim final acceptance without a new holdout.
+Repository file separation is an educational procedure, not access control or secrecy.
+`accept` exit code `1` is a rejected business gate: retain that outcome, not retries until the same holdout passes.
+
+**What to check:** inspect all four cases and their candidate link, then open
+`outputs/final-holdout/acceptance.json`. Preserve `recommendation` and `deployment_approved: false`.
+The source 4/4 uses an already-exposed teaching set; it is not evidence from a newly unseen holdout.
+
+**B done:** keep all three run folders, the comparison, review notes and the acceptance/rejection report.
+Continue to [Lab 08 B](08-hosted.md#path-b) for **packaging only**. An acceptance report is not deployment authorization.
+
+### 5. Optional: Foundry cloud judge
 
 <details>
-<summary>Expand only with a prepared judge and separate cost approval; otherwise go to step 5</summary>
+<summary>Expand only with a prepared judge and separate cost approval; not required for B completion</summary>
 
 This requires additional cost approval, evaluation permissions, and an explicit judge
 deployment in `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME`.
@@ -195,26 +257,6 @@ Use them in a separate evaluator experiment before production. They are not gene
 target-model answers, and passing two examples does not establish a universally reliable judge.
 
 </details>
-
-### 5. Freeze the candidate, then use holdout once
-
-Proceed only when instructions, model, and retrieval will no longer change.
-`--candidate` links the frozen dev candidate.
-
-```bash
-python scripts/workshop.py --language en collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout
-python scripts/workshop.py --language en evaluate --label final-holdout
-python scripts/workshop.py --language en accept --candidate candidate --holdout final-holdout
-```
-
-Holdout has four cases. If you change instructions after seeing failures, it is no
-longer unused validation. Do not claim final acceptance without a new holdout.
-Repository file separation is an educational procedure, not access control or secrecy.
-
-
-**What to check:** Inspect all four cases and their candidate link, not only H03/H04.
-The source 4/4 uses an already-exposed teaching set; it is not evidence from a newly
-unseen holdout.
 
 ### 6. Optional: model replacement is a separate experiment
 
@@ -318,4 +360,4 @@ holdout results, and human judgment. `accept` prepares handoff evidence; it **do
 deploy or grant operational approval**. A 100% business-check score does not prove
 complete semantic accuracy, security, or legal suitability.
 
-Next: A → [Lab 09](09-operations.md) · B → [Lab 08](08-hosted.md)
+Next: A → [Lab 09](09-operations.md#path-a) · B → [Lab 08](08-hosted.md#path-b)

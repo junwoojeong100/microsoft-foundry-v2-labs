@@ -9,9 +9,9 @@
 
 | 현재 상황 | 할 일 |
 |---|---|
-| 실습 환경을 이미 받음 | 아래 환경 카드를 채우고 학습자 자료를 내려받은 뒤 Lab 00 시작 |
-| 본인 Azure 구독은 있지만 환경이 없음 | 4절의 환경 담당자 준비를 먼저 완료한 뒤 같은 카드 사용 |
-| Azure 권한·quota를 기다리는 중 | Lab 00의 offline 체험만 진행하고 cloud 실습은 미실행으로 기록 |
+| 실습 환경을 이미 받음 | 이 페이지의 **1 → 2 → 3 → 4**만 진행. 담당자 준비는 펼치지 않음 |
+| 본인 Azure 구독은 있지만 환경이 없음 | [담당자 준비](#4-환경-담당자의-준비)를 완료한 뒤 2절로 복귀 |
+| Azure 권한·quota를 기다리는 중 | [Lab 00 오프라인 체험](labs/00-start.md#offline-rehearsal)만 진행하고 cloud는 미실행으로 기록 |
 
 A·B·C를 동시에 따라가지 않습니다. **처음이면 [학습 경로](paths.md)의 A를 선택합니다.**
 A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 코드·선택 배포·평가를 추가합니다.
@@ -19,20 +19,22 @@ A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 �
 
 ## 2. 환경 카드 채우기
 
-담당자가 실제 값을 제공합니다. 녹화의 이름을 복사하지 않으며 비밀번호·key·token은 적지 않습니다.
+담당자가 실제 값을 제공합니다. 3절에서 ZIP을 받으면 빈 `session-notes.txt`에 저장합니다.
+녹화의 이름을 복사하지 않으며 비밀번호·key·token은 적지 않습니다.
+선택한 경로에 필요한 행만 채웁니다. 선택 기능의 값이 없어도 첫 회차는 시작할 수 있습니다.
 
-| 값 | 어디서 확인 / 이번 기본값 |
-|---|---|
-| Azure tenant·subscription ID | Azure 포털 → 구독·디렉터리 |
-| Foundry 계정·프로젝트·리소스 그룹 | 실습 프로젝트의 리소스 상세 |
-| 전체 project endpoint | Foundry 프로젝트 홈. `/api/projects/<project>`를 유지 |
-| **응답 모델 배포** | **`gpt-5.6-luna`**, 실제 모델도 같은 이름, 이 날짜의 실습 preset은 **`2026-07-09`** 버전 |
-| Prefix | 소문자 영문·숫자·하이픈으로 고유하게 지정. 예: `mfv2-team01-0915`, 최대 32자 |
-| Search endpoint | 기존 실습 Search 서비스. Lab 06 IQ를 선택할 때만 필요 |
-| 계정 OpenAI endpoint | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
-| IQ chat base | `iq-chat setup`의 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
-| 코드 환경 | 저장소 폴더·Python 3.13·활성화된 `.venv`·학습자 본인의 Azure 로그인 |
-| 선택 Hosted 값 | 실제 project ARM ID·본인 agent 이름·배포 승인. Lab 08/C에서만 필요 |
+| 값 | 필요한 경로 | 어디서 확인 / 이번 기본값 |
+|---|---|---|
+| Azure tenant·subscription ID | A/B | Azure 포털 → 구독·디렉터리 |
+| Foundry 계정·프로젝트·리소스 그룹 | A/B | 실습 프로젝트의 리소스 상세 |
+| 전체 project endpoint | A의 준비 터미널 / B | Foundry 프로젝트 홈. `/api/projects/<project>`를 유지 |
+| **응답 모델 배포** | A/B | **`gpt-5.6-luna`**, 실제 모델도 같은 이름, 이 날짜의 preset은 **`2026-07-09`** 버전 |
+| Prefix | A/B | 소문자 영문·숫자·하이픈의 고유 이름. 예: `mfv2-team01-0915`, 최대 32자 |
+| 코드 환경 | A Lab 05 / B 전체 코드 | 저장소 폴더·Python 3.13·활성화된 `.venv`·학습자 본인 Azure 로그인 |
+| Search endpoint | B Lab 06 / 선택 IQ Chat | 기존 실습 Search 서비스. A의 인라인 원문 확인에는 불필요 |
+| 계정 OpenAI endpoint | 선택 IQ Chat / 심화 계정 API | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
+| IQ chat base | 선택 IQ Chat만 | `iq-chat setup`의 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
+| Hosted 값 | 선택 로컬·원격 호스팅만 | 실제 project ARM ID·본인 agent 이름·필요한 승인. **패키징에는 불필요** |
 
 **첫 실습에서 모델 선택 실험은 하지 않습니다.** Luna를 사용하고 `-judge`·Astra·router를 고르지 않습니다.
 해당 배포/버전이 없으면 환경 담당자가 가용성을 해결하거나 다른 에디션을 명시적으로 재검증해야 합니다.
@@ -52,13 +54,40 @@ A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 �
 | `policies/` | File Search에 올릴 합성 TXT 원문 정확히 6개 |
 | `dev-questions.txt` | 매번 새 대화에 질문 하나만 복사. ID나 평가 레코드 전체는 보내지 않음 |
 | `assessment.csv` | 빈 6문항 평가표. 실제 응답·인용·통과/실패 기록 |
+| `session-notes.txt` | 빈 설정 카드·Lab 01–03/06 관찰·마지막 완료 단계·재개 링크 |
+| `workflow-review.txt` | Lab 05의 실제 명령·출력·사람 검토용 빈 양식 |
+| `operations-checklist.txt` | Lab 09의 소유/공유 자산·정리·남은 비용용 빈 양식 |
 | `SOURCE.json` | 언어와 canonical 입력 hash |
 
 [완성된 인라인 지침](../../data/learner/ko/instructions-with-policies.txt)이나
 [질문 전용 파일](../../data/learner/ko/dev-questions.txt)을 직접 열어도 됩니다.
 `dev.jsonl`의 정답 열을 agent에 붙여 넣지 않습니다.
 
-## 4. 환경 담당자의 준비
+압축을 푼 폴더를 **저장소 밖의 개인 증거 폴더**로 사용합니다.
+진행하면서 기록 양식을 채우고 Lab 07에서는 `assessment.csv`를 `assessment-baseline.csv`로 저장합니다.
+빈 양식은 완료된 증거가 아니며, 이 ZIP으로 코드 환경이 설치되는 것도 아닙니다.
+
+<a id="5-시작-가능-여부"></a>
+
+## 4. 시작 가능 여부
+
+- [ ] 본인 계정으로 정확한 프로젝트를 열 수 있습니다.
+- [ ] 실제 Luna 배포/버전이 준비되었습니다.
+- [ ] 학습자 ZIP을 받았고 Instructions와 대화창에 넣을 파일을 구분합니다.
+- [ ] Lab 05 터미널이 준비됐습니다. 아니라면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
+- [ ] B라면 Search 접근·본인 객체 작성 비용이 승인됐습니다. A의 IQ Chat은 별도 준비하지 않았다면 **미선택**입니다.
+- [ ] 비용·권한 담당자를 알고 있으며 승인 없이 리소스 생성·역할 부여를 하지 않습니다.
+
+필수 항목이 준비되지 않았다면 해당 준비 단계에서 멈춥니다. Fixture를 실제 응답으로 대신하지 않습니다.
+**준비 완료: [A → Lab 00 브라우저](labs/00-start.md#path-a) · [B → Lab 00 코드](labs/00-start.md#path-b).**
+아래 담당자 참고 자료는 학습자의 다음 단계가 아닙니다.
+
+<a id="4-환경-담당자의-준비"></a>
+
+## 환경 담당자 준비
+
+<details>
+<summary>환경을 직접 준비할 때만 — 별도 승인·시간·비용이 필요합니다</summary>
 
 혼자 학습하면 본인이 환경 담당자 역할도 맡습니다. 아래는 준비 단계이며 다음 랩 안에 숨겨 둔 선행 조건이 아닙니다.
 
@@ -69,9 +98,10 @@ A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 �
    설명되지 않은 오류 뒤에 다른 모델을 새로 만들지 않습니다.
 3. 학습자에게 필요한 Foundry 프로젝트/모델 권한을 줍니다.
    CLI의 배포 사전 조회에는 **실습 Foundry 계정의 Reader**도 필요합니다. 관리자뿐 아니라 학습자 계정으로 실제 호출을 점검합니다.
-4. 선택 IQ 단계를 진행한다면 Basic 이상 Search, system-assigned identity, semantic/knowledge retrieval 사용 조건과
+4. B의 GA Search/IQ 또는 선택 IQ Chat을 진행한다면 Basic 이상 Search, semantic/knowledge retrieval 사용 조건과
    합성 index를 작성할 사람의 Search 읽기/쓰기 권한을 준비합니다.
-5. 모델의 Foundry 계정에서 **Search identity**에 `Cognitive Services User`를 부여합니다.
+5. **선택 모델 기반 IQ Chat에서만** Search의 system-assigned identity를 켭니다.
+   모델의 Foundry 계정에서 **Search identity**에 `Cognitive Services User`를 부여합니다.
    사용자나 Hosted agent에 준 역할이 Search에 생기는 것은 아닙니다.
 6. 아래 담당자 명령 전에 `.env`를 포함한 [Lab 00 B 설치](labs/00-start.md#b-코드--한-폴더-한-환경)를 완료합니다.
    Lab 05용 터미널을 받지 못한 학습자도 이 경로로 직접 준비한 뒤 돌아옵니다.
@@ -102,14 +132,6 @@ Preview 계획·합성은 A의 원문 확인이나 B의 GA 검색 완료에 필�
 이전 진단에서 거절된 필드 대신 검증된 `maxOutputSize` 요청 필드를 사용합니다.
 출력된 chat-base 이름을 학습자에게 전달합니다. 모델 없는 `<prefix>-kb`가 아니라 **그 chat base**를 열어야 합니다.
 
-## 5. 시작 가능 여부
+준비 후 [시작 가능 여부](#4-시작-가능-여부)로 돌아갑니다. 기본 A를 위해 선택 담당자 명령까지 실행하지 않습니다.
 
-- [ ] 본인 계정으로 정확한 프로젝트를 열 수 있습니다.
-- [ ] 실제 Luna 배포/버전이 준비되었습니다.
-- [ ] 학습자 ZIP을 받았고 Instructions와 대화창에 넣을 파일을 구분합니다.
-- [ ] Lab 05용 터미널이 준비됐거나 Lab 00 B 설치를 먼저 완료할 예정입니다.
-- [ ] Lab 06 IQ Chat을 선택했다면 고정 설정과 실제 모델 activity를 담당자가 확인했고, 아니라면 미선택으로 표시했습니다.
-- [ ] 비용·권한 담당자를 알고 있으며 승인 없이 리소스 생성·역할 부여를 하지 않습니다.
-
-준비되지 않은 항목은 해당 준비 단계에서 멈춥니다. Fixture를 실제 응답으로 대신하지 않습니다.
-**다음: [Lab 00](labs/00-start.md).**
+</details>

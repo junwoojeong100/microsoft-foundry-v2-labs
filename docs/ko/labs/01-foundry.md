@@ -4,7 +4,7 @@
 
 **완료 목표:** Foundry, Agent Framework, 모델 배포, 에이전트의 관계를 설명합니다.
 
-다음: A → [Lab 02](02-models.md) · B: [Lab 02로 이동](02-models.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 준비된 프로젝트](#path-a) · B: [Lab 02 B로 이동](02-models.md#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -17,6 +17,8 @@
 **막히면:** 프로젝트가 없으면 tenant/RBAC부터 해결합니다. 비슷한 이름의 다른 프로젝트로 진행하지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
+
+<a id="path-a"></a>
 
 ## 먼저 네 가지를 구분하기
 
@@ -59,6 +61,28 @@ flowchart TD
 **화면 확인:** **View deployments**는 모델 배포, **Start building**은 에이전트 제작의 진입점입니다.
 같은 프로젝트 안에 있어도 모델 배포와 에이전트는 다른 자산이라는 점을 위 관계 그림과 연결해 보세요.
 
+<a id="4-endpoint-혼동-없애기"></a>
+
+## 설정 카드의 endpoint 확인
+
+| 용도 | 모양 |
+|---|---|
+| 프로젝트 SDK | `https://<account>.services.ai.azure.com/api/projects/<project>` |
+| 계정의 Azure OpenAI API | `https://<account>.openai.azure.com/openai/v1/` |
+| Azure AI Search | `https://<search>.search.windows.net` |
+| 브라우저 포털 | `https://ai.azure.com` — **SDK endpoint가 아님** |
+
+프로젝트 endpoint에서 `/api/projects/<project>`를 지우지 않습니다.
+기본 추론의 인증·endpoint는 프로젝트 SDK가 처리합니다.
+다른 endpoint로 자동 우회하거나 토큰 audience를 추측하지 않습니다.
+
+**A 완료:** `session-notes.txt`에 네 객체의 관계 그림과 실제 project endpoint를 적습니다.
+모델 교체 시 다시 확인할 지식·지침을 설명한 뒤 [Lab 02 A](02-models.md#path-a)로 이동합니다.
+준비된 프로젝트 확인을 위해 리소스를 만들거나 역할을 부여하지 않습니다.
+
+<details>
+<summary>담당자 참고 전용 — 리소스 생성·역할 부여는 학습자 단계가 아닙니다</summary>
+
 ## 2. 환경이 없는 경우 — 강사/관리자만 먼저 수행
 
 참가자 수업 시간에 포함하지 않는 준비 단계입니다.
@@ -96,23 +120,12 @@ flowchart TD
 바꾸지 않습니다. 필요한 추가 권한과 역할 ID는 [공식 RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를
 확인합니다. 사용자, Search managed identity, Hosted agent identity는 서로 다른 주체입니다.
 
-## 4. endpoint 혼동 없애기
-
-| 용도 | 모양 |
-|---|---|
-| 프로젝트 SDK | `https://<account>.services.ai.azure.com/api/projects/<project>` |
-| 계정의 Azure OpenAI API | `https://<account>.openai.azure.com/openai/v1/` |
-| Azure AI Search | `https://<search>.search.windows.net` |
-| 브라우저 포털 | `https://ai.azure.com` — **SDK endpoint가 아님** |
-
-프로젝트 endpoint에서 `/api/projects/<project>`를 지우지 않습니다.
-이 랩의 기본 추론은 프로젝트 SDK가 인증과 endpoint를 처리합니다.
-다른 endpoint로 자동 우회하거나 토큰 audience를 추측해 바꾸지 않습니다.
-
 ![2026-09-15 새 국문 촬영: 승인된 기존 프로젝트의 배포 확인](../../assets/refresh-20260915-ko/screenshots/K01-002-cloud-doctor-2.webp)
 
 **화면 확인:** `doctor --cloud`가 읽어 온 모델 배포 정보와 본인의 설정을 대조합니다.
 관리 평면을 읽을 수 있다는 사실과 실제 추론 권한은 다릅니다. [Lab 02](02-models.md)의 요청까지 확인하세요.
+
+</details>
 
 ## 완료 확인
 
@@ -120,4 +133,4 @@ flowchart TD
 모델 배포는 바꿀 수 있지만 지식·지침·평가·권한을 자동으로 검증해 주는 것은 아닙니다.
 그래서 뒤의 모듈에서 같은 데이터와 기준을 다시 사용합니다.
 
-다음: A → [Lab 02](02-models.md) · B: [Lab 02로 이동](02-models.md)
+다음: A → [Lab 02](02-models.md#path-a) · B: [Lab 02로 이동](02-models.md#path-b)

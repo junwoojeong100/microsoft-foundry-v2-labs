@@ -4,7 +4,7 @@
 
 **Goal:** Hand over a small system with separate knowledge, code, evaluation, and operations—not just a model demo.
 
-Next: A → [Cleanup](../reference/cleanup.md) · B → [Cleanup](../reference/cleanup.md) · [Paths](../paths.md)
+**Open your section:** [A — evidence folder](#path-a) · [B — saved acceptance](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
@@ -35,20 +35,26 @@ learner. Add neither company data nor automatic payments.
 | Operations | Permissions, cost, cleanup | Reproduction settings, optional remote version, actual trace |
 | Limitations | Observed-only and unrun features | SDK/cloud/Preview verification boundaries |
 
+<a id="path-a"></a>
+
 ## A. Fifteen-minute handoff, no new Azure calls
 
 Put these in your own evidence folder, without `.env`, credentials or another learner's outputs:
 
 | File/result | Completion check |
 |---|---|
-| Setup card and small architecture sketch | Your actual project, Luna deployment, agent name/version, and source path are identifiable |
+| Completed `session-notes.txt` | Setup card, sketch, actual project/deployment/agent version, model observations and source checks are identifiable |
 | Actual saved instructions plus the learner ZIP's `SOURCE.json` | Original text and any browser edits/version changes remain distinguishable |
 | `assessment-baseline.csv`; candidate sheet only if changed | All D01–D06 actual answers/citations/reasons, not copied answer keys |
 | `workflow-review.txt` | One real sequential command/output and your review |
 | `operations-checklist.txt` | Owned/shared assets, cleanup outcomes or pending owner action, remaining costs, unrun optional features |
 
 Open each file and check it against the table. For self-study, review it yourself; for a class, hand it over only through the agreed channel.
-A does **not** run the B/C acceptance commands below or open holdout. Finish with the reviewer checklist and cleanup.
+A does **not** run the B/C acceptance commands below or open holdout.
+**A done:** complete the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
+No optional module or new Azure request is needed to submit these files.
+
+<a id="path-b"></a>
 
 ## Practitioner acceptance command
 
@@ -69,6 +75,11 @@ Do not transfer local project Responses quality scores to a different Hosted pat
 and `recommendation` (`ready-for-human-review` or `reject`).
 `deployment_approved: false` and `cloud_judge_results_included: false` are explicit limits, not missing approvals to bypass.
 The recorded holdout was already exposed teaching data, not a fresh unseen test.
+
+**B done:** hand over the existing baseline/candidate/holdout folders, comparison and review,
+Lab 04–06 outputs, package manifest and `operations-checklist.txt`.
+Finish the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
+Mark a failed business gate **rejected**, and any omitted local/remote hosting, cloud judge or trace work **not run / unverified**.
 
 ## Hosted workflow/evaluation acceptance evidence
 

@@ -4,7 +4,7 @@
 
 **완료 목표:** 일반 검색과 실제 IQ retrieval을 구분하고, 답변의 원문 근거를 보존합니다.
 
-다음: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 기존 원문 확인](#path-a) · [B — GA Search/IQ](#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -31,6 +31,8 @@
 **벡터·하이브리드 검색**이라고 표시하지 않습니다.
 아래 선택 절에서 실제 embedding·차원·벡터 필드를 구성한 경우에만 하이브리드라고 표시합니다.
 
+<a id="path-a"></a>
+
 ## A. 브라우저 — 인용이 보이면 끝인가?
 
 1. [Lab 03](03-prompt-agent.md)의 현행·과거·한도 초과 실제 응답을 엽니다. 없다면 `dev-questions.txt`의 해당 질문만 새 대화에 보냅니다.
@@ -39,7 +41,14 @@
 4. 2026년 5월 질문에 현행 문서를 인용하면 잘못된 근거 선택으로 기록합니다.
 5. “숙박 한도를 초과했다”는 질문에서 승인 규정이 함께 설명되는지 확인합니다.
 
+**A 완료:** `session-notes.txt`의 Lab 06에 대조한 정책 ID·날짜·확인 결과를 적습니다.
+기본 경로는 새 검색 요청 없이 **IQ Chat 미선택**으로 기록하고 [Lab 07 A](07-evaluation.md#path-a)로 이동합니다.
+실행 전에 별도로 선택·준비한 경우에만 아래 경로를 펼칩니다.
+
 ### 선택 IQ Chat — 준비된 설정 하나, 실제 검사 한 번
+
+<details>
+<summary>선택 Preview IQ Chat — 준비된 chat base·별도 비용 승인이 필요합니다</summary>
 
 담당자가 [IQ 준비](../setup.md#4-환경-담당자의-준비)를 마친 경우에만 선택합니다.
 아니라면 **IQ Chat 미선택**으로 기록하고 위 원문 확인을 마친 뒤 Lab 07로 이동합니다.
@@ -80,6 +89,10 @@ Luna의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
 이 사진은 기존 GA base 목록의 참고 화면이며 새 chat preset을 촬영한 것이 아닙니다.
 `Active`는 객체 상태일 뿐입니다. 실제 계획·합성은 위 명령으로 따로 확인합니다.
 
+</details>
+
+<a id="path-b"></a>
+
 ## B. 코드 — 공통 환경에 Search만 추가
 
 ### 1. 강사 사전 준비 확인
@@ -114,7 +127,6 @@ Search나 IQ를 호출했다고 표시하지 않으며, 사진에 보이는 설�
 
 ```bash
 python scripts/workshop.py seed-search --confirm-create
-python scripts/workshop.py retrieve --provider search --question "2026년 9월 국내 출장 숙박비 한도는?"
 ```
 
 이름을 생략한 선택 환경변수는 다음과 같이 결정됩니다.
@@ -133,6 +145,12 @@ python scripts/workshop.py retrieve --provider search --question "2026년 9월 �
 **화면 확인:** seed 결과의 `mode: live`, 본인의 `index`, `document_count: 6`,
 `hybrid: false`, `knowledge_base: null`을 확인합니다. IQ가 아니라 일반 Search 객체를 만든 단계입니다.
 
+Seed 성공을 확인한 뒤에만 해당 index를 조회합니다.
+
+```bash
+python scripts/workshop.py retrieve --provider search --question "2026년 9월 국내 출장 숙박비 한도는?"
+```
+
 ![2026-09-15 새 국문 촬영: 일반 Search는 vector/IQ와 구분](../../assets/refresh-20260915-ko/screenshots/K06-100-keyword-2.webp)
 
 **화면 확인:** `--provider search` 명령의 결과를 읽고 endpoint/index가 본인 값인지 확인합니다.
@@ -142,6 +160,12 @@ python scripts/workshop.py retrieve --provider search --question "2026년 9월 �
 
 ```bash
 python scripts/workshop.py seed-search --iq --confirm-create
+```
+
+Seed 결과의 `document_count: 6`과 의도한 `knowledge_base`가 null이 아님을 확인한 뒤 계속합니다.
+`outputs/azure-objects.json`을 보관하며, 중단할 때도 이 소유권 기록을 삭제하지 않습니다.
+
+```bash
 python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
 ```
 
@@ -200,6 +224,10 @@ flowchart LR
     E --> V["근거 hash·평가 이력"]
     A --> V
 ```
+
+**B 완료:** 로컬/Search/IQ 검색과 IQ 답변 출력 전체를 개인 증거 폴더에 보관합니다.
+원문 ID·`references`·`activity`·`context_hash`·소유권 ledger를 포함합니다.
+[Lab 07 B](07-evaluation.md#path-b)는 **명시적인 로컬 검색 실험**으로 시작하며 이 IQ 답변을 평가 결과로 재사용하지 않습니다.
 
 ## C. 선택 — 실제 하이브리드 RAG
 
@@ -313,4 +341,4 @@ B: Search와 GA IQ를 각각 호출하고 반환된 근거를 구분합니다.
 `outputs/azure-objects.json`은 내 Search 객체의 소유권 기록입니다.
 공유 서비스 자체를 삭제하는 권한 증명이 아닙니다.
 
-다음: A → [Lab 07](07-evaluation.md) · B → [Lab 07](07-evaluation.md)
+다음: A → [Lab 07](07-evaluation.md#path-a) · B → [Lab 07](07-evaluation.md#path-b)

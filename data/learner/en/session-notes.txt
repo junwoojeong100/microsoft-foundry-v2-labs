@@ -1,0 +1,43 @@
+BLANK WORKSHEET - fill with your own results; this is not execution evidence.
+Keep this personal copy outside the repository. No passwords, keys, tokens or .env.
+
+Lab 00 - setup card
+Language / path:
+Tenant / subscription:
+Resource group / Foundry account / project:
+Full project endpoint:
+Answer deployment / model version:
+Personal prefix:
+Cost and permission owner:
+Prepared MAF terminal location:
+Optional IQ Chat selected or not selected:
+
+Lab 01 - sketch account -> project / deployment -> agent
+My sketch and explanation:
+
+Lab 02 - actual Playground observations
+Deployment / time / usage:
+Actual concept-explanation response:
+Actual response to the question without policy evidence:
+My finding:
+
+Lab 03 - saved agent and four actual checks
+Agent name / saved version / deployment:
+Evidence method / saved instructions filename:
+Actual D01 answer and citations:
+Actual D02 answer and citations:
+Actual D03 answer and citations:
+Actual D05 answer and citations:
+Errors or incorrect answers and my review:
+
+Lab 06 - compare citations with the original policies
+Current-policy ID / effective dates / finding:
+Historical-policy ID / effective dates / finding:
+Over-limit approval source / finding:
+Optional IQ Chat outcome or not run:
+
+Pause / resume
+Last completed lab and step:
+Exact agent version / output labels:
+Last error, time and request ID, if any:
+Next guide link and action:

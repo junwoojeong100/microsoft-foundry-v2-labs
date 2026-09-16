@@ -4,7 +4,7 @@
 
 **완료 목표:** 모델에 합성 업무 지침과 문서를 붙여, 출처와 한계를 설명하는 답변을 만듭니다.
 
-다음: A → [Lab 05](05-workflows.md) · B: [Lab 04로 이동](04-agents-tools.md) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 인라인 agent](#path-a) · B: [Lab 04 B로 이동](04-agents-tools.md#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
@@ -18,7 +18,12 @@
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
+<a id="path-a"></a>
+
 ## A. 브라우저 — 먼저 성공하는 가장 작은 형태
+
+Agent 생성·버전 저장·유료 확인 호출을 합니다. 승인된 실습 프로젝트와 본인 prefix를 사용합니다.
+반환 버전과 실제 답변을 적을 `session-notes.txt`를 열어 둡니다. 배포나 Publish는 필요하지 않습니다.
 
 ### 1. 에이전트 만들기
 
@@ -167,7 +172,13 @@ ZIP의 `dev-questions.txt`에서 각 ID의 **질문만** 복사합니다. 아래
 **화면 확인:** 해외 규정이 없으면 금액을 추측하지 않고 확인을 요청해야 합니다.
 위 네 이미지는 촬영 예시입니다. 본인의 실제 응답과 실패 여부를 따로 기록하세요.
 
+**A 완료:** 실제 저장 지침·agent 버전·확인 4건을 증거 폴더에 보관합니다.
+[Lab 05 A](05-workflows.md#path-a)로 이동합니다. Lab 04와 아래 SDK 경로는 A의 필수 단계가 아닙니다.
+
 ## B. 선택 SDK 경로 — 관리형 prompt agent와 로컬 MAF 구분
+
+<details>
+<summary>선택 SDK agent — 다른 agent를 생성하며 A/B 기본 경로에는 필수가 아닙니다</summary>
 
 A/B 첫 회차에 필수는 아닙니다. 브라우저 agent와 다른 새 agent를 만듭니다.
 `.env`의 `WORKSHOP_PREFIX`로 시작하는 새 이름을 입력하고 브라우저 agent 이름은 재사용하지 않습니다.
@@ -197,6 +208,8 @@ python scripts/workshop.py prompt-agent invoke --name "$AGENT_NAME" --version "$
 같은 이름에 새 버전이 생겼다면 “최신 버전”을 묵시적으로 호출하지 않습니다.
 SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기록합니다.
 
+</details>
+
 ## 도구가 늘어날수록 지켜야 할 경계
 
 - File Search는 파일 검색, Foundry IQ는 지식 소스 검색, Web Search는 외부 웹 검색입니다.
@@ -215,4 +228,4 @@ SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기�
 답변이 자연스럽다는 사실과 회사 규정이 맞다는 사실은 별개입니다.
 이 차이를 [Lab 07](07-evaluation.md)에서 평가 기준으로 바꿉니다.
 
-다음: A → [Lab 05](05-workflows.md) · B: [Lab 04로 이동](04-agents-tools.md)
+다음: A → [Lab 05](05-workflows.md#path-a) · B: [Lab 04로 이동](04-agents-tools.md#path-b)

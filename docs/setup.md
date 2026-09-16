@@ -9,9 +9,9 @@ permissions, model quota or billing approval. If you already have the checked it
 
 | Your situation | Do this |
 |---|---|
-| A training environment is ready | Fill the environment card below, download the learner materials, then start Lab 00 |
-| You own an Azure subscription but have no environment | Complete the environment-owner checklist in section 4, then use the same card |
-| You have no Azure permission/quota yet | Use Lab 00's offline exercise only. Record cloud labs as not run |
+| A training environment is ready | Follow **1 → 2 → 3 → 4** on this page; do not open owner preparation |
+| You own an Azure subscription but have no environment | Complete [owner preparation](#4-environment-owner-checklist), then return to section 2 |
+| You have no Azure permission/quota yet | Use only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal). Record cloud labs as not run |
 
 Do not follow A, B and C simultaneously. **First-time users choose A** in [Learning paths](paths.md).
 A uses the browser until the prepared MAF step in Lab 05; B/C add code and optional deployment/evaluation.
@@ -19,20 +19,22 @@ Keep one language for the whole pass. Switching languages changes the input bund
 
 ## 2. Fill this environment card
 
-The owner supplies actual values, not values copied from a recording. No passwords, keys or tokens belong in this card.
+The owner supplies actual values, not values copied from a recording. Save them in the ZIP's blank
+`session-notes.txt` after section 3. No passwords, keys or tokens belong in this card.
+Fill only the rows required for your selected route; optional fields do not block the first pass.
 
-| Value | Where to get it / required choice |
-|---|---|
-| Azure tenant and subscription IDs | Azure portal → Subscriptions / directory |
-| Foundry account, project and resource group | Your training project's resource details |
-| Full project endpoint | Foundry project home; retain `/api/projects/<project>` |
-| **Answer deployment** | **`gpt-5.6-luna`**, underlying model of the same name, version **`2026-07-09`** for this dated workshop preset |
-| Prefix | One unique lowercase ASCII prefix, for example `mfv2-team01-0915`, maximum 32 characters |
-| Search endpoint | Existing training Search service; required only if selecting Lab 06 IQ |
-| Account OpenAI endpoint | `https://<your-account>.openai.azure.com`; same account as the project |
-| IQ chat base | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
-| Code environment | Repository folder, Python 3.13, activated `.venv`, learner's own Azure sign-in |
-| Optional Hosted inputs | Actual project ARM ID, owned agent name, deployment approval; needed only for Lab 08/C |
+| Value | Needed for | Where to get it / required choice |
+|---|---|---|
+| Azure tenant and subscription IDs | A/B | Azure portal → Subscriptions / directory |
+| Foundry account, project and resource group | A/B | Your training project's resource details |
+| Full project endpoint | A's prepared terminal / B | Foundry project home; retain `/api/projects/<project>` |
+| **Answer deployment** | A/B | **`gpt-5.6-luna`**, underlying model of the same name, version **`2026-07-09`** for this dated workshop preset |
+| Prefix | A/B | One unique lowercase ASCII prefix, for example `mfv2-team01-0915`, maximum 32 characters |
+| Code environment | A Lab 05 / all B code | Repository folder, Python 3.13, activated `.venv`, learner's own Azure sign-in |
+| Search endpoint | B Lab 06 / optional IQ Chat | Existing training Search service; not required for A's inline source checks |
+| Account OpenAI endpoint | Optional IQ Chat / advanced account API | `https://<your-account>.openai.azure.com`; same account as the project |
+| IQ chat base | Optional IQ Chat only | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
+| Hosted inputs | Optional local/remote hosting only | Actual project ARM ID, owned agent name and required approvals; **not needed to package** |
 
 **Model choice is not a learner experiment on the first pass.** Use Luna, not `-judge`, Astra or a router.
 If this exact deployment/version is unavailable, the owner must resolve availability or explicitly revalidate another edition.
@@ -52,13 +54,40 @@ For private repositories, use a GitHub account with read access.
 | `policies/` | Exactly six synthetic TXT files to upload for File Search |
 | `dev-questions.txt` | Copy one question, not the case ID or an evaluation record, into each new chat |
 | `assessment.csv` | Blank six-case worksheet; record your actual answers/citations/pass or fail |
+| `session-notes.txt` | Blank setup card, Lab 01–03/06 observations, last completed step and resume link |
+| `workflow-review.txt` | Blank Lab 05 command/output and human review record |
+| `operations-checklist.txt` | Blank Lab 09 owned/shared asset, cleanup and residual-cost checklist |
 | `SOURCE.json` | Language and canonical input hashes |
 
 You can also open [the complete inline instructions](../data/learner/en/instructions-with-policies.txt) or
 [questions-only file](../data/learner/en/dev-questions.txt) directly.
 Do not paste `dev.jsonl` reference-answer columns into an agent.
 
-## 4. Environment-owner checklist
+Keep the extracted folder as your **personal evidence folder outside the repository**.
+Fill the note templates as you go; in Lab 07, save `assessment.csv` as `assessment-baseline.csv`.
+Empty templates are not completed evidence. Nothing in this ZIP installs a code environment.
+
+<a id="5-ready-to-start"></a>
+
+## 4. Ready to start
+
+- [ ] I can open the intended project with my own account.
+- [ ] The actual Luna deployment/version is prepared.
+- [ ] I have the learner ZIP and know which file goes into Instructions versus chat.
+- [ ] My Lab 05 terminal is ready; if not, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
+- [ ] For B, Search access and owned-object creation costs are approved. For A, IQ Chat is **not selected** unless separately prepared.
+- [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
+
+If a required box is not ready, stop at that preparation step; do not substitute a fixture for a live result.
+**Ready: [A → Lab 00 browser](labs/00-start.md#path-a) · [B → Lab 00 code](labs/00-start.md#path-b).**
+The owner reference below is not another learner step.
+
+<a id="4-environment-owner-checklist"></a>
+
+## Environment-owner preparation
+
+<details>
+<summary>Only if preparing the environment yourself — separate authorization, time and costs</summary>
 
 If you are learning alone, you are also the environment owner. These are preparation steps, not hidden prerequisites inside a later lab.
 
@@ -69,9 +98,10 @@ If you are learning alone, you are also the environment owner. These are prepara
    Verify its state is `Succeeded`. Do not create another model after an unexplained error.
 3. Give the learner the appropriate Foundry project/model permissions.
    The CLI's deployment preflight also needs **Reader on the training Foundry account**. Test with that learner's account, not only an administrator.
-4. If selecting the optional IQ segment, prepare Basic-or-higher Search, its system-assigned identity, semantic/knowledge retrieval access,
+4. For B's GA Search/IQ or optional IQ Chat, prepare Basic-or-higher Search, semantic/knowledge retrieval access,
    and Search read/write permissions for the person who seeds the synthetic index.
-5. On the model's Foundry account, give **the Search identity** `Cognitive Services User`.
+5. **Only for optional model-based IQ Chat**, enable Search's system-assigned identity.
+   On the model's Foundry account, give **the Search identity** `Cognitive Services User`.
    A role assigned to the user or Hosted agent does not grant it to Search.
 6. Complete [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment), including `.env`, before running the owner commands below.
    That same setup is the self-service route if no prepared MAF terminal is available for Lab 05.
@@ -101,14 +131,6 @@ As checked on **September 15, 2026**, the optional Preview preset fixes Luna, Se
 It uses the verified `maxOutputSize` request field rather than the field rejected in the earlier diagnostic.
 Return the printed chat-base name to the learner. They should open **that base**, not the model-free `<prefix>-kb`.
 
-## 5. Ready to start
+Return to [the ready check](#4-ready-to-start) after preparation; do not run optional owner commands for the default A route.
 
-- [ ] I can open the intended project with my own account.
-- [ ] The actual Luna deployment/version is prepared.
-- [ ] I have the learner ZIP and know which file goes into Instructions versus chat.
-- [ ] For Lab 05, I have a prepared terminal or will complete Lab 00 B setup first.
-- [ ] If selecting Lab 06 IQ Chat, the owner has checked the fixed chat base and its actual model activity; otherwise it is explicitly not selected.
-- [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
-
-If a box is not ready, stop at that preparation step; do not substitute a fixture for a live result.
-**Next: [Lab 00](labs/00-start.md).**
+</details>
