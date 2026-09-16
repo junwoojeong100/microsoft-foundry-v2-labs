@@ -51,6 +51,26 @@ tenant/subscription/client/project의 비밀 아닌 식별자는 환경 변수�
 [공식 Hosted CI/CD](https://learn.microsoft.com/azure/foundry/agents/quickstarts/set-up-cicd-hosted-agent)를
 이 저장소의 패키지/profile과 정확한 smoke 계약에 맞춥니다.
 
+**기억한 이름 전용 형식이 아니라 실제 subject를 사용합니다.** 저장소의 현재 OIDC 설정을 읽습니다.
+
+```bash
+printf '승인된 GitHub 저장소 (owner/name): '
+read -r GITHUB_REPO
+gh api "repos/$GITHUB_REPO/actions/oidc/customization/sub"
+```
+
+immutable subject의 `sub_claim_prefix`에는 소유자·저장소 ID가 포함됩니다.
+형식은 `repo:<owner>@<owner-id>/<repository>@<repository-id>`이며
+보호된 환경은 `:environment:foundry-workshop`을 덧붙입니다.
+`azure/login`이 보고한 실제 subject·issuer·audience와 정확하게 맞추고 raw token은 출력하지 않습니다.
+불일치를 해결하려고 immutable claim을 끄거나 wildcard trust·client secret·더 넓은 Azure 역할을 사용하지 않습니다.
+
+9월 17일 CI의 초기 `AADSTS700213`은 기존 이름 전용 subject 때문이었습니다.
+기존 federation의 subject만 실제 저장소 ID/환경 claim으로 수정했으며
+identity·issuer·audience·Azure 역할·GitHub 보안 설정은 바꾸지 않았습니다.
+[GitHub OIDC 계약](https://docs.github.com/en/actions/reference/security/oidc)과
+[정확한 federated credential 수정 계약](https://learn.microsoft.com/graph/api/federatedidentitycredential-update)을 확인합니다.
+
 <!-- edition-checkpoint:KP22-002-explicit-tenant-oidc-readback -->
 
 ![실제 국문 촬영: 기본 구독을 바꾸지 않고 원래 실습 테넌트의 CI app만 조회](../../../assets/edition-20260916-ko/screenshots/KP22-002-explicit-tenant-oidc-readback-2.webp)

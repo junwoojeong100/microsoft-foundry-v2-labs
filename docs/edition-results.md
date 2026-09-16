@@ -67,3 +67,15 @@ Important recorded corrections include:
 
 Read [coverage](coverage.md) to choose a module, then use that module's **Need → Do → Check → Stop** path.
 Historical [foundational results](live-run.md) and [recordings](video-summary.md) keep their original dates.
+
+## Post-publication CI check — September 17, 2026
+
+The [OIDC release run](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121162793)
+succeeded on its second attempt using source revision `336325d` and **Korean** dev inputs.
+It deployed `mfv2-course-20260916-ci-hosted` v1 and completed all six original cases with **6/6 business passes and zero errors**.
+The downloaded artifact hashes and business report were independently rechecked, and the exact created session was confirmed idle.
+
+This is a separate post-publication deployment/business gate, not an English cohort or footage included in these recordings.
+Native judging, complete trace export and human production approval were not part of that gate.
+The initial OIDC mismatch and earlier CI syntax/dependency failures remain in the recorded history;
+the existing federation was narrowed to the actually emitted immutable repository/environment subject without broader trust or roles.

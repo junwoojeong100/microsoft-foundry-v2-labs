@@ -216,6 +216,10 @@
   },
   "continuous_evaluation_tested": false,
   "github_ci_execution": {
-    "status": "not-run-at-recording-time"
+    "status": "not-run-for-english",
+    "related_korean_workflow_run_id": 35121162793,
+    "related_korean_workflow_url": "https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121162793",
+    "recorded_in_extension_videos": false,
+    "note": "The post-publication CI cohort used Korean inputs; it is not an English quality result."
   }
 }

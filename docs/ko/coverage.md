@@ -39,7 +39,7 @@ prerelease SDK가 전체 서비스를 Preview로 만들거나 GA가 모든 mode�
 | [Memory](labs/extensions/memory.md) | C | API 기반 lifecycle/scope/회상, 사용자 인가 증거 아님 |
 | [Routines](labs/extensions/routines.md) | C | 제한된 수동 전달과 정리, 원래 답변 조회는 별도 |
 | [안전 제어](labs/extensions/agent-safety.md) | C | 실제 policy/attachment, D01 완료·D06 도구 발견 실패; platform 차단 주장 없음 |
-| [릴리스](labs/extensions/release-operations.md) | C | OIDC 설정과 실제 CI 실행은 별도 |
+| [릴리스](labs/extensions/release-operations.md) | C | 게시 후 실제 OIDC 배포·국문 dev 6/6·세션 idle 확인; 영상·native 평가·운영 인수와 구분 |
 | [모델 운영](labs/extensions/model-operations.md) | C | 기존 배포의 통제 비교, Router/이전은 별도 승인 |
 | [추가 도구](labs/extensions/additional-tools.md) | B/C | OpenAPI와 실제 Code Interpreter 파일 검증 |
 | [거버넌스](labs/extensions/governance-networking.md) | C | 실제 ID·권한 범위, 사설망 미구성이면 설계만 |

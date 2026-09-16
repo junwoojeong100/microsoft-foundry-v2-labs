@@ -33,6 +33,12 @@ was rejected because `runner.temp` was used before the runner context exists.
 The SDK job now installs the declared `dev` extra, and the release initializes its path from `$RUNNER_TEMP`
 inside a step and passes it through `$GITHUB_ENV`. Regression checks and actionlint 1.7.12 workflow
 schema/expression validation passed; the original failed GitHub result remains in its run history.
+The corrected [GitHub repository check](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121096979)
+passed all jobs. A subsequent OIDC mismatch was narrowed to the exact immutable subject emitted by this repository;
+the existing federation was corrected without new credentials, broader roles or weaker GitHub settings.
+The [actual OIDC release](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121162793)
+then passed on attempt 2: Korean dev 6/6, zero errors, original artifact hashes and recomputed business checks verified,
+with the exact created session independently confirmed idle. This post-publication run did not execute native judging or holdout.
 
 ## Korean prerequisite run — September 15, 2026
 

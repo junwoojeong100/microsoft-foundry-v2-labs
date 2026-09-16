@@ -336,6 +336,19 @@ class ExtensionMediaIntegrityTests(MediaIntegrityTests):
         self.assertTrue(results["ko"]["routine_cleanup"]["verified_absent"])
         self.assertEqual(results["ko"]["hosted"]["trace"]["rows"], 146)
         self.assertEqual(len(results["ko"]["hosted"]["trace"]["matched_model_response_ids"]), 3)
+        ci = results["ko"]["github_ci_execution"]
+        self.assertEqual(ci["status"], "success")
+        self.assertEqual(ci["language"], "ko")
+        self.assertEqual((ci["rows"], ci["business_passed"], ci["errors"]), (6, 6, 0))
+        self.assertTrue(ci["artifact_hashes_verified"])
+        self.assertTrue(ci["business_report_recomputed"])
+        self.assertTrue(ci["live_session_status_verified"])
+        self.assertEqual(ci["session_status"], "idle")
+        self.assertFalse(ci["holdout_used"])
+        self.assertFalse(ci["production_approval"])
+        self.assertFalse(ci["native_evaluation_run"])
+        self.assertFalse(ci["recorded_in_extension_videos"])
+        self.assertEqual(results["en"]["github_ci_execution"]["status"], "not-run-for-english")
 
     def test_reboot_parts_exclude_authentication_and_never_reuse_foundation_sources(self):
         old_hashes = {

@@ -63,6 +63,26 @@ instead of accepting an arbitrary principal ID from a dispatch input.
 Store non-secret project/tenant/subscription/client identifiers as repository or environment variables.
 Do not print tokens or entire `.env` files in workflow logs.
 
+**Use the actual subject, not a remembered name-only template.** Read the repository's current OIDC configuration:
+
+```bash
+printf 'Approved GitHub repository (owner/name): '
+read -r GITHUB_REPO
+gh api "repos/$GITHUB_REPO/actions/oidc/customization/sub"
+```
+
+For immutable subjects, the returned `sub_claim_prefix` includes owner and repository IDs:
+`repo:<owner>@<owner-id>/<repository>@<repository-id>`.
+The protected environment adds `:environment:foundry-workshop`.
+Match the exact `subject`, issuer and audience emitted by `azure/login`; never print the raw token.
+Do not disable immutable claims, add wildcard trust, switch to a client secret, or broaden Azure roles to fix a mismatch.
+
+The September 17 CI check initially returned `AADSTS700213` for a legacy name-only subject.
+Only the existing federation's subject was corrected to the actual immutable repository/environment claim;
+the identity, issuer, audience, Azure roles and GitHub security settings were unchanged.
+See the [GitHub OIDC reference](https://docs.github.com/en/actions/reference/security/oidc) and
+[exact federated credential update contract](https://learn.microsoft.com/graph/api/federatedidentitycredential-update).
+
 The official [Hosted CI/CD quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/set-up-cicd-hosted-agent)
 is the deployment/authentication reference. Adapt it to this repository's actual package/profile and version-pinned smoke contract;
 nonempty stdout alone is not proof that an agent returned a valid result.

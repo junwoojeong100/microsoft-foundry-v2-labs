@@ -40,8 +40,8 @@
         "english_sha256": "934e089fe24a5e1df8293e571277bafd0e6ca41b557c0bc0ecf6bc9ab9735953",
         "korean_sha256": "7a21c448c091688096342f6e10a92969b8c628b7ad0b3f9e40bf318d7ab13570"
       },
-      "english_sha256_at_completion": "52cc9aa7ec263eb2d0790d4451f0622377682158181809e4f53a430b40c191e4",
-      "korean_sha256_at_completion": "08fe6d532e7305bf17d05085f3ddcc1832acbb4c4d7f3a3bc820c43001a2612a",
+      "english_sha256_at_completion": "eeb2963dcc55d500ed9ebda8919e705c611c8452163b831dbc4e4b0af8d72371",
+      "korean_sha256_at_completion": "cbb633fe84c5238f60d45c8de0402030f29f518d474097bc65e78f16c322231b",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/toolbox.md": {
@@ -160,8 +160,8 @@
         "english_sha256": "53eef3b8029b6ab3e0cdb4d5e4ec4887c530b1ab4b095248f2cc5ee31fce2c44",
         "korean_sha256": "9ae3c616899a69bc1a90119d6ad3d905e06a453e2c40e21ed5d03a4f38e685c4"
       },
-      "english_sha256_at_completion": "2308607ca65a374a7ed5e12a44c1d58908525c4066a3a4e6cc263d12034ca644",
-      "korean_sha256_at_completion": "718283e8521979e1e0f135c75d4b5e74e74ca1393af16e3a66b8fc85a641e07c",
+      "english_sha256_at_completion": "065e0e468feb1bc2545cade878130696f45d451d99c5545f99d7fc9be447315c",
+      "korean_sha256_at_completion": "e5a78cbc3936008390dbdcaafeaa29b78f11d1bd7bb365cd37c9305bbe0246d6",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/approval-recovery.md": {
@@ -240,8 +240,8 @@
         "english_sha256": "37663459995bfb0dba389337a5f91bbc1c4d20f8429054f882154e5310cf1d2c",
         "korean_sha256": "35ce91c3fe29152a8b6b65c30fad7930126ad24389971168532f4d2f6c2a6bbf"
       },
-      "english_sha256_at_completion": "863d5a62d89404d26529d9146c102134054c2e2f69d14db5a72ae9031c796ece",
-      "korean_sha256_at_completion": "737665746d9534e27815f73eb8353738220a6ecc298ae8854eb6801e036f101f",
+      "english_sha256_at_completion": "452c8dfe0070d9f1e03827fd8534faebe9e83f9e4f7c5900682ced2cd6a24850",
+      "korean_sha256_at_completion": "a2f66b51ac1b516dc9a96d4c55476f9729c11b333de4466ea13b2f3ce7bb6d70",
       "cli_parity_verified": true
     },
     "docs/edition-videos.md": {

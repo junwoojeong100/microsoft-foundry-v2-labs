@@ -38,7 +38,7 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 | A2A 1.0 | C | Explicit card/configuration and delegation | English original paired call/output verified; wire packets not captured |
 | Memory and Routines | C | Owned lifecycle and bounded timer | Memory verified; routine delivery verified, answer retrieval unavailable |
 | Applied guardrails and controlled red teaming | C | Dedicated policy/target | English attachment and two unblocked cases recorded; no intervention/red-team claim |
-| Continuous evaluation and deployment quality gates | C | Manual guarded workflow and OIDC setup | Repo-bound identity/environment configured; actual CI execution remains separately gated |
+| Continuous evaluation and deployment quality gates | C | Manual guarded workflow and OIDC setup | Post-publication Korean OIDC release: complete six-case business gate verified; continuous/native evaluation and production approval remain separate |
 | Model retirement/migration and Router tradeoffs | C | Fixed-model comparison and Router observation | Temporary supported optimizer model and frozen version recorded; no Router migration claim |
 | OpenAPI/Code Interpreter, Toolkit, governance/networking | B/C | Executable tools and explicit owner boundaries | English API/file results, tooling and scoped role checks recorded; private network not tested |
 | Actual company/Microsoft 365 access | Specialist | Excluded | Remains excluded |

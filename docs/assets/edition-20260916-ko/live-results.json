@@ -277,6 +277,75 @@
   },
   "continuous_evaluation_tested": false,
   "github_ci_execution": {
-    "status": "not-run-at-recording-time"
+    "status": "success",
+    "workflow_run_id": 35121162793,
+    "workflow_attempt": 2,
+    "workflow_url": "https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121162793",
+    "source_commit": "336325d1136fe3846543935f6f16e2aae54af80a",
+    "language": "ko",
+    "split": "dev",
+    "agent": "mfv2-course-20260916-ci-hosted",
+    "agent_version": "1",
+    "matrix_run_id": "matrix-93d1d525b4fe4b58824decc7fe84dd1c",
+    "rows": 6,
+    "business_passed": 6,
+    "errors": 0,
+    "observed_models": [
+      "gpt-5.6-luna-2026-07-09"
+    ],
+    "input_tokens": 28054,
+    "output_tokens": 2747,
+    "dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
+    "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+    "runtime_contract_hash": "a3a7015044fc12146ec094aa0b954b875e27f50a9e7d5ed8b6a01b5c51f5c4c7",
+    "responses_hash": "ca54e64c9dc84efacedd3a29ac7f76054ce00f0f417c8704ccf2e5daec5796be",
+    "rubric_hash": "562a7ef99b3fc4f37af266b2f78f5e5ecbd9c31ae2630b46871eca5be9cb7c95",
+    "artifact_hashes_verified": true,
+    "business_report_recomputed": true,
+    "original_korean_dev_verified": true,
+    "session_id": "01883773e0debeea00WIekr3JmKfrsjeiCyEUjNXKPp93J8q3r",
+    "session_status": "idle",
+    "shared_resources_deleted": false,
+    "holdout_used": false,
+    "native_evaluation_run": false,
+    "trace_export_verified": false,
+    "production_approval": false,
+    "recorded_in_extension_videos": false,
+    "note": "A post-publication OIDC deployment and full business gate, not an English cohort, native judge run or production approval.",
+    "live_session_status_verified": true,
+    "oidc": {
+      "subject": "repo:junwoojeong100@6407492/microsoft-foundry-v2-labs@1367892793:environment:foundry-workshop",
+      "issuer": "https://token.actions.githubusercontent.com",
+      "audiences": [
+        "api://AzureADTokenExchange"
+      ],
+      "same_federated_credential_id": "f8fe16da-14c1-4a70-b204-0d118f1cffa1",
+      "github_security_settings_changed": false,
+      "wildcard_subject_added": false
+    },
+    "runtime_role": {
+      "principal": "86ebc9f6-4ff8-499f-8826-61ee947248f2",
+      "role": "53ca6127-db72-4b80-b1b0-d745d6d5456d",
+      "scope": "/subscriptions/51531604-2337-4c05-bc05-3c3d4ff154e5/resourceGroups/rg-mfv2-action-swc-20260914/providers/Microsoft.CognitiveServices/accounts/ai-mfv2-action-swc-20260914/projects/mfv2-action-20260914",
+      "assignment_id": "/subscriptions/51531604-2337-4c05-bc05-3c3d4ff154e5/resourceGroups/rg-mfv2-action-swc-20260914/providers/Microsoft.CognitiveServices/accounts/ai-mfv2-action-swc-20260914/projects/mfv2-action-20260914/providers/Microsoft.Authorization/roleAssignments/822c8fcf-e29e-4b50-bbe0-8c5e14794301",
+      "created": true
+    },
+    "prior_failures": [
+      {
+        "kind": "repository-check",
+        "run_id": 35119736233,
+        "reason": "SDK development dependency missing"
+      },
+      {
+        "kind": "dispatch-validation",
+        "reason": "runner context referenced before the runner exists"
+      },
+      {
+        "kind": "OIDC",
+        "workflow_attempt": 1,
+        "reason": "AADSTS700213 immutable-subject mismatch",
+        "azure_deployment_started": false
+      }
+    ]
   }
 }

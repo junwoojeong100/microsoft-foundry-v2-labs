@@ -30,6 +30,12 @@ runner context가 없는 위치의 `runner.temp` 참조 때문에 거부됐습�
 SDK job이 선언된 `dev` extra를 설치하도록 맞추고, 실행 단계에서 `$RUNNER_TEMP`로 경로를 만든 뒤
 `$GITHUB_ENV`로 전달하도록 수정했습니다. 회귀 검사와 actionlint 1.7.12의 workflow schema/표현식 검사가 통과했으며
 원래 실패한 GitHub 이력은 보존했습니다.
+수정된 [실제 GitHub 저장소 검사](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121096979)는
+모든 job이 통과했습니다. 이후 OIDC 불일치는 이 저장소가 실제 발급한 immutable subject로 좁혀 확인했으며
+새 credential·확대된 역할·완화된 GitHub 설정 없이 기존 federation만 수정했습니다.
+이후 [실제 OIDC release](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121162793)가
+2차 시도에서 국문 dev 6/6·오류 0으로 통과했습니다. 원래 artifact hash와 업무 결과를 다시 검증했고
+정확한 생성 세션의 idle 상태도 별도로 확인했습니다. 영상 게시 후의 이 실행에는 native judge나 holdout을 사용하지 않았습니다.
 
 ## 국문 실제 Azure 실행 — 2026-09-15
 

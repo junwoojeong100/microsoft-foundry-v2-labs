@@ -26,7 +26,7 @@
 | Hosted Toolbox | 원격 v1의 completed SSE와 정확한 package, 근거 파일 8개, exact trace **146행** 확인 | CLI exit 0/readiness만으로 완료, 모든 child span export |
 | Routines | 원래 수동 전달 Finished; 답변 조회는 **404**; 비활성화·소유 routine 삭제 확인 | 원래 답변 내용 또는 미래 timer 발화 검증 |
 | 안전 제어 | 실제 policy와 Hosted v2 연결 확인; D01 완료, D06은 **Tool Search no-match로 failed** | failed를 platform guardrail 차단이나 성공한 답변으로 포장 |
-| OIDC/CI | 기존 저장소·main·환경의 동일한 federation/변수 hash를 읽기 확인 | 촬영 당시 실제 CI 실행 성공 |
+| OIDC/CI | 촬영 당시 설정 검증; 게시 후 실제 OIDC 배포·국문 dev **6/6**, 오류 **0** 확인 | 영문 CI 결과, native judge 또는 운영 인수 |
 
 대화 평가의 실제 judge 입력에서도 원래 정책 JSON을 확인했습니다.
 턴 평가에는 query 메시지 배열, 전체 평가에는 formatted messages에 원문이 들어 있습니다.
@@ -65,3 +65,15 @@ Hosted v1의 네 모델 response ID 중 trace에서 확인된 ID는 세 개입�
 
 실제 회사/Microsoft 365 데이터, 사설망 변경, Router 이전, continuous evaluation과 red-team 실측은 이 결과에 포함하지 않습니다.
 [국문 영상 상태](edition-videos.md), [기능 범위](coverage.md), [별도 영문 결과](../edition-results.md)를 함께 확인합니다.
+
+## 게시 후 실제 CI 확인 — 2026-09-17
+
+[OIDC release 실행 35121162793](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35121162793)의
+두 번째 시도에서 `336325d` 소스로 `mfv2-course-20260916-ci-hosted` v1을 배포했습니다.
+원래 국문 dev D01–D06을 Luna 한 모델로 실행해 **6/6, 오류 0**을 확인했습니다.
+다운로드한 artifact의 dataset/corpus/response/runtime/rubric hash를 검증하고 업무 검사를 로컬에서 다시 계산했습니다.
+CI가 만든 정확한 세션은 `idle`이며, 별도 Azure 읽기에서도 같은 상태를 확인했습니다.
+
+첫 시도의 OIDC subject 불일치와 앞선 GitHub 설정/의존성 실패는 이력에 남아 있습니다.
+federation의 subject만 실제 저장소 고유 ID와 환경 claim에 맞췄으며 trust 범위·역할·GitHub 보안 설정은 넓히지 않았습니다.
+이 결과는 **영상 제작 후의 별도 국문 CI 검증**입니다. 영문 응답, native 평가, trace export 전체 또는 사람의 운영 승인을 뜻하지 않습니다.
