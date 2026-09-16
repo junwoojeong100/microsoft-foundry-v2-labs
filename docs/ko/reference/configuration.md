@@ -4,7 +4,9 @@
 
 **한 저장소 안에서는 하나의 환경변수 이름을 씁니다. 원본 리포의 서로 다른 이름을 혼합하지 않습니다.**
 
-모든 CLI는 루트 `.env`를 읽습니다. 이미 프로세스에 있는 값이 우선합니다.
+클라우드 설정이 필요한 명령은 루트 `.env`를 읽으며 이미 프로세스에 있는 값이 우선합니다.
+오프라인 `doctor`·`demo`·로컬 `retrieve`, 저장된 실행의 `evaluate`·`compare`·`accept`·`feedback`·`cleanup-plan`은 이 파일을 읽지 않습니다.
+오프라인 PASS가 입력한 환경값의 검증 성공을 뜻하지는 않습니다.
 영어 실행은 `--language en`을 명시하며 기존 기본값은 한국어입니다.
 언어별 지침·corpus·dataset을 선택하고 Hosted profile에 고정합니다.
 따라서 오래된 터미널에서 예상하지 않은 값을 상속하지 않았는지 확인합니다.
@@ -19,7 +21,7 @@
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | target 모델 | 템플릿 기본 `gpt-5.6-luna`; 실제 배포를 먼저 준비. 자동 대체 없음 |
 | `WORKSHOP_AUTH_MODE` | 인증 | `cli` 또는 `managed-identity` |
 | `AZURE_CLIENT_ID` | 선택 user-assigned managed identity | 실제 런타임에 필요할 때만 |
-| `WORKSHOP_PREFIX` | 생성할 agent/Search 이름 | 고유한 `mfv2-...`, 최대 32자 |
+| `WORKSHOP_PREFIX` | 생성할 agent/Search 이름 | `mfv2-`로 시작. 소문자 영문·숫자를 하이픈 하나로 구분하며 끝 하이픈 금지. 전체 최대 32자 |
 | `WORKSHOP_MAX_OUTPUT_TOKENS` | 모델 출력 상한 | 기본 2048, 허용 256–8192 |
 | `AZURE_SEARCH_ENDPOINT` | Search/IQ | 서비스 루트 |
 | `AZURE_SEARCH_RESOURCE_GROUP` | `iq-chat check` ARM 조회 | 선택값. Search가 같은 그룹에 있으면 `AZURE_RESOURCE_GROUP` 사용 |
@@ -41,6 +43,26 @@ Search **system-assigned** identity, `2026-08-01-preview`, `low`, `answerSynthes
 `iq-chat check`가 실제 배포·source·명시된 역할을 검사하고 `setup`은 source/corpus가 맞는 로컬 소유권 기록을 요구합니다.
 기본 GA base는 변경하지 않으며 새 chat-base 이름은 본인 prefix로 시작해야 합니다.
 [준비 명령](../setup.md#4-환경-담당자의-준비)을 따릅니다.
+
+<a id="workspace-scope"></a>
+
+## Search 소유 복사본 하나, prefix 하나, 언어 하나
+
+`--language en`은 영문 데이터를 선택할 뿐 **Search 객체 이름이나 `.env`를 바꾸지 않습니다**.
+Search 이름을 비우면 두 언어 모두 `<prefix>-policies`, `<prefix>-source`, `<prefix>-kb`를 사용합니다.
+두 언어를 준비한다면 `mfv2-team01-en-0917`, `mfv2-team01-ko-0917`처럼 별도 prefix를 정합니다.
+
+| 변경 상황 | 안전한 준비 |
+|---|---|
+| 같은 언어·범위에서 모델/dev 실행 반복 | 새 실행 label을 쓰고 Search 소유권 기록은 유지 |
+| 소유한 Search 객체 없이 로컬 검색·모델 평가의 언어 변경 | 새 label 묶음과 해당 언어 번들 사용. 번역 데이터는 같은 입력의 비교가 아님 |
+| Seed 후 언어·Search 서비스·prefix 변경 | 검토한 `.env`·새 소유 이름·새 label을 가진 새 소스 복사본 사용. 기존 복사본과 정리 ledger 보존 |
+| 강사가 준비한 객체 사용 | 언어·범위·ledger가 맞는 승인된 준비 작업 폴더 사용 또는 명시적으로 선택한 읽기 전용 실습만 진행 |
+| 원격 객체는 있지만 이 복사본에 대응 ledger가 없음 | 덮어 seed하거나 다른 조의 ledger를 복사·조작하지 않음. 담당자가 해결하거나 새 복사본/prefix 준비 |
+
+`outputs/azure-objects.json`은 Search endpoint·prefix·corpus hash에 묶입니다.
+Label만 또는 `WORKSHOP_PREFIX`만 바꾸어 초기화할 수 없습니다. 거절을 우회하려고 ledger를 삭제·편집하지 않습니다.
+새 복사본을 시작하더라도 원래 담당자가 정리할 수 있도록 기존 결과를 유지합니다.
 
 ## 구버전 변수와의 대응
 

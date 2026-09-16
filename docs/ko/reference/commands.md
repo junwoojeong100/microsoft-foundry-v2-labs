@@ -32,16 +32,21 @@
 | `collect --split holdout ... --candidate candidate --unlock-holdout` | 고정 후보의 실제 평가 요청 | 개발용 재사용 금지 |
 | `accept --candidate candidate --holdout final-holdout` | 없음 | 사람의 인수 자료, 자동 승인 아님 |
 | `serve` | 로컬 서버 시작, 호출 시 유료 모델 | Hosted SDK 필요 |
-| `cleanup-plan` | 없음 | 삭제 안 함 |
+| `cleanup-plan` | 없음 | 삭제 안 함. 선택 언어의 정리 가이드 반환 |
 | `python scripts/export_policy_docs.py` | 없음, 텍스트 6개 생성 | 선택 export. A의 학습자 ZIP에 이미 포함 |
 | `python scripts/build_learner_materials.py` | 없음 | 두 언어의 학습자 자료를 canonical dev/지침/정책과 대조 |
 | `python scripts/build_learner_materials.py --write` | 두 로컬 학습자 번들 재생성 | 관리자용 생성. 모델·holdout 사용 없음 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
+| `python scripts/prepare_hosted_azd.py --language ko --kind runtime ...` | 패키지를 검증한 로컬 프로젝트. `--initialize-env`는 로컬 azd 상태 생성/재조회도 수행 | 입문 local/v2/Responses 패키지만. Provision·배포·역할 부여 없음 |
 | `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 영어 기본·Lab 00–11 챕터 이동. `--edition ko`로 별도 국문 새 촬영본 선택. Azure 호출·업로드 없음 |
 
 표에서 생략한 옵션은 실행용 완전한 예제가 아닙니다.
 첫 IQ Chat 설정은 [담당자 실행 순서](../setup.md#4-환경-담당자의-준비)를 한 번 진행합니다.
 기본 GA `retrieve --provider iq`는 의도적으로 다른 경로입니다.
+
+대화형 `model`·`answer`·`maf`·`workflow`·`retrieve`는 JSON을 출력합니다.
+[B 기록 폴더](../labs/00-start.md#prepare-notes)에 출력 전체를 저장하며 batch는 이미 `outputs/<label>/`를 작성합니다.
+필수 값을 포함한 독립 Hosted 준비 명령 전체는 [Lab 08](../labs/08-hosted.md)을 사용합니다.
 
 ## 한국어 통합 개정의 추가 명령
 

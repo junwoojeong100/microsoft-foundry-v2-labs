@@ -76,6 +76,8 @@ comparable dev records, frozen final evaluation, package and cleanup handoff.
 Hosted serving/deployment, actual telemetry and paid cloud judges have separate optional gates.
 Mark them **not run** if omitted; unavailable quota is not permission to submit fixtures
 as real model responses.
+If a required stage stays blocked, use [the incomplete handoff](labs/11-capstone.md#incomplete-handoff)
+to preserve the actual work and recovery owner. It does not satisfy the missing B completion criteria.
 
 [10. Fabric/Work IQ extensions](labs/10-iq-extensions.md) is a separate 45–90-minute
 session. Approval, licensing, and capacity preparation are additional.

@@ -23,7 +23,8 @@
 ## 1. 도구 없는 에이전트
 
 저장소 루트·활성 `.venv`에서 실행합니다. 세 명령 모두 유료 모델 호출입니다.
-각 명령 성공 후 실제 JSON 출력 전체를 개인 증거 폴더에 복사합니다. 이 명령들은 label별 결과 폴더를 자동 생성하지 않습니다.
+각 명령 성공 후 실제 JSON 전체를 Lab 00 기록 폴더의 `maf-none.json`, `maf-function.json`, `maf-mcp.json`에 저장합니다.
+이 명령들은 label별 결과 폴더를 자동 생성하지 않습니다.
 
 ```bash
 python scripts/workshop.py maf --question "Foundry와 Agent Framework의 차이를 세 문장으로 설명해 주세요."

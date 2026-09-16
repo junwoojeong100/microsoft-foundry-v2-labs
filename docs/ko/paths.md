@@ -71,6 +71,8 @@ Python 기초, JSON, 터미널, `async/await`를 읽을 수 있어야 합니다.
 비교 가능한 dev 이력·고정된 최종 평가·패키지·정리 인계가 있습니다.
 Hosted 서버/배포·실제 telemetry·유료 cloud judge는 선택 게이트이며, 수행하지 않았으면
 캡스톤에 `미실행`으로 남깁니다. 할당량이 없다고 fixture를 실제 응답 대신 제출하지 않습니다.
+필수 단계가 계속 막혀 있다면 [미완료 인계](labs/11-capstone.md#incomplete-handoff)로 실제 작업과 복구 담당자를 보존합니다.
+이는 빠진 B 완료 요건을 충족한 것으로 처리하지 않습니다.
 
 [10. Fabric/Work IQ 확장](labs/10-iq-extensions.md)은 45–90분의 별도 세션입니다.
 승인·라이선스·capacity 준비 시간은 이 시간에 포함하지 않습니다.

@@ -168,7 +168,7 @@ python scripts/workshop.py workflow --pattern group-chat
 | Group Chat | 짧은 상호 검토·조정 | 종료 조건, 반복·동조 편향 |
 | 단일 에이전트 | 규칙이 단순한 질문 | 불필요하게 multi-agent로 만들지 않기 |
 
-**B 완료:** 세 패턴의 터미널 출력 전체와 비교·검토를 개인 증거 폴더에 저장합니다.
+**B 완료:** Lab 00 기록 폴더에 `workflow-sequential.json`, `workflow-concurrent.json`, `workflow-group-chat.json`과 `workflow-review.txt`를 저장합니다.
 각 결과의 `approval_status: pending-human-review`, `external_actions_performed: false`를 보존합니다.
 [Lab 06 B](06-knowledge.md#path-b)로 이동합니다. Durable 승인·배포용 wrapper는 별도 확장입니다.
 

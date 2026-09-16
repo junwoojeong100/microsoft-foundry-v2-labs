@@ -1,8 +1,8 @@
 BLANK WORKSHEET - inspect existing evidence; do not call Azure merely to fill a box.
 
-1. Actual agent name / version / model checked against Lab 03:
+1. Actual target (A agent/version/model; B project/model/run labels; Hosted version only if run):
 2. Instructions / tools / sources checked; unapproved connections, if any:
-3. Six-row assessment and workflow review locations:
+3. Assessment or evaluation-run folders, and workflow review locations:
 Actual trace evidence, or unverified when unavailable:
 4. Owned assets and separately approved cleanup actions:
 Shared assets to retain and responsible owner:

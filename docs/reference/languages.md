@@ -8,8 +8,8 @@
 
 English lives in `README.md` and `docs/`; Korean lives in `README.ko.md` and `docs/ko/`.
 Every page links to its counterpart.
-Temporary Korean-first deferrals are bounded by hashes and visible warnings in `docs/localization.json`.
-After English expansion, remove those deferrals and recheck command parity.
+Source-language-first deferrals are bounded by hashes and visible warnings in `docs/localization.json`.
+Follow its active source language and revision; complete the counterpart before removing the notice and rechecking command parity.
 
 ## Runtime data and answers
 
@@ -22,6 +22,12 @@ English development instructions were frozen before preparing the translated fin
 
 Do not translate model/API identifiers, filenames, CLI flags, or schema field names.
 Never substitute another language's fixture or model response after an error.
+
+Language selection changes data, **not the configured Search names or ownership**.
+For model/local-retrieval experiments, new language-specific labels keep runs separate.
+After Search seeding, changing the language or prefix requires a fresh source copy with new owned names;
+the existing `outputs/azure-objects.json` must remain with its original scope.
+Follow [the workspace-scope table](configuration.md#workspace-scope), not merely a rename of the next output label.
 
 ## Independent capture
 

@@ -118,6 +118,28 @@ Expected fields include `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`,
 **What to check:** Read all three counts and `azure_tested: false`. This checks files
 and the local runtime, not a successful Azure call.
 
+<a id="prepare-notes"></a>
+
+#### Prepare B's personal notes once
+
+The source ZIP already contains the blank worksheets; **B does not need another learner-ZIP download or Lab 03 agent**.
+Create a separate, Git-ignored working directory. The `&&` chain stops if it exists, so it cannot overwrite earlier notes:
+
+```bash
+mkdir -p outputs &&
+mkdir outputs/learner-notes-en &&
+cp data/learner/en/{session-notes.txt,workflow-review.txt,operations-checklist.txt,SOURCE.json} outputs/learner-notes-en/
+```
+
+If this folder already belongs to your current pass, keep it and resume without running the copy block.
+For a new pass, choose a new notes-directory name and use it consistently. Never fill files under `data/learner/`.
+Keep `session-notes.txt` open; skip its browser-only fields in B.
+
+`model`, `answer`, `maf`, `workflow` and `retrieve` print JSON; they **do not save labeled run folders**.
+Save the complete current JSON object, from its opening `{` through its matching `}`, in this notes directory using your editor.
+Do not include shell prompts or earlier terminal output. On failure, record the actual error and failed step instead of claiming a saved file proves success.
+`collect`/`evaluate` already write `outputs/<label>/`; keep those generated folders in place and do not edit their responses.
+
 ### 2. Learn the output format without Azure
 
 ```bash
@@ -180,7 +202,7 @@ inspect it instead of overwriting it with the copy command.
 | `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME` | Prepared training resources |
 | `AZURE_AI_PROJECT_ENDPOINT` | **Full** project endpoint |
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-5.6-luna`; owner verifies model version `2026-07-09` |
-| `WORKSHOP_PREFIX` | Unique personal/team `mfv2-...` prefix |
+| `WORKSHOP_PREFIX` | Must start with `mfv2-`; lowercase letters/digits and single hyphens, no trailing hyphen, at most 32 characters total |
 | `WORKSHOP_AUTH_MODE` | `cli` locally; `managed-identity` only in an actual Azure runtime |
 
 Scripts read `.env` without replacing existing process variables. Old endpoint

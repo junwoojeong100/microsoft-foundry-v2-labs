@@ -116,6 +116,28 @@ python3.13 scripts/workshop.py doctor
 **화면 확인:** `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`와 함께 `azure_tested: false`를 읽습니다.
 이 단계에서는 파일과 실행 환경만 확인하며 Azure 호출 성공을 판정하지 않습니다.
 
+<a id="prepare-notes"></a>
+
+#### B의 개인 기록 폴더 한 번 준비하기
+
+소스 ZIP에 빈 기록 양식이 이미 있습니다. **B는 학습자 ZIP을 추가로 받거나 Lab 03 agent를 만들 필요가 없습니다**.
+Git에서 제외되는 별도 작업 폴더를 만듭니다. 폴더가 이미 있으면 `&&` 연결이 멈춰 이전 기록을 덮어쓰지 않습니다.
+
+```bash
+mkdir -p outputs &&
+mkdir outputs/learner-notes-ko &&
+cp data/learner/ko/{session-notes.txt,workflow-review.txt,operations-checklist.txt,SOURCE.json} outputs/learner-notes-ko/
+```
+
+현재 회차의 폴더가 이미 있다면 복사 블록을 반복하지 말고 기존 파일로 재개합니다.
+새 회차라면 새 기록 폴더 이름을 정해 일관되게 사용합니다. `data/learner/` 원본에 작성하지 않습니다.
+`session-notes.txt`를 열어 두고 B에서는 브라우저 전용 항목을 건너뜁니다.
+
+`model`·`answer`·`maf`·`workflow`·`retrieve`는 JSON을 출력하지만 **label별 결과 폴더를 자동 저장하지 않습니다**.
+현재 JSON 객체의 시작 `{`부터 대응하는 끝 `}`까지 전체를 편집기로 이 기록 폴더에 저장합니다.
+셸 프롬프트나 이전 출력을 섞지 않습니다. 실패했다면 실제 오류와 단계를 기록하며 파일이 있다는 이유만으로 성공으로 표시하지 않습니다.
+`collect`·`evaluate`는 `outputs/<label>/`를 자동 작성합니다. 이 생성 폴더는 옮기거나 응답을 수정하지 않습니다.
+
 ### 2. Azure 없이 먼저 실행 형태 익히기
 
 ```bash
@@ -180,7 +202,7 @@ VS Code에서 `.env`를 열어 강사가 제공한 값을 입력합니다.
 | `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME` | 강사가 준비한 실습 리소스 |
 | `AZURE_AI_PROJECT_ENDPOINT` | 프로젝트의 **전체** endpoint |
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-5.6-luna`; 담당자가 모델 버전 `2026-07-09` 확인 |
-| `WORKSHOP_PREFIX` | 본인/조의 고유한 `mfv2-...` 접두사 |
+| `WORKSHOP_PREFIX` | 반드시 `mfv2-`로 시작. 소문자 영문·숫자·하이픈 하나씩 사용, 끝 하이픈 금지, 전체 최대 32자 |
 | `WORKSHOP_AUTH_MODE` | 로컬은 `cli`; 실제 Azure 런타임만 `managed-identity` |
 
 스크립트는 `.env`를 읽지만 이미 설정된 환경변수는 덮어쓰지 않습니다.

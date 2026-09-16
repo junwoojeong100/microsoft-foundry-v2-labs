@@ -156,7 +156,8 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 코드는 일반 텍스트로 몰래 전환하거나 JSON을 임의로 고치지 않습니다.
 강사가 지원 여부를 확인한 배포로 명시적으로 다시 구성한 후 새 실행으로 기록합니다.
 
-**B 완료:** 두 JSON 출력 전체를 response ID·사용량·원문 ID와 함께 개인 증거 폴더에 저장합니다.
+**B 완료:** Lab 00 기록 폴더에 `model.json`, `answer-local.json`으로 출력 전체를 저장합니다.
+Response ID·사용량·원문 ID도 포함합니다.
 [Lab 04 B](04-agents-tools.md#path-b)로 이동합니다. A 터미널 준비 때문에 왔다면 [Lab 05 A](05-workflows.md#path-a)로 돌아갑니다.
 
 ## 경험자 확장: 모델을 어떻게 비교할까?

@@ -1,8 +1,9 @@
 import os
 import unittest
-from unittest.mock import patch
+from dataclasses import replace
+from unittest.mock import Mock, patch
 
-from foundry_workshop.contracts import load_documents, read_json
+from foundry_workshop.contracts import digest, load_documents, read_json, write_json
 from foundry_workshop.search import IQ_API, SEARCH_API, SearchGateway, search_configuration
 from foundry_workshop.settings import Settings
 
@@ -182,6 +183,35 @@ class SearchContractTests(unittest.TestCase):
         with workspace() as root, self.assertRaises(ValueError):
             gateway.seed(root, include_iq=True, confirmed=False)
         self.assertEqual(calls, [])
+
+    def test_language_or_prefix_changes_cannot_reuse_the_previous_ownership_ledger(self):
+        with (
+            workspace() as root,
+            patch.dict(os.environ, {"WORKSHOP_PREFIX": "mfv2-unit"}, clear=True),
+        ):
+            request = Mock(side_effect=AssertionError("This guard must run before network access."))
+            gateway = self.gateway(request)
+            ledger_path = root / "outputs/azure-objects.json"
+            write_json(
+                ledger_path,
+                {
+                    "scope": {"search_endpoint": gateway.endpoint, "prefix": "mfv2-unit"},
+                    "corpus_hash": digest(load_documents(root, "ko")),
+                    "objects": [],
+                },
+            )
+            original = ledger_path.read_bytes()
+            for language, prefix in (("en", "mfv2-unit"), ("ko", "mfv2-new")):
+                with self.subTest(language=language, prefix=prefix):
+                    gateway.settings = replace(gateway.settings, language=language)
+                    os.environ["WORKSHOP_PREFIX"] = prefix
+                    gateway.index, gateway.source, gateway.kb = [
+                        f"{prefix}-{suffix}" for suffix in ("policies", "source", "kb")
+                    ]
+                    with self.assertRaisesRegex(ValueError, "fresh workshop copy"):
+                        gateway.seed(root, include_iq=True, confirmed=True)
+                    self.assertEqual(ledger_path.read_bytes(), original)
+            request.assert_not_called()
 
     def test_partial_upload_is_failure_with_ownership_retained(self):
         def handle(method, _path, **_kwargs):

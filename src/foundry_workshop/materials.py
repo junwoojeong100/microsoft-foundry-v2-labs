@@ -26,7 +26,8 @@ WORKSHEETS = {
     "en": {
         "session-notes.txt": (
             "BLANK WORKSHEET - fill with your own results; this is not execution evidence.\n"
-            "Keep this personal copy outside the repository. No passwords, keys, tokens or .env.\n\n"
+            "Use a personal untracked copy, not data/learner/. B may use its outputs/learner-notes-en/ folder.\n"
+            "No passwords, keys, tokens or .env. In B, mark browser-only Labs 01/03 as not run.\n\n"
             "Lab 00 - setup card\n"
             "Language / path:\n"
             "Tenant / subscription:\n"
@@ -57,6 +58,14 @@ WORKSHEETS = {
             "Historical-policy ID / effective dates / finding:\n"
             "Over-limit approval source / finding:\n"
             "Optional IQ Chat outcome or not run:\n\n"
+            "B - code evidence and incomplete handoff\n"
+            "Personal notes directory:\n"
+            "Lab 02/04/05/06 complete JSON output filenames:\n"
+            "Baseline / candidate / holdout labels actually collected:\n"
+            "Outcome (complete evidence / rejected / incomplete; not deployment approval):\n"
+            "Missing or blocked steps and exact reason:\n"
+            "Existing error files / request IDs:\n"
+            "Next permitted action and responsible owner:\n\n"
             "Pause / resume\n"
             "Last completed lab and step:\n"
             "Exact agent version / output labels:\n"
@@ -64,7 +73,8 @@ WORKSHEETS = {
             "Next guide link and action:\n"
         ),
         "workflow-review.txt": (
-            "BLANK WORKSHEET - one personally executed Lab 05 workflow, not an instructor recording.\n\n"
+            "BLANK WORKSHEET - personally executed Lab 05 workflows, not an instructor recording.\n"
+            "A records one sequential run. B repeats the fields below for sequential, concurrent and group-chat.\n\n"
             "Execution date / language / deployment:\n"
             "Exact command:\n"
             "Complete actual JSON output, including mode, pattern, outputs, approval_status and external_actions_performed:\n\n"
@@ -75,9 +85,9 @@ WORKSHEETS = {
         ),
         "operations-checklist.txt": (
             "BLANK WORKSHEET - inspect existing evidence; do not call Azure merely to fill a box.\n\n"
-            "1. Actual agent name / version / model checked against Lab 03:\n"
+            "1. Actual target (A agent/version/model; B project/model/run labels; Hosted version only if run):\n"
             "2. Instructions / tools / sources checked; unapproved connections, if any:\n"
-            "3. Six-row assessment and workflow review locations:\n"
+            "3. Assessment or evaluation-run folders, and workflow review locations:\n"
             "Actual trace evidence, or unverified when unavailable:\n"
             "4. Owned assets and separately approved cleanup actions:\n"
             "Shared assets to retain and responsible owner:\n"
@@ -89,7 +99,8 @@ WORKSHEETS = {
     "ko": {
         "session-notes.txt": (
             "빈 기록 양식 - 본인의 실제 결과로 채우세요. 이 파일 자체는 실행 증거가 아닙니다.\n"
-            "저장소 밖의 개인 복사본을 사용하세요. 비밀번호·key·token·.env는 넣지 않습니다.\n\n"
+            "data/learner/ 원본이 아닌 Git에 추적되지 않는 개인 복사본을 사용합니다. B는 outputs/learner-notes-ko/를 사용할 수 있습니다.\n"
+            "비밀번호·key·token·.env는 넣지 않습니다. B는 브라우저 전용 Lab 01/03을 미실행으로 표시합니다.\n\n"
             "Lab 00 - 설정 카드\n"
             "언어 / 경로:\n"
             "Tenant / subscription:\n"
@@ -120,6 +131,14 @@ WORKSHEETS = {
             "과거 정책 ID / 적용일 / 확인 결과:\n"
             "한도 초과 승인 근거 / 확인 결과:\n"
             "선택 IQ Chat의 결과 또는 미실행:\n\n"
+            "B - 코드 근거와 미완료 인계\n"
+            "개인 기록 폴더:\n"
+            "Lab 02/04/05/06의 실제 JSON 출력 전체 파일명:\n"
+            "실제 수집한 baseline / candidate / holdout label:\n"
+            "결과(근거 완비 / 반려 / 미완료이며 배포 승인이 아님):\n"
+            "빠졌거나 막힌 단계와 정확한 이유:\n"
+            "기존 오류 파일 / request ID:\n"
+            "다음 허용 작업과 담당자:\n\n"
             "중단 / 재개\n"
             "마지막으로 완료한 Lab과 단계:\n"
             "정확한 agent 버전 / output label:\n"
@@ -127,7 +146,8 @@ WORKSHEETS = {
             "다음 가이드 링크와 할 일:\n"
         ),
         "workflow-review.txt": (
-            "빈 기록 양식 - 강사 녹화가 아닌 본인이 실행한 Lab 05 workflow 한 건입니다.\n\n"
+            "빈 기록 양식 - 강사 녹화가 아닌 본인이 실행한 Lab 05 workflow 기록입니다.\n"
+            "A는 순차 실행 한 번을 기록합니다. B는 sequential·concurrent·group-chat마다 아래 항목을 반복합니다.\n\n"
             "실행 날짜 / 언어 / 배포:\n"
             "정확한 명령:\n"
             "mode, pattern, outputs, approval_status, external_actions_performed를 포함한 실제 JSON 출력 전체:\n\n"
@@ -138,9 +158,9 @@ WORKSHEETS = {
         ),
         "operations-checklist.txt": (
             "빈 기록 양식 - 기존 결과를 확인합니다. 칸을 채우려고 Azure를 다시 호출하지 않습니다.\n\n"
-            "1. Lab 03과 대조한 실제 agent 이름 / 버전 / 모델:\n"
+            "1. 실제 대상(A는 agent/버전/모델, B는 프로젝트/모델/label, Hosted 버전은 실행한 경우만):\n"
             "2. 확인한 지침 / 도구 / 원문과 승인되지 않은 연결(있다면):\n"
-            "3. 6행 평가표와 workflow 검토 파일 위치:\n"
+            "3. 평가표 또는 평가 실행 폴더와 workflow 검토 파일 위치:\n"
             "실제 trace 근거 또는 조회할 수 없을 때 미검증:\n"
             "4. 소유 자산과 별도로 승인받은 정리 작업:\n"
             "보존할 공유 자산과 담당자:\n"

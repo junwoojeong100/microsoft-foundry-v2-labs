@@ -1,5 +1,6 @@
 BLANK WORKSHEET - fill with your own results; this is not execution evidence.
-Keep this personal copy outside the repository. No passwords, keys, tokens or .env.
+Use a personal untracked copy, not data/learner/. B may use its outputs/learner-notes-en/ folder.
+No passwords, keys, tokens or .env. In B, mark browser-only Labs 01/03 as not run.
 
 Lab 00 - setup card
 Language / path:
@@ -35,6 +36,15 @@ Current-policy ID / effective dates / finding:
 Historical-policy ID / effective dates / finding:
 Over-limit approval source / finding:
 Optional IQ Chat outcome or not run:
+
+B - code evidence and incomplete handoff
+Personal notes directory:
+Lab 02/04/05/06 complete JSON output filenames:
+Baseline / candidate / holdout labels actually collected:
+Outcome (complete evidence / rejected / incomplete; not deployment approval):
+Missing or blocked steps and exact reason:
+Existing error files / request IDs:
+Next permitted action and responsible owner:
 
 Pause / resume
 Last completed lab and step:

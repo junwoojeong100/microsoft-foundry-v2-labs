@@ -6,9 +6,40 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="follow-through-review"></a>
+
+## Follow-through review — September 17, 2026
+
+The second review followed configuration, file handoff and optional Hosted setup from the `5cce55b` guide,
+rather than treating its editorial score as proof that every learner could finish.
+It found gaps the initial structural checklist did not establish:
+
+| Gap | Correction | Evidence boundary |
+|---|---|---|
+| A new language/label can still conflict with the old Search ownership scope | Exact `mfv2-` grammar, one-copy/scope rules and an explicit instructor ownership handoff | Language/prefix-change refusals reproduced locally before any network request; the old ledger remains unchanged |
+| B can enter from the source copy without receiving the browser worksheets | Executable, non-overwriting notes preparation; named JSON outputs and B-specific worksheet fields | Actual file copies and rejected reruns are tested, not inferred from links |
+| A blocked dev gate leaves no clear end-of-session handoff | Separate complete, rejected and incomplete handoffs; no acceptance command for absent runs | Missing work stays incomplete; holdout and business thresholds are not weakened |
+| Optional Hosted setup requires manual YAML merging and relies on shell state | Reuse the package-verifying helper with `--kind runtime`, a separate directory and guarded, service-scoped azd commands | Actual manifest generation plus stubbed environment/readback contracts; missing scope variables stop before azd runs |
+
+The preparation helper supports only language-matched **local/v2/project-Responses** introductory packages.
+The existing Toolbox and CI Invocations contracts remain distinct. No model or retrieval fallback was added.
+`cleanup-plan` now links to the selected language's cleanup guide.
+Official manifest documentation and installed azd help were reviewed on September 17; this is **not a new Azure deployment result**.
+
+The checks verify concrete behavior, including safe copies, directory/profile rejection and missing-value guards.
+The editorial-table test checks arithmetic and the unrun pilot, **not a hardcoded 95-point outcome**.
+The earlier score below remains an initial self-assessment; no additional usability points or novice completion rate are claimed.
+Canonical prompts, policy/evaluation/fixture data and existing media remain unchanged.
+No new paid model/judge call, resource/role change, Azure deployment or novice pilot was performed for this review.
+
+**Local acceptance of this follow-through revision:** 215 offline tests passed on each of Python 3.13 and 3.14.
+Ruff 0.16.6 lint/format, Python compilation, both deterministic learner bundles and documentation checks passed
+(61 language pairs, 332 workshop CLI examples, no pending translations).
+The scope-guard tests use a local azd stub and cover both unset and empty values; they do not run a deployment.
+
 <a id="guide-straightforwardness"></a>
 
-## Guide straightforwardness — September 17, 2026
+## Initial guide straightforwardness assessment — September 17, 2026
 
 **Self-assessed editorial acceptance: 95/100.** This is an explicit rubric for the **prepared A/B core guides**,
 not an independent usability benchmark, a 95% learner-success rate, or a rating of every optional C integration.

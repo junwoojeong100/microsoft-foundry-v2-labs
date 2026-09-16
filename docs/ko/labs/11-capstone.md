@@ -58,7 +58,15 @@ A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다.
 
 ## 경험자 인수 명령
 
-[Lab 07](07-evaluation.md)의 실제 후보·holdout label을 사용합니다.
+**명령 전에 인계 결과를 구분합니다.** 본인 파일의 실제 상태를 사용합니다.
+
+| 있는 근거 | 인계 행동 | 상태 |
+|---|---|---|
+| 완전한 실제 후보와 연결된 holdout | 아래 인수 보고서를 읽거나 생성 | 업무 게이트가 통과한 경우에만 사람 검토 준비 |
+| 기록은 완전하지만 최종 업무 게이트 실패 | 보고서와 모든 실패 행 보존 | 반려. 배포 승인이 아님 |
+| 필수 실행/단계가 누락되거나 막힘 | `accept`를 건너뛰고 [미완료 인계](#incomplete-handoff) | 미완료. 전체 B 완료가 아님 |
+
+[Lab 07](07-evaluation.md)의 실제 후보·holdout이 있는 경우에만 해당 label을 사용합니다.
 이미 Lab 07에서 실행했다면 반복하는 대신 `outputs/final-holdout/acceptance.json`을 엽니다.
 
 ```bash
@@ -75,9 +83,22 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 `deployment_approved: false`, `cloud_judge_results_included: false`는 명시적인 범위 제한이며 우회할 승인 오류가 아닙니다.
 사진의 holdout은 이미 사용된 교육용 세트이므로 새로운 미사용 검증셋의 합격으로 주장하지 않습니다.
 
-**B 완료:** 기존 baseline/candidate/holdout 폴더·비교·검토·Lab 04–06 출력·패키지 manifest·`operations-checklist.txt`를 인계합니다.
+<a id="incomplete-handoff"></a>
+
+### 필수 작업이 미완료인 경우
+
+`session-notes.txt`의 **B 결과** 구간을 사용합니다. 새 모델 호출이나 만들어 낸 보고서는 필요 없습니다.
+마지막 완료 단계·실패 명령/오류·실제로 있는 실행 폴더·**미수집** 항목을 적습니다.
+부분 manifest와 오류 파일은 수정하지 않습니다. 다음 허용 작업과 담당자를 기록합니다.
+없는 실행을 `오류 0개`로 적거나 `acceptance.json`을 꾸미거나 dev 게이트 실패 후 holdout을 열거나 원래 실패를 삭제하지 않습니다.
+
+유용한 막힌 작업 인계이지, **B의 빠진 필수 요건을 성공적으로 완료했다는 뜻은 아닙니다**.
+`operations-checklist.txt`의 소유/공유 자산·남은 비용 항목도 마무리합니다.
+
+**B 완료:** 실제 존재하는 baseline/candidate/holdout 폴더·비교/검토·생성한 Lab 04–06 출력·패키지 manifest와
+`session-notes.txt`, `operations-checklist.txt`를 인계합니다.
 [리뷰어 체크리스트](#리뷰어의-인수-체크리스트)와 [정리 인계](../reference/cleanup.md)로 마칩니다.
-업무 게이트 실패는 **반려**, 생략한 로컬/원격 호스팅·cloud judge·trace는 **미실행/미검증**으로 남깁니다.
+업무 게이트 실패는 **반려**, 빠진 필수 단계는 **미완료**, 생략한 선택 로컬/원격 호스팅·cloud judge·trace는 **미실행/미검증**으로 남깁니다.
 
 ## Hosted workflow/evaluation 심화 인수 자료
 

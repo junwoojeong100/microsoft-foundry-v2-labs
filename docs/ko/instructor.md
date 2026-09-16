@@ -11,7 +11,7 @@
 | 수업 | 기본 준비 | 미리 빼도 되는 것 |
 |---|---|---|
 | A. 완전초보자 | 브라우저 계정, 프로젝트, 모델, 합성 문서, 평가표, 준비된 MAF 실행 환경 | Python 코드 작성, Hosted, 실제 M365/Fabric |
-| B. 경험자 | 위 + Python/SDK, 읽기 권한, 코드 환경 | 유료 judge, Hosted 원격 배포는 별도 게이트 |
+| B. 경험자 | Python/SDK·코드 환경·모델 접근·Search 서비스와 Lab 06의 범위 제한 읽기/쓰기 권한 | 유료 judge·로컬/원격 Hosted 실행·실제 telemetry는 별도 게이트 |
 | IQ 심화 | 준비된 Search, 인증·semantic/knowledge retrieval 설정 | planner·임베딩·richer Preview는 기본 GA에 불필요 |
 | Hosted 심화 | 3.13 런타임, 실제 ARM ID, 배포/identity 권한 | 로컬 Docker는 code deployment에 불필요 |
 
@@ -23,7 +23,9 @@ SDK·가상환경·학습자 계정의 모델 호출 권한을 미리 확인합�
 영어·한국어는 ID·날짜·금액·정답 기준이 동등한 **별도 동결 언어 번들**입니다.
 영어 명령은 `--language en`을 명시하며 서로를 자동 대체하지 않습니다.
 학습자에게 정답 레코드나 JSON 조립 과제 대신 [준비 카드·완성된 ZIP](setup.md)을 전달합니다.
-완성 지침·TXT 원문 6개·질문 전용 파일·빈 평가표가 있으며 [언어 계보](reference/languages.md)를 유지합니다.
+완성 지침·TXT 원문 6개·질문 전용 파일·빈 평가/검토/운영 양식이 있습니다.
+B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록 양식을 준비하므로 브라우저 ZIP을 추가로 받을 필요가 없습니다.
+[언어 계보](reference/languages.md)는 유지합니다.
 
 ## 2. 3–7일 전: 계정·권한·비용
 
@@ -52,10 +54,10 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 - 구독·tenant, Resource Group, Foundry 리소스 이름.
 - `/api/projects/...`까지 포함한 프로젝트 endpoint.
 - 응답용 배포 `gpt-5.6-luna`와 확인한 실제 모델 버전 `2026-07-09`.
-- 조별 `WORKSHOP_PREFIX`.
+- 조별 `WORKSHOP_PREFIX`: `mfv2-` 뒤에 소문자 영문·숫자·하이픈 하나씩 사용하며 전체 최대 32자.
 - 선택 Search endpoint·계정 OpenAI root·**`iq-chat setup`이 출력한 chat-base 이름**. GA base와 구분.
 - 선택 judge 배포와 실제 underlying model.
-- Hosted를 선택한 경우 실제 프로젝트 ARM ID와 고유 agent 이름.
+- Hosted를 선택한 경우 실제 프로젝트 ARM ID·location 코드·고유 agent 이름·빈 독립 폴더.
 
 Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화한 MAF 터미널도 전달합니다.
 혼자 학습하면 [Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)가 전체 준비 경로이며 강사의 숨은 조작을 전제로 하지 않습니다.
@@ -88,6 +90,12 @@ Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화
 모델 배포나 역할 부여는 하지 않습니다. [상세 설정·복구](reference/iq-model-identity.md)를 확인하세요.
 학습자 CLI에는 실습 Foundry 계정·Search의 Reader와 검색용 Search Index Data Reader도 확인합니다.
 프로젝트 권한만으로 계정 ARM/역할 조회가 되는 것은 아니므로 Lab 06 중간에 이 선행 조건을 발견하지 않도록 합니다.
+
+**소유권 인계:** 새 B 학습자 복사본에는 Search 서비스/권한과 아직 seed하지 않은 고유 prefix를 제공합니다.
+먼저 객체를 seed했다면 해당 ledger가 있는 승인된 준비 작업 폴더를 사용합니다.
+Seed한 prefix만 주거나 다른 조의 ledger를 배포하지 않습니다.
+영어/한국어 선택만으로 Search 이름이 바뀌지 않습니다. 언어/prefix 변경 시에는
+[새 복사본 규칙](reference/configuration.md#workspace-scope)을 따르고 원래 정리 기록을 보존합니다.
 
 ## 4. 하루 전: 같은 배포본으로 리허설
 

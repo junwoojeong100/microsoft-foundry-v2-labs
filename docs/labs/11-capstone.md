@@ -58,7 +58,15 @@ No optional module or new Azure request is needed to submit these files.
 
 ## Practitioner acceptance command
 
-If you have the actual candidate and holdout from [Lab 07](07-evaluation.md), use their labels.
+**Choose the outcome before running a command.** Use the actual state of your own files:
+
+| Evidence available | Handoff action | Status |
+|---|---|---|
+| Complete real candidate and bound holdout | Read or create the acceptance report below | Ready for human review only if its business gate passes |
+| Complete records but a failed final business gate | Preserve the report and all failed rows | Rejected; not deployment approval |
+| A required run or stage is missing/blocked | Skip `accept`; use [incomplete handoff](#incomplete-handoff) | Incomplete; not full B completion |
+
+Only if you have the actual candidate and holdout from [Lab 07](07-evaluation.md), use their labels.
 If already run in Lab 07, open `outputs/final-holdout/acceptance.json` instead of repeating the command:
 
 ```bash
@@ -76,10 +84,22 @@ and `recommendation` (`ready-for-human-review` or `reject`).
 `deployment_approved: false` and `cloud_judge_results_included: false` are explicit limits, not missing approvals to bypass.
 The recorded holdout was already exposed teaching data, not a fresh unseen test.
 
-**B done:** hand over the existing baseline/candidate/holdout folders, comparison and review,
-Lab 04–06 outputs, package manifest and `operations-checklist.txt`.
+<a id="incomplete-handoff"></a>
+
+### When required work is incomplete
+
+Use the **B outcome** section of your `session-notes.txt`; no new model call or invented report is needed.
+Record the last completed step, the failed command/error, which run folders actually exist, and which were **not collected**.
+Keep partial manifests and error files unchanged. Record the next permitted action and responsible owner.
+Do not report missing runs as `0 errors`, manufacture an `acceptance.json`, unlock holdout after a failed dev gate, or delete the original failure.
+
+This is a useful blocked-work handoff, **not successful completion of B's missing requirements**.
+Still finish the owned/shared asset and residual-cost entries in `operations-checklist.txt`.
+
+**B done:** hand over only the baseline/candidate/holdout folders that exist, comparison/review,
+Lab 04–06 outputs and package manifest if produced, plus `session-notes.txt` and `operations-checklist.txt`.
 Finish the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
-Mark a failed business gate **rejected**, and any omitted local/remote hosting, cloud judge or trace work **not run / unverified**.
+Mark a failed business gate **rejected**, missing required stages **incomplete**, and omitted optional local/remote hosting, cloud judge or trace work **not run / unverified**.
 
 ## Hosted workflow/evaluation acceptance evidence
 

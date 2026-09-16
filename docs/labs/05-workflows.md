@@ -161,7 +161,8 @@ human review. Reaching the round limit is not model consensus or business approv
 | Group Chat | Short mutual review/coordination | Stopping rules, repetition, conformity |
 | Single agent | Simple rules | Do not add agents without a reason |
 
-**B done:** save all three complete terminal outputs and your comparison/review in the evidence folder.
+**B done:** save `workflow-sequential.json`, `workflow-concurrent.json`, `workflow-group-chat.json`
+and your `workflow-review.txt` in the Lab 00 notes directory.
 Each must retain `approval_status: pending-human-review` and `external_actions_performed: false`.
 Continue to [Lab 06 B](06-knowledge.md#path-b); durable approval and deployable wrappers are separate extensions.
 

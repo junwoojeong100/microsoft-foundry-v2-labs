@@ -98,6 +98,11 @@ Set `AZURE_SEARCH_ENDPOINT` and a unique `WORKSHOP_PREFIX`.
 Subscription Owner alone does not imply Search data access. Scripts do not create a
 Search service or roles; they create **your prefixed objects inside a prepared service**.
 
+**Choose the ownership situation before seeding.** A new learner copy needs a new, unseeded `mfv2-...` prefix and writer permissions.
+An instructor-prepared copy must already contain the matching `outputs/azure-objects.json`.
+An existing remote index plus an empty local ledger is not ready for a create/update exercise; do not overwrite it.
+`--language en` does not append `-en` to Search names. See [workspace/language changes](../reference/configuration.md#workspace-scope).
+
 ### 2. Inspect the small source corpus
 
 ```bash
@@ -127,7 +132,8 @@ python scripts/workshop.py --language en seed-search --confirm-create
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | `<WORKSHOP_PREFIX>-kb` |
 
 Existing objects without your local ownership record are not overwritten.
-Use a new prefix or ask the instructor to recover ownership. Partial document upload
+If changing prefix after any seeding, use a fresh source copy as well, or ask the instructor to recover the original working copy.
+Do not delete the old ledger. Partial document upload
 failure is not overall success.
 
 
@@ -210,8 +216,10 @@ flowchart LR
     A --> V
 ```
 
-**B done:** save the complete local/Search/IQ retrieval and IQ answer outputs in your evidence folder,
+**B done:** save the complete outputs as `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`
+and `answer-iq.json` in your Lab 00 notes directory,
 including original IDs, `references`, `activity`, `context_hash` and the ownership ledger.
+Keep the original `outputs/azure-objects.json` in place; a copied output file does not establish object ownership.
 Continue to [Lab 07 B](07-evaluation.md#path-b). That lesson starts a **declared local-retrieval experiment**; it does not reuse this IQ answer as an evaluation result.
 
 ## C. Optional real hybrid RAG

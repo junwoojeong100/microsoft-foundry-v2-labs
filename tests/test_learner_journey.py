@@ -234,17 +234,188 @@ class LearnerJourneyTests(unittest.TestCase):
                 ):
                     self.assertIn(name, setup)
 
-    def test_straightforwardness_rubric_totals_95_without_awarding_an_unrun_pilot(self):
+    def test_editorial_rubric_is_consistent_without_forcing_a_particular_score(self):
         for language, directory, _ in self.language_labs():
             with self.subTest(language=language):
                 text = (directory / "reference/validation.md").read_text()
-                self.assertIn('<a id="guide-straightforwardness"></a>', text)
-                rows = re.findall(r"^\| (\d{2}) \|[^\n]+\| ([0-5]) \|$", text, re.MULTILINE)
+                anchor = '<a id="guide-straightforwardness"></a>'
+                self.assertIn(anchor, text)
+                section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
+                rows = re.findall(r"^\| (\d{2}) \|[^\n]+\| (\d+) \|$", section, re.MULTILINE)
                 self.assertEqual([int(number) for number, _ in rows], list(range(1, 21)))
                 awarded = [int(points) for _, points in rows]
-                self.assertEqual(awarded, [5] * 19 + [0])
-                self.assertEqual(sum(awarded), 95)
-                self.assertIn(f"{sum(awarded)}/100", text)
+                self.assertTrue(all(0 <= points <= 5 for points in awarded))
+                self.assertEqual(awarded[-1], 0)
+                claimed = re.search(r"\b(\d{1,3})/100\b", section)
+                if claimed is None:
+                    self.fail(
+                        "The editorial table needs an explicit, arithmetically consistent total."
+                    )
+                self.assertEqual(int(claimed[1]), sum(awarded))
+
+    def test_b_notes_copy_is_executable_and_never_overwrites_personal_records(self):
+        names = (
+            "session-notes.txt",
+            "workflow-review.txt",
+            "operations-checklist.txt",
+            "SOURCE.json",
+        )
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language), workspace() as root:
+                section = labs[0].read_text().split('<a id="prepare-notes"></a>', 1)[1]
+                block = re.findall(r"```bash\n(.*?)```", section, re.DOTALL)[0]
+                directory = f"outputs/learner-notes-{language}"
+                self.assertEqual(
+                    shlex.split(block),
+                    [
+                        "mkdir",
+                        "-p",
+                        "outputs",
+                        "&&",
+                        "mkdir",
+                        directory,
+                        "&&",
+                        "cp",
+                        f"data/learner/{language}/{{{','.join(names)}}}",
+                        directory + "/",
+                    ],
+                )
+                first = subprocess.run(
+                    ["bash", "-c", block],
+                    cwd=root,
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                    check=False,
+                )
+                self.assertEqual(first.returncode, 0, first.stderr)
+                self.assertEqual({path.name for path in (root / directory).iterdir()}, set(names))
+                for name in names:
+                    self.assertEqual(
+                        (root / directory / name).read_bytes(),
+                        (root / "data/learner" / language / name).read_bytes(),
+                    )
+                notes = root / directory / "session-notes.txt"
+                notes.write_text("Synthetic learner observation that must survive a rerun.\n")
+                before = {path.name: path.read_bytes() for path in (root / directory).iterdir()}
+                repeated = subprocess.run(
+                    ["bash", "-c", block],
+                    cwd=root,
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                    check=False,
+                )
+                self.assertNotEqual(repeated.returncode, 0)
+                self.assertEqual(
+                    {path.name: path.read_bytes() for path in (root / directory).iterdir()}, before
+                )
+
+    def test_hosted_guide_has_one_preparation_route_and_explicit_guarded_azd_scope(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                text = labs[8].read_text()
+                blocks = re.findall(r"```bash\n(.*?)```", text, re.DOTALL)
+                lines = [
+                    line.strip()
+                    for block in blocks
+                    for line in block.replace("\\\n", " ").splitlines()
+                ]
+                prepare = [
+                    shlex.split(line)
+                    for line in lines
+                    if line.startswith("python scripts/prepare_hosted_azd.py ")
+                    and "--help" not in line
+                ]
+                self.assertEqual(
+                    prepare,
+                    [
+                        [
+                            "python",
+                            "scripts/prepare_hosted_azd.py",
+                            "--language",
+                            language,
+                            "--kind",
+                            "runtime",
+                            "--package",
+                            "$HOSTED_PACKAGE",
+                            "--directory",
+                            "$HOSTED_DIRECTORY",
+                            "--agent-name",
+                            "$HOSTED_AGENT_NAME",
+                            "--initialize-env",
+                            "--project-id",
+                            "$PROJECT_ARM_ID",
+                            "--location",
+                            "$PROJECT_LOCATION",
+                        ]
+                    ],
+                )
+                self.assertFalse(any(line.startswith("azd ai agent init ") for line in lines))
+                scoped = [
+                    line.removesuffix("&&").rstrip()
+                    for line in lines
+                    if line.startswith(
+                        ("azd deploy ", "azd ai agent show ", "azd ai agent invoke ")
+                    )
+                ]
+                self.assertEqual(sum(line.startswith("azd deploy ") for line in scoped), 1)
+                self.assertEqual(len(scoped), 5)
+                values = {
+                    "HOSTED_DIRECTORY": str(ROOT),
+                    "HOSTED_AGENT_NAME": "mfv2-unit",
+                    "HOSTED_AGENT_VERSION": "1",
+                }
+                for line in scoped:
+                    arguments = shlex.split(line)
+                    self.assertIn("--cwd", arguments)
+                    self.assertTrue(
+                        arguments[arguments.index("--cwd") + 1].startswith("${HOSTED_DIRECTORY:?")
+                    )
+                    if arguments[1] == "deploy":
+                        self.assertTrue(arguments[2].startswith("${HOSTED_AGENT_NAME:?"))
+                    if "--version" in arguments:
+                        self.assertTrue(
+                            arguments[arguments.index("--version") + 1].startswith(
+                                "${HOSTED_AGENT_VERSION:?"
+                            )
+                        )
+                    for missing in re.findall(r"\$\{(HOSTED_[A-Z_]+):\?", line):
+                        for empty in (False, True):
+                            with self.subTest(command=line, missing=missing, empty=empty):
+                                environment = {"PATH": os.defpath, **values}
+                                if empty:
+                                    environment[missing] = ""
+                                else:
+                                    del environment[missing]
+                                result = subprocess.run(
+                                    [
+                                        "bash",
+                                        "-c",
+                                        "azd() { printf 'UNEXPECTED_AZD_CALL'; }\n" + line,
+                                    ],
+                                    env=environment,
+                                    capture_output=True,
+                                    text=True,
+                                    timeout=10,
+                                    check=False,
+                                )
+                                self.assertNotEqual(result.returncode, 0)
+                                self.assertNotIn("UNEXPECTED_AZD_CALL", result.stdout)
+                                self.assertIn(missing, result.stderr)
+
+    def test_incomplete_evaluation_has_a_handoff_before_any_holdout_unlock(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                evaluation = self.core_section(language, labs[7], "B")
+                link = "(11-capstone.md#incomplete-handoff)"
+                self.assertIn(link, evaluation)
+                self.assertLess(evaluation.index(link), evaluation.index("--unlock-holdout"))
+                handoff = self.core_section(language, labs[11], "B")
+                incomplete = handoff.split('<a id="incomplete-handoff"></a>', 1)[1]
+                self.assertIn("session-notes.txt", incomplete)
+                self.assertIn("operations-checklist.txt", incomplete)
+                self.assertEqual(DOCS.workshop_commands(incomplete), [])
 
     def test_lab_bash_blocks_parse_without_executing_cloud_commands(self):
         for language, _, labs in self.language_labs():
@@ -358,7 +529,14 @@ class LearnerJourneyTests(unittest.TestCase):
                 )
                 cleanup = run(root, cleanup_commands[0][1])
                 self.assertEqual(cleanup.returncode, 0, cleanup.stderr)
-                self.assertFalse(json.loads(cleanup.stdout)["deletes_resources"])
+                cleanup_result = json.loads(cleanup.stdout)
+                self.assertFalse(cleanup_result["deletes_resources"])
+                self.assertEqual(
+                    cleanup_result["guide"],
+                    "docs/reference/cleanup.md"
+                    if language == "en"
+                    else "docs/ko/reference/cleanup.md",
+                )
                 self.assertTrue((root / ".build" / package_name / "package-manifest.json").exists())
                 self.assertEqual(
                     {

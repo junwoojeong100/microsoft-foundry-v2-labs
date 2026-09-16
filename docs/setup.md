@@ -16,6 +16,7 @@ permissions, model quota or billing approval. If you already have the checked it
 Do not follow A, B and C simultaneously. **First-time users choose A** in [Learning paths](paths.md).
 A uses the browser until the prepared MAF step in Lab 05; B/C add code and optional deployment/evaluation.
 Keep one language for the whole pass. Switching languages changes the input bundle and requires new run labels, not reuse of the other language's scores.
+After Search objects have been seeded, also use a new source copy and owned prefix; a new label alone cannot change the existing ownership scope.
 
 ## 2. Fill this environment card
 
@@ -29,12 +30,12 @@ Fill only the rows required for your selected route; optional fields do not bloc
 | Foundry account, project and resource group | A/B | Your training project's resource details |
 | Full project endpoint | A's prepared terminal / B | Foundry project home; retain `/api/projects/<project>` |
 | **Answer deployment** | A/B | **`gpt-5.6-luna`**, underlying model of the same name, version **`2026-07-09`** for this dated workshop preset |
-| Prefix | A/B | One unique lowercase ASCII prefix, for example `mfv2-team01-0915`, maximum 32 characters |
+| Prefix | A/B | Must start with **`mfv2-`**; use lowercase letters/digits and single hyphens, no trailing hyphen, maximum 32 characters total. Example: `mfv2-team01-en-0917` |
 | Code environment | A Lab 05 / all B code | Repository folder, Python 3.13, activated `.venv`, learner's own Azure sign-in |
 | Search endpoint | B Lab 06 / optional IQ Chat | Existing training Search service; not required for A's inline source checks |
 | Account OpenAI endpoint | Optional IQ Chat / advanced account API | `https://<your-account>.openai.azure.com`; same account as the project |
 | IQ chat base | Optional IQ Chat only | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
-| Hosted inputs | Optional local/remote hosting only | Actual project ARM ID, owned agent name and required approvals; **not needed to package** |
+| Hosted inputs | Optional local/remote hosting only | Actual project ARM ID and location code, owned agent name, an empty standalone local directory and required approvals; **not needed to package** |
 
 **Model choice is not a learner experiment on the first pass.** Use Luna, not `-judge`, Astra or a router.
 If this exact deployment/version is unavailable, the owner must resolve availability or explicitly revalidate another edition.
@@ -100,6 +101,8 @@ If you are learning alone, you are also the environment owner. These are prepara
    The CLI's deployment preflight also needs **Reader on the training Foundry account**. Test with that learner's account, not only an administrator.
 4. For B's GA Search/IQ or optional IQ Chat, prepare Basic-or-higher Search, semantic/knowledge retrieval access,
    and Search read/write permissions for the person who seeds the synthetic index.
+   For B learners starting from a fresh copy, prepare the **service and permissions**, not objects under their new prefixes.
+   If supplying pre-seeded objects, supply the authorized matching working copy; endpoint/base names alone do not supply its local ownership ledger.
 5. **Only for optional model-based IQ Chat**, enable Search's system-assigned identity.
    On the model's Foundry account, give **the Search identity** `Cognitive Services User`.
    A role assigned to the user or Hosted agent does not grant it to Search.
@@ -112,7 +115,8 @@ The read-only `check` also reads role assignments at the model-account scope.
 Only the owner who seeds/creates objects needs Search Service Contributor and Search Index Data Contributor.
 Use resource-level scopes, not subscription Owner for everyone. [Official Search role matrix](https://learn.microsoft.com/azure/search/search-security-rbac#summary-of-permissions), checked September 15, 2026.
 
-**After authorization for these training objects**, prepare the separate fixed-model chat base:
+**Only for the separately selected IQ Chat branch, after authorization for these training objects**, prepare the fixed-model chat base.
+Do not run this block for a default B GA-only class. Keep the owner's copy/ledger; do not give another fresh learner copy the same seeded prefix.
 
 ```bash
 python scripts/workshop.py --language en seed-search --iq --confirm-create

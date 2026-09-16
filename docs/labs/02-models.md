@@ -152,7 +152,8 @@ Stop if the model rejects `json_schema`. The code does not silently switch to pl
 text or repair invalid JSON. Explicitly configure an instructor-verified deployment
 and record a new run after resolving support.
 
-**B done:** save both complete JSON outputs, including response IDs, usage and source IDs, in your personal evidence folder.
+**B done:** save the complete outputs as `model.json` and `answer-local.json` in your Lab 00 notes directory,
+including response IDs, usage and source IDs.
 Continue to [Lab 04 B](04-agents-tools.md#path-b). If you came only to prepare A's terminal, return to [Lab 05 A](05-workflows.md#path-a).
 
 ## Practitioner extension: compare models correctly

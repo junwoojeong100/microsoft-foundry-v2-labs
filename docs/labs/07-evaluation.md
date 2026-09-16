@@ -196,6 +196,9 @@ Use this language's actual results, not the other edition's scores.
 `total: 6`, `passed: 6`, `errors: 0`, `business_gate_passed: true`, and the comparison must accept the frozen configuration.
 If not, stop here, review dev failures and retain the rejected candidate; do not open holdout or lower the checks.
 An error-free collection or `compare` exit code `0` alone is not this gate.
+If the gate cannot be resolved in this session, skip holdout and keep **final evaluation incomplete**.
+You may still finish local [packaging](08-hosted.md#path-b), [operations](09-operations.md#path-b)
+and the [incomplete handoff](11-capstone.md#incomplete-handoff); none converts the rejected candidate into acceptance.
 
 Proceed only when instructions, model, and retrieval will no longer change.
 `--candidate` links the frozen dev candidate.

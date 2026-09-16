@@ -16,6 +16,7 @@
 A·B·C를 동시에 따라가지 않습니다. **처음이면 [학습 경로](paths.md)의 A를 선택합니다.**
 A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 코드·선택 배포·평가를 추가합니다.
 한 회차는 같은 언어로 진행합니다. 언어를 바꾸면 입력 번들이 달라지므로 새 label을 쓰고 다른 언어의 점수를 재사용하지 않습니다.
+Search 객체를 seed한 뒤라면 새 소스 복사본과 소유 prefix도 필요합니다. 새 label만으로 기존 소유권 범위를 바꿀 수 없습니다.
 
 ## 2. 환경 카드 채우기
 
@@ -29,12 +30,12 @@ A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 �
 | Foundry 계정·프로젝트·리소스 그룹 | A/B | 실습 프로젝트의 리소스 상세 |
 | 전체 project endpoint | A의 준비 터미널 / B | Foundry 프로젝트 홈. `/api/projects/<project>`를 유지 |
 | **응답 모델 배포** | A/B | **`gpt-5.6-luna`**, 실제 모델도 같은 이름, 이 날짜의 preset은 **`2026-07-09`** 버전 |
-| Prefix | A/B | 소문자 영문·숫자·하이픈의 고유 이름. 예: `mfv2-team01-0915`, 최대 32자 |
+| Prefix | A/B | 반드시 **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈 하나씩 사용하며 끝 하이픈 금지. 전체 최대 32자. 예: `mfv2-team01-ko-0917` |
 | 코드 환경 | A Lab 05 / B 전체 코드 | 저장소 폴더·Python 3.13·활성화된 `.venv`·학습자 본인 Azure 로그인 |
 | Search endpoint | B Lab 06 / 선택 IQ Chat | 기존 실습 Search 서비스. A의 인라인 원문 확인에는 불필요 |
 | 계정 OpenAI endpoint | 선택 IQ Chat / 심화 계정 API | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
 | IQ chat base | 선택 IQ Chat만 | `iq-chat setup`의 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
-| Hosted 값 | 선택 로컬·원격 호스팅만 | 실제 project ARM ID·본인 agent 이름·필요한 승인. **패키징에는 불필요** |
+| Hosted 값 | 선택 로컬·원격 호스팅만 | 실제 project ARM ID·location 코드·본인 agent 이름·빈 독립 로컬 폴더·필요한 승인. **패키징에는 불필요** |
 
 **첫 실습에서 모델 선택 실험은 하지 않습니다.** Luna를 사용하고 `-judge`·Astra·router를 고르지 않습니다.
 해당 배포/버전이 없으면 환경 담당자가 가용성을 해결하거나 다른 에디션을 명시적으로 재검증해야 합니다.
@@ -100,6 +101,8 @@ A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 �
    CLI의 배포 사전 조회에는 **실습 Foundry 계정의 Reader**도 필요합니다. 관리자뿐 아니라 학습자 계정으로 실제 호출을 점검합니다.
 4. B의 GA Search/IQ 또는 선택 IQ Chat을 진행한다면 Basic 이상 Search, semantic/knowledge retrieval 사용 조건과
    합성 index를 작성할 사람의 Search 읽기/쓰기 권한을 준비합니다.
+   새 복사본으로 시작하는 B 학습자에게는 **서비스·권한**을 준비하고, 새 학습자 prefix의 객체를 미리 만들지 않습니다.
+   이미 seed한 객체를 제공한다면 승인된 대응 작업 폴더를 제공합니다. Endpoint/base 이름만으로 로컬 소유권 ledger가 생기지 않습니다.
 5. **선택 모델 기반 IQ Chat에서만** Search의 system-assigned identity를 켭니다.
    모델의 Foundry 계정에서 **Search identity**에 `Cognitive Services User`를 부여합니다.
    사용자나 Hosted agent에 준 역할이 Search에 생기는 것은 아닙니다.
@@ -112,7 +115,8 @@ Source를 seed하거나 객체를 만드는 담당자만 Search Service Contribu
 모두에게 구독 Owner를 주지 말고 리소스 범위를 사용합니다.
 [공식 Search 권한 표](https://learn.microsoft.com/azure/search/search-security-rbac#summary-of-permissions), 2026-09-15 확인.
 
-**실습 객체 작성·비용 승인을 받은 뒤** 별도의 고정 모델 chat base를 준비합니다.
+**별도로 선택한 IQ Chat 경로에서만 실습 객체 작성·비용 승인을 받은 뒤** 고정 모델 chat base를 준비합니다.
+기본 B GA-only 수업을 위해 아래 블록을 실행하지 않습니다. 담당자의 복사본/ledger를 보존하고 다른 새 학습자 복사본에 같은 seed된 prefix를 주지 않습니다.
 
 ```bash
 python scripts/workshop.py seed-search --iq --confirm-create

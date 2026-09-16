@@ -33,7 +33,7 @@ Choose a different stopping point only with its prerequisites already met; local
 | Stopping point | Prerequisites | Follow |
 |---|---|---|
 | Package only | Repository and Python; no Azure writes or Hosted SDK needed | Section 1, then Lab 09 |
-| Package + local response | Lab 04 `maf --tools` success, Python 3.13, Hosted SDK, compatible azd/extension, actual project values, inference cost approval | Sections 1–3 and 5 |
+| Package + local response | Lab 04 `maf --tools` success, Python 3.13, Hosted SDK, compatible azd/extension, actual project ARM ID/location, inference cost approval | Sections 1–3 and 5 |
 | Remote single agent | Above plus Hosted region/capacity, deployment/runtime-identity permission, session-cost approval | Sections 1–5 |
 | Advanced workflow/matrix | Lab 05 C and a separate prepared workspace | Section 6 or the section 7 workbook, not both by default |
 
@@ -83,85 +83,72 @@ python -m pip install -e ".[hosted]"
 azd version
 azd ext list
 azd auth login
-azd ai agent init --help
+python scripts/prepare_hosted_azd.py --help
 ```
 
 If the extension is absent, follow the current
 [official Hosted quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent).
-Collect these values **before** initialization. An ARM ID is not a portal URL or project endpoint.
+Keep this terminal at the **source repository root**. The helper reads its existing `.env`,
+verifies the generated package and creates a separate local azd project; it does not run `azd ai agent init`
+in your source copy or ask you to merge YAML by hand.
+An existing local `azure.yaml`/`.azure` is preserved, not a reason to overwrite or repeatedly initialize it.
 
 | Input | Exact source |
 |---|---|
+| `HOSTED_PACKAGE` | The exact directory printed by `package_hosted.py`; `.build/hosted-en` for the default single agent, or section 6's explicit workflow package |
+| `HOSTED_DIRECTORY` | A **new empty absolute path**, outside this source repository and any existing azd project; no `~` shorthand |
 | `PROJECT_ARM_ID` | Owner's verified project resource ID; for self-study, the project resource's Azure portal **JSON View → id**, not the parent account ID |
-| `PROJECT_ENDPOINT` | Your setup card's full `/api/projects/...` endpoint |
+| `PROJECT_LOCATION` | That project's actual location **code**, such as `swedencentral`, not a display name with spaces or a recording's assumed region |
 | `HOSTED_AGENT_NAME` | New owned name, such as your prefix plus `-hosted` |
-| Model deployment | **`gpt-5.6-luna`**, already verified in Lab 02 |
+| Endpoint/model/prefix/output limit | Read from this copy's `.env`; use the values already verified in Lab 00/02, not new model choices |
 
-Use a standalone workshop directory, **not a child of another azd project**.
-azd may discover a parent `azure.yaml` and add a service there.
-If this copy already has `azure.yaml`, do not initialize again; use a fresh independent copy or review the existing project with its owner.
-Keep the following commands in the same terminal so the entered values remain available.
+Enter actual values once. For a workflow, build its package in section 6 first, then use this same setup with that returned path.
+Keep the directory and agent name in `session-notes.txt` for a new terminal.
 
 ```bash
+printf 'Existing package directory printed by package_hosted.py: '
+read -r HOSTED_PACKAGE
+printf 'New empty absolute directory for this Hosted project: '
+read -r HOSTED_DIRECTORY
 printf 'Actual project ARM resource ID: '
 read -r PROJECT_ARM_ID
-printf 'Full project endpoint: '
-read -r PROJECT_ENDPOINT
+printf 'Actual project location code: '
+read -r PROJECT_LOCATION
 printf 'New owned Hosted agent name: '
 read -r HOSTED_AGENT_NAME
-azd ai agent init --src ./.build/hosted-en --agent-name "$HOSTED_AGENT_NAME" --project-id "$PROJECT_ARM_ID" --model-deployment gpt-5.6-luna --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
-test -f ./azure.yaml
 ```
-
-Initialization creates local project/environment files. If `init` or `test` fails, stop; do not proceed to deploy.
-The current root's `azure.yaml` must contain **one intended agent service**, not another team's services.
-Specifying the existing project and deployment avoids choosing a new default model.
-
-Check the generated `azure.yaml`: `host: azure.ai.agent`, agent name/source directory,
-Python 3.13/`main.py` code configuration, Responses protocol, existing project,
-runtime endpoint/model variables, and **remote `WORKSHOP_AUTH_MODE=managed-identity`**.
-
-
-**What to check:** Locate `project`, `host`, `codeConfiguration`, and `protocols`.
-The source run initially had only a model variable in `env`; it needed the following
-addition. Do not overwrite the whole file with screenshot content.
-
-Do not assume initialization supplies every variable. In VS Code open root `azure.yaml`, find
-**`services` → the generated service name → `env`**, and merge the values below into that mapping.
-Do not create a second `env`, replace the whole file, or change the generated connection/service/code path.
-
-```yaml
-env:
-  AZURE_AI_PROJECT_ENDPOINT: ${AZURE_AI_PROJECT_ENDPOINT}
-  AZURE_AI_MODEL_DEPLOYMENT_NAME: ${AZURE_AI_MODEL_DEPLOYMENT_NAME}
-  WORKSHOP_AUTH_MODE: managed-identity
-  WORKSHOP_MAX_OUTPUT_TOKENS: "2048"
-```
-
-Set and reread actual azd values. These commands do not change the default Azure CLI subscription.
 
 ```bash
-azd env set AZURE_AI_PROJECT_ENDPOINT "$PROJECT_ENDPOINT"
-azd env set AZURE_AI_PROJECT_ID "$PROJECT_ARM_ID"
-azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME gpt-5.6-luna
-azd env get-value AZURE_AI_PROJECT_ENDPOINT
-azd env get-value AZURE_AI_MODEL_DEPLOYMENT_NAME
+python scripts/prepare_hosted_azd.py --language en --kind runtime \
+  --package "$HOSTED_PACKAGE" --directory "$HOSTED_DIRECTORY" \
+  --agent-name "$HOSTED_AGENT_NAME" --initialize-env \
+  --project-id "$PROJECT_ARM_ID" --location "$PROJECT_LOCATION"
 ```
 
+The helper copies the **hash-verified package**, writes `azure.yaml`, creates the local azd environment
+and reads its values back. It rejects an existing nonempty directory, a parent azd project,
+wrong project scope, a changed package or an incompatible profile.
+It creates no model, role or Azure deployment and does not change the default Azure CLI subscription.
+If preparation fails, stop and preserve the directory/error; after resolving the cause, use a new empty directory rather than bypassing the guard.
 
-**What to check:** Both values must match the intended `.env` project/deployment.
-Use your instructor's values, not the recorded endpoint.
+**What to check:** open the returned `<HOSTED_DIRECTORY>/azure.yaml`.
+It is JSON-formatted YAML with **one existing-project binding and one intended agent service**:
+your service key/name, copied `src/<agent-name>`, Python 3.13/`main.py`, Responses protocol,
+the same endpoint/deployment/output limit and **remote `WORKSHOP_AUTH_MODE=managed-identity`**.
+There must be no model `deployments` list or another team's agent.
+Do not edit the copied package after verification; rebuild from source into a fresh package/project if it changes.
 
-`examples/hosted/azure.yaml.example` illustrates structure; it is not ready to deploy.
-Do not replace generated configuration wholesale. Check for stale values in both
-root `.env` and azd state even after specifying an existing project.
-Some help may still mention old `agent.yaml` terminology; inspect actual generated files.
+**Compatibility review: September 17, 2026.** The [official manifest structure](https://learn.microsoft.com/azure/foundry/agents/how-to/author-azure-yaml)
+and installed CLI help were checked. Manifest generation and stubbed azd environment/readback contracts were verified **offline**,
+not by a new Azure deployment or recording.
+`--kind runtime` accepts only this language's **local-retrieval, v2, project-Responses** policy/workflow packages.
+The older `--kind workflow` is the distinct CI Invocations preset; it is not a shortcut for this exercise.
 
 ## 3. Local server: two terminals
 
 Keep local `.env` authentication as `cli`, distinct from azd's remote runtime configuration.
 
-**Terminal A:**
+**Terminal A — reuse the setup terminal from section 2:**
 
 ```bash
 source .venv/bin/activate
@@ -172,11 +159,15 @@ Leave the server running on its default local port 8088.
 
 **Terminal B:**
 
-Open a second terminal at the **same repository root**, with the same selected azd environment.
+Open a second terminal at the **same source repository root**. Shell variables from A are not automatically present in B;
+enter the standalone directory recorded in step 2. `--cwd` selects its azd project without moving your shell.
+For a workflow package, use section 6's matching server/invocation instead of this default single-agent block.
 
 ```bash
-curl --fail http://127.0.0.1:8088/readiness
-azd ai agent invoke --local --new-session --new-conversation --timeout 120 "Explain the domestic lodging limit and evidence for September 2026."
+printf 'Standalone Hosted directory from step 2: '
+read -r HOSTED_DIRECTORY
+curl --fail http://127.0.0.1:8088/readiness &&
+azd ai agent invoke --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --local --port 8088 --new-session --new-conversation --timeout 120 "Explain the domestic lodging limit and evidence for September 2026."
 ```
 
 The question requests the September 2026 domestic lodging limit and sources.
@@ -200,14 +191,18 @@ Review any additional resource/identity plan with the instructor.
 An existing project does not make every prerequisite complete.
 If provisioning is required, run it only after **review and authorization for the
 dedicated training scope**.
-The first-pass project must have one intended service. If more are listed, stop and review the scope rather than deploying them all.
+Return to terminal A after stopping its local server. It retains step 2's `HOSTED_AGENT_NAME` and `HOSTED_DIRECTORY`;
+if you opened a new terminal, restore those exact values from your notes first.
+Deploy **only that agent service** in the standalone project, not every service in your source repository.
 
 ```bash
-azd deploy
-azd ai agent show --output json
+azd deploy "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
+Stop if deployment fails; an older active version is not proof this deployment succeeded.
 Record active state, actual version, and endpoint before invocation.
+The `${...:?}` guards stop before azd runs if a required value is empty; they must not be removed to bypass an error.
 
 
 **What to check:** Inspect the completion message and **Agent playground / Agent
@@ -216,7 +211,7 @@ endpoint**, then verify the real version and active state from `show`.
 ```bash
 printf 'Actual version returned by show: '
 read -r HOSTED_AGENT_VERSION
-azd ai agent invoke --version "$HOSTED_AGENT_VERSION" --new-session --new-conversation --timeout 120 "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
+azd ai agent invoke --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --version "${HOSTED_AGENT_VERSION:?Use the version returned by show}" --new-session --new-conversation --timeout 270 "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
 ```
 
 The question asks for advance approval for the over-limit September 2026 hotel.
@@ -261,36 +256,32 @@ python scripts/package_hosted.py --language en --kind workflow --pattern sequent
 The package is `.build/workflow-sequential-local-v2-project-responses-responses-en/`.
 Concurrent/group-chat use separate profile directories.
 Packages are not overwritten; reference answers, holdout, and evaluator files are excluded.
+This walkthrough uses **sequential**. For another pattern, change it explicitly in both packaging and `serve`;
+the local server must match the selected package, not merely respond on the same port.
 
-Use an independent workshop copy with verified values and compatible CLI/extensions.
+Complete **section 2's shared setup** with this exact returned package, a new owned agent name and a new empty directory.
+Do not initialize another service in the source copy. Then use the following matching workflow command
+**instead of section 3's default single-agent server**.
 
-```bash
-azd ai agent init --src ./.build/workflow-sequential-local-v2-project-responses-responses-en --agent-name "<unique-workflow-agent-name>" --project-id "<existing-project-arm-id>" --model-deployment "<existing-model-deployment-name>" --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol responses
-```
-
-Align the generated environment and remote `WORKSHOP_AUTH_MODE=managed-identity`.
-Terminal A:
+Terminal A, at the source repository root with `.venv` active:
 
 ```bash
 python scripts/workshop.py --language en serve --kind workflow --pattern sequential
 ```
 
-Terminal B:
+Terminal B, at the source repository root:
 
 ```bash
-curl --fail http://127.0.0.1:8088/readiness
-azd ai agent invoke --local --new-session --new-conversation --timeout 270 "Explain the limit and advance-approval requirements for a KRW 170000 domestic business-trip hotel in September 2026."
+printf 'Standalone workflow directory prepared in step 2: '
+read -r HOSTED_DIRECTORY
+curl --fail http://127.0.0.1:8088/readiness &&
+azd ai agent invoke --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --local --port 8088 --new-session --new-conversation --timeout 270 "Explain the limit and advance-approval requirements for a KRW 170000 domestic business-trip hotel in September 2026."
 ```
 
 Inspect workflow kind, participants, actual model calls, final answer/evidence, and pending review status.
 The outer workflow UUID can differ from the actual model response ID inside JSON.
-Deploy only the approved service and invoke the actual returned version:
-
-```bash
-azd deploy
-azd ai agent show --output json
-azd ai agent invoke --version "<actual-workflow-version>" --new-session --new-conversation --timeout 270 "Explain the limit and advance-approval requirements for a KRW 170000 domestic business-trip hotel in September 2026."
-```
+For approved remote work, run **section 4 once** using this workflow's directory/name and actual returned version.
+There is no second workflow deployment command to repeat here.
 
 ```mermaid
 flowchart LR
@@ -322,6 +313,7 @@ Only question, model key, case ID, and run ID are accepted.
 No reference answers, evaluator configuration, corpus paths, or arbitrary model/endpoint overrides enter the request.
 Actual deployment/service IDs, usage, and evidence hashes remain in the response.
 Follow the [evaluation workbook](../reference/evaluation-workbook.md); do not transfer scores between target paths.
+This IQ/Invocations profile is outside the introductory `--kind runtime` helper's scope; follow that workbook's own preparation, not a changed flag to bypass a profile rejection.
 
 </details>
 
@@ -369,7 +361,7 @@ These are newly recorded English actions using the separate English prompt/data 
 ## Completion and cleanup
 
 Record packaging, local response, remote deployment, and remote evaluation separately.
-Sessions may be reused and accumulate compute cost. Inspect `azd ai agent sessions list`
+Sessions may be reused and accumulate compute cost. Inspect `azd ai agent sessions list --cwd "$HOSTED_DIRECTORY"`
 and stop only your sessions using [Cleanup](../reference/cleanup.md).
 Do not apply `azd down` indiscriminately to every environment.
 

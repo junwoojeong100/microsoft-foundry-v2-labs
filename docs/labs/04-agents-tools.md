@@ -23,7 +23,8 @@
 ## 1. Agent without tools
 
 Run from the repository root with `.venv` active. All three commands make billable model calls.
-After each succeeds, copy its complete JSON output into your personal evidence folder; these commands do not create labeled run folders.
+After each succeeds, save its complete JSON as `maf-none.json`, `maf-function.json` or `maf-mcp.json`
+in your Lab 00 notes directory. These commands do not create labeled run folders.
 
 ```bash
 python scripts/workshop.py --language en maf --question "Explain the difference between Foundry and Agent Framework in three sentences."

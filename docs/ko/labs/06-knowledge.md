@@ -107,6 +107,11 @@ Luna의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
 기본 실습 스크립트는 Search 서비스나 역할을 생성하지 않고 **준비된 서비스 안의
 본인 접두사 객체만** 만듭니다.
 
+**Seed 전에 소유권 상황을 정합니다.** 새 학습자 복사본은 아직 seed하지 않은 새 `mfv2-...` prefix와 작성 권한이 필요합니다.
+강사의 준비 복사본에는 대응하는 `outputs/azure-objects.json`이 있어야 합니다.
+원격 index는 있는데 로컬 ledger가 비어 있다면 생성/갱신 실습의 준비 완료가 아닙니다. 덮어쓰지 않습니다.
+`--language en`은 Search 이름에 `-en`을 붙이지 않습니다. [작업 폴더·언어 변경 규칙](../reference/configuration.md#workspace-scope)을 확인합니다.
+
 ### 2. 작은 지식 원본 확인
 
 ```bash
@@ -138,7 +143,8 @@ python scripts/workshop.py seed-search --confirm-create
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | `<WORKSHOP_PREFIX>-kb` |
 
 기존 객체가 있는데 내 로컬 소유권 기록이 없으면 덮어쓰지 않습니다.
-새 접두사를 쓰거나 강사에게 복구를 요청합니다.
+이미 seed한 뒤 prefix를 바꾸려면 새 소스 복사본도 사용하거나 강사에게 원래 작업 폴더 복구를 요청합니다.
+기존 ledger를 삭제하지 않습니다.
 문서 업로드가 부분 실패하면 전체 성공으로 처리하지 않습니다.
 
 
@@ -225,8 +231,9 @@ flowchart LR
     A --> V
 ```
 
-**B 완료:** 로컬/Search/IQ 검색과 IQ 답변 출력 전체를 개인 증거 폴더에 보관합니다.
+**B 완료:** Lab 00 기록 폴더에 출력 전체를 `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`, `answer-iq.json`으로 저장합니다.
 원문 ID·`references`·`activity`·`context_hash`·소유권 ledger를 포함합니다.
+원래 `outputs/azure-objects.json`은 그대로 둡니다. 복사한 출력 파일이 객체 소유권을 만들어 주지 않습니다.
 [Lab 07 B](07-evaluation.md#path-b)는 **명시적인 로컬 검색 실험**으로 시작하며 이 IQ 답변을 평가 결과로 재사용하지 않습니다.
 
 ## C. 선택 — 실제 하이브리드 RAG

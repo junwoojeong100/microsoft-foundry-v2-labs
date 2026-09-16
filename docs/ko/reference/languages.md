@@ -8,8 +8,8 @@
 
 영어는 `README.md`와 `docs/`, 한국어는 `README.ko.md`와 `docs/ko/`에 있습니다.
 양쪽 페이지에 대응 언어 링크를 제공합니다.
-한국어 우선 개정 중의 유예는 `docs/localization.json`의 파일 hash와 visible warning으로 제한하며,
-영어 확장이 끝나면 유예를 제거하고 명령 예제의 동등성을 다시 검사합니다.
+원문 언어 우선 개정의 유예는 `docs/localization.json`의 파일 hash와 visible warning으로 제한합니다.
+그 파일의 현재 source language와 revision을 따르며, 대응 문서를 완성한 뒤 경고를 제거하고 명령 동등성을 다시 검사합니다.
 
 ## 실행 데이터와 답변
 
@@ -21,6 +21,12 @@
 
 모델/API/SDK 식별자, 파일 경로, CLI flags, schema 필드명은 번역하지 않습니다.
 오류 후 다른 언어의 fixture나 모델 응답을 대신 사용하지 않습니다.
+
+언어 선택은 데이터를 바꾸지만 **설정한 Search 이름이나 소유권을 바꾸지는 않습니다**.
+모델·로컬 검색 실험은 새 언어별 label로 구분합니다.
+Search를 seed한 뒤 언어 또는 prefix를 바꾸려면 새 소유 이름을 가진 새 소스 복사본이 필요합니다.
+기존 `outputs/azure-objects.json`은 원래 범위에 남겨 둡니다.
+다음 label의 이름만 바꾸지 말고 [작업 폴더 범위 표](configuration.md#workspace-scope)를 따릅니다.
 
 ## 별도 촬영
 

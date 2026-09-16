@@ -92,8 +92,10 @@ def initialize_environment(
 def prepare(
     package: Path, destination: Path, settings: Settings, agent_name: str, *, kind: str = "toolbox"
 ) -> Path:
-    if kind not in {"toolbox", "workflow"}:
-        raise ValueError("Choose the explicit Toolbox or sequential workflow package kind.")
+    if kind not in {"toolbox", "workflow", "runtime"}:
+        raise ValueError(
+            "Choose toolbox, workflow (CI Invocations), or runtime (introductory Responses)."
+        )
     if not agent_name.startswith(owned_prefix() + "-") or not re.fullmatch(
         r"[a-z0-9-]{1,100}", agent_name
     ):
@@ -145,6 +147,22 @@ def prepare(
             TOOLBOX_NAME=name_for(settings),
             TOOLBOX_SEARCH_CONNECTION_NAME=require_env("TOOLBOX_SEARCH_CONNECTION_NAME"),
         )
+        protocol = "responses"
+    elif kind == "runtime":
+        profile = packaged_profile(package)
+        expected_profile = RuntimeProfile(
+            kind=profile.kind,
+            pattern=profile.pattern,
+            language=settings.language,
+        )
+        if (
+            profile != expected_profile
+            or manifest.get("runtime_profile") != expected_profile.to_dict()
+        ):
+            raise ValueError(
+                "Use a language-matched local v2 Responses policy/workflow package for --kind runtime."
+            )
+        environment["WORKSHOP_MAX_OUTPUT_TOKENS"] = str(settings.max_output_tokens)
         protocol = "responses"
     else:
         expected_profile = RuntimeProfile(
@@ -222,7 +240,12 @@ if __name__ == "__main__":
         description="Prepare a package-verified manifest in an empty azd folder, without Azure calls."
     )
     parser.add_argument("--language", choices=("en", "ko"), default="en")
-    parser.add_argument("--kind", choices=("toolbox", "workflow"), default="toolbox")
+    parser.add_argument(
+        "--kind",
+        choices=("toolbox", "workflow", "runtime"),
+        default="toolbox",
+        help="toolbox; workflow for the fixed CI Invocations profile; runtime for introductory local v2 Responses packages.",
+    )
     parser.add_argument("--package", type=Path, required=True)
     parser.add_argument("--directory", type=Path, required=True)
     parser.add_argument("--agent-name", required=True)

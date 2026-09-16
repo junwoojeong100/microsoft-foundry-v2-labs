@@ -4,7 +4,9 @@
 
 **Use one environment-variable vocabulary in this repository; do not mix names from the source workshops.**
 
-Every CLI reads root `.env`, but existing process variables win.
+Commands that need cloud configuration read root `.env`, but existing process variables win.
+Offline `doctor`, `demo`, local `retrieve`, and saved-run `evaluate`/`compare`/`accept`/`feedback`/`cleanup-plan`
+do not load that file. An offline PASS does not validate the values you entered.
 Check for unexpected inherited values in old terminals.
 English commands explicitly use `--language en`; existing commands default to Korean.
 The language freezes prompt/corpus/dataset selection and is part of the Hosted profile.
@@ -19,7 +21,7 @@ The language freezes prompt/corpus/dataset selection and is part of the Hosted p
 | `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Target model | Template default `gpt-5.6-luna`; prepare the real deployment first. No automatic replacement |
 | `WORKSHOP_AUTH_MODE` | Authentication | `cli` or `managed-identity` |
 | `AZURE_CLIENT_ID` | Optional user-assigned managed identity | Only when needed in the actual runtime |
-| `WORKSHOP_PREFIX` | Agent/Search object names | Unique `mfv2-...`, at most 32 characters |
+| `WORKSHOP_PREFIX` | Agent/Search object names | Must start with `mfv2-`; lowercase letters/digits separated by single hyphens, no trailing hyphen, at most 32 characters in total |
 | `WORKSHOP_MAX_OUTPUT_TOKENS` | Model output limit | Default 2048; allowed 256–8192 |
 | `AZURE_SEARCH_ENDPOINT` | Search/IQ | Service root |
 | `AZURE_SEARCH_RESOURCE_GROUP` | `iq-chat check` ARM lookup | Optional; defaults to `AZURE_RESOURCE_GROUP` when Search is in the same group |
@@ -55,6 +57,26 @@ The new chat-base name must start with your prefix. [Setup sequence](../setup.md
 Legacy six-field profiles mean Korean; English profiles explicitly contain `language: en`.
 The runtime request remains exactly `question/model_key/case_id/run_id` and rejects reference answers or arbitrary endpoint overrides.
 Keep local `.env` and azd env aligned; do not bypass managed identity with client secrets.
+
+<a id="workspace-scope"></a>
+
+## One Search-owning copy, one prefix, one language
+
+`--language en` selects English data; it **does not rename Search objects or select another `.env`**.
+Blank Search names still resolve to `<prefix>-policies`, `<prefix>-source` and `<prefix>-kb` in either language.
+Use distinct prefixes such as `mfv2-team01-en-0917` and `mfv2-team01-ko-0917` when preparing both languages.
+
+| Change | Safe preparation |
+|---|---|
+| Repeat a model/dev run with the same language and scope | Use new run labels; keep the Search ownership ledger |
+| Change language for local-only retrieval or model evaluation, without owned Search objects | Use a new label set and the correct language bundle; translated data is not the same-input comparison |
+| Change language, Search service or prefix after seeding | Use a fresh source copy with a reviewed `.env`, new owned names and new run labels; preserve the old copy and its cleanup ledger |
+| Use instructor-prepared objects | Use the authorized prepared working copy with its matching language/scope/ledger, or run only the explicitly selected read-only exercise |
+| An object exists but this copy has no matching ledger | Do not seed over it or copy/fabricate another team's ledger; have the owner resolve it or prepare a new copy/prefix |
+
+`outputs/azure-objects.json` is bound to the Search endpoint, prefix and corpus hash.
+Changing only a label or only `WORKSHOP_PREFIX` cannot reset it. Do not delete or edit the ledger to bypass a refusal.
+When starting a fresh copy, leave the original results available for the original owner's cleanup.
 
 ## Previous names
 

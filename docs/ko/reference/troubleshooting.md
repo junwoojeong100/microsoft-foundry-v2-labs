@@ -15,11 +15,15 @@
 |---|---|---|
 | 브라우저를 닫았음 | 같은 프로젝트·agent·저장 버전을 열고 기존 대화 확인 | 새 agent 생성·모든 질문 재전송 |
 | 새 터미널을 열었음 | 저장소 루트로 돌아와 `source .venv/bin/activate` | 전체 재설치·`.env` 덮어쓰기·셸 `source .env` |
+| B 기록 폴더가 이미 있음 | 같은 회차의 파일로 재개하거나 새 회차용 새 폴더 선택. 보호된 복사 블록이 멈추는 것은 의도된 동작 | 작성한 기록을 빈 양식으로 덮어쓰기 |
 | Label이 이미 있음 | `outputs/<label>/manifest.json`, `responses.jsonl` 확인. `evaluate`는 로컬 재조회 가능 | 결과 삭제·같은 label로 `collect` |
 | `collect`가 0이 아닌 종료 코드 반환 | 모든 행·오류 보존, `evaluate`로 확인, 원인 해결 후 명시적인 새 dev label로 수집 | 실패 행을 fixture로 대체·모델/provider 자동 변경 |
 | `evaluate`가 `1` 반환 | `total`, `passed`, `errors`, 사례별 `checks` 확인. Baseline 실패는 검토하되 실패한 candidate는 holdout을 열지 않음 | 요청 완료를 업무 게이트 통과로 해석 |
 | Candidate·holdout이 이미 있음 | `outputs/<holdout-label>/acceptance.json`을 읽거나 정확한 기존 label로 로컬 `accept` 재실행 | 같은 노출 holdout을 재수집해 좋은 점수 만들기 |
 | Hosted 패키지가 이미 있음 | Manifest 확인. 재빌드 시 그 정확한 생성 폴더를 다른 이름으로 보관 | 소스·`.build` 전체·`outputs`·azd 상태 삭제 |
+| Search의 scope/corpus 불일치 | 기존 ledger 보존. 언어·prefix·서비스 변경은 [새 복사본 규칙](configuration.md#workspace-scope) 적용 | 다음 label만 변경·ledger 삭제/편집 |
+| 입문 Hosted 준비에서 폴더/profile 거절 | 기존 azd 프로젝트 밖의 새 빈 폴더와 정확한 local/v2/Responses 패키지/언어 선택 | `azd ai agent init` 반복·`--force`·패키지 검사 완화 |
+| 필수 평가가 계속 막힘 | 기존 기록과 [미완료 인계](../labs/11-capstone.md#incomplete-handoff) 사용 | 없는 실행의 인수 보고서 생성·막힌 작업을 완료로 표시 |
 | Cloud judge가 timeout | 저장한 job ID와 **같은** `cloud-evaluate --label` 명령으로 조회 재개 | 이미 제출한 judge job에 새 수집 label 규칙 적용 |
 
 새 dev 실험에는 새로운 **baseline/candidate/final-holdout** 이름 묶음을 정해 Lab 07·11에서 일관되게 사용합니다.
@@ -31,9 +35,11 @@
 |---|---|---|
 | `scripts/workshop.py`를 찾지 못함 | 현재 폴더에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 함. 학습자 ZIP과 소스 ZIP은 다름 | [00 B](../labs/00-start.md#path-b) |
 | Python·패키지 없음 | 지원 Python·활성 `.venv`·고정 설치 단계 확인. 설치 오류를 무시하지 않음 | [00 B](../labs/00-start.md#path-b) |
+| Prefix 거절 | `mfv2-` 필수. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 전체 최대 32자 | [설정](configuration.md#workspace-scope) |
 | 401/403·프로젝트 없음 | 의도한 tenant·실제 호출 주체·리소스 범위 권한. 담당자가 접근 해결 | [00](../labs/00-start.md) / [준비](../setup.md) |
 | 모델 404 / 429 | 전체 project endpoint·배포 이름 / quota·동시성. 모델 대체 금지 | [02 B](../labs/02-models.md#path-b) |
 | IQ에 Chat 모델이 없다고 나옴 | 기본 B는 모델 없는 GA 검색. 선택 A IQ Chat은 별도로 준비한 base 필요 | [06](../labs/06-knowledge.md) |
+| Hosted 명령이 다른 로컬 프로젝트를 선택 | 기록한 절대 경로 `HOSTED_DIRECTORY`를 복구하고 모든 azd 명령에 `--cwd` 사용 | [08](../labs/08-hosted.md) |
 
 <details>
 <summary>전체 오류 참조 — 위 짧은 표에 없는 오류일 때 펼칩니다</summary>

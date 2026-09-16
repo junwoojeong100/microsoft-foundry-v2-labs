@@ -748,7 +748,9 @@ def main(root: Path, argv: list[str] | None = None) -> int:
                     "Application Insights / Log Analytics / storage",
                     "separately created Fabric / Work IQ assets, if any",
                 ],
-                "guide": "docs/reference/cleanup.md",
+                "guide": "docs/reference/cleanup.md"
+                if args.language == "en"
+                else "docs/ko/reference/cleanup.md",
             }
         else:
             result = cloud_command(root, args)

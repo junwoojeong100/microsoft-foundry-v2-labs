@@ -15,11 +15,15 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 |---|---|---|
 | Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
 | Opened a new terminal | Return to the repository root; run `source .venv/bin/activate` | Reinstall everything, overwrite or shell-`source` `.env` |
+| B's notes directory already exists | Resume that pass's files, or choose a new directory for a new pass; the guarded copy block intentionally stops | Overwrite your filled records with blank templates |
 | A label already exists | Inspect `outputs/<label>/manifest.json` and `responses.jsonl`; `evaluate` can reread them locally | Delete the run or invoke `collect` with that same label |
 | `collect` returned a nonzero exit code | Preserve all rows/errors; use `evaluate` to inspect them, resolve the cause, then collect a new explicitly labeled dev run | Replace failed rows with fixtures or silently change the provider/model |
 | `evaluate` returned `1` | Read `total`, `passed`, `errors` and per-case `checks`; review a baseline failure, but keep holdout closed for a failing candidate | Treat a completed request as a passed business gate |
 | Candidate and holdout already exist | Read `outputs/<holdout-label>/acceptance.json`, or rerun local `accept` with those exact labels | Recollect an exposed holdout to get a better result |
 | Hosted package already exists | Inspect its manifest; preserve that exact generated directory under a new name before a rebuild | Delete source code, the whole `.build`, `outputs`, or azd state |
+| Search says scope/corpus differs | Keep the old ledger; follow [the fresh-copy rule](configuration.md#workspace-scope) for a language, prefix or service change | Change only the next run label or delete/edit the ledger |
+| Introductory Hosted preparation rejects a directory/profile | Select a new empty directory outside existing azd projects and the exact local v2 Responses package/language | Repeat `azd ai agent init`, use `--force`, or weaken the package checks |
+| A required evaluation is still blocked | Save existing records and use [incomplete handoff](../labs/11-capstone.md#incomplete-handoff) | Create an acceptance report for absent runs or call blocked work complete |
 | Cloud judge timed out | Resume polling with the **same** `cloud-evaluate --label` command and saved job IDs | Apply the new-collection-label rule to an already submitted judge job |
 
 For a genuinely new dev experiment, choose one fresh **baseline/candidate/final-holdout** label set and
@@ -32,9 +36,11 @@ Read-only reinspection does not create new inference evidence.
 |---|---|---|
 | Cannot find `scripts/workshop.py` | The terminal must contain `README.md`, `pyproject.toml`, and `scripts/`; the learner ZIP is not the source ZIP | [00 B](../labs/00-start.md#path-b) |
 | Missing Python/package | Supported Python, active `.venv`, then the pinned install step; stop on installation errors | [00 B](../labs/00-start.md#path-b) |
+| Prefix rejected | `mfv2-` is mandatory; lowercase letters/digits, single hyphens, no trailing hyphen and at most 32 characters total | [Configuration](configuration.md#workspace-scope) |
 | 401/403 or project missing | Intended tenant, actual caller identity and resource-scoped permissions; owner resolves access | [00](../labs/00-start.md) / [setup](../setup.md) |
 | Model 404 / 429 | Full project endpoint and deployment name / quota and concurrency; no replacement model | [02 B](../labs/02-models.md#path-b) |
 | IQ reports no chat model | Default B uses model-free GA retrieval; optional A IQ Chat needs a different prepared base | [06](../labs/06-knowledge.md) |
+| Hosted call selects the wrong local project | Restore the recorded absolute `HOSTED_DIRECTORY` and use `--cwd` on every azd command | [08](../labs/08-hosted.md) |
 
 <details>
 <summary>Full error reference — open if the short table does not cover your failure</summary>

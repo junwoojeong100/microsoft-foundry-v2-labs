@@ -7,7 +7,8 @@ from pathlib import Path
 from subprocess import CalledProcessError, CompletedProcess
 from unittest.mock import patch
 
-from foundry_workshop.profiles import RuntimeProfile
+from foundry_workshop.packaging import file_hashes
+from foundry_workshop.profiles import RuntimeProfile, packaged_profile
 
 from . import workspace
 from .test_ci_helpers import ENV
@@ -20,6 +21,91 @@ HOSTED_PACKAGE = load_script("package_hosted")
 
 
 class ToolboxAzdTests(unittest.TestCase):
+    def test_introductory_runtime_preparation_preserves_packages_and_existing_source_projects(self):
+        for language in ("en", "ko"):
+            with (
+                self.subTest(language=language),
+                workspace() as root,
+                tempfile.TemporaryDirectory() as folder,
+                patch.dict(os.environ, ENV, clear=True),
+            ):
+                original_project = b'{"name":"keep-the-existing-source-project"}\n'
+                (root / "azure.yaml").write_bytes(original_project)
+                configuration = replace(settings(language), max_output_tokens=1024)
+                profiles = [
+                    RuntimeProfile(language=language),
+                    *[
+                        RuntimeProfile(kind="workflow", pattern=pattern, language=language)
+                        for pattern in ("sequential", "concurrent", "group-chat")
+                    ],
+                ]
+                for profile in profiles:
+                    with self.subTest(profile=profile.to_dict()):
+                        package = HOSTED_PACKAGE.build(root, profile)
+                        original_package = file_hashes(package)
+                        destination = Path(folder) / profile.package_name
+                        path = PREPARE.prepare(
+                            package, destination, configuration, "mfv2-unit-intro", kind="runtime"
+                        )
+                        data = json.loads(path.read_text())
+                        self.assertEqual(
+                            set(data["services"]), {"workshop-project", "mfv2-unit-intro"}
+                        )
+                        project = data["services"]["workshop-project"]
+                        self.assertEqual(project["endpoint"], configuration.project_endpoint)
+                        self.assertNotIn("deployments", project)
+                        agent = data["services"]["mfv2-unit-intro"]
+                        self.assertEqual(agent["name"], "mfv2-unit-intro")
+                        self.assertEqual(agent["env"]["WORKSHOP_AUTH_MODE"], "managed-identity")
+                        self.assertEqual(agent["env"]["WORKSHOP_MAX_OUTPUT_TOKENS"], "1024")
+                        self.assertEqual(
+                            agent["env"]["AZURE_AI_MODEL_DEPLOYMENT_NAME"],
+                            configuration.deployment,
+                        )
+                        self.assertNotIn("AZURE_SEARCH_ENDPOINT", agent["env"])
+                        self.assertNotIn("WORKSHOP_MODEL_DEPLOYMENTS_JSON", agent["env"])
+                        self.assertEqual(
+                            agent["protocols"], [{"protocol": "responses", "version": "2.0.0"}]
+                        )
+                        copied = destination / agent["project"]
+                        self.assertEqual(packaged_profile(copied), profile)
+                        self.assertEqual(file_hashes(copied), original_package)
+                        self.assertEqual(file_hashes(package), original_package)
+                        self.assertEqual((root / "azure.yaml").read_bytes(), original_project)
+                        with self.assertRaises(FileExistsError):
+                            PREPARE.prepare(
+                                package,
+                                destination,
+                                configuration,
+                                "mfv2-unit-intro",
+                                kind="runtime",
+                            )
+
+    def test_introductory_runtime_rejects_different_language_retrieval_prompt_api_and_protocol(
+        self,
+    ):
+        profiles = [
+            RuntimeProfile(kind="workflow", language="ko"),
+            RuntimeProfile(kind="workflow", retrieval="iq", language="en"),
+            RuntimeProfile(kind="workflow", prompt="v1", language="en"),
+            RuntimeProfile(kind="workflow", api="account-chat", language="en"),
+            RuntimeProfile(kind="workflow", protocol="invocations", language="en"),
+        ]
+        with (
+            workspace() as root,
+            tempfile.TemporaryDirectory() as folder,
+            patch.dict(os.environ, ENV, clear=True),
+        ):
+            for index, profile in enumerate(profiles):
+                with self.subTest(profile=profile.to_dict()):
+                    package = HOSTED_PACKAGE.build(root, profile)
+                    destination = Path(folder) / str(index)
+                    with self.assertRaisesRegex(ValueError, "language-matched local v2 Responses"):
+                        PREPARE.prepare(
+                            package, destination, settings("en"), "mfv2-unit-intro", kind="runtime"
+                        )
+                    self.assertFalse(destination.exists())
+
     def test_ci_workflow_uses_an_isolated_exact_profile_without_search_settings(self):
         for language in ("en", "ko"):
             with (

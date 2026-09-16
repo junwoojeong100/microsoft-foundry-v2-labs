@@ -13,6 +13,9 @@ Lab 02에서 실제 Responses 요청과 구조화된 답변까지 확인합니�
 
 명령은 저장소 루트에서 실행합니다. `.env`를 셸 `source`로 읽지 않습니다.
 국문 기본 명령은 Korean 번들을 사용하며 `--language ko`로도 명시할 수 있습니다. 새 수집에는 새 label을 사용합니다.
+Lab 00에서 소스 복사본의 빈 양식으로 **`outputs/learner-notes-ko/`**를 만듭니다.
+터미널 출력 파일과 검토 기록은 여기에 저장합니다. B에는 브라우저 agent나 별도 학습자 ZIP이 필요 없습니다.
+자동 생성된 평가 폴더는 기록 폴더 안이 아니라 `outputs/<label>/`에 그대로 둡니다.
 
 **첫 회차의 선택은 정해져 있습니다:** Luna, 입문 MAF 세 패턴, Lab 06의 GA Search/IQ,
 Lab 07의 **로컬 검색 + 실제 Azure 모델**, Lab 08의 **패키징만**입니다.
@@ -27,7 +30,7 @@ Search 권한이 없으면 Lab 06을 미완료로 기록하고 전체 B 완료�
 
 | 순서 | 실습 | 확인할 산출물 |
 |---|---|---|
-| 1 | [Lab 00 B](../labs/00-start.md#path-b): 공통 준비 | 환경·인증·fixture/실제 실행 구분 |
+| 1 | [Lab 00 B](../labs/00-start.md#path-b): 공통 준비 | 환경·개인 기록 폴더·인증·fixture/실제 실행 구분 |
 | 2 | [Lab 02 B](../labs/02-models.md#path-b): 모델 API | 실제 응답·구조 검증·response ID·사용량 |
 | 3 | [Lab 04 B](../labs/04-agents-tools.md#path-b): 함수와 MCP | 세 명령의 실제 출력 전체를 개인 증거 폴더에 저장 |
 | 4 | [Lab 05 B](../labs/05-workflows.md#path-b): MAF workflow | 세 패턴의 출력과 사람 검토 저장 |
@@ -35,7 +38,7 @@ Search 권한이 없으면 Lab 06을 미완료로 기록하고 전체 B 완료�
 | 6 | [Lab 07 B](../labs/07-evaluation.md#path-b): 통제된 평가 | 오류를 포함한 `outputs/baseline/`, `outputs/candidate/`, `outputs/final-holdout/` |
 | 7 | [Lab 08 B](../labs/08-hosted.md#path-b): 패키징만 | `.build/hosted/package-manifest.json`. 로컬·원격 실행은 미실행 |
 | 8 | [Lab 09 B](../labs/09-operations.md#path-b): 운영 | 기존 이력·정리 목록·담당자·남은 비용 |
-| 9 | [Lab 11 B](../labs/11-capstone.md#path-b): 인계 | 기존 인수 보고서와 앞 단계의 모든 산출물 |
+| 9 | [Lab 11 B](../labs/11-capstone.md#path-b): 인계 | 실제 인수/반려 보고서 또는 누락 단계를 명시한 미완료 인계 |
 
 기존 준비된 B 과정은 6시간입니다. 추가 모듈은 **추가 세션**입니다.
 확장된 전체 과정을 측정 없이 같은 시간 안에 끝낼 수 있다고 안내하지 않습니다.
@@ -62,6 +65,8 @@ Azure 쓰기 승인이 없으면 로컬 계획·패키징까지만 진행합니�
 클라우드 judge 승인이 없으면 로컬 업무 검사를 남기고 native 평가는 **미실행**으로 표시합니다.
 Search 권한이 없으면 Search 실습을 중단합니다. 로컬 검색을 Search/IQ로 표시하지 않습니다.
 프롬프트만 비교하는 실험 도중 provider를 바꾸지 않습니다.
+필수 게이트가 계속 막혀 있다면 기존 파일과 정확한 이유로 [Lab 11 미완료 인계](../labs/11-capstone.md#incomplete-handoff)를 합니다.
+현재 작업을 정직하게 인계하는 것이며 **전체 B 완료는 아닙니다**.
 
 **중단·재개:** 마지막 완료 단계와 정확한 label을 적습니다. 새 터미널에서는 저장소 루트로 돌아와
 `source .venv/bin/activate`만 다시 실행하며 재설치하거나 `.env`를 다시 만들지 않습니다.

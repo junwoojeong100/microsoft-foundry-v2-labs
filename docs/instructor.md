@@ -11,7 +11,7 @@ Parent: [Learning paths](paths.md) · Evidence: [Validation record](reference/va
 | Class | Prepare | Optional exclusions |
 |---|---|---|
 | A. Beginner | Browser accounts, project, model, synthetic documents, assessment sheet, prepared MAF environment | Python authoring, Hosted, actual M365/Fabric |
-| B. Practitioner | Above plus Python/SDKs, read permissions, code environment | Paid judge and remote Hosted deployment are separate gates |
+| B. Practitioner | Python/SDKs, code environment, model access, Search service and scoped read/write permissions for Lab 06 | Paid judge, local/remote Hosted execution and actual telemetry are separate gates |
 | IQ advanced | Search, authentication, semantic/knowledge retrieval settings | Planner, embeddings, richer Preview are unnecessary for basic GA |
 | Hosted advanced | Python 3.13 runtime, actual ARM ID, deployment/identity permissions | Local Docker is unnecessary for code deployment |
 
@@ -23,7 +23,9 @@ runs existing MAF code. Check the SDK, venv, and each learner's model-call permi
 English and Korean use **separate frozen language bundles** with equivalent IDs, dates, amounts and judgments.
 English commands explicitly select `--language en`; neither language silently substitutes the other.
 Give each learner [the setup card and ready ZIP](setup.md), not raw evaluation records or a request to assemble policy JSON.
-The ZIP supplies complete instructions, six TXT sources, questions only and a blank assessment. [Language lineage](reference/languages.md) stays intact.
+The ZIP supplies complete instructions, six TXT sources, questions only and blank assessment/review/operations records.
+B learners can prepare their notes directly from the source copy in [Lab 00 B](labs/00-start.md#prepare-notes); the browser ZIP is not another required download for them.
+[Language lineage](reference/languages.md) stays intact.
 
 ## 2. Three to seven days before: accounts, permissions, costs
 
@@ -52,10 +54,10 @@ Distribute **values only**, separately, in `.env.example` format. Never distribu
 - Subscription/tenant IDs, resource group, and Foundry account.
 - Full project endpoint, including `/api/projects/...`.
 - Exact `gpt-5.6-luna` answer deployment and verified model version `2026-07-09`.
-- Unique `WORKSHOP_PREFIX`.
+- Unique `WORKSHOP_PREFIX`: `mfv2-` followed by lowercase letters/digits and single hyphens, at most 32 characters total.
 - Optional Search endpoint, account OpenAI root, and the **chat-base name printed by `iq-chat setup`**, distinct from the GA base.
 - Optional judge deployment and underlying model.
-- Actual project ARM ID and unique agent name if Hosted is selected.
+- Actual project ARM ID, location code, unique agent name and an empty standalone directory if Hosted is selected.
 
 Also hand over the repository location and an activated, participant-signed-in MAF terminal for Lab 05.
 For self-study, [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) is the full setup route, not an assumed instructor action.
@@ -88,6 +90,12 @@ Neither command deploys a model or grants roles. [Details and recovery](referenc
 For the learner's CLI checks, verify Reader on the training Foundry account/Search service
 and Search Index Data Reader for retrieval. Project-only access is not account-level ARM/role visibility;
 do not discover that missing prerequisite halfway through Lab 06.
+
+**Ownership handoff:** for fresh B learner copies, prepare the Search service/roles and give each learner an unseeded prefix.
+If you seed their objects first, use the authorized prepared working copy that contains the corresponding ledger.
+Do not hand out a seeded prefix without that working copy or distribute another team's ledger.
+English/Korean selection does not rename configured Search objects. After a language/prefix change, follow
+[the fresh-copy rule](reference/configuration.md#workspace-scope) and preserve the original cleanup records.
 
 ## 4. The day before: rehearse the same edition
 

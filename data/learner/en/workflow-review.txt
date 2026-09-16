@@ -1,4 +1,5 @@
-BLANK WORKSHEET - one personally executed Lab 05 workflow, not an instructor recording.
+BLANK WORKSHEET - personally executed Lab 05 workflows, not an instructor recording.
+A records one sequential run. B repeats the fields below for sequential, concurrent and group-chat.
 
 Execution date / language / deployment:
 Exact command:

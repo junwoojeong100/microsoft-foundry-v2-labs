@@ -32,11 +32,12 @@ Activate the dedicated virtual environment for cloud SDKs.
 | `collect --split holdout ... --candidate candidate --unlock-holdout` | Frozen candidate's actual final requests | No reuse for development |
 | `accept --candidate candidate --holdout final-holdout` | None | Human acceptance evidence, not automatic approval |
 | `serve` | Local server; paid model on invocation | Hosted SDK needed |
-| `cleanup-plan` | None | Deletes nothing |
+| `cleanup-plan` | None | Deletes nothing; returns the cleanup guide for the selected language |
 | `python scripts/export_policy_docs.py --language en` | Creates six local text files | Optional export; A's learner ZIP already contains them |
 | `python scripts/build_learner_materials.py` | None | Checks both committed learner bundles against canonical dev/prompt/policy inputs |
 | `python scripts/build_learner_materials.py --write` | Regenerates the two local learner bundles | Maintainer-only generation; no model or holdout use |
 | `python scripts/package_hosted.py --language en` | Local package | No deployment/installation |
+| `python scripts/prepare_hosted_azd.py --language en --kind runtime ...` | Local package-verified project; `--initialize-env` also creates/read-checks local azd state | Introductory local v2 Responses packages only; no provision/deploy/role assignment |
 | `python scripts/play_recordings.py` | Localhost video server | English by default; `--edition ko` selects the independently recorded Korean set |
 
 Abbreviated rows are not complete executable examples. Read
@@ -44,6 +45,10 @@ Abbreviated rows are not complete executable examples. Read
 Full commands appear in the [labs](../paths.md).
 For the first IQ Chat setup, use [the owner sequence](../setup.md#4-environment-owner-checklist) once;
 the default GA `retrieve --provider iq` is intentionally a different path.
+
+Interactive `model`/`answer`/`maf`/`workflow`/`retrieve` commands print JSON; use [B's notes directory](../labs/00-start.md#prepare-notes)
+for complete copied outputs. Batch runs already write `outputs/<label>/`.
+For the complete standalone Hosted preparation command and its required values, use [Lab 08](../labs/08-hosted.md).
 
 Add `--debug` before a subcommand for local diagnostics. Stack/service errors can
 contain environment paths; do not publish raw logs.

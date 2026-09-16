@@ -35,7 +35,8 @@ Holdout은 최종 인수용이며 fixture는 미리 작성한 예제이지 Azure
 `data/learner/<language>/`는 해당 언어의 canonical v2 지침·정책 6개·**dev만**으로 생성합니다.
 인라인/브라우저 지침, TXT 원문 6개, 정답 필드 없는 질문, 빈 6행 평가표가 있습니다.
 빈 `session-notes.txt`, `workflow-review.txt`, `operations-checklist.txt`로 설정·관찰·중단/재개·최종 인계를 기록합니다.
-완료된 결과가 들어 있는 파일이 아니며 저장소 밖의 개인 복사본을 채웁니다.
+완료된 결과가 들어 있는 파일이 아닙니다. 저장소 밖의 개인 복사본이나 B의 Git-ignored `outputs/learner-notes-ko/`를 채웁니다.
+`data/learner/`의 생성 파일에 직접 작성하지 않습니다.
 브라우저 문장 출력 지시는 명시적인 추가 규칙이며 동결 지침·평가 데이터를 바꾸지 않습니다.
 `SOURCE.json`과 파일별 manifest가 입력/출력 hash를 보존합니다. ZIP에는 holdout·정답표가 없습니다.
 
