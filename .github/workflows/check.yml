@@ -22,7 +22,7 @@ jobs:
       - run: python -m pip install -e ".[dev]"
       - run: python -m ruff check .
       - run: python -m ruff format --check .
-      - run: python -m compileall -q src scripts examples tests
+      - run: python -m compileall -q src scripts examples tests tests_sdk
       - run: python -m unittest discover -s tests -t . -v
       - run: python scripts/check_docs.py
       - run: python scripts/workshop.py doctor
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - run: python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted]"
+      - run: python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]"
       - run: python -m pip check
       - run: python scripts/check_sdk.py
       - run: python -m unittest discover -s tests_sdk -t . -v

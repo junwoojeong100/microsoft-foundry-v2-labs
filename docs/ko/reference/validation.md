@@ -8,7 +8,7 @@
 ## 확장판 인수 검사 — 2026-09-17
 
 9월 16일 영문·국문 확장 소스는 아래의 과거 cohort와 분리해 확인했습니다.
-**Python 3.13·3.14 각각 offline 200개, 설치된 SDK transport 66개**와 Ruff check/format,
+**Python 3.13·3.14 각각 offline 200개, 설치된 SDK transport 67개**와 Ruff check/format,
 Python compilation, 의존성 호환성, 결정적 학습자 bundle 검사가 통과했습니다.
 문서는 **61개 언어 쌍·실행 가능한 workshop 예제 332개**를 검사했으며 보류된 번역은 없습니다.
 
@@ -24,6 +24,12 @@ Optimizer의 답변 자기 비교를 원문 grounding이나 승격 근거로 인
 국문 안전 실습 D06은 CLI exit 0이어도 도구 발견 실패에 따른 failed 응답입니다.
 9월 17일에는 확장 영상 6개의 실제 비공개 GitHub bytes/hash·native 재생·챕터 seek 완료도 확인했습니다.
 수동 CI 실행은 로컬 검사나 게시된 영상 URL로 추정하지 않는 별도 실행 검증입니다.
+
+첫 GitHub 검사에서는 SDK 테스트용 개발 의존성 누락이 드러났고, 초기 release dispatch는
+runner context가 없는 위치의 `runner.temp` 참조 때문에 거부됐습니다.
+SDK job이 선언된 `dev` extra를 설치하도록 맞추고, 실행 단계에서 `$RUNNER_TEMP`로 경로를 만든 뒤
+`$GITHUB_ENV`로 전달하도록 수정했습니다. 회귀 검사와 actionlint 1.7.12의 workflow schema/표현식 검사가 통과했으며
+원래 실패한 GitHub 이력은 보존했습니다.
 
 ## 국문 실제 Azure 실행 — 2026-09-15
 

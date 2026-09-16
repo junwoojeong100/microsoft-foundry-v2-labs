@@ -9,7 +9,7 @@ Earlier videos and upstream results are not relabeled as new evidence.
 ## Extension acceptance — September 17, 2026
 
 The September 16 English/Korean extension source is now checked separately from the historical cohorts below:
-**200 offline tests on each of Python 3.13 and 3.14, 66 installed-SDK transport tests**, Ruff check/format,
+**200 offline tests on each of Python 3.13 and 3.14, 67 installed-SDK transport tests**, Ruff check/format,
 Python compilation, dependency compatibility and deterministic learner bundles passed.
 Documentation checks cover **61 language pairs and 332 executable workshop examples**, with no pending translations.
 
@@ -27,6 +27,12 @@ The Korean safety D06 tool-discovery failure remains a failed response despite C
 On September 17, all six extension attachments were also verified against their actual private GitHub bytes,
 native playback and completed chapter seeks. The manually dispatched CI run remains a separate execution check,
 not something inferred from local tests or published video URLs.
+
+The first GitHub check exposed a missing SDK-test development dependency, and the initial release dispatch
+was rejected because `runner.temp` was used before the runner context exists.
+The SDK job now installs the declared `dev` extra, and the release initializes its path from `$RUNNER_TEMP`
+inside a step and passes it through `$GITHUB_ENV`. Regression checks and actionlint 1.7.12 workflow
+schema/expression validation passed; the original failed GitHub result remains in its run history.
 
 ## Korean prerequisite run — September 15, 2026
 

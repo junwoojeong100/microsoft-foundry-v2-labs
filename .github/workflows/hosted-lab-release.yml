@@ -40,7 +40,6 @@ jobs:
       WORKSHOP_PREFIX: ${{ vars.WORKSHOP_PREFIX }}
       WORKSHOP_HOSTED_AGENT_NAME: ${{ vars.WORKSHOP_HOSTED_AGENT_NAME }}
       WORKSHOP_AUTH_MODE: cli
-      AZD_PROJECT_DIR: ${{ runner.temp }}/foundry-workshop-release
     steps:
       - uses: actions/checkout@v4
       - name: Require explicit execution approval
@@ -80,6 +79,8 @@ jobs:
       - name: Initialize only the existing-project code deployment
         run: |
           azd config set auth.useAzCliAuth true
+          AZD_PROJECT_DIR="$RUNNER_TEMP/foundry-workshop-release"
+          printf 'AZD_PROJECT_DIR=%s\n' "$AZD_PROJECT_DIR" >> "$GITHUB_ENV"
           PACKAGE=".build/workflow-sequential-local-v2-project-responses-invocations"
           if [ "$WORKSHOP_LANGUAGE" = "en" ]; then PACKAGE="${PACKAGE}-en"; fi
           PROJECT_LOCATION=$(az cognitiveservices account show --subscription "$AZURE_SUBSCRIPTION_ID" --resource-group "$AZURE_RESOURCE_GROUP" --name "$AZURE_AI_ACCOUNT_NAME" --query location --output tsv)

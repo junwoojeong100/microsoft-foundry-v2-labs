@@ -15,9 +15,11 @@ class CIManifestTests(unittest.TestCase):
     def test_release_deployment_is_isolated_from_the_historical_repository_project(self):
         workflow = yaml.safe_load((ROOT / ".github/workflows/hosted-lab-release.yml").read_text())
         job = workflow["jobs"]["release"]
-        self.assertIn("runner.temp", job["env"]["AZD_PROJECT_DIR"])
+        self.assertTrue(all("${{ runner." not in str(value) for value in job["env"].values()))
         steps = {step.get("name"): step.get("run", "") for step in job["steps"]}
         initialization = steps["Initialize only the existing-project code deployment"]
+        self.assertIn('AZD_PROJECT_DIR="$RUNNER_TEMP/foundry-workshop-release"', initialization)
+        self.assertIn('>> "$GITHUB_ENV"', initialization)
         self.assertIn("prepare_hosted_azd.py", initialization)
         self.assertIn('--directory "$AZD_PROJECT_DIR"', initialization)
         self.assertNotIn("azd ai agent init", initialization)
@@ -28,6 +30,13 @@ class CIManifestTests(unittest.TestCase):
             self.assertIn('cd "$AZD_PROJECT_DIR"', steps[step])
             self.assertIn("$GITHUB_WORKSPACE/scripts/", steps[step])
         self.assertNotIn("azd provision", "\n".join(steps.values()))
+
+    def test_sdk_checks_install_the_declared_development_dependencies(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/check.yml").read_text())
+        commands = "\n".join(
+            step.get("run", "") for step in workflow["jobs"]["sdk-imports"]["steps"]
+        )
+        self.assertRegex(commands, r"pip install [^\n]*\.\[[^\]]*\bdev\b[^\]]*\]")
 
     def test_only_the_owned_agent_env_is_merged_into_the_existing_project(self):
         with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, ENV, clear=True):
