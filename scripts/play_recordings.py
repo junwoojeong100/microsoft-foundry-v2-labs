@@ -15,6 +15,10 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 ASSET_RUN = "refresh-20260915-en"
 ASSET_RUNS = {"en": ASSET_RUN, "ko": "refresh-20260915-ko"}
+SERIES = {
+    "foundation": ASSET_RUNS,
+    "extensions": {"en": "edition-20260916-en", "ko": "edition-20260916-ko"},
+}
 
 
 def byte_range(value: str | None, size: int) -> tuple[int, int]:
@@ -37,10 +41,14 @@ def byte_range(value: str | None, size: int) -> tuple[int, int]:
     return start, end
 
 
-def media_catalog(root: Path, edition: str = "en") -> tuple[dict, dict[str, Path]]:
+def media_catalog(
+    root: Path, edition: str = "en", series: str = "foundation"
+) -> tuple[dict, dict[str, Path]]:
     if edition not in ASSET_RUNS:
         raise ValueError("Choose recording edition en or ko.")
-    directory = root / "docs/assets" / ASSET_RUNS[edition]
+    if series not in SERIES:
+        raise ValueError("Choose recording series foundation or extensions.")
+    directory = root / "docs/assets" / SERIES[series][edition]
     metadata = json.loads((directory / "media.json").read_text(encoding="utf-8"))
     videos = metadata["videos"]
     if not isinstance(videos, list) or not videos:
@@ -89,6 +97,7 @@ def media_catalog(root: Path, edition: str = "en") -> tuple[dict, dict[str, Path
         "default_video": default_video,
         "edition": edition,
         "recorded_on": metadata.get("recorded_on"),
+        "series": series,
     }, files
 
 
@@ -158,8 +167,10 @@ class RecordingHandler(BaseHTTPRequestHandler):
             self.log_message("Player closed or replaced a byte-range request.")
 
 
-def create_server(root: Path, port: int, edition: str = "en") -> ThreadingHTTPServer:
-    catalog, files = media_catalog(root, edition)
+def create_server(
+    root: Path, port: int, edition: str = "en", series: str = "foundation"
+) -> ThreadingHTTPServer:
+    catalog, files = media_catalog(root, edition, series)
     handler = functools.partial(
         RecordingHandler,
         player=(root / "recording/player.html").read_bytes(),
@@ -178,11 +189,17 @@ def main() -> int:
         default="en",
         help="Recording set: English-guide recordings (default) or the Korean source recordings.",
     )
+    parser.add_argument(
+        "--series",
+        choices=tuple(SERIES),
+        default="foundation",
+        help="Keep foundational recordings and the September 16 extensions as separate evidence sets.",
+    )
     args = parser.parse_args()
     if not 1024 <= args.port <= 65535:
         parser.error("--port must be between 1024 and 65535.")
     try:
-        with create_server(ROOT, args.port, args.edition) as server:
+        with create_server(ROOT, args.port, args.edition, args.series) as server:
             print(f"Recording player: http://127.0.0.1:{args.port}/", flush=True)
             print("Local files only; no Azure calls or uploads. Press Ctrl+C to stop.", flush=True)
             try:

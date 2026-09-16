@@ -28,12 +28,12 @@ Follow the **[beginner or practitioner guide](docs/paths.md)**. Each lab places 
 images and a **What to check** explanation beside the relevant action or command.
 Read [how to use the screenshots](docs/labs/00-start.md#how-to-read-this-guide) first.
 
-**[Current English recordings](docs/video-summary.md)** ·
+**[Foundational English recordings — September 15](docs/video-summary.md)** ·
 [New action/capture index](docs/action-captures.md) · [Actual results and limitations](docs/live-run.md)
 
-The new English set contains **172 actions, 516 lossless captures, and three videos**:
+The September 15 English set contains **172 actions, 516 lossless captures, and three videos**:
 **13:53 combined**, 7:47 CLI, and 5:42 portal.
-All six English/Korean videos are hosted on GitHub and verified for playback.
+All six foundational English/Korean videos are hosted on GitHub and verified for playback.
 Sign in with an account that can access this private repository.
 
 English uses **separate English instructions, synthetic policies, dev/calibration/holdout datasets, and fixtures**.
@@ -48,15 +48,24 @@ The labs, Python code, synthetic policies, evaluation data, and instructor guide
 
 ## Start here
 
+**September 16 English-first expansion:** [A — Beginner](docs/paths/a-beginner.md) ·
+[B — Implementation](docs/paths/b-practitioner.md) · [C — Advanced modules](docs/paths/c-advanced.md).
+Use the [capability/evidence record](docs/coverage.md) to distinguish existing labs, new executable modules,
+actual Azure verification and recordings. New modules are not considered recorded merely because the earlier videos play.
+The [September 16 extension results](docs/edition-results.md) report the new English experiments
+separately, including their failures and unverified boundaries.
+[New English extension recordings](docs/edition-videos.md) provide a **13:21 module-ordered walkthrough**,
+166 actions and 496 lossless captures; publication status is stated on that page.
+
 **First visit: [complete the setup card](docs/setup.md) → [download the learner ZIP](data/learner/en/learner-materials.zip) → [start Lab 00](docs/labs/00-start.md).**
 The ZIP has ready-to-paste instructions, six synthetic policy files, questions only, and a blank assessment.
 Choose **A** for your first pass; open advanced branches and recorded-screen galleries only when needed.
 
 | Your starting point | Recommended path | What you will produce |
 |---|---|---|
-| New to Azure, AI, and coding | **[A. Four-hour beginner path](docs/paths.md)** | A portal agent, grounded answers, a six-question assessment, and an operations/cleanup checklist |
-| Familiar with Python, APIs, or Azure | **[B. Six-hour practitioner path](docs/paths.md)** | MAF/MCP/workflow code, retrieval, before/after evaluation and holdout records, and a deployment package |
-| Building an end-to-end Hosted workflow evaluation system | **[C. Advanced integration path](docs/paths.md#c-advanced-integration--additional-150180-minutes)** | Pinned versions, actual model matrices, calibration, reviewed regressions, and trace acceptance |
+| New to Azure, AI, and coding | **[A. Beginner](docs/paths/a-beginner.md)** | A portal agent, grounded answers, a six-question assessment, and an operations/cleanup checklist |
+| Familiar with Python, APIs, or Azure | **[B. Implementation](docs/paths/b-practitioner.md)** | MAF/MCP/workflow code, retrieval, controlled evaluation, a deployment package, and optional managed-tool extensions |
+| Extending an implemented agent system | **[C. Advanced modules](docs/paths/c-advanced.md)** | Existing Hosted matrices plus selected tooling, conversation, optimization, resilience, memory, A2A and operations modules |
 | Teaching or preparing the environment | **[Instructor preparation](docs/instructor.md)** | Team environments, permissions and cost planning, smoke checks, and recovery criteria |
 | Waiting for Azure approval or quota | **[Try the checker without Azure](docs/labs/00-start.md)** | Understand run/evaluation files with offline fixtures; **not completion of the cloud labs** |
 | Returning from the previous edition | **[Migration map](docs/reference/migration.md)** | Concepts to retain and SDK, permission, and execution contracts to change |

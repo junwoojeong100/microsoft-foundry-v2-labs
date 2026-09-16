@@ -6,6 +6,28 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+## Extension acceptance — September 17, 2026
+
+The September 16 English/Korean extension source is now checked separately from the historical cohorts below:
+**200 offline tests on each of Python 3.13 and 3.14, 66 installed-SDK transport tests**, Ruff check/format,
+Python compilation, dependency compatibility and deterministic learner bundles passed.
+Documentation checks cover **61 language pairs and 332 executable workshop examples**, with no pending translations.
+
+The English extension has 166 actions, 496 captures and 368 retained source segments;
+the independent Korean extension has 172 actions, 516 captures and 363 segments.
+Minimum midpoint SSIM is **0.982302 / 0.983325** respectively.
+All six extension videos played locally, and every one of the 15 chapter seeks in each combined video
+waited for seek completion and a decoded frame. Korean reboot parts keep their own video epochs;
+authentication transitions and source tails are explicitly excluded.
+
+[English results](../edition-results.md) and [Korean results](../ko/edition-results.md) preserve actual failures.
+The Optimizer's self-referential grounding inputs are not accepted as source verification or a promotion gate.
+The separate conversation evaluations retained the original policy JSON in their actual judge inputs.
+The Korean safety D06 tool-discovery failure remains a failed response despite CLI exit 0.
+On September 17, all six extension attachments were also verified against their actual private GitHub bytes,
+native playback and completed chapter seeks. The manually dispatched CI run remains a separate execution check,
+not something inferred from local tests or published video URLs.
+
 ## Korean prerequisite run — September 15, 2026
 
 The existing Sweden Central workshop project was reused; no default subscription or resource group was changed.

@@ -208,6 +208,48 @@ def parser() -> argparse.ArgumentParser:
     iq_ask.add_argument("--question")
     iq_ask.add_argument("--label", required=True)
     iq_ask.add_argument("--confirm-cost", action="store_true")
+    toolbox = commands.add_parser(
+        "toolbox", help="Owned synthetic-policy Toolbox lifecycle and version-pinned MAF execution."
+    )
+    toolbox_actions = toolbox.add_subparsers(dest="toolbox_action", required=True)
+    toolbox_plan = toolbox_actions.add_parser(
+        "plan", help="Inspect the local preset; no Azure request."
+    )
+    toolbox_plan.add_argument("--discovery", action="store_true")
+    toolbox_plan.add_argument("--skill-version")
+    toolbox_plan.add_argument("--pin-policy", action="store_true")
+    toolbox_inspect = toolbox_actions.add_parser(
+        "inspect", help="Read actual version and connection metadata."
+    )
+    toolbox_inspect.add_argument("--version")
+    for action in ("create", "add-version"):
+        operation = toolbox_actions.add_parser(action)
+        operation.add_argument("--discovery", action="store_true")
+        operation.add_argument("--skill-version")
+        operation.add_argument("--pin-policy", action="store_true")
+        operation.add_argument("--confirm-create", action="store_true")
+    selection = toolbox_actions.add_parser(
+        "select", help="Select an owned default version; also used for rollback."
+    )
+    selection.add_argument("--version", required=True)
+    selection.add_argument("--confirm-update", action="store_true")
+    for action in ("probe", "query", "ask"):
+        operation = toolbox_actions.add_parser(action)
+        operation.add_argument("--version", required=True)
+        operation.add_argument("--label", required=True)
+        if action in {"query", "ask"}:
+            operation.add_argument("--confirm-cost", action="store_true")
+        if action == "ask":
+            operation.add_argument("--with-skill", action="store_true")
+    toolbox_cleanup = toolbox_actions.add_parser(
+        "cleanup", help="Delete only a fully owned Toolbox after approval."
+    )
+    toolbox_cleanup.add_argument("--confirm-delete", action="store_true")
+    toolbox_serve = toolbox_actions.add_parser(
+        "serve", help="Run the version-pinned synthetic Toolbox Responses host locally."
+    )
+    toolbox_serve.add_argument("--version", required=True)
+    toolbox_serve.add_argument("--with-skill", action="store_true")
     agent = commands.add_parser(
         "prompt-agent", help="Create/invoke a real, service-managed prompt agent."
     )
@@ -223,6 +265,95 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser(
         "cleanup-plan", help="List local ownership records. Does NOT delete Azure resources."
     )
+    materials = commands.add_parser(
+        "prepare-extensions",
+        help="Derive advanced lab inputs from bundled dev/policies only; no Azure calls.",
+    )
+    materials.add_argument("--label", required=True)
+    conversations = commands.add_parser(
+        "conversations",
+        help="Dev-only multi-turn collection and separate turn/conversation native evaluation.",
+    )
+    conversation_actions = conversations.add_subparsers(dest="conversation_action", required=True)
+    for action in ("plan", "collect"):
+        operation = conversation_actions.add_parser(action)
+        operation.add_argument("--prompt", choices=("v1", "v2"), default="v2")
+        if action == "collect":
+            operation.add_argument("--label", required=True)
+            operation.add_argument("--confirm-cost", action="store_true")
+    report = conversation_actions.add_parser("report")
+    report.add_argument("--label", required=True)
+    evaluation = conversation_actions.add_parser("evaluate")
+    evaluation.add_argument("--label", required=True)
+    evaluation.add_argument("--level", choices=("turn", "conversation"), required=True)
+    evaluation.add_argument("--timeout", type=int, default=300)
+    evaluation.add_argument("--confirm-cost", action="store_true")
+    memory = commands.add_parser(
+        "memory", help="Owned managed-memory API exercise using two synthetic scopes."
+    )
+    memory_actions = memory.add_subparsers(dest="memory_action", required=True)
+    memory_actions.add_parser("plan")
+    memory_create = memory_actions.add_parser("create")
+    memory_create.add_argument("--confirm-create", action="store_true")
+    for action in ("put", "update"):
+        operation = memory_actions.add_parser(action)
+        operation.add_argument("--scope", choices=("alpha", "beta"), required=True)
+        operation.add_argument("--case", choices=("D01", "D02"), required=True)
+        if action == "update":
+            operation.add_argument("--memory-id", required=True)
+        operation.add_argument("--confirm-write", action="store_true")
+        operation.add_argument("--confirm-cost", action="store_true")
+    memory_inspect = memory_actions.add_parser("inspect")
+    memory_inspect.add_argument("--scope", choices=("alpha", "beta"), required=True)
+    memory_recall = memory_actions.add_parser("recall")
+    memory_recall.add_argument("--scope", choices=("alpha", "beta"), required=True)
+    memory_recall.add_argument("--label", required=True)
+    memory_recall.add_argument("--confirm-cost", action="store_true")
+    memory_forget = memory_actions.add_parser("forget")
+    memory_forget.add_argument("--memory-id", required=True)
+    memory_forget.add_argument("--confirm-delete", action="store_true")
+    memory_cleanup = memory_actions.add_parser("cleanup")
+    memory_cleanup.add_argument("--confirm-delete", action="store_true")
+    a2a = commands.add_parser("a2a", help="Explicit A2A 1.0 between owned synthetic Prompt Agents.")
+    a2a_actions = a2a.add_subparsers(dest="a2a_action", required=True)
+    a2a_actions.add_parser("plan")
+    a2a_actions.add_parser("inspect")
+    for action in ("target", "caller"):
+        operation = a2a_actions.add_parser(action)
+        operation.add_argument("--confirm-create", action="store_true")
+    a2a_invoke = a2a_actions.add_parser("invoke")
+    a2a_invoke.add_argument("--label", required=True)
+    a2a_invoke.add_argument("--confirm-cost", action="store_true")
+    a2a_verify = a2a_actions.add_parser("verify-recorded")
+    a2a_verify.add_argument("--label", required=True)
+    routines = commands.add_parser("routines")
+    routines_actions = routines.add_subparsers(dest="routines_action", required=True)
+    routines_inspect = routines_actions.add_parser("inspect")
+    routines_inspect.add_argument("--name", required=True)
+    routines_inspect.add_argument("--dispatch-id", required=True)
+    routines_inspect.add_argument("--label", required=True)
+    routines_inspect.add_argument("--verify-response", action="store_true")
+    code_tool = commands.add_parser(
+        "code-interpreter",
+        help="Generate and verify a CSV using only six synthetic policy records.",
+    )
+    code_actions = code_tool.add_subparsers(dest="code_interpreter_action", required=True)
+    code_run = code_actions.add_parser("run")
+    code_run.add_argument("--label", required=True)
+    code_run.add_argument("--confirm-create", action="store_true")
+    code_run.add_argument("--confirm-cost", action="store_true")
+    code_cleanup = code_actions.add_parser("cleanup")
+    code_cleanup.add_argument("--label", required=True)
+    code_cleanup.add_argument("--confirm-delete", action="store_true")
+    openapi = commands.add_parser(
+        "openapi",
+        help="An explicit managed-identity OpenAPI query over the owned synthetic Search index.",
+    )
+    openapi_actions = openapi.add_subparsers(dest="openapi_action", required=True)
+    openapi_actions.add_parser("plan")
+    openapi_invoke = openapi_actions.add_parser("invoke")
+    openapi_invoke.add_argument("--label", required=True)
+    openapi_invoke.add_argument("--confirm-cost", action="store_true")
     return result
 
 
@@ -270,6 +401,164 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
     if hasattr(args, "question"):
         validate_question(args.question)
     try:
+        if args.command == "openapi":
+            from . import openapi_lab
+
+            if args.openapi_action == "plan":
+                return openapi_lab.plan(settings)
+            with project_clients(settings) as (_, client):
+                return openapi_lab.invoke(
+                    client, root, settings, args.label, confirmed=args.confirm_cost
+                )
+        if args.command == "code-interpreter":
+            from . import code_interpreter_lab
+
+            with project_clients(settings) as (project, client):
+                if args.code_interpreter_action == "run":
+                    return code_interpreter_lab.run(
+                        project,
+                        client,
+                        root,
+                        settings,
+                        args.label,
+                        confirmed_create=args.confirm_create,
+                        confirmed_cost=args.confirm_cost,
+                    )
+                return code_interpreter_lab.cleanup(
+                    project, client, root, settings, args.label, confirmed=args.confirm_delete
+                )
+        if args.command == "a2a":
+            from . import a2a_lab
+
+            if args.a2a_action == "plan":
+                return a2a_lab.plan(settings)
+            if args.a2a_action == "verify-recorded":
+                return a2a_lab.verify_recorded(root, settings, args.label)
+            with project_clients(settings) as (project, client):
+                if args.a2a_action == "target":
+                    return a2a_lab.target(project, root, settings, confirmed=args.confirm_create)
+                if args.a2a_action == "caller":
+                    return a2a_lab.caller(project, root, settings, confirmed=args.confirm_create)
+                if args.a2a_action == "inspect":
+                    return a2a_lab.inspect(project, root, settings)
+                return a2a_lab.invoke(
+                    project, client, root, settings, args.label, confirmed=args.confirm_cost
+                )
+        if args.command == "routines":
+            from .routines_lab import inspect_run
+
+            with project_clients(settings, preview=True) as (project, client):
+                return inspect_run(
+                    project,
+                    client,
+                    root,
+                    settings,
+                    args.name,
+                    args.dispatch_id,
+                    args.label,
+                    verify_response=args.verify_response,
+                )
+        if args.command == "memory":
+            from . import memory_lab
+
+            if args.memory_action == "plan":
+                return memory_lab.plan(settings)
+            with project_clients(settings, preview=True) as (project, client):
+                if args.memory_action == "create":
+                    return memory_lab.create(project, root, settings, confirmed=args.confirm_create)
+                if args.memory_action in {"put", "update"}:
+                    return memory_lab.put(
+                        project,
+                        root,
+                        settings,
+                        args.scope,
+                        args.case,
+                        confirmed_write=args.confirm_write,
+                        confirmed_cost=args.confirm_cost,
+                        memory_id=getattr(args, "memory_id", None),
+                    )
+                if args.memory_action == "inspect":
+                    return memory_lab.inspect_scope(project, root, settings, args.scope)
+                if args.memory_action == "recall":
+                    return memory_lab.recall(
+                        project,
+                        client,
+                        root,
+                        settings,
+                        args.scope,
+                        args.label,
+                        confirmed=args.confirm_cost,
+                    )
+                if args.memory_action == "forget":
+                    return memory_lab.forget(
+                        project, root, settings, args.memory_id, confirmed=args.confirm_delete
+                    )
+                return memory_lab.cleanup(project, root, settings, confirmed=args.confirm_delete)
+        if args.command == "conversations":
+            from .conversations import collect_live, evaluate_native
+
+            if args.conversation_action == "collect":
+                return collect_live(
+                    root, settings, args.label, args.prompt, confirmed=args.confirm_cost
+                )
+            return evaluate_native(
+                root,
+                settings,
+                args.label,
+                args.level,
+                confirmed=args.confirm_cost,
+                timeout=args.timeout,
+            )
+        if args.command == "toolbox":
+            from . import toolbox
+
+            if args.toolbox_action == "plan":
+                return toolbox.plan(
+                    settings,
+                    discovery=args.discovery,
+                    skill_version=args.skill_version,
+                    pin_policy=args.pin_policy,
+                )
+            if args.toolbox_action == "serve":
+                from .toolbox_host import serve
+
+                serve(root, settings, args.version, with_skill=args.with_skill)
+                return None
+            with project_clients(settings) as (project, _):
+                if args.toolbox_action in {"create", "add-version"}:
+                    return toolbox.create_version(
+                        project,
+                        root,
+                        settings,
+                        confirmed=args.confirm_create,
+                        new_version=args.toolbox_action == "add-version",
+                        discovery=args.discovery,
+                        skill_version=args.skill_version,
+                        pin_policy=args.pin_policy,
+                    )
+                if args.toolbox_action == "select":
+                    return toolbox.select_version(
+                        project, root, settings, args.version, confirmed=args.confirm_update
+                    )
+                if args.toolbox_action == "cleanup":
+                    return toolbox.delete_owned(
+                        project, root, settings, confirmed=args.confirm_delete
+                    )
+                binding = toolbox.snapshot(project, settings, args.version)
+            if args.toolbox_action == "inspect":
+                return binding
+            return asyncio.run(
+                toolbox.execute(
+                    settings,
+                    root,
+                    binding,
+                    args.label,
+                    invoke=args.toolbox_action == "ask",
+                    confirmed=getattr(args, "confirm_cost", False),
+                    with_skill=getattr(args, "with_skill", False),
+                    query_only=args.toolbox_action == "query",
+                )
+            )
         if args.command == "iq-chat":
             from .iq_chat import ask, check, setup
 
@@ -433,6 +722,20 @@ def main(root: Path, argv: list[str] | None = None) -> int:
             result = {
                 "review_record": str(record_feedback(root, args.label, args.case, args.reason))
             }
+        elif args.command == "conversations" and args.conversation_action in {"plan", "report"}:
+            from .conversations import business_report, plan
+
+            result = (
+                plan(root, args.language, args.prompt)
+                if args.conversation_action == "plan"
+                else business_report(root, args.label)
+            )
+        elif args.command == "prepare-extensions":
+            from .extension_materials import prepare
+            from .settings import load_environment, owned_prefix
+
+            load_environment(root)
+            result = prepare(root, args.language, owned_prefix(), args.label)
         elif args.command == "cleanup-plan":
             ledger_path = root / "outputs/azure-objects.json"
             result = {

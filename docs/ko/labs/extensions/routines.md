@@ -1,0 +1,100 @@
+# Routines: 예약·수동 전달·실제 답변을 구분하기
+
+[English](../../../labs/extensions/routines.md) | **한국어**
+
+**C 선택 · 2026-09-16 기준.** 처음에는 전용 agent와 미래 timer 하나만 사용합니다.
+설정 생성, queue 접수, 전달 완료, 답변 확인, 예약 시각 실행은 다른 단계입니다.
+
+**준비:** 내 agent, 실제 프로젝트 endpoint, 예약·모델 비용·정리 승인.
+**완료:** 원래 dispatch의 전달 이력과 검증 한계를 기록하고 timer를 비활성화/정리함.
+**중단:** 실행 이력이 없다고 직접 agent를 호출한 뒤 Routine 결과로 바꾸지 않습니다.
+
+## 1. 가장 작은 trigger 선택
+
+미래의 일회성 timer를 **disabled**로 만듭니다.
+첫 실습에서는 recurring, GitHub event, 실사용 traffic을 동시에 추가하지 않습니다.
+time zone, 예정 시각, 담당자와 비활성화 계획을 먼저 기록합니다.
+
+## 2. 명령과 값 확인
+
+```bash
+azd ai routine create --help
+azd ai routine dispatch --help
+azd ai routine run list --help
+```
+
+같은 터미널에서 설정 카드 값을 입력합니다.
+
+```bash
+printf '전체 프로젝트 endpoint: '
+read -r PROJECT_ENDPOINT
+printf '내 전용 agent 이름: '
+read -r AGENT_NAME
+printf '새 routine 이름 (<내 prefix>-timer-ko): '
+read -r ROUTINE_NAME
+printf '미래 UTC 시각 (예: 2026-09-18T09:00:00Z): '
+read -r WHEN
+```
+
+실제 미래 시각을 사용합니다. 영상 속 지난 날짜를 복사하지 않습니다.
+
+## 3. Disabled 상태로 생성
+
+```bash
+azd ai routine create "$ROUTINE_NAME" --trigger timer --at "$WHEN" --agent-name "$AGENT_NAME" --action agent-response --enabled=false --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+```
+
+이름·agent·trigger·time zone과 `enabled: false`를 확인합니다.
+이미 존재하는 routine에 `--force`로 생성하지 않습니다.
+
+## 4. 한 번 전달하고 비활성화
+
+승인된 합성 입력 한 번만 보냅니다. 중간에 오류가 나도 비활성화 명령은 실행합니다.
+
+```bash
+azd ai routine enable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"
+azd ai routine dispatch "$ROUTINE_NAME" --input "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai routine disable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"
+azd ai routine run list "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+```
+
+dispatch/action correlation ID를 보관합니다.
+관찰한 CLI 버전의 `run list`는 실제 SDK 이력이 있는데도 `value: null`을 출력할 수 있습니다.
+그 모양만으로 미실행이라고 판단하지 않습니다.
+
+```bash
+printf '반환된 dispatch ID: '
+read -r DISPATCH_ID
+python scripts/workshop.py --language ko routines inspect --name "$ROUTINE_NAME" --dispatch-id "$DISPATCH_ID" --label routine-result
+```
+
+helper는 **전달**을 확인합니다. 답변 내용이나 미래 timer 발화를 증명하지 않습니다.
+영문 agent-ID Routine은 Finished 이력이 있었지만 response ID 조회는 404였습니다.
+`--verify-response`와 새 label은 원래 답변을 엄격하게 조회하며 불가하면 오류를 남깁니다.
+모델 요청을 새로 보내지 않습니다.
+
+<!-- edition-checkpoint:KP20-104-paused-original-history -->
+
+![실제 국문 촬영: 원래 전달·취소된 미래 timer·비활성 상태를 구분](../../../assets/edition-20260916-ko/screenshots/KP20-104-paused-original-history-2.webp)
+
+**확인할 것:** 원래 수동 전달은 Completed이며 미래 timer 시도는 Cancelled입니다. 원래 답변 조회는 404였으므로 전달과 답변 검증을 구분합니다. 이후 내 routine만 정리했습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
+
+[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=514.36) · [전체 액션과 실패](../../edition-actions.md)
+
+## 5. 기록·정리
+
+생성 설정, 정확한 dispatch/run ID, 보고된 대상 버전, 답변/오류 또는 미검증 상태,
+최종 disabled 상태를 보관합니다.
+다른 workflow가 사용하지 않는 내 routine만 현재 delete 명령으로 정리합니다.
+삭제 전에는 `azd ai routine delete --help`를 확인합니다. 공유 agent/model은 지우지 않습니다.
+
+## 복구와 경계
+
+과거 timer 시각, 지원되지 않는 trigger, 권한 부족, CLI/SDK shape 차이를 구분합니다.
+원래 dispatch를 다시 보내지 않고 그 이력부터 읽습니다.
+비활성화로 취소된 미래 timer 시도는 성공한 예약 실행으로 집계하지 않습니다.
+수동 전달 성공과 반복 자동화 성공도 구분합니다.
+
+**다음:** [릴리스 운영](release-operations.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).

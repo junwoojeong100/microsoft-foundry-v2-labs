@@ -115,10 +115,16 @@ def command_translations(root: Path, errors: list[str]) -> dict[str, str]:
 
 def normalized_command(arguments: list[str], translations: dict[str, str]) -> list[str]:
     result = list(arguments)
+    language = None
     if "--language" in result:
         index = result.index("--language")
         if index + 1 < len(result) and result[index + 1] in {"ko", "en"}:
+            language = result[index + 1]
             del result[index : index + 2]
+    if "prepare-extensions" in result and "--label" in result and language is not None:
+        index = result.index("--label") + 1
+        if index < len(result) and result[index] == f"extensions-{language}":
+            result[index] = "extensions-<language>"
     for option in ("--question", "--reason"):
         if option in result:
             index = result.index(option) + 1
@@ -140,14 +146,12 @@ def pending_translations(root: Path, errors: list[str]) -> set[Path]:
         not isinstance(state, dict)
         or type(state.get("schema_version")) is not int
         or state["schema_version"] != 1
-        or state.get("source_language") != "ko"
+        or state.get("source_language") not in {"ko", "en"}
         or not isinstance(state.get("revision"), str)
         or not re.fullmatch(r"[a-z0-9-]+", state["revision"])
         or not isinstance(state.get("pending_files"), dict)
     ):
-        errors.append(
-            "docs/localization.json: expected explicit, versioned Korean-first localization state."
-        )
+        errors.append("docs/localization.json: expected explicit, versioned localization state.")
         return set()
     pairs = {
         english.relative_to(root).as_posix(): (english, korean)
@@ -171,10 +175,16 @@ def pending_translations(root: Path, errors: list[str]) -> set[Path]:
                 f"{name}: localization hashes changed; review and update the explicit pending record."
             )
             continue
-        beginning = english.read_text(encoding="utf-8")[:1200]
+        target = english if state["source_language"] == "ko" else korean
+        warning = (
+            "**Translation pending**" if state["source_language"] == "ko" else "**번역 준비 중**"
+        )
+        beginning = target.read_text(encoding="utf-8")[:1200]
         marker = f"<!-- translation-pending: {state['revision']} -->"
-        if marker not in beginning or "**Translation pending**" not in beginning:
-            errors.append(f"{name}: an English reader must see the Korean-first revision warning.")
+        if marker not in beginning or warning not in beginning:
+            errors.append(
+                f"{target.relative_to(root)}: readers must see the source-first revision warning."
+            )
             continue
         valid.add(english)
     return valid
@@ -241,7 +251,10 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
             continue
         counts["language_pairs"] += 1
         if (
-            "<!-- translation-pending:" in english.read_text(encoding="utf-8")[:1200]
+            any(
+                "<!-- translation-pending:" in path.read_text(encoding="utf-8")[:1200]
+                for path in (english, korean)
+            )
             and english not in pending
         ):
             errors.append(

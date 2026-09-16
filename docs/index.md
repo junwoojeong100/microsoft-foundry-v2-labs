@@ -13,6 +13,10 @@ a prepared MAF environment; practitioners use Python. Both solve the same
 Use the ready files rather than assembling JSON documents or copying reference-answer records.
 Advanced sections and recordings are optional reading, not extra steps required between labs.
 
+Choose a dedicated route: **[A — Beginner](paths/a-beginner.md)**,
+**[B — Implementation](paths/b-practitioner.md)**, or **[C — Advanced](paths/c-advanced.md)**.
+They share code, data and existing lab URLs. [Coverage and evidence](coverage.md) records new-module status separately.
+
 | What you need | Start here |
 |---|---|
 | Accounts, exact model, input files, and a self-setup route | [One-time setup](setup.md) |

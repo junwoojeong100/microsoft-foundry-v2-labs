@@ -16,6 +16,10 @@
 JSON 문서를 직접 조립하거나 정답 레코드를 복사하지 말고 준비된 파일을 사용합니다.
 심화 절과 녹화본은 선택 참고 자료이지 랩 사이에 추가로 수행해야 할 단계가 아닙니다.
 
+전용 경로 **[A — 입문](paths/a-beginner.md)**, **[B — 구현](paths/b-practitioner.md)**,
+**[C — 고급 모듈](paths/c-advanced.md)** 중 하나를 선택합니다.
+코드·데이터·기존 Lab URL을 공유하고 새 모듈의 실행 상태는 [기능·근거 기록](coverage.md)에 따로 표시합니다.
+
 | 찾는 것 | 바로가기 |
 |---|---|
 | 계정·고정 모델·입력 파일·혼자 준비하는 경로 | [한 번만 하는 준비](setup.md) |
@@ -29,6 +33,7 @@ JSON 문서를 직접 조립하거나 정답 레코드를 복사하지 말고 �
 | 새 국문 촬영본의 액션별 화면 | [182개 액션·543개 캡처](action-captures.md) |
 | 가이드 순서대로 한 영상에서 보기 | [CLI·포털 통합본 15분 14초와 챕터](video-chapters.md) |
 | 실제 결과와 아직 확인하지 않은 것 | [실행·검증 기록](live-run.md) |
+| 9월 16일 추가 모듈과 실제 한계 | [확장 결과](edition-results.md) · [별도 확장 영상](edition-videos.md) |
 | 마지막에 확인할 결과물 | [캡스톤](labs/11-capstone.md) |
 | 현재 지원 상태와 버전 | [호환성 기준](reference/versions.md) |
 | 오류·권한·할당량 문제 | [문제 해결](reference/troubleshooting.md) |

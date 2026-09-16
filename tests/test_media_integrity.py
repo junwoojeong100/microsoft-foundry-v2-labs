@@ -16,12 +16,20 @@ def read(path):
 
 
 class MediaIntegrityTests(unittest.TestCase):
+    assets = ASSETS
+    recorded_on = "2026-09-15"
+    lab_ids = list(range(12))
+    guide_glob = "*.md"
+    required_guide_images = None
+    action_index = "action-captures.md"
+    video_summary = "video-summary.md"
+
     def test_language_editions_use_different_actual_source_and_output_videos(self):
         hashes = {}
-        for language, directory in ASSETS.items():
+        for language, directory in self.assets.items():
             media = read(directory / "media.json")
             self.assertEqual(media["edition"], language)
-            self.assertEqual(media["recorded_on"], "2026-09-15")
+            self.assertEqual(media["recorded_on"], self.recorded_on)
             self.assertFalse(media["authentication_recorded"])
             self.assertTrue(media["new_azure_execution"])
             self.assertTrue(media["all_failures_retained_in_private_source"])
@@ -37,7 +45,7 @@ class MediaIntegrityTests(unittest.TestCase):
         self.assertFalse(hashes["ko"] & hashes["en"])
 
     def test_every_published_image_and_video_matches_its_recorded_hash(self):
-        for language, directory in ASSETS.items():
+        for language, directory in self.assets.items():
             media = read(directory / "media.json")
             images = read(directory / "screenshots.json")
             self.assertEqual(len(images), media["screenshot_count"])
@@ -47,10 +55,11 @@ class MediaIntegrityTests(unittest.TestCase):
                 self.assertRegex(item["source_png_sha256"], "^[0-9a-f]{64}$")
             for item in media["videos"] + images:
                 name = item.get("filename") or item["file"]
-                path = (directory / name).resolve()
+                candidate = directory / name
+                path = candidate.resolve()
                 with self.subTest(language=language, file=name):
                     self.assertTrue(path.is_relative_to(directory.resolve()))
-                    self.assertFalse(path.is_symlink())
+                    self.assertFalse(candidate.is_symlink())
                     with path.open("rb") as handle:
                         self.assertEqual(
                             hashlib.file_digest(handle, "sha256").hexdigest(), item["sha256"]
@@ -59,13 +68,13 @@ class MediaIntegrityTests(unittest.TestCase):
                         self.assertEqual(path.stat().st_size, item["bytes"])
 
     def test_every_action_has_new_screens_and_real_video_intervals(self):
-        for language, directory in ASSETS.items():
+        for language, directory in self.assets.items():
             media = read(directory / "media.json")
             actions = read(directory / "actions.json")["actions"]
             known = {item["file"] for item in read(directory / "screenshots.json")}
             self.assertEqual(len(actions), media["actions"])
             self.assertEqual(len(actions), len({item["id"] for item in actions}))
-            self.assertEqual({item["lab"] for item in actions}, set(range(12)))
+            self.assertEqual({item["lab"] for item in actions}, set(self.lab_ids))
             self.assertEqual(
                 {item["channel"] for item in actions}, {"terminal", "local-server", "portal"}
             )
@@ -86,7 +95,7 @@ class MediaIntegrityTests(unittest.TestCase):
                 )
 
     def test_frames_chapters_and_source_comparisons_cover_every_action(self):
-        for directory in ASSETS.values():
+        for directory in self.assets.values():
             media = read(directory / "media.json")
             sources = {item["id"]: item for item in media["source_recordings"]}
             for video in media["videos"]:
@@ -109,7 +118,7 @@ class MediaIntegrityTests(unittest.TestCase):
             combined = read(directory / "guide-ordered-timeline.json")
             footage = [item for item in combined if "source_id" in item]
             cards = [item for item in combined if item.get("kind") == "chapter-card"]
-            self.assertEqual([item["lab"] for item in cards], list(range(12)))
+            self.assertEqual([item["lab"] for item in cards], self.lab_ids)
             self.assertEqual(
                 [item["lab"] for item in combined], sorted(item["lab"] for item in combined)
             )
@@ -138,14 +147,14 @@ class MediaIntegrityTests(unittest.TestCase):
                 item for item in media["videos"] if item["filename"] == "guide-ordered.mp4"
             )
             chapters = video["chapters"]
-            self.assertEqual([item["lab"] for item in chapters], list(range(12)))
+            self.assertEqual([item["lab"] for item in chapters], self.lab_ids)
             self.assertEqual(chapters[0]["start_seconds"], 0)
             for before, after in pairwise(chapters):
                 self.assertAlmostEqual(before["end_seconds"], after["start_seconds"])
             self.assertAlmostEqual(chapters[-1]["end_seconds"], video["duration_seconds"])
 
     def test_local_native_playback_and_all_chapter_links_were_checked(self):
-        for language, directory in ASSETS.items():
+        for language, directory in self.assets.items():
             metadata = read(directory / "media.json")
             playback = read(directory / "local-playback.json")
             self.assertEqual(playback["language"], language)
@@ -163,18 +172,19 @@ class MediaIntegrityTests(unittest.TestCase):
                 )
 
     def test_guides_reference_only_their_own_new_language_images(self):
-        for language, directory in ASSETS.items():
+        for language, directory in self.assets.items():
             docs = ROOT / ("docs/ko" if language == "ko" else "docs")
             known = {
                 (directory / item["file"]).resolve()
                 for item in read(directory / "screenshots.json")
             }
-            for path in (docs / "labs").glob("*.md"):
+            for path in (docs / "labs").glob(self.guide_glob):
                 images = re.findall(r"!\[[^\]]+\]\(([^)]+)\)", path.read_text())
-                self.assertTrue(images, path.name)
+                if self.required_guide_images is None or path.stem in self.required_guide_images:
+                    self.assertTrue(images, path.name)
                 for image in images:
                     self.assertIn((path.parent / image).resolve(), known)
-            index = (docs / "action-captures.md").read_text()
+            index = (docs / self.action_index).read_text()
             for action in read(directory / "actions.json")["actions"]:
                 self.assertIn(f"| {action['id']} |", index)
                 self.assertIn(f"#t={action['combined_start_seconds']:.2f}", index)
@@ -182,7 +192,7 @@ class MediaIntegrityTests(unittest.TestCase):
     def test_actual_language_results_and_failures_keep_separate_lineage(self):
         results = {
             language: read(directory / "live-results.json")
-            for language, directory in ASSETS.items()
+            for language, directory in self.assets.items()
         }
         for language, result in results.items():
             self.assertEqual(result["language"], language)
@@ -218,11 +228,11 @@ class MediaIntegrityTests(unittest.TestCase):
         self.assertEqual(results["en"]["selected_holdout_model_keys"], ["luna", "sol", "terra"])
 
     def test_publication_status_is_not_inferred_from_local_file_existence(self):
-        for language, directory in ASSETS.items():
+        for language, directory in self.assets.items():
             status = read(directory / "github-playback.json")
             media = {item["filename"]: item for item in read(directory / "media.json")["videos"]}
             docs = ROOT / ("docs/ko" if language == "ko" else "docs")
-            summary = (docs / "video-summary.md").read_text()
+            summary = (docs / self.video_summary).read_text()
             self.assertIn(status["status"], {"published", "local-verified-not-published"})
             if status["status"] == "published":
                 self.assertEqual(status["repository"], "junwoojeong100/microsoft-foundry-v2-labs")
@@ -237,3 +247,165 @@ class MediaIntegrityTests(unittest.TestCase):
             else:
                 self.assertEqual(status["videos"], [])
                 self.assertNotIn("https://github.com/user-attachments/assets/", summary)
+
+
+class ExtensionMediaIntegrityTests(MediaIntegrityTests):
+    assets = {
+        language: ROOT / "docs/assets" / f"edition-20260916-{language}" for language in ("ko", "en")
+    }
+    recorded_on = "2026-09-16"
+    lab_ids = [0, 6, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25]
+    guide_glob = "extensions/*.md"
+    required_guide_images = {
+        "toolbox",
+        "tool-search-skills",
+        "conversation-evaluation",
+        "agent-optimizer",
+        "approval-recovery",
+        "memory",
+        "a2a",
+        "additional-tools",
+        "routines",
+        "agent-safety",
+        "release-operations",
+        "model-operations",
+        "governance-networking",
+        "developer-toolkit",
+        "toolbox-hosted",
+    }
+    action_index = "edition-actions.md"
+    video_summary = "edition-videos.md"
+
+    def test_actual_language_results_and_failures_keep_separate_lineage(self):
+        results = {
+            language: read(directory / "live-results.json")
+            for language, directory in self.assets.items()
+        }
+        for language, result in results.items():
+            self.assertEqual(result["language"], language)
+            self.assertFalse(result["holdout_used_for_development"])
+            self.assertFalse(result["production_approval"])
+            for key in (
+                "source_hash",
+                "latest_source_hash",
+                "corpus_hash",
+                "optimizer_dataset_file_sha256",
+            ):
+                self.assertRegex(result[key], r"^[0-9a-f]{64}$")
+            conversations = result["conversations"]
+            self.assertEqual(conversations["turns"], 6)
+            self.assertEqual(conversations["conversations"], 2)
+            self.assertLessEqual(conversations["business_passed"], 6)
+            for level, count in (("native_turn", 6), ("native_conversation", 2)):
+                native = conversations[level]
+                self.assertEqual(native["rows"], count)
+                self.assertEqual(native["actual_judge_inputs_with_original_policy"], count)
+                self.assertTrue(
+                    all(0 <= passed <= count for passed in native["reported_pass_counts"].values())
+                )
+                for key in ("input_hash", "dataset_hash", "evaluator_hash", "raw_results_sha256"):
+                    self.assertRegex(native[key], r"^[0-9a-f]{64}$")
+            optimizer = result["optimizer"]
+            self.assertFalse(optimizer["promoted"])
+            self.assertFalse(optimizer["grounding_reference_valid"])
+            self.assertEqual(optimizer["max_candidates"], 2)
+            self.assertEqual(optimizer["returned_candidates"], 0 if language == "en" else 2)
+            self.assertEqual(len(optimizer["evaluations"]), optimizer["returned_candidates"] + 1)
+            for evaluation in optimizer["evaluations"]:
+                self.assertEqual(evaluation["rows"], 6)
+                self.assertEqual(evaluation["valid_source_grounding_inputs"], 0)
+                self.assertEqual(evaluation["self_referential_grounding_inputs"], 6)
+                self.assertTrue(evaluation["failed_cases"])
+                self.assertRegex(evaluation["raw_results_sha256"], r"^[0-9a-f]{64}$")
+            self.assertEqual(len(result["hosted"]["downloaded_evidence_files"]), 8)
+            self.assertTrue(result["memory_cleanup"]["verified_absent"])
+            self.assertTrue(result["routine"]["manual_delivery_verified"])
+            self.assertFalse(result["routine"]["agent_answer_verified"])
+            self.assertFalse(result["routine"]["scheduled_trigger_verified"])
+            self.assertFalse(result["continuous_evaluation_tested"])
+        self.assertNotEqual(results["en"]["corpus_hash"], results["ko"]["corpus_hash"])
+        self.assertNotEqual(
+            results["en"]["optimizer_dataset_file_sha256"],
+            results["ko"]["optimizer_dataset_file_sha256"],
+        )
+        korean_cases = {item["case_id"]: item for item in results["ko"]["safety"]["cases"]}
+        self.assertEqual(korean_cases["D01"]["status"], "completed")
+        self.assertEqual(korean_cases["D06"]["status"], "failed")
+        self.assertEqual(korean_cases["D06"]["failure_type"], "tool-search-no-match")
+        self.assertFalse(korean_cases["D06"]["guardrail_intervention_proven"])
+        self.assertTrue(results["ko"]["routine_cleanup"]["verified_absent"])
+        self.assertEqual(results["ko"]["hosted"]["trace"]["rows"], 146)
+        self.assertEqual(len(results["ko"]["hosted"]["trace"]["matched_model_response_ids"]), 3)
+
+    def test_reboot_parts_exclude_authentication_and_never_reuse_foundation_sources(self):
+        old_hashes = {
+            item["sha256"]
+            for directory in ASSETS.values()
+            for item in read(directory / "media.json")["source_recordings"]
+        }
+        for language, directory in self.assets.items():
+            media = read(directory / "media.json")
+            self.assertTrue(media["independent_language_capture"])
+            self.assertFalse(media["translated_english_assets"])
+            self.assertFalse(media["upstream_results_reused_as_this_edition"])
+            self.assertFalse(old_hashes & {item["sha256"] for item in media["source_recordings"]})
+            playback = read(directory / "local-playback.json")
+            for video in playback["videos"]:
+                self.assertEqual(video["seek_validation"], "seek-complete-and-decoded-frame")
+            if language == "ko":
+                sources = {item["id"] for item in media["source_recordings"]}
+                self.assertTrue(
+                    {
+                        "part1-terminal",
+                        "part1-local-server",
+                        "part1-portal",
+                        "part2-terminal",
+                        "part2-local-server",
+                        "part2-portal",
+                        "part3-terminal",
+                        "part3-portal",
+                    }
+                    <= sources
+                )
+                exclusions = media["authentication_exclusions"]
+                self.assertEqual(
+                    {item["action_id"] for item in exclusions},
+                    {
+                        "KP15-118-explicit-workshop-tenant",
+                        "KP24-102-original-models-retained",
+                    },
+                )
+                actions = read(directory / "actions.json")["actions"]
+                self.assertFalse(
+                    {item["id"] for item in actions} & {item["action_id"] for item in exclusions}
+                )
+                for segment in read(directory / "guide-ordered-timeline.json"):
+                    for excluded in exclusions:
+                        if segment.get("source_id") == excluded["source_id"]:
+                            self.assertTrue(
+                                segment["last_frame"] < excluded["first_frame"]
+                                or segment["first_frame"] > excluded["last_frame"]
+                            )
+                failed_stream = next(
+                    item for item in actions if item["id"] == "KP21-005-unchanged-d06"
+                )
+                self.assertEqual(failed_stream["exit_code"], 0)
+                self.assertTrue(failed_stream["capture_status_is_not_execution_success"])
+
+    def test_published_extension_media_requires_real_remote_playback_evidence(self):
+        for directory in self.assets.values():
+            publication = read(directory / "github-playback.json")
+            if publication["status"] == "published":
+                media = {
+                    item["filename"]: item for item in read(directory / "media.json")["videos"]
+                }
+                self.assertFalse(publication["signed_media_urls_saved"])
+                for video in publication["videos"]:
+                    self.assertTrue(video["remote_sha256_verified"])
+                    self.assertTrue(video["native_playback_verified"])
+                    self.assertFalse(video["signed_media_urls_saved"])
+                    self.assertEqual(video["remote_bytes"], media[video["filename"]]["bytes"])
+                    self.assertEqual(
+                        video["chapter_seeks_verified"],
+                        len(media[video["filename"]].get("chapters", [])),
+                    )

@@ -11,6 +11,17 @@ DOCS = load_script("check_docs")
 
 
 class DocumentationTests(unittest.TestCase):
+    def test_language_specific_extension_labels_keep_strict_command_parity(self):
+        english = ["--language", "en", "prepare-extensions", "--label", "extensions-en"]
+        korean = ["--language", "ko", "prepare-extensions", "--label", "extensions-ko"]
+        self.assertEqual(DOCS.normalized_command(english, {}), DOCS.normalized_command(korean, {}))
+        self.assertNotEqual(
+            DOCS.normalized_command(english, {}),
+            DOCS.normalized_command(
+                ["--language", "ko", "prepare-extensions", "--label", "extensions-en"], {}
+            ),
+        )
+
     def test_readmes_do_not_present_upstream_source_columns(self):
         for name in ("README.md", "README.ko.md"):
             tables = "\n".join(
@@ -58,6 +69,40 @@ class DocumentationTests(unittest.TestCase):
         self.assertGreaterEqual(counts["language_pairs"], 31)
         self.assertGreaterEqual(counts["cli_examples"], 108)
         self.assertGreater(counts["local_anchors"], 0)
+
+    def test_english_first_revision_warns_korean_readers_and_pins_both_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "docs").mkdir()
+            english, korean = root / "README.md", root / "README.ko.md"
+            english.write_text("# Current guide\n\n**English** | [한국어](README.ko.md)\n")
+            korean.write_text(
+                "# 가이드\n\n[English](README.md) | **한국어**\n\n"
+                "<!-- translation-pending: english-first -->\n\n"
+                "> **번역 준비 중** — 영어 실행·촬영·보완 후 한국어를 갱신합니다.\n"
+            )
+            (root / "docs/localization.json").write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "source_language": "en",
+                        "revision": "english-first",
+                        "pending_files": {
+                            "README.md": {
+                                "english_sha256": hashlib.sha256(english.read_bytes()).hexdigest(),
+                                "korean_sha256": hashlib.sha256(korean.read_bytes()).hexdigest(),
+                            }
+                        },
+                    }
+                )
+            )
+            failures = []
+            self.assertEqual(DOCS.pending_translations(root, failures), {english})
+            self.assertEqual(failures, [])
+            english.write_text(english.read_text() + "\nA new command.\n")
+            failures = []
+            self.assertEqual(DOCS.pending_translations(root, failures), set())
+            self.assertTrue(any("hashes changed" in failure for failure in failures))
 
     def test_github_heading_ids_handle_both_languages_formatting_and_duplicates(self):
         headings = DOCS.heading_ids(

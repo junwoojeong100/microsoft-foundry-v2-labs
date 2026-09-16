@@ -10,7 +10,7 @@ from .settings import Settings, owned_prefix, require_env
 def evaluate_items(
     settings: Settings,
     directory: Path,
-    items: list[dict[str, str]],
+    items: list[dict[str, Any]],
     *,
     label: str,
     source_run_id: str,
@@ -21,6 +21,8 @@ def evaluate_items(
     timeout: int,
     reference_catalog: Path | None = None,
     retry_failed: bool = False,
+    messages_input: bool = False,
+    evaluation_level: str = "turn",
 ) -> dict[str, Any]:
     from azure.ai.projects.models import TestingCriterionAzureAIEvaluator
 
@@ -30,10 +32,36 @@ def evaluate_items(
         raise ValueError("Native judges are billable; explicitly pass --confirm-cost.")
     if not 5 <= timeout <= 900 or not items or not evaluator_names:
         raise ValueError("Provide evaluation items/evaluators and a timeout of 5-900 seconds.")
-    ids = [item["case_id"] for item in items]
-    if len(ids) != len(set(ids)) or any(
-        not isinstance(value, str) for item in items for value in item.values()
+    if evaluation_level not in {"turn", "conversation"} or (
+        evaluation_level == "conversation" and not messages_input
     ):
+        raise ValueError("Conversation-level evaluation requires explicit messages input.")
+    if any(not isinstance(item, dict) or "case_id" not in item for item in items):
+        raise ValueError("Every native evaluation item needs an explicit case ID.")
+    ids = [item["case_id"] for item in items]
+    if any(not isinstance(value, str) or not value for value in ids) or len(ids) != len(set(ids)):
+        raise ValueError("Native evaluation items must have unique nonempty case IDs.")
+    if messages_input:
+        if any(
+            set(item) != {"case_id", "messages"}
+            or not isinstance(item["messages"], list)
+            or not item["messages"]
+            or any(
+                not isinstance(message, dict)
+                or set(message) != {"role", "content"}
+                or message["role"] not in {"system", "user", "assistant"}
+                or not isinstance(message["content"], str)
+                or not message["content"].strip()
+                for message in item["messages"]
+            )
+            or item["messages"][-1]["role"] != "assistant"
+            or not any(message["role"] == "user" for message in item["messages"])
+            for item in items
+        ):
+            raise ValueError(
+                "Message evaluation requires complete text conversations with explicit roles."
+            )
+    elif any(not isinstance(value, str) for item in items for value in item.values()):
         raise ValueError("Native evaluation items must have unique case IDs and string fields.")
     judge = require_env("AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME")
     if judge in forbidden_deployments:
@@ -50,7 +78,15 @@ def evaluate_items(
         "judge_deployment": judge,
         "project_endpoint": settings.project_endpoint,
     }
+    if messages_input:
+        identity.update(input_format="messages", evaluation_level=evaluation_level)
     state = read_json(state_path) if state_path.exists() else dict(identity)
+    if (
+        state.get("input_format", "query-response")
+        != ("messages" if messages_input else "query-response")
+        or state.get("evaluation_level", "turn") != evaluation_level
+    ):
+        raise ValueError("The saved evaluation uses a different input format or evaluation level.")
     if "dataset_hash" not in state and "evaluation_id" in state:
         if "evaluator_names" in state or evaluator_names != ("groundedness", "relevance"):
             raise ValueError(
@@ -133,6 +169,13 @@ def evaluate_items(
                 parameters = {fields[0]: judge}
                 if "threshold" in properties:
                     parameters["threshold"] = 4
+                if messages_input:
+                    if evaluation_level not in definition.get("supported_evaluation_levels", []):
+                        raise ValueError(
+                            f"{name} does not advertise support for {evaluation_level}."
+                        )
+                    if "evaluation_level" in properties:
+                        parameters["evaluation_level"] = evaluation_level
                 catalog.append({"name": name, "definition": definition, "parameters": parameters})
         if (
             len(catalog) != len(evaluator_names)
@@ -142,6 +185,13 @@ def evaluate_items(
             raise ValueError("The catalog must pin exactly the requested evaluator versions.")
         for item in catalog:
             parameters = item["parameters"]
+            if messages_input and (
+                evaluation_level not in item["definition"].get("supported_evaluation_levels", [])
+                or parameters.get("evaluation_level", evaluation_level) != evaluation_level
+            ):
+                raise ValueError(
+                    "The frozen evaluator does not match the requested evaluation level."
+                )
             models = [parameters[key] for key in ("model", "deployment_name") if key in parameters]
             if models != [judge]:
                 raise ValueError("The frozen evaluator catalog uses a different judge deployment.")
@@ -157,7 +207,9 @@ def evaluate_items(
                     evaluator_name=f"builtin.{item['name']}",
                     evaluator_version=item["definition"]["version"],
                     initialization_parameters=item["parameters"],
-                    data_mapping={
+                    data_mapping={"messages": "{{item.messages}}"}
+                    if messages_input
+                    else {
                         "query": "{{item.query}}",
                         "response": "{{item.response}}",
                         **(
@@ -175,7 +227,14 @@ def evaluate_items(
                     "type": "custom",
                     "item_schema": {
                         "type": "object",
-                        "properties": {key: {"type": "string"} for key in items[0]},
+                        "properties": {
+                            key: {
+                                "type": "array"
+                                if messages_input and key == "messages"
+                                else "string"
+                            }
+                            for key in items[0]
+                        },
                         "required": list(items[0]),
                     },
                 },
@@ -195,6 +254,9 @@ def evaluate_items(
                         "content": [{"item": item} for item in items],
                     },
                 },
+                **(
+                    {"extra_body": {"evaluation_level": evaluation_level}} if messages_input else {}
+                ),
             )
             state["run_id"] = run.id
             write_json(state_path, state)
@@ -239,6 +301,11 @@ def evaluate_items(
         "report_url": state["report_url"],
         "rows": len(normalized),
         "evaluator_hash": state["evaluator_hash"],
+        **(
+            {"input_format": "messages", "evaluation_level": evaluation_level}
+            if messages_input
+            else {}
+        ),
         "native_pass_counts": {
             name: {
                 "passed": sum(

@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 import argparse
-import hashlib
 import json
 import shutil
 import sys
-import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from foundry_workshop.packaging import copy_runtime, file_hashes, runtime_dependencies  # noqa: E402
 from foundry_workshop.profiles import PROFILE_FILENAME, RuntimeProfile  # noqa: E402
 
 
@@ -20,24 +19,9 @@ def build(root: Path, profile: RuntimeProfile | None = None) -> Path:
         raise ValueError(
             "The hosted package already exists. Preserve or remove that exact generated directory before rebuilding."
         )
-    configuration = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
-    dependencies = []
-    for extra in ("cloud", "agents", "hosted"):
-        for requirement in configuration["project"]["optional-dependencies"][extra]:
-            if requirement.startswith(configuration["project"]["name"] + "["):
-                continue
-            if "==" not in requirement:
-                raise ValueError(f"Direct hosted dependency is not pinned: {requirement}")
-            if requirement not in dependencies:
-                dependencies.append(requirement)
+    edition, dependencies = runtime_dependencies(root)
     destination.mkdir(parents=True)
-    shutil.copytree(
-        root / "src/foundry_workshop",
-        destination / "foundry_workshop",
-        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
-    )
-    shutil.copytree(root / "data/knowledge", destination / "data/knowledge")
-    shutil.copytree(root / "prompts", destination / "prompts")
+    copy_runtime(root, destination)
     for name in ("main.py", ".agentignore"):
         shutil.copy2(root / "examples/hosted" / name, destination / name)
     (destination / PROFILE_FILENAME).write_text(
@@ -45,16 +29,11 @@ def build(root: Path, profile: RuntimeProfile | None = None) -> Path:
         encoding="utf-8",
     )
     (destination / "requirements.txt").write_text("\n".join(dependencies) + "\n", encoding="utf-8")
-    files = {}
-    for path in sorted(destination.rglob("*")):
-        if path.is_file():
-            files[path.relative_to(destination).as_posix()] = hashlib.sha256(
-                path.read_bytes()
-            ).hexdigest()
+    files = file_hashes(destination)
     (destination / "package-manifest.json").write_text(
         json.dumps(
             {
-                "edition": configuration["project"]["version"],
+                "edition": edition,
                 "files": files,
                 "excludes": [
                     ".env",

@@ -1,11 +1,31 @@
-# 검증 범위와 실제 실행 — 2026-09-15
+# 검증 범위와 실제 실행
 
 [English](../../reference/validation.md) | **한국어**
 
 **설치·offline 계약·실제 Azure 실행·모델 품질·미디어 검수는 서로 다른 검증입니다.**
 국문과 영문은 별도 label과 촬영 원본을 사용합니다. 이전 영상이나 upstream 성공을 새 결과로 재분류하지 않습니다.
 
-## 국문 실제 Azure 실행
+## 확장판 인수 검사 — 2026-09-17
+
+9월 16일 영문·국문 확장 소스는 아래의 과거 cohort와 분리해 확인했습니다.
+**Python 3.13·3.14 각각 offline 200개, 설치된 SDK transport 66개**와 Ruff check/format,
+Python compilation, 의존성 호환성, 결정적 학습자 bundle 검사가 통과했습니다.
+문서는 **61개 언어 쌍·실행 가능한 workshop 예제 332개**를 검사했으며 보류된 번역은 없습니다.
+
+영문 확장은 166개 동작·496장 캡처·원본 구간 368개,
+독립 국문 확장은 172개 동작·516장 캡처·원본 구간 363개입니다.
+최소 midpoint SSIM은 각각 **0.982302 / 0.983325**입니다.
+확장 영상 6개를 실제 로컬 player에서 재생하고 각 통합본의 15개 챕터마다 seek 완료와 decoded frame을 확인했습니다.
+국문 리부팅 파트는 별도 시간축을 유지하며 인증 전환과 그 뒤의 원본 구간은 공개 영상에서 제외했습니다.
+
+[영문 결과](../../edition-results.md)와 [국문 결과](../edition-results.md)에 실제 실패를 남겼습니다.
+Optimizer의 답변 자기 비교를 원문 grounding이나 승격 근거로 인정하지 않았습니다.
+별도 대화 평가의 실제 judge 입력에는 원래 정책 JSON이 보존돼 있습니다.
+국문 안전 실습 D06은 CLI exit 0이어도 도구 발견 실패에 따른 failed 응답입니다.
+9월 17일에는 확장 영상 6개의 실제 비공개 GitHub bytes/hash·native 재생·챕터 seek 완료도 확인했습니다.
+수동 CI 실행은 로컬 검사나 게시된 영상 URL로 추정하지 않는 별도 실행 검증입니다.
+
+## 국문 실제 Azure 실행 — 2026-09-15
 
 기존 Sweden Central 실습 프로젝트를 재사용했습니다. 기본 구독을 바꾸거나 새 Resource Group을 만들지 않았습니다.
 승인된 Sol/Terra/Astra 배포를 각각 100K TPM으로 추가하고, 해당 Hosted identity에 필요한 최소 모델/Search 역할만 부여했습니다.

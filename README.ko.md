@@ -28,14 +28,14 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 
 한국어 · 합성 데이터 · **2026-09-15 실제 실행 / Pre-Ignite 2026 Edition**
 
-**[새 국문 영상](docs/ko/video-summary.md)** —
+**[기본 과정 국문 영상 — 2026-09-15](docs/ko/video-summary.md)** —
 통합본 **15분 14초**, CLI **8분 56초**, 포털 **5분 53초**.
 [182개 실제 액션·543개 무손실 캡처](docs/ko/action-captures.md)를 제공합니다.
 영상은 실제 화면 녹화에서 대기를 덜어낸 것이며 스크린샷 슬라이드쇼가 아닙니다.
 
 [Lab 00–11 챕터 이동](docs/ko/video-chapters.md) · [실측 결과와 한계](docs/ko/live-run.md)
 
-국문·영문 영상 6개는 GitHub에 게시하고 실제 재생·챕터 이동을 확인했습니다.
+기본 과정 국문·영문 영상 6개는 GitHub에 게시하고 실제 재생·챕터 이동을 확인했습니다.
 비공개 저장소이므로 접근 권한이 있는 GitHub 계정으로 로그인해 재생하세요.
 
 각 랩 본문에는 새 국문 캡처와 화면 확인 포인트를 배치했습니다.
@@ -47,15 +47,22 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 
 ## 여기에서 시작하세요
 
+**9월 16일 확장 경로:** [A — 입문](docs/ko/paths/a-beginner.md) ·
+[B — 구현](docs/ko/paths/b-practitioner.md) · [C — 고급 모듈](docs/ko/paths/c-advanced.md).
+[기능·근거 상태](docs/ko/coverage.md)와 [이번 판의 결과](docs/ko/edition-results.md)에서
+기존 기본 과정과 새 모듈, 영문·국문 실행을 따로 확인합니다.
+[국문 확장 영상](docs/ko/edition-videos.md)은 **12분 23초 통합본, 172개 동작·516장 캡처**를 제공합니다.
+실제 게시 상태는 영상 페이지에 별도로 표시하며 영문 영상을 국문 실행으로 재사용하지 않습니다.
+
 **처음 방문: [준비 카드 작성](docs/ko/setup.md) → [학습자 ZIP 받기](data/learner/ko/learner-materials.zip) → [Lab 00 시작](docs/ko/labs/00-start.md).**
 ZIP에는 그대로 붙여 넣는 지침, 합성 정책 6개, 질문 전용 파일, 빈 평가표가 있습니다.
 첫 회차는 **A**를 따라가고 심화 분기·녹화 참고 화면은 필요할 때만 펼칩니다.
 
 | 지금 내 상태 | 시작점 | 끝나면 남는 것 |
 |---|---|---|
-| Azure·AI·코딩이 처음 | **[A. 완전초보자 4시간 경로](docs/ko/paths.md)** | 포털 에이전트, 근거 있는 답변, 6문항 평가표, 운영·정리 체크리스트 |
-| Python/API/Azure를 사용해 봄 | **[B. 경험자 6시간 경로](docs/ko/paths.md)** | MAF·MCP·워크플로 코드, 검색, 전후 평가·holdout, 배포 패키지 |
-| Hosted workflow와 평가 체계를 끝까지 구축 | **[C. 통합 심화 경로](docs/ko/paths.md#c-통합-심화--150180분-추가)** | 고정 원격 version, 모델 matrix, 실제 회귀 소비, judge calibration·trace 인수 |
+| Azure·AI·코딩이 처음 | **[A. 입문](docs/ko/paths/a-beginner.md)** | 포털 agent, 근거 있는 답변, 6문항 평가표, 운영·정리 확인 |
+| Python/API/Azure를 사용해 봄 | **[B. 구현](docs/ko/paths/b-practitioner.md)** | MAF/MCP/workflow, 검색, 통제된 평가, 패키지와 관리형 도구 확장 |
+| 구현한 agent 시스템을 확장 | **[C. 고급 모듈](docs/ko/paths/c-advanced.md)** | 기존 Hosted matrix와 선택한 도구·대화·최적화·복구·Memory·A2A·운영 |
 | 강사·환경 준비 담당자 | **[강사 사전 준비](docs/ko/instructor.md)** | 조별 환경, 권한·비용 계획, 수업 전 smoke test, 중단·복구 기준 |
 | Azure 승인이나 할당량을 기다리는 중 | **[Azure 없이 검사기 체험](docs/ko/labs/00-start.md)** | 오프라인 fixture로 실행·평가 파일 구조 이해. **클라우드 실습 완료와는 다름** |
 | 구버전을 이미 진행함 | **[구버전 → v2 변경 지도](docs/ko/reference/migration.md)** | 재사용할 개념, 바꿔야 할 SDK·권한·실행 방식 |

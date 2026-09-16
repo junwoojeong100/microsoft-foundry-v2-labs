@@ -1,0 +1,215 @@
+import json
+import os
+import tempfile
+import unittest
+from dataclasses import replace
+from pathlib import Path
+from subprocess import CalledProcessError, CompletedProcess
+from unittest.mock import patch
+
+from foundry_workshop.profiles import RuntimeProfile
+
+from . import workspace
+from .test_ci_helpers import ENV
+from .test_packaging import load_script
+from .test_toolbox import ENVIRONMENT, seed_ledger, settings
+
+PACKAGE = load_script("package_toolbox")
+PREPARE = load_script("prepare_hosted_azd")
+HOSTED_PACKAGE = load_script("package_hosted")
+
+
+class ToolboxAzdTests(unittest.TestCase):
+    def test_ci_workflow_uses_an_isolated_exact_profile_without_search_settings(self):
+        for language in ("en", "ko"):
+            with (
+                self.subTest(language=language),
+                workspace() as root,
+                tempfile.TemporaryDirectory() as folder,
+            ):
+                environment = {
+                    **ENV,
+                    "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"primary":"gpt-5.6-luna"}',
+                }
+                with patch.dict(os.environ, environment, clear=True):
+                    profile = RuntimeProfile(
+                        kind="workflow", protocol="invocations", language=language
+                    )
+                    package = HOSTED_PACKAGE.build(root, profile)
+                    path = PREPARE.prepare(
+                        package,
+                        Path(folder) / "run",
+                        settings(language),
+                        "mfv2-unit-ci",
+                        kind="workflow",
+                    )
+                    data = json.loads(path.read_text())
+                    self.assertEqual(set(data["services"]), {"workshop-project", "mfv2-unit-ci"})
+                    agent = data["services"]["mfv2-unit-ci"]
+                    self.assertEqual(
+                        agent["protocols"], [{"protocol": "invocations", "version": "1.0.0"}]
+                    )
+                    self.assertNotIn("AZURE_SEARCH_ENDPOINT", agent["env"])
+                    self.assertEqual(
+                        json.loads(agent["env"]["WORKSHOP_MODEL_DEPLOYMENTS_JSON"]),
+                        {"primary": "gpt-5.6-luna"},
+                    )
+
+    def test_ci_workflow_rejects_other_profiles_and_model_maps(self):
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            with patch.dict(
+                os.environ,
+                {**ENV, "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"primary":"other"}'},
+                clear=True,
+            ):
+                package = HOSTED_PACKAGE.build(
+                    root, RuntimeProfile(kind="workflow", protocol="invocations", language="en")
+                )
+                with self.assertRaisesRegex(ValueError, "model map"):
+                    PREPARE.prepare(
+                        package,
+                        Path(folder) / "bad-model",
+                        settings(),
+                        "mfv2-unit-ci",
+                        kind="workflow",
+                    )
+                with self.assertRaisesRegex(ValueError, "profile"):
+                    PREPARE.prepare(
+                        package,
+                        Path(folder) / "bad-language",
+                        settings("ko"),
+                        "mfv2-unit-ci",
+                        kind="workflow",
+                    )
+                self.assertEqual(list(Path(folder).iterdir()), [])
+
+    def test_manifest_reuses_only_the_existing_project_and_exact_package(self):
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            with patch.dict(os.environ, ENVIRONMENT, clear=True):
+                seed_ledger(root)
+                package = PACKAGE.build(root, settings(), "2", with_skill=True)
+                destination = Path(folder) / "run"
+                path = PREPARE.prepare(package, destination, settings(), "mfv2-unit-hosted")
+                data = json.loads(path.read_text())
+                self.assertEqual(set(data["services"]), {"workshop-project", "mfv2-unit-hosted"})
+                project = data["services"]["workshop-project"]
+                self.assertEqual(project["endpoint"], settings().project_endpoint)
+                self.assertNotIn("deployments", project)
+                agent = data["services"]["mfv2-unit-hosted"]
+                self.assertEqual(agent["env"]["WORKSHOP_AUTH_MODE"], "managed-identity")
+                self.assertEqual(
+                    agent["protocols"], [{"protocol": "responses", "version": "2.0.0"}]
+                )
+                copied = destination / agent["project"]
+                self.assertEqual(
+                    (copied / "package-manifest.json").read_bytes(),
+                    (package / "package-manifest.json").read_bytes(),
+                )
+                with self.assertRaises(FileExistsError):
+                    PREPARE.prepare(package, destination, settings(), "mfv2-unit-hosted")
+
+    def test_rejects_changed_package_before_writing(self):
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            with patch.dict(os.environ, ENVIRONMENT, clear=True):
+                seed_ledger(root)
+                package = PACKAGE.build(root, settings(), "2")
+                (package / "main.py").write_text("changed")
+                destination = Path(folder) / "run"
+                with self.assertRaisesRegex(ValueError, "package files"):
+                    PREPARE.prepare(package, destination, settings(), "mfv2-unit-hosted")
+                self.assertFalse(destination.exists())
+
+    def test_rejects_language_and_model_drift_and_unowned_names(self):
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            with patch.dict(os.environ, ENVIRONMENT, clear=True):
+                seed_ledger(root)
+                package = PACKAGE.build(root, settings(), "2")
+                destination = Path(folder) / "run"
+                with self.assertRaisesRegex(ValueError, "prefix"):
+                    PREPARE.prepare(package, destination, settings(), "other-team-hosted")
+                with self.assertRaisesRegex(ValueError, "language"):
+                    PREPARE.prepare(package, destination, settings("ko"), "mfv2-unit-hosted")
+                with self.assertRaisesRegex(ValueError, "model"):
+                    PREPARE.prepare(
+                        package,
+                        destination,
+                        replace(settings(), deployment="other-model"),
+                        "mfv2-unit-hosted",
+                    )
+                self.assertFalse(destination.exists())
+
+    def test_rejects_nested_projects_and_symlinked_packages(self):
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            with patch.dict(os.environ, ENVIRONMENT, clear=True):
+                seed_ledger(root)
+                package = PACKAGE.build(root, settings(), "2")
+                parent = Path(folder)
+                (parent / "azure.yaml").write_text("{}")
+                with self.assertRaisesRegex(ValueError, "existing azd"):
+                    PREPARE.prepare(package, parent / "run", settings(), "mfv2-unit-hosted")
+                (package / "linked").symlink_to(package / "main.py")
+                with self.assertRaisesRegex(ValueError, "symbolic"):
+                    PREPARE.prepare(package, parent / "run", settings(), "mfv2-unit-hosted")
+
+    def test_environment_bootstrap_has_no_provision_deploy_or_subscription_switch(self):
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            with patch.dict(os.environ, {**ENVIRONMENT, **ENV}, clear=True):
+                seed_ledger(root)
+                package = PACKAGE.build(root, settings(), "2")
+                directory = Path(folder) / "run"
+                PREPARE.prepare(package, directory, settings(), "mfv2-unit-hosted")
+                values = PREPARE.environment_values(settings(), ENV["AZURE_AI_PROJECT_ID"])
+
+                def result(command, **kwargs):
+                    output = values[command[-1]] if command[1:3] == ["env", "get-value"] else ""
+                    self.assertEqual(kwargs["cwd"], directory)
+                    self.assertTrue(kwargs["check"])
+                    return CompletedProcess(command, 0, output, "")
+
+                with patch.object(PREPARE.subprocess, "run", side_effect=result) as execute:
+                    PREPARE.initialize_environment(
+                        directory, "mfv2-unit-hosted", values, "swedencentral"
+                    )
+                calls = [call.args[0] for call in execute.call_args_list]
+                self.assertTrue(all(call[:2] == ["azd", "env"] for call in calls))
+                self.assertEqual(calls[0][2:4], ["new", "mfv2-unit-hosted"])
+                self.assertEqual(values["FOUNDRY_PROJECT_ENDPOINT"], settings().project_endpoint)
+                self.assertFalse(any("AZURE_DEV_USER_AGENT" in call for call in calls))
+
+    def test_scope_and_environment_errors_are_not_reported_as_success(self):
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            with patch.dict(os.environ, {**ENVIRONMENT, **ENV}, clear=True):
+                with self.assertRaisesRegex(ValueError, "ARM ID"):
+                    PREPARE.environment_values(settings(), "/subscriptions/other/projects/workshop")
+                seed_ledger(root)
+                package = PACKAGE.build(root, settings(), "2")
+                directory = Path(folder) / "run"
+                PREPARE.prepare(package, directory, settings(), "mfv2-unit-hosted")
+                values = PREPARE.environment_values(settings(), ENV["AZURE_AI_PROJECT_ID"])
+                with (
+                    patch.object(
+                        PREPARE.subprocess,
+                        "run",
+                        side_effect=CalledProcessError(1, ["azd", "env", "new"], stderr="failed"),
+                    ),
+                    self.assertRaises(CalledProcessError),
+                ):
+                    PREPARE.initialize_environment(
+                        directory, "mfv2-unit-hosted", values, "swedencentral"
+                    )
+                with (
+                    patch.object(
+                        PREPARE.subprocess,
+                        "run",
+                        return_value=CompletedProcess(["azd"], 0, "wrong-value", ""),
+                    ),
+                    self.assertRaisesRegex(ValueError, "readback"),
+                ):
+                    PREPARE.initialize_environment(
+                        directory, "mfv2-unit-hosted", values, "swedencentral"
+                    )
+                (directory / ".azure").mkdir()
+                with self.assertRaises(FileExistsError):
+                    PREPARE.initialize_environment(
+                        directory, "mfv2-unit-hosted", values, "swedencentral"
+                    )

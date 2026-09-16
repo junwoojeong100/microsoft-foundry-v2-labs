@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "language": "ko",
+  "edition": "2026-09-16",
+  "holdout_used_for_development": false,
+  "production_approval": false,
+  "source_hash": "a3a77f09f6f82916e73fd50eed1bde0487d024f873e9f8f614dba0bd0c3852ac",
+  "latest_source_hash": "f13a9b0951e8ab21a0e633a05d8ec43b33df430ad2a43a01eb526402b213b2eb",
+  "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+  "optimizer_dataset_file_sha256": "e0409b4b8815fbe01de8aaee9e2fa367831476a734ad670086d0b7aa0cb3a89a",
+  "conversations": {
+    "turns": 6,
+    "conversations": 2,
+    "business_passed": 6,
+    "business_errors": 0,
+    "business_results_sha256": "5c5932f57ccdd079f28f8ad090bd5b51189eb919c2ce941f86ae9765c17e2ef9",
+    "native_turn": {
+      "evaluation_id": "eval_535dcb9e133348fe9235abd255a277da",
+      "run_id": "evalrun_10d6044d74474ef2aa9bfb08cb83c6b0",
+      "rows": 6,
+      "reported_pass_counts": {
+        "groundedness": 6,
+        "coherence": 6
+      },
+      "actual_judge_inputs_with_original_policy": 6,
+      "input_hash": "4cba7574f27eac7f81dea99632f830228b6c1da112d1526ada07756e37f93b4a",
+      "dataset_hash": "cbed3d76c807e3c7ac8b614cc7cafdeec5cb8f4dafe4fb64f25ae90def48ecb7",
+      "evaluator_hash": "8da64c86a6dc50ea18ab4462f4747f60eff0bcc98f99eecb5bdc130a1bd1eb67",
+      "raw_results_sha256": "322f6db85ce0ea6f9a2812df332e969806992d07b91b21671af085e81194bb87",
+      "source_location": "query message array"
+    },
+    "native_conversation": {
+      "evaluation_id": "eval_d062f16a9a2a4193bdf1bedc7795c25b",
+      "run_id": "evalrun_a4dd12a5779d4496a7686f0c49c6d8ea",
+      "rows": 2,
+      "reported_pass_counts": {
+        "groundedness": 2,
+        "coherence": 2
+      },
+      "actual_judge_inputs_with_original_policy": 2,
+      "input_hash": "9245b560bc0927faa8d42d08819ee939f83af4cbf10302d3492ef7c44ef167b2",
+      "dataset_hash": "cbed3d76c807e3c7ac8b614cc7cafdeec5cb8f4dafe4fb64f25ae90def48ecb7",
+      "evaluator_hash": "da0e0f02d2a85546201bef668bee96c7f80078401d92aa4055dcd26d140c803e",
+      "raw_results_sha256": "a92285ae6693d85a42a08ea5a2ed87828bca9d91c7fc3089daf7883d24eb37fb",
+      "source_location": "messages"
+    },
+    "different_denominators_are_not_quality_improvement": true
+  },
+  "optimizer": {
+    "run_id": "opt_1a4531cbb37540fea56b947fdf024b7a",
+    "status": "succeeded",
+    "max_candidates": 2,
+    "returned_candidates": 2,
+    "reported_progress": {
+      "candidates_completed": 2,
+      "baseline_score": 0.9375,
+      "best_score": 0.9375,
+      "elapsed_seconds": 477.93254254399994
+    },
+    "token_usage": [
+      {
+        "layer": "agent",
+        "model": "gpt-5.6-luna",
+        "input_tokens": 60990,
+        "output_tokens": 6255,
+        "total_tokens": 67245,
+        "cached_tokens": 0,
+        "reasoning_tokens": 0
+      },
+      {
+        "layer": "judge",
+        "model": "gpt-5.6-luna-2026-07-09",
+        "input_tokens": 144399,
+        "output_tokens": 13327,
+        "total_tokens": 157726,
+        "cached_tokens": 0,
+        "reasoning_tokens": 0
+      },
+      {
+        "layer": "reflection",
+        "model": "mfv2-course-20260916-opt-gpt55",
+        "input_tokens": 10946,
+        "output_tokens": 7885,
+        "total_tokens": 18831,
+        "cached_tokens": 0,
+        "reasoning_tokens": 3114
+      }
+    ],
+    "grounding_reference_valid": false,
+    "promoted": false,
+    "evaluations": [
+      {
+        "candidate": "baseline",
+        "evaluation_id": "eval_3f641db4602641bf8bcbd7a1407d03e7",
+        "run_id": "evalrun_8f949a16e02b4b9a96c7383179567e4f",
+        "rows": 6,
+        "reported_pass_counts": {
+          "groundedness": 6,
+          "relevance": 5
+        },
+        "valid_source_grounding_inputs": 0,
+        "self_referential_grounding_inputs": 6,
+        "raw_results_sha256": "fb2dcbfa427e184750a0d9c3698ca3887243ff0e9ab9333adec7c59917190596",
+        "failed_cases": [
+          {
+            "case_id": "D05",
+            "metric": "relevance",
+            "score": 2.0
+          }
+        ]
+      },
+      {
+        "candidate": "candidate_1",
+        "evaluation_id": "eval_3f641db4602641bf8bcbd7a1407d03e7",
+        "run_id": "evalrun_53cd557c74bc41f18a8f24810d9fb78f",
+        "rows": 6,
+        "reported_pass_counts": {
+          "groundedness": 6,
+          "relevance": 5
+        },
+        "valid_source_grounding_inputs": 0,
+        "self_referential_grounding_inputs": 6,
+        "raw_results_sha256": "ad6edbfcda5ae6392ee10423f48186ab836d0129e9448407c21e7472798b4e63",
+        "failed_cases": [
+          {
+            "case_id": "D05",
+            "metric": "relevance",
+            "score": 2.0
+          }
+        ]
+      },
+      {
+        "candidate": "candidate_2",
+        "evaluation_id": "eval_3f641db4602641bf8bcbd7a1407d03e7",
+        "run_id": "evalrun_22a0a9d3a0644d28925243e91c462fcb",
+        "rows": 6,
+        "reported_pass_counts": {
+          "groundedness": 6,
+          "relevance": 5
+        },
+        "valid_source_grounding_inputs": 0,
+        "self_referential_grounding_inputs": 6,
+        "raw_results_sha256": "8b827d940497627ac33ded3533ee61ec38f17051c138ad7a7959b77393021231",
+        "failed_cases": [
+          {
+            "case_id": "D05",
+            "metric": "relevance",
+            "score": 3.0
+          }
+        ]
+      }
+    ],
+    "note": "Service-reported scores are retained, but response-as-context is not source grounding or a promotion gate."
+  },
+  "hosted": {
+    "agent": "mfv2-course-20260916-toolbox-hosted-ko",
+    "version": "1",
+    "response_id": "caresp_079e73989d6231b100BshiRYIuGYnFj9TcFY8tROE1UAmM4852",
+    "response_hash": "c9a18c0e05cf36e8cc9d778c38f107aa1c320702033d0de1863a8aecd36e6544",
+    "runtime_code_hash": "dc0d6226bb45baa4cc071d125571421a05b731336faa8564ce8c477a20258525",
+    "toolbox_version": "4",
+    "skill_ref": {
+      "type": "skill_reference",
+      "name": "mfv2-course-20260916-policy-review-ko",
+      "version": "1"
+    },
+    "model_response_ids": [
+      "resp_0224f310881df26b016aaa9880b188819080f6f2aea888bcbb",
+      "resp_0224f310881df26b016aaa988399ec8190a36c5eb81711fd04",
+      "resp_0224f310881df26b016aaa98858d60819095b7cf0bb8dfddef",
+      "resp_0224f310881df26b016aaa9887ef788190a0f6fa6ac61cb4aa"
+    ],
+    "downloaded_evidence_files": {
+      "binding.json": "af2559559f7d7e4cf948526b4084dd4b5982bd94ad7195281e759148ba05e51e",
+      "request.json": "79c636448523aab14652d53c2336efa84c247580a7ba474fb190f9bb6043ef7b",
+      "tool-list.json": "7d326a20d5d583150ae182e81f676e8d462f0f898741c45f557bcc1acee3befd",
+      "model-calls.json": "eeab489ed24e6fa83a457a006a966a4e5b92c8014974970e0aeeb785b48ee16a",
+      "function-calls.json": "e210386db232db53a766898dfa5edcaed783e652daf76a1c0e5a7c3bc596efd6",
+      "tool-results.json": "b848e0febfcdd970d8ae988b531cae47dac25c13e18affc3f3fd87c0eecfd9b5",
+      "response.json": "f6017e6886111dc0b7224cf30b851b19a235e57f80b2d777ab5c6bd57d8f9e14",
+      "summary.json": "0d2efb7720480dac5123b8e39b60977584b307bc2c7c46ecc67fb507a398ddf8"
+    },
+    "trace": {
+      "mode": "read-only-original-hosted-trace",
+      "agent": "mfv2-course-20260916-toolbox-hosted-ko",
+      "version": "1",
+      "response_id": "caresp_079e73989d6231b100BshiRYIuGYnFj9TcFY8tROE1UAmM4852",
+      "trace_id": "3d9815f0a665dfba42efb05012aeed9e",
+      "rows": 146,
+      "matched_model_response_ids": [
+        "resp_0224f310881df26b016aaa988399ec8190a36c5eb81711fd04",
+        "resp_0224f310881df26b016aaa98858d60819095b7cf0bb8dfddef",
+        "resp_0224f310881df26b016aaa9887ef788190a0f6fa6ac61cb4aa"
+      ],
+      "model_response_ids_not_found_in_trace": [
+        "resp_0224f310881df26b016aaa9880b188819080f6f2aea888bcbb"
+      ],
+      "new_model_request": false,
+      "all_possible_child_spans_exported": "not-established"
+    }
+  },
+  "safety": {
+    "cases": [
+      {
+        "case_id": "D01",
+        "status": "completed",
+        "raw_sha256": "802d32196c25e3af576cd3ec979077436015e2f64fff75e883f1c495980fe6c5",
+        "guardrail_intervention_proven": false,
+        "failure_type": null,
+        "fallback_used": false
+      },
+      {
+        "case_id": "D06",
+        "status": "failed",
+        "raw_sha256": "6182b29399712dcce4c747212d921c3113bf7a7e9f8334c887168e759f21c761",
+        "guardrail_intervention_proven": false,
+        "failure_type": "tool-search-no-match",
+        "fallback_used": false
+      }
+    ],
+    "claimed_general_safety_certification": false
+  },
+  "memory_cleanup": {
+    "store_name": "mfv2-course-20260916-memory-ko",
+    "deleted": true,
+    "verified_absent": true
+  },
+  "routine": {
+    "routine_name": "mfv2-course-20260916-timer-ko",
+    "dispatch_id": "dispatch_e0a32e57ed8f47aaab0c93e8c56619bf",
+    "run_id": "71e23ea1-8491-4c73-a84d-e447c437ae52",
+    "run_status": "Finished",
+    "response_id": "resp_023d60513da5436d006aaa9bd1a1e0819695263105425579eb",
+    "manual_delivery_verified": true,
+    "agent_answer_verified": false,
+    "response_retrieval": "unavailable-http-404",
+    "scheduled_trigger_verified": false,
+    "new_model_request": false
+  },
+  "routine_cleanup": {
+    "routine": "mfv2-course-20260916-timer-ko",
+    "original_created_at": "2026-09-16T13:36:38Z",
+    "disabled_before_delete": true,
+    "deleted": true,
+    "verified_absent": true,
+    "dispatch_id": "dispatch_e0a32e57ed8f47aaab0c93e8c56619bf",
+    "shared_agent_or_model_deleted": false,
+    "original_delivery_and_unavailable_answer_preserved": true
+  },
+  "temporary_optimizer_model_cleanup": {
+    "deployment": "mfv2-course-20260916-opt-gpt55",
+    "model": {
+      "callRateLimit": null,
+      "format": "OpenAI",
+      "name": "gpt-5.5",
+      "publisher": null,
+      "source": null,
+      "sourceAccount": null,
+      "version": "2026-04-24"
+    },
+    "deleted": true,
+    "verified_absent": true,
+    "finished_optimizer_runs": [
+      "opt_8222200dcaff4a5ea20a7b3a1688e333",
+      "opt_1a4531cbb37540fea56b947fdf024b7a"
+    ],
+    "remaining_deployments": [
+      "gpt-5.6-luna",
+      "gpt-5.6-luna-judge",
+      "text-embedding-3-large",
+      "gpt-5.6-sol",
+      "gpt-5.6-terra",
+      "gpt-6-astra"
+    ],
+    "answer_judge_embedding_deployments_changed": false,
+    "optimizer_results_preserved": true
+  },
+  "continuous_evaluation_tested": false,
+  "github_ci_execution": {
+    "status": "not-run-at-recording-time"
+  }
+}

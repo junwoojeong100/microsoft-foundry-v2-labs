@@ -31,6 +31,8 @@ class NativeEvaluationTests(unittest.TestCase):
         self.status = "completed"
         self.result_passed = False
         self.omit_rows = False
+        self.evaluator_names = ("groundedness", "relevance")
+        self.supported_levels = ["turn", "conversation"]
         self.items = [
             {
                 "case_id": "D01",
@@ -49,8 +51,11 @@ class NativeEvaluationTests(unittest.TestCase):
                 as_dict=lambda: {
                     "name": name,
                     "version": "7",
+                    "supported_evaluation_levels": self.supported_levels,
                     "definition": {
-                        "init_parameters": {"properties": {"model": {}, "threshold": {}}}
+                        "init_parameters": {
+                            "properties": {"model": {}, "threshold": {}, "evaluation_level": {}}
+                        }
                     },
                 }
             )
@@ -79,7 +84,7 @@ class NativeEvaluationTests(unittest.TestCase):
                         "datasource_item": {"case_id": "D01"},
                         "results": [
                             {"name": name, "score": 3, "passed": self.result_passed}
-                            for name in ("groundedness", "relevance")
+                            for name in self.evaluator_names
                         ],
                     }
                 )
@@ -110,7 +115,7 @@ class NativeEvaluationTests(unittest.TestCase):
                 source_run_id="unit-source",
                 dataset_hash="unit-dataset",
                 forbidden_deployments={"unit-deployment"},
-                evaluator_names=("groundedness", "relevance"),
+                evaluator_names=self.evaluator_names,
                 confirmed=True,
                 timeout=5,
                 **kwargs,
@@ -175,3 +180,52 @@ class NativeEvaluationTests(unittest.TestCase):
             self.assertIn("context", criteria[0]["data_mapping"])
             self.assertNotIn("context", criteria[1]["data_mapping"])
             self.assertNotIn("sample.output", json.dumps(criteria))
+
+    def test_message_inputs_pin_level_and_use_array_schema_without_query_mapping(self):
+        self.evaluator_names = ("groundedness", "coherence")
+        self.items = [
+            {
+                "case_id": "D01",
+                "messages": [
+                    {"role": "user", "content": "Synthetic question"},
+                    {"role": "assistant", "content": "Synthetic answer"},
+                ],
+            }
+        ]
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)
+            result = self.evaluate(path, messages_input=True, evaluation_level="conversation")
+            self.assertEqual(result["evaluation_level"], "conversation")
+            self.assertEqual(self.run_calls[0]["extra_body"], {"evaluation_level": "conversation"})
+            self.assertEqual(
+                self.create_calls[0]["data_source_config"]["item_schema"]["properties"]["messages"],
+                {"type": "array"},
+            )
+            for criterion in self.create_calls[0]["testing_criteria"]:
+                self.assertEqual(criterion["data_mapping"], {"messages": "{{item.messages}}"})
+                self.assertEqual(
+                    criterion["initialization_parameters"]["evaluation_level"], "conversation"
+                )
+            with self.assertRaisesRegex(ValueError, "evaluation level"):
+                self.evaluate(path, messages_input=True, evaluation_level="turn")
+            self.assertEqual(len(self.run_calls), 1)
+
+    def test_unsupported_conversation_evaluator_or_missing_answer_never_submits(self):
+        self.items = [
+            {
+                "case_id": "D01",
+                "messages": [
+                    {"role": "user", "content": "Synthetic question"},
+                    {"role": "assistant", "content": "Synthetic answer"},
+                ],
+            }
+        ]
+        self.supported_levels = ["turn"]
+        with tempfile.TemporaryDirectory() as folder:
+            with self.assertRaisesRegex(ValueError, "advertise support"):
+                self.evaluate(Path(folder), messages_input=True, evaluation_level="conversation")
+            self.items[0]["messages"].pop()
+            with self.assertRaisesRegex(ValueError, "complete text conversations"):
+                self.evaluate(Path(folder), messages_input=True, evaluation_level="conversation")
+        self.assertEqual(self.create_calls, [])
+        self.assertEqual(self.run_calls, [])

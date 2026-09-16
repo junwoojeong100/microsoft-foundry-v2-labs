@@ -6,7 +6,14 @@ from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from .contracts import ANSWER_SCHEMA, Answer, ModelOutputError, load_prompt, validate_question
+from .contracts import (
+    ANSWER_SCHEMA,
+    Answer,
+    ModelOutputError,
+    load_prompt,
+    validate_question,
+    write_json,
+)
 from .knowledge import local_retrieve
 from .settings import Settings, credential_for, require_env
 
@@ -67,6 +74,43 @@ def response_metadata(response: Any) -> dict[str, Any]:
             for package in ("azure-ai-projects", "openai", "azure-identity")
         },
     }
+
+
+def response_with_payload(
+    client: Any,
+    *,
+    error_path: Path | None = None,
+    **request: Any,
+) -> tuple[Any, dict[str, Any]]:
+    """Retain service JSON even when the pinned OpenAI types lack a Foundry tool variant."""
+    from openai import APIStatusError
+
+    try:
+        received = client.responses.with_raw_response.create(**request)
+    except APIStatusError as error:
+        if error_path is not None:
+            if error_path.exists():
+                raise FileExistsError(
+                    "Preserve the previous service error; use a new run label."
+                ) from error
+            write_json(
+                error_path,
+                {
+                    "error_type": type(error).__name__,
+                    "status_code": error.status_code,
+                    "request_id": error.request_id,
+                    "response_body": error.response.text,
+                    "provider_fallback_used": False,
+                },
+            )
+            raise ValueError(
+                f"The original request failed with HTTP {error.status_code}; see {error_path}. No replacement response was generated."
+            ) from error
+        raise
+    payload = received.http_response.json()
+    if not isinstance(payload, dict):
+        raise ValueError("The service response is not a JSON object.")
+    return received.parse(), payload
 
 
 def call_model(client: Any, settings: Settings, question: str) -> dict[str, Any]:

@@ -7,6 +7,11 @@ Both use equivalent language-specific synthetic Hanbit Technology policies. Comp
 to B later, or follow the relevant A/B section in each lab. A is portal-first, but
 its workflow exercise runs in a prepared MAF environment.
 
+**Route pages:** [A — Beginner](paths/a-beginner.md) · [B — Implementation](paths/b-practitioner.md) ·
+[C — Advanced modules](paths/c-advanced.md) · [Coverage and evidence](coverage.md).
+The original times below describe the existing prepared core routes.
+New capability modules add separate sessions; they are not silently squeezed into the same four/six-hour promise.
+
 **Start with [the setup card and learner ZIP](setup.md), then follow only your path's next link.**
 Read the start card, perform the action/command, and check its completion criterion.
 Images and collapsed recording galleries are optional references, not your own results.

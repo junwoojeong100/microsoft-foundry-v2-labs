@@ -13,7 +13,7 @@ from mcp.client.stdio import stdio_client
 from openai import AsyncOpenAI
 
 from foundry_workshop.agents import build_policy_agent, run_agent, run_workflow
-from foundry_workshop.cloud import answer_with_context, invoke_prompt_agent
+from foundry_workshop.cloud import answer_with_context, invoke_prompt_agent, response_with_payload
 from foundry_workshop.contracts import load_documents
 from foundry_workshop.knowledge import evidence
 from foundry_workshop.settings import Settings, credential_for
@@ -76,6 +76,32 @@ def response_body(text, number=1):
 
 
 class ProjectSDKTests(unittest.TestCase):
+    def test_raw_response_path_preserves_unknown_foundry_fields_without_reserialization(self):
+        raw = response_body("Unit response")
+        raw["foundry_extension"] = {"preserve": "exactly"}
+        raw["output"].insert(
+            0,
+            {
+                "type": "openapi_call",
+                "id": "call-unit",
+                "call_id": "call-unit",
+                "status": "completed",
+                "arguments": "{}",
+            },
+        )
+        with httpx.Client(
+            transport=httpx.MockTransport(lambda request: httpx.Response(200, json=raw))
+        ) as http:
+            with AIProjectClient(
+                endpoint=settings().project_endpoint, credential=DummyCredential()
+            ) as project:
+                with project.get_openai_client(http_client=http, max_retries=0) as client:
+                    parsed, original = response_with_payload(
+                        client, model="unit", input="Synthetic unit question"
+                    )
+        self.assertEqual(original, raw)
+        self.assertEqual(parsed.output_text, "Unit response")
+
     def test_cli_auth_pins_subscription_without_changing_defaults(self):
         subscription = "00000000-0000-0000-0000-000000000002"
         with patch.dict(os.environ, {"AZURE_SUBSCRIPTION_ID": subscription}):

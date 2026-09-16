@@ -26,6 +26,12 @@ class RecordingPlayerTests(unittest.TestCase):
         self.assertEqual(catalog["edition"], "en")
         with self.assertRaisesRegex(ValueError, "edition"):
             PLAYER.media_catalog(ROOT, "unknown")
+        with self.assertRaisesRegex(ValueError, "series"):
+            PLAYER.media_catalog(ROOT, "en", "unknown")
+        extensions, _ = PLAYER.media_catalog(ROOT, "en", "extensions")
+        self.assertEqual(extensions["series"], "extensions")
+        self.assertEqual(extensions["recorded_on"], "2026-09-16")
+        self.assertNotEqual(catalog["videos"][0]["sha256"], extensions["videos"][0]["sha256"])
 
     def test_default_video_and_chapter_ranges_are_validated(self):
         with tempfile.TemporaryDirectory(prefix="recording-chapters-test-") as directory:
