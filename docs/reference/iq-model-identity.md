@@ -4,17 +4,36 @@
 
 **Verified September 15, 2026: managed identity is a supported, working way to configure the IQ Chat completion model.**
 Do not confuse authentication with the optional model-based retrieval mode.
-The workshop's default model-free GA path is a curriculum choice, not evidence that managed identity or the portal model setting is unsupported.
+The workshop keeps a model-free GA retrieval path and a separate Preview chat path.
+For the synthetic Search-index source, the GA API does not support an LLM inside the KB; MI authentication is not the limitation.
+
+**September 17 portal check:** the already prepared English chat KB displays **`gpt-5.6-luna` / Low / Answer synthesis**
+without the missing-model error. [Open that configured screen](../labs/06-knowledge.md#iq-chat-model), not the old GA screenshot.
+The existing Luna deployment was also read back as model version **`2026-07-09`**, state **`Succeeded`**.
+This new check did not save a KB, change roles, deploy a model or perform inference.
 
 ## First pass: use the fixed executable preset
 
 Use **deployment/model `gpt-5.6-luna`, model version `2026-07-09`, Search system-assigned identity**.
 Do not make a first-time learner choose among arbitrary chat models.
-After [the owner prerequisites and synthetic seed](../setup.md#4-environment-owner-checklist) are complete, run:
+After [the owner prerequisites and synthetic seed](../setup.md#4-environment-owner-checklist) are complete,
+use the original working copy with its matching `.env` and ownership ledger. First inspect:
 
 ```bash
 python scripts/workshop.py --language en iq-chat check
+```
+
+If `ready_for_setup: true` and `configured: false`, the owner runs the following **only after approval to create the separate chat KB**.
+If `configured: true`, keep that existing configuration and skip setup.
+
+```bash
 python scripts/workshop.py --language en iq-chat setup --confirm-create
+```
+
+Record the returned `knowledge_base` on the setup card and open **that exact name** in the portal.
+Only after configuration checks pass and a new request is approved:
+
+```bash
 python scripts/workshop.py --language en iq-chat ask --label iq-chat-first --confirm-cost
 ```
 
@@ -68,22 +87,25 @@ Do not add subscription-wide Owner merely to run a read-only check.
 
 ## 2. Normal portal configuration
 
-After the instructor approves the configuration and costs:
+Use the prepared preset rather than turning a model-free GA base into a different experiment:
 
-1. Enable the Search service's managed identity if it is not already enabled.
-2. On the **Foundry account hosting the model**, assign `Cognitive Services User` to that Search identity.
-   Keep the scope at the training account, not the whole subscription. Allow RBAC propagation.
-3. In the knowledge base, use **Chat completion model → Add model deployment**, choose the actual account/project and **`gpt-5.6-luna`**,
-   and select **System assigned identity**. Foundry portal wording can differ.
-4. Save the model binding. With API-key authentication disabled, the notice that Search will use managed identity is informational—not a reason to enable API keys.
-5. For this preset, choose **`low`** and **`answerSynthesis`**.
-   `extractiveData` is a different explicit experiment where another agent generates the answer.
-6. Submit a synthetic question and inspect actual `modelQueryPlanning` activity.
-   When synthesis is selected, also verify `modelAnswerSynthesis`, references, and the returned answer.
+1. The owner verifies the existing Luna deployment, Search managed identity and the Search identity's
+   `Cognitive Services User` role on the **model's Foundry account**. Only missing prerequisites need separately approved changes.
+   A role assigned to the learner or Hosted identity is not a role assigned to Search.
+2. Complete the **check → authorized setup** sequence above when the chat base does not yet exist.
+   This saves the Luna/MI/Low/Answer synthesis binding without deploying another model.
+3. Open **Knowledge → Knowledge bases → the returned chat-base name**. Keep its model selection;
+   confirm **`gpt-5.6-luna`**, **Low**, **Answer synthesis** and the correct synthetic source.
+   No additional Save is needed to inspect an already prepared KB.
+4. The gray API-key-disabled/managed-identity notice is informational. Do not enable keys to remove it.
+   A red **`Chat completions model is required`** instead means no model is selected; first check that you opened the chat base, not `<prefix>-kb`.
+5. Do not use **Browse more models → Deploy** to repair that form. On September 17, the Foundry picker offered a limited catalog,
+   while the already saved Luna binding rendered correctly. Catalog selection, deployment and opening a saved binding are different actions.
+6. For an approved new request, use `iq-chat ask` and retain actual `modelQueryPlanning`, `modelAnswerSynthesis`,
+   references and the answer. A filled form does not prove model invocation or role propagation.
 
-**`Chat completions model is required` means the form has no selected model; it is not proof of MI authentication failure.**
-The old screenshot shows that missing-model state. It did not test an MI-backed model call.
-Use a separate owned base when changing the execution path of a frozen evaluation.
+If the correct chat base is missing or has different fields, stop and use the owner preparation above.
+Do not clear the saved model, substitute a catalog recommendation, or change the old GA base just to remove a validation message.
 
 ## 3. Keep API mode separate from identity
 

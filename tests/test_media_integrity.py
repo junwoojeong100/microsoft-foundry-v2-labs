@@ -23,6 +23,7 @@ class MediaIntegrityTests(unittest.TestCase):
     required_guide_images = None
     action_index = "action-captures.md"
     video_summary = "video-summary.md"
+    supplemental_assets = ("iq-chat-20260917",)
 
     def test_language_editions_use_different_actual_source_and_output_videos(self):
         hashes = {}
@@ -178,6 +179,13 @@ class MediaIntegrityTests(unittest.TestCase):
                 (directory / item["file"]).resolve()
                 for item in read(directory / "screenshots.json")
             }
+            for name in self.supplemental_assets:
+                supplement = ROOT / "docs/assets" / name
+                known.update(
+                    (supplement / item["file"]).resolve()
+                    for item in read(supplement / "captures.json")["images"]
+                    if item["guide_language"] == language
+                )
             for path in (docs / "labs").glob(self.guide_glob):
                 images = re.findall(r"!\[[^\]]+\]\(([^)]+)\)", path.read_text())
                 if self.required_guide_images is None or path.stem in self.required_guide_images:
@@ -250,6 +258,7 @@ class MediaIntegrityTests(unittest.TestCase):
 
 
 class ExtensionMediaIntegrityTests(MediaIntegrityTests):
+    supplemental_assets = ()
     assets = {
         language: ROOT / "docs/assets" / f"edition-20260916-{language}" for language in ("ko", "en")
     }

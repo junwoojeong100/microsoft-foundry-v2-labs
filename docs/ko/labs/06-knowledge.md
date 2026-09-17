@@ -6,6 +6,10 @@
 
 **내 구간 바로 열기:** [A — 기존 원문 확인](#path-a) · [B — GA Search/IQ](#path-b) · [학습 경로](../paths.md)
 
+**IQ Chat은 Search의 관리 ID로 채팅 모델을 사용할 수 있습니다.** 이 선택 실습에서는 모델 없는 GA KB가 아니라
+**`gpt-5.6-luna` / 낮음 / 응답 합성이 설정된 chat KB**를 엽니다.
+[정상 설정 화면과 확인 순서](#iq-chat-model)를 참고하세요. A의 기본 원문 확인에는 IQ Chat이 필요 없습니다.
+
 ## 시작 전
 
 **이번 순서:** A는 agent의 원문을 확인하고 고정 모델 IQ chat base는 준비된 경우 선택합니다. B는 번호 순서의 GA 검색 경로, hybrid는 선택입니다.
@@ -45,7 +49,9 @@
 기본 경로는 새 검색 요청 없이 **IQ Chat 미선택**으로 기록하고 [Lab 07 A](07-evaluation.md#path-a)로 이동합니다.
 실행 전에 별도로 선택·준비한 경우에만 아래 경로를 펼칩니다.
 
-### 선택 IQ Chat — 준비된 설정 하나, 실제 검사 한 번
+<a id="iq-chat-model"></a>
+
+### 선택 IQ Chat — 준비된 Luna chat KB 열기
 
 <details>
 <summary>선택 Preview IQ Chat — 준비된 chat base·별도 비용 승인이 필요합니다</summary>
@@ -54,9 +60,12 @@
 아니라면 **IQ Chat 미선택**으로 기록하고 위 원문 확인을 마친 뒤 Lab 07로 이동합니다.
 이 Search-index source의 계획·합성은 **2026-09-15 기준 Preview**이며 MI 자체는 정상 지원됩니다.
 
-1. Foundry에서 **Knowledge → Knowledge bases**를 열고 **준비 카드의 정확한 chat-base 이름**, 기본 `<prefix>-chat-ko-kb`를 선택합니다.
-   Search 연결과 합성 source를 확인합니다. 기존 모델 없는 GA base를 고르지 않습니다.
-2. **Chat completions model**을 아래 표와 대조합니다. 기존 base에 포털 기본값을 덮어 저장하지 않습니다.
+1. Foundry에서 **Knowledge → Knowledge bases**를 열고 담당자의 **`iq-chat setup`이 반환한 `knowledge_base` 이름**을 선택합니다.
+   준비 카드에 적은 이름이며 기본값은 `<prefix>-chat-ko-kb`입니다. 채팅 설정을 보려고 기존 `<prefix>-kb`를 열지 않습니다.
+2. 아래 **선택값 세 개가 채워져 있는지**와 국문 합성 source가 맞는지 확인합니다.
+   모델이나 모드가 비어 있으면 **저장 전에 멈추고** 목록으로 돌아가 chat-base 이름부터 확인합니다.
+   준비된 chat base가 없다면 담당자가 [check → 승인된 setup](../reference/iq-model-identity.md)을 완료합니다.
+   모델 없는 GA base의 설정을 바꾸어 해결하지 않습니다.
 3. Lab 05에서 사용한 준비된 터미널에서 아래 `check`를 실행합니다. `configured: true`여야 합니다.
    `ready_for_setup: true`만으로는 저장된 chat base가 있다는 뜻이 아닙니다.
 4. 비용 승인 후 `ask`를 **한 번** 실행합니다. API·요청 필드·실제 activity를 보존하기 위해 이 검사는 CLI로 합니다.
@@ -68,11 +77,29 @@
 | Chat 배포 / 실제 모델 | **`gpt-5.6-luna` / `gpt-5.6-luna`**, 모델 버전 **`2026-07-09`** |
 | 인증 | **Search**의 **System assigned identity**. 학습자/Hosted agent identity가 아님 |
 | 모델 계정 역할 | Foundry 계정 범위에서 Search identity에 **`Cognitive Services User`** |
-| Reasoning / 출력 | **`low` / `answerSynthesis`** |
+| Reasoning / 출력 | **`low` / `answerSynthesis`** — 국문 화면에서는 **낮음 / 응답 합성** |
 | API | **`2026-08-01-preview`**, API key 없음 |
+
+![2026-09-17 새 국문 캡처: Luna·낮음·응답 합성이 저장된 IQ Chat KB](../../assets/iq-chat-20260917/ko-configured-kb.png)
+
+**화면 확인:** `gpt-5.6-luna`, **낮음**, **응답 합성**, 국문 source와 **활성** 상태가 보입니다.
+**Chat completions model is required** 같은 모델 미선택 오류가 없습니다. 필수 표시 별표와 회색 MI 안내는 정상입니다.
+MI 안내는 Search의 ID를 사용한다는 뜻이지 인증 실패나 역할 확인 완료라는 뜻이 아닙니다.
+**이미 저장된** chat KB를 새로 캡처한 원본 화면이며, 이번 캡처를 위해 저장·배포·모델 호출을 하지는 않았습니다.
+화면의 이름을 복사하지 말고 본인에게 반환된 이름을 사용합니다.
+
+**화면을 맞추려고 선택된 Luna를 지우거나 추천 모델을 배포하지 않습니다.**
+2026-09-17 확인 당시 빠른 모델 목록과 **Browse more models**는 기존 배포 목록이 아니라 배포용 카탈로그를 열었습니다.
+그 카탈로그에 Luna가 없어도 이미 저장된 Luna 연결은 정상 표시됐습니다.
+기존 선택을 유지하고, 최초 구성은 담당자의 고정 CLI preset으로 합니다. 다른 모델 선택이나 API key 활성화로 우회하지 않습니다.
 
 ```bash
 python scripts/workshop.py iq-chat check
+```
+
+위 검사를 통과하고 요청 비용이 승인된 경우에만 실행합니다.
+
+```bash
 python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 ```
 
@@ -82,12 +109,6 @@ Luna의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
 `check`는 Azure를 변경하지 않고 `ask`는 모델/provider를 자동 대체하지 않습니다.
 `configured: false`, 권한 누락, 다른 모델 버전, 403/429이면 멈추고 [고정 preset 복구 안내](../reference/iq-model-identity.md)를 따릅니다.
 모델 고정은 흔한 설정 불일치를 없애지만 quota와 서비스 가동까지 보장하지는 않습니다.
-
-![2026-09-15 새 국문 촬영: 국문 포털에서 실제 Knowledge 목록 확인](../../assets/refresh-20260915-ko/screenshots/KP06-001-knowledge-2.webp)
-
-**화면 확인:** **Knowledge → Knowledge bases**에서 본인의 **Connection**, base 이름과 source를 대조합니다.
-이 사진은 기존 GA base 목록의 참고 화면이며 새 chat preset을 촬영한 것이 아닙니다.
-`Active`는 객체 상태일 뿐입니다. 실제 계획·합성은 위 명령으로 따로 확인합니다.
 
 </details>
 
@@ -185,7 +206,8 @@ Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확
 `ledger`에 표시된 `outputs/azure-objects.json` 소유권 기록을 유지합니다.
 
 기본 IQ 코드는 **REST `2026-04-01` GA의 직접 intents·extractive 검색**을 사용합니다.
-`seed-search --iq`는 Search-index source를 참조하는 KB를 만들되 **KB의 `models`를 설정하지 않습니다.**
+이 non-web Search-index source에서는 해당 API가 **KB 내부의 LLM 사용을 지원하지 않습니다**.
+따라서 `seed-search --iq`는 **KB의 `models`를 설정하지 않습니다**. API/source의 지원 범위이지 API key 인증이 필요하다는 뜻이 아닙니다.
 조회에는 명시적 semantic `intents`를 보내며 최종 답변은 다음 단계의 별도 모델 호출에서 생성합니다.
 이는 Search→Chat 모델의 managed identity 인증을 검증한 경로가 아닙니다.
 서비스 내부 처리가 없다는 보장은 아니며 실제 activity에 보고된 reasoning 항목도 확인합니다.
@@ -313,14 +335,9 @@ Toolbox/Fabric/Work IQ의 승인·원문·OBO 경계는 [IQ 확장 워크북](..
 Managed identity는 이 경로의 정상적인 keyless 인증 방식이며 실제로 확인했습니다.
 GA schema의 `models` 존재와 모든 source에 대한 LLM 기능 지원은 같은 뜻이 아닙니다.
 요청 필드도 API별로 확인하며, 검증 예시는 [MI 모델 연결 가이드](../reference/iq-model-identity.md)에 있습니다.
-기존 평가를 같은 조건으로 재현할 때만 기존 KB를 유지하고, 다른 실행 모드는 새 소유 base에서 비교합니다.
-
-![2026-09-15 새 국문 촬영: 실제 IQ 지식 원본과 상태 확인](../../assets/refresh-20260915-ko/screenshots/KP06-002-kb-2.webp)
-
-**화면 확인:** 이 기존 캡처는 `models: []`인 base를 연 상태입니다.
-**Chat completions model is required**는 모델 미선택 메시지이지 MI 실패가 아닙니다.
-정상 모델 기반 구성을 원하면 지원 배포와 Search MI 역할을 명시적으로 설정한 뒤 저장·검증합니다.
-기존 평가용 base를 덮어쓰지 않으려고 별도 base를 사용하는 것이며, 모델 설정 자체를 금지하는 것이 아닙니다.
+기존 평가의 재현을 위해 모델 없는 GA base는 유지하고, 모델 기반 실습에는 별도로 준비한 chat base를 사용합니다.
+IQ Chat의 기준 화면은 [새 정상 설정 캡처](#iq-chat-model)입니다.
+아래 과거의 모델 미선택 화면은 GA 상태를 관찰한 기록이지 그대로 재현할 완료 화면이 아닙니다.
 
 <details>
 <summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
@@ -333,6 +350,15 @@ GA schema의 `models` 존재와 모든 source에 대한 LLM 기능 지원은 같
 운영 권장값으로 일반화하거나 provider fallback으로 처리하지 않습니다.
 
 아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+
+![2026-09-15 과거 국문 촬영: GA Knowledge 목록 확인](../../assets/refresh-20260915-ko/screenshots/KP06-001-knowledge-2.webp)
+
+**과거 기록의 범위:** 기존 GA base 목록이며 새 chat preset의 설정 완료 화면이 아닙니다.
+
+![2026-09-15 과거 국문 촬영: 모델 없는 GA KB의 설정 화면](../../assets/refresh-20260915-ko/screenshots/KP06-002-kb-2.webp)
+
+**과거 기록의 한계:** 이 GA base는 `models: []`였습니다. 모델 미선택 오류는 MI 실패가 아니며,
+IQ Chat에서 따라 할 완료 상태도 아닙니다. 새 채팅 실습에 맞추려고 이 base를 덮어쓰지 않습니다.
 
 ![2026-09-15 새 국문 촬영: 동일 계정 embedding API를 명시적으로 선택](../../assets/refresh-20260915-ko/screenshots/K06-012-explicit-account-hybrid-2.webp)
 

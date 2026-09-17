@@ -6,6 +6,10 @@
 
 **Open your section:** [A — check existing sources](#path-a) · [B — GA Search/IQ](#path-b) · [Paths](../paths.md)
 
+**IQ Chat can use a chat model with Search managed identity.** For that optional exercise, open the
+**prepared chat KB** with **`gpt-5.6-luna` / Low / Answer synthesis**, not the model-free GA KB.
+[The configured screen and exact checks](#iq-chat-model) are below. A's default source check does not require IQ Chat.
+
 ## Before you start
 
 **This pass:** A checks its agent's sources, then optionally the prepared fixed-model IQ chat base. B follows the numbered GA retrieval path; hybrid is optional.
@@ -45,7 +49,9 @@ Never rename ordinary text search as hybrid retrieval.
 The default route makes no new retrieval request: mark **IQ Chat not selected** and continue to [Lab 07 A](07-evaluation.md#path-a).
 Only expand the branch below if it was separately selected and prepared before execution.
 
-### Optional IQ Chat: one prepared configuration, one actual test
+<a id="iq-chat-model"></a>
+
+### Optional IQ Chat: open the prepared Luna chat KB
 
 <details>
 <summary>Optional Preview IQ Chat — requires a prepared chat base and separate cost approval</summary>
@@ -54,9 +60,12 @@ Choose this segment only when the owner has completed [IQ preparation](../setup.
 Otherwise record **IQ Chat not selected**, complete the source checks above, and continue to Lab 07.
 Planning/synthesis for this Search-index source is **Preview as of September 15, 2026**; MI itself is supported.
 
-1. In Foundry, open **Knowledge → Knowledge bases** and select the **exact chat-base name on your setup card**, normally `<prefix>-chat-en-kb`.
-   Confirm its Search connection and synthetic source. Do not select the original model-free GA base.
-2. Inspect **Chat completions model** using the table below. Do not save defaults over an existing base.
+1. In Foundry, open **Knowledge → Knowledge bases** and select the **`knowledge_base` name returned by the owner's `iq-chat setup`**,
+   recorded on your setup card, normally `<prefix>-chat-en-kb`. Do not open the original `<prefix>-kb` expecting chat settings.
+2. Confirm the **three filled values** below and the matching English synthetic source.
+   If the model or either mode is blank, **stop before Save**: return to the list and check the chat-base name.
+   If no prepared chat base exists, the owner completes [check → authorized setup](../reference/iq-model-identity.md);
+   do not fix the model-free GA base by changing its configuration.
 3. In the same prepared terminal used for Lab 05, run `check` below. Continue only when `configured: true`; `ready_for_setup: true` alone means prerequisites, not a saved chat base.
 4. After cost approval, run `ask` **once**. Use the CLI for this test so its API/request fields and returned activity are preserved; do not also send a duplicate portal chat.
 5. Compare `answer`, `source_ids`, `references`, and both model activities with the synthetic originals. Record a failure unchanged.
@@ -69,8 +78,26 @@ Planning/synthesis for this Search-index source is **Preview as of September 15,
 | Reasoning / output | **`low` / `answerSynthesis`** |
 | API | **`2026-08-01-preview`**; no API key |
 
+![September 17 English capture: the saved IQ Chat KB with Luna, Low and Answer synthesis](../assets/iq-chat-20260917/en-configured-kb.png)
+
+**What to check:** `gpt-5.6-luna`, **Low**, **Answer synthesis**, the English source and **Active** are visible.
+There is no **Chat completions model is required** validation message. Required-field asterisks and the gray MI notice are normal:
+the notice says Search will use its identity, not that authentication failed or that the role was verified.
+This is a fresh, unedited view of an **already saved** chat KB; no Save, deployment or model request was performed for this capture.
+Use your own returned name, not the screenshot's name.
+
+**Do not clear the selected Luna model or deploy a recommendation to match the picture.**
+On September 17, the quick model list and **Browse more models** opened a deployment catalog, not the existing-deployment inventory.
+The prepared Luna binding displayed correctly even though Luna was absent from that catalog.
+Keep the saved selection; use the owner's fixed CLI preset for initial setup rather than choosing another model or enabling API keys.
+
 ```bash
 python scripts/workshop.py --language en iq-chat check
+```
+
+Only after that check passes and the request cost is approved:
+
+```bash
 python scripts/workshop.py --language en iq-chat ask --label iq-chat-lab06 --confirm-cost
 ```
 
@@ -174,7 +201,8 @@ The **retrieve** result reports the source/base configuration and `api_version: 
 Keep the `ledger` file, `outputs/azure-objects.json`, which records ownership.
 
 Default IQ uses **REST `2026-04-01` GA direct intents and extractive retrieval**.
-The seed command references the Search-index source but **does not configure a KB model**.
+For this non-web Search-index source, that API does **not support using an LLM inside the KB**.
+The seed command therefore **does not configure a KB model**. This is an API/source boundary, not an API-key authentication requirement.
 The next step generates the answer through a separate model call; that is not a test of Search-to-model MI authentication.
 This does not promise no internal service
 reasoning; read any reasoning activity actually reported.
@@ -303,13 +331,9 @@ and configure the model, Search identity permissions, reasoning effort, and outp
 Managed identity is a normal keyless authentication option for that path and was verified with actual calls.
 A `models` property in the GA schema does not imply that every source's LLM features are GA.
 Use version-matched request fields from the [MI model-binding guide](../reference/iq-model-identity.md).
-Preserve an old base only when reproducing its frozen evaluation; use a new owned base for a different execution mode.
-
-
-**What to check:** The earlier screenshot shows a base with `models: []`.
-**Chat completions model is required** means no model was selected, not that MI failed.
-For the normal model-based path, configure a supported deployment and the Search MI role, then save and test.
-Using another owned base protects the existing evaluation; it does not prohibit model configuration.
+Keep the model-free GA base unchanged for its frozen evaluation; use the separate prepared chat base for the optional model-based mode.
+The [new configured screen](#iq-chat-model) is the reference for IQ Chat.
+The older empty-model screen below is historical GA inspection, not the target state to reproduce.
 
 <details>
 <summary>Recorded reference screens (optional; not steps to repeat)</summary>
@@ -322,7 +346,8 @@ These are newly recorded English actions using the separate English prompt/data 
 
 ![Inspect the actual English knowledge-base configuration without saving UI defaults](../assets/refresh-20260915-en/screenshots/EP06-041-english-kb-2.webp)
 
-**What to check:** Verify the English source IDs, selected provider, index/vector-store distinction, actual dimensions and completed file count.
+**Historical limitation:** this September 15 GA base had `models: []`. Its missing-model validation is not MI failure
+and is not the desired IQ Chat configuration. Do not overwrite it to match the new chat exercise.
 
 ![Inspect actual English text/vector retrieval and embedding dimensions](../assets/refresh-20260915-en/screenshots/E06-011-hybrid-query-2.webp)
 

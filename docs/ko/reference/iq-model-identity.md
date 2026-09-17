@@ -4,17 +4,36 @@
 
 **2026-09-15 실측 확인: IQ의 Chat completion model은 managed identity로 정상 구성·호출할 수 있습니다.**
 인증 방식과 모델을 사용하는 검색 모드를 구분해야 합니다.
-기본 실습의 모델 없는 GA 경로는 교육 구성상의 선택이지 MI나 포털 모델 설정이 지원되지 않는다는 뜻이 아닙니다.
+실습은 모델 없는 GA 검색과 별도의 Preview 채팅 경로를 유지합니다.
+합성 Search-index source에서 GA API는 KB 내부 LLM 사용을 지원하지 않습니다. MI 인증 때문에 못 쓰는 것이 아닙니다.
+
+**2026-09-17 포털 확인:** 이미 준비된 국문 chat KB에서 **`gpt-5.6-luna` / 낮음 / 응답 합성**이
+모델 미선택 오류 없이 표시됐습니다. 과거 GA 캡처가 아니라 [이 정상 설정 화면](../labs/06-knowledge.md#iq-chat-model)을 엽니다.
+기존 Luna 배포도 모델 버전 **`2026-07-09`**, 상태 **`Succeeded`**로 읽기 확인했습니다.
+이번 확인에서는 KB 저장·역할 변경·모델 배포·추론 호출을 하지 않았습니다.
 
 ## 첫 실습: 고정된 실행 preset 사용
 
 **배포/모델 `gpt-5.6-luna`, 모델 버전 `2026-07-09`, Search system-assigned identity**를 사용합니다.
 초보자에게 임의의 Chat 모델을 고르게 하지 않습니다.
-[담당자 준비와 합성 seed](../setup.md#4-환경-담당자의-준비)를 완료한 뒤 실행합니다.
+[담당자 준비와 합성 seed](../setup.md#4-환경-담당자의-준비)를 완료한 뒤,
+그 `.env`와 소유권 기록이 있는 원래 작업 폴더에서 먼저 확인합니다.
 
 ```bash
 python scripts/workshop.py iq-chat check
+```
+
+`ready_for_setup: true`, `configured: false`이면 담당자가 **별도 chat KB 생성 승인을 받은 뒤에만** 아래를 실행합니다.
+`configured: true`라면 기존 설정을 유지하고 setup을 건너뜁니다.
+
+```bash
 python scripts/workshop.py iq-chat setup --confirm-create
+```
+
+반환된 `knowledge_base`를 준비 카드에 적고 포털에서도 **그 정확한 이름**을 엽니다.
+설정 검사를 통과하고 새 요청이 승인된 경우에만 실행합니다.
+
+```bash
 python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
 ```
 
@@ -68,23 +87,25 @@ Reader만으로는 검색할 수 없고 data-reader만으로는 객체 정의를
 
 ## 2. 정상적인 포털 설정 순서
 
-강사가 설정 변경·비용을 승인한 뒤:
+모델 없는 GA base를 다른 실험으로 바꾸지 않고 준비된 preset을 사용합니다.
 
-1. Search 서비스의 managed identity가 없으면 활성화합니다.
-2. **모델이 배포된 Foundry 계정**에서 Search identity에 `Cognitive Services User`를 부여합니다.
-   실습 계정 범위로 제한하며 구독 전체에 부여하지 않습니다. RBAC 반영 시간을 고려합니다.
-3. Knowledge base의 **Chat completion model → Add model deployment**에서 실제 계정/프로젝트와 **`gpt-5.6-luna`**를 선택하고
-   인증을 **System assigned identity**로 설정합니다. Foundry 포털의 메뉴 표현은 다를 수 있습니다.
-4. 모델 연결을 저장합니다. API key 인증이 비활성화되어 Search가 managed identity를 사용한다는 안내는 정보성 메시지입니다.
-   이 안내를 없애려고 API key를 활성화하지 않습니다.
-5. 이 preset은 **`low`**와 **`answerSynthesis`**를 선택합니다.
-   `extractiveData`는 별도 agent가 답변을 생성하는 다른 명시적 실험입니다.
-6. 합성 질문을 전송하고 실제 `modelQueryPlanning` activity를 확인합니다.
-   답변 합성을 선택한 경우 `modelAnswerSynthesis`, references와 생성된 답변도 확인합니다.
+1. 담당자가 기존 Luna 배포·Search 관리 ID·**모델의 Foundry 계정**에 부여된
+   Search ID의 `Cognitive Services User` 역할을 확인합니다. 빠진 조건만 별도로 승인받아 변경합니다.
+   학습자나 Hosted ID의 역할을 Search의 역할로 대신할 수 없습니다.
+2. Chat base가 없을 때 위 **check → 승인된 setup** 순서를 완료합니다.
+   다른 모델을 배포하지 않고 Luna/MI/낮음/응답 합성 연결을 저장합니다.
+3. **Knowledge → Knowledge bases → 반환된 chat-base 이름**을 엽니다. 기존 모델 선택을 유지하고
+   **`gpt-5.6-luna`**, **낮음**, **응답 합성**, 해당 합성 source를 확인합니다.
+   이미 준비된 KB를 관찰하려고 다시 저장할 필요는 없습니다.
+4. 회색 API-key-disabled/managed-identity 안내는 정보성 메시지입니다. 없애려고 key를 활성화하지 않습니다.
+   반면 빨간 **`Chat completions model is required`**는 모델 미선택입니다. `<prefix>-kb`가 아닌 chat base를 열었는지 먼저 확인합니다.
+5. **Browse more models → Deploy**로 이 폼을 고치지 않습니다. 9월 17일 Foundry 선택기에는 제한된 카탈로그가 표시됐지만
+   이미 저장된 Luna 연결은 정상 표시됐습니다. 카탈로그 선택·배포·저장된 연결 열기는 다른 동작입니다.
+6. 승인된 새 요청에는 `iq-chat ask`를 사용하고 실제 `modelQueryPlanning`, `modelAnswerSynthesis`,
+   references와 응답을 남깁니다. 폼이 채워졌다는 사실만으로 모델 호출이나 역할 전파를 입증할 수는 없습니다.
 
-**`Chat completions model is required`는 선택된 모델이 없다는 폼 검증 메시지이지 MI 인증 실패의 증거가 아닙니다.**
-기존 캡처는 그 미선택 상태이며 MI 모델 호출을 시험한 화면이 아닙니다.
-고정된 평가의 실행 경로를 바꿀 때는 별도 소유 base를 사용합니다.
+정확한 chat base가 없거나 값이 다르면 멈추고 위 담당자 준비로 돌아갑니다.
+검증 메시지를 없애려고 저장된 모델을 지우거나 카탈로그 추천을 대신 고르거나 기존 GA base를 변경하지 않습니다.
 
 ## 3. API·실행 모드와 인증을 분리하기
 

@@ -6,6 +6,22 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+## IQ Chat configuration screen — September 17, 2026
+
+The new [Lab 06 screen](../labs/06-knowledge.md#iq-chat-model) shows an existing saved chat KB with
+Luna, Low, Answer synthesis and the matching active synthetic source. The guide now distinguishes that
+ready state from the old model-free GA form and its missing-model validation.
+The current Foundry model catalog was inspected without deploying anything; opening the saved Luna binding works even though the quick catalog omits it.
+
+This is **live portal observation and read-only deployment verification**, not a new model invocation or evaluation.
+The gray MI notice remains visible and is not misreported as an authentication error or proof of permissions.
+Fresh PNGs are direct captures of the configuration panel, with no text replacement, error hiding or image editing.
+The [capture record](../assets/iq-chat-20260917/captures.json) records language, values, image hashes and verification limits separately from earlier videos.
+
+**Offline verification:** 235 tests passed on each of Python 3.13 and 3.14, including the new screenshot hashes,
+complete form values and historical-image boundaries. Ruff 0.16.6 lint/format, compilation and both learner bundles passed.
+Documentation checks cover 61 language pairs and 328 CLI examples with no pending translations.
+
 ## Manual-assessment follow-through — September 17, 2026
 
 The A/B entry and core-lab review found remaining ambiguity in A's six-question assessment.
