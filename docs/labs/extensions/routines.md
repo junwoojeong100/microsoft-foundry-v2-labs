@@ -52,12 +52,16 @@ The routine references its agent's active configuration; record the actual invok
 After approval for this owned object:
 
 ```bash
-azd ai routine create "$ROUTINE_NAME" --trigger timer --at "$WHEN" --agent-name "$AGENT_NAME" --action agent-response --enabled=false --project-endpoint "$PROJECT_ENDPOINT" --output json
-azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai routine create "${ROUTINE_NAME:?Enter the owned routine name}" --trigger timer \
+  --at "${WHEN:?Calculate a future UTC trigger time}" --agent-name "${AGENT_NAME:?Enter the approved target agent}" \
+  --action agent-response --enabled=false --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
+azd ai routine show "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
 ```
 
 Check the actual name, project, agent, trigger time, time zone and disabled state.
 Do not add `--force` to get around a collision. Use another owned name.
+Missing values stop before azd. In a new terminal, restore the exact routine name and project endpoint from your notes.
 
 ## 4. Dispatch once and disable
 
@@ -66,12 +70,21 @@ Run the disable command **even if dispatch fails**, then inspect the error:
 Do not join disable to dispatch with `&&`, which would skip cleanup after a failure.
 
 ```bash
-azd ai routine enable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"
-azd ai routine dispatch "$ROUTINE_NAME" --input "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" --project-endpoint "$PROJECT_ENDPOINT" --output json
-azd ai routine disable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"
-azd ai routine run list "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
-azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai routine enable "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" &&
+azd ai routine dispatch "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --input "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
+azd ai routine disable "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}"
+azd ai routine run list "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
+azd ai routine show "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
 ```
+
+The enable/dispatch pair stops on an enable failure; disable and readback are intentionally separate.
+Keep each command's result: a successful final `show` does not turn a failed dispatch into success.
 
 Keep the dispatch ID and action correlation ID. A queued dispatch is not a completed agent response.
 On the observed CLI build, `run list` can print `value: null` even when SDK history

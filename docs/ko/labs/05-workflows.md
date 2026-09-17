@@ -42,11 +42,12 @@ flowchart LR
     Q["질문과 합성 근거"] --> A["MAF · PolicyAnalyst\n규정 분석"]
     A --> W["MAF · AnswerWriter\n답변 초안"]
     W --> R["MAF · EvidenceReviewer\n근거·조건 검토"]
-    R --> H{"사람이 검토"}
-    H -->|반려| W
-    H -->|안내문 확정| D["사용자에게 안내"]
-    D -. "이 랩은 실행하지 않음" .-> X["예약 / 실제 승인 / 지급"]
+    R --> O["JSON 출력 / pending-human-review"]
+    O -. "워크플로 밖에서" .-> H["내 검토 기록\n예약·승인·지급 없음"]
 ```
+
+명령은 JSON을 출력하고 끝납니다. 그 결과를 사람이 직접 검토하며,
+그림 뒤에 자동 반려·재실행 반복이나 승인 동작이 숨어 있는 것은 아닙니다.
 
 ### 1. 명령 하나로 순차 워크플로 실행
 
@@ -126,6 +127,8 @@ python scripts/workshop.py workflow --pattern sequential
 **화면 확인:** 순차 실행의 응답 내용을 위의 세 역할과 연결해 읽습니다.
 후속 검토자가 자연스럽게 설명해도 앞 단계의 잘못된 근거가 사라졌다고 가정하지 않습니다.
 
+**저장:** `workflow-sequential.json`을 Lab 00 기록 폴더에 저장한 뒤 다음 패턴으로 갑니다.
+
 ### 2. 병렬: 같은 입력을 독립적으로 검토
 
 ```bash
@@ -142,6 +145,8 @@ python scripts/workshop.py workflow --pattern concurrent
 
 **화면 확인:** `pattern: concurrent`와 여러 참여자의 출력을 확인합니다.
 여러 응답이 나왔다는 사실을 하나의 합의된 최종 답안으로 해석하지 말고 직접 비교·통합합니다.
+
+**저장:** `workflow-concurrent.json`을 같은 기록 폴더에 저장합니다.
 
 ### 3. Group Chat: 공유 대화와 종료 조건
 
@@ -160,6 +165,8 @@ python scripts/workshop.py workflow --pattern group-chat
 
 **화면 확인:** `pattern: group-chat`, 참여자 응답과 사람 검토 대기 상태를 확인합니다.
 3라운드 상한으로 끝난 것이므로 모델 스스로 합의하거나 실제 승인을 마쳤다는 뜻은 아닙니다.
+
+**저장:** `workflow-group-chat.json`을 같은 기록 폴더에 저장한 뒤 세 결과를 `workflow-review.txt`에서 비교합니다.
 
 | 패턴 | 적합한 업무 | 주의할 점 |
 |---|---|---|

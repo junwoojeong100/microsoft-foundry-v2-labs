@@ -124,7 +124,9 @@ python scripts/workshop.py retrieve --provider local --question "2026년 9월 �
 
 
 **화면 확인:** `source_ids`와 `context_hash`를 확인합니다. 이 단계는 합성 파일의 로컬 검색입니다.
-Search나 IQ를 호출했다고 표시하지 않으며, 사진에 보이는 설정 항목만으로 실행 provider를 판단하지 않습니다.
+Search나 IQ를 호출했다고 표시하지 않습니다. 설정된 endpoint 이름만 보지 말고 반환된 provider를 확인합니다.
+
+**저장:** `retrieve-local.json`을 Lab 00 기록 폴더에 저장합니다.
 
 ### 3. 일반 Search 색인 만들기
 
@@ -161,6 +163,8 @@ python scripts/workshop.py retrieve --provider search --question "2026년 9월 �
 
 **화면 확인:** `--provider search` 명령의 결과를 읽고 endpoint/index가 본인 값인지 확인합니다.
 `references`·`activity`가 없는 일반 Search 결과를 IQ 결과로 바꾸어 적지 않습니다.
+
+**저장:** `retrieve-search.json`을 같은 기록 폴더에 저장한 뒤 IQ source/base를 만듭니다.
 
 ### 4. GA Foundry IQ knowledge source/base 만들기
 
@@ -202,8 +206,10 @@ Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확
 
 ![2026-09-15 새 국문 촬영: 새 MAF 순차 workflow의 실제 IQ·Luna 응답](../../assets/refresh-20260915-ko/screenshots/K05-100-local-pipeline-2.webp)
 
-**화면 확인:** 사진 하단의 `activity`, knowledge base 이름과 API 버전을 읽습니다.
-출력 위쪽의 `references`·`documents`도 함께 확인하세요. activity에 보고되지 않은 지연이나 사용량을 임의로 채우지 않습니다.
+**화면 확인:** `activity`·base·API 버전·`references`·`documents`를 함께 읽습니다.
+보고되지 않은 지연이나 사용량은 임의로 채우지 않습니다.
+
+**저장:** `retrieve-iq.json`을 같은 기록 폴더에 저장합니다. 원문과 activity도 포함합니다.
 
 ### 5. 같은 질문을 근거와 함께 실제 모델에 전달
 
@@ -217,7 +223,9 @@ python scripts/workshop.py answer --prompt v2 --retrieval iq --question "2026년
 ![2026-09-15 새 국문 촬영: 새 MAF 순차 workflow의 실제 IQ·Luna 응답](../../assets/refresh-20260915-ko/screenshots/K05-100-local-pipeline-2.webp)
 
 **화면 확인:** `--retrieval iq` 명령 아래의 base/API 설정, `response_model`, `response_id`, `usage`를 확인합니다.
-사진은 긴 출력의 하단이므로 답변의 금액·조건·인용은 위쪽 `answer`와 원문까지 대조합니다.
+`answer`의 금액·조건·인용을 원문과 대조합니다.
+
+**저장:** `answer-iq.json`을 같은 기록 폴더에 저장합니다. 응답과 검색 metadata 전체를 유지합니다.
 
 ```mermaid
 flowchart LR

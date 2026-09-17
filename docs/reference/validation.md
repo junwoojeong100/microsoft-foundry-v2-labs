@@ -6,6 +6,37 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="learner-action-review"></a>
+
+## Learner-action and handoff review — September 17, 2026
+
+Rechecked all **56 English/Korean core and extension lab pages**, their entry/setup/route guidance
+and execution references. This pass addresses what to copy, what to save before moving on,
+and how to leave an experiment without changing the next lab's setup.
+
+| Gap | Correction |
+|---|---|
+| Shell commands, configuration blocks, placeholders and returned flags needed interpretation | Shared [code-block rules](../labs/00-start.md#reading-code-blocks), [result meanings](commands.md#reading-results) and plain-language naming terms |
+| Printed JSON filenames appeared only after several requests; B's final list omitted model outputs and the workflow review | A Save checkpoint after each of the 12 printed B results and a complete [handoff inventory](../labs/11-capstone.md#b-evidence) |
+| First-agent D03/D05 checks were less explicit than the later assessment | The same canonical dev limit and required citations, including `SCOPE-01`, at the first check |
+| The workflow diagram suggested an automatic human-rejection loop | The actual JSON stopping point and the learner's separate review, without an implied approval service |
+| Model comparison permanently changed `.env`, with a second abbreviated recipe elsewhere | One complete model-operations route; command-scoped overrides preserve the original file and terminal setting on success and failure |
+| Skill, A2A and routine examples accepted empty scope values at the shell boundary | Required name/version/endpoint guards before azd; values come from this pass's actual setup/results |
+| Readback reruns and routine enable failures lacked an explicit stopping point | Reject an existing readback directory before downloading again; compare only after a successful download, dispatch only after enable, and still disable/read back after failure |
+| Korean evidence links opened the wrong language's results, and one refusal-review instruction reversed the meaning | Link the independent English/Korean results explicitly; do not reclassify a correct approval refusal as an error |
+
+**Local acceptance:** 231 offline tests passed on each of Python 3.13 and 3.14.
+Ruff 0.16.6 lint/format, Python compilation, both deterministic learner bundles and documentation checks passed:
+61 language pairs, 328 workshop CLI examples and no pending translations.
+Seven new regression tests check exact saved filenames/dev criteria and execute the changed shell blocks
+with explicit local stubs, including missing/empty values, failures and byte-preserving reruns.
+The source guide was checked first, then the Korean counterpart and exact completion hashes were updated.
+
+**Evidence boundary:** this is a guide-only revision, not a new usability score or measured completion time.
+No new live Azure/model/judge call, deployment, role assignment, recording or novice pilot was performed.
+Canonical prompts, policy/evaluation/fixture data and existing media are unchanged.
+The earlier reviews and live outcomes below retain their original scope and counts.
+
 <a id="whole-guide-review"></a>
 
 ## Whole-guide straightforwardness review — September 17, 2026

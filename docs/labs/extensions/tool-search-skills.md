@@ -81,8 +81,10 @@ printf 'Full project endpoint: '
 read -r PROJECT_ENDPOINT
 printf 'skill_name from outputs/extensions-en/manifest.json: '
 read -r SKILL_NAME
-azd ai skill create "$SKILL_NAME" --file ./outputs/extensions-en/policy-review --project-endpoint "$PROJECT_ENDPOINT" &&
-azd ai skill show "$SKILL_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai skill create "${SKILL_NAME:?Use the generated skill name}" --file ./outputs/extensions-en/policy-review \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" &&
+azd ai skill show "${SKILL_NAME:?Use the generated skill name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
 ```
 
 Directory upload preserves the supplied `SKILL.md` bytes as a package.
@@ -92,12 +94,17 @@ Read the actual `default_version`, then download that exact version:
 ```bash
 printf 'Skill default_version returned by show: '
 read -r SKILL_VERSION
-azd ai skill download "$SKILL_NAME" --version "$SKILL_VERSION" --output-dir ./outputs/skill-readback-en --project-endpoint "$PROJECT_ENDPOINT" &&
+mkdir outputs/skill-readback-en &&
+azd ai skill download "${SKILL_NAME:?Use the generated skill name}" --version "${SKILL_VERSION:?Use the returned skill version}" \
+  --output-dir ./outputs/skill-readback-en --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" &&
 cmp ./outputs/extensions-en/policy-review/SKILL.md ./outputs/skill-readback-en/SKILL.md
 ```
 
 `cmp` prints nothing and exits 0 when the bytes match.
 If they differ, stop and review the package/CLI behavior; do not edit the downloaded file to manufacture a match.
+If the readback directory already exists, inspect that attempt first. For a new download, use a new directory in
+`mkdir`, `--output-dir` and the second `cmp` path; never overwrite the earlier version's evidence.
+The `${NAME:?...}` guards stop before azd if a required name, version or endpoint is empty.
 
 ## 5. Attach the exact skill version to a new owned Toolbox version
 

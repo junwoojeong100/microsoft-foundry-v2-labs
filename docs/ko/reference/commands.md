@@ -8,6 +8,8 @@
 **찾아보는 표이지 실행 순서가 아닙니다.** `python scripts/...`가 없는 행은 축약형이며
 workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 `...`를 그대로 복사하거나 모든 행을 실행하지 말고 선택한 실습의 완전한 블록·승인 경계를 따릅니다.
+[코드 블록 읽는 법](../labs/00-start.md#reading-code-blocks)에서 자리표시자·입력값·붙여 넣을 위치를 확인합니다.
+명령 성공을 실습 통과로 판단하기 전에 [결과의 의미](#reading-results)를 읽습니다.
 
 | 명령 | Azure / 부작용 | 상세 |
 |---|---|---|
@@ -52,6 +54,23 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 대화형 `model`·`answer`·`maf`·`workflow`·`retrieve`는 JSON을 출력합니다.
 [B 기록 폴더](../labs/00-start.md#prepare-notes)에 출력 전체를 저장하며 batch는 이미 `outputs/<label>/`를 작성합니다.
 필수 값을 포함한 독립 Hosted 준비 명령 전체는 [Lab 08](../labs/08-hosted.md)을 사용합니다.
+
+<a id="reading-results"></a>
+
+## 종료·검증·인수는 다릅니다
+
+| 보이는 결과 | 의미와 다음 행동 |
+|---|---|
+| 셸 프롬프트가 돌아옴 | 프로세스가 끝났다는 뜻입니다. 출력·오류를 읽으며 이것만으로 통과로 판단하지 않습니다 |
+| Offline `doctor`의 `result: PASS`, `azure_tested: false` | 로컬 입력/환경을 확인했습니다. Azure 접근·추론은 아직 미검증입니다 |
+| Toolbox probe의 `model_invoked: false` | 도구 목록 조회에서는 정상입니다. 모델 답변으로 기록하지 않습니다 |
+| `evaluate` / `accept`의 종료 코드 `1`, `business_gate_passed: false` | 실패 결과·모든 사례를 확인합니다. 기준을 낮추거나 실패한 candidate의 holdout을 열지 않습니다 |
+| `trace_id: null`, `cloud_deployed: false`, `deployment_approved: false` | 해당 단계가 미검증/미수행이라는 명시적 한계입니다. 값을 편집해 성공으로 바꾸지 않습니다 |
+| `pending-human-review` / `ready-for-human-review` | 사람의 검토가 남았습니다. 업무 승인이나 배포 권한을 부여한 것이 아닙니다 |
+| 서비스 오류·응답 누락·실패 행 | 원래 시도를 보관하고 [복구](troubleshooting.md#resume-safely)로 갑니다. 이후 조회 성공이 원래 실패를 없애지 않습니다 |
+
+Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 오류입니다.
+다른 도구도 같은 코드를 쓴다고 가정하지 않습니다. 측정하지 않은 값은 0이 아니라 미측정으로 둡니다.
 
 <a id="saved-results"></a>
 

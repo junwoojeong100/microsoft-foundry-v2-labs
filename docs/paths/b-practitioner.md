@@ -16,6 +16,9 @@ Preserve the explicit English `--language en` flag and use a fresh label for eac
 Lab 00 creates **`outputs/learner-notes-en/`** from the source copy's blank worksheets.
 Use it for terminal-output files and review notes; no browser agent or separate learner ZIP is required for B.
 Generated evaluation folders remain at `outputs/<label>/`, not inside the notes directory.
+Use [the code-block rules](../labs/00-start.md#reading-code-blocks) if a block asks for values.
+Save each printed result at its **Save** checkpoint, before the next request;
+[Lab 11's file inventory](../labs/11-capstone.md#b-evidence) lists everything needed at handoff.
 
 **First-pass choices are already made:** Luna; all three introductory MAF patterns;
 GA Search/IQ in Lab 06; **local retrieval + a real Azure model** for Lab 07; **package only** in Lab 08.

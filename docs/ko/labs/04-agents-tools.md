@@ -35,6 +35,8 @@ python scripts/workshop.py maf --question "Foundry와 Agent Framework의 차이�
 **화면 확인:** 마지막 출력의 `mode: live`, `orchestration: local`, `tools: none`을 읽습니다.
 로컬 Python이 실행을 소유해도 답변 모델 호출은 Azure에서 이루어집니다.
 
+**저장:** `maf-none.json`을 Lab 00 기록 폴더에 저장합니다.
+
 `src/foundry_workshop/agents.py`를 엽니다. 다음 세 부분을 찾습니다.
 
 1. `FoundryChatClient`: 어디의 어떤 모델 배포를 호출하는가.
@@ -85,6 +87,8 @@ sequenceDiagram
 모델이 도구를 부르지 않거나 근거를 생략하면 “도구가 연결되었으니 성공”으로
 처리하지 않습니다. 실제 응답을 보고 지침·도구 설명·추적 정보를 점검합니다.
 
+**저장:** `maf-function.json`을 같은 기록 폴더에 저장한 뒤 MCP로 갑니다.
+
 ## 3. 같은 조회를 로컬 MCP 서버로 분리
 
 ```bash
@@ -114,6 +118,8 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 
 **화면 확인:** `tools: local-mcp`를 확인하고 2026년 5월에 과거 한도와 `TRAVEL-2025`를 적용했는지 봅니다.
 함수 도구 결과로 MCP 실행을 대신한 것이 아닙니다.
+
+**저장:** `maf-mcp.json`을 같은 기록 폴더에 저장합니다. 요청이 실패했다면 성공 파일 대신 실제 오류를 보관합니다.
 
 **B 완료:** 실제 출력 세 개를 보관하고 도구 없음·함수·로컬 MCP의 차이를 설명합니다.
 [Lab 05 B](05-workflows.md#path-b)로 이동합니다. 아래 실패 검사는 선택입니다.

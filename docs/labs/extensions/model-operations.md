@@ -12,7 +12,7 @@ matching API/Structured Outputs support, cost approval and new labels.
 **If blocked:** retain the existing model; never let an error choose another deployment or endpoint.
 
 **First pass:** steps 1–4; save a `model-migration-review.txt` beside your notes.
-Record the compared labels, decision and restored setting. Router and retirement actions are not required.
+Record the compared labels, decision and unchanged original setting. Router and retirement actions are not required.
 
 ## 1. Freeze the baseline
 
@@ -36,24 +36,38 @@ This lab does not deploy models or increase quota.
 
 </details>
 
-## 2. Change exactly one model choice
+## 2. Check the second model without changing your saved setup
 
-In `.env`, change only `AZURE_AI_MODEL_DEPLOYMENT_NAME` to the approved second deployment.
-Keep the remaining configuration unchanged, then perform read-only preflight:
+Keep `.env` unchanged. Enter the approved second **deployment name**, not its catalog model name.
+The parentheses limit the override to this read-only preflight; all other settings remain the same.
 
 ```bash
-python scripts/workshop.py --language en doctor --cloud
+printf 'Approved second deployment name: '
+read -r MODEL_B
+(
+  export AZURE_AI_MODEL_DEPLOYMENT_NAME="${MODEL_B:?Enter the approved second deployment}"
+  python scripts/workshop.py --language en doctor --cloud
+)
 ```
 
 Confirm the actual underlying model/version and deployment state.
 If the API or output schema is incompatible, stop. That is a migration finding, not permission to use another API for only this model.
+Keep `MODEL_B` in this terminal for step 3; a missing value stops before any request.
 
 ## 3. Collect a new dev run and compare
 
 If the original candidate used the Lab 07 `local` example:
 
 ```bash
-python scripts/workshop.py --language en collect --split dev --label migration-model-b --prompt v2 --retrieval local
+(
+  export AZURE_AI_MODEL_DEPLOYMENT_NAME="${MODEL_B:?Enter the approved second deployment}"
+  python scripts/workshop.py --language en collect --split dev --label migration-model-b --prompt v2 --retrieval local
+)
+```
+
+Inspect all six collected rows, then run the local checks. These read the saved deployment from the run, not a new model choice:
+
+```bash
 python scripts/workshop.py --language en evaluate --label migration-model-b
 python scripts/workshop.py --language en compare --baseline candidate --candidate migration-model-b --variable model
 ```
@@ -61,7 +75,8 @@ python scripts/workshop.py --language en compare --baseline candidate --candidat
 If your baseline used another provider, explicitly use that same provider throughout this separate comparison.
 Do not replace only the failed cases or omit errors from the denominator.
 Inspect amounts, dates, citations, approval behavior, latency and token measurements together.
-Restore the original deployment value after the experiment unless a migration was separately approved.
+Both subshells leave the original terminal deployment and `.env` unchanged, including after failure.
+Do not permanently switch the answer deployment unless a migration is separately approved.
 
 ## 4. Write the lifecycle plan
 

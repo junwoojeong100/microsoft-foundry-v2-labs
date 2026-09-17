@@ -8,6 +8,8 @@ Activate the dedicated virtual environment for cloud SDKs.
 **Lookup table, not an execution sequence.** Rows without `python scripts/...` are abbreviated:
 prefix workshop commands with `python scripts/workshop.py --language en`.
 Do not paste `...` or run every row; use the selected lab's complete block and approval boundary.
+[Code-block rules](../labs/00-start.md#reading-code-blocks) explain placeholders, prompted values and where each block belongs.
+[Read the result](#reading-results) before deciding that a successful command means the lab passed.
 
 | Command | Azure/side effects | Purpose |
 |---|---|---|
@@ -54,6 +56,23 @@ the default GA `retrieve --provider iq` is intentionally a different path.
 Interactive `model`/`answer`/`maf`/`workflow`/`retrieve` commands print JSON; use [B's notes directory](../labs/00-start.md#prepare-notes)
 for complete copied outputs. Batch runs already write `outputs/<label>/`.
 For the complete standalone Hosted preparation command and its required values, use [Lab 08](../labs/08-hosted.md).
+
+<a id="reading-results"></a>
+
+## Finished, verified or accepted?
+
+| What you see | What it means / next action |
+|---|---|
+| The shell prompt returns | The process finished. Read its output and error; this alone is not a passed check |
+| Offline `doctor` says `result: PASS`, `azure_tested: false` | Local inputs/runtime passed. Azure access and inference are still untested |
+| `model_invoked: false` in a Toolbox probe | Expected for discovery-only work; do not report a model answer |
+| `evaluate` / `accept` exits `1`, `business_gate_passed: false` | Keep the failed business result and inspect every case. Do not lower criteria or unlock holdout for a failing candidate |
+| `trace_id: null`, `cloud_deployed: false` or `deployment_approved: false` | An explicit unverified/unperformed stage, not a value to edit into success |
+| `pending-human-review` / `ready-for-human-review` | A person still needs to review; no business approval or deployment permission was granted |
+| A service error, missing response or failed row | Preserve the exact attempt and use [recovery](troubleshooting.md#resume-safely). A later read/list success does not erase it |
+
+For this workshop CLI, exit `2` identifies an input/configuration/dependency/precondition error.
+Do not assume other tools use the same codes. Missing measurements stay missing, never zero.
 
 <a id="saved-results"></a>
 

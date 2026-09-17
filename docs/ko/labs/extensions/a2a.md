@@ -54,10 +54,13 @@ printf 'target 결과의 target_base: '
 read -r A2A_BASE
 printf 'target 결과의 connection_name: '
 read -r A2A_CONNECTION
-azd ai connection create "$A2A_CONNECTION" --kind remote-a2a --target "$A2A_BASE" --auth-type project-managed-identity --audience https://ai.azure.com --project-endpoint "$PROJECT_ENDPOINT"
+azd ai connection create "${A2A_CONNECTION:?Use the returned connection name}" --kind remote-a2a \
+  --target "${A2A_BASE:?Use the returned target base}" --auth-type project-managed-identity \
+  --audience https://ai.azure.com --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}"
 ```
 
 대상은 card URL이 아니라 **A2A base path**입니다.
+빈 값은 azd 실행 전에 차단됩니다. 보호 문법을 제거하지 말고 실제 반환값을 복구합니다.
 `--force`나 API key를 사용하지 않습니다.
 담당자가 연결의 실제 ID와 target agent/project의 필요한 접근 권한만 확인합니다.
 로그인한 학습자와 서비스 ID를 같은 주체로 보지 않습니다.

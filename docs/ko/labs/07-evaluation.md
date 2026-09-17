@@ -76,13 +76,13 @@ flowchart LR
 
 ![2026-09-15 새 국문 촬영: D03 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d03-send-2.webp)
 
-**화면 확인:** D03 행에는 실제 답변의 150,000원 한도, 예약 전 승인 조건, 문서 ID를 기록합니다.
-사진처럼 답했다고 가정해서 표를 채우지 말고 본인 응답을 읽어 판정하세요.
+**화면 확인:** D03에는 실제 한도·예약 전 승인 조건·인용 ID를 적습니다.
+위 기준과 대조하며 통과로 미리 채우지 않습니다.
 
 ![2026-09-15 새 국문 촬영: D05 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d05-send-2.webp)
 
 **화면 확인:** D05는 금액을 주지 않았다는 이유만으로 업무 실패가 되지 않습니다.
-제공된 자료에 해외 규정이 없는지, 추측을 멈추고 확인 경로를 안내했는지 평가합니다.
+해외 규정이 없다는 설명과 `SCOPE-01` 인용을 모두 확인합니다.
 
 <a id="path-b"></a>
 
@@ -130,7 +130,7 @@ python scripts/workshop.py evaluate --label baseline
 
 
 **화면 확인:** `checks` 안의 `completed`, `schema`, `decision`, `required_citations`를 읽습니다.
-사진은 출력의 마지막 사례들입니다. 전체 6개 행과 파일 위쪽 summary를 확인해야 누락 여부까지 판단할 수 있습니다.
+마지막에 보이는 사례만 보지 말고 summary와 6개 행 전체를 확인합니다.
 
 ### 2. 실패를 한 건 골라 원인 분리
 
@@ -196,8 +196,8 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 **화면 확인:** `outputs/candidate/comparison-vs-baseline.json`에서
 `variable: prompt`, `baseline_metrics`, `candidate_metrics`, `changed_context_cases`를 읽습니다.
 `changed_context_cases`가 빈 목록이면 검색 근거가 같습니다. 비교 조건이 다르면 보고서를 쓰기 전에 거부합니다.
-입문 B는 실행당 6문항입니다. 새 심화 촬영의 업무 점수는 네 모델 각각 6/6, 총 24/24였습니다.
-서로 다른 경로의 점수를 옮겨 쓰거나 같은 점수만으로 v2의 우월성을 주장하지 않습니다.
+입문 B는 실행당 6문항입니다. 심화 경로의 점수를 옮겨 쓰거나
+같은 점수·짧은 실행 시간만으로 v2의 우월성을 주장하지 않습니다.
 
 ### 4. 후보를 고정한 뒤 holdout 한 번
 
@@ -276,12 +276,10 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 <details>
 <summary>별도 모델 실험 펼치기 — 첫 회차에 필수는 아닙니다</summary>
 
-`.env`에서 **검증된 다른 배포 이름만** 바꾸고 지침·코드·검색·dev를 고정합니다.
-
-```bash
-python scripts/workshop.py collect --split dev --label model-b --prompt v2 --retrieval local
-python scripts/workshop.py compare --baseline candidate --candidate model-b --variable model
-```
+완전한 비교 순서는 [모델 운영 1–4절](extensions/model-operations.md)을 사용합니다.
+승인된 두 번째 배포를 **비교 명령 안에서만** 선택하므로 성공·실패 뒤에도
+`.env`나 터미널의 모델 설정이 바뀐 채 남지 않습니다.
+지침·코드·검색·dev를 고정하며 여기에서 별도의 축약 절차를 다시 실행하지 않습니다.
 
 검색 근거가 달라졌다면 모델만의 순위가 아니라 end-to-end 결과로 해석합니다.
 작은 6문항/4문항은 교육용 게이트이며 통계적 우월성·운영 SLA의 증거가 아닙니다.

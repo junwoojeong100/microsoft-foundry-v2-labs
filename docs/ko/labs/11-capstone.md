@@ -58,6 +58,30 @@ A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다.
 
 ## 경험자 인수 명령
 
+<a id="b-evidence"></a>
+
+### 이미 만든 파일 확인
+
+인계 완료 여부를 정하기 전에 이 목록과 대조합니다.
+출력 JSON과 기록은 `outputs/learner-notes-ko/`, 자동 생성된 실행과 소유권 기록은 원래 경로에 둡니다.
+다른 이름을 선택했다면 `session-notes.txt`에 정확한 실제 경로를 적습니다.
+
+| 출처 | 보관할 것 |
+|---|---|
+| Lab 02 | `model.json`, `answer-local.json` |
+| Lab 04 | `maf-none.json`, `maf-function.json`, `maf-mcp.json` |
+| Lab 05 | `workflow-sequential.json`, `workflow-concurrent.json`, `workflow-group-chat.json`, 작성한 `workflow-review.txt` |
+| Lab 06 | `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`, `answer-iq.json`, 원래 `outputs/azure-objects.json` |
+| Lab 07 | 비교·검토·인수/반려 근거를 포함한 `outputs/baseline/`, `outputs/candidate/`, `outputs/final-holdout/` 전체 |
+| Lab 08 | `.build/hosted/package-manifest.json`과 그 manifest가 설명하는 패키지 |
+| 준비 / Lab 09 | 작성한 `session-notes.txt`, `operations-checklist.txt`, 복사한 `SOURCE.json` |
+
+각 JSON을 열어 마지막 터미널 몇 줄이 아니라 응답 전체가 있는지 확인합니다.
+빈 양식이나 파일 이름만으로는 실행 근거가 되지 않습니다. 빠진 항목은 아래 미완료 상태로 인계합니다.
+목록을 채우려고 유료 호출을 반복하거나 파일을 꾸며 만들지 않습니다.
+
+### 실제 결과 선택
+
 **명령 전에 인계 결과를 구분합니다.** 본인 파일의 실제 상태를 사용합니다.
 
 | 있는 근거 | 인계 행동 | 상태 |
@@ -95,8 +119,7 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 유용한 막힌 작업 인계이지, **B의 빠진 필수 요건을 성공적으로 완료했다는 뜻은 아닙니다**.
 `operations-checklist.txt`의 소유/공유 자산·남은 비용 항목도 마무리합니다.
 
-**B 완료:** 실제 존재하는 baseline/candidate/holdout 폴더·비교/검토·생성한 Lab 04–06 출력·패키지 manifest와
-`session-notes.txt`, `operations-checklist.txt`를 인계합니다.
+**B 완료:** [B 근거 목록](#b-evidence)에서 실제 존재하는 파일을 인계합니다. Lab 02의 모델 출력과 Lab 05의 사람 검토도 포함합니다.
 [리뷰어 체크리스트](#리뷰어의-인수-체크리스트)와 [정리 인계](../reference/cleanup.md)로 마칩니다.
 업무 게이트 실패는 **반려**, 빠진 필수 단계는 **미완료**, 생략한 선택 로컬/원격 호스팅·cloud judge·trace는 **미실행/미검증**으로 남깁니다.
 

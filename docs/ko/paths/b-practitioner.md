@@ -16,6 +16,9 @@ Lab 02에서 실제 Responses 요청과 구조화된 답변까지 확인합니�
 Lab 00에서 소스 복사본의 빈 양식으로 **`outputs/learner-notes-ko/`**를 만듭니다.
 터미널 출력 파일과 검토 기록은 여기에 저장합니다. B에는 브라우저 agent나 별도 학습자 ZIP이 필요 없습니다.
 자동 생성된 평가 폴더는 기록 폴더 안이 아니라 `outputs/<label>/`에 그대로 둡니다.
+값을 입력하라는 블록이 나오면 [코드 블록 읽는 법](../labs/00-start.md#reading-code-blocks)을 확인합니다.
+각 출력은 다음 요청 전에 **저장** 지점에서 보관합니다.
+[Lab 11의 파일 목록](../labs/11-capstone.md#b-evidence)에 인계할 전체 항목이 있습니다.
 
 **첫 회차의 선택은 정해져 있습니다:** Luna, 입문 MAF 세 패턴, Lab 06의 GA Search/IQ,
 Lab 07의 **로컬 검색 + 실제 Azure 모델**, Lab 08의 **패키징만**입니다.

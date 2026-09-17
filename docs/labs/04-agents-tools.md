@@ -36,6 +36,8 @@ The question asks for a three-sentence explanation of Foundry versus Agent Frame
 **What to check:** Read `mode: live`, `orchestration: local`, and `tools: none`.
 Local Python owns execution, but the answer model is called in Azure.
 
+**Save:** `maf-none.json` in your Lab 00 notes directory.
+
 Open `src/foundry_workshop/agents.py` and locate:
 
 1. `FoundryChatClient`: the project and deployment it calls.
@@ -82,6 +84,8 @@ booking/approving, and that `never_require` applies only to **side-effect-free s
 If the model skips the tool or evidence, inspect the actual answer, instructions,
 tool description, and tracing. A connected tool alone is not success.
 
+**Save:** `maf-function.json` in the same notes directory before starting MCP.
+
 ## 3. Move the same lookup into a local MCP server
 
 ```bash
@@ -109,6 +113,8 @@ Do not repair invalid output and call it success.
 
 **What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
 for May 2026. A function-tool response cannot stand in for an MCP execution.
+
+**Save:** `maf-mcp.json` in the same notes directory. Keep the original error instead if this request failed.
 
 **B done:** retain the three actual outputs and explain no tool, function and local MCP.
 Continue to [Lab 05 B](05-workflows.md#path-b); the negative test below is optional.

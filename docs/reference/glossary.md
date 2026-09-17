@@ -9,6 +9,9 @@
 | Resource group | Management container for related Azure resources |
 | Endpoint | Service address to which a program sends requests |
 | Deployment name | Name used to invoke a deployed model |
+| Prefix | Your `mfv2-...` naming boundary for owned cloud objects; not a run label |
+| Label | A name for one saved run, such as `baseline`; not an agent name, version or file path |
+| Model key | A local alias such as `a` for one explicitly configured deployment in a matrix |
 | SDK | Programming library for working with a service |
 | CLI/terminal | Interface for entering commands and running tools |
 | Virtual environment/venv | Project-specific isolated Python packages |
@@ -27,6 +30,7 @@
 | Evaluation/evaluator | Assessment against criteria / its rules or model |
 | Dev/holdout | Cases for development/selection / cases reserved until final acceptance |
 | Lineage | Links showing which data, instructions, models, and versions produced a result |
+| Manifest / hash | An inventory of inputs/settings / a fingerprint used to detect changed bytes; neither proves model quality |
 | Fixture | Predefined checker data, not a fresh LLM result |
 | GA/Preview | Generally available / availability with separate limits and possible change |
 | Session | Hosted persistent-state/compute unit with costs and cleanup requirements |

@@ -132,6 +132,8 @@ do not relabel a response ID as a trace ID.
 **What to check:** Read `text`, `response_model`, `response_id`, and `usage` below
 the last command. Preserve `trace_id: null` and `trace_export: not-configured` honestly.
 
+**Save:** `model.json` in your Lab 00 notes directory before the next request. Copy the complete JSON, not only the answer text.
+
 ### Verify Structured Outputs
 
 ```bash
@@ -144,9 +146,10 @@ The command performs local keyword retrieval over synthetic documents, then call
 
 
 
-**What to check:** The screenshot shows the bottom of a long output. Read `source_ids`,
-`response_id`, `usage`, and `trace_export` together with the answer fields above.
-Do not retain only the answer and discard its lineage.
+**What to check:** Read the complete output: answer fields, `source_ids`, `response_id`,
+`usage`, and `trace_export`. A correct amount without its sources is not enough.
+
+**Save:** `answer-local.json` in the same notes directory, including the source and response metadata.
 
 Stop if the model rejects `json_schema`. The code does not silently switch to plain
 text or repair invalid JSON. Explicitly configure an instructor-verified deployment

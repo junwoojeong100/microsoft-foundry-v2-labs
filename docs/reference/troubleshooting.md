@@ -15,6 +15,8 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 |---|---|---|
 | Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
 | Opened a new terminal | Return to the repository root; run `source .venv/bin/activate` | Reinstall everything, overwrite or shell-`source` `.env` |
+| `${NAME:?...}` reports a missing value | Restore the named value from this pass's setup/output notes; the command has not run | Remove the guard, paste a recording's ID or assume another terminal supplied the value |
+| A model-comparison command finished or failed | Its [scoped override](../labs/extensions/model-operations.md) leaves the original setup unchanged; inspect the saved comparison/error | Change `.env` to continue or repeat paid work merely to restore the first model |
 | B's notes directory already exists | Resume that pass's files, or choose a new directory for a new pass; the guarded copy block intentionally stops | Overwrite your filled records with blank templates |
 | A label already exists | Inspect the directory printed by that module; [saved-result locations](commands.md#saved-results) distinguish core, matrix, Toolbox and conversation runs | Delete the run or invoke `collect` with that same label |
 | `collect` returned a nonzero exit code | Preserve all rows/errors; use `evaluate` to inspect them, resolve the cause, then collect a new explicitly labeled dev run | Replace failed rows with fixtures or silently change the provider/model |

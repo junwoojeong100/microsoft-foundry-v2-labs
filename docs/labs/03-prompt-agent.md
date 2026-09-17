@@ -135,32 +135,18 @@ These are D01, D02, D03 and D05; do not send the expected-criteria column.
 |---|---|---|
 | D01 | September 2026 lodging | Current KRW 150000, `TRAVEL-2026` |
 | D02 | May 2026 lodging | Historical KRW 120000, `TRAVEL-2025` |
-| D03 | Over-limit booking | Advance approval; the agent cannot approve |
-| D05 | International travel | Withhold the amount; insufficient evidence |
+| D03 | Over-limit booking | KRW 150000 limit; approval **before booking**; `TRAVEL-2026` + `APPROVAL-01`; the agent cannot approve |
+| D05 | International travel | Withhold the amount; explain insufficient evidence and cite `SCOPE-01` |
 
 These amounts are **synthetic ground-truth criteria**, not proof of a correct model
 response. Start a new conversation for each question so earlier answers do not leak into later checks.
 
 
-**What to check:** Select **New chat** above the conversation. Verify the old response
-is gone and replace any remaining draft with the next question.
-
-
-
-**What to check:** Link September 2026 to KRW 150,000 and `TRAVEL-2026`.
-Compare receipt/approval conditions as well as the amount.
-
-
-**What to check:** May 2026 should use KRW 120,000 and `TRAVEL-2025`.
-Always applying today's date or the newest policy is a failure.
-
-
-**What to check:** KRW 170,000 exceeds the limit, so explain approval **before booking**.
-The assistant must not claim approval or an actual booking.
-
-
-**What to check:** Without an international policy, ask for confirmation rather than
-inventing an amount. Record your own responses and failures, not the screenshot's outcomes.
+**Check and save each response before the next question.** Select **New chat**, confirm the old response
+is gone, and replace any remaining draft. Compare the actual amount, applicable date, source IDs and
+approval conditions with the row above; save the answer and your finding in `session-notes.txt`.
+Withholding the international amount is correct, but a missing `SCOPE-01` citation is still a finding.
+These are the same criteria used in Lab 07, not a promise that your agent already passes them.
 
 **A done:** keep the actual saved instructions, agent version and four checks in your evidence folder.
 Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the SDK branch below are not required for A.

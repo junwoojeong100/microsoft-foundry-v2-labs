@@ -46,12 +46,16 @@ WHEN=$(python -c 'from datetime import datetime, timedelta, UTC; print((datetime
 ## 3. Disabled 상태로 생성
 
 ```bash
-azd ai routine create "$ROUTINE_NAME" --trigger timer --at "$WHEN" --agent-name "$AGENT_NAME" --action agent-response --enabled=false --project-endpoint "$PROJECT_ENDPOINT" --output json
-azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai routine create "${ROUTINE_NAME:?Enter the owned routine name}" --trigger timer \
+  --at "${WHEN:?Calculate a future UTC trigger time}" --agent-name "${AGENT_NAME:?Enter the approved target agent}" \
+  --action agent-response --enabled=false --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
+azd ai routine show "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
 ```
 
 이름·agent·trigger·time zone과 `enabled: false`를 확인합니다.
 이미 존재하는 routine에 `--force`로 생성하지 않습니다.
+필수 값이 없으면 azd 실행 전에 멈춥니다. 새 터미널에서는 기록한 정확한 routine 이름과 project endpoint를 복구합니다.
 
 ## 4. 한 번 전달하고 비활성화
 
@@ -59,12 +63,21 @@ azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --out
 Dispatch와 disable을 `&&`로 연결하면 실패 시 정리가 생략되므로 그렇게 바꾸지 않습니다.
 
 ```bash
-azd ai routine enable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"
-azd ai routine dispatch "$ROUTINE_NAME" --input "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?" --project-endpoint "$PROJECT_ENDPOINT" --output json
-azd ai routine disable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"
-azd ai routine run list "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
-azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai routine enable "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" &&
+azd ai routine dispatch "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --input "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
+azd ai routine disable "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}"
+azd ai routine run list "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
+azd ai routine show "${ROUTINE_NAME:?Enter the owned routine name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
 ```
+
+Enable이 실패하면 dispatch하지 않습니다. Disable과 재조회는 의도적으로 별도 실행합니다.
+각 명령의 결과를 보관합니다. 마지막 `show`의 성공이 실패한 dispatch를 성공으로 바꾸지는 않습니다.
 
 dispatch/action correlation ID를 보관합니다.
 관찰한 CLI 버전의 `run list`는 실제 SDK 이력이 있는데도 `value: null`을 출력할 수 있습니다.

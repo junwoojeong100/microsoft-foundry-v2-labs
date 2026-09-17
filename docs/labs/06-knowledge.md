@@ -115,7 +115,9 @@ Keep the selected English question unchanged within this experiment; `--language
 
 
 **What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
-retrieval, not Search/IQ. Settings visible in the screenshot alone do not identify the executed provider.
+retrieval, not Search/IQ. Check the returned provider, not just configured endpoint names.
+
+**Save:** `retrieve-local.json` in your Lab 00 notes directory.
 
 ### 3. Create an ordinary Search index
 
@@ -148,6 +150,8 @@ python scripts/workshop.py --language en retrieve --provider search --question "
 
 **What to check:** Read the result of `--provider search`; verify endpoint/index.
 Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
+
+**Save:** `retrieve-search.json` in the same notes directory before creating the IQ source/base.
 
 ### 4. Create a GA IQ knowledge source/base
 
@@ -186,8 +190,10 @@ IQ failure never automatically becomes Search.
 
 
 
-**What to check:** Read activity, base, and API version at the bottom, and references/
-documents above. Do not fill unreported latency or usage with invented values.
+**What to check:** Read `activity`, base, API version, `references` and `documents` together.
+Do not fill unreported latency or usage with invented values.
+
+**Save:** `retrieve-iq.json` in the same notes directory, including the original documents and activity.
 
 ### 5. Send evidence to the real model
 
@@ -201,8 +207,9 @@ different from misreading the effective date of a correctly retrieved policy.
 
 
 **What to check:** Verify the IQ base/API, `response_model`, `response_id`, and `usage`.
-The image is the bottom of a long output; compare the amount, conditions, and citations
-in `answer` above with the original documents.
+Compare the amount, conditions, and citations in `answer` with the original documents.
+
+**Save:** `answer-iq.json` in the same notes directory, keeping the complete response and retrieval metadata.
 
 ```mermaid
 flowchart LR

@@ -91,6 +91,23 @@ Do not install into global Python or change the system's default Azure subscript
 If an activated, configured terminal was supplied, complete steps **1, 2 and 5**;
 do not reinstall SDKs or replace its `.env`. Otherwise complete **1–5** in order.
 
+<a id="reading-code-blocks"></a>
+
+### What to copy, and where
+
+| Block or notation | Your action |
+|---|---|
+| `bash` | Run in the repository terminal, not the browser console or Python's `>>>` prompt. Copy commands without the surrounding backticks |
+| `dotenv` / `.env` values | Edit the named file in your editor; do not run or shell-`source` it |
+| Python, JSON or YAML example | Read the surrounding instruction: it identifies explanatory code, expected output or the file to edit. It is not another terminal command |
+| `<your-...>` | Replace the entire placeholder, including angle brackets, with your verified value |
+| `read -r NAME` | Enter the requested value, without extra quote characters, then press Enter. Keep `$NAME` and `${NAME:?...}` unchanged in later commands |
+
+Run one block and inspect its result before the next. Lines joined by `\` form one command;
+`&&` runs the next command only after success. A returned shell prompt means **finished**, not **passed**.
+`${NAME:?...}` stops before a command if a required value is missing. Restore it from your notes, not a recording.
+New terminals do not inherit values entered with `read`.
+
 <a id="offline-rehearsal"></a>
 
 ### 1. Open the folder

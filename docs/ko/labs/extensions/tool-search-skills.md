@@ -71,8 +71,10 @@ printf '전체 프로젝트 endpoint: '
 read -r PROJECT_ENDPOINT
 printf 'manifest의 skill_name: '
 read -r SKILL_NAME
-azd ai skill create "$SKILL_NAME" --file ./outputs/extensions-ko/policy-review --project-endpoint "$PROJECT_ENDPOINT" &&
-azd ai skill show "$SKILL_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
+azd ai skill create "${SKILL_NAME:?Use the generated skill name}" --file ./outputs/extensions-ko/policy-review \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" &&
+azd ai skill show "${SKILL_NAME:?Use the generated skill name}" \
+  --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
 ```
 
 폴더 업로드로 원래 `SKILL.md`를 패키징합니다. 기존 버전을 지울 수 있는 `--force`는 사용하지 않습니다.
@@ -80,12 +82,17 @@ azd ai skill show "$SKILL_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output 
 ```bash
 printf 'show가 반환한 default_version: '
 read -r SKILL_VERSION
-azd ai skill download "$SKILL_NAME" --version "$SKILL_VERSION" --output-dir ./outputs/skill-readback-ko --project-endpoint "$PROJECT_ENDPOINT" &&
+mkdir outputs/skill-readback-ko &&
+azd ai skill download "${SKILL_NAME:?Use the generated skill name}" --version "${SKILL_VERSION:?Use the returned skill version}" \
+  --output-dir ./outputs/skill-readback-ko --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" &&
 cmp ./outputs/extensions-ko/policy-review/SKILL.md ./outputs/skill-readback-ko/SKILL.md
 ```
 
 같으면 `cmp`는 출력 없이 0으로 끝납니다. 다르면 멈추고 원인을 검토합니다.
 맞추기 위해 내려받은 파일을 고치지 않습니다.
+Readback 폴더가 이미 있으면 그 시도부터 확인합니다. 새 다운로드에는
+`mkdir`·`--output-dir`·`cmp`의 두 번째 경로에 새 폴더명을 함께 적용합니다. 이전 버전의 근거는 덮어쓰지 않습니다.
+`${NAME:?...}`는 필수 이름·버전·endpoint가 비어 있으면 azd 실행 전에 멈추는 보호 문법입니다.
 
 ## 5. 정확한 Skill 버전 연결
 

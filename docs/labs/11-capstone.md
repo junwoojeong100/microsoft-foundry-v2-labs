@@ -58,6 +58,30 @@ No optional module or new Azure request is needed to submit these files.
 
 ## Practitioner acceptance command
 
+<a id="b-evidence"></a>
+
+### Check the files you already produced
+
+Use this inventory before deciding whether the handoff is complete.
+The printed JSON files and notes are in `outputs/learner-notes-en/`; generated runs and ownership stay at their original paths.
+If you chose different names, record those exact paths in `session-notes.txt`.
+
+| From | Keep |
+|---|---|
+| Lab 02 | `model.json`, `answer-local.json` |
+| Lab 04 | `maf-none.json`, `maf-function.json`, `maf-mcp.json` |
+| Lab 05 | `workflow-sequential.json`, `workflow-concurrent.json`, `workflow-group-chat.json`, completed `workflow-review.txt` |
+| Lab 06 | `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`, `answer-iq.json`; original `outputs/azure-objects.json` |
+| Lab 07 | Complete `outputs/baseline/`, `outputs/candidate/`, `outputs/final-holdout/`, including comparison, review and acceptance/rejection evidence |
+| Lab 08 | `.build/hosted-en/package-manifest.json` and the package it describes |
+| Setup / Lab 09 | Completed `session-notes.txt`, `operations-checklist.txt`, and the copied `SOURCE.json` |
+
+Open each saved JSON and check that it contains the whole response, not only the last terminal lines.
+An empty template or a filename alone is not execution evidence. If an item is missing, use the incomplete outcome below;
+do not repeat paid calls or fabricate files just to fill the inventory.
+
+### Choose the actual outcome
+
 **Choose the outcome before running a command.** Use the actual state of your own files:
 
 | Evidence available | Handoff action | Status |
@@ -96,8 +120,7 @@ Do not report missing runs as `0 errors`, manufacture an `acceptance.json`, unlo
 This is a useful blocked-work handoff, **not successful completion of B's missing requirements**.
 Still finish the owned/shared asset and residual-cost entries in `operations-checklist.txt`.
 
-**B done:** hand over only the baseline/candidate/holdout folders that exist, comparison/review,
-Lab 04–06 outputs and package manifest if produced, plus `session-notes.txt` and `operations-checklist.txt`.
+**B done:** hand over the existing files in the [B evidence inventory](#b-evidence), including Lab 02's model outputs and Lab 05's human review.
 Finish the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
 Mark a failed business gate **rejected**, missing required stages **incomplete**, and omitted optional local/remote hosting, cloud judge or trace work **not run / unverified**.
 

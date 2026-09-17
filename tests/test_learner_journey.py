@@ -417,6 +417,287 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertIn("operations-checklist.txt", incomplete)
                 self.assertEqual(DOCS.workshop_commands(incomplete), [])
 
+    def test_printed_outputs_have_a_save_checkpoint_before_the_next_command(self):
+        expected = {
+            2: ("model.json", "answer-local.json"),
+            4: ("maf-none.json", "maf-function.json", "maf-mcp.json"),
+            5: (
+                "workflow-sequential.json",
+                "workflow-concurrent.json",
+                "workflow-group-chat.json",
+            ),
+            6: (
+                "retrieve-local.json",
+                "retrieve-search.json",
+                "retrieve-iq.json",
+                "answer-iq.json",
+            ),
+        }
+        for language, _, labs in self.language_labs():
+            for number, filenames in expected.items():
+                core = self.core_section(language, labs[number], "B")
+                commands = DOCS.workshop_commands(core)
+                saved = []
+                for index, (line, arguments) in enumerate(commands):
+                    if parser().parse_args(arguments).command in {"doctor", "seed-search"}:
+                        continue
+                    following = core.split(line, 1)[1]
+                    if index + 1 < len(commands):
+                        following = following.split(commands[index + 1][0], 1)[0]
+                    label = "Save" if language == "en" else "저장"
+                    match = re.search(rf"\*\*{label}:\*\* `([^`]+)`", following)
+                    with self.subTest(language=language, lab=number, command=line):
+                        self.assertIsNotNone(match, "Name the saved file before the next command.")
+                        if match:
+                            saved.append(match[1])
+                self.assertEqual(tuple(saved), filenames)
+
+    def test_b_handoff_lists_all_printed_results_and_review_files(self):
+        filenames = (
+            "model.json",
+            "answer-local.json",
+            "maf-none.json",
+            "maf-function.json",
+            "maf-mcp.json",
+            "workflow-sequential.json",
+            "workflow-concurrent.json",
+            "workflow-group-chat.json",
+            "retrieve-local.json",
+            "retrieve-search.json",
+            "retrieve-iq.json",
+            "answer-iq.json",
+            "session-notes.txt",
+            "workflow-review.txt",
+            "operations-checklist.txt",
+            "SOURCE.json",
+            "outputs/azure-objects.json",
+            "outputs/baseline/",
+            "outputs/candidate/",
+            "outputs/final-holdout/",
+        )
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[11], "B")
+                inventory = core.split('<a id="b-evidence"></a>', 1)
+                self.assertEqual(len(inventory), 2)
+                for filename in filenames:
+                    self.assertIn(f"`{filename}`", inventory[1])
+                package = "hosted-en" if language == "en" else "hosted"
+                self.assertIn(f"`.build/{package}/package-manifest.json`", inventory[1])
+
+    def test_first_agent_checks_use_the_same_dev_limits_and_citations_as_assessment(self):
+        for language, _, labs in self.language_labs():
+            core = self.core_section(language, labs[3], "A")
+            rows = {
+                match[1]: line
+                for line in core.splitlines()
+                if (match := re.match(r"^\| (D\d{2})(?: |[|·])", line))
+            }
+            directory = ROOT / "data/evaluation"
+            if language == "en":
+                directory /= "en"
+            cases = {case["case_id"]: case for case in read_jsonl(directory / "dev.jsonl")}
+            self.assertEqual(set(rows), {"D01", "D02", "D03", "D05"})
+            for case_id, row in rows.items():
+                with self.subTest(language=language, case=case_id):
+                    for source_id in cases[case_id]["required_citations"]:
+                        self.assertIn(f"`{source_id}`", row)
+                    if cases[case_id]["expected_limit_krw"] is not None:
+                        self.assertIn(str(cases[case_id]["expected_limit_krw"]), row)
+
+    def test_model_comparison_overrides_are_scoped_and_preserve_failures(self):
+        for language, directory, _ in self.language_labs():
+            text = (directory / "labs/extensions/model-operations.md").read_text()
+            blocks = re.findall(r"(?m)^\(\n.*?^\)", text, re.DOTALL)
+            self.assertEqual(
+                len(blocks), 2, "Preflight and collection each need a scoped override."
+            )
+            for block in blocks:
+                for value in (None, "", "mfv2-approved-alternative"):
+                    for status in (0, 9):
+                        with (
+                            self.subTest(language=language, model=value, status=status),
+                            workspace() as root,
+                        ):
+                            env_file = root / ".env"
+                            original = b"AZURE_AI_MODEL_DEPLOYMENT_NAME=mfv2-original\n"
+                            env_file.write_bytes(original)
+                            environment = {
+                                "PATH": os.defpath,
+                                "AZURE_AI_MODEL_DEPLOYMENT_NAME": "mfv2-original",
+                                "STUB_STATUS": str(status),
+                            }
+                            if value is not None:
+                                environment["MODEL_B"] = value
+                            result = subprocess.run(
+                                [
+                                    "bash",
+                                    "-c",
+                                    'python() { printf "STUB_MODEL=%s\\n" "$AZURE_AI_MODEL_DEPLOYMENT_NAME"; return "$STUB_STATUS"; }\n'
+                                    + block
+                                    + '\nresult=$?\nprintf "PARENT_MODEL=%s\\n" "$AZURE_AI_MODEL_DEPLOYMENT_NAME"\nexit "$result"',
+                                ],
+                                cwd=root,
+                                env=environment,
+                                capture_output=True,
+                                text=True,
+                                timeout=10,
+                                check=False,
+                            )
+                            self.assertEqual(env_file.read_bytes(), original)
+                            self.assertIn("PARENT_MODEL=mfv2-original", result.stdout)
+                            if value:
+                                self.assertIn(f"STUB_MODEL={value}", result.stdout)
+                                self.assertEqual(result.returncode, status)
+                            else:
+                                self.assertNotEqual(result.returncode, 0)
+                                self.assertNotIn("STUB_MODEL", result.stdout)
+                                self.assertIn("MODEL_B", result.stderr)
+
+    def test_project_scoped_extension_commands_reject_missing_values_before_azd(self):
+        names = ("tool-search-skills.md", "routines.md", "a2a.md")
+        values = {
+            "PROJECT_ENDPOINT": "https://mfv2-unit.services.ai.azure.com/api/projects/unit",
+            "SKILL_NAME": "mfv2-unit-policy-review",
+            "SKILL_VERSION": "1",
+            "ROUTINE_NAME": "mfv2-unit-timer",
+            "AGENT_NAME": "mfv2-unit-agent",
+            "WHEN": "2099-01-01T00:00:00+00:00",
+            "A2A_BASE": "https://mfv2-unit.services.ai.azure.com/unit-a2a",
+            "A2A_CONNECTION": "mfv2-unit-a2a",
+        }
+        for language, directory, _ in self.language_labs():
+            for name in names:
+                text = (directory / "labs/extensions" / name).read_text()
+                for block in re.findall(r"```bash\n(.*?)```", text, re.DOTALL):
+                    for line in block.replace("\\\n", " ").splitlines():
+                        line = line.strip().removesuffix("&&").rstrip()
+                        if not line.startswith("azd ") or "--help" in shlex.split(line):
+                            continue
+                        with self.subTest(language=language, file=name, command=line):
+                            self.assertIn(
+                                '--project-endpoint "${PROJECT_ENDPOINT:?',
+                                line,
+                            )
+                            self.assertNotRegex(line, r'"\$[A-Z_]+"')
+                            for missing in set(re.findall(r"\$\{([A-Z_]+):\?", line)):
+                                for empty in (False, True):
+                                    environment = {"PATH": os.defpath, **values}
+                                    if empty:
+                                        environment[missing] = ""
+                                    else:
+                                        del environment[missing]
+                                    result = subprocess.run(
+                                        [
+                                            "bash",
+                                            "-c",
+                                            'azd() { printf "UNEXPECTED_AZD_CALL"; }\n' + line,
+                                        ],
+                                        env=environment,
+                                        capture_output=True,
+                                        text=True,
+                                        timeout=10,
+                                        check=False,
+                                    )
+                                    self.assertNotEqual(result.returncode, 0)
+                                    self.assertNotIn("UNEXPECTED_AZD_CALL", result.stdout)
+                                    self.assertIn(missing, result.stderr)
+
+    def test_routine_disable_is_not_skipped_after_enable_or_dispatch_failure(self):
+        for language, directory, _ in self.language_labs():
+            text = (directory / "labs/extensions/routines.md").read_text()
+            blocks = [
+                block
+                for block in re.findall(r"```bash\n(.*?)```", text, re.DOTALL)
+                if "azd ai routine enable " in block
+            ]
+            self.assertEqual(len(blocks), 1)
+            for enable_status, dispatch_status in ((0, 0), (7, 0), (0, 9)):
+                with self.subTest(
+                    language=language, enable=enable_status, dispatch=dispatch_status
+                ):
+                    result = subprocess.run(
+                        [
+                            "bash",
+                            "-c",
+                            'azd() { printf "%s\\n" "$3"; case "$3" in enable) return "$ENABLE_STATUS";; dispatch) return "$DISPATCH_STATUS";; esac; }\n'
+                            + blocks[0],
+                        ],
+                        env={
+                            "PATH": os.defpath,
+                            "PROJECT_ENDPOINT": "https://mfv2-unit.services.ai.azure.com/api/projects/unit",
+                            "ROUTINE_NAME": "mfv2-unit-timer",
+                            "ENABLE_STATUS": str(enable_status),
+                            "DISPATCH_STATUS": str(dispatch_status),
+                        },
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    expected = ["enable"]
+                    if enable_status == 0:
+                        expected.append("dispatch")
+                    self.assertEqual(
+                        result.stdout.splitlines(), [*expected, "disable", "run", "show"]
+                    )
+
+    def test_skill_readback_preserves_original_bytes_and_stops_before_redownloading(self):
+        for language, directory, _ in self.language_labs():
+            text = (directory / "labs/extensions/tool-search-skills.md").read_text()
+            blocks = [
+                block
+                for block in re.findall(r"```bash\n(.*?)```", text, re.DOTALL)
+                if "azd ai skill download " in block and "--help" not in block
+            ]
+            self.assertEqual(len(blocks), 1)
+            marker = f"mkdir outputs/skill-readback-{language}"
+            self.assertIn(marker, blocks[0])
+            block = blocks[0][blocks[0].index(marker) :]
+            for status in (0, 9):
+                with self.subTest(language=language, status=status), workspace() as root:
+                    original = b"synthetic skill bytes\n"
+                    source = root / f"outputs/extensions-{language}/policy-review/SKILL.md"
+                    source.parent.mkdir(parents=True)
+                    source.write_bytes(original)
+                    environment = {
+                        "PATH": os.defpath,
+                        "PROJECT_ENDPOINT": "https://mfv2-unit.services.ai.azure.com/api/projects/unit",
+                        "SKILL_NAME": "mfv2-unit-policy-review",
+                        "SKILL_VERSION": "1",
+                        "STUB_STATUS": str(status),
+                    }
+                    script = (
+                        'azd() { printf "STUB_DOWNLOAD\\n" >&2; while [ "$#" -gt 0 ]; do if [ "$1" = "--output-dir" ]; then printf "synthetic skill bytes\\n" > "$2/SKILL.md"; break; fi; shift; done; return "$STUB_STATUS"; }\n'
+                        'cmp() { printf "STUB_COMPARE\\n" >&2; command cmp "$@"; }\n' + block
+                    )
+                    first = subprocess.run(
+                        ["bash", "-c", script],
+                        cwd=root,
+                        env=environment,
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    self.assertEqual(first.returncode, status, first.stderr)
+                    self.assertEqual("STUB_COMPARE" in first.stderr, status == 0)
+                    readback = root / f"outputs/skill-readback-{language}/SKILL.md"
+                    self.assertEqual(readback.read_bytes(), original)
+                    repeated = subprocess.run(
+                        ["bash", "-c", script],
+                        cwd=root,
+                        env={**environment, "STUB_STATUS": "0"},
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    self.assertNotEqual(repeated.returncode, 0)
+                    self.assertNotIn("STUB_DOWNLOAD", repeated.stderr)
+                    self.assertNotIn("STUB_COMPARE", repeated.stderr)
+                    self.assertEqual(readback.read_bytes(), original)
+
     def test_all_guide_bash_blocks_parse_without_executing_cloud_commands(self):
         for path in DOCS.markdown_files(ROOT):
             for index, block in enumerate(

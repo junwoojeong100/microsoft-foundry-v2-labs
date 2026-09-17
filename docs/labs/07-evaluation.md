@@ -68,12 +68,12 @@ evaluator, judge, mappings, and cost before running the same data.
 Continue to [Lab 09 A](09-operations.md#path-a). The commands below are a separate B experiment, not extra browser steps.
 
 
-**What to check:** Record the actual KRW 150,000 limit, approval-before-booking condition,
-and IDs. Do not fill your table by assuming your answer matches the screenshot.
+**What to check:** For D03, record the actual limit, approval-before-booking condition
+and cited IDs. Compare them with the criterion; do not prefill a pass.
 
 
 **What to check:** Withholding an amount is not automatically a business failure.
-Assess whether the evidence lacks that policy and the assistant explains how to confirm it.
+For D05, check both the explanation of missing international policy and its `SCOPE-01` citation.
 
 <a id="path-b"></a>
 
@@ -123,7 +123,7 @@ Read `total`, `passed`, `errors`, `business_gate_passed` and every case's `check
 
 
 **What to check:** Read `completed`, `schema`, `decision`, and `required_citations`
-inside `checks`. The image shows the final cases; also inspect the summary and all six rows.
+inside each case's `checks`. Inspect the summary and all six rows, not just the last visible case.
 
 ### 2. Separate the cause of one failure
 
@@ -266,13 +266,10 @@ target-model answers, and passing two examples does not establish a universally 
 <details>
 <summary>Expand the separate model experiment; not required for the first pass</summary>
 
-Change only to another **verified deployment name** in `.env`, keeping code, prompt,
-retrieval, and dev data fixed.
-
-```bash
-python scripts/workshop.py --language en collect --split dev --label model-b --prompt v2 --retrieval local
-python scripts/workshop.py --language en compare --baseline candidate --candidate model-b --variable model
-```
+Use [Model operations, steps 1–4](extensions/model-operations.md) for the complete experiment.
+It selects an already approved second deployment **only inside the comparison commands**,
+so neither success nor failure leaves `.env` or your terminal set to the other model.
+Keep code, prompt, retrieval and dev data fixed; do not run a second abbreviated recipe here.
 
 Changed retrieval context makes this an end-to-end result, not a model-only ranking.
 Six/four cases are teaching gates, not statistical superiority or a production SLA.

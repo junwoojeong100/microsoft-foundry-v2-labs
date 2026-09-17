@@ -137,6 +137,8 @@ with AIProjectClient(endpoint=project_endpoint, credential=credential) as projec
 **화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다.
 `trace_id: null`과 `trace_export: not-configured`도 그대로 기록하며, 생성된 응답 ID를 Trace ID로 바꾸지 않습니다.
 
+**저장:** `model.json`을 Lab 00 기록 폴더에 저장한 뒤 다음 요청으로 갑니다. 답변 문장만이 아니라 JSON 전체를 복사합니다.
+
 ### 구조화 출력까지 확인
 
 ```bash
@@ -148,9 +150,10 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 `local`은 검색 위치를 뜻할 뿐 **모델 호출이 오프라인이라는 뜻이 아닙니다.**
 
 
-**화면 확인:** 사진은 긴 출력의 하단입니다. `source_ids`, `response_id`, `usage`,
-`trace_export`를 확인하고, 출력 위쪽의 `answer`·`decision`·`limit_krw`·`citations`와 함께 읽습니다.
-답변만 복사하고 이력을 버리지 않습니다.
+**화면 확인:** 답변 필드·`source_ids`·`response_id`·`usage`·`trace_export`를 포함한 출력 전체를 읽습니다.
+금액만 맞고 근거가 없는 것으로는 충분하지 않습니다.
+
+**저장:** `answer-local.json`을 같은 기록 폴더에 저장합니다. 원문과 응답 metadata도 포함합니다.
 
 지원하지 않는 모델이 `json_schema`를 거부하면 여기서 중단합니다.
 코드는 일반 텍스트로 몰래 전환하거나 JSON을 임의로 고치지 않습니다.

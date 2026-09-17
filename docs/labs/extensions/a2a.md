@@ -56,10 +56,13 @@ printf 'target_base from the target result: '
 read -r A2A_BASE
 printf 'connection_name from the target result: '
 read -r A2A_CONNECTION
-azd ai connection create "$A2A_CONNECTION" --kind remote-a2a --target "$A2A_BASE" --auth-type project-managed-identity --audience https://ai.azure.com --project-endpoint "$PROJECT_ENDPOINT"
+azd ai connection create "${A2A_CONNECTION:?Use the returned connection name}" --kind remote-a2a \
+  --target "${A2A_BASE:?Use the returned target base}" --auth-type project-managed-identity \
+  --audience https://ai.azure.com --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}"
 ```
 
 Use the **A2A base path**, not the card URL, as the connection target.
+An empty value stops before azd; restore the returned values rather than removing these guards.
 Do not use `--force` or an API key.
 The owner verifies the identity used by this connection and grants only required endpoint access
 on the target agent/project. The signed-in learner and service identity are not interchangeable.

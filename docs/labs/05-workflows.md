@@ -42,11 +42,12 @@ flowchart LR
     Q["Question and synthetic evidence"] --> A["MAF / PolicyAnalyst"]
     A --> W["MAF / AnswerWriter"]
     W --> R["MAF / EvidenceReviewer"]
-    R --> H{"Human review"}
-    H -->|Reject| W
-    H -->|Finalize guidance| D["Guidance to user"]
-    D -. "Not executed by this lab" .-> X["Booking / Actual approval / Payment"]
+    R --> O["JSON output / pending-human-review"]
+    O -. "Outside the workflow" .-> H["Your review note\nNo booking / approval / payment"]
 ```
+
+The command stops at the JSON output. You review that output yourself; there is no automatic
+reject-and-rerun loop or approval action hidden behind the diagram.
 
 ### 1. Run one sequential command
 
@@ -123,6 +124,8 @@ and actual outputs. An incorrect source interpretation can propagate to the draf
 **What to check:** Map the output to the three roles. Fluent review does not
 automatically remove an earlier evidence error.
 
+**Save:** `workflow-sequential.json` in your Lab 00 notes directory before changing patterns.
+
 ### 2. Concurrent: independent views of the same input
 
 ```bash
@@ -139,6 +142,8 @@ Lower wall-clock time does not necessarily mean fewer calls or lower costs.
 **What to check:** Verify `pattern: concurrent` and multiple participant outputs.
 Compare them rather than treating them as an agreed answer.
 
+**Save:** `workflow-concurrent.json` in the same notes directory.
+
 ### 3. Group Chat: shared discussion with a stopping rule
 
 ```bash
@@ -153,6 +158,8 @@ Calculate call/token budgets before increasing either bound.
 
 **What to check:** Read `pattern: group-chat`, participant responses, and pending
 human review. Reaching the round limit is not model consensus or business approval.
+
+**Save:** `workflow-group-chat.json` in the same notes directory, then compare all three outputs in `workflow-review.txt`.
 
 | Pattern | Appropriate use | Main caution |
 |---|---|---|
