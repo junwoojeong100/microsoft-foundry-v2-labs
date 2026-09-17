@@ -21,6 +21,163 @@ HOSTED_PACKAGE = load_script("package_hosted")
 
 
 class ToolboxAzdTests(unittest.TestCase):
+    def test_matrix_preparation_preserves_v1_and_v2_packages_and_explicit_runtime_settings(self):
+        models = {"a": "gpt-5.6-luna", "b": "approved-second-model"}
+        environment = {
+            **ENV,
+            **ENVIRONMENT,
+            "WORKSHOP_MODEL_DEPLOYMENTS_JSON": json.dumps(models),
+            "WORKSHOP_HOSTED_AGENT_NAME": "mfv2-unit-matrix",
+            "AZURE_SEARCH_INDEX_NAME": "mfv2-unit-text",
+            "AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME": "mfv2-unit-text-source",
+            "AZURE_SEARCH_KNOWLEDGE_BASE_NAME": "mfv2-unit-text-kb",
+        }
+        for language in ("en", "ko"):
+            for threshold in ("", "0", "2.5"):
+                with (
+                    self.subTest(language=language, threshold=threshold),
+                    workspace() as root,
+                    tempfile.TemporaryDirectory() as folder,
+                    patch.dict(
+                        os.environ,
+                        {**environment, "WORKSHOP_IQ_RERANKER_THRESHOLD": threshold},
+                        clear=True,
+                    ),
+                ):
+                    configuration = replace(
+                        settings(language),
+                        openai_endpoint="https://unit.openai.azure.com",
+                        max_output_tokens=1024,
+                    )
+                    (root / "azure.yaml").write_text('{"name":"preserve-source-project"}\n')
+                    previous = None
+                    for prompt in ("v1", "v2"):
+                        profile = RuntimeProfile(
+                            kind="workflow",
+                            retrieval="iq",
+                            prompt=prompt,
+                            api="account-chat",
+                            protocol="invocations",
+                            language=language,
+                        )
+                        package = HOSTED_PACKAGE.build(root, profile)
+                        hashes = file_hashes(package)
+                        destination = Path(folder) / prompt
+                        with patch.object(PREPARE.subprocess, "run") as execute:
+                            path = PREPARE.prepare(
+                                package,
+                                destination,
+                                configuration,
+                                "mfv2-unit-matrix",
+                                kind="matrix",
+                            )
+                        execute.assert_not_called()
+                        data = json.loads(path.read_text())
+                        self.assertEqual(
+                            set(data["services"]), {"workshop-project", "mfv2-unit-matrix"}
+                        )
+                        self.assertNotIn("deployments", data["services"]["workshop-project"])
+                        agent = data["services"]["mfv2-unit-matrix"]
+                        self.assertEqual(
+                            agent["protocols"], [{"protocol": "invocations", "version": "1.0.0"}]
+                        )
+                        runtime = agent["env"]
+                        self.assertEqual(
+                            json.loads(runtime["WORKSHOP_MODEL_DEPLOYMENTS_JSON"]), models
+                        )
+                        self.assertEqual(
+                            runtime["AZURE_OPENAI_ENDPOINT"], configuration.openai_endpoint
+                        )
+                        self.assertEqual(runtime["WORKSHOP_MAX_OUTPUT_TOKENS"], "1024")
+                        self.assertEqual(runtime["WORKSHOP_AUTH_MODE"], "managed-identity")
+                        for key in (
+                            "AZURE_SEARCH_ENDPOINT",
+                            "AZURE_SEARCH_INDEX_NAME",
+                            "AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME",
+                            "AZURE_SEARCH_KNOWLEDGE_BASE_NAME",
+                        ):
+                            self.assertEqual(runtime[key], environment[key])
+                        if threshold:
+                            self.assertEqual(
+                                float(runtime["WORKSHOP_IQ_RERANKER_THRESHOLD"]), float(threshold)
+                            )
+                        else:
+                            self.assertNotIn("WORKSHOP_IQ_RERANKER_THRESHOLD", runtime)
+                        self.assertEqual(file_hashes(destination / agent["project"]), hashes)
+                        self.assertEqual(file_hashes(package), hashes)
+                        if previous:
+                            self.assertEqual(file_hashes(previous[0]), previous[1])
+                        previous = (destination, file_hashes(destination))
+                    self.assertEqual(
+                        (root / "azure.yaml").read_text(), '{"name":"preserve-source-project"}\n'
+                    )
+
+    def test_matrix_rejects_other_profiles_and_invalid_configuration_before_writing(self):
+        profile = RuntimeProfile(
+            kind="workflow",
+            retrieval="iq",
+            api="account-chat",
+            protocol="invocations",
+            language="en",
+        )
+        environment = {
+            **ENV,
+            **ENVIRONMENT,
+            "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"gpt-5.6-luna"}',
+            "WORKSHOP_HOSTED_AGENT_NAME": "mfv2-unit-matrix",
+        }
+        configuration = replace(settings(), openai_endpoint="https://unit.openai.azure.com")
+        with workspace() as root, tempfile.TemporaryDirectory() as folder:
+            for field, value in (
+                ("language", "ko"),
+                ("kind", "policy"),
+                ("pattern", "concurrent"),
+                ("retrieval", "local"),
+                ("api", "project-responses"),
+                ("protocol", "responses"),
+            ):
+                with self.subTest(field=field), patch.dict(os.environ, environment, clear=True):
+                    package = HOSTED_PACKAGE.build(root, replace(profile, **{field: value}))
+                    with self.assertRaisesRegex(ValueError, "matrix package"):
+                        PREPARE.prepare(
+                            package,
+                            Path(folder) / field,
+                            configuration,
+                            "mfv2-unit-matrix",
+                            kind="matrix",
+                        )
+            package = HOSTED_PACKAGE.build(root, profile)
+            for index, (changes, overrides) in enumerate(
+                [
+                    ({}, {"openai_endpoint": None}),
+                    ({}, {"openai_endpoint": "https://another.openai.azure.com"}),
+                    ({"WORKSHOP_HOSTED_AGENT_NAME": "mfv2-unit-other"}, {}),
+                    ({"WORKSHOP_MODEL_DEPLOYMENTS_JSON": ""}, {}),
+                    ({"WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"unapproved-default"}'}, {}),
+                    (
+                        {
+                            "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"gpt-5.6-luna","b":"gpt-5.6-luna"}'
+                        },
+                        {},
+                    ),
+                    ({"WORKSHOP_IQ_RERANKER_THRESHOLD": "nan"}, {}),
+                    ({"AZURE_SEARCH_ENDPOINT": ""}, {}),
+                ]
+            ):
+                with (
+                    self.subTest(changes=changes, overrides=overrides),
+                    patch.dict(os.environ, {**environment, **changes}, clear=True),
+                    self.assertRaises(ValueError),
+                ):
+                    PREPARE.prepare(
+                        package,
+                        Path(folder) / f"invalid-{index}",
+                        replace(configuration, **overrides),
+                        "mfv2-unit-matrix",
+                        kind="matrix",
+                    )
+            self.assertEqual(list(Path(folder).iterdir()), [])
+
     def test_introductory_runtime_preparation_preserves_packages_and_existing_source_projects(self):
         for language in ("en", "ko"):
             with (

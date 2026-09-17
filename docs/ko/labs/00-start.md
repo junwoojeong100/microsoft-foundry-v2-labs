@@ -8,7 +8,7 @@
 
 ## 시작 전
 
-**이번 순서:** 시작 카드를 읽고 학습자 ZIP을 받습니다. A는 브라우저, B는 코드 환경 준비까지 진행합니다.
+**이번 순서:** 시작 카드를 읽습니다. A는 브라우저와 학습자 ZIP, B는 소스 저장소와 포함된 기록 양식을 사용합니다.
 
 **준비물:** 본인 계정·준비된 프로젝트와 모델. B는 Python 3.13·터미널도 필요합니다.
 
@@ -46,11 +46,11 @@
 2. 강사가 지정한 **Microsoft Entra 계정과 디렉터리(tenant)**로 로그인합니다.
    개인 Microsoft 계정·GitHub 로그인과 Azure 업무 계정은 같은 개념이 아닙니다.
 3. 강사가 알려 준 프로젝트를 선택합니다. 이름이 비슷한 운영 프로젝트를 선택하지 않습니다.
-4. 아래 표로 학습자 ZIP의 `session-notes.txt` 설정 카드를 채웁니다. 화면 전체나 개인 정보를 공유 채팅에 올리지 않습니다.
-5. 준비 단계에서 받지 않았다면 [학습자 ZIP](../../../data/learner/ko/learner-materials.zip)을 내려받아 풉니다.
+4. 준비 단계에서 받지 않았다면 [학습자 ZIP](../../../data/learner/ko/learner-materials.zip)을 내려받아 풉니다.
    `START-HERE.txt`를 열어 둡니다. 혼자 학습하면 [준비 카드](../setup.md)에서 환경 준비를 먼저 확인합니다.
    [Lab 05](05-workflows.md)에서는 준비된 MAF 터미널에서 명령을 복사해 실행합니다.
    Python 코드를 직접 작성하거나 포털에서 workflow를 만들지는 않습니다.
+5. 아래 표로 ZIP의 `session-notes.txt` 설정 카드를 채웁니다. 화면 전체나 개인 정보를 공유 채팅에 올리지 않습니다.
 
 
 **화면 확인:** 프로젝트 선택 메뉴에서 찾기 어렵다면 **View all resources**로 이동하고 검색칸에
@@ -169,7 +169,7 @@ python -m pip install -e ".[cloud,agents]"
 ```
 
 설치 버전은 `pyproject.toml`에 고정되어 있습니다. `agent-framework` 전체 메타패키지를
-추가 설치하지 않습니다. Hosted 실습에서만 `.[hosted]`를 추가합니다.
+추가 설치하지 않습니다. `.[hosted]`는 [선택한 Hosted/Toolbox SDK 작업](extensions/developer-toolkit.md#hosted-sdk)에만 필요하며 B의 패키징 전용 Lab 08에는 필요 없습니다.
 다운로드 실패를 인증서 검증 해제나 출처 불명의 미러로 우회하지 않습니다.
 
 새 터미널을 열 때는 저장소 루트로 돌아와 `source .venv/bin/activate`를 다시 실행합니다.

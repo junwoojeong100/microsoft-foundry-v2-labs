@@ -9,11 +9,17 @@
 **완료:** 실제 모델 ID·모든 행/오류를 포함한 비교와 이전 결정을 기록함.
 **중단:** 기존 모델을 유지합니다. 오류가 다른 배포/endpoint를 선택하지 않습니다.
 
+**첫 회차:** 1–4절 후 기록 폴더에 `model-migration-review.txt`를 저장합니다.
+비교 label·판단·복구한 설정을 기록합니다. Router나 폐기 작업은 필수가 아닙니다.
+
 ## 1. Baseline 고정
 
 deployment/model/version, project/API, prompt, corpus, retrieval, 출력 제한과 data hash를 기록합니다.
 원래 run 폴더를 유지하고 Router를 고정 모델 baseline으로 사용하지 않습니다.
 다른 언어 결과도 재사용하지 않습니다. 이 실습은 모델 생성이나 quota 증액을 하지 않습니다.
+
+<details>
+<summary>과거 설정 확인 화면 — 모델 이전·Router 비교를 녹화한 근거가 아닙니다</summary>
 
 <!-- edition-checkpoint:KP24-001-fixed-model-and-scoped-role-readback -->
 
@@ -22,6 +28,8 @@ deployment/model/version, project/API, prompt, corpus, retrieval, 출력 제한�
 **확인할 것:** 모델과 실제 버전을 읽었으며 새 응답 모델을 만들지 않았습니다. 별도 승인한 임시 Optimizer 모델은 두 실험 뒤 정리했습니다. Router 이전이나 모델 우열 검증은 아닙니다. 내 리소스 이름과 ID는 영상과 다릅니다.
 
 [이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=622.92) · [전체 액션과 실패](../../edition-actions.md)
+
+</details>
 
 ## 2. 모델 선택 하나만 변경
 
@@ -66,10 +74,15 @@ python scripts/workshop.py --language ko compare --baseline candidate --candidat
 
 ## 선택: Router는 다른 target
 
+<details>
+<summary>별도 Router 실험 — 두 모델 비교의 다음 필수 단계가 아닙니다</summary>
+
 Router는 명시적으로 선택한 routing system이지 실패한 직접 모델의 fallback이 아닙니다.
 버전·mode·허용 모델 subset을 고정하고 같은 dev로 품질·추정 비용·지연·실제 선택 모델 분포를 확인합니다.
 mock report와 실제 요청을 구분합니다. 작은 데이터로 통계적 우월성을 주장하지 않습니다.
 준비된 Router가 없으면 **미실행**으로 남깁니다.
+
+</details>
 
 **다음:** 비교·이전/rollback 계획·미검증 항목을 [Lab 11](../11-capstone.md)에 기록합니다.
 [모델 이전](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/model-migration) ·

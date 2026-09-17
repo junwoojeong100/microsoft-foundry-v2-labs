@@ -6,6 +6,11 @@
 이 문서만으로 v2의 코드·지식·평가를 연결합니다. 다른 평가 저장소를 clone하지 않습니다.
 아래 숫자는 **실행할 행 수와 인수 기준**이지 이번 개정에서 실제 측정한 점수가 아닙니다.
 
+**첫 회차:** 순차 workflow·GA IQ·account Chat Completions·Invocations·준비된 명시적 모델 목록입니다.
+2–10절을 한 번씩 진행하며 기본 명령은 검토된 회귀가 있다고 가정하지 않습니다.
+블록 하나 실행 → 결과 확인 → 다음 블록 순서로 진행하고 문서 전체를 터미널에 붙이지 않습니다.
+소스 명령은 저장소 루트에 두고 별도 azd 폴더는 셸 이동이 아니라 명시적 인자로 선택합니다.
+
 ## 1. 무엇이 기본 평가보다 깊어지는가
 
 기존 `collect/evaluate`는 프로젝트 Responses의 답을 검사합니다.
@@ -40,11 +45,16 @@ flowchart LR
 | 실패 | HTTP/JSON/계약 오류를 행으로 보존. 누락·중복 matrix나 수집 중단의 성공 prefix는 평가하지 않음 |
 | 인수 | 업무 검사·native 실행/품질·trace·calibration을 따로 판단. CLI 합격은 운영 배포 승인이 아님 |
 
+<a id="matrix-setup"></a>
+
 ## 2. 강사 준비와 명시적 모델 목록
 
 새로운 v2 복사본을 **다른 azd 프로젝트의 하위가 아닌 독립된 폴더**에 준비합니다.
 단일 에이전트 실습의 `.azure`나 원격 version을 묵시적으로 재사용하지 않습니다.
 [Lab 00](../labs/00-start.md)의 설치·인증, [Lab 06](../labs/06-knowledge.md)의 IQ 준비를 먼저 마칩니다.
+[Hosted SDK](../labs/extensions/developer-toolkit.md#hosted-sdk)와
+[azd 확인](../labs/extensions/developer-toolkit.md#azd-check)도 완료합니다. B의 패키징만으로는 설치되지 않습니다.
+이 소스 복사본의 합성 Search 소유권 ledger를 보관합니다.
 
 `.env`에서 실제 값을 입력합니다. 네 개 모두 준비되지 않았다면 목록을 명시적으로 줄이고
 실제 행 수를 기록합니다. 하나가 실패했다고 수집기가 다른 모델로 바꾸지는 않습니다.
@@ -57,9 +67,14 @@ AZURE_OPENAI_ENDPOINT=https://<same-foundry-account>.openai.azure.com
 AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME=<separate-judge-deployment>
 WORKSHOP_HOSTED_AGENT_NAME=<unique-mfv2-agent-name>
 AZURE_APPLICATION_INSIGHTS_APP_ID=<connected-application-insights-app-id>
+# 작은 합성 corpus의 명시적 recall 설정. 평가 기준이 아니라 검색 필터입니다.
+WORKSHOP_IQ_RERANKER_THRESHOLD=0
 ```
 
 `AZURE_OPENAI_ENDPOINT`는 프로젝트 endpoint와 **동일한 Foundry account**여야 합니다.
+새 비교에서는 위 recall 설정을 로컬·원격·baseline·candidate에 똑같이 유지합니다.
+과거 영문 20/24의 누락 원인과 다른 설정을 단일 prompt 효과로 비교하지 않으며,
+이 새 준비값으로 과거 국문 결과를 다시 측정했다고 주장하지 않습니다.
 이 워크북의 예시는 명시적인 `account-chat` 경로를 사용합니다.
 다른 API를 선택하려면 패키지·serve·smoke·plan·collect의 `--api`를 **모두** 바꾼 독립 실험으로 시작합니다.
 실패 후 자동 전환하는 옵션이 아닙니다.
@@ -84,36 +99,42 @@ python scripts/package_hosted.py --kind workflow --pattern sequential --retrieva
 `runtime-profile.json`에 실행 방식을 고정하고, `package-manifest.json`에서 파일 hash를 확인합니다.
 평가 데이터·정답·calibration·개인 `.env`는 포함하지 않습니다.
 
-**아래는 별도 승인 후 실행하는 실제 초기화/배포 절차입니다. 이번 문서 개정이 수행했다는 뜻이 아닙니다.**
-최신 CLI/확장 호환성을 먼저 [버전 기준](versions.md)에서 확인합니다.
+**소스 저장소와 모든 기존 azd 프로젝트 밖의 새 빈 절대 경로**를 준비합니다.
+도우미가 검증한 패키지·완성된 단일 agent manifest·로컬 azd 상태를 만듭니다.
+Provision·배포·역할 부여는 하지 않으며 template 선택이나 YAML/env 수동 병합도 필요 없습니다.
 
 ```bash
-azd ai agent init --src ./.build/workflow-sequential-iq-v1-account-chat-invocations --agent-name "<unique-mfv2-agent-name>" --project-id "<existing-project-arm-id>" --model-deployment "<model-a-deployment>" --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol invocations
+printf '위에서 출력된 V1 패키지의 절대 경로: '
+read -r HOSTED_PACKAGE
+printf '새 빈 V1 azd 폴더의 절대 경로: '
+read -r HOSTED_DIRECTORY
+printf '.env의 WORKSHOP_HOSTED_AGENT_NAME과 같은 이름: '
+read -r HOSTED_AGENT_NAME
+printf '담당자가 제공한 실제 프로젝트 ARM ID: '
+read -r PROJECT_ARM_ID
+printf '실제 프로젝트 location 코드: '
+read -r PROJECT_LOCATION
+python scripts/prepare_hosted_azd.py --language ko --kind matrix \
+  --package "$HOSTED_PACKAGE" --directory "$HOSTED_DIRECTORY" \
+  --agent-name "$HOSTED_AGENT_NAME" --initialize-env \
+  --project-id "$PROJECT_ARM_ID" --location "$PROJECT_LOCATION"
 ```
 
-생성된 agent service의 `project`, `codeConfiguration`, `protocols`를 확인합니다.
-[동일 저장소의 환경 예제](../../../examples/hosted/azure-workflow.yaml.example)를 참고해 **해당 service의 env만**
-완성하고 원래 project 연결·service 이름을 보존합니다.
-
-필수 runtime 값은 프로젝트/모델/account endpoint, 모델 목록 JSON, Search endpoint/index/source/base,
-`WORKSHOP_PREFIX`, `WORKSHOP_AUTH_MODE=managed-identity`, 출력 token 상한입니다.
-azd env에 같은 값을 설정합니다. `.env`와 azd env는 자동 동기화되지 않습니다.
-
-```bash
-azd env set AZURE_AI_PROJECT_ENDPOINT "<existing-project-endpoint>"
-azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME "<model-a-deployment>"
-azd env set AZURE_OPENAI_ENDPOINT "https://<same-foundry-account>.openai.azure.com"
-azd env set WORKSHOP_MODEL_DEPLOYMENTS_JSON '{"a":"<model-a-deployment>","b":"<model-b-deployment>","c":"<model-c-deployment>","d":"<model-d-deployment>"}'
-azd env set WORKSHOP_PREFIX "<your-mfv2-prefix>"
-azd env set AZURE_SEARCH_ENDPOINT "https://<existing-search>.search.windows.net"
-azd env set AZURE_SEARCH_INDEX_NAME "<your-policy-index>"
-azd env set AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME "<your-source>"
-azd env set AZURE_SEARCH_KNOWLEDGE_BASE_NAME "<your-kb>"
-```
+반환된 `azure.yaml`을 엽니다. 기존 프로젝트 하나·의도한 agent 하나·복사한 패키지,
+Python 3.13/`main.py`·Invocations 1.0.0을 확인합니다.
+`env`의 프로젝트/account endpoint·모델 목록·Search index/source/base·reranker 필터·출력 상한이
+`.env`와 같아야 하며 원격 인증은 `managed-identity`입니다.
+새 모델 배포 목록·evaluator 설정·비밀·정답 파일은 없어야 합니다.
+두 폴더 경로·서비스 이름·실제 프로젝트 값을 `session-notes.txt`에 기록합니다.
 
 실제 코드 호출은 기존 프로젝트·배포만 사용합니다. 역할은 사용자와 **배포된 agent instance identity**에
 각각 필요한 범위를 부여합니다. account-chat에는 해당 account의 모델 추론 권한, IQ에는 Search
 읽기 권한이 필요합니다. 역할 생성이나 구독 변경을 수집기에서 자동 수행하지 않습니다.
+준비가 실패하면 폴더·오류를 보존하고 원인 해결 뒤 새 빈 폴더를 사용합니다.
+`--kind matrix`는 이 순차 IQ/account-chat/Invocations v1/v2만 받습니다.
+입문 `runtime`·단일 모델 CI `workflow`를 대체 경로로 쓰지 않습니다.
+**9월 17일 준비 개정:** manifest·범위 지정 명령은 로컬에서 확인합니다.
+9월 15일 녹화가 이 새 준비 순서를 검증한 것은 아닙니다.
 
 ## 4. 로컬과 원격 smoke를 구분
 
@@ -124,28 +145,33 @@ source .venv/bin/activate
 python scripts/workshop.py serve --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --protocol invocations
 ```
 
-터미널 B:
+터미널 B도 같은 소스 루트·활성 `.venv`를 사용합니다.
 
 ```bash
-curl --fail http://127.0.0.1:8088/readiness
-python scripts/workshop.py benchmark smoke --local --label smoke-v1-local --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --case D01 --model-key a --confirm-cost
+printf '3절에서 준비한 독립 V1 azd 폴더: '
+read -r HOSTED_DIRECTORY
+curl --fail http://127.0.0.1:8088/readiness &&
+python scripts/workshop.py benchmark smoke --local --azd-directory "${HOSTED_DIRECTORY:?Use the prepared V1 directory}" --label smoke-v1-local --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --case D01 --model-key a --confirm-cost
 ```
 
 readiness는 `{"status":"healthy"}`입니다. 실제 답·model/response ID·context hash까지 확인해야 smoke가 완료됩니다.
 `azd`의 raw HTTP 본문은 UTF-8 **바이트 길이**로 파싱하며, 알려진 업데이트 안내만 별도 보존합니다.
 오류 뒤의 임의 JSON을 성공 응답으로 추출하지 않습니다.
 
-터미널 A를 `Ctrl+C`로 종료한 뒤 승인된 전용 service에 배포합니다.
-여러 service가 있다면 배포할 service를 명시하고 다른 agent를 함께 배포하지 않습니다.
+터미널 A의 서버를 `Ctrl+C`로 종료하고 3절의 값이 남아 있는 그 터미널로 돌아옵니다.
+배포·비용 승인 후 독립 폴더의 명시된 서비스만 배포합니다.
 
 ```bash
-azd deploy
-azd ai agent show --output json
+azd deploy "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
 반환된 실제 `name`, `version`, **Invocations endpoint 전체**를 `.env`의
 `WORKSHOP_HOSTED_AGENT_NAME`, `WORKSHOP_HOSTED_AGENT_VERSION`, `WORKSHOP_HOSTED_AGENT_ENDPOINT`에 입력합니다.
 `latest`, 추측한 URL, 다른 프로젝트 endpoint는 거부합니다.
+배포 오류 뒤에 이전 active version을 대신 사용하지 않습니다.
+로컬 smoke 근거는 소스 복사본의 `outputs/smoke/smoke-v1-local/`에 남습니다.
+원격 smoke는 `.env`의 정확한 endpoint/버전을 사용하므로 `--azd-directory`를 붙이지 않습니다.
 
 ```bash
 python scripts/workshop.py benchmark smoke --label smoke-v1-remote --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --case D01 --model-key a --confirm-cost
@@ -155,8 +181,24 @@ python scripts/workshop.py benchmark smoke --label smoke-v1-remote --kind workfl
 
 ```bash
 python scripts/workshop.py benchmark plan --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat
+```
+
+계획의 모델 목록·행 수·비용 범위를 확인한 뒤 수집합니다.
+
+```bash
 python scripts/workshop.py benchmark collect --label wf-baseline --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --concurrency 1 --confirm-cost
+```
+
+유료 judge job 전에 전체 수집과 오류를 읽습니다.
+부분 수집을 평가하거나 0이 아닌 수집 종료 코드를 무시하지 않습니다.
+
+```bash
 python scripts/workshop.py benchmark evaluate --label wf-baseline --confirm-cost
+```
+
+저장된 job 완료 후 로컬 보고서를 만듭니다.
+
+```bash
 python scripts/workshop.py benchmark report --label wf-baseline
 ```
 
@@ -186,16 +228,27 @@ python scripts/workshop.py benchmark monitor --label wf-baseline
 `requests`에서 agent 이름과 시간·정확한 trace ID 집합을 제한하며 누락·중복·다른 trace를 거부합니다.
 단순히 응답에 trace ID가 있다는 사실과 export를 실제 확인한 것은 다릅니다.
 
-실패한 **실제 dev 행**을 검토한 경우에만 다음을 실행합니다. `a-D06`은 형식 예시입니다.
-전부 통과했다면 실패를 만들지 말고 검토 사실을 기록하고 회귀 승격을 생략합니다.
+<details>
+<summary>선택 회귀 검토 — baseline 전부 통과 시 생략하며 실패 행을 만들지 않습니다</summary>
+
+사람이 **실제 실패한 dev 행**을 검토했을 때만 실행합니다.
+그 행의 `model-key-case-ID`, 본인 reviewer label·구체적 이유를 입력합니다. 다른 사람의 검토를 복사하지 않습니다.
 
 ```bash
-python scripts/workshop.py benchmark regression --label wf-baseline --row-id a-D06 --regression-label approval-reviewed --reviewer team-01 --reason "실제 응답과 원문 승인 규정을 비교했고 누락된 판단 조건을 다음 dev에서 다시 확인합니다." --confirm-review
+printf 'Actual failed dev row ID: '
+read -r FAILED_ROW
+printf 'Your reviewer label: '
+read -r REVIEWER
+printf 'Your specific review reason (at least 15 characters): '
+read -r REVIEW_REASON
+python scripts/workshop.py benchmark regression --label wf-baseline --row-id "$FAILED_ROW" --regression-label approval-reviewed --reviewer "$REVIEWER" --reason "$REVIEW_REASON" --confirm-review
 ```
 
 원본의 질문·정답·source response/trace/context hash를 그대로 보존합니다.
 새로운 질문이나 정답 변경은 별도 dataset version이 필요하므로 이 명령으로 섞지 않습니다.
 `reviewer`는 CLI 입력 기록이며 Entra로 검증한 승인자나 운영 배포 승인이 아닙니다.
+
+</details>
 
 ## 7. V2와 같은 dev를 다시 실행
 
@@ -205,27 +258,58 @@ v1/v2를 비교하고 개선 이유를 설명합니다. 실패와 관계없는 �
 python scripts/package_hosted.py --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --protocol invocations
 ```
 
-기존 `azure.yaml`의 **같은 service 이름**을 유지하고 `project`만
-`.build/workflow-sequential-iq-v2-account-chat-invocations`로 바꿉니다.
-이미 있는 프로젝트에 `azd ai agent init`을 반복해 `-2` agent를 만들지 않습니다.
+**같은 원격 agent/서비스 이름**·프로젝트·모델 목록·검색·코드를 유지합니다.
+반환된 V2 패키지를 **새 빈 독립 폴더**에 준비해 V1 폴더·패키지를 보존합니다.
+복사한 V1 패키지를 편집하거나 반복 초기화로 `-2` 이름의 agent를 만들지 않습니다.
 
 ```bash
-azd deploy
-azd ai agent show --output json
+printf '위에서 출력된 V2 패키지의 절대 경로: '
+read -r HOSTED_PACKAGE
+printf '새 빈 V2 azd 폴더의 절대 경로: '
+read -r HOSTED_DIRECTORY
+python scripts/prepare_hosted_azd.py --language ko --kind matrix \
+  --package "$HOSTED_PACKAGE" --directory "$HOSTED_DIRECTORY" \
+  --agent-name "${HOSTED_AGENT_NAME:?Restore the same agent name from step 3}" --initialize-env \
+  --project-id "${PROJECT_ARM_ID:?Restore the actual project ID from step 3}" \
+  --location "${PROJECT_LOCATION:?Restore the project location from step 3}"
 ```
 
-실제 새 version을 `.env`에 기록한 뒤:
+같은 런타임 값과 V2 프로필을 확인한 뒤 별도 승인된 배포를 진행합니다.
 
 ```bash
-python scripts/workshop.py benchmark collect --label wf-candidate --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --regressions approval-reviewed --confirm-cost
-python scripts/workshop.py benchmark evaluate --label wf-candidate --reference wf-baseline --confirm-cost
+azd deploy "${HOSTED_AGENT_NAME:?Use the same agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared V2 directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared V2 directory}" --output json
+```
+
+실제 새 version/endpoint를 `.env`에 기록합니다.
+아래 명령의 기본값에는 회귀 의존성이 없습니다. **6절에서 본인의 검토 기록을 만든 경우만**
+실행 전에 `--regressions approval-reviewed`를 추가하고 이름이 다르면 실제 label을 사용합니다.
+
+```bash
+python scripts/workshop.py benchmark collect --label wf-candidate --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --confirm-cost
+```
+
+전체 행을 읽고 다음 유료 judge 전에 고정 설정을 로컬에서 비교합니다.
+
+```bash
 python scripts/workshop.py benchmark compare --baseline wf-baseline --candidate wf-candidate
+```
+
+비교에서 선언한 변경을 인정한 뒤 실행합니다.
+
+```bash
+python scripts/workshop.py benchmark evaluate --label wf-candidate --reference wf-baseline --confirm-cost
+```
+
+완료된 결과를 읽은 뒤 보고서와 같은 trace를 확인합니다.
+
+```bash
 python scripts/workshop.py benchmark report --label wf-candidate
 python scripts/workshop.py benchmark monitor --label wf-candidate
 ```
 
-회귀 승격을 생략했다면 `--regressions approval-reviewed`도 빼고 실행합니다.
-이 옵션은 실제 다음 dev 행에 source lineage를 연결합니다. 파일만 만들어 두고 사용한 것처럼 표시하지 않습니다.
+선택 `--regressions`는 실제 다음 dev 행에 검토된 source lineage를 연결합니다.
+파일만 만들어 두고 사용한 것처럼 표시하지 않습니다.
 Native `--reference`는 기존 evaluator/version/judge/threshold를 재사용하며 다른 기준이면 비교를 거부합니다.
 
 ## 8. 평가자도 검사
@@ -240,18 +324,34 @@ groundedness의 오탐·미탐을 확인하되 두 예가 맞았다고 judge 전
 
 ## 9. 후보 고정 후 마지막 holdout
 
+**게이트:** `outputs/benchmarks/wf-candidate/business-evaluation.json`에서 최종 인수할 각 모델의
+`models.<key>.business_gate_passed: true`, dev 6행 전체·오류 없음을 확인하고 비교에서 고정 설정을 인정해야 합니다.
+아니라면 holdout을 열지 않고 [미완료 근거를 인계](../labs/11-capstone.md#incomplete-handoff)합니다.
+10절의 본인 세션 정리는 여전히 마칩니다.
+
 모델·지침·검색·코드·agent version·동시성을 더 이상 바꾸지 않을 때만 진행합니다.
 4개 모델 전체를 고정했다면 16행입니다. 일부만 인수하려면 dev 결과로 먼저
 `--model-key a`처럼 선정합니다. holdout 결과를 본 뒤 모델을 골라 유리한 행만 남기지 않습니다.
 
 ```bash
 python scripts/workshop.py benchmark collect --split holdout --label wf-final --candidate wf-candidate --unlock-holdout --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --confirm-cost
-python scripts/workshop.py benchmark evaluate --label wf-final --reference wf-baseline --confirm-cost
-python scripts/workshop.py benchmark monitor --label wf-final
-python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --require-regressions --calibration judge-calibration
 ```
 
-회귀를 만들지 않은 경로에서는 `--require-regressions`를 빼고 이유를 인수 자료에 기록합니다.
+실패를 포함한 마지막 행을 모두 보관합니다. 완전한 수집만 native 평가에 넣습니다.
+
+```bash
+python scripts/workshop.py benchmark evaluate --label wf-final --reference wf-baseline --confirm-cost
+```
+
+저장된 평가가 완료된 뒤 실행합니다.
+
+```bash
+python scripts/workshop.py benchmark monitor --label wf-final
+python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
+```
+
+후보가 검토된 회귀를 실제 소비한 경우만 `--require-regressions`를 추가합니다.
+아니라면 전체 통과·미승격 이유를 보존합니다. 예제 flag를 충족하려고 회귀를 만들지 않습니다.
 일반 native 점수까지 모두 통과해야 하는 정책이라면 **실험 전에** `--require-native-pass`를 인수 기준으로 정합니다.
 기본 검사는 native **실행·결과 계보**와 native **품질 통과**를 분리하고 낮은 점수를 숨기지 않습니다.
 `review-native-findings`는 자동 승인이나 좋은 점수로의 보정이 아닙니다.
@@ -260,6 +360,8 @@ python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate w
 운영 검증셋은 아닙니다. 이를 prompt 개발·회귀 수집에 사용하지 않습니다.
 
 ## 10. 소유한 실행 자원만 정리
+
+실제 수집·세션이 있는 행만 실행합니다. 막힌 작업에는 candidate나 final 세션이 없을 수 있습니다.
 
 ```bash
 python scripts/workshop.py benchmark stop-session --label wf-baseline

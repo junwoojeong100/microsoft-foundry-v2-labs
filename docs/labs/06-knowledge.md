@@ -10,11 +10,11 @@
 
 **This pass:** A checks its agent's sources, then optionally the prepared fixed-model IQ chat base. B follows the numbered GA retrieval path; hybrid is optional.
 
-**Need:** A: Lab 03 responses and learner files; the owner's chat-base name only if IQ Chat is selected. B: .env, Search permissions and an owned synthetic source.
+**Need:** A: Lab 03 responses and learner files. B: .env, a prepared Search service, writer permissions and a fresh owned prefix or matching ownership ledger.
 
-**Continue when:** The selected path's real evidence is recorded; IQ chat shows Luna planning and answer synthesis.
+**Continue when:** A: policy IDs and dates are checked. B: Search and GA IQ outputs are saved. Luna planning/synthesis is required only for the separately selected IQ Chat branch.
 
-**If blocked:** Do not open the model-free GA base expecting a chat model. Use iq-chat check for the fixed chat preset.
+**If blocked:** Resolve the selected path's source/access error without changing providers. A's default source check needs no IQ chat model.
 
 [One-time setup and learner files](../setup.md).
 
@@ -278,10 +278,12 @@ Do not apply this small-corpus setting blindly to production, change reference a
 
 ```bash
 python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval iq --prompt v2
-python scripts/package_hosted.py --language en --kind workflow --pattern sequential --retrieval iq --prompt v2 --protocol responses
 ```
 
-Continue in [Lab 08](08-hosted.md) and the [evaluation workbook](../reference/evaluation-workbook.md).
+Save this local workflow output. For the remote matrix, start at the
+[evaluation workbook's preparation](../reference/evaluation-workbook.md#matrix-setup);
+it packages its own IQ/account-chat/Invocations target once.
+Lab 08's introductory helper accepts local retrieval, not this IQ profile.
 The [IQ workbook](../reference/iq-workbook.md) documents separate Toolbox/Fabric/Work IQ approval and identity gates.
 No hidden prerequisite requires another repository.
 

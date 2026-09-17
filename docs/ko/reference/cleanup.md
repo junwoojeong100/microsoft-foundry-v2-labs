@@ -5,43 +5,61 @@
 **삭제보다 먼저 “누가 만든 어떤 자산인가”를 확인합니다.**
 이 저장소는 Azure 리소스/권한을 자동 삭제하지 않습니다.
 
+**A는 이 페이지에서 터미널이 필요 없습니다.** 기존 `operations-checklist.txt`와 아래 소유권 확인을 사용합니다.
+**B는 Lab 09의 목록을 재사용합니다.** 실제 사용한 자산의 명령 구간만 펼칩니다.
+담당자 관리·승인 대기 정리는 이름과 잔여 비용을 기록하며 삭제가 끝났다고 표시하지 않습니다.
+
 ## 1. 증거와 소유권 확인
+
+<details>
+<summary>선택 로컬 목록 명령 — B에서 다시 출력해야 하는 경우만 사용합니다</summary>
 
 ```bash
 python scripts/workshop.py cleanup-plan
 ```
 
+</details>
+
 `outputs/azure-objects.json`은 이 복사본에서 만든 Search index/source/base의 기록입니다.
 모든 Azure 리소스를 포괄하는 inventory나 삭제 권한의 증명은 아닙니다.
 개인 결과가 필요한지 먼저 판단하고, 공개 저장소에는 비밀/환경 식별자를 올리지 않습니다.
 
+<a id="hosted-sessions"></a>
+
 ## 2. 실행 중인 로컬 프로세스와 Hosted session
 
-로컬 서버·Hosted를 실행하지 않았다면 이 절을 건너뜁니다.
+<details>
+<summary>로컬 서버·Hosted를 실행한 경우만 — 아니라면 건너뜁니다</summary>
 
-1. `serve`를 실행한 터미널에서 `Ctrl+C`로 **그 서버만** 종료합니다.
-2. azd 프로젝트 폴더에서 자신의 Hosted session을 조회합니다.
+`serve`를 실행한 터미널에서 `Ctrl+C`로 **그 서버만** 종료합니다.
+저장소 터미널에서 기록한 **독립 azd 폴더·서비스 이름**을 복원합니다.
+관련 없는 `azure.yaml`을 대상으로 실행하지 않습니다.
 
 ```bash
-azd ai agent sessions list --limit 10
+printf 'Standalone Hosted directory used for this agent: '
+read -r HOSTED_DIRECTORY
+printf 'Owned Hosted agent service name: '
+read -r HOSTED_AGENT_NAME
+azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalone directory}" --agent-name "${HOSTED_AGENT_NAME:?Use the owned service name}" --limit 10
 ```
 
-continuation token이 있으면 다음 페이지도 확인합니다.
-여러 서비스가 있으면 실제 서비스 이름으로 `--agent-name`을 지정합니다.
+Continuation token이 있으면 같은 범위의 list 명령에 `--pagination-token`을 넣어 다음 페이지도 확인합니다.
 본인 session ID와 agent를 확인합니다. 이미 idle/stopped이면 상태만 기록하고 다시 중지하지 않습니다.
 본인의 **활성** session에만 실행합니다.
 
 ```bash
 printf 'Owned active session ID from the list: '
 read -r OWNED_SESSION_ID
-azd ai agent sessions stop "$OWNED_SESSION_ID"
-azd ai agent sessions list --limit 10
+azd ai agent sessions stop "${OWNED_SESSION_ID:?Use the owned active session ID}" --cwd "${HOSTED_DIRECTORY:?Use the recorded standalone directory}" --agent-name "${HOSTED_AGENT_NAME:?Use the owned service name}" &&
+azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalone directory}" --agent-name "${HOSTED_AGENT_NAME:?Use the owned service name}" --limit 10
 ```
 
 중지는 컴퓨트를 종료하지만 persistent filesystem을 보존합니다.
 다음 호출로 다시 실행될 수 있으므로 완전 삭제나 과금 0의 보장이 아닙니다.
 사용자 데이터까지 정리해야 한다면 별도 삭제 동작의 범위와 복구 불가 여부를 검토합니다.
 다른 조의 session을 중지하지 않습니다.
+
+</details>
 
 ## 3. 본인이 만든 객체만 정리
 
@@ -75,8 +93,8 @@ GA base를 유지한다면 공유 source/index도 유지합니다. Chat base만 
 
 ## 4. 최종 확인
 
-- [ ] 내 로컬 서버가 종료됨.
-- [ ] 내 활성 Hosted session이 남지 않았는지 재조회함.
+- [ ] 실행한 로컬 서버만 종료함. 미사용이면 미실행으로 기록함.
+- [ ] 사용한 Hosted session의 최종 상태 또는 승인된 담당자 대기 작업을 기록함.
 - [ ] 내 agent/파일/Search 객체의 처리 결과를 확인함.
 - [ ] 공유 자원과 타인의 데이터를 유지함.
 - [ ] 서비스·모델·로그·storage·capacity의 잔여 비용을 담당자가 확인함.
@@ -85,7 +103,15 @@ GA base를 유지한다면 공유 source/index도 유지합니다. Chat base만 
 비용 화면은 지연되어 반영될 수 있습니다. 마지막 조회 시각과 담당자를 기록합니다.
 예산 알림은 자동 중지 장치가 아닙니다.
 
+**학습자 정리 인계 기준:** `operations-checklist.txt`에 사용한 자산별 확인 상태 또는
+승인된 담당자 대기 작업·보존 근거·잔여 비용이 있습니다.
+사용하지 않은 로컬/Hosted 서비스는 삭제가 아니라 **미실행**입니다.
+[Lab 11](../labs/11-capstone.md)로 돌아갑니다. 아래 미디어 유지보수는 학습자 완료 조건이 아닙니다.
+
 ## Hosted matrix의 세션과 증거
+
+<details>
+<summary>실제로 있는 matrix 실행만 — A·입문 B에는 해당하지 않습니다</summary>
 
 아래의 실제 matrix label이 있을 때만 실행합니다. A와 입문 B는 건너뜁니다.
 
@@ -103,7 +129,12 @@ cleanup receipt는 별도 파일이므로 frozen candidate와 regression source 
 새 `.build/workflow-*` 프로필을 정리하기 전 현재 `azure.yaml`의 실제 참조 경로와 hash를 확인합니다.
 별도 smoke 세션은 raw HTTP/azd 목록에서 본인의 ID를 확인해 중지합니다.
 
+</details>
+
 ## 5. 로컬 `outputs`와 생성 디렉토리
+
+<details>
+<summary>별도로 승인된 미디어 교체의 유지보수 담당자만 — 학습자는 저장소의 데이터·영상을 보존합니다</summary>
 
 **새 국문·영문 세트를 각각 검증한 뒤 기존 미디어를 교체합니다.**
 국문은 `docs/assets/refresh-20260915-ko/media.json`,
@@ -134,3 +165,5 @@ cleanup receipt는 별도 파일이므로 frozen candidate와 regression source 
 
 이 정리는 현재 파일과 가이드 참조에 대한 것입니다. Git 이력이나 GitHub의 별도 첨부 저장소까지
 삭제하는 작업과는 구분하며, 확인하지 않은 영구 삭제를 완료했다고 표시하지 않습니다.
+
+</details>

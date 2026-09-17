@@ -6,7 +6,9 @@
 전용 실습 agent와 동봉 합성 질문만 사용합니다. 공유 guardrail을 약화하거나 회사 데이터,
 실제 예약·지급 도구를 만들지 않습니다.
 
-**준비:** 실제 agent/버전, 같은 account의 담당자 생성 RAI policy, 연결 권한, 승인된 범위·비용.
+**첫 회차:** 승인된 제어 하나로 1–5절과 7절을 진행합니다. 6절 red-team scan은 필수가 아닙니다.
+
+**준비:** [Lab 08](../08-hosted.md)에서 실제 배포한 본인 Hosted agent/버전, 같은 account의 담당자 생성 RAI policy, 연결 권한, 승인된 범위·비용.
 **완료:** 정책 리소스가 실제 존재하고 새 버전이 참조하며 허용/차단/비차단 결과를 정확히 남김.
 **중단:** 오류와 ID를 보존합니다. 성공 화면을 만들려고 안전 제어를 끄지 않습니다.
 
@@ -48,7 +50,8 @@ agent가 active라는 사실만으로 정책이 유효하다고 판단하지 않
 
 ## 4. 내 Hosted 새 버전에 연결
 
-생성된 `azure.yaml`의 의도한 agent service에만 추가합니다.
+배포 때 저장한 독립 Hosted 폴더·agent 서비스 이름을 사용합니다.
+`<HOSTED_DIRECTORY>/azure.yaml`의 해당 서비스에만 추가합니다.
 
 ```yaml
 policies:
@@ -60,17 +63,23 @@ policies:
 `agent.manifest.yaml`에만 넣고 deploy가 읽었다고 가정하지 않습니다.
 
 ```bash
-azd deploy
-azd ai agent show --output json
+printf 'Prepared standalone Hosted directory: '
+read -r HOSTED_DIRECTORY
+printf 'Owned Hosted agent service name: '
+read -r HOSTED_AGENT_NAME
+azd deploy "${HOSTED_AGENT_NAME:?Use the owned service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
-이 예제는 내 service 하나인 폴더를 전제로 합니다.
-여러 service라면 정확한 대상만 선택합니다.
+대상 없는 `azd deploy`는 현재 프로젝트의 모든 서비스를 배포할 수 있으므로 사용하지 않습니다.
+배포 실패 시 멈춥니다. 예전 active version을 이번 개정의 근거로 쓰지 않습니다.
 새 버전과 policy reference를 기록하고 이전 버전 점수를 재사용하지 않습니다.
 
 ## 5. 선언한 제어 테스트
 
 새 실제 버전에 승인된 합성 문항만 보냅니다.
+해당 agent의 Playground에서 반환된 버전을 선택하고 학습자 자료의 `dev-questions.txt`에서
+D01·D06의 질문 텍스트만 각각 **New chat**에 보냅니다.
 원래 응답 상태, guardrail annotation/차단 정보, 해당 trace를 확인합니다.
 
 **정책 연결**, **요청의 완료/차단**, **실제 제어 개입**, **답변 정확성**을 각각 기록합니다.
@@ -95,6 +104,9 @@ workshop gate에서 실패했습니다. 원래 HTTP200/CLI exit 0 뒤에도 SSE�
 
 ## 6. 선택: AI red teaming
 
+<details>
+<summary>별도의 유료 scan — 정책 적용 확인 실습에 필수가 아닙니다</summary>
+
 클라우드 red-team은 dev 6문항 재생과 다른 유료 작업입니다.
 생성 공격과 결과에는 별도 이력·예산이 필요합니다.
 실제 데이터나 live 업무 동작을 넣지 않습니다.
@@ -103,6 +115,8 @@ workshop gate에서 실패했습니다. 원래 HTTP200/CLI exit 0 뒤에도 SSE�
 taxonomy를 먼저 검토하고, 최소 전략/턴 예산을 승인받은 뒤 한 실행만 제출합니다.
 모든 입력·출력·오류·분모를 남기며 ASR과 일반 업무/native 점수를 섞지 않습니다.
 검토나 서비스 지원이 없으면 **red-team 미실행**입니다.
+
+</details>
 
 ## 7. 내 추가분만 복원
 

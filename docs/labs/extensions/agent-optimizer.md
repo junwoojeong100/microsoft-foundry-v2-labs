@@ -11,6 +11,9 @@ an owner-verified supported optimizer deployment, a separate evaluator deploymen
 **Stop when:** one run has a checked baseline and every returned candidate, including an explicit baseline-only/no-improvement outcome.
 **If blocked:** do not create another model, modify holdout, or promote a candidate to finish a recording.
 
+**First pass:** steps 1–5, then hand off `optimizer-review.txt`. Promotion is not required;
+baseline-only, no improvement or invalid evaluator binding are valid findings to retain, not successful promotion.
+
 ## 1. Prepare the inputs once
 
 Use the [Lab 03](../03-prompt-agent.md) agent built with all six inline synthetic policies.
@@ -125,6 +128,9 @@ Do not impersonate a human reviewer in that record.
 
 ## 6. Promote only after a person approves
 
+<details>
+<summary>Optional promotion — never the automatic next step after an optimizer run</summary>
+
 If no human has reviewed the candidate, this step remains **not performed**.
 That is a valid recorded boundary, not a reason to fabricate approval.
 
@@ -135,6 +141,8 @@ Do not overwrite old responses or claim a previous version's holdout applies aut
 
 Only after the candidate is frozen may a separately designed final-acceptance process use holdout.
 This optimizer run never opens holdout for candidate development.
+
+</details>
 
 ## Optional targets after the first pass
 

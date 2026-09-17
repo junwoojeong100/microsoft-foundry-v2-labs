@@ -22,7 +22,8 @@ runs existing MAF code. Check the SDK, venv, and each learner's model-call permi
 
 English and Korean use **separate frozen language bundles** with equivalent IDs, dates, amounts and judgments.
 English commands explicitly select `--language en`; neither language silently substitutes the other.
-Give each learner [the setup card and ready ZIP](setup.md), not raw evaluation records or a request to assemble policy JSON.
+Give each learner [the setup card](setup.md). A receives the learner ZIP; B uses the source copy,
+not raw evaluation records or a request to assemble policy JSON.
 The ZIP supplies complete instructions, six TXT sources, questions only and blank assessment/review/operations records.
 B learners can prepare their notes directly from the source copy in [Lab 00 B](labs/00-start.md#prepare-notes); the browser ZIP is not another required download for them.
 [Language lineage](reference/languages.md) stays intact.
@@ -101,10 +102,10 @@ English/Korean selection does not rename configured Search objects. After a lang
 
 Freeze the documentation/code version and rehearse in a fresh, independent folder.
 Hosted initialization can discover a parent `azure.yaml`; stay outside another azd project.
-Complete Lab 00 B's `.env` and participant sign-in first. Run the block below only with the approved training values.
+Complete Lab 00 B's `.env`, venv and participant sign-in first.
+Reuse that venv; do not recreate it after setup. Run each block only with the approved training values.
 
 ```bash
-python3.13 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]"
 python -m pip check
@@ -113,7 +114,17 @@ python -m unittest discover -s tests -t . -v
 python -m unittest discover -s tests_sdk -t . -v
 python scripts/check_docs.py
 python scripts/workshop.py --language en doctor
+```
+
+Only after all local checks pass, run the read-only cloud preflight:
+
+```bash
 python scripts/workshop.py --language en doctor --cloud
+```
+
+After preflight and inference-cost approval, run each request and inspect it before the next:
+
+```bash
 python scripts/workshop.py --language en model --question "This is a synthetic workshop connectivity check. Reply briefly in English."
 python scripts/workshop.py --language en answer --prompt v2 --retrieval local
 python scripts/workshop.py --language en workflow --pattern sequential
@@ -145,8 +156,11 @@ with `--force`. Use dedicated prefixes and ownership records instead of shared o
 
 ### Record the actual environment
 
+Use a new directory per rehearsal. A repeated copy stops instead of replacing the previous environment record.
+
 ```bash
-mkdir -p outputs/instructor
+mkdir -p outputs &&
+mkdir outputs/instructor &&
 python -m pip freeze > outputs/instructor/environment.txt
 ```
 
@@ -194,6 +208,15 @@ Validate actual local/remote responses, not just readiness or successful package
 For four models, budget 24/24/16 target rows plus internal workflow/retrieval/retry/judge calls.
 Preserve all failures and native findings; an all-pass baseline does not need a fabricated regression.
 Keep holdout out of prompt development.
+
+### Source-language and media order
+
+Use the user's current production order and the active `source_language` in
+[`docs/localization.json`](localization.json), not a historical Korean-first or English-first checklist.
+Revise and check the source guide first, then its counterpart.
+Any deferred translation needs a visible warning and exact source/target hashes.
+New recordings require their own authorized execution and independent language evidence;
+a guide-only revision does not require or claim a new recording.
 
 ## 7. End of class and pre-Ignite freeze
 

@@ -13,8 +13,9 @@ You do not need to read the background, watch a video, or choose an advanced mod
 | **A — first time with Azure or agents** | Browser steps plus one command in a prepared MAF terminal; no Python authoring | Your agent, six-question assessment, workflow review and cleanup handoff |
 | **[B — comfortable with Python and APIs](docs/paths/b-practitioner.md)** | SDK, tools, workflows, GA Search/IQ, controlled evaluation and local packaging | Reproducible real run records; remote hosting and cloud judges remain optional |
 
-Setup includes the **small learner ZIP** and ready-to-fill evidence files.
-The **source repository ZIP** is a different download, needed for a code terminal.
+**A:** setup includes the small **learner ZIP** and ready-to-fill evidence files.
+**B:** use the **source repository ZIP**; Lab 00 copies its included note templates, so no second ZIP is needed.
+The learner ZIP does not contain a code environment.
 If no terminal was supplied for A's Lab 05, complete [Lab 00 B](docs/labs/00-start.md#path-b) before class.
 Allow **4 hours for A / 6 hours for B after preparation**; account, installation, permissions and quota waits are extra.
 Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and record cloud work as **not run**.

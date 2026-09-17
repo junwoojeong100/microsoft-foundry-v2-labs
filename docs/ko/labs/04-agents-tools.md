@@ -103,7 +103,8 @@ python scripts/workshop.py maf --mcp --question "2026년 5월 국내 출장 숙�
 | 함수 인자·권한을 직접 검증 | 프로토콜 연결 외에 서버 신뢰·인증·권한도 검토 |
 
 이 MCP는 **합성 로컬 라이브러리**입니다. Microsoft Learn, Work IQ 또는 회사 MCP를
-연결한 것으로 발표하지 않습니다. 원격 MCP/Toolbox는 [Lab 10](10-iq-extensions.md)입니다.
+연결한 것으로 발표하지 않습니다. 실행 가능한 관리형 도구 확장은 [Toolbox](extensions/toolbox.md)를 사용합니다.
+[Lab 10](10-iq-extensions.md)은 별도의 외부 IQ 설계 참고입니다.
 
 함수 도구와 MCP 도구는 같은 답변 schema를 전달하고 실제 반환 JSON을 검사합니다.
 `answer`의 문장뿐 아니라 `decision`, `limit_krw`, `citations`도 함께 확인합니다.

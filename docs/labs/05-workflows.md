@@ -239,7 +239,10 @@ python scripts/workshop.py --language en workflow-agent --pattern sequential --r
 
 This performs the actual GA retrieval and returns documents/references/activity with their context hash.
 It does not rename local search as IQ or fall back to keyword search after an error.
-Continue with the same profile in [Lab 08](08-hosted.md).
+This proves the local IQ workflow only. For hosting, choose **one** route:
+[Lab 08 section 6](08-hosted.md#6-deploy-a-maf-workflow-as-a-hosted-agent) uses local retrieval and Responses;
+the [evaluation workbook](../reference/evaluation-workbook.md) prepares a separate IQ/account-chat/Invocations matrix.
+Do not send an IQ package through the introductory local-retrieval helper or transfer scores between these profiles.
 
 </details>
 

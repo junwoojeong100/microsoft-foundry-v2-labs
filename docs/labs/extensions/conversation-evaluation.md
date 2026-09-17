@@ -10,6 +10,9 @@ as two three-turn conversations, retaining each conversation's earlier answers.
 **Stop when:** six turn records and two complete conversation records exist, with separate native results at both levels.
 **If blocked:** keep partial/error records; never evaluate only the successful prefix.
 
+**First pass:** steps 1–6, in order. Keep the same collection label for both evaluation levels;
+a new target conversation needs a new label, but polling the saved judge job does not.
+
 **Evidence status, September 16, 2026:** the English six-turn collection and both native
 evaluation levels ran and were recorded. See [the actual denominators and limits](../../edition-results.md).
 Each execution freezes the real evaluator catalog it reads; catalog availability alone is not an evaluation result.

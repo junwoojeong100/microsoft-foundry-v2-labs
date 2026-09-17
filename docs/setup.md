@@ -20,8 +20,9 @@ After Search objects have been seeded, also use a new source copy and owned pref
 
 ## 2. Fill this environment card
 
-The owner supplies actual values, not values copied from a recording. Save them in the ZIP's blank
-`session-notes.txt` after section 3. No passwords, keys or tokens belong in this card.
+The owner supplies actual values, not values copied from a recording. Save them in
+`session-notes.txt`: A gets it from the learner ZIP; B copies it from the source repository in Lab 00.
+No passwords, keys or tokens belong in this card.
 Fill only the rows required for your selected route; optional fields do not block the first pass.
 
 | Value | Needed for | Where to get it / required choice |
@@ -42,6 +43,9 @@ If this exact deployment/version is unavailable, the owner must resolve availabi
 The code never silently selects a replacement. A fixed model prevents a common mismatch; it cannot guarantee service uptime or quota.
 
 ## 3. Download the ready learner materials
+
+**A: follow this section. B: use [Lab 00's source download and notes preparation](labs/00-start.md#path-b);
+you do not need this additional ZIP.** The source repository already contains the same blank note templates.
 
 Open [English learner-materials.zip](../data/learner/en/learner-materials.zip), choose **Download raw file**, and extract it.
 This small ZIP requires no Python and does not include videos, holdout or reference-answer fields.
@@ -74,7 +78,7 @@ Empty templates are not completed evidence. Nothing in this ZIP installs a code 
 
 - [ ] I can open the intended project with my own account.
 - [ ] The actual Luna deployment/version is prepared.
-- [ ] I have the learner ZIP and know which file goes into Instructions versus chat.
+- [ ] A: I have the learner ZIP and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
 - [ ] My Lab 05 terminal is ready; if not, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
 - [ ] For B, Search access and owned-object creation costs are approved. For A, IQ Chat is **not selected** unless separately prepared.
 - [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.

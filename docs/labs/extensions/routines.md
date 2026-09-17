@@ -11,6 +11,9 @@ azd routine commands, an owned routine name and cost approval.
 **Stop when:** one dispatch has an identifiable run result and the routine is disabled afterward.
 **If blocked:** disable the owned routine and retain its dispatch ID/error before investigating.
 
+**First pass:** steps 1–5 verify one manual dispatch and final disabled state.
+They do not verify firing at the future timer time. Keep the same terminal and the actual returned dispatch ID.
+
 ## 1. Choose the smallest safe trigger
 
 Use a **disabled one-shot timer**, set one day ahead, and trigger it manually during the lab.
@@ -60,6 +63,7 @@ Do not add `--force` to get around a collision. Use another owned name.
 
 The following invocation is billable. The future timer must not be left enabled.
 Run the disable command **even if dispatch fails**, then inspect the error:
+Do not join disable to dispatch with `&&`, which would skip cleanup after a failure.
 
 ```bash
 azd ai routine enable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"

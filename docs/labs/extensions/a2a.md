@@ -11,6 +11,9 @@ a keyless A2A connection, endpoint access for the actual calling identity, and c
 **Stop when:** the authenticated card advertises 1.0 and a real caller response contains a successful A2A tool call.
 **If blocked:** do not switch to preview 0.3, another agent or anonymous authentication.
 
+**First pass:** steps 1–5. Use [azd preparation](developer-toolkit.md#azd-check) if needed.
+The target, connection and caller are created in that order; inspect each result before the next write.
+
 ## 1. Inspect the plan
 
 ```bash
@@ -65,6 +68,11 @@ on the target agent/project. The signed-in learner and service identity are not 
 
 ```bash
 python scripts/workshop.py --language en a2a caller --confirm-create
+```
+
+Confirm the recorded caller version and intended target before approving inference:
+
+```bash
 python scripts/workshop.py --language en a2a invoke --label a2a-first --confirm-cost
 ```
 

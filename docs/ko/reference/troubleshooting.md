@@ -16,7 +16,7 @@
 | 브라우저를 닫았음 | 같은 프로젝트·agent·저장 버전을 열고 기존 대화 확인 | 새 agent 생성·모든 질문 재전송 |
 | 새 터미널을 열었음 | 저장소 루트로 돌아와 `source .venv/bin/activate` | 전체 재설치·`.env` 덮어쓰기·셸 `source .env` |
 | B 기록 폴더가 이미 있음 | 같은 회차의 파일로 재개하거나 새 회차용 새 폴더 선택. 보호된 복사 블록이 멈추는 것은 의도된 동작 | 작성한 기록을 빈 양식으로 덮어쓰기 |
-| Label이 이미 있음 | `outputs/<label>/manifest.json`, `responses.jsonl` 확인. `evaluate`는 로컬 재조회 가능 | 결과 삭제·같은 label로 `collect` |
+| Label이 이미 있음 | 모듈이 출력한 폴더 확인. [저장 위치 표](commands.md#saved-results)에서 입문·matrix·Toolbox·대화 구분 | 결과 삭제·같은 label로 `collect` |
 | `collect`가 0이 아닌 종료 코드 반환 | 모든 행·오류 보존, `evaluate`로 확인, 원인 해결 후 명시적인 새 dev label로 수집 | 실패 행을 fixture로 대체·모델/provider 자동 변경 |
 | `evaluate`가 `1` 반환 | `total`, `passed`, `errors`, 사례별 `checks` 확인. Baseline 실패는 검토하되 실패한 candidate는 holdout을 열지 않음 | 요청 완료를 업무 게이트 통과로 해석 |
 | Candidate·holdout이 이미 있음 | `outputs/<holdout-label>/acceptance.json`을 읽거나 정확한 기존 label로 로컬 `accept` 재실행 | 같은 노출 holdout을 재수집해 좋은 점수 만들기 |
@@ -25,6 +25,8 @@
 | 입문 Hosted 준비에서 폴더/profile 거절 | 기존 azd 프로젝트 밖의 새 빈 폴더와 정확한 local/v2/Responses 패키지/언어 선택 | `azd ai agent init` 반복·`--force`·패키지 검사 완화 |
 | 필수 평가가 계속 막힘 | 기존 기록과 [미완료 인계](../labs/11-capstone.md#incomplete-handoff) 사용 | 없는 실행의 인수 보고서 생성·막힌 작업을 완료로 표시 |
 | Cloud judge가 timeout | 저장한 job ID와 **같은** `cloud-evaluate --label` 명령으로 조회 재개 | 이미 제출한 judge job에 새 수집 label 규칙 적용 |
+| 로컬 matrix smoke가 소스 프로젝트의 agent를 선택 | `benchmark smoke --local --azd-directory`에 워크북의 독립 폴더 지정 | 다른 agent의 `azure.yaml`을 소스 루트에 복사 |
+| Toolbox 원격 결과 폴더가 이미 있음 | 원래 stream·검증/실패 보존. 실제 새 요청일 때만 모든 경로의 폴더명을 함께 변경 | 이전 raw stream 덮어쓰기·로컬 검증기 재실행을 위한 모델 재호출 |
 
 새 dev 실험에는 새로운 **baseline/candidate/final-holdout** 이름 묶음을 정해 Lab 07·11에서 일관되게 사용합니다.
 새 후보가 통과하고 고정되기 전에는 holdout을 열지 않습니다. 읽기 전용 재조회는 새 추론 증거가 아닙니다.
@@ -35,6 +37,7 @@
 |---|---|---|
 | `scripts/workshop.py`를 찾지 못함 | 현재 폴더에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 함. 학습자 ZIP과 소스 ZIP은 다름 | [00 B](../labs/00-start.md#path-b) |
 | Python·패키지 없음 | 지원 Python·활성 `.venv`·고정 설치 단계 확인. 설치 오류를 무시하지 않음 | [00 B](../labs/00-start.md#path-b) |
+| 기본 B에서 `check_sdk.py`가 hosting 패키지 누락을 보고 | 선택 Hosted/Toolbox까지 검사하는 명령임. 기본 B에는 불필요하며 확장 선택 시 선언한 extra 준비 | [모듈 SDK 준비](../labs/extensions/developer-toolkit.md#hosted-sdk) |
 | Prefix 거절 | `mfv2-` 필수. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 전체 최대 32자 | [설정](configuration.md#workspace-scope) |
 | 401/403·프로젝트 없음 | 의도한 tenant·실제 호출 주체·리소스 범위 권한. 담당자가 접근 해결 | [00](../labs/00-start.md) / [준비](../setup.md) |
 | 모델 404 / 429 | 전체 project endpoint·배포 이름 / quota·동시성. 모델 대체 금지 | [02 B](../labs/02-models.md#path-b) |

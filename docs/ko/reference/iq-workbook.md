@@ -8,19 +8,25 @@
 
 ## 1. 기본 IQ 경로를 이 저장소에서 끝내기
 
-준비된 Search와 본인 prefix를 확인한 뒤:
+참고 문서이지 Lab 06을 한 번 더 실행하는 순서가 아닙니다. 완료한 단계와 근거를 재사용합니다.
+선택한 source를 아직 seed하지 않았다면 승인된 작성자의 대응 작업 폴더에서만 실행합니다.
 
 ```bash
 python scripts/workshop.py seed-search --iq --confirm-create
+```
+
+Seed 성공 후 검색과 로컬 workflow를 확인합니다.
+
+```bash
 python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국내 출장 숙박비와 한도 초과 사전 승인 규정"
 python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
-python scripts/package_hosted.py --kind workflow --pattern sequential --retrieval iq --prompt v2 --protocol responses
 ```
 
 핵심 흐름은 **실제 GA retrieve → 원문/ID/activity 보존 → MAF 참여자 → 검증된 최종 답**입니다.
 인증은 로컬 CLI 계정과 원격 managed identity를 구분합니다.
-배포·실제 응답은 [Lab 08](../labs/08-hosted.md), 같은 원격 경로의 품질 인수는
-[평가 워크북](evaluation-workbook.md)으로 이어갑니다.
+원격 IQ matrix는 [평가 워크북 준비](evaluation-workbook.md#matrix-setup)에서 이어갑니다.
+그곳에서 IQ/account-chat/Invocations 프로필을 별도로 만듭니다.
+Lab 08의 로컬 검색·Responses 패키지는 다른 대상이며 이 IQ 실행의 단축 경로가 아닙니다.
 
 | 자산 | 역할 | 혼동하지 않을 것 |
 |---|---|---|
@@ -49,6 +55,12 @@ Search identity에 모델 권한을 부여하고 별도 base에서 모델 기반
 벡터 index를 만들었다고 IQ가 그 벡터를 사용했다고 단정하지 않습니다.
 
 ## 3. 선택: 관리형 Toolbox와 Microsoft Learn
+
+**실행 가능한 합성 정책 Toolbox**는 [Toolbox 실습](../labs/extensions/toolbox.md)을 따릅니다.
+아래의 기존 Microsoft Learn 예제는 선택적인 문서 조회 패턴이지 그 선행 조건이 아닙니다.
+
+<details>
+<summary>선택적인 문서 도구 연결 참고 — 정책 도구를 다시 만드는 실습이 아닙니다</summary>
 
 **도구 연결을 준비/승인한 강사만 진행합니다.**
 기본 정책 답변에 외부 웹이 필요하지 않으므로, 공통 v2 pipeline에는 자동 연결하지 않습니다.
@@ -94,6 +106,8 @@ server = ResponsesHostServer(agent)
 로컬 client 객체에 도구를 붙였다는 것만으로 원격 agent가 바뀌지 않습니다.
 구체적인 최신 연결·패키징 방식은 [Toolbox 공식 계약](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox)
 및 [Hosted 연결 가이드](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/use-toolbox-hosted-agent)에서 확인합니다.
+
+</details>
 
 ## 4. Fabric IQ — 자산 종류에 따라 인증을 구분
 

@@ -10,6 +10,9 @@
 **완료:** 별도 CLI 요청 사이에 항목이 유지되고, alpha/beta 검색이 분리되며 실제 검색 결과로 답하고 삭제를 확인함.
 **중단:** 오류를 남깁니다. 다른 scope·계정·모델·provider로 바꾸지 않습니다.
 
+**첫 회차:** 보존 시간 1시간 안에 1–5절을 마칩니다.
+반환된 `memory_id`를 같은 터미널에서 수정·삭제에 사용합니다. 자동 agent memory는 포함하지 않습니다.
+
 ## 1. 기존 embedding 배포 지정
 
 `.env`의 `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME`에 담당자가 준비한 실제 배포 이름을 넣습니다.
@@ -106,6 +109,9 @@ store 소유 marker와 알려진 scope의 빈 상태를 확인합니다.
 
 ## 선택: 자동 agent memory는 별도
 
+<details>
+<summary>참고 전용 — API 실습을 마치려고 자동 추출을 켜지 않습니다</summary>
+
 `memory_search_preview`의 대화 후 자동 추출과 remember/forget 동작은 다른 경로입니다.
 `{{$userId}}`나 신뢰된 backend의 `x-memory-user-id`를 사용할 수 있어도
 임의 사용자가 보낸 header를 인가 경계로 신뢰하지 않습니다.
@@ -113,6 +119,8 @@ store 소유 marker와 알려진 scope의 빈 상태를 확인합니다.
 자동 추출·지연된 업데이트·삭제에는 별도 검증이 필요합니다.
 이 API 실습은 자동 추출, 실제 사용자 인가, 모든 서비스의 영구 삭제를 증명하지 않습니다.
 Memory를 독립 dev/holdout benchmark에 몰래 섞지 않습니다.
+
+</details>
 
 **다음:** [Routines](routines.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).
 [공식 Memory 수명 주기](https://learn.microsoft.com/azure/foundry/agents/how-to/memory-usage).

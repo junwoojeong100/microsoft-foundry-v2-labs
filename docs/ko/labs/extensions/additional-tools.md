@@ -9,6 +9,9 @@ OpenAPI는 별도 분기이며 어느 쪽도 실제 회사 데이터가 필요�
 **완료:** 실제 code call이 생성한 CSV를 내려받아 원문 ID/title 6행을 모두 검증함.
 **중단:** 원래 오류·파일 ID를 남깁니다. 로컬에서 정답 파일을 만들어 도구 결과라고 표시하지 않습니다.
 
+**첫 회차:** Code Interpreter 1–4절 후 인계합니다. OpenAPI는 별도 선택이며
+CSV를 확인한 뒤 반드시 실행할 두 번째 도구가 아닙니다.
+
 ## 1. 검증 범위
 
 원문 6개로 CSV를 만들고, 같은 순서의 `id,title` 두 열을 요청합니다.
@@ -62,6 +65,9 @@ python scripts/workshop.py --language ko code-interpreter cleanup --label code-p
 
 ## 5. OpenAPI 분기: 기존 합성 Search API
 
+<details>
+<summary>선택적인 독립 OpenAPI 실습 — Lab 06의 본인 index와 런타임 ID가 필요합니다</summary>
+
 OpenAPI는 HTTP API 계약이며 Python 함수, A2A endpoint, sandbox와 다릅니다.
 Lab 06의 **내 정책 index**만 사용하는 read-only Search REST 작업을 노출합니다.
 API Management, 새 API server, 회사 연결을 만들지 않습니다.
@@ -74,6 +80,11 @@ token audience, 요청/응답 schema, 비용 제한과 정리 책임을 확인�
 
 ```bash
 python scripts/workshop.py --language ko openapi plan
+```
+
+서버·index 하나의 읽기 전용 계획과 런타임 권한을 확인한 뒤 유료 요청을 실행합니다.
+
+```bash
 python scripts/workshop.py --language ko openapi invoke --label openapi-policy --confirm-cost
 ```
 
@@ -85,6 +96,8 @@ python scripts/workshop.py --language ko openapi invoke --label openapi-policy -
 오류 뒤에 key를 추가하거나 `retrieve --provider search`로 바꾸지 않습니다.
 index/ID 권한이 없으면 **미실행**입니다.
 직접 Responses 요청은 영구 Prompt Agent를 만들지 않지만 source/index/model과 추가 역할은 담당자가 정리합니다.
+
+</details>
 
 **다음:** [Toolbox](toolbox.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).
 [Code Interpreter](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/code-interpreter) ·

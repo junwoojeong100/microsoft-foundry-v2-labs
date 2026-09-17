@@ -417,17 +417,263 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertIn("operations-checklist.txt", incomplete)
                 self.assertEqual(DOCS.workshop_commands(incomplete), [])
 
-    def test_lab_bash_blocks_parse_without_executing_cloud_commands(self):
-        for language, _, labs in self.language_labs():
-            for number, path in labs.items():
-                for index, block in enumerate(
-                    re.findall(r"```bash\n(.*?)```", path.read_text(), re.DOTALL)
-                ):
-                    with self.subTest(language=language, lab=number, block=index):
+    def test_all_guide_bash_blocks_parse_without_executing_cloud_commands(self):
+        for path in DOCS.markdown_files(ROOT):
+            for index, block in enumerate(
+                re.findall(r"```bash\n(.*?)```", path.read_text(), re.DOTALL)
+            ):
+                with self.subTest(path=path.relative_to(ROOT), block=index):
+                    result = subprocess.run(
+                        ["bash", "-n"], input=block, text=True, capture_output=True, check=False
+                    )
+                    self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_every_extension_has_a_first_pass_and_is_reachable_from_the_catalog(self):
+        for language, directory, _ in self.language_labs():
+            catalog = (directory / "paths/c-advanced.md").read_text()
+            modules = sorted((directory / "labs/extensions").glob("*.md"))
+            self.assertGreaterEqual(len(modules), 16)
+            for path in modules:
+                with self.subTest(language=language, module=path.name):
+                    text = expanded_markdown(path.read_text())
+                    first_pass = "**First pass:**" if language == "en" else "**첫 회차:**"
+                    self.assertIn(first_pass, text.split("\n## ", 1)[0])
+                    self.assertIn(f"(../labs/extensions/{path.name})", catalog)
+                    self.assertTrue(
+                        any(
+                            f"({target})" in text
+                            for target in (
+                                "../../paths/c-advanced.md",
+                                "../../paths/b-practitioner.md",
+                                "../11-capstone.md",
+                            )
+                        ),
+                        f"{path}: provide a visible route or handoff link",
+                    )
+
+    def test_optional_extension_mutations_and_maintainer_work_are_not_in_the_first_pass(self):
+        for language, directory, _ in self.language_labs():
+            extensions = directory / "labs/extensions"
+            with self.subTest(language=language):
+                toolbox = [
+                    parser().parse_args(arguments).toolbox_action
+                    for _, arguments in DOCS.workshop_commands(
+                        expanded_markdown((extensions / "toolbox.md").read_text())
+                    )
+                ]
+                self.assertEqual(
+                    toolbox, ["plan", "create", "inspect", "probe", "query", "ask", "cleanup"]
+                )
+                skills = expanded_markdown((extensions / "tool-search-skills.md").read_text())
+                self.assertNotIn("toolbox select", skills)
+                tools = [
+                    parser().parse_args(arguments).command
+                    for _, arguments in DOCS.workshop_commands(
+                        expanded_markdown((extensions / "additional-tools.md").read_text())
+                    )
+                ]
+                self.assertEqual(tools, ["code-interpreter", "code-interpreter"])
+                recovery = expanded_markdown((extensions / "approval-recovery.md").read_text())
+                self.assertIn("--run-id first-pass", recovery)
+                self.assertNotIn("--run-id resume-pass", recovery)
+                self.assertNotIn("--crash-after-checkpoint", recovery)
+                self.assertNotIn("-m unittest", recovery)
+                toolkit = expanded_markdown((extensions / "developer-toolkit.md").read_text())
+                self.assertNotIn("python scripts/check_sdk.py", toolkit)
+                self.assertNotIn('pip install -e ".[hosted]"', toolkit)
+                cleanup = expanded_markdown((directory / "reference/cleanup.md").read_text())
+                self.assertEqual(DOCS.workshop_commands(cleanup), [])
+                self.assertIn("operations-checklist.txt", cleanup)
+                self.assertNotIn("media.json", cleanup)
+
+    def test_matrix_first_pass_does_not_depend_on_an_uncreated_regression(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = (directory / "reference/evaluation-workbook.md").read_text()
+                visible = expanded_markdown(text)
+                commands = [
+                    parser().parse_args(arguments)
+                    for _, arguments in DOCS.workshop_commands(visible)
+                ]
+                collections = [
+                    command
+                    for command in commands
+                    if command.command == "benchmark" and command.benchmark_action == "collect"
+                ]
+                self.assertEqual(
+                    [command.label for command in collections],
+                    ["wf-baseline", "wf-candidate", "wf-final"],
+                )
+                self.assertTrue(all(command.regressions is None for command in collections))
+                self.assertNotIn("benchmark regression", visible)
+                verification = [
+                    command
+                    for command in commands
+                    if command.command == "benchmark" and command.benchmark_action == "verify"
+                ]
+                self.assertEqual(len(verification), 1)
+                self.assertFalse(verification[0].require_regressions)
+                self.assertTrue(verification[0].require_native)
+                self.assertTrue(verification[0].require_traces)
+                local_smoke = [
+                    command
+                    for command in commands
+                    if command.command == "benchmark"
+                    and command.benchmark_action == "smoke"
+                    and command.local
+                ]
+                self.assertEqual(len(local_smoke), 1)
+                self.assertIsNotNone(local_smoke[0].azd_directory)
+                self.assertLess(
+                    visible.index("models.<key>.business_gate_passed: true"),
+                    visible.index("--unlock-holdout"),
+                )
+                preparations = [
+                    shlex.split(line.strip())
+                    for block in re.findall(r"```bash\n(.*?)```", text, re.DOTALL)
+                    for line in block.replace("\\\n", " ").splitlines()
+                    if line.strip().startswith("python scripts/prepare_hosted_azd.py ")
+                ]
+                self.assertEqual(len(preparations), 2)
+                for command in preparations:
+                    self.assertEqual(command[command.index("--kind") + 1], "matrix")
+                    self.assertEqual(command[command.index("--language") + 1], language)
+                    self.assertIn("--initialize-env", command)
+                self.assertNotRegex(text, r"(?m)^azd ai agent init ")
+                self.assertNotRegex(text, r"(?m)^azd env set ")
+
+    def test_extension_azd_commands_fail_before_execution_when_scope_values_are_missing(self):
+        names = (
+            "labs/extensions/toolbox-hosted.md",
+            "labs/extensions/agent-safety.md",
+            "reference/evaluation-workbook.md",
+            "reference/cleanup.md",
+        )
+        values = {
+            "HOSTED_DIRECTORY": str(ROOT),
+            "HOSTED_AGENT_NAME": "mfv2-unit-hosted",
+            "HOSTED_AGENT_VERSION": "1",
+            "OWNED_SESSION_ID": "unit-session",
+        }
+        for language, directory, _ in self.language_labs():
+            for name in names:
+                blocks = re.findall(r"```bash\n(.*?)```", (directory / name).read_text(), re.DOTALL)
+                for block in blocks:
+                    for line in block.replace("\\\n", " ").splitlines():
+                        line = line.strip()
+                        if not line.startswith("azd "):
+                            continue
+                        line = re.split(r"\s+\|", line, maxsplit=1)[0].removesuffix("&&").rstrip()
+                        arguments = shlex.split(line)
+                        with self.subTest(language=language, file=name, command=line):
+                            self.assertIn("--cwd", arguments)
+                            self.assertTrue(
+                                arguments[arguments.index("--cwd") + 1].startswith(
+                                    "${HOSTED_DIRECTORY:?"
+                                )
+                            )
+                            if arguments[1] == "deploy":
+                                self.assertTrue(arguments[2].startswith("${HOSTED_AGENT_NAME:?"))
+                            for flag, prefix in (
+                                ("--agent-name", "${HOSTED_AGENT_NAME:?"),
+                                ("--version", "${HOSTED_AGENT_VERSION:?"),
+                            ):
+                                if flag in arguments:
+                                    self.assertTrue(
+                                        arguments[arguments.index(flag) + 1].startswith(prefix)
+                                    )
+                            for missing in set(re.findall(r"\$\{([A-Z_]+):\?", line)):
+                                for empty in (False, True):
+                                    environment = {"PATH": os.defpath, **values}
+                                    if empty:
+                                        environment[missing] = ""
+                                    else:
+                                        del environment[missing]
+                                    result = subprocess.run(
+                                        [
+                                            "bash",
+                                            "-c",
+                                            'azd() { printf "UNEXPECTED_AZD_CALL"; }\n' + line,
+                                        ],
+                                        env=environment,
+                                        capture_output=True,
+                                        text=True,
+                                        timeout=10,
+                                        check=False,
+                                    )
+                                    self.assertNotEqual(result.returncode, 0, (missing, empty))
+                                    self.assertNotIn("UNEXPECTED_AZD_CALL", result.stdout)
+                                    self.assertIn(missing, result.stderr)
+
+                    if "azd deploy " in block:
+                        deployment = block[block.index("azd deploy ") :]
                         result = subprocess.run(
-                            ["bash", "-n"], input=block, text=True, capture_output=True, check=False
+                            [
+                                "bash",
+                                "-c",
+                                'azd() { printf "%s\\n" "$1"; return 9; }\n' + deployment,
+                            ],
+                            env={"PATH": os.defpath, **values},
+                            capture_output=True,
+                            text=True,
+                            timeout=10,
+                            check=False,
                         )
-                        self.assertEqual(result.returncode, 0, result.stderr)
+                        self.assertEqual(result.returncode, 9)
+                        self.assertEqual(result.stdout.strip(), "deploy")
+
+    def test_toolbox_remote_block_preserves_failed_streams_and_rejects_overwrite_before_calling(
+        self,
+    ):
+        for language, directory, _ in self.language_labs():
+            text = (directory / "labs/extensions/toolbox-hosted.md").read_text()
+            blocks = [
+                block
+                for block in re.findall(r"```bash\n(.*?)```", text, re.DOTALL)
+                if "set -o pipefail" in block
+            ]
+            self.assertEqual(len(blocks), 1)
+            for status in (0, 9):
+                with self.subTest(language=language, status=status), workspace() as root:
+                    environment = {
+                        "PATH": os.defpath,
+                        "HOSTED_PACKAGE": str(root),
+                        "HOSTED_DIRECTORY": str(root),
+                        "HOSTED_AGENT_NAME": "mfv2-unit-hosted",
+                        "HOSTED_AGENT_VERSION": "1",
+                        "STUB_STATUS": str(status),
+                    }
+                    script = (
+                        'azd() { printf "STUB_AZD_CALL\\n" >&2; printf "synthetic test stream\\n"; return "$STUB_STATUS"; }\n'
+                        'python() { printf "STUB_VERIFIER_CALLED\\n"; }\n' + blocks[0]
+                    )
+                    first = subprocess.run(
+                        ["bash", "-c", script],
+                        cwd=root,
+                        env=environment,
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    self.assertEqual(first.returncode, status, first.stderr)
+                    self.assertIn("STUB_AZD_CALL", first.stderr)
+                    self.assertEqual("STUB_VERIFIER_CALLED" in first.stdout, status == 0)
+                    raw = root / f"outputs/toolbox-remote-{language}/response.raw"
+                    self.assertEqual(raw.read_bytes(), b"synthetic test stream\n")
+                    repeated = subprocess.run(
+                        ["bash", "-c", script],
+                        cwd=root,
+                        env={**environment, "STUB_STATUS": "0"},
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    self.assertNotEqual(repeated.returncode, 0)
+                    self.assertNotIn("STUB_AZD_CALL", repeated.stderr)
+                    self.assertNotIn("STUB_VERIFIER_CALLED", repeated.stdout)
+                    self.assertEqual(raw.read_bytes(), b"synthetic test stream\n")
 
     def test_documented_offline_rehearsal_creates_real_files_and_preserves_existing_runs(self):
         def run(root, arguments, script="workshop.py"):
@@ -564,15 +810,14 @@ class LearnerJourneyTests(unittest.TestCase):
                     self.assertIn(f"D{number:02d}", assessment)
 
     def test_optional_sections_and_recordings_have_balanced_details(self):
-        for language, _, labs in self.language_labs():
-            for number, path in labs.items():
-                with self.subTest(language=language, lab=number):
-                    text = re.sub(r"```.*?```", "", path.read_text(), flags=re.DOTALL)
-                    depth = 0
-                    for tag in re.findall(r"</?details>", text):
-                        depth += 1 if tag == "<details>" else -1
-                        self.assertGreaterEqual(depth, 0)
-                    self.assertEqual(depth, 0)
+        for path in DOCS.markdown_files(ROOT):
+            with self.subTest(path=path.relative_to(ROOT)):
+                text = re.sub(r"```.*?```", "", path.read_text(), flags=re.DOTALL)
+                depth = 0
+                for tag in re.findall(r"</?details>", text):
+                    depth += 1 if tag == "<details>" else -1
+                    self.assertGreaterEqual(depth, 0)
+                self.assertEqual(depth, 0)
 
     def test_documented_output_fields_do_not_reintroduce_invented_success_flags(self):
         for language, _, labs in self.language_labs():

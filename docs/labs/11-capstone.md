@@ -32,7 +32,7 @@ learner. Add neither company data nor automatic payments.
 | MAF workflow | Actual prepared sequential run and human review | Code/results for sequential, concurrent, Group Chat |
 | Evaluation | Manual assessment of all six real dev answers | Complete dev before/after, final holdout, errors |
 | Failure review | Actual failure or all-pass record | Source run/request/response and pending review |
-| Operations | Permissions, cost, cleanup | Reproduction settings, optional remote version, actual trace |
+| Operations | Permissions, cost, cleanup | Reproduction settings and cleanup; remote version/trace only if selected |
 | Limitations | Observed-only and unrun features | SDK/cloud/Preview verification boundaries |
 
 <a id="path-a"></a>
@@ -112,10 +112,11 @@ Four models require 24 baseline dev, 24 candidate dev, and 16 frozen holdout row
 Select any accepted subset **using dev**, not favorable holdout results.
 
 ```bash
-python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --require-regressions --calibration judge-calibration
+python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
 ```
 
-For a legitimate all-pass path with no promoted regression, omit `--require-regressions` and record why.
+This default does not assume a promoted regression exists.
+If a reviewed regression was actually consumed by the candidate, add `--require-regressions`; otherwise record the all-pass/no-promotion reason.
 Execution, business correctness, native quality, and findings are separate.
 Neither `gate_passed` nor `ready-for-human-review` is production approval.
 Choose `--require-native-pass` beforehand if every generic native quality check must pass.
@@ -148,7 +149,7 @@ Use this evidence for [archive acceptance](../reference/consolidation.md), not e
 - [ ] An LLM reviewer is not treated as a human approver.
 - [ ] Unmeasured latency/usage is not filled with zero.
 - [ ] Features not remotely executed are marked not run.
-- [ ] Owned assets were cleaned up and shared assets preserved.
+- [ ] Owned cleanup is verified or assigned to a named authorized owner; shared assets are preserved.
 
 Six/four cases are workshop gates. Production adoption also requires business-expert
 policy approval, broader evaluation, threat modeling, load/recovery/access reviews,

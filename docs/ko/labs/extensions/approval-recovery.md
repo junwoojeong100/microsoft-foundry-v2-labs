@@ -11,7 +11,10 @@ Lab 05, 핵심 배포 설정, 원본 데이터를 바꾸지 않습니다.
 `synthetic-runtime-only`는 protocol label이며 Azure 모델 배포가 아닙니다.
 국문 dev D03만 사용하고 holdout은 사용하지 않습니다.
 
-**준비:** 전용 터미널 두 개와 고정된 SDK.
+**첫 회차:** 아래 권장 첫 실행의 1–5단계만 진행하며 재시작·crash는 하지 않습니다.
+로컬 완료 근거를 저장하고 본인 서버를 중지한 뒤 인계합니다. 아래 분기·유지보수 검사는 선택입니다.
+
+**준비:** 전용 터미널 두 개와 [준비된 Hosted SDK 환경](developer-toolkit.md#hosted-sdk). 위 agentserver 버전도 정확히 맞아야 합니다.
 **완료:** 같은 response/gate와 원래 output ID를 유지하며 `human_authorization: not-granted`인 결과를 확인함.
 **중단:** checkpoint와 오류를 보존합니다. 게이트를 우회하거나 실제 승인으로 표시하지 않습니다.
 
@@ -149,6 +152,9 @@ active lock, symlink, 모르는 파일, 소유 marker 누락을 거부합니다.
 
 ## 첫 실행 이후 선택 분기
 
+<details>
+<summary>새 run 하나로 재시작·Linux 전용 crash·거절·만료 중 필요한 것만 선택합니다</summary>
+
 ### macOS/Linux의 정상 종료 후 재시작
 
 ```bash
@@ -222,7 +228,12 @@ client 단절/대기 timeout 뒤에는 `status`를 쓰고 새 `start`를 보내�
 ID 저장 전 생성 실패는 결과 미상입니다. 근거를 보관하고 내 server를 중지·정리한 뒤 새 run을 명시적으로 사용합니다.
 손상된 상태·hash 변경·SDK 불일치·저장 오류는 대체 모델/provider/fixture를 고르는 이유가 아닙니다.
 
+</details>
+
 ## 로컬 검증과 Hosted의 별도 경계
+
+<details>
+<summary>유지보수·SDK 참고 — 학습자의 다섯 단계 완료에 필요한 추가 실습이 아닙니다</summary>
 
 ```bash
 PYTHONPATH=src "$WORKSHOP_PYTHON" -m unittest tests.test_resilience tests_sdk.test_resilience
@@ -245,8 +256,13 @@ prompt/model/evaluator는 실행하지 않으므로 그 이력이 없는 것을 
 idempotent/transactional 외부 동작 경계가 별도로 필요합니다.
 로컬 파일은 container 간 내구성을 증명하지 않습니다.
 
+</details>
+
 **구현:** [순수 계약](../../../../src/foundry_workshop/resilience.py) ·
 [SDK server](../../../../examples/resilient/server.py) ·
 [runner/client](../../../../examples/resilient/workshop.py).
 [Human-in-the-loop](https://learn.microsoft.com/azure/foundry/agents/how-to/add-human-in-the-loop) ·
 [Resilient agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-resilient-agent).
+
+**다음:** [C 모듈](../../paths/c-advanced.md) 또는 [Lab 11 인계](../11-capstone.md).
+`local-sdk-prewritten-synthetic`으로 보고하며 모델 품질·실제 승인·Hosted crash 복구로 표시하지 않습니다.

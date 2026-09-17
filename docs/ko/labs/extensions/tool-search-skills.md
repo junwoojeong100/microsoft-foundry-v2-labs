@@ -9,6 +9,9 @@
 **완료:** 발견/고정 설정과 실제 도구 목록이 일치하고, 고정된 skill을 실제 MAF 요청에서 불러옴.
 **중단:** 오류 뒤에 `toolbox_search_preview`나 다른 skill로 바꾸지 않습니다.
 
+**첫 회차:** 1–5절에서 고정 Skill을 검증하고 6절에서 보관·정리 담당자를 기록합니다.
+Consumer default 변경이나 private catalog 생성은 필수가 아닙니다.
+
 ## 1. 세 자산 구분
 
 | 자산 | 역할 | 아닌 것 |
@@ -23,6 +26,11 @@
 
 ```bash
 python scripts/workshop.py --language ko toolbox plan --discovery --pin-policy
+```
+
+계획의 본인 이름·도구 정의를 확인하고 작성 승인을 받은 뒤에만 실행합니다.
+
+```bash
 python scripts/workshop.py --language ko toolbox add-version --discovery --pin-policy --confirm-create
 ```
 
@@ -63,7 +71,7 @@ printf '전체 프로젝트 endpoint: '
 read -r PROJECT_ENDPOINT
 printf 'manifest의 skill_name: '
 read -r SKILL_NAME
-azd ai skill create "$SKILL_NAME" --file ./outputs/extensions-ko/policy-review --project-endpoint "$PROJECT_ENDPOINT"
+azd ai skill create "$SKILL_NAME" --file ./outputs/extensions-ko/policy-review --project-endpoint "$PROJECT_ENDPOINT" &&
 azd ai skill show "$SKILL_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
 ```
 
@@ -72,7 +80,7 @@ azd ai skill show "$SKILL_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output 
 ```bash
 printf 'show가 반환한 default_version: '
 read -r SKILL_VERSION
-azd ai skill download "$SKILL_NAME" --version "$SKILL_VERSION" --output-dir ./outputs/skill-readback-ko --project-endpoint "$PROJECT_ENDPOINT"
+azd ai skill download "$SKILL_NAME" --version "$SKILL_VERSION" --output-dir ./outputs/skill-readback-ko --project-endpoint "$PROJECT_ENDPOINT" &&
 cmp ./outputs/extensions-ko/policy-review/SKILL.md ./outputs/skill-readback-ko/SKILL.md
 ```
 
@@ -83,6 +91,11 @@ cmp ./outputs/extensions-ko/policy-review/SKILL.md ./outputs/skill-readback-ko/S
 
 ```bash
 python scripts/workshop.py --language ko toolbox plan --discovery --pin-policy --skill-version "$SKILL_VERSION"
+```
+
+계획의 정확한 Skill 이름·버전을 확인한 뒤 새 Toolbox 버전 작성을 승인합니다.
+
+```bash
 python scripts/workshop.py --language ko toolbox add-version --discovery --pin-policy --skill-version "$SKILL_VERSION" --confirm-create
 ```
 
@@ -92,6 +105,11 @@ python scripts/workshop.py --language ko toolbox add-version --discovery --pin-p
 printf 'Skill이 연결된 Toolbox selected_version: '
 read -r SKILLED_VERSION
 python scripts/workshop.py --language ko toolbox probe --version "$SKILLED_VERSION" --label skilled-tool-list
+```
+
+Probe가 성공한 뒤 별도로 승인한 모델 요청을 실행합니다.
+
+```bash
 python scripts/workshop.py --language ko toolbox ask --version "$SKILLED_VERSION" --label skilled-policy-answer --with-skill --confirm-cost
 ```
 
@@ -110,6 +128,12 @@ script 실행이나 실패 뒤의 유창한 답변만으로 완료되지 않습�
 
 ## 6. 공개와 정리
 
+검증한 버전·Skill ID와 `outputs/toolbox-runs/skilled-policy-answer/`를 보관합니다.
+[Hosted Toolbox](toolbox-hosted.md)로 이어간다면 자산과 ledger를 유지합니다.
+
+<details>
+<summary>선택: 검토·승인 후 consumer default 변경</summary>
+
 검토한 버전만 승인 후 default로 선택합니다.
 
 ```bash
@@ -118,6 +142,9 @@ python scripts/workshop.py --language ko toolbox select --version "$SKILLED_VERS
 
 같은 명령에 보관한 원래 버전을 넣어 rollback합니다.
 고정된 Toolbox 버전은 고정되지 않은 Skill 참조까지 고정해 주지 않습니다.
+
+</details>
+
 종료 시 참조하는 Toolbox를 먼저 정리하고 새로 만든 Skill만 담당자가 제거합니다.
 
 ## 별도 선택: private catalog
@@ -126,6 +153,7 @@ python scripts/workshop.py --language ko toolbox select --version "$SKILLED_VERS
 API Center와 별도 권한·도구 거버넌스가 필요합니다. 위 명령으로 생성되지 않습니다.
 준비되지 않았다면 **설계만 / 미실행**으로 기록합니다.
 
-**다음:** [대화 평가](conversation-evaluation.md), [C 모듈](../../paths/c-advanced.md).
+**다음:** [C 모듈](../../paths/c-advanced.md) 또는 [Lab 11 인계](../11-capstone.md).
+대화 평가는 독립 모듈이지 다음 필수 명령이 아닙니다.
 [Tool Search](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/tool-search) ·
 [Skills](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/skills).

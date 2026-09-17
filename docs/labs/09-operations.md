@@ -226,7 +226,8 @@ These are newly recorded English actions using the separate English prompt/data 
 
 ## Always finish with cleanup
 
-Verify this edition's exact root traces and owned session states.
+If you selected the Hosted matrix, verify its exact root traces and owned session states.
+A and core B do not need that optional telemetry to finish their cleanup handoff.
 Completed overall does not mean every child span is exported or error-free.
 [Execution records](../live-run.md) list actual outcomes and retained assets.
 

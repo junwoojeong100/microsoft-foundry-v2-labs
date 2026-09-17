@@ -6,7 +6,9 @@
 Use only a dedicated lab agent and the bundled synthetic policy questions.
 Do not weaken a shared guardrail, access company data or create real booking/payment tools.
 
-**Need:** an actual lab agent/version, an owner-created RAI policy on the same Foundry account,
+**First pass:** steps 1–5 and 7, with one approved control. Step 6's red-team scan is not required.
+
+**Need:** an owned, deployed Hosted agent/version from [Lab 08](../08-hosted.md), an owner-created RAI policy on the same Foundry account,
 permission to attach it, an approved test scope and cost budget.
 **Stop when:** the actual policy exists, the selected agent references it, and allowed/blocked or unblocked outcomes are recorded accurately.
 **If blocked:** preserve the policy/agent IDs and error; do not disable controls to manufacture a success.
@@ -50,7 +52,8 @@ You must verify the policy resource itself and observe the resulting behavior.
 
 ## 4. Attach to an owned Hosted agent version
 
-For azd, edit only the intended service in its generated `azure.yaml`:
+Use the standalone Hosted directory and agent service name saved during deployment.
+Edit only that service in `<HOSTED_DIRECTORY>/azure.yaml`:
 
 ```yaml
 policies:
@@ -65,16 +68,23 @@ Do not put it in `agent.manifest.yaml` and assume deploy reads that file.
 After deployment approval:
 
 ```bash
-azd deploy
-azd ai agent show --output json
+printf 'Prepared standalone Hosted directory: '
+read -r HOSTED_DIRECTORY
+printf 'Owned Hosted agent service name: '
+read -r HOSTED_AGENT_NAME
+azd deploy "${HOSTED_AGENT_NAME:?Use the owned service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
-This example assumes exactly one owned service. In a multi-service project, select only the intended service.
+Do not use bare `azd deploy`: it can deploy every service in the current project.
+If deployment fails, stop; an older active version is not this revision's evidence.
 Record the new actual version and policy reference. Do not reuse a previous version's quality score.
 
 ## 5. Test the declared intervention
 
 Run only the approved synthetic cases against the new exact version.
+In that agent's Playground, select the returned version and send D01 and D06 from
+the learner bundle's `dev-questions.txt`, each in **New chat**. Copy only the question text.
 Inspect actual response status, guardrail annotations or blocking details, and any corresponding trace.
 
 Keep these outcomes separate:
@@ -100,6 +110,9 @@ Do not alter shared networking or describe an unconfigured private network as te
 
 ## 6. Optional AI red teaming
 
+<details>
+<summary>Separate paid scan — not needed for the applied-policy exercise</summary>
+
 Cloud red teaming is a separate evaluation workload, not the same as replaying six dev questions.
 Its generated attack inputs and results require their own lineage and budget.
 
@@ -118,6 +131,8 @@ Before submitting a scan:
 
 If the taxonomy cannot be reviewed or the service/region is unavailable, record **red-team scan not run**.
 Do not relabel local D06 checks as a cloud red-team scan.
+
+</details>
 
 ## 7. Restore only your additions
 

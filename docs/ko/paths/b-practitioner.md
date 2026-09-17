@@ -49,7 +49,8 @@ Search 권한이 없으면 Lab 06을 미완료로 기록하고 전체 B 완료�
 <summary>기본 과정 인계 후 선택 — 다음 필수 명령이 아닙니다</summary>
 
 먼저 [관리형 Toolbox](../labs/extensions/toolbox.md)를 선택합니다.
-승인된 작은 도구 모음 생성 → MAF 연결 → 실제 요청 → 버전 확인 → 기본 버전 변경 순서입니다.
+승인된 작은 도구 모음 생성 → MAF 연결 → 실제 요청 → 버전·근거 보관 순서입니다.
+기본 버전 변경은 별도 선택 실습입니다.
 Lab 04의 로컬 MCP 서버와 구분합니다.
 
 [OpenAPI와 Code Interpreter](../labs/extensions/additional-tools.md)는 별도 선택 실습입니다.

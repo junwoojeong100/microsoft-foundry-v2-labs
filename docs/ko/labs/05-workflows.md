@@ -253,7 +253,10 @@ python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --
 이것은 `local` 검색 결과를 IQ로 이름만 바꾼 실행이 아닙니다.
 GA retrieve의 실제 documents/references/activity와 context hash가 함께 반환됩니다.
 실패 시 일반 Search로 전환하지 않습니다.
-프로필·요청·model calls·근거를 [Lab 08](08-hosted.md)의 패키지로 그대로 연결합니다.
+여기까지는 로컬 IQ workflow 확인입니다. 호스팅은 **한 경로만** 선택합니다.
+[Lab 08의 6절](08-hosted.md#6-maf-워크플로를-hosted-agent로-배포)은 로컬 검색·Responses,
+[평가 워크북](../reference/evaluation-workbook.md)은 별도 IQ/account-chat/Invocations matrix를 준비합니다.
+IQ 패키지를 입문 로컬 검색 도우미에 넣거나 서로 다른 프로필의 점수를 옮기지 않습니다.
 
 </details>
 

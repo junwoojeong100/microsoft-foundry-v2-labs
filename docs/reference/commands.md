@@ -5,6 +5,10 @@
 **Run all commands from the repository root. Do not shell-`source` `.env`.**
 Activate the dedicated virtual environment for cloud SDKs.
 
+**Lookup table, not an execution sequence.** Rows without `python scripts/...` are abbreviated:
+prefix workshop commands with `python scripts/workshop.py --language en`.
+Do not paste `...` or run every row; use the selected lab's complete block and approval boundary.
+
 | Command | Azure/side effects | Purpose |
 |---|---|---|
 | `python scripts/workshop.py --language en doctor` | None | Python/synthetic-data checks |
@@ -38,6 +42,7 @@ Activate the dedicated virtual environment for cloud SDKs.
 | `python scripts/build_learner_materials.py --write` | Regenerates the two local learner bundles | Maintainer-only generation; no model or holdout use |
 | `python scripts/package_hosted.py --language en` | Local package | No deployment/installation |
 | `python scripts/prepare_hosted_azd.py --language en --kind runtime ...` | Local package-verified project; `--initialize-env` also creates/read-checks local azd state | Introductory local v2 Responses packages only; no provision/deploy/role assignment |
+| `python scripts/prepare_hosted_azd.py --language en --kind matrix ...` | Local package-verified IQ matrix project and optional azd state | Sequential IQ/account-chat/Invocations v1/v2; exact model map and Search settings, no deployment |
 | `python scripts/play_recordings.py` | Localhost video server | English by default; `--edition ko` selects the independently recorded Korean set |
 
 Abbreviated rows are not complete executable examples. Read
@@ -49,6 +54,24 @@ the default GA `retrieve --provider iq` is intentionally a different path.
 Interactive `model`/`answer`/`maf`/`workflow`/`retrieve` commands print JSON; use [B's notes directory](../labs/00-start.md#prepare-notes)
 for complete copied outputs. Batch runs already write `outputs/<label>/`.
 For the complete standalone Hosted preparation command and its required values, use [Lab 08](../labs/08-hosted.md).
+
+<a id="saved-results"></a>
+
+## Find a saved result
+
+Use the directory printed by the command, not `outputs/<label>/` for every module.
+Keep an existing run and all failures; a new target request needs a new label.
+
+| Run family | Location under the source repository |
+|---|---|
+| Introductory `demo` / `collect` | `outputs/<label>/` |
+| `benchmark smoke` | `outputs/smoke/<label>/` even when local azd uses another directory |
+| `benchmark collect` | `outputs/benchmarks/<label>/` |
+| `iq-chat ask` | `outputs/iq-chat/<label>/` |
+| Toolbox `probe` / `query` / `ask` | `outputs/toolbox-runs/<label>/`; ownership stays in `outputs/toolboxes/<name>/` |
+| `conversations collect` | `outputs/conversations/<label>/`; both native evaluation levels stay with that collection |
+| `memory recall` | `outputs/memory-runs/<label>/`; store ownership is separate |
+| Code Interpreter / OpenAPI / A2A | `outputs/code-interpreter/<label>/`, `outputs/openapi-runs/<label>/`, `outputs/a2a-runs/<label>/` respectively |
 
 Add `--debug` before a subcommand for local diagnostics. Stack/service errors can
 contain environment paths; do not publish raw logs.
@@ -70,7 +93,7 @@ Prepend `python scripts/workshop.py --language en` to these abbreviated commands
 | `seed-search --hybrid --confirm-create --confirm-cost` | Real embeddings and a separately owned vector index |
 | `retrieve --provider hybrid` | Combined text/vector search, not a renamed keyword query |
 | `benchmark plan` | Model/case/cost shape only; no Azure call |
-| `benchmark smoke --local` | Actual local host plus billable model; request/response contract checked |
+| `benchmark smoke --local --azd-directory ...` | Actual local host plus billable model; explicitly selects the prepared azd directory while keeping evidence in the source copy |
 | `benchmark smoke` | Exact remote version/endpoint, no gold labels in requests |
 | `benchmark collect` | Complete explicit model-by-case matrix; errors retained |
 | `benchmark evaluate --reference ...` | Actual native scores with a pinned catalog/version/judge |

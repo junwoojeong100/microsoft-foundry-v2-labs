@@ -6,6 +6,9 @@
 These capabilities belong on the Foundry feature map, but require their own data, identities, infrastructure or runtime.
 They are not hidden prerequisites for A, B or the core C modules.
 
+**First pass:** choose one row, complete `specialist-scope.txt` in your notes directory,
+and hand it off as **design-only**. No new service, account, data connection or model call is required.
+
 | Capability | What to understand | This course's execution boundary |
 |---|---|---|
 | Fabric IQ | Published data agents versus semantic models/ontology, asset-specific delegated/OBO or workload identity | Only a separately prepared synthetic asset may be used; no company analytics |

@@ -9,6 +9,9 @@ fine-tuning이나 모델 가중치 변경이 아닙니다. 기존 Hosted matrix�
 **완료:** 한 실행의 baseline과 모든 반환 후보를 확인하고, 후보 없음/개선 없음도 명시함.
 **중단:** 촬영을 끝내려고 다른 모델 생성, holdout 수정, 후보 자동 승격을 하지 않습니다.
 
+**첫 회차:** 1–5절 후 `optimizer-review.txt`를 인계합니다. 승격은 필수가 아닙니다.
+후보 없음·개선 없음·잘못된 evaluator binding은 보존할 발견 사항이지 승격 성공이 아닙니다.
+
 ## 1. 입력 한 번 준비
 
 [Lab 03](../03-prompt-agent.md)의 전체 합성 정책을 가진 내 agent를 사용합니다.
@@ -111,6 +114,9 @@ Groundedness의 `context`에 원래 정책 대신 생성한 답변 자체가 들
 
 ## 6. 사람 승인 후에만 승격
 
+<details>
+<summary>선택 승격 — Optimizer 종료 뒤 자동으로 실행할 단계가 아닙니다</summary>
+
 검토가 없으면 **미수행**으로 남깁니다.
 명시적 승인 후 **Promote candidate → Promote to agent version**을 사용하고
 새 실제 버전과 default 변경 여부를 기록합니다.
@@ -119,6 +125,8 @@ Groundedness의 `context`에 원래 정책 대신 생성한 답변 자체가 들
 
 후보를 고정한 후에만 별도의 최종 인수에서 holdout을 사용합니다.
 이 Optimizer 실행은 개발용으로 holdout을 열지 않습니다.
+
+</details>
 
 ## 이후 선택 기능
 

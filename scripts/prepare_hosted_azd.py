@@ -13,7 +13,12 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from foundry_workshop.contracts import read_json  # noqa: E402
 from foundry_workshop.packaging import file_hashes  # noqa: E402
-from foundry_workshop.profiles import RuntimeProfile, packaged_profile  # noqa: E402
+from foundry_workshop.profiles import (  # noqa: E402
+    RuntimeProfile,
+    model_deployments,
+    packaged_profile,
+    validate_inference_endpoint,
+)
 from foundry_workshop.search import search_configuration  # noqa: E402
 from foundry_workshop.settings import (  # noqa: E402
     Settings,
@@ -92,9 +97,9 @@ def initialize_environment(
 def prepare(
     package: Path, destination: Path, settings: Settings, agent_name: str, *, kind: str = "toolbox"
 ) -> Path:
-    if kind not in {"toolbox", "workflow", "runtime"}:
+    if kind not in {"toolbox", "workflow", "runtime", "matrix"}:
         raise ValueError(
-            "Choose toolbox, workflow (CI Invocations), or runtime (introductory Responses)."
+            "Choose toolbox, workflow (CI), runtime (introductory Responses), or matrix (IQ Invocations)."
         )
     if not agent_name.startswith(owned_prefix() + "-") or not re.fullmatch(
         r"[a-z0-9-]{1,100}", agent_name
@@ -164,6 +169,44 @@ def prepare(
             )
         environment["WORKSHOP_MAX_OUTPUT_TOKENS"] = str(settings.max_output_tokens)
         protocol = "responses"
+    elif kind == "matrix":
+        profile = packaged_profile(package)
+        expected_profile = RuntimeProfile(
+            kind="workflow",
+            pattern="sequential",
+            retrieval="iq",
+            prompt=profile.prompt,
+            api="account-chat",
+            protocol="invocations",
+            language=settings.language,
+        )
+        if (
+            profile != expected_profile
+            or manifest.get("runtime_profile") != expected_profile.to_dict()
+        ):
+            raise ValueError(
+                "Use a language-matched sequential IQ/account-chat Invocations v1/v2 matrix package."
+            )
+        if settings.openai_endpoint is None:
+            raise ValueError("The matrix requires an explicit same-account OpenAI endpoint.")
+        if agent_name != require_env("WORKSHOP_HOSTED_AGENT_NAME"):
+            raise ValueError("The matrix agent name must match WORKSHOP_HOSTED_AGENT_NAME.")
+        validate_inference_endpoint(settings, profile)
+        require_env("WORKSHOP_MODEL_DEPLOYMENTS_JSON")
+        models = model_deployments(settings)
+        search = search_configuration()
+        environment.update(
+            AZURE_OPENAI_ENDPOINT=settings.openai_endpoint,
+            WORKSHOP_MODEL_DEPLOYMENTS_JSON=json.dumps(models),
+            WORKSHOP_MAX_OUTPUT_TOKENS=str(settings.max_output_tokens),
+            AZURE_SEARCH_ENDPOINT=search["endpoint"],
+            AZURE_SEARCH_INDEX_NAME=search["index"],
+            AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME=search["source"],
+            AZURE_SEARCH_KNOWLEDGE_BASE_NAME=search["knowledge_base"],
+        )
+        if "iq_reranker_threshold" in search:
+            environment["WORKSHOP_IQ_RERANKER_THRESHOLD"] = str(search["iq_reranker_threshold"])
+        protocol = "invocations"
     else:
         expected_profile = RuntimeProfile(
             kind="workflow",
@@ -242,9 +285,9 @@ if __name__ == "__main__":
     parser.add_argument("--language", choices=("en", "ko"), default="en")
     parser.add_argument(
         "--kind",
-        choices=("toolbox", "workflow", "runtime"),
+        choices=("toolbox", "workflow", "runtime", "matrix"),
         default="toolbox",
-        help="toolbox; workflow for the fixed CI Invocations profile; runtime for introductory local v2 Responses packages.",
+        help="toolbox; workflow for fixed CI; runtime for introductory local v2 Responses; matrix for sequential IQ/account-chat Invocations v1/v2.",
     )
     parser.add_argument("--package", type=Path, required=True)
     parser.add_argument("--directory", type=Path, required=True)

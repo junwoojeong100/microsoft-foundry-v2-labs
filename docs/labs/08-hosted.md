@@ -8,8 +8,8 @@
 
 > **Separate service and SDK status.** In this edition's dated compatibility snapshot,
 > Hosted Agent is a GA service, while `agent-framework-foundry-hosting` and some azd
-> capabilities are prerelease. The module is optional because of permissions, SDKs,
-> and costs, not because the entire service is Preview.
+> capabilities are prerelease. B requires only local packaging. Serving and deployment
+> are optional because of permissions, SDKs and costs, not because the entire service is Preview.
 
 ## Before you start
 
@@ -305,15 +305,16 @@ Durable approval, crash recovery, and external business actions are not enabled 
 
 Use Responses for conversation and a separate Invocations profile for strict model/case/run matrices.
 
-```bash
-python scripts/package_hosted.py --language en --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --protocol invocations
-```
+**Do not package here and repeat the same package command in the workbook.**
+Start at [the workbook's preparation](../reference/evaluation-workbook.md#matrix-setup).
+Its explicit profile is `workflow / sequential / iq / v1 → v2 / account-chat / invocations`.
 
 Only question, model key, case ID, and run ID are accepted.
 No reference answers, evaluator configuration, corpus paths, or arbitrary model/endpoint overrides enter the request.
 Actual deployment/service IDs, usage, and evidence hashes remain in the response.
 Follow the [evaluation workbook](../reference/evaluation-workbook.md); do not transfer scores between target paths.
-This IQ/Invocations profile is outside the introductory `--kind runtime` helper's scope; follow that workbook's own preparation, not a changed flag to bypass a profile rejection.
+The workbook uses the separate `--kind matrix` preparation path.
+The introductory `--kind runtime` and single-model CI `--kind workflow` contracts are unchanged.
 
 </details>
 
@@ -361,8 +362,8 @@ These are newly recorded English actions using the separate English prompt/data 
 ## Completion and cleanup
 
 Record packaging, local response, remote deployment, and remote evaluation separately.
-Sessions may be reused and accumulate compute cost. Inspect `azd ai agent sessions list --cwd "$HOSTED_DIRECTORY"`
-and stop only your sessions using [Cleanup](../reference/cleanup.md).
+Sessions may be reused and accumulate compute cost. Use the explicitly scoped
+[Hosted cleanup steps](../reference/cleanup.md#hosted-sessions) for your own sessions.
 Do not apply `azd down` indiscriminately to every environment.
 
 Next: A: [skip to Lab 09](09-operations.md#path-a) · B → [Lab 09](09-operations.md#path-b)

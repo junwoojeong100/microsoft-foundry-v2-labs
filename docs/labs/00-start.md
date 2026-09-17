@@ -8,7 +8,7 @@
 
 ## Before you start
 
-**This pass:** Read the setup card and download the learner ZIP. A uses the browser; B also completes environment setup.
+**This pass:** Read the setup card. A uses the browser and learner ZIP; B uses the source repository and its included notes.
 
 **Need:** Your own account, prepared project and model; B additionally needs Python 3.13 and a terminal.
 
@@ -51,11 +51,11 @@ prevent translated datasets from being presented as the same-input experiment.
 2. Sign in with the instructor-specified **Microsoft Entra account and directory (tenant)**.
    Personal Microsoft, GitHub, and Azure work-account sign-ins are different.
 3. Select the training project, not a similarly named production project.
-4. Fill the setup section of the learner ZIP's `session-notes.txt` using the rows below. Do not post whole screens or personal information in shared chat.
-5. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip).
+4. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip).
    Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
    In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal;
    you will not write Python or build a portal workflow.
+5. Fill the setup section of the ZIP's `session-notes.txt` using the rows below. Do not post whole screens or personal information in shared chat.
 
 
 **What to check:** If the project picker is hard to use, choose **View all resources**,
@@ -169,7 +169,7 @@ python -m pip install -e ".[cloud,agents]"
 ```
 
 Versions are pinned in `pyproject.toml`. Do not add the entire `agent-framework`
-metapackage. Add `.[hosted]` only for that lab. Never bypass download errors by
+metapackage. Add `.[hosted]` only for [selected Hosted/Toolbox SDK work](extensions/developer-toolkit.md#hosted-sdk), not for B's package-only Lab 08. Never bypass download errors by
 disabling certificate validation or using an untrusted mirror.
 
 In each new terminal, return to the repository root and reactivate the venv.

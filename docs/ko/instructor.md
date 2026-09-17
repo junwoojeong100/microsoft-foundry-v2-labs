@@ -22,7 +22,8 @@ SDK·가상환경·학습자 계정의 모델 호출 권한을 미리 확인합�
 
 영어·한국어는 ID·날짜·금액·정답 기준이 동등한 **별도 동결 언어 번들**입니다.
 영어 명령은 `--language en`을 명시하며 서로를 자동 대체하지 않습니다.
-학습자에게 정답 레코드나 JSON 조립 과제 대신 [준비 카드·완성된 ZIP](setup.md)을 전달합니다.
+학습자에게 [준비 카드](setup.md)를 전달합니다. A는 학습자 ZIP, B는 소스 복사본을 사용하며
+정답 레코드나 JSON 조립 과제를 주지 않습니다.
 완성 지침·TXT 원문 6개·질문 전용 파일·빈 평가/검토/운영 양식이 있습니다.
 B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록 양식을 준비하므로 브라우저 ZIP을 추가로 받을 필요가 없습니다.
 [언어 계보](reference/languages.md)는 유지합니다.
@@ -101,10 +102,10 @@ Seed한 prefix만 주거나 다른 조의 ledger를 배포하지 않습니다.
 
 문서/코드 버전을 고정한 뒤 새 폴더에서 진행합니다.
 Hosted 초기화는 상위 `azure.yaml`을 찾을 수 있으므로 기존 azd 프로젝트 바깥의 독립된 폴더를 사용합니다.
-먼저 Lab 00 B의 `.env`·학습자 로그인을 완료하고 승인된 실습 값으로만 아래를 실행합니다.
+먼저 Lab 00 B의 `.env`·가상환경·학습자 로그인을 완료합니다.
+준비한 가상환경을 다시 만들지 않고 사용하며 승인된 실습 값으로 블록 하나씩 실행합니다.
 
 ```bash
-python3.13 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]"
 python -m pip check
@@ -113,7 +114,17 @@ python -m unittest discover -s tests -t . -v
 python -m unittest discover -s tests_sdk -t . -v
 python scripts/check_docs.py
 python scripts/workshop.py doctor
+```
+
+로컬 검사가 모두 통과한 뒤 읽기 전용 cloud 사전 확인을 실행합니다.
+
+```bash
 python scripts/workshop.py doctor --cloud
+```
+
+사전 확인과 추론 비용 승인 후 명령별 결과를 확인하며 다음 요청을 실행합니다.
+
+```bash
 python scripts/workshop.py model --question "이 응답은 합성 워크숍 연결 확인입니다. 한국어로 짧게 답하세요."
 python scripts/workshop.py answer --prompt v2 --retrieval local
 python scripts/workshop.py workflow --pattern sequential
@@ -145,8 +156,11 @@ python scripts/workshop.py retrieve --provider iq
 
 ### 실제 실행 기록
 
+리허설마다 새 폴더를 사용합니다. 재실행은 이전 환경 기록을 덮어쓰지 않고 멈춥니다.
+
 ```bash
-mkdir -p outputs/instructor
+mkdir -p outputs &&
+mkdir outputs/instructor &&
 python -m pip freeze > outputs/instructor/environment.txt
 ```
 
@@ -208,11 +222,12 @@ native 실행/품질, 실제 trace export, 사용자 검토, 세션/비용 정�
 
 ### 촬영과 언어 갱신 순서
 
-다음 미디어 갱신도 **한국어 우선** 순서를 따릅니다.
-한국어 새 실습 실행·캡처/녹화 → 한국어 오류/설명 보완 → 영어 번역/보강 →
-영어 캡처/녹화 → 최종 문서/명령 검사를 순서대로 수행합니다.
-현재 두 언어의 자료·촬영본이 있으며 영문 유예 목록은 비어 있습니다.
-향후 유예가 생기면 파일·해시를 `docs/localization.json`에 기록하고 영어 페이지에 경고를 유지합니다.
+과거의 국문 우선·영문 우선 체크리스트 대신 사용자의 현재 제작 순서와
+[`docs/localization.json`](../localization.json)의 활성 `source_language`를 따릅니다.
+원본 언어의 가이드를 먼저 보완·검사하고 그 뒤 대응 번역을 갱신합니다.
+번역을 미룬다면 대상 페이지에 경고를 표시하고 양쪽 파일의 정확한 hash를 기록합니다.
+새 녹화는 별도 승인된 실제 실행과 언어별 독립 근거가 필요합니다.
+가이드만 고치는 작업이 새 녹화를 요구하거나 검증한 것은 아닙니다.
 이전 미디어는 두 새 언어 세트가 모두 검증된 뒤에만 교체/삭제합니다.
 원본 평가·실패·데이터 계보와 최종 자료의 재현에 필요한 실행 코드는 유지합니다.
 

@@ -4,40 +4,61 @@
 
 **Stop only your own resources and verify their state. Never delete a shared project/resource group to finish a lab.**
 
+**A needs no terminal here.** Use your existing `operations-checklist.txt` and the ownership checks below.
+**B reuses Lab 09's inventory.** Expand a command section only for an asset you actually used.
+An owner-managed or pending authorized cleanup must name its owner and remaining cost; it is not a claim that deletion occurred.
+
 ## 1. Inventory before changing anything
+
+<details>
+<summary>Optional local inventory command — B only if you need to print it again</summary>
 
 ```bash
 python scripts/workshop.py --language en cleanup-plan
 ```
 
+</details>
+
 This prints an inventory/guide, not a deletion command.
 Record the subscription, project, prefix, agent/version/session IDs, model deployments, Search objects, and logging/storage ownership.
 Unknown ownership is a reason to stop, not to widen the deletion scope.
 
+<a id="hosted-sessions"></a>
+
 ## 2. Hosted compute and persistent state
 
+<details>
+<summary>Only if you ran a local server or Hosted agent — otherwise skip</summary>
+
 Skip this section if you did not run a local server or Hosted agent. Otherwise stop your own `serve` with `Ctrl+C` in its terminal.
-From the same azd project folder, list the selected agent's sessions:
+From the repository terminal, restore the **standalone azd directory and service name** from your notes.
+Do not run these commands against an unrelated `azure.yaml`.
 
 ```bash
-azd ai agent sessions list --limit 10
+printf 'Standalone Hosted directory used for this agent: '
+read -r HOSTED_DIRECTORY
+printf 'Owned Hosted agent service name: '
+read -r HOSTED_AGENT_NAME
+azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalone directory}" --agent-name "${HOSTED_AGENT_NAME:?Use the owned service name}" --limit 10
 ```
 
-Follow any continuation token. With multiple agents, select the actual `--agent-name`.
+Follow any continuation token with `--pagination-token` on that same scoped list command.
 If your session is already idle/stopped, record that state without another stop request.
 For your own **active** session only:
 
 ```bash
 printf 'Owned active session ID from the list: '
 read -r OWNED_SESSION_ID
-azd ai agent sessions stop "$OWNED_SESSION_ID"
-azd ai agent sessions list --limit 10
+azd ai agent sessions stop "${OWNED_SESSION_ID:?Use the owned active session ID}" --cwd "${HOSTED_DIRECTORY:?Use the recorded standalone directory}" --agent-name "${HOSTED_AGENT_NAME:?Use the owned service name}" &&
+azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalone directory}" --agent-name "${HOSTED_AGENT_NAME:?Use the owned service name}" --limit 10
 ```
 
 Use stop when persistent files must remain. Deleting a session removes compute and persistent filesystem state.
 Inspect the selected agent/session and stop only IDs you created.
 An already-idle session is verified as idle without submitting another conflicting stop request.
 Never treat an unverified stop request as a confirmed stopped state.
+
+</details>
 
 ## 3. Search, models, and other Azure resources
 
@@ -61,7 +82,15 @@ all responses/errors, trace-query receipts, and review records.
 Do not delete failed rows to improve a score.
 Holdout remains final-acceptance material, not a regression source.
 
+**Learner cleanup handoff is ready when** `operations-checklist.txt` identifies each used asset,
+its verified state or pending authorized owner, preserved evidence and residual costs.
+Mark unused local/Hosted services **not run**, not “deleted.”
+Return to [Lab 11](../labs/11-capstone.md); maintainer media work below is not part of learner completion.
+
 ## Hosted matrix sessions
+
+<details>
+<summary>Only for existing matrix runs — not A or introductory B</summary>
 
 Only run this block if these actual matrix labels exist; A and introductory B skip it.
 
@@ -77,7 +106,12 @@ python scripts/workshop.py --language en benchmark stop-session --label wf-final
 Cleanup receipts are separate from immutable manifests, so candidate and regression hashes remain valid.
 Inspect separately created smoke sessions using their own raw HTTP/azd records.
 
+</details>
+
 ## 5. Local outputs and final media
+
+<details>
+<summary>Maintainers only, after a separately authorized media replacement — learners preserve the repository's data and videos</summary>
 
 Verify both new language sets before replacing older screenshots/videos.
 Use each `docs/assets/refresh-20260915-ko/` and `refresh-20260915-en/` media manifest,
@@ -102,3 +136,5 @@ Production tooling environments and private authentication/capture helpers do no
 
 This cleanup concerns current files and guide references, not rewriting Git history or claiming unverified permanent deletion from external attachment storage.
 Never recursively delete a repository root, home directory, or whole session folder.
+
+</details>

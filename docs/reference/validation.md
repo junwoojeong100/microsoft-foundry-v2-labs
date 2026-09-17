@@ -6,6 +6,41 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="whole-guide-review"></a>
+
+## Whole-guide straightforwardness review — September 17, 2026
+
+Reviewed **all 12 core labs and 16 extension labs in both languages (56 lab pages)**,
+alongside the entry pages, route/setup/instructor guidance and executable reference workbooks.
+The review checks whether a learner can identify the next action, its prerequisites,
+the expected artifact, the stopping point and recovery without guessing.
+It extends beyond the prepared A/B-only assessment below; it does not assign a new usability score.
+
+| Remaining gap | Change |
+|---|---|
+| B setup still appeared to require the browser ZIP and optional hosting checks | Separate A/B material acquisition; make the full SDK check a selected-module prerequisite |
+| C looked like a chain of every capability | A complete module catalog, explicit first-pass ranges, optional promotion/OpenAPI/crash/Router branches and handoff links |
+| Hosted commands depended on whichever project the shell found | Explicit, guarded directory/service/version values in Toolbox, safety, matrix and session cleanup |
+| A second remote smoke attempt could overwrite the first stream | New evidence directory, preserved raw output and failure-aware invocation/verification |
+| Advanced IQ setup still required template initialization and manual YAML merging | Separate `--kind matrix` package preparation; preserve both V1/V2 source copies and exact runtime settings |
+| Local matrix smoke still selected the source project's azd state | Explicit local `--azd-directory`, with evidence retained under the source copy |
+| Default matrix commands assumed an optional reviewed regression existed | No-regression default, explicit opt-in for consumed reviews, and a visible per-model dev gate before holdout |
+| Learner cleanup and language order included outdated maintainer instructions | Browser-compatible cleanup handoff, collapsed media maintenance and the active localization order |
+
+**Local acceptance:** 224 offline tests passed on each of Python 3.13 and 3.14.
+Ruff 0.16.6 lint/format, Python compilation, both deterministic learner bundles and documentation checks passed:
+61 language pairs, 332 workshop CLI examples and no pending translations.
+All guide Bash blocks are syntax-checked without cloud execution; the selected failure-path tests use explicit local stubs.
+
+The associated checks exercise actual local package/manifest generation, invalid-scope rejection,
+command blocks with stubbed azd failures, preservation of existing output bytes and language/command parity.
+The matrix helper retains the existing `runtime`, Toolbox and CI contracts; it does not provision, deploy,
+grant roles, change model/provider, or install a runtime.
+Canonical prompt/dataset/corpus/fixture assets and existing media are unchanged.
+
+**Evidence boundary:** no new live Azure/model/judge call, deployment, role assignment, recording or novice pilot.
+The historical 95/100 below remains an initial editorial self-assessment, not a completion rate or a rating of the new advanced setup.
+
 <a id="follow-through-review"></a>
 
 ## Follow-through review — September 17, 2026

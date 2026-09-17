@@ -12,6 +12,9 @@ project/model permissions, and approval for memory writes, model use and owned c
 the answer uses actual retrieved memory, and owned deletion is verified.
 **If blocked:** retain the error; do not switch scope, account, model or memory provider.
 
+**First pass:** steps 1–5 within the one-hour retention window. Keep the returned `memory_id`
+in the same terminal for update/forget; automatic agent memory is not part of this pass.
+
 ## 1. Configure the existing embedding deployment
 
 Keep the project and answer deployment from your setup card.
@@ -126,6 +129,9 @@ The source questions, request/response evidence and ownership receipts remain.
 
 ## Optional: automatic agent memory is a different configuration
 
+<details>
+<summary>Reference only — do not enable automatic extraction to complete the API exercise</summary>
+
 Foundry's `memory_search_preview` tool can extract memories after conversations, with an update delay,
 and support direct remember/forget commands. A scope of `{{$userId}}` can use the caller identity or a trusted backend's `x-memory-user-id` header.
 Do not trust an arbitrary end user's header as an authorization boundary.
@@ -133,6 +139,8 @@ Do not trust an arbitrary end user's header as an authorization boundary.
 That agent-tool workflow needs separate extraction/retention tests and deletion checks for queued updates.
 The API-backed run above does not prove automatic extraction, native user authorization or permanent privacy erasure across every service.
 Keep memory out of the isolated dev/holdout benchmark unless it is a separately frozen experimental variable.
+
+</details>
 
 **Next:** [Routines](routines.md), [C module selection](../../paths/c-advanced.md), or [Lab 11](../11-capstone.md).
 [Official memory lifecycle, scopes and API shapes](https://learn.microsoft.com/azure/foundry/agents/how-to/memory-usage).

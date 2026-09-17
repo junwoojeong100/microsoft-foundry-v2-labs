@@ -100,7 +100,8 @@ the context manager cleans up the connection. Extra stdout logging can break MCP
 | Validate arguments and permissions directly | Also review server trust, authentication, and authorization |
 
 This MCP is a **local synthetic library**, not Microsoft Learn, Work IQ, or company MCP.
-Remote MCP/Toolbox belongs to [Lab 10](10-iq-extensions.md).
+For an executable managed-tool extension, use [Toolbox](extensions/toolbox.md).
+[Lab 10](10-iq-extensions.md) is the separate external-IQ design reference.
 Both tool paths receive the same answer schema and validate returned JSON.
 Inspect `decision`, `limit_krw`, and `citations`, not just fluent text.
 Do not repair invalid output and call it success.

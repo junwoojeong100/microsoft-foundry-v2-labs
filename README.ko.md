@@ -13,8 +13,9 @@
 | **A — Azure·agent가 처음** | 브라우저 조작과 준비된 MAF 터미널의 명령 한 번. Python 작성 없음 | 내 agent·6문항 평가표·workflow 검토·정리 인계 |
 | **[B — Python·API에 익숙함](docs/ko/paths/b-practitioner.md)** | SDK·도구·workflow·GA Search/IQ·통제된 평가·로컬 패키징 | 재현 가능한 실제 실행 기록. 원격 호스팅·cloud judge는 선택 |
 
-준비 카드에서 **작은 학습자 ZIP**과 빈 기록 양식을 받습니다.
-코드 터미널에 필요한 **소스 저장소 ZIP**은 다른 파일입니다.
+**A:** 준비 카드에서 작은 **학습자 ZIP**과 빈 기록 양식을 받습니다.
+**B:** **소스 저장소 ZIP**을 사용합니다. Lab 00에서 포함된 기록 양식을 복사하므로 ZIP을 추가로 받을 필요가 없습니다.
+학습자 ZIP에는 코드 환경이 들어 있지 않습니다.
 A의 Lab 05 터미널을 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)를 완료합니다.
 **준비 완료 후 A 4시간 / B 6시간**이며 계정·설치·권한·quota 대기는 별도입니다.
 Azure 권한이 없으면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 진행하고 cloud는 **미실행**으로 기록합니다.

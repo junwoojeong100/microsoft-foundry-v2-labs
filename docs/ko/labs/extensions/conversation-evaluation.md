@@ -9,6 +9,9 @@
 **완료:** 6개 턴과 2개 완전한 대화, 각 수준의 별도 native 결과가 있음.
 **중단:** 성공한 앞부분만 평가하지 않고 부분 결과·오류를 보존합니다.
 
+**첫 회차:** 1–6절 순서입니다. 두 평가 수준에 같은 수집 label을 사용합니다.
+새 target 대화에는 새 label이 필요하지만 저장된 judge job을 조회할 때는 바꾸지 않습니다.
+
 2026-09-16 기준 영문에서 실행한 결과는 [별도 결과 문서](../../edition-results.md)에 있습니다.
 국문은 국문 원문과 새 label로 실행합니다. 각 실행이 읽은 실제 evaluator catalog를 고정합니다.
 
@@ -51,6 +54,7 @@ python scripts/workshop.py --language ko conversations collect --label conversat
 명시적 history와 `store=False`를 사용하며 관리형 Memory Store나 Azure conversation 생성이라고 주장하지 않습니다.
 한 턴이 실패하면 같은 대화의 후속 턴은 blocked로 남깁니다.
 다른 독립 대화는 계속할 수 있지만 6행 분모를 줄이지 않습니다.
+Native 평가는 실제 수집이 완전해야 하며 성공한 일부만 평가하지 않습니다.
 
 ## 3. 로컬 업무 검사
 
@@ -85,6 +89,8 @@ python scripts/workshop.py --language ko conversations evaluate --label conversa
 
 턴·대화 결과와 업무 검사를 나란히 읽되 같은 단위의 점수처럼 비교하지 않습니다.
 오류나 누락된 대화는 점수를 좋게 만드는 이유가 될 수 없습니다.
+Timeout이면 같은 명령으로 저장된 평가 job의 조회를 재개합니다.
+새 target 대화를 만들거나 좋은 점수가 나올 때까지 평가를 반복하지 않습니다.
 
 <!-- edition-checkpoint:KP14-103-completed-native-report -->
 

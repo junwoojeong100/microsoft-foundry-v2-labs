@@ -6,7 +6,9 @@
 This first pass uses only the six bundled synthetic policies already seeded in Search.
 It does not connect Work IQ, company APIs, public web search or an arbitrary MCP server.
 
-**Need:** successful [Lab 06 Search](../06-knowledge.md), the same B virtual environment,
+**First pass:** steps 1–5, then step 7's handoff/cleanup. Step 6's default-version changes are optional.
+
+**Need:** successful [Lab 06 Search](../06-knowledge.md), the [Hosted/Toolbox SDK extra](developer-toolkit.md#hosted-sdk) in the same B environment,
 a prepared keyless Search project connection, and approval to create your own Toolbox.
 **Stop when:** one pinned MAF request has a real tool result, model response and version binding.
 **If blocked:** preserve the error and return to the prerequisite owner; never replace the provider.
@@ -138,6 +140,9 @@ Use a **new label** for every new request. Do not repeat a successful paid reque
 
 ## 6. Practice a controlled version change
 
+<details>
+<summary>Optional version exercise — not required after your first verified answer</summary>
+
 This creates a new version with a revised description while retaining the same tool configuration.
 The purpose is to learn version selection, not to claim a quality improvement.
 
@@ -151,7 +156,18 @@ Record the new returned version as `TOOLBOX_CANDIDATE`. Inspect/probe that versi
 printf 'New selected_version from add-version: '
 read -r TOOLBOX_CANDIDATE
 python scripts/workshop.py --language en toolbox probe --version "$TOOLBOX_CANDIDATE" --label toolbox-candidate-list
+```
+
+Continue only after the probe succeeds and the returned binding/tool list matches the candidate.
+After approval, change the default:
+
+```bash
 python scripts/workshop.py --language en toolbox select --version "$TOOLBOX_CANDIDATE" --confirm-update
+```
+
+Check the returned default version, then restore the original:
+
+```bash
 python scripts/workshop.py --language en toolbox select --version "$TOOLBOX_VERSION" --confirm-update
 ```
 
@@ -159,9 +175,12 @@ The last command is the explicit rollback to your original version.
 Both changes require approval and local ownership. No agent is redeployed by a Toolbox default change.
 A version-pinned run still points to the version it recorded, even when the consumer default changes.
 
+</details>
+
 ## 7. Handoff or cleanup
 
-If continuing to Tool Search/Skills, keep the owned Toolbox and its ledger.
+If continuing to Tool Search/Skills or Hosted Toolbox, keep the owned Toolbox and its ledger.
+Save the chosen version and next module in `session-notes.txt`; do not run cleanup first.
 If finishing, confirm no other approved agent depends on it, then delete only this owned Toolbox:
 
 ```bash

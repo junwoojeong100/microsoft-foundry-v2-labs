@@ -5,6 +5,10 @@
 **아래 명령은 모두 저장소 루트에서 실행합니다. `.env`를 shell로 `source`하지 않습니다.**
 전용 가상환경을 활성화하면 클라우드 명령의 SDK를 사용할 수 있습니다.
 
+**찾아보는 표이지 실행 순서가 아닙니다.** `python scripts/...`가 없는 행은 축약형이며
+workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
+`...`를 그대로 복사하거나 모든 행을 실행하지 말고 선택한 실습의 완전한 블록·승인 경계를 따릅니다.
+
 | 명령 | Azure / 부작용 | 상세 |
 |---|---|---|
 | `python scripts/workshop.py doctor` | 없음 | Python·합성 데이터 검사 |
@@ -38,6 +42,7 @@
 | `python scripts/build_learner_materials.py --write` | 두 로컬 학습자 번들 재생성 | 관리자용 생성. 모델·holdout 사용 없음 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
 | `python scripts/prepare_hosted_azd.py --language ko --kind runtime ...` | 패키지를 검증한 로컬 프로젝트. `--initialize-env`는 로컬 azd 상태 생성/재조회도 수행 | 입문 local/v2/Responses 패키지만. Provision·배포·역할 부여 없음 |
+| `python scripts/prepare_hosted_azd.py --language ko --kind matrix ...` | 패키지를 검증한 로컬 IQ matrix 프로젝트와 선택 azd 상태 | 순차 IQ/account-chat/Invocations v1/v2·정확한 모델 목록/Search 값. 배포 없음 |
 | `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 영어 기본·Lab 00–11 챕터 이동. `--edition ko`로 별도 국문 새 촬영본 선택. Azure 호출·업로드 없음 |
 
 표에서 생략한 옵션은 실행용 완전한 예제가 아닙니다.
@@ -47,6 +52,24 @@
 대화형 `model`·`answer`·`maf`·`workflow`·`retrieve`는 JSON을 출력합니다.
 [B 기록 폴더](../labs/00-start.md#prepare-notes)에 출력 전체를 저장하며 batch는 이미 `outputs/<label>/`를 작성합니다.
 필수 값을 포함한 독립 Hosted 준비 명령 전체는 [Lab 08](../labs/08-hosted.md)을 사용합니다.
+
+<a id="saved-results"></a>
+
+## 저장 결과 찾기
+
+모든 모듈을 `outputs/<label>/`에서 찾지 말고 명령이 출력한 폴더를 사용합니다.
+기존 실행·실패는 보존하며 새 target 요청에는 새 label이 필요합니다.
+
+| 실행 종류 | 소스 저장소 아래 위치 |
+|---|---|
+| 입문 `demo` / `collect` | `outputs/<label>/` |
+| `benchmark smoke` | 로컬 azd가 다른 폴더여도 `outputs/smoke/<label>/` |
+| `benchmark collect` | `outputs/benchmarks/<label>/` |
+| `iq-chat ask` | `outputs/iq-chat/<label>/` |
+| Toolbox `probe` / `query` / `ask` | `outputs/toolbox-runs/<label>/`. 소유권은 `outputs/toolboxes/<name>/` |
+| `conversations collect` | `outputs/conversations/<label>/`. 두 native 평가도 같은 수집 폴더 |
+| `memory recall` | `outputs/memory-runs/<label>/`. Store 소유권은 별도 |
+| Code Interpreter / OpenAPI / A2A | 각각 `outputs/code-interpreter/<label>/`, `outputs/openapi-runs/<label>/`, `outputs/a2a-runs/<label>/` |
 
 ## 한국어 통합 개정의 추가 명령
 
@@ -60,6 +83,7 @@
 | `retrieve --provider hybrid` | 실제 embedding·Search 조회 | text + vector query |
 | `benchmark plan ...` | 없음 | 명시적 모델 목록과 호출량 계획 |
 | `benchmark smoke ... --confirm-cost` | 실제 local/remote 모델 호출 | exact runtime contract와 응답 검사 |
+| `benchmark smoke --local --azd-directory ...` | 로컬 host + 유료 모델 | 준비한 azd 폴더를 명시적으로 선택하며 근거는 소스 복사본에 저장 |
 | `benchmark collect ... --confirm-cost` | 원격 session + 전체 matrix | 모델×case, 오류/원문/계보 보존 |
 | `benchmark evaluate --label LABEL --confirm-cost` | 실제 native judge | frozen responses의 평가 |
 | `benchmark evaluate ... --reference BASELINE` | 위와 같음 | 같은 evaluator/version/judge/threshold |

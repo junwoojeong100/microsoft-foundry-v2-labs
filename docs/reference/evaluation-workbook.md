@@ -8,6 +8,11 @@ Counts below define the experiment, not a promise that every model will pass.
 English uses the separately frozen English prompt/corpus/dev/calibration/holdout bundle.
 Original Korean assets remain unchanged; do not compare the two language datasets as an isolated prompt experiment.
 
+**First pass:** sequential workflow, GA IQ, account Chat Completions, Invocations, and the explicit prepared model list.
+Follow steps 2–10 once. The default commands do **not** assume a reviewed regression exists.
+Run one block, inspect its result, then continue; do not paste the entire workbook into a terminal.
+Keep source commands at the repository root. Standalone azd directories are selected explicitly, not by changing the shell's folder.
+
 ## 1. What this adds to the introductory evaluation
 
 The original `collect/evaluate` path evaluates project Responses outputs.
@@ -42,11 +47,16 @@ flowchart LR
 | Failures | HTTP, JSON, and contract failures remain rows. Never evaluate only the successful prefix of an incomplete run |
 | Acceptance | Execution, business correctness, native quality, traces, and calibration are separate. CLI success is not production approval |
 
+<a id="matrix-setup"></a>
+
 ## 2. Instructor preparation and explicit model selection
 
 Use an independent new copy of v2, **not a subdirectory of another azd project**.
 Do not silently inherit a previous agent version or `.azure` environment.
 Complete [Lab 00](../labs/00-start.md) and [Lab 06](../labs/06-knowledge.md) first.
+Complete the selected [Hosted SDK](../labs/extensions/developer-toolkit.md#hosted-sdk) and
+[azd checks](../labs/extensions/developer-toolkit.md#azd-check) too; B's package-only step does not install them.
+Keep this source copy's synthetic Search ownership ledger.
 
 Enter verified values in `.env`. If four deployments are not available, explicitly choose a smaller list and record its actual denominator.
 The collector never substitutes another model after an error.
@@ -91,37 +101,42 @@ The package is `.build/workflow-sequential-iq-v1-account-chat-invocations-en/`.
 Review `runtime-profile.json` and every file hash in `package-manifest.json`.
 Evaluation data, reference answers, calibration, and personal `.env` files are excluded.
 
-**The following commands perform real initialization/deployment and require approval.**
-Check the [CLI compatibility gate](versions.md) first.
+Prepare a **new empty absolute directory outside the source repository and all existing azd projects**.
+The helper copies the verified package, writes the complete one-agent manifest and initializes local azd state.
+It does not provision, deploy or assign roles. No template selection or manual YAML/env merge is required.
 
 ```bash
-azd ai agent init --src ./.build/workflow-sequential-iq-v1-account-chat-invocations-en --agent-name "<unique-mfv2-agent-name>" --project-id "<existing-project-arm-id>" --model-deployment "<model-a-deployment>" --deploy-mode code --runtime python_3_13 --entry-point main.py --protocol invocations
+printf 'Absolute V1 package path printed above: '
+read -r HOSTED_PACKAGE
+printf 'New empty absolute V1 azd directory: '
+read -r HOSTED_DIRECTORY
+printf 'Same agent name as WORKSHOP_HOSTED_AGENT_NAME in .env: '
+read -r HOSTED_AGENT_NAME
+printf 'Actual existing project ARM ID from the owner: '
+read -r PROJECT_ARM_ID
+printf 'Actual existing project location code: '
+read -r PROJECT_LOCATION
+python scripts/prepare_hosted_azd.py --language en --kind matrix \
+  --package "$HOSTED_PACKAGE" --directory "$HOSTED_DIRECTORY" \
+  --agent-name "$HOSTED_AGENT_NAME" --initialize-env \
+  --project-id "$PROJECT_ARM_ID" --location "$PROJECT_LOCATION"
 ```
 
-Inspect the generated service's `project`, `codeConfiguration`, and `protocols`.
-Use the [environment reference](../../examples/hosted/azure-workflow.yaml.example) to complete **only that service's environment**.
-Preserve its project connection and service name.
-
-Required runtime values are the project/model/account endpoints, model-map JSON, Search endpoint/index/source/base, prefix,
-`WORKSHOP_AUTH_MODE=managed-identity`, and output-token limit.
-The local `.env` and azd env do not synchronize automatically.
-
-```bash
-azd env set AZURE_AI_PROJECT_ENDPOINT "<existing-project-endpoint>"
-azd env set AZURE_AI_MODEL_DEPLOYMENT_NAME "<model-a-deployment>"
-azd env set AZURE_OPENAI_ENDPOINT "https://<same-foundry-account>.openai.azure.com"
-azd env set WORKSHOP_MODEL_DEPLOYMENTS_JSON '{"a":"<model-a-deployment>","b":"<model-b-deployment>","c":"<model-c-deployment>","d":"<model-d-deployment>"}'
-azd env set WORKSHOP_PREFIX "<your-mfv2-prefix>"
-azd env set AZURE_SEARCH_ENDPOINT "https://<existing-search>.search.windows.net"
-azd env set AZURE_SEARCH_INDEX_NAME "<your-policy-index>"
-azd env set AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME "<your-source>"
-azd env set AZURE_SEARCH_KNOWLEDGE_BASE_NAME "<your-kb>"
-azd env set WORKSHOP_IQ_RERANKER_THRESHOLD "0"
-```
+Open the returned `azure.yaml`. Verify one existing project, one intended agent, the copied package,
+Python 3.13/`main.py`, and Invocations 1.0.0.
+Its `env` must match `.env` for the project/account endpoints, model map, Search index/source/base,
+reranker filter and output limit; remote authentication is `managed-identity`.
+There must be no model-deployment list, evaluator settings, secrets or reference-answer files.
+Save both paths, the service name and the actual project values in `session-notes.txt`.
 
 Prepare permissions separately for the local user and **deployed agent instance identity**.
 Account Chat Completions needs account inference access; IQ needs Search read access.
 The collector does not create roles or change the default subscription.
+If preparation fails, preserve the directory/error and resolve it before using a new empty directory.
+`--kind matrix` accepts only this sequential IQ/account-chat/Invocations v1/v2 profile.
+The introductory `runtime` and single-model CI `workflow` presets are not substitutes.
+**September 17 preparation revision:** generated manifests and scoped commands are checked locally;
+the September 15 recordings do not verify this new setup sequence.
 
 ## 4. Keep local and remote smoke tests separate
 
@@ -132,11 +147,13 @@ source .venv/bin/activate
 python scripts/workshop.py --language en serve --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --protocol invocations
 ```
 
-Terminal B:
+Terminal B, at the same source root with `.venv` active:
 
 ```bash
-curl --fail http://127.0.0.1:8088/readiness
-python scripts/workshop.py --language en benchmark smoke --local --label smoke-v1-local --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --case D01 --model-key a --confirm-cost
+printf 'Standalone V1 azd directory from step 3: '
+read -r HOSTED_DIRECTORY
+curl --fail http://127.0.0.1:8088/readiness &&
+python scripts/workshop.py --language en benchmark smoke --local --azd-directory "${HOSTED_DIRECTORY:?Use the prepared V1 directory}" --label smoke-v1-local --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --case D01 --model-key a --confirm-cost
 ```
 
 Readiness is `{"status":"healthy"}`. It is not inference success.
@@ -144,16 +161,19 @@ Inspect the actual answer, model/response IDs, and context hash.
 The raw azd HTTP parser checks UTF-8 **byte lengths** and preserves only recognized update notices separately.
 It never extracts an arbitrary success-looking JSON object after an error.
 
-Stop terminal A with `Ctrl+C`, then deploy only the approved service.
-If there are multiple services, explicitly select the intended one.
+Stop terminal A with `Ctrl+C`, then return to that terminal with its step-3 values.
+After deployment/cost approval, deploy only the named service in the standalone directory:
 
 ```bash
-azd deploy
-azd ai agent show --output json
+azd deploy "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
 Copy the actual name, numeric version, and **complete Invocations endpoint** into the three
 `WORKSHOP_HOSTED_AGENT_*` variables. `latest`, guessed URLs, and other projects are rejected.
+Stop on deployment failure rather than using an old active version.
+The local smoke output remains in `outputs/smoke/smoke-v1-local/` in the source copy.
+Remote smoke uses the exact endpoint/version from `.env`; it does not need `--azd-directory`.
 
 ```bash
 python scripts/workshop.py --language en benchmark smoke --label smoke-v1-remote --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --case D01 --model-key a --confirm-cost
@@ -163,8 +183,24 @@ python scripts/workshop.py --language en benchmark smoke --label smoke-v1-remote
 
 ```bash
 python scripts/workshop.py --language en benchmark plan --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat
+```
+
+Confirm the planned model list, rows and cost scope, then collect:
+
+```bash
 python scripts/workshop.py --language en benchmark collect --label wf-baseline --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --concurrency 1 --confirm-cost
+```
+
+Inspect the complete collection and its errors before paying for a judge job.
+Do not evaluate a partial collection or ignore a nonzero collection exit:
+
+```bash
 python scripts/workshop.py --language en benchmark evaluate --label wf-baseline --confirm-cost
+```
+
+After that saved job completes, render the local report:
+
+```bash
 python scripts/workshop.py --language en benchmark report --label wf-baseline
 ```
 
@@ -196,16 +232,27 @@ It scopes `requests` by agent, time, and exact trace IDs.
 Missing, duplicate, and unrelated traces cannot pass.
 Recording an ID and verifying its exported telemetry are different evidence.
 
-Run the following only after reviewing an **actual dev row**. `a-D06` is an example identifier.
-If the baseline is all-pass, do not manufacture a failure; record that fact and skip regression promotion.
+<details>
+<summary>Optional reviewed regression — skip for an all-pass baseline; never invent a failed row</summary>
+
+Run this only after a person reviews an **actual failed dev row**.
+Enter its `model-key-case-ID`, your reviewer label and a specific reason; do not copy another person's review.
 
 ```bash
-python scripts/workshop.py --language en benchmark regression --label wf-baseline --row-id a-D06 --regression-label approval-reviewed --reviewer team-01 --reason "I compared the actual response with the original approval policy and will recheck the omitted decision condition in the next dev run." --confirm-review
+printf 'Actual failed dev row ID: '
+read -r FAILED_ROW
+printf 'Your reviewer label: '
+read -r REVIEWER
+printf 'Your specific review reason (at least 15 characters): '
+read -r REVIEW_REASON
+python scripts/workshop.py --language en benchmark regression --label wf-baseline --row-id "$FAILED_ROW" --regression-label approval-reviewed --reviewer "$REVIEWER" --reason "$REVIEW_REASON" --confirm-review
 ```
 
 Preserve the original question/reference answer and source response/trace/context hashes.
 New questions or changed reference answers need a separate dataset version.
 The reviewer field is a CLI record, not Entra-verified identity or production approval.
+
+</details>
 
 ## 7. Run V2 on the same dev set
 
@@ -215,27 +262,57 @@ Compare v1/v2 and explain the proposed change. Do not require an unrelated modif
 python scripts/package_hosted.py --language en --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --protocol invocations
 ```
 
-Keep the **same service name** and change only its package path to
-`.build/workflow-sequential-iq-v2-account-chat-invocations-en`.
-Do not repeatedly initialize the project and accidentally create a `-2` agent.
+Keep the **same remote agent/service name**, project, model map, retrieval and code.
+Prepare the returned V2 package in a **new empty standalone directory**, preserving the V1 directory and package.
+Do not edit the copied V1 package or repeatedly initialize an agent with a `-2` name.
 
 ```bash
-azd deploy
-azd ai agent show --output json
+printf 'Absolute V2 package path printed above: '
+read -r HOSTED_PACKAGE
+printf 'New empty absolute V2 azd directory: '
+read -r HOSTED_DIRECTORY
+python scripts/prepare_hosted_azd.py --language en --kind matrix \
+  --package "$HOSTED_PACKAGE" --directory "$HOSTED_DIRECTORY" \
+  --agent-name "${HOSTED_AGENT_NAME:?Restore the same agent name from step 3}" --initialize-env \
+  --project-id "${PROJECT_ARM_ID:?Restore the actual project ID from step 3}" \
+  --location "${PROJECT_LOCATION:?Restore the project location from step 3}"
 ```
 
-Record the actual new version in `.env`, then:
+Inspect the same runtime settings and V2 profile before the separately approved deployment:
 
 ```bash
-python scripts/workshop.py --language en benchmark collect --label wf-candidate --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --regressions approval-reviewed --confirm-cost
-python scripts/workshop.py --language en benchmark evaluate --label wf-candidate --reference wf-baseline --confirm-cost
+azd deploy "${HOSTED_AGENT_NAME:?Use the same agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared V2 directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared V2 directory}" --output json
+```
+
+Record the actual new version/endpoint in `.env`.
+The next command has no regression dependency by default. **Only if step 6 produced your reviewed record,**
+add `--regressions approval-reviewed` before running it; use your actual label if different.
+
+```bash
+python scripts/workshop.py --language en benchmark collect --label wf-candidate --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --confirm-cost
+```
+
+Inspect all rows and compare the frozen configuration locally before the next paid judge job:
+
+```bash
 python scripts/workshop.py --language en benchmark compare --baseline wf-baseline --candidate wf-candidate
+```
+
+After the comparison accepts the declared change:
+
+```bash
+python scripts/workshop.py --language en benchmark evaluate --label wf-candidate --reference wf-baseline --confirm-cost
+```
+
+Read the completed results, then render/report and inspect the same traces:
+
+```bash
 python scripts/workshop.py --language en benchmark report --label wf-candidate
 python scripts/workshop.py --language en benchmark monitor --label wf-candidate
 ```
 
-If promotion was skipped, omit `--regressions approval-reviewed`.
-That option actually carries the reviewed source lineage into the next dev rows.
+The optional `--regressions` carries the reviewed source lineage into the next dev rows.
 Creating a file alone is not proof that it was consumed.
 Native `--reference` reuses evaluator/version/judge/threshold; changed criteria are rejected.
 
@@ -251,18 +328,34 @@ If relevance penalizes a correct abstention, retain the actual score and review 
 
 ## 9. Freeze the candidate before final holdout
 
+**Gate:** in `outputs/benchmarks/wf-candidate/business-evaluation.json`, every model selected
+for final acceptance must have `models.<key>.business_gate_passed: true` with all six dev rows and no errors.
+The comparison must accept the frozen configuration. Otherwise keep holdout closed and
+[hand off the incomplete evidence](../labs/11-capstone.md#incomplete-handoff); still clean up owned sessions in step 10.
+
 Stop changing model, prompt, retrieval, code, agent version, and concurrency before proceeding.
 Four frozen models require 16 rows. To accept a subset, select it **using dev results** with `--model-key a`.
 Never select only favorable models after inspecting holdout.
 
 ```bash
 python scripts/workshop.py --language en benchmark collect --split holdout --label wf-final --candidate wf-candidate --unlock-holdout --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --confirm-cost
-python scripts/workshop.py --language en benchmark evaluate --label wf-final --reference wf-baseline --confirm-cost
-python scripts/workshop.py --language en benchmark monitor --label wf-final
-python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --require-regressions --calibration judge-calibration
 ```
 
-If no regression was legitimately promoted, omit `--require-regressions` and record why.
+Keep every final row, including failures. Only a complete collection can enter native evaluation:
+
+```bash
+python scripts/workshop.py --language en benchmark evaluate --label wf-final --reference wf-baseline --confirm-cost
+```
+
+After the saved evaluation completes:
+
+```bash
+python scripts/workshop.py --language en benchmark monitor --label wf-final
+python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
+```
+
+Add `--require-regressions` only when the candidate actually consumed the reviewed regression;
+otherwise retain the all-pass/no-promotion reason. Do not create a regression just to satisfy an example flag.
 If policy requires every native quality check to pass, decide **before the experiment** to require `--require-native-pass`.
 The default distinguishes valid native execution/lineage from native quality.
 `review-native-findings` is neither automatic approval nor a changed score.
@@ -271,6 +364,8 @@ The bundled holdout is already exposed teaching material. It demonstrates final 
 Never use it for prompt development or regression harvesting.
 
 ## 10. Stop only owned execution resources
+
+Run only the lines whose actual collection/session exists; blocked work may have no candidate or final session.
 
 ```bash
 python scripts/workshop.py --language en benchmark stop-session --label wf-baseline

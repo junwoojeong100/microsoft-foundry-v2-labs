@@ -14,8 +14,10 @@ a prepared MAF environment; practitioners use Python. Both solve the same
 Use the ready files rather than assembling JSON documents or copying reference-answer records.
 Advanced sections and recordings are optional reading, not extra steps required between labs.
 
-Keep the extracted ZIP as your personal evidence folder: fill `session-notes.txt`,
-`workflow-review.txt`, `operations-checklist.txt` and a copy of `assessment.csv` as you go.
+A keeps the extracted learner ZIP as a personal evidence folder. B uses
+[the source copy's notes directory](labs/00-start.md#prepare-notes), without a second ZIP.
+Fill `session-notes.txt`, `workflow-review.txt` and `operations-checklist.txt` as you go;
+A also fills a copy of `assessment.csv`.
 Do not put credentials or your filled files in the repository's generated data directory.
 
 <details>

@@ -5,20 +5,49 @@
 **B 준비.** 기준 경로는 저장소의 Python CLI입니다.
 Foundry Toolkit은 선택 편집기 UI이며 다른 구현이나 모든 최신 SDK 설치의 이유가 아닙니다.
 
+**첫 회차:** 기본 B는 1절 후 자기 경로로 돌아갑니다. 아래 Hosted SDK·azd·편집기 확장은 별도로 선택한 모듈에만 필요합니다.
+
 ## 1. 실제 Python과 프로젝트
 
 [Lab 00 B](../00-start.md#b-코드--한-폴더-한-환경) 이후 VS Code에서 저장소를 열고
 **Python: Select Interpreter**로 같은 `.venv`를 선택합니다. 새 터미널도 같은 루트와 환경을 사용합니다.
 
 ```bash
+source .venv/bin/activate
 python --version
 python -m pip check
-python scripts/check_sdk.py
 python scripts/workshop.py --language ko doctor
 python scripts/workshop.py --language ko doctor --cloud
 ```
 
 offline PASS는 cloud 인증이 아닙니다. cloud 사전 확인도 기능 지원 증거가 아니므로 Lab 02의 실제 요청을 완료합니다.
+
+**기본 B 완료:** [B의 다음 미완료 단계](../../paths/b-practitioner.md)로 돌아갑니다.
+기본 경로에 필요 없는 검사를 통과시키려고 Hosted 패키지·azd를 설치하지 않습니다.
+
+<a id="hosted-sdk"></a>
+
+### 선택한 모듈만: Hosted·Toolbox SDK
+
+<details>
+<summary>Toolbox·로컬 Hosted 서버·matrix·로컬 복구 전에 한 번 준비. B의 패키징 전용 단계에는 불필요</summary>
+
+저장소 루트·활성 `.venv`에서 선언된 extra가 없을 때만 설치합니다.
+
+```bash
+python -m pip install -e ".[hosted]"
+python -m pip check &&
+python scripts/check_sdk.py
+```
+
+`check_sdk.py`는 `ResponsesHostServer`를 포함한 **cloud + agents + hosted**를 검사합니다.
+기본 B 검사가 아닙니다. `passed: true`, `azure_requests_sent: false`를 확인합니다.
+동작하는 준비 환경은 모듈마다 재설치하지 않습니다.
+[로컬 복구 모듈](approval-recovery.md)은 agentserver 버전도 별도로 확인합니다.
+필요하면 담당자가 [잠금 버전을 사용하는 리허설 환경](../../instructor.md#4-하루-전-같은-배포본으로-리허설)을 준비합니다.
+SDK 불일치는 준비 오류이며 임의 패키지 upgrade나 Azure 호출로 해결하지 않습니다.
+
+</details>
 
 <!-- edition-checkpoint:KP00-011-final-recording-environment -->
 
@@ -28,7 +57,13 @@ offline PASS는 cloud 인증이 아닙니다. cloud 사전 확인도 기능 지�
 
 [이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=17.44) · [전체 액션과 실패](../../edition-actions.md)
 
+<a id="azd-check"></a>
+
 ## 2. 공유 설정을 바꾸지 않고 azd 확인
+
+azd를 사용하는 모듈에만 필요합니다. 도구가 없다면
+[공식 준비](https://learn.microsoft.com/azure/foundry/agents/how-to/install-cli-foundry-extensions)로 설치·로그인합니다.
+설치·로그인은 agent 배포가 아닙니다.
 
 ```bash
 azd version

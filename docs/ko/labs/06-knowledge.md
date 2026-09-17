@@ -10,11 +10,11 @@
 
 **이번 순서:** A는 agent의 원문을 확인하고 고정 모델 IQ chat base는 준비된 경우 선택합니다. B는 번호 순서의 GA 검색 경로, hybrid는 선택입니다.
 
-**준비물:** A: Lab 03 응답·학습자 파일, IQ Chat 선택 시 담당자의 chat-base 이름. B: .env·Search 권한·본인 합성 source.
+**준비물:** A: Lab 03 응답·학습자 파일. B: .env·준비된 Search 서비스·작성 권한·새 소유 prefix 또는 대응하는 소유권 ledger.
 
-**다음으로 갈 기준:** 선택한 경로의 실제 근거를 기록했습니다. IQ chat은 Luna 계획·답변 합성을 확인합니다.
+**다음으로 갈 기준:** A는 정책 ID·날짜 대조, B는 Search·GA IQ 출력을 저장합니다. Luna 계획·합성은 별도로 선택한 IQ Chat에서만 필요합니다.
 
-**막히면:** 모델 없는 GA base를 열고 Chat 모델을 기대하지 않습니다. 고정 preset은 iq-chat check로 점검합니다.
+**막히면:** 선택한 경로의 원본·권한 문제를 해결하고 provider를 바꾸지 않습니다. 기본 A의 원문 확인에는 IQ Chat 모델이 필요 없습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
@@ -288,10 +288,11 @@ IQ의 source/base는 원래 연결한 index를 참조하므로 환경변수만 �
 
 ```bash
 python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
-python scripts/package_hosted.py --kind workflow --pattern sequential --retrieval iq --prompt v2 --protocol responses
 ```
 
-같은 v2 폴더의 [Lab 08](08-hosted.md)과 [평가 워크북](../reference/evaluation-workbook.md)으로 이어집니다.
+로컬 workflow 출력을 저장합니다. 원격 matrix는 [평가 워크북의 준비](../reference/evaluation-workbook.md#matrix-setup)에서 시작합니다.
+그 워크북에서 별도 IQ/account-chat/Invocations 대상을 한 번 패키징합니다.
+Lab 08의 입문 도우미는 이 IQ 프로필이 아니라 로컬 검색을 받습니다.
 Toolbox/Fabric/Work IQ의 승인·원문·OBO 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)에서 따로 다룹니다.
 외부 원본 저장소로 이동해야 실행되는 숨은 선행 단계는 없습니다.
 

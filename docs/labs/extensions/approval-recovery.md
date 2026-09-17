@@ -14,7 +14,10 @@ The only scenario is the bundled English development question `D03`. Holdout is
 not used. A new English stop/restart/continuation was recorded on September 16;
 [the results](../../edition-results.md) distinguish it from Azure execution.
 
-**Need:** two dedicated terminals and the pinned SDK environment.
+**First pass:** the five steps under Recommended first pass, without a restart or crash.
+Save the local completion evidence, stop your server and hand off. The branches and maintainer tests below are optional.
+
+**Need:** two dedicated terminals and the [prepared Hosted SDK environment](developer-toolkit.md#hosted-sdk), with the exact agentserver versions above.
 **Stop when:** the same response/gate IDs and original output survive the chosen continuation, with `human_authorization: not-granted`.
 **If blocked:** retain the checkpoint and error; do not bypass the gate or call this business approval.
 
@@ -188,6 +191,9 @@ do not mistake application completion for automatic chain deletion.
 
 ## Optional branches, after the first pass
 
+<details>
+<summary>Choose one new run for restart, Linux-only crash, rejection or expiry</summary>
+
 ### Pause across a process restart on macOS or Linux
 
 Use a new run label in both terminals:
@@ -288,7 +294,12 @@ server, and explicitly clean up before using a new run. Missing/corrupt state,
 changed scenario/workload hashes, SDK mismatch, and storage errors are errors,
 not reasons to switch endpoints, models, providers, or fixtures.
 
+</details>
+
 ## Local validation and the separate Hosted gate
+
+<details>
+<summary>Maintainer/SDK reference — not required to complete the five-step learner exercise</summary>
 
 ```bash
 PYTHONPATH=src "$WORKSHOP_PYTHON" -m unittest tests.test_resilience tests_sdk.test_resilience
@@ -333,6 +344,8 @@ paid model use, cloud evaluation, and real human review remain separate work
 requiring separate authorization. Local files do not establish cross-container
 durability; the Linux hard-crash and Hosted checks must be recorded separately.
 
+</details>
+
 ## Implementation and references
 
 - [Pure contracts and lineage](../../../src/foundry_workshop/resilience.py)
@@ -342,3 +355,6 @@ durability; the Linux hard-crash and Hosted checks must be recorded separately.
 - [Deploy a resilient agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-resilient-agent)
 - [Long-running agent API reference](https://learn.microsoft.com/azure/foundry/agents/concepts/long-running-agent-reference)
 - [Maintained resilient streaming sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/hosted-agents/bring-your-own/responses/resilient-streaming/src/resilient-streaming/main.py)
+
+**Next:** [C module selection](../../paths/c-advanced.md) or [Lab 11 handoff](../11-capstone.md).
+Report `local-sdk-prewritten-synthetic`, not model quality, real approval or Hosted crash recovery.

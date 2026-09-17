@@ -9,11 +9,16 @@
 **완료:** 원래 dispatch의 전달 이력과 검증 한계를 기록하고 timer를 비활성화/정리함.
 **중단:** 실행 이력이 없다고 직접 agent를 호출한 뒤 Routine 결과로 바꾸지 않습니다.
 
+**첫 회차:** 1–5절에서 수동 전달 한 번과 최종 disabled 상태를 확인합니다.
+미래 예약 시각의 실행을 검증하는 것은 아닙니다. 같은 터미널과 실제 반환 dispatch ID를 사용합니다.
+
 ## 1. 가장 작은 trigger 선택
 
 미래의 일회성 timer를 **disabled**로 만듭니다.
 첫 실습에서는 recurring, GitHub event, 실사용 traffic을 동시에 추가하지 않습니다.
 time zone, 예정 시각, 담당자와 비활성화 계획을 먼저 기록합니다.
+기본 호출 주체는 agent identity이며 그 ID의 모델·도구 권한을 담당자가 준비합니다.
+개발자의 로컬 로그인이나 별도 delegated-user 계약으로 대신하지 않습니다.
 
 ## 2. 명령과 값 확인
 
@@ -32,11 +37,11 @@ printf '내 전용 agent 이름: '
 read -r AGENT_NAME
 printf '새 routine 이름 (<내 prefix>-timer-ko): '
 read -r ROUTINE_NAME
-printf '미래 UTC 시각 (예: 2026-09-18T09:00:00Z): '
-read -r WHEN
+WHEN=$(python -c 'from datetime import datetime, timedelta, UTC; print((datetime.now(UTC) + timedelta(days=1)).isoformat())')
 ```
 
-실제 미래 시각을 사용합니다. 영상 속 지난 날짜를 복사하지 않습니다.
+현재 UTC에서 하루 뒤를 계산합니다. 영상 속 지난 날짜를 복사하지 않습니다.
+대상은 모델 배포 이름이 아니라 승인된 실제 agent입니다. 실제 호출 버전을 기록하며 mutable target을 불변 benchmark로 취급하지 않습니다.
 
 ## 3. Disabled 상태로 생성
 
@@ -51,6 +56,7 @@ azd ai routine show "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT" --out
 ## 4. 한 번 전달하고 비활성화
 
 승인된 합성 입력 한 번만 보냅니다. 중간에 오류가 나도 비활성화 명령은 실행합니다.
+Dispatch와 disable을 `&&`로 연결하면 실패 시 정리가 생략되므로 그렇게 바꾸지 않습니다.
 
 ```bash
 azd ai routine enable "$ROUTINE_NAME" --project-endpoint "$PROJECT_ENDPOINT"

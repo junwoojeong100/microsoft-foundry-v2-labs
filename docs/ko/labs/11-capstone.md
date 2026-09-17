@@ -32,7 +32,7 @@
 | MAF 워크플로 | 준비된 순차 예제의 실제 실행·사람 검토 기록 | 순차·병렬·Group Chat의 코드와 결과 비교 |
 | 평가 | 실제 dev 6문항 수동 평가표 | 전체 dev 전후·최종 holdout 및 오류 이력 |
 | 실패 검토 | 실제 실패 한 건 또는 전부 통과했다는 기록 | source run/request/response와 검토 대기 기록 |
-| 운영 | 권한·비용·정리 확인 | 재현 설정·선택적 원격 버전·실제 trace 확인 |
+| 운영 | 권한·비용·정리 확인 | 재현 설정·정리. 원격 버전·trace는 선택한 경우만 |
 | 제한 사항 | 관찰만 한 기능과 미실행 기능 | SDK/클라우드/Preview별 확인 범위 |
 
 <a id="path-a"></a>
@@ -111,10 +111,11 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 일부 모델만 인수한다면 **dev에서 사전에 선택한 목록**과 실제 행 수를 기록합니다.
 
 ```bash
-python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --require-regressions --calibration judge-calibration
+python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
 ```
 
-검토된 회귀를 만들지 않은 정당한 all-pass 경로는 `--require-regressions`를 생략하고 이유를 남깁니다.
+기본 명령은 승격된 회귀가 있다고 가정하지 않습니다.
+후보가 검토된 회귀를 실제 소비했다면 `--require-regressions`를 추가하고, 아니라면 전체 통과·미승격 이유를 남깁니다.
 이 명령은 실행 검증, 업무 gate, native 품질과 findings를 각각 표시합니다.
 `gate_passed` 또는 `ready-for-human-review`를 실제 배포 승인으로 해석하지 않습니다.
 Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--require-native-pass`를 요구합니다.
@@ -153,7 +154,7 @@ Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--
 - [ ] LLM reviewer가 사람 승인자처럼 행동하지 않는다.
 - [ ] 지연·사용량의 미측정 값을 0으로 채우지 않았다.
 - [ ] 원격 실행을 하지 않은 기능은 미실행으로 표시했다.
-- [ ] 본인 자산을 정리하고 공유 자산은 유지했다.
+- [ ] 본인 정리를 확인했거나 이름을 명시한 권한 있는 담당자에게 인계했고, 공유 자산은 유지했다.
 
 6문항/4문항의 통과는 워크숍 완료 기준입니다.
 실제 회사에 적용하려면 업무 전문가의 규정 승인, 더 넓은 평가셋, 위협 모델,

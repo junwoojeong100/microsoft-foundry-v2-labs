@@ -6,6 +6,11 @@
 기존 Hosted workflow 평가 워크북도 고급 경로로 유지합니다.
 새 모듈은 각자의 준비 조건과 완료 기준을 충족한 범위만 검증되었다고 기록합니다.
 
+**아래에서 모듈 하나만 선택합니다.** 명령 전에 **첫 회차·준비·완료 기준**을 읽습니다.
+[개발 도구 준비](../labs/extensions/developer-toolkit.md)는 그 모듈에 부족한 도구만 보완할 때 사용합니다.
+언어를 유지하고 마지막 단계·정확한 label을 `session-notes.txt`에 기록하며 자동 결과 폴더는 원래 위치에 둡니다.
+미선택 기능은 **미실행**, 시도한 오류는 **실패/차단**입니다. 다른 결과로 성공을 대신하지 않습니다.
+
 ## 기존 통합 경로
 
 B의 실제 모델·MAF·IQ 결과를 준비한 뒤 [Hosted 평가 워크북](../reference/evaluation-workbook.md)을 진행합니다.
@@ -17,6 +22,9 @@ B의 실제 모델·MAF·IQ 결과를 준비한 뒤 [Hosted 평가 워크북](..
 
 | 모듈 | 배우는 것 | 첫 실습의 준비 조건·경계 |
 |---|---|---|
+| [관리형 Toolbox](../labs/extensions/toolbox.md) | 버전을 고정한 합성 정책 도구 재사용 | Lab 06 Search·승인된 keyless 연결·Hosted/Toolbox SDK. Default 변경은 선택 |
+| [Hosted Toolbox](../labs/extensions/toolbox-hosted.md) | 같은 도구 agent의 원격 실행 | 검증한 로컬 Toolbox·별도 azd 폴더·런타임 권한·배포 승인 |
+| [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | 실제 CSV 생성 또는 읽기 전용 API 호출 검증 | 도구 하나 선택. 첫 회차는 Code Interpreter, OpenAPI는 본인 Search index 필요 |
 | [Tool Search와 Skills](../labs/extensions/tool-search-skills.md) | 도구 발견·검토된 절차의 버전 재사용 | 실제 동작하는 내 Toolbox, Preview 선택 |
 | [대화 평가](../labs/extensions/conversation-evaluation.md) | 개별 턴과 전체 대화 평가 구분 | 동봉 dev를 사용한 실제 다중 턴, holdout 개발 금지 |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | 고정된 dev baseline에 대한 후보 검토 | 준비된 optimizer/judge 모델, 비용 승인, Preview |
@@ -35,9 +43,10 @@ B의 실제 모델·MAF·IQ 결과를 준비한 뒤 [Hosted 평가 워크북](..
 
 ## 선택 순서
 
-재사용 도구가 목표라면 Toolbox → Tool Search/Skills 순서입니다.
-학습·개선 루프라면 대화 평가 → Optimizer → 필요할 때 반복 평가를 선택합니다.
-운영 복구라면 로컬 SDK 게이트/복구부터 시작하고 A2A·예약·릴리스 제어를 추가합니다.
+재사용 도구가 목표라면 Toolbox 이후 Tool Search/Skills **또는** Hosted Toolbox를 선택합니다.
+학습·개선 루프는 대화 평가부터 시작하며 Optimizer·반복 평가는 각각 나중의 별도 선택입니다.
+모델 호출 없이 SDK를 익히려면 로컬 승인 게이트/복구를 선택합니다. A2A·Memory·예약·릴리스의 선행 조건은 아닙니다.
+읽기·설계만 하려면 거버넌스·네트워크 또는 전문 범위를 선택하고, 빈 워크시트를 채우려고 자원을 만들지 않습니다.
 
 독립 평가 사례끼리 Memory나 대화 상태를 공유하지 않습니다.
 사람이 검토하고 고정하기 전의 optimizer 후보를 holdout 평가에 넣지 않습니다.

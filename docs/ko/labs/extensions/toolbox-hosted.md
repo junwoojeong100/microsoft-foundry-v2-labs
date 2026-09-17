@@ -10,6 +10,10 @@
 **완료:** 새 원격 버전이 실제 도구·모델·근거 metadata를 반환함.
 **중단:** 패키징/로컬까지만 확인한 경우 원격은 미실행으로 표시합니다.
 
+**첫 회차:** 1–4절은 준비·로컬 확인, 5절은 별도로 승인한 원격 요청입니다.
+사용한 자산은 6절로 마무리합니다. 두 터미널 모두 **소스 저장소 루트**와
+[Hosted SDK 환경](developer-toolkit.md#hosted-sdk)을 유지하고 `--cwd`로 독립 azd 프로젝트를 선택합니다.
+
 ## 1. 런타임과 질문만 패키징
 
 저장소 터미널에서 실제 검증한 버전을 입력합니다.
@@ -28,30 +32,31 @@ Skill 버전이면 패키징과 로컬 server 명령 모두에 `--with-skill`을
 Hosted의 `/app`은 읽기 전용입니다. 요청 근거는
 `$HOME/workshop-evidence/toolbox-runs`에 저장합니다.
 세션 삭제 전에 해당 세션의 file 명령으로 내려받습니다.
-출력된 **절대 패키지 경로**를 보관하고 기존 패키지를 덮어쓰지 않습니다.
+출력된 **절대 패키지 경로**를 아래 준비의 `HOSTED_PACKAGE`로 보관하고 기존 패키지를 덮어쓰지 않습니다.
 
 ## 2. 별도 azd 실행 폴더 준비
 
 기존 azd 프로젝트의 상위/하위 경로가 아닌 빈 폴더를 사용합니다.
 교육 저장소를 따로 만드는 것이 아니라 실행 상태를 격리하는 단계입니다.
-같은 준비된 B Python 환경을 사용합니다.
+저장소 터미널 A에서 실제 값을 입력합니다. `~` 축약형 없이 절대 경로를 사용하고
+새 터미널에서도 복원하도록 폴더·이름을 `session-notes.txt`에 기록합니다.
 
 ```bash
 printf '절대 Toolbox 패키지 경로: '
-read -r PACKAGE_DIR
-printf '절대 실습 저장소 경로: '
-read -r WORKSHOP_ROOT
+read -r HOSTED_PACKAGE
 printf '실제 기존 프로젝트 ARM ID: '
 read -r PROJECT_ARM_ID
 printf '새 agent 이름 (<내 prefix>-toolbox-hosted-ko): '
-read -r AGENT_NAME
+read -r HOSTED_AGENT_NAME
 printf '비어 있는 azd 폴더의 절대 경로: '
-read -r AZD_DIR
+read -r HOSTED_DIRECTORY
 printf '실제 기존 프로젝트의 리전 코드 (예: swedencentral): '
 read -r PROJECT_LOCATION
-python "$WORKSHOP_ROOT/scripts/prepare_hosted_azd.py" --language ko --kind toolbox --package "$PACKAGE_DIR" --directory "$AZD_DIR" --agent-name "$AGENT_NAME" --initialize-env --project-id "$PROJECT_ARM_ID" --location "$PROJECT_LOCATION"
-cd "$AZD_DIR"
-azd ai project show --output json
+python scripts/prepare_hosted_azd.py --language ko --kind toolbox \
+  --package "$HOSTED_PACKAGE" --directory "$HOSTED_DIRECTORY" \
+  --agent-name "$HOSTED_AGENT_NAME" --initialize-env \
+  --project-id "$PROJECT_ARM_ID" --location "$PROJECT_LOCATION" &&
+azd ai project show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
 helper는 모든 package 파일의 hash를 확인하고 정확한 사본과 JSON 형식의 YAML manifest를 만듭니다.
@@ -63,6 +68,7 @@ agent 하나와 기존 프로젝트 endpoint만 포함하고 `azd env new/set/ge
 template 내부에서 자기 자신을 채택하면 source/destination 중첩 오류가 발생할 수 있습니다.
 이 경로는 완성된 manifest를 이미 제공하므로 두 초기화 경로를 실행하지 않습니다.
 다른 모델을 만드는 sample을 선택하거나 새 프로젝트용 `azd provision`을 실행하지 않습니다.
+준비가 실패하면 폴더·오류를 보존하고 멈춥니다. 다음 azd 명령을 소스 프로젝트의 context에서 실행하지 않습니다.
 
 ## 3. 원격 설정을 패키지와 맞추기
 
@@ -86,11 +92,14 @@ upstream Search ID의 권한은 별도입니다. 로컬 사용자의 권한이 H
 OTEL_SDK_DISABLED=true python scripts/workshop.py --language ko toolbox serve --version "$TOOLBOX_VERSION"
 ```
 
-azd 터미널 B:
+터미널 B도 소스 저장소 루트에서 2절의 폴더를 복원합니다.
+A의 셸 변수가 자동으로 전달되지는 않습니다.
 
 ```bash
-curl --fail http://127.0.0.1:8088/readiness
-azd ai agent invoke --local --new-session --new-conversation --timeout 210 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
+printf '2절에서 준비한 독립 Hosted 폴더: '
+read -r HOSTED_DIRECTORY
+curl --fail http://127.0.0.1:8088/readiness &&
+azd ai agent invoke --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --local --new-session --new-conversation --timeout 210 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
 ```
 
 readiness만으로 완료하지 않습니다. JSON 안의 버전/hash, 실제 모델/함수/도구 실행, 원문 근거를 확인합니다.
@@ -101,19 +110,45 @@ readiness만으로 완료하지 않습니다. JSON 안의 버전/hash, 실제 �
 
 ## 5. 실제 버전을 배포·호출·검증
 
-배포 승인 후 azd 폴더에서:
+배포 승인 후 서버를 종료한 터미널 A로 돌아옵니다.
+1–2절의 정확한 패키지·폴더·agent 값이 남아 있어야 합니다.
 
 ```bash
-azd deploy "$AGENT_NAME"
-azd ai agent show --output json
-printf '실제 새 agent 버전: '
-read -r AGENT_VERSION
-mkdir -p outputs
-set -o pipefail
-azd ai agent invoke "$AGENT_NAME" --version "$AGENT_VERSION" --new-session --new-conversation --output raw --timeout 240 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?" | tee outputs/toolbox-remote.raw
-python "$WORKSHOP_ROOT/scripts/verify_toolbox_response.py" --file outputs/toolbox-remote.raw --package "$PACKAGE_DIR" --agent-name "$AGENT_NAME" --agent-version "$AGENT_VERSION" --output outputs/toolbox-remote-verified.json
+azd deploy "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
+배포 오류 시 멈춥니다. 이전 active version을 새 배포로 표시하지 않습니다.
+`show`에서 의도한 agent의 활성 상태를 확인한 뒤 새 실제 버전을 입력합니다.
+
+```bash
+printf '실제 새 agent 버전: '
+read -r HOSTED_AGENT_VERSION
+```
+
+한 번 요청한 원래 stream을 저장·검증합니다. 새 기록 폴더가 이전 시도의 덮어쓰기를 막고
+`pipefail`이 호출 실패를 `tee` 성공으로 숨기지 않게 합니다.
+
+```bash
+(
+  set -o pipefail
+  : "${HOSTED_PACKAGE:?Use the verified package directory}" &&
+  mkdir -p outputs &&
+  mkdir outputs/toolbox-remote-ko &&
+  azd ai agent invoke "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" \
+    --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" \
+    --version "${HOSTED_AGENT_VERSION:?Use the version returned by show}" \
+    --new-session --new-conversation --output raw --timeout 240 \
+    "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?" \
+    | tee outputs/toolbox-remote-ko/response.raw &&
+  python scripts/verify_toolbox_response.py --file outputs/toolbox-remote-ko/response.raw \
+    --package "$HOSTED_PACKAGE" --agent-name "$HOSTED_AGENT_NAME" \
+    --agent-version "$HOSTED_AGENT_VERSION" --output outputs/toolbox-remote-ko/verified.json
+)
+```
+
+`outputs/toolbox-remote-ko/`가 있으면 먼저 읽습니다. 실제 새 요청에는 폴더명을 바꾸고
+**파일 경로 세 곳과 `mkdir`을 모두** 맞춥니다. 이전 결과를 삭제하지 않습니다.
 agent/Session/Conversation/Trace ID와 실제 Toolbox 결과를 보관합니다.
 **CLI가 0으로 끝났지만 답변이 없으면 통과가 아닙니다.**
 검증기는 원래 HTTP/SSE의 completed 상태, 정확한 버전, package hash, 실제 모델/도구/Skill 근거를 확인합니다.

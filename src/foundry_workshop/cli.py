@@ -108,6 +108,11 @@ def parser() -> argparse.ArgumentParser:
         elif action == "smoke":
             operation.add_argument("--label", required=True)
             operation.add_argument("--local", action="store_true")
+            operation.add_argument(
+                "--azd-directory",
+                type=Path,
+                help="Existing standalone azd project for local smoke; defaults to the source root.",
+            )
             operation.add_argument("--case", default="D01")
             operation.add_argument("--model-key")
             operation.add_argument("--confirm-cost", action="store_true")

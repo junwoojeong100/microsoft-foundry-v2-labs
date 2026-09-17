@@ -18,11 +18,28 @@ def smoke(
     model_key: str | None,
     case_id: str,
     confirmed: bool,
+    azd_directory: Path | None = None,
 ) -> dict[str, Any]:
     if not confirmed:
         raise ValueError("The smoke request calls a paid model; explicitly pass --confirm-cost.")
     if profile.protocol != "invocations":
         raise ValueError("Use the typed Invocations profile for this smoke check.")
+    execution_root = root
+    if azd_directory is not None:
+        if not local:
+            raise ValueError(
+                "--azd-directory is only for local smoke; remote smoke uses its exact endpoint."
+            )
+        if (
+            azd_directory.is_symlink()
+            or not azd_directory.is_dir()
+            or not (azd_directory / "azure.yaml").is_file()
+            or (azd_directory / "azure.yaml").is_symlink()
+        ):
+            raise ValueError(
+                "Use the existing standalone azd directory with its regular azure.yaml."
+            )
+        execution_root = azd_directory.resolve()
     contract = runtime_contract(root, settings, profile)
     selected = model_key or next(
         key for key, value in contract["models"].items() if value == settings.deployment
@@ -47,7 +64,7 @@ def smoke(
     command = [
         "azd",
         "--cwd",
-        str(root),
+        str(execution_root),
         "ai",
         "agent",
         "invoke",
@@ -87,6 +104,7 @@ def smoke(
         path / "receipt.json",
         {
             "local": local,
+            "azd_directory": str(execution_root),
             "binding": binding.to_dict() if binding else None,
             "request_hash": digest(payload),
             "response_hash": digest(result),
@@ -192,6 +210,7 @@ def execute(root: Path, args) -> dict[str, Any]:
                 model_key=args.model_key,
                 case_id=args.case,
                 confirmed=args.confirm_cost,
+                azd_directory=args.azd_directory,
             )
         if action == "evaluate":
             return benchmark.evaluate_matrix(

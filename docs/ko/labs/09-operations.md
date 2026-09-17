@@ -243,7 +243,9 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 
 ## 반드시 정리하고 끝내기
 
-통제된 국문 baseline/candidate/holdout의 **64개 root trace ID**를 실제 App Insights에서 확인했습니다.
+Hosted matrix를 선택한 경우에만 본인 실행의 root trace와 세션 상태를 확인합니다.
+A와 기본 B는 선택적인 telemetry 없이 정리 인계를 마칠 수 있습니다.
+2026-09-15 국문 기록은 baseline/candidate/holdout의 **64개 root trace ID**를 실제 App Insights에서 확인한 과거 결과입니다.
 전체 요청의 확인을 모든 하위 span이 빠짐없이 export되었다는 의미로 확대하지 않습니다.
 이미 idle인 세션은 다시 stop을 호출해 409를 만들지 않고 실제 상태를 확인합니다.
 활성 세션은 중지 후 재조회하고 [실행 기록](../live-run.md)에 별도 receipt를 남깁니다.

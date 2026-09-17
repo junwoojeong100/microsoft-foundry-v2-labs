@@ -11,6 +11,9 @@ matching API/Structured Outputs support, cost approval and new labels.
 **Stop when:** the comparison includes actual model identities, all rows/errors and a written migration decision.
 **If blocked:** retain the existing model; never let an error choose another deployment or endpoint.
 
+**First pass:** steps 1–4; save a `model-migration-review.txt` beside your notes.
+Record the compared labels, decision and restored setting. Router and retirement actions are not required.
+
 ## 1. Freeze the baseline
 
 Record the candidate's actual deployment/model/version, project/API, prompt, corpus, retrieval,
@@ -20,6 +23,9 @@ Do not use a Router as a fixed-model baseline or reuse results from another lang
 The new deployment must already exist and be permitted in the same experiment.
 This lab does not deploy models or increase quota.
 
+<details>
+<summary>Historical configuration checkpoint — not a recorded model-migration or Router comparison</summary>
+
 <!-- edition-checkpoint:EP15-002-freeze-optimizer-version -->
 
 ![Recorded English checkpoint: Freeze only the new temporary optimizer deployment during the comparison](../../assets/edition-20260916-en/screenshots/EP15-002-freeze-optimizer-version-2.webp)
@@ -27,6 +33,8 @@ This lab does not deploy models or increase quota.
 **What to check:** Only the separately approved temporary optimizer deployment was version-frozen. Existing answer/judge deployments were not replaced. Your resource names and IDs will differ.
 
 [Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=196.80) · [All actions and failures](../../edition-actions.md)
+
+</details>
 
 ## 2. Change exactly one model choice
 
@@ -72,6 +80,9 @@ Do not change shared upgrade settings or delete a shared model as part of a lear
 
 ## Optional: compare Model Router as a different target
 
+<details>
+<summary>Separate Router experiment — not the next step after the two-model comparison</summary>
+
 A Router is an explicitly selected routing system, not the fallback for a failed direct model.
 Before testing it, record its version, routing mode and permitted model subset.
 Use the same representative dev workload and read quality, estimated cost, latency and **actual selected-model distribution** together.
@@ -80,6 +91,8 @@ Use the [official Router evaluation methodology](https://learn.microsoft.com/azu
 to choose metrics and workload categories. Keep mock reports visibly distinct from real requests.
 Do not report a fixed-model ranking or statistical superiority from this workshop's tiny dataset.
 If a Router deployment is not prepared, record **Router not run**; do not create one implicitly.
+
+</details>
 
 **Next:** [Lab 11](../11-capstone.md) with the comparison, migration/rollback plan and unverified items.
 [Official model migration lifecycle](https://learn.microsoft.com/azure/foundry/foundry-models/concepts/model-migration).

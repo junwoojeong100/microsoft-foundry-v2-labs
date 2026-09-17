@@ -17,8 +17,10 @@ Python·API에 익숙하다면 대신 [B. 구현](paths/b-practitioner.md)을 �
 JSON 문서를 직접 조립하거나 정답 레코드를 복사하지 말고 준비된 파일을 사용합니다.
 심화 절과 녹화본은 선택 참고 자료이지 랩 사이에 추가로 수행해야 할 단계가 아닙니다.
 
-압축을 푼 ZIP을 개인 증거 폴더로 사용하며 `session-notes.txt`, `workflow-review.txt`,
-`operations-checklist.txt`, 복사한 `assessment.csv`를 진행하면서 채웁니다.
+A는 압축을 푼 학습자 ZIP을 개인 증거 폴더로 사용합니다.
+B는 추가 ZIP 없이 [소스 복사본의 기록 폴더](labs/00-start.md#prepare-notes)를 사용합니다.
+`session-notes.txt`, `workflow-review.txt`, `operations-checklist.txt`를 진행하면서 채우고,
+A는 복사한 `assessment.csv`도 작성합니다.
 인증정보나 작성한 파일을 저장소의 생성 데이터 폴더에 넣지 않습니다.
 
 <details>

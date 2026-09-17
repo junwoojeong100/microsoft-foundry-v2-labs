@@ -6,14 +6,21 @@
 That is not a deployed-agent quality gate or continuous evaluation.
 Do not enable recurring paid work or push a deployment without its own approval.
 
-**Need:** an owned deployed agent/version, actual evaluation and trace records, an approved monitoring budget,
-and a prepared GitHub OIDC identity for the deployment extension.
-**Stop when:** configuration, actual execution and quality decisions are recorded separately, and temporary monitoring rules are disabled.
+**First pass:** choose one lane, not both.
+
+| Lane | Follow | Need / finish |
+|---|---|---|
+| Bounded monitoring | Steps 1–3 | Owned deployed target, relevant evaluation/trace access and budget; record the sample outcome and disabled rule |
+| CI release | Steps 4–6 | Owner-prepared GitHub OIDC and deployment/runtime permissions; retain the actual workflow result and rollback/cleanup decision |
+
+**Need:** only the selected lane's prerequisites. Monitoring does not require a GitHub identity.
+**Stop when:** its configuration, execution and quality decisions are recorded separately.
 **If blocked:** retain the current deployment and report the missing permission/configuration; no success-shaped fallback.
 
 ## 1. Establish the evidence before automation
 
-Use the [Hosted evaluation workbook](../../reference/evaluation-workbook.md).
+Reuse the existing evidence for your selected target. The [Hosted evaluation workbook](../../reference/evaluation-workbook.md)
+is one way to obtain a full matrix, not a new mandatory run for this page.
 Record the target version, model map, source/prompt/data hashes, native evaluator versions,
 trace evidence and human acceptance status.
 
@@ -48,6 +55,9 @@ Keep missing telemetry as **unverified**, not zero errors or zero cost.
 
 Disable the temporary recurring configuration after the test and read back its disabled state.
 Keep the rule/run IDs and result artifacts. Removing a rule does not erase model, Search or logging charges.
+
+**Monitoring done:** add those records to [Lab 11](../11-capstone.md).
+Do not create an OIDC identity unless you separately chose the CI lane.
 
 ## 4. Prepare a narrowly scoped GitHub OIDC identity
 

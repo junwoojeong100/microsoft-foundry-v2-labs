@@ -10,6 +10,9 @@ This module still reads only the six bundled synthetic policies. It neither call
 **Stop when:** the actual tool list matches discovery/pinning configuration and a real MAF run loads the pinned skill before using policy evidence.
 **If blocked:** do not change to the old `toolbox_search_preview` contract or load another skill after an error.
 
+**First pass:** steps 1–5 verify a pinned Skill; step 6 records keep/cleanup ownership.
+Changing the consumer default or creating a private catalog is not required.
+
 ## 1. Understand the three assets
 
 | Asset | Purpose | Not equivalent to |
@@ -27,6 +30,11 @@ Inspect the complete proposed definition first:
 
 ```bash
 python scripts/workshop.py --language en toolbox plan --discovery --pin-policy
+```
+
+Inspect the plan's owned name and tool definition. Only after that check and write approval:
+
+```bash
 python scripts/workshop.py --language en toolbox add-version --discovery --pin-policy --confirm-create
 ```
 
@@ -73,7 +81,7 @@ printf 'Full project endpoint: '
 read -r PROJECT_ENDPOINT
 printf 'skill_name from outputs/extensions-en/manifest.json: '
 read -r SKILL_NAME
-azd ai skill create "$SKILL_NAME" --file ./outputs/extensions-en/policy-review --project-endpoint "$PROJECT_ENDPOINT"
+azd ai skill create "$SKILL_NAME" --file ./outputs/extensions-en/policy-review --project-endpoint "$PROJECT_ENDPOINT" &&
 azd ai skill show "$SKILL_NAME" --project-endpoint "$PROJECT_ENDPOINT" --output json
 ```
 
@@ -84,7 +92,7 @@ Read the actual `default_version`, then download that exact version:
 ```bash
 printf 'Skill default_version returned by show: '
 read -r SKILL_VERSION
-azd ai skill download "$SKILL_NAME" --version "$SKILL_VERSION" --output-dir ./outputs/skill-readback-en --project-endpoint "$PROJECT_ENDPOINT"
+azd ai skill download "$SKILL_NAME" --version "$SKILL_VERSION" --output-dir ./outputs/skill-readback-en --project-endpoint "$PROJECT_ENDPOINT" &&
 cmp ./outputs/extensions-en/policy-review/SKILL.md ./outputs/skill-readback-en/SKILL.md
 ```
 
@@ -95,6 +103,11 @@ If they differ, stop and review the package/CLI behavior; do not edit the downlo
 
 ```bash
 python scripts/workshop.py --language en toolbox plan --discovery --pin-policy --skill-version "$SKILL_VERSION"
+```
+
+Verify the exact Skill name/version in the plan before approving the new Toolbox version:
+
+```bash
 python scripts/workshop.py --language en toolbox add-version --discovery --pin-policy --skill-version "$SKILL_VERSION" --confirm-create
 ```
 
@@ -106,6 +119,11 @@ The default Toolbox version remains a separate pointer; inspect the returned val
 printf 'Skill-bearing Toolbox selected_version: '
 read -r SKILLED_VERSION
 python scripts/workshop.py --language en toolbox probe --version "$SKILLED_VERSION" --label skilled-tool-list
+```
+
+After the probe succeeds, make the separately approved model request:
+
+```bash
 python scripts/workshop.py --language en toolbox ask --version "$SKILLED_VERSION" --label skilled-policy-answer --with-skill --confirm-cost
 ```
 
@@ -126,6 +144,12 @@ The code rejects skill-script execution and rejects a fluent final answer if a t
 
 ## 6. Keep publication and cleanup explicit
 
+Keep the verified version/Skill IDs and `outputs/toolbox-runs/skilled-policy-answer/`.
+If continuing to [Hosted Toolbox](toolbox-hosted.md), retain the assets and ledger.
+
+<details>
+<summary>Optional: promote the consumer default after review and approval</summary>
+
 Only after reviewing that version should you change the consumer default:
 
 ```bash
@@ -135,6 +159,8 @@ python scripts/workshop.py --language en toolbox select --version "$SKILLED_VERS
 Use the original saved version to roll back through the same explicit command.
 The Toolbox endpoint can stay constant while its default changes, but pinned runs keep their recorded version.
 Keep the skill version fixed too; Toolbox versioning does not freeze an unpinned skill reference.
+
+</details>
 
 When finishing, remove the owned Toolbox before deleting the skill it references.
 Use the Toolbox lab's ownership-aware cleanup, then have the owner remove only this newly created Skill asset.
@@ -146,7 +172,8 @@ The [private skill catalog](https://learn.microsoft.com/azure/foundry/agents/how
 uses Azure API Center and separate catalog permissions/allowed-tool governance.
 It is not created by the commands above. Without that prepared infrastructure, record **catalog design only / not run**.
 
-**Next:** [Conversation evaluation](conversation-evaluation.md) or [C module selection](../../paths/c-advanced.md).
+**Next:** [C module selection](../../paths/c-advanced.md) or [Lab 11 handoff](../11-capstone.md).
+Conversation evaluation is an independent module, not the next required command.
 
 [Tool Search contract](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/tool-search) ·
 [Versioned Skills](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/skills).

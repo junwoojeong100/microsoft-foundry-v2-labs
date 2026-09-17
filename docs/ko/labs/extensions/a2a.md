@@ -10,6 +10,9 @@
 **완료:** 인증된 card의 1.0과 실제 caller의 성공한 A2A 도구 결과가 확인됨.
 **중단:** 0.3, 다른 agent, 익명 인증으로 바꾸지 않습니다.
 
+**첫 회차:** 1–5절입니다. 필요하면 [azd 준비](developer-toolkit.md#azd-check)를 먼저 마칩니다.
+Target → 연결 → caller 순서로 만들며 각 결과를 확인한 뒤 다음 쓰기를 수행합니다.
+
 ## 1. 계획
 
 ```bash
@@ -63,6 +66,11 @@ azd ai connection create "$A2A_CONNECTION" --kind remote-a2a --target "$A2A_BASE
 
 ```bash
 python scripts/workshop.py --language ko a2a caller --confirm-create
+```
+
+기록된 caller 버전과 의도한 target을 확인한 뒤 추론을 승인합니다.
+
+```bash
 python scripts/workshop.py --language ko a2a invoke --label a2a-first --confirm-cost
 ```
 

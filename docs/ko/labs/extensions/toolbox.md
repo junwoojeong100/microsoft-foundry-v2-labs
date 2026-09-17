@@ -6,7 +6,9 @@
 첫 실습은 Search에 적재한 동봉 정책 6개만 읽습니다. Work IQ, 회사 API, 공개 웹,
 임의의 MCP 서버를 연결하지 않습니다.
 
-**준비:** [Lab 06 Search](../06-knowledge.md), 동일한 B 가상환경, 키 없는 Search 프로젝트 연결, 내 Toolbox 생성 승인.
+**첫 회차:** 1–5절 후 7절의 인계·정리로 끝냅니다. 6절의 default 버전 변경은 선택입니다.
+
+**준비:** [Lab 06 Search](../06-knowledge.md), 같은 B 환경의 [Hosted/Toolbox SDK extra](developer-toolkit.md#hosted-sdk), 키 없는 Search 프로젝트 연결, 내 Toolbox 생성 승인.
 **완료:** 고정 버전의 MAF 요청에 실제 도구 결과·모델 응답·버전 근거가 있음.
 **중단:** 오류를 보존하고 담당자에게 돌아갑니다. 다른 provider로 교체하지 않습니다.
 
@@ -109,6 +111,9 @@ python scripts/workshop.py --language ko toolbox ask --version "$TOOLBOX_VERSION
 
 ## 6. 통제된 버전 변경
 
+<details>
+<summary>선택 버전 실습 — 첫 실제 답변 확인 뒤에 반드시 할 단계가 아닙니다</summary>
+
 설명만 바꾸는 새 버전을 생성합니다. 품질 개선을 주장하는 단계가 아닙니다.
 
 ```bash
@@ -119,16 +124,29 @@ python scripts/workshop.py --language ko toolbox add-version --confirm-create
 printf '새 selected_version: '
 read -r TOOLBOX_CANDIDATE
 python scripts/workshop.py --language ko toolbox probe --version "$TOOLBOX_CANDIDATE" --label toolbox-candidate-list
+```
+
+Probe 성공과 반환된 binding·도구 목록을 확인한 뒤 변경 승인을 받습니다.
+
+```bash
 python scripts/workshop.py --language ko toolbox select --version "$TOOLBOX_CANDIDATE" --confirm-update
+```
+
+반환된 default 버전을 확인한 뒤 원래 버전으로 복구합니다.
+
+```bash
 python scripts/workshop.py --language ko toolbox select --version "$TOOLBOX_VERSION" --confirm-update
 ```
 
 마지막 명령은 원래 버전으로의 명시적 rollback입니다. 변경 승인과 소유 기록이 필요합니다.
 default 변경은 agent 재배포가 아니며, 이미 고정한 요청의 버전도 바뀌지 않습니다.
 
+</details>
+
 ## 7. 인계 또는 정리
 
-Skills로 계속 가면 Toolbox와 ledger를 유지합니다.
+Skills 또는 Hosted Toolbox로 계속 가면 Toolbox와 ledger를 유지합니다.
+선택 버전·다음 모듈을 `session-notes.txt`에 적고 먼저 cleanup을 실행하지 않습니다.
 끝내면 다른 승인된 agent가 참조하지 않는지 확인한 후 내 Toolbox만 삭제합니다.
 
 ```bash

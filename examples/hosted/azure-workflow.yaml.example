@@ -1,4 +1,5 @@
-# Reference only: adapt the generated agent service, not the entire azure.yaml.
+# Reference only: the evaluation workbook generates this environment with
+# scripts/prepare_hosted_azd.py --kind matrix; no manual YAML merge is required.
 # This profile exposes typed Invocations for the Hosted evaluation matrix.
 services:
   workflow-evaluation:

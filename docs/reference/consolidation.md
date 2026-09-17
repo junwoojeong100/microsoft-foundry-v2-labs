@@ -44,7 +44,7 @@ Archiving does not remove code or existing URLs.
 
 ## Practices intentionally not carried forward
 
-- No forced model/region names or error-triggered endpoint substitutions.
+- No recording-specific model/region/quota values presented as universal availability; the dated first-pass Luna preset is prepared explicitly. No error-triggered endpoint substitution.
 - No default Azure subscription changes.
 - No relabeling keyword search, fixtures, or synthetic routing as real IQ/Work IQ success.
 - No assumption that user, project, and Hosted identities share permissions.
@@ -62,7 +62,7 @@ Archiving does not remove code or existing URLs.
 | Evaluation replacement | Complete 24/24/16 rows for four models, same evaluators, real traces, honest regression lineage |
 | Acceptance | Model-level failures, native findings, costs, uncertainty, and human review |
 | Media | New captures matching current commands; no single-agent footage relabeled as workflow proof |
-| English | Translation and separate recording after Korean execution/corrections |
+| Languages | Follow the active source-language order; each language's recording needs its own execution/corrections |
 
 The Korean follow-up verified actual workflow deployment, four-model 24/24/16 rows, native evaluation,
 calibration, 64 root traces, and separate recordings.
@@ -71,10 +71,14 @@ Read the actual language-specific [live results](../live-run.md).
 
 ## Release sequence
 
-1. Freeze Korean code and guide contracts.
-2. Execute/capture the approved Korean environment and preserve failures.
-3. Correct the Korean guide from the actual observations.
-4. Translate the corrected edition and create independent English execution/capture evidence.
+**The September 15 Korean-first sequence is historical, not a standing instruction.**
+Follow the user's current order and the active `source_language` / `revision` in
+[`docs/localization.json`](../localization.json).
 
-Any temporary English deferral is hash-bound in `docs/localization.json`.
-Both languages' commands are parsed even during a deferral.
+1. Revise and check the source-language guide against the executable commands.
+2. Perform new live execution/capture only when separately requested and authorized; preserve all failures.
+3. Incorporate observations into the source guide, then update its counterpart.
+4. If new media is requested, use independent execution/capture for each language.
+
+Any deferred counterpart has a visible warning and exact source/target hashes.
+Both languages' commands are parsed even during a deferral. A guide-only revision does not establish new live or media evidence.

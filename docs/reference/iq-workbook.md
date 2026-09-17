@@ -8,18 +8,25 @@ Reading the readiness procedure is not proof that a connection works.
 
 ## 1. Complete the default IQ path in this repository
 
-After confirming the prepared Search service and owned prefix:
+This is a reference, not a second run of Lab 06. Reuse completed steps and their evidence.
+Only if the selected source has not been seeded, use the approved writer's matching working copy:
 
 ```bash
 python scripts/workshop.py --language en seed-search --iq --confirm-create
+```
+
+After successful seeding, inspect retrieval and the local workflow:
+
+```bash
 python scripts/workshop.py --language en retrieve --provider iq --question "Domestic lodging and advance approval for over-limit costs in September 2026"
 python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval iq --prompt v2
-python scripts/package_hosted.py --language en --kind workflow --pattern sequential --retrieval iq --prompt v2 --protocol responses
 ```
 
 The path is **actual GA retrieval → original IDs/activity → MAF participants → validated final answer**.
 Keep local CLI identity separate from remote managed identity.
-Continue in [Lab 08](../labs/08-hosted.md) and the [evaluation workbook](evaluation-workbook.md).
+For the remote IQ matrix, continue at [the evaluation workbook's preparation](evaluation-workbook.md#matrix-setup).
+It builds its own explicit IQ/account-chat/Invocations profile.
+Lab 08's local-retrieval Responses package is a different target, not a shortcut for this IQ run.
 
 | Asset | Purpose | Do not confuse it with |
 |---|---|---|
@@ -48,6 +55,12 @@ Inspect actual evidence and costs/latency.
 Creating a vector index does not prove that IQ used those vectors.
 
 ## 3. Optional managed Toolbox and Microsoft Learn
+
+For the **executable synthetic-policy Toolbox**, follow [the Toolbox lab](../labs/extensions/toolbox.md).
+The older Microsoft Learn example below is an optional documentation-tool pattern, not its prerequisite.
+
+<details>
+<summary>Optional documentation-tool integration reference — not another policy-tool exercise</summary>
 
 **Only an instructor with approved connections should proceed.**
 The synthetic policy task does not need the public web, so no external toolbox is automatically attached.
@@ -92,6 +105,8 @@ For a managed `FoundryAgent`, attach the toolbox to the stored **agent definitio
 adding a local client object does not modify the remote agent.
 Follow the current [Toolbox contract](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox)
 and [Hosted connection guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/use-toolbox-hosted-agent).
+
+</details>
 
 ## 4. Fabric IQ: authentication depends on the asset
 

@@ -14,7 +14,8 @@ Each lab has a direct `path-a` / `path-b` entry and an **A done / B done** exit.
 The original times below describe the existing prepared core routes.
 New capability modules add separate sessions; they are not silently squeezed into the same four/six-hour promise.
 
-**Start with [the setup card and learner ZIP](setup.md), then follow only your path's next link.**
+**Start with [the setup card](setup.md), then follow only your path's next link.**
+A downloads the learner ZIP; B uses the source copy and its included note templates.
 Read the start card, perform the action/command, and check its completion criterion.
 Images and collapsed recording galleries are optional references, not your own results.
 Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide),
@@ -84,7 +85,8 @@ session. Approval, licensing, and capacity preparation are additional.
 
 ## C. Advanced integration — additional 150–180 minutes
 
-After B, continue in the [Hosted evaluation workbook](reference/evaluation-workbook.md).
+This is **one optional C route**, not the prerequisite for every [C module](paths/c-advanced.md).
+For a version-pinned Hosted matrix, continue in the [Hosted evaluation workbook](reference/evaluation-workbook.md).
 Prepare actual model deployments, IQ/Search roles, a Hosted identity, a judge, and App Insights access first.
 Environment creation, permissions, quotas, and encoding waits are outside class time.
 

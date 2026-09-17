@@ -11,6 +11,10 @@ the actual existing project ARM ID, a new agent name and explicit deployment/mod
 **Stop when:** the exact new remote version returns real tool/model/evidence metadata.
 **If blocked:** stop at packaging or local execution and record the remote stage as not run.
 
+**First pass:** steps 1–4 prepare and check locally; step 5 is the separately approved remote request.
+Always finish step 6 for assets you used. Keep both terminals at the **source repository root**
+with the [Hosted SDK environment](developer-toolkit.md#hosted-sdk); `--cwd` selects the standalone azd project.
+
 ## 1. Package only the runtime and questions
 
 In the repository terminal, use the actual version you already tested:
@@ -29,7 +33,7 @@ The application directory is read-only in Hosted execution. Request evidence is 
 the session's `$HOME/workshop-evidence/toolbox-runs`, not `/app/outputs`.
 Use the recorded session's file commands to retrieve evidence before deleting that session.
 
-Keep the printed **absolute package path** for azd initialization.
+Keep the printed **absolute package path** as `HOSTED_PACKAGE` for the preparation below.
 Do not rebuild over an existing package or silently change runtime values after packaging.
 
 ## 2. Prepare an independent azd project
@@ -38,24 +42,25 @@ Use an empty standalone directory outside any existing azd project's parent tree
 This is execution-state isolation, not a separate curriculum repository.
 The package can remain in the original repository folder.
 
-In a second terminal using the same prepared Python environment, enter the actual values:
+In repository terminal A, enter the actual values. Use absolute paths without `~` shorthand.
+Record the directory/name in `session-notes.txt` for a new terminal.
 
 ```bash
 printf 'Absolute Toolbox package directory: '
-read -r PACKAGE_DIR
-printf 'Absolute workshop repository directory: '
-read -r WORKSHOP_ROOT
+read -r HOSTED_PACKAGE
 printf 'Actual existing project ARM ID: '
 read -r PROJECT_ARM_ID
 printf 'New agent name (<your prefix>-toolbox-hosted-en): '
-read -r AGENT_NAME
+read -r HOSTED_AGENT_NAME
 printf 'Absolute empty azd directory: '
-read -r AZD_DIR
+read -r HOSTED_DIRECTORY
 printf 'Actual existing project location (for example swedencentral): '
 read -r PROJECT_LOCATION
-python "$WORKSHOP_ROOT/scripts/prepare_hosted_azd.py" --language en --kind toolbox --package "$PACKAGE_DIR" --directory "$AZD_DIR" --agent-name "$AGENT_NAME" --initialize-env --project-id "$PROJECT_ARM_ID" --location "$PROJECT_LOCATION"
-cd "$AZD_DIR"
-azd ai project show --output json
+python scripts/prepare_hosted_azd.py --language en --kind toolbox \
+  --package "$HOSTED_PACKAGE" --directory "$HOSTED_DIRECTORY" \
+  --agent-name "$HOSTED_AGENT_NAME" --initialize-env \
+  --project-id "$PROJECT_ARM_ID" --location "$PROJECT_LOCATION" &&
+azd ai project show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
 The helper verifies every package file, copies that exact package, and writes a JSON-formatted
@@ -67,6 +72,7 @@ An empty standalone directory can cause `init --src ... --no-prompt` to ask for 
 in the September 16 CLI. Adopting a template from inside itself can also fail with a source/destination overlap.
 This route already provides the complete manifest, so it does not run either initialization path.
 Do not select a sample that creates a new model or run `azd provision` for an unrelated project.
+If preparation fails, stop and preserve the error/directory. Do not run the next azd command in the source project's context.
 
 ## 3. Match the remote environment to the package
 
@@ -92,11 +98,14 @@ In repository terminal A:
 OTEL_SDK_DISABLED=true python scripts/workshop.py --language en toolbox serve --version "$TOOLBOX_VERSION"
 ```
 
-In azd project terminal B:
+In terminal B, also at the source repository root, restore the directory from step 2.
+Terminal A's shell variables are not inherited automatically:
 
 ```bash
-curl --fail http://127.0.0.1:8088/readiness
-azd ai agent invoke --local --new-session --new-conversation --timeout 210 "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
+printf 'Standalone Hosted directory from step 2: '
+read -r HOSTED_DIRECTORY
+curl --fail http://127.0.0.1:8088/readiness &&
+azd ai agent invoke --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --local --new-session --new-conversation --timeout 210 "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
 ```
 
 Readiness alone is not completion. The JSON answer must include the selected Toolbox version/hash,
@@ -108,19 +117,45 @@ Stop only terminal A's local server with Ctrl+C when finished.
 
 ## 5. Deploy and invoke the actual version
 
-After deployment approval, in the independent azd project:
+After deployment approval, return to terminal A after stopping its server.
+It retains the exact package/directory/agent values from steps 1–2:
 
 ```bash
-azd deploy "$AGENT_NAME"
-azd ai agent show --output json
-printf 'Actual newly deployed agent version: '
-read -r AGENT_VERSION
-mkdir -p outputs
-set -o pipefail
-azd ai agent invoke "$AGENT_NAME" --version "$AGENT_VERSION" --new-session --new-conversation --output raw --timeout 240 "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" | tee outputs/toolbox-remote.raw
-python "$WORKSHOP_ROOT/scripts/verify_toolbox_response.py" --file outputs/toolbox-remote.raw --package "$PACKAGE_DIR" --agent-name "$AGENT_NAME" --agent-version "$AGENT_VERSION" --output outputs/toolbox-remote-verified.json
+azd deploy "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&
+azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
+Stop on a deployment error; an earlier active version is not the new deployment.
+After `show` confirms the intended active agent, enter its actual new version:
+
+```bash
+printf 'Actual newly deployed agent version: '
+read -r HOSTED_AGENT_VERSION
+```
+
+Make one request and verify the saved stream. The new evidence directory prevents overwriting an earlier attempt;
+`pipefail` prevents a failed invocation from being hidden by `tee`.
+
+```bash
+(
+  set -o pipefail
+  : "${HOSTED_PACKAGE:?Use the verified package directory}" &&
+  mkdir -p outputs &&
+  mkdir outputs/toolbox-remote-en &&
+  azd ai agent invoke "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" \
+    --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" \
+    --version "${HOSTED_AGENT_VERSION:?Use the version returned by show}" \
+    --new-session --new-conversation --output raw --timeout 240 \
+    "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" \
+    | tee outputs/toolbox-remote-en/response.raw &&
+  python scripts/verify_toolbox_response.py --file outputs/toolbox-remote-en/response.raw \
+    --package "$HOSTED_PACKAGE" --agent-name "$HOSTED_AGENT_NAME" \
+    --agent-version "$HOSTED_AGENT_VERSION" --output outputs/toolbox-remote-en/verified.json
+)
+```
+
+If `outputs/toolbox-remote-en/` exists, read it first. A genuinely new request needs a new directory name
+in **all three file paths and the `mkdir`**, not deletion of the earlier result.
 Keep agent version, Session/Conversation/Trace IDs, actual returned Toolbox binding and tool/model results.
 If the CLI exits 0 but displays no answer, that is **not** a passed smoke test.
 Inspect the exact session logs/trace and response state before retrying or claiming completion.

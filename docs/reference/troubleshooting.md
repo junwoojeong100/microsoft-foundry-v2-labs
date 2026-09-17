@@ -16,7 +16,7 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
 | Opened a new terminal | Return to the repository root; run `source .venv/bin/activate` | Reinstall everything, overwrite or shell-`source` `.env` |
 | B's notes directory already exists | Resume that pass's files, or choose a new directory for a new pass; the guarded copy block intentionally stops | Overwrite your filled records with blank templates |
-| A label already exists | Inspect `outputs/<label>/manifest.json` and `responses.jsonl`; `evaluate` can reread them locally | Delete the run or invoke `collect` with that same label |
+| A label already exists | Inspect the directory printed by that module; [saved-result locations](commands.md#saved-results) distinguish core, matrix, Toolbox and conversation runs | Delete the run or invoke `collect` with that same label |
 | `collect` returned a nonzero exit code | Preserve all rows/errors; use `evaluate` to inspect them, resolve the cause, then collect a new explicitly labeled dev run | Replace failed rows with fixtures or silently change the provider/model |
 | `evaluate` returned `1` | Read `total`, `passed`, `errors` and per-case `checks`; review a baseline failure, but keep holdout closed for a failing candidate | Treat a completed request as a passed business gate |
 | Candidate and holdout already exist | Read `outputs/<holdout-label>/acceptance.json`, or rerun local `accept` with those exact labels | Recollect an exposed holdout to get a better result |
@@ -25,6 +25,8 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | Introductory Hosted preparation rejects a directory/profile | Select a new empty directory outside existing azd projects and the exact local v2 Responses package/language | Repeat `azd ai agent init`, use `--force`, or weaken the package checks |
 | A required evaluation is still blocked | Save existing records and use [incomplete handoff](../labs/11-capstone.md#incomplete-handoff) | Create an acceptance report for absent runs or call blocked work complete |
 | Cloud judge timed out | Resume polling with the **same** `cloud-evaluate --label` command and saved job IDs | Apply the new-collection-label rule to an already submitted judge job |
+| Local matrix smoke selects the source project's agent | Use `benchmark smoke --local --azd-directory` with the standalone directory prepared by the workbook | Copy another agent's `azure.yaml` into the source root |
+| A Toolbox remote-output folder already exists | Preserve its raw stream and verification/failure; choose a new directory in every path only for a genuinely new request | Overwrite the prior raw stream or call the model only to rerun the local verifier |
 
 For a genuinely new dev experiment, choose one fresh **baseline/candidate/final-holdout** label set and
 use it consistently in Lab 07 and Lab 11. Do not unlock holdout until the new candidate passes and is frozen.
@@ -36,6 +38,7 @@ Read-only reinspection does not create new inference evidence.
 |---|---|---|
 | Cannot find `scripts/workshop.py` | The terminal must contain `README.md`, `pyproject.toml`, and `scripts/`; the learner ZIP is not the source ZIP | [00 B](../labs/00-start.md#path-b) |
 | Missing Python/package | Supported Python, active `.venv`, then the pinned install step; stop on installation errors | [00 B](../labs/00-start.md#path-b) |
+| `check_sdk.py` reports a missing hosting package in core B | That check covers the optional Hosted/Toolbox SDK too. Core B does not require it; selected extensions use the declared extra | [Module SDK preparation](../labs/extensions/developer-toolkit.md#hosted-sdk) |
 | Prefix rejected | `mfv2-` is mandatory; lowercase letters/digits, single hyphens, no trailing hyphen and at most 32 characters total | [Configuration](configuration.md#workspace-scope) |
 | 401/403 or project missing | Intended tenant, actual caller identity and resource-scoped permissions; owner resolves access | [00](../labs/00-start.md) / [setup](../setup.md) |
 | Model 404 / 429 | Full project endpoint and deployment name / quota and concurrency; no replacement model | [02 B](../labs/02-models.md#path-b) |

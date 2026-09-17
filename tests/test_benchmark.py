@@ -19,6 +19,7 @@ from foundry_workshop.benchmark import (
 )
 from foundry_workshop.benchmark_cli import smoke
 from foundry_workshop.calibration import calibration_summary
+from foundry_workshop.cli import parser
 from foundry_workshop.contracts import digest, load_cases, load_documents, read_json, write_json
 from foundry_workshop.hosted import HostedBinding, parse_azd_http, validate_request
 from foundry_workshop.knowledge import evidence
@@ -165,8 +166,88 @@ class BenchmarkTests(unittest.TestCase):
                                 confirmed=True,
                             )
                     command = invoked.call_args.args[0]
+                    self.assertEqual(command[:3], ["azd", "--cwd", str(root)])
                     self.assertEqual("--protocol" in command, local)
                     self.assertEqual("--agent-endpoint" in command, not local)
+
+    def test_local_smoke_uses_explicit_azd_directory_but_keeps_evidence_in_source_copy(self):
+        with (
+            workspace() as root,
+            patch.dict(os.environ, {"WORKSHOP_HOSTED_AGENT_NAME": binding().name}),
+        ):
+            standalone = root / "standalone"
+            standalone.mkdir()
+            (standalone / "azure.yaml").write_text("name: explicit-unit-project\n")
+            arguments = parser().parse_args(
+                [
+                    "benchmark",
+                    "smoke",
+                    "--local",
+                    "--label",
+                    "smoke",
+                    "--azd-directory",
+                    str(standalone),
+                ]
+            )
+            self.assertEqual(arguments.azd_directory, standalone)
+            with patch(
+                "foundry_workshop.benchmark_cli.subprocess.run",
+                return_value=SimpleNamespace(
+                    returncode=1, stdout=b"retained failed response", stderr=b"unit-test failure"
+                ),
+            ) as invoked:
+                with self.assertRaisesRegex(ValueError, "azd smoke failed"):
+                    smoke(
+                        root,
+                        settings(),
+                        RuntimeProfile(protocol="invocations"),
+                        label="smoke",
+                        local=True,
+                        model_key="alpha",
+                        case_id="D01",
+                        confirmed=True,
+                        azd_directory=standalone,
+                    )
+            command = invoked.call_args.args[0]
+            self.assertEqual(command[:3], ["azd", "--cwd", str(standalone.resolve())])
+            self.assertIn(binding().name, command)
+            self.assertEqual(
+                (root / "outputs/smoke/smoke/response.http").read_bytes(),
+                b"retained failed response",
+            )
+            self.assertFalse((standalone / "outputs").exists())
+
+    def test_smoke_rejects_bad_local_scope_and_remote_override_before_execution(self):
+        with workspace() as root:
+            standalone = root / "standalone"
+            standalone.mkdir()
+            missing = root / "missing"
+            linked = root / "linked"
+            linked.symlink_to(standalone, target_is_directory=True)
+            for local, directory in (
+                (True, missing),
+                (True, standalone),
+                (True, linked),
+                (False, standalone),
+            ):
+                with (
+                    self.subTest(local=local, directory=directory),
+                    patch("foundry_workshop.benchmark_cli.subprocess.run") as invoked,
+                    self.assertRaises(ValueError),
+                ):
+                    smoke(
+                        root,
+                        settings(),
+                        RuntimeProfile(protocol="invocations"),
+                        label="rejected-scope",
+                        local=local,
+                        model_key="alpha",
+                        case_id="D01",
+                        confirmed=True,
+                        azd_directory=directory,
+                    )
+                invoked.assert_not_called()
+            self.assertFalse((root / "outputs/smoke/rejected-scope").exists())
 
     def setUp(self):
         self.environment = patch.dict(

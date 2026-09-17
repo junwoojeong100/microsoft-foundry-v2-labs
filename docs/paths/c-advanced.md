@@ -6,6 +6,11 @@
 The existing Hosted workflow evaluation workbook is already advanced and remains intact.
 New modules must meet their own prerequisites and completion criteria before they are described as verified.
 
+**Choose one module below.** Read its **First pass**, **Need**, and **Stop when** before running anything.
+Use the [developer setup](../labs/extensions/developer-toolkit.md) only for that module's missing tools.
+Keep the same language, record the last step and exact labels in `session-notes.txt`, and leave generated outputs in their original directories.
+An unselected feature is **not run**; an attempted failure stays **failed/blocked**, not a successful substitute.
+
 ## Existing integration route
 
 After B's real model, MAF and IQ results, follow the [Hosted evaluation workbook](../reference/evaluation-workbook.md).
@@ -17,6 +22,9 @@ Packaging, local invocation, remote deployment, native evaluation and human appr
 
 | Module | Learn | Prerequisite / first-pass boundary |
 |---|---|---|
+| [Managed Toolbox](../labs/extensions/toolbox.md) | Reuse a version-pinned synthetic policy tool | Lab 06 Search, approved keyless connection and Hosted/Toolbox SDK; default promotion is optional |
+| [Hosted Toolbox](../labs/extensions/toolbox-hosted.md) | Run that same tool agent remotely | Verified local Toolbox; a separate azd directory, runtime permissions and deployment approval |
+| [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | Verify a real generated CSV or read-only API call | Choose one tool; Code Interpreter first, OpenAPI needs the owned Search index |
 | [Tool Search and Skills](../labs/extensions/tool-search-skills.md) | Discover selected tools; version and reuse behavioral instructions | An owned, working Toolbox; Preview opt-in |
 | [Conversation evaluation](../labs/extensions/conversation-evaluation.md) | Compare individual-turn checks with full-conversation outcomes | A real multi-turn run from bundled dev questions; no holdout development |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | Generate and review candidate configurations against a frozen dev baseline | Prepared evaluator/optimizer models, explicit cost approval; Preview |
@@ -37,9 +45,10 @@ including baseline-only optimization and delivery-only routine verification.
 
 ## Pick a sensible next module
 
-For reusable tooling: Toolbox first, then Tool Search/Skills.
-For the learning loop: conversation evaluation first, then Optimizer, then recurring evaluation.
-For operational resilience: durable approval/recovery first, then A2A, schedules and release gates as needed.
+For reusable tooling: Toolbox first, then Tool Search/Skills **or** Hosted Toolbox.
+For the learning loop: conversation evaluation first; Optimizer and recurring evaluation are separate later choices.
+For local SDK mechanics without model calls: approval/recovery. A2A, memory, schedules and releases do not depend on completing that simulation.
+For read-only/design work: governance/networking or specialist scope; do not create missing resources to fill their worksheets.
 
 Do not share memory or conversation state between independent evaluation cases.
 Do not let optimizer-generated changes enter a held-out evaluation until a person has reviewed and frozen the candidate.

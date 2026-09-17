@@ -12,7 +12,7 @@
 
 **Need:** A: your saved Lab 03 agent and learner ZIP. B: a working code environment and new output labels.
 
-**Continue when:** All six actual answers, failures or all-pass evidence, and review notes are retained.
+**Continue when:** A: all six answers and review notes are saved. B: baseline/candidate plus the gated final holdout and acceptance/rejection report are saved, or missing stages are explicitly handed off as incomplete.
 
 **If blocked:** Do not paste reference-answer JSON into the agent. Never open holdout to fix a dev failure.
 

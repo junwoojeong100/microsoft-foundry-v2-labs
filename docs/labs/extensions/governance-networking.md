@@ -10,6 +10,9 @@ and it never disables a shared firewall to make a demonstration work.
 **Stop when:** every connection has an identified caller, target, permission scope and evidence.
 **If blocked:** record the missing access and ask the owner; no blanket Owner role or alternate account.
 
+**First pass:** steps 1–5 inspect only resources used in your selected modules.
+Save `identity-review.txt` in your notes directory. Mark unused connections **not run** rather than creating them to complete the table.
+
 ## 1. Draw the actual identity chain
 
 Use your own names and IDs, not those in historical recordings:

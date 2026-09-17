@@ -50,7 +50,8 @@ do not claim the expanded course still fits that schedule without measuring it.
 
 The first added implementation module is a **[managed Toolbox](../labs/extensions/toolbox.md)**:
 create a small approved tool collection, connect MAF, make one real call, inspect its version,
-and demonstrate controlled default-version changes. It must not be confused with the local MCP server in Lab 04.
+and save its evidence. Default-version changes are a separate optional exercise.
+It must not be confused with the local MCP server in Lab 04.
 
 The [OpenAPI and Code Interpreter exercises](../labs/extensions/additional-tools.md) are separate optional tool modules. They use only the supplied synthetic
 source/evaluation artifacts; they do not connect company APIs or perform business actions.

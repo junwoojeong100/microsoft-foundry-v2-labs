@@ -5,6 +5,8 @@
 **Path B preparation.** The canonical route uses the repository's Python CLI.
 Foundry Toolkit is an optional editor interface, not a second implementation or a reason to install every new SDK.
 
+**First pass:** core B uses section 1 and returns to its route. Hosted SDKs, azd and the editor extension below are needed only by separately selected modules.
+
 ## 1. Confirm the actual Python and project
 
 Complete [Lab 00 B](../00-start.md#b-code-one-folder-one-environment).
@@ -12,15 +14,42 @@ In VS Code, open the repository folder and choose its `.venv` with **Python: Sel
 Open a new terminal at the same root and activate that environment.
 
 ```bash
+source .venv/bin/activate
 python --version
 python -m pip check
-python scripts/check_sdk.py
 python scripts/workshop.py --language en doctor
 python scripts/workshop.py --language en doctor --cloud
 ```
 
 An offline PASS does not prove cloud authentication.
 A successful cloud preflight does not prove model feature support; complete Lab 02's actual request.
+
+**Core B done:** return to [B's next unfinished step](../../paths/b-practitioner.md).
+Do not install Hosted packages or azd just to pass a check that the core route does not require.
+
+<a id="hosted-sdk"></a>
+
+### Selected modules only: Hosted and Toolbox SDKs
+
+<details>
+<summary>Prepare once before Toolbox, local Hosted serving, the matrix or local recovery; not for package-only B</summary>
+
+From this repository root with `.venv` active, install the declared extra only if it is missing:
+
+```bash
+python -m pip install -e ".[hosted]"
+python -m pip check &&
+python scripts/check_sdk.py
+```
+
+`check_sdk.py` checks **cloud + agents + hosted**, including `ResponsesHostServer`.
+It is not a core-B check. Require `passed: true` and `azure_requests_sent: false`.
+Keep a working prepared environment instead of reinstalling it for each module.
+The [local recovery module](approval-recovery.md) additionally checks its exact agentserver versions;
+the owner uses the [locked rehearsal environment](../../instructor.md#4-the-day-before-rehearse-the-same-edition) if needed.
+An SDK mismatch remains a preparation error, not a reason to upgrade arbitrary packages or call Azure.
+
+</details>
 
 <!-- edition-checkpoint:EP00-001-environment -->
 
@@ -30,7 +59,13 @@ A successful cloud preflight does not prove model feature support; complete Lab 
 
 [Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=2.00) · [All actions and failures](../../edition-actions.md)
 
+<a id="azd-check"></a>
+
 ## 2. Inspect azd without modifying shared settings
+
+Only modules that use azd need this check. Install/sign in through the
+[official setup](https://learn.microsoft.com/azure/foundry/agents/how-to/install-cli-foundry-extensions)
+if it is missing; installation and sign-in are not agent deployment.
 
 ```bash
 azd version

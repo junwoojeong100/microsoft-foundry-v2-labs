@@ -10,6 +10,9 @@ permission to create a dedicated agent/uploaded file and approval for model plus
 **Stop when:** an actual code call produced a downloaded CSV that preserves every original policy ID/title.
 **If blocked:** keep the original error/file IDs; do not generate the expected artifact locally and claim the tool made it.
 
+**First pass:** Code Interpreter steps 1–4, then handoff. OpenAPI is a separate choice,
+not a second tool you must run after a verified CSV.
+
 ## 1. Know what is being tested
 
 The input CSV is derived from the canonical six policy documents.
@@ -67,6 +70,9 @@ Read back resource states and check residual billing; cleanup requests are not p
 
 ## 5. OpenAPI branch: use the already-owned synthetic Search API
 
+<details>
+<summary>Optional independent OpenAPI exercise — requires Lab 06's owned index and runtime identity</summary>
+
 An OpenAPI tool exposes an HTTP API contract. It is not the same as a Python function,
 an A2A endpoint or Code Interpreter's sandbox.
 
@@ -88,6 +94,11 @@ This is separate from your local user's Search access.
 
 ```bash
 python scripts/workshop.py --language en openapi plan
+```
+
+Verify the one-server, one-index, read-only plan and runtime permissions before the billable request:
+
+```bash
 python scripts/workshop.py --language en openapi invoke --label openapi-policy --confirm-cost
 ```
 
@@ -99,6 +110,8 @@ Keep the specification hash, actual source data and response/model metadata.
 Do not add a key or silently replace this tool with `retrieve --provider search` after an authentication or schema error.
 If the Search index or managed-identity permission is not prepared, stop and record **not run**.
 The direct Responses request creates no persistent Prompt Agent definition; source/index/model costs and any newly added role still require owner review.
+
+</details>
 
 **Next:** [Toolbox](toolbox.md), [C modules](../../paths/c-advanced.md), or [Lab 11](../11-capstone.md).
 [Code Interpreter lifecycle](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/code-interpreter) ·

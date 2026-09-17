@@ -8,7 +8,7 @@
 
 > **서비스와 SDK를 구분하세요.** Hosted Agent 서비스는 현재 GA입니다.
 > 이 에디션의 `agent-framework-foundry-hosting` 패키지와 일부 azd 기능은 prerelease입니다.
-> 이 단계를 선택으로 둔 이유는 서비스 전체가 Preview라서가 아니라 권한·SDK·비용 조건이 더 많기 때문입니다.
+> B의 필수는 로컬 패키징뿐입니다. 서버 실행·배포가 선택인 이유는 서비스 전체가 Preview라서가 아니라 권한·SDK·비용 조건 때문입니다.
 
 ## 시작 전
 
@@ -305,9 +305,9 @@ flowchart LR
 대화형 흐름에는 위 Responses를 사용합니다.
 배포 버전·모델 키·case/run ID를 엄격히 검증하는 matrix는 별도 Invocations 프로필을 사용합니다.
 
-```bash
-python scripts/package_hosted.py --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --protocol invocations
-```
+**여기서 패키징한 뒤 워크북에서 같은 명령을 반복하지 않습니다.**
+[워크북 준비](../reference/evaluation-workbook.md#matrix-setup)에서 시작합니다.
+명시적 프로필은 `workflow / sequential / iq / v1 → v2 / account-chat / invocations`입니다.
 
 이 입력 계약에는 **question/model_key/case_id/run_id만** 들어갑니다.
 gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이름은 요청으로 받지 않습니다.
@@ -315,7 +315,8 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 
 평가를 실행하려면 [자체 완결형 평가 워크북](../reference/evaluation-workbook.md)을 따릅니다.
 소스·업무·검색이 같아 보여도 single-agent/Responses/Invocations의 점수를 서로 옮겨 적지 않습니다.
-이 IQ/Invocations profile은 입문 `--kind runtime` 도우미 범위 밖입니다. Profile 거절을 피하려고 flag를 바꾸지 말고 워크북의 별도 준비를 따릅니다.
+워크북은 별도 `--kind matrix` 준비 경로를 사용합니다.
+입문 `--kind runtime`과 단일 모델 CI `--kind workflow`의 계약은 그대로입니다.
 
 </details>
 
@@ -364,7 +365,7 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 
 패키지 생성 / 로컬 응답 / 원격 배포 / 원격 평가를 별도 칸으로 기록합니다.
 활성 session은 호출 사이에 재사용될 수 있고 session별 컴퓨트 비용이 쌓입니다.
-`azd ai agent sessions list --cwd "$HOSTED_DIRECTORY"`로 확인하고 [정리 가이드](../reference/cleanup.md)에 따라
-본인 session만 중지합니다. `azd down`을 모든 환경에 무조건 실행하지 않습니다.
+범위를 명시한 [Hosted 정리 순서](../reference/cleanup.md#hosted-sessions)로
+본인 session만 확인·중지합니다. `azd down`을 모든 환경에 무조건 실행하지 않습니다.
 
 다음: A: [Lab 09로 이동](09-operations.md#path-a) · B → [Lab 09](09-operations.md#path-b)
