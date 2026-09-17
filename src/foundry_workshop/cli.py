@@ -8,7 +8,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from .contracts import load_cases, load_documents, read_json, validate_question
+from .contracts import load_cases, load_documents, read_json, validate_question, write_json
 from .evaluation import acceptance_report, compare_runs, evaluate_run, record_feedback
 from .experiments import collect, offline_demo
 from .knowledge import local_retrieve
@@ -35,15 +35,60 @@ def runtime_profile(args: argparse.Namespace) -> RuntimeProfile:
     )
 
 
+def output_argument(command: argparse.ArgumentParser) -> None:
+    command.add_argument(
+        "--output",
+        type=Path,
+        metavar="FILE",
+        help="Also save JSON to a new .json file under outputs/. The parent must exist; no overwrite.",
+    )
+
+
+def output_path(root: Path, value: Path) -> Path:
+    path = value if value.is_absolute() else root / value
+    if path.exists() or path.is_symlink():
+        raise FileExistsError(
+            f"{path} already exists. Read it or choose a new --output file; no request was sent."
+        )
+    path = path.resolve()
+    if not path.is_relative_to(root.resolve() / "outputs") or path.suffix != ".json":
+        raise ValueError("--output must be a .json file inside this repository's outputs/.")
+    if not path.parent.is_dir():
+        raise FileNotFoundError(
+            f"Output directory does not exist: {path.parent}. Prepare your notes directory in Lab 00 first."
+        )
+    return path
+
+
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(
-        description="Microsoft Foundry v2 workshop (separate Korean/English synthetic assets)."
+        description=(
+            "Microsoft Foundry v2 workshop. Start with doctor, demo and evaluate offline; "
+            "advanced command families are optional."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "First offline pass (no external packages or Azure):\n"
+            "  python3.13 scripts/workshop.py --language en doctor\n"
+            "  python3.13 scripts/workshop.py --language en demo --label first-offline\n"
+            "  python3.13 scripts/workshop.py --language en evaluate --label first-offline\n\n"
+            "Use a new label for another run. Fixtures are not model-quality evidence.\n"
+            "Choose one route: docs/paths.md (English) or docs/ko/paths.md (Korean).\n"
+            "For required inputs and side effects: COMMAND --help."
+        ),
     )
-    result.add_argument("--language", choices=("ko", "en"), default="ko")
+    result.add_argument(
+        "--language",
+        choices=("ko", "en"),
+        default="ko",
+        help="Synthetic data language (default: ko). Place before COMMAND.",
+    )
     result.add_argument(
         "--debug", action="store_true", help="Print the error stack for local diagnosis."
     )
-    commands = result.add_subparsers(dest="command", required=True)
+    commands = result.add_subparsers(
+        dest="command", title="commands", metavar="COMMAND", required=True
+    )
     doctor = commands.add_parser(
         "doctor", help="Read-only prerequisite checks; offline by default."
     )
@@ -54,15 +99,22 @@ def parser() -> argparse.ArgumentParser:
     demo.add_argument("--label", default="demo-" + datetime.now(UTC).strftime("%Y%m%d-%H%M%S"))
     demo.add_argument("--prompt", choices=("v1", "v2"), default="v2")
     retrieve = commands.add_parser(
-        "retrieve", help="Read evidence; local keyword search by default."
+        "retrieve",
+        help="Read evidence; local keyword search by default.",
+        description="Read synthetic evidence. Local retrieval is offline; Search/IQ can incur costs.",
     )
     retrieve.add_argument("--provider", choices=RETRIEVALS, default="local")
     retrieve.add_argument("--question")
-    for name in ("model", "answer", "maf", "workflow"):
-        command = commands.add_parser(
-            name, help="LIVE: calls your configured billable Azure model."
-        )
+    output_argument(retrieve)
+    for name, description in (
+        ("model", "LIVE: send one question to the configured Azure model."),
+        ("answer", "LIVE: return a validated answer with synthetic source evidence."),
+        ("maf", "LIVE: run a local MAF agent with no tool, a function or local MCP."),
+        ("workflow", "LIVE: compare sequential, concurrent or group-chat MAF execution."),
+    ):
+        command = commands.add_parser(name, help=description, description=description)
         command.add_argument("--question")
+        output_argument(command)
         if name == "answer":
             command.add_argument("--prompt", choices=("v1", "v2"), default="v2")
             command.add_argument("--retrieval", choices=RETRIEVALS, default="local")
@@ -81,6 +133,7 @@ def parser() -> argparse.ArgumentParser:
         help="LIVE: run a case-isolated workflow with validated answer and model-call lineage.",
     )
     wrapped.add_argument("--question")
+    output_argument(wrapped)
     runtime_arguments(wrapped, default_kind="workflow")
     contract = commands.add_parser(
         "runtime-contract",
@@ -111,7 +164,7 @@ def parser() -> argparse.ArgumentParser:
             operation.add_argument(
                 "--azd-directory",
                 type=Path,
-                help="Existing standalone azd project for local smoke; defaults to the source root.",
+                help="Required with --local: the existing standalone azd project. Never inferred.",
             )
             operation.add_argument("--case", default="D01")
             operation.add_argument("--model-key")
@@ -331,7 +384,9 @@ def parser() -> argparse.ArgumentParser:
     a2a_invoke.add_argument("--confirm-cost", action="store_true")
     a2a_verify = a2a_actions.add_parser("verify-recorded")
     a2a_verify.add_argument("--label", required=True)
-    routines = commands.add_parser("routines")
+    routines = commands.add_parser(
+        "routines", help="Inspect a recorded routine dispatch; response verification is optional."
+    )
     routines_actions = routines.add_subparsers(dest="routines_action", required=True)
     routines_inspect = routines_actions.add_parser("inspect")
     routines_inspect.add_argument("--name", required=True)
@@ -403,8 +458,6 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
 
     load_environment(root)
     settings = Settings.from_env(language=args.language)
-    if hasattr(args, "question"):
-        validate_question(args.question)
     try:
         if args.command == "openapi":
             from . import openapi_lab
@@ -697,7 +750,8 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
             print(f"Service error: {exc.response.text[:2000]}", file=sys.stderr)
         raise ValueError(
             f"Azure request failed: {type(exc).__name__}, HTTP {status}. "
-            "See docs/reference/troubleshooting.md. No provider/model fallback was used."
+            f"See docs/{'ko/' if args.language == 'ko' else ''}reference/troubleshooting.md. "
+            "No provider/model fallback was used."
         ) from exc
     raise ValueError("Unsupported cloud command.")
 
@@ -707,6 +761,9 @@ def main(root: Path, argv: list[str] | None = None) -> int:
     if hasattr(args, "question") and args.question is None:
         args.question = DEFAULT_QUESTION_EN if args.language == "en" else DEFAULT_QUESTION
     try:
+        if hasattr(args, "question"):
+            validate_question(args.question)
+        destination = output_path(root, args.output) if getattr(args, "output", None) else None
         if args.command == "doctor" and not args.cloud:
             result = doctor_offline(root, args.language)
         elif args.command == "benchmark":
@@ -759,8 +816,13 @@ def main(root: Path, argv: list[str] | None = None) -> int:
             }
         else:
             result = cloud_command(root, args)
+        if destination is not None and result is None:
+            raise ValueError("No JSON result was returned; --output was not written.")
         if result is not None:
             print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+            if destination is not None:
+                write_json(destination, result, overwrite=False)
+                print(f"Saved JSON: {destination}", file=sys.stderr)
         if args.command in {"evaluate", "accept"} and not result["business_gate_passed"]:
             return 1
         if args.command == "collect" and result["errors"]:

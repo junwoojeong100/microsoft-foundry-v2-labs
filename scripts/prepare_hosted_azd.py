@@ -6,7 +6,6 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from uuid import UUID
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -25,13 +24,13 @@ from foundry_workshop.settings import (  # noqa: E402
     load_environment,
     owned_prefix,
     require_env,
+    require_uuid,
 )
 from foundry_workshop.toolbox import name_for  # noqa: E402
 
 
 def environment_values(settings: Settings, project_id: str) -> dict[str, str]:
-    subscription = require_env("AZURE_SUBSCRIPTION_ID")
-    UUID(subscription)
+    subscription = require_uuid("AZURE_SUBSCRIPTION_ID")
     if not settings.tenant_id:
         raise ValueError("Local azd initialization requires the configured workshop tenant.")
     expected = (

@@ -23,11 +23,13 @@
 ## 1. Agent without tools
 
 Run from the repository root with `.venv` active. All three commands make billable model calls.
-After each succeeds, save its complete JSON as `maf-none.json`, `maf-function.json` or `maf-mcp.json`
-in your Lab 00 notes directory. These commands do not create labeled run folders.
+Each successful command saves its complete JSON as `maf-none.json`, `maf-function.json` or `maf-mcp.json`
+in your Lab 00 notes directory through `--output`. Open that file before the next command; no copying is needed.
 
 ```bash
-python scripts/workshop.py --language en maf --question "Explain the difference between Foundry and Agent Framework in three sentences."
+python scripts/workshop.py --language en maf \
+  --question "Explain the difference between Foundry and Agent Framework in three sentences." \
+  --output outputs/learner-notes-en/maf-none.json
 ```
 
 The question asks for a three-sentence explanation of Foundry versus Agent Framework.
@@ -36,7 +38,7 @@ The question asks for a three-sentence explanation of Foundry versus Agent Frame
 **What to check:** Read `mode: live`, `orchestration: local`, and `tools: none`.
 Local Python owns execution, but the answer model is called in Azure.
 
-**Save:** `maf-none.json` in your Lab 00 notes directory.
+**Save:** `maf-none.json` is written automatically in your Lab 00 notes directory. Open it and check the fields above.
 
 Open `src/foundry_workshop/agents.py` and locate:
 
@@ -51,7 +53,9 @@ This one belongs to your Python process. Compare it with
 ## 2. Read-only function tool
 
 ```bash
-python scripts/workshop.py --language en maf --tools --question "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure."
+python scripts/workshop.py --language en maf --tools \
+  --question "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure." \
+  --output outputs/learner-notes-en/maf-function.json
 ```
 
 Meaning: may I book a KRW 170000 domestic hotel in September 2026; what limit and
@@ -84,12 +88,14 @@ booking/approving, and that `never_require` applies only to **side-effect-free s
 If the model skips the tool or evidence, inspect the actual answer, instructions,
 tool description, and tracing. A connected tool alone is not success.
 
-**Save:** `maf-function.json` in the same notes directory before starting MCP.
+**Save:** `maf-function.json` is written to the same notes directory. Review it before starting MCP.
 
 ## 3. Move the same lookup into a local MCP server
 
 ```bash
-python scripts/workshop.py --language en maf --mcp --question "What was the domestic business-trip lodging limit per night in May 2026?"
+python scripts/workshop.py --language en maf --mcp \
+  --question "What was the domestic business-trip lodging limit per night in May 2026?" \
+  --output outputs/learner-notes-en/maf-mcp.json
 ```
 
 Meaning: what is the per-night domestic lodging limit in May 2026?
@@ -114,7 +120,7 @@ Do not repair invalid output and call it success.
 **What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
 for May 2026. A function-tool response cannot stand in for an MCP execution.
 
-**Save:** `maf-mcp.json` in the same notes directory. Keep the original error instead if this request failed.
+**Save:** `maf-mcp.json` is written to the same notes directory on success. Keep the original error instead if this request failed.
 
 **B done:** retain the three actual outputs and explain no tool, function and local MCP.
 Continue to [Lab 05 B](05-workflows.md#path-b); the negative test below is optional.
@@ -140,7 +146,7 @@ python scripts/workshop.py --language en maf --tools --question "$(python -c 'pr
 ```
 
 
-**What to check:** Read `FAIL: Question must contain 1-2000 characters.` and exit code `2`.
+**What to check:** Read `FAIL: ValueError: Question must contain 1-2000 characters.` and exit code `2`.
 This is expected input rejection before Azure, not a broken environment.
 
 Pasting a long string directly can hit terminal-input truncation. A model answer to

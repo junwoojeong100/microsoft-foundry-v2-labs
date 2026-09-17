@@ -1,8 +1,11 @@
+import argparse
 import hashlib
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from . import ROOT
 from .test_packaging import load_script
@@ -11,6 +14,45 @@ DOCS = load_script("check_docs")
 
 
 class DocumentationTests(unittest.TestCase):
+    def test_every_command_family_has_a_bilingual_lookup(self):
+        commands = next(
+            action
+            for action in DOCS.parser()._actions
+            if isinstance(action, argparse._SubParsersAction)
+        ).choices
+        for directory in ("docs", "docs/ko"):
+            text = (ROOT / directory / "reference/commands.md").read_text()
+            for command in commands:
+                with self.subTest(directory=directory, command=command):
+                    self.assertRegex(text, rf"`{re.escape(command)}(?: |`)")
+
+    def test_configuration_templates_use_documented_environment_names(self):
+        template = (ROOT / ".env.example").read_text()
+        names = set(re.findall(r"^(?:# )?([A-Z][A-Z0-9_]*)=", template, re.MULTILINE))
+        self.assertTrue(names)
+        for directory in ("docs", "docs/ko"):
+            text = (ROOT / directory / "reference/configuration.md").read_text()
+            for name in names:
+                with self.subTest(directory=directory, setting=name):
+                    self.assertIn(f"`{name}`", text)
+        for path in (ROOT / "examples/hosted").glob("*.yaml.example"):
+            with self.subTest(template=path.name):
+                referenced = set(re.findall(r"\$\{([A-Z][A-Z0-9_]*)\}", path.read_text()))
+                self.assertEqual(referenced - names, set())
+
+    def test_output_parity_normalizes_only_the_selected_languages_notes_directory(self):
+        english = ["--language", "en", "model", "--output", "outputs/learner-notes-en/model.json"]
+        korean = ["model", "--output", "outputs/learner-notes-ko/model.json"]
+        self.assertEqual(DOCS.normalized_command(english, {}), DOCS.normalized_command(korean, {}))
+        for wrong in (
+            "outputs/learner-notes-ko/model.json",
+            "outputs/learner-notes-en/answer.json",
+        ):
+            self.assertNotEqual(
+                DOCS.normalized_command([*english[:-1], wrong], {}),
+                DOCS.normalized_command(korean, {}),
+            )
+
     def test_language_specific_extension_labels_keep_strict_command_parity(self):
         english = ["--language", "en", "prepare-extensions", "--label", "extensions-en"]
         korean = ["--language", "ko", "prepare-extensions", "--label", "extensions-ko"]
@@ -64,7 +106,9 @@ class DocumentationTests(unittest.TestCase):
             self.assertTrue(any("hashes" in failure for failure in failures))
 
     def test_all_language_pairs_links_anchors_and_cli_examples_are_valid(self):
-        failures, counts = DOCS.check(ROOT)
+        with patch.object(DOCS, "parser", wraps=DOCS.parser) as command_parser:
+            failures, counts = DOCS.check(ROOT)
+        command_parser.assert_called_once()
         self.assertEqual(failures, [])
         self.assertGreaterEqual(counts["language_pairs"], 31)
         self.assertGreaterEqual(counts["cli_examples"], 108)

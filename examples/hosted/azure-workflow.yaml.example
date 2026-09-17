@@ -1,10 +1,11 @@
 # Reference only: the evaluation workbook generates this environment with
 # scripts/prepare_hosted_azd.py --kind matrix; no manual YAML merge is required.
+# Service fragment only: the generated manifest also binds the existing project.
 # This profile exposes typed Invocations for the Hosted evaluation matrix.
 services:
   workflow-evaluation:
     name: ${WORKSHOP_HOSTED_AGENT_NAME}
-    project: ./.build/workflow-sequential-iq-v1-account-chat-invocations
+    project: ./src/${WORKSHOP_HOSTED_AGENT_NAME}
     host: azure.ai.agent
     language: python
     kind: hosted
@@ -14,7 +15,7 @@ services:
       AZURE_OPENAI_ENDPOINT: ${AZURE_OPENAI_ENDPOINT}
       WORKSHOP_MODEL_DEPLOYMENTS_JSON: ${WORKSHOP_MODEL_DEPLOYMENTS_JSON}
       WORKSHOP_AUTH_MODE: managed-identity
-      WORKSHOP_MAX_OUTPUT_TOKENS: "2048"
+      WORKSHOP_MAX_OUTPUT_TOKENS: "${WORKSHOP_MAX_OUTPUT_TOKENS}"
       WORKSHOP_PREFIX: ${WORKSHOP_PREFIX}
       AZURE_SEARCH_ENDPOINT: ${AZURE_SEARCH_ENDPOINT}
       AZURE_SEARCH_INDEX_NAME: ${AZURE_SEARCH_INDEX_NAME}

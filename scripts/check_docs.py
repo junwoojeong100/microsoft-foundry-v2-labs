@@ -125,6 +125,11 @@ def normalized_command(arguments: list[str], translations: dict[str, str]) -> li
         index = result.index("--label") + 1
         if index < len(result) and result[index] == f"extensions-{language}":
             result[index] = "extensions-<language>"
+    if "--output" in result:
+        index = result.index("--output") + 1
+        prefix = f"outputs/learner-notes-{language or 'ko'}/"
+        if index < len(result) and result[index].startswith(prefix):
+            result[index] = "outputs/learner-notes-<language>/" + result[index][len(prefix) :]
     for option in ("--question", "--reason"):
         if option in result:
             index = result.index(option) + 1
@@ -192,6 +197,7 @@ def pending_translations(root: Path, errors: list[str]) -> set[Path]:
 
 def check(root: Path) -> tuple[list[str], dict[str, int]]:
     errors = []
+    command_parser = parser()
     pending = pending_translations(root, errors)
     translations = command_translations(root, errors)
     counts = {
@@ -236,7 +242,7 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
                     contextlib.redirect_stderr(io.StringIO()),
                     contextlib.redirect_stdout(io.StringIO()),
                 ):
-                    parser().parse_args(arguments)
+                    command_parser.parse_args(arguments)
             except SystemExit as exc:
                 if exc.code:
                     errors.append(f"{relative}: invalid CLI example: {line}")

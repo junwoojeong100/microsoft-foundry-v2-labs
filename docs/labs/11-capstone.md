@@ -67,7 +67,7 @@ No optional module or new Azure request is needed to submit these files.
 ### Check the files you already produced
 
 Use this inventory before deciding whether the handoff is complete.
-The printed JSON files and notes are in `outputs/learner-notes-en/`; generated runs and ownership stay at their original paths.
+The JSON files saved by `--output` and your notes are in `outputs/learner-notes-en/`; generated runs and ownership stay at their original paths.
 If you chose different names, record those exact paths in `session-notes.txt`.
 
 | From | Keep |
@@ -80,7 +80,7 @@ If you chose different names, record those exact paths in `session-notes.txt`.
 | Lab 08 | `.build/hosted-en/package-manifest.json` and the package it describes |
 | Setup / Lab 09 | Completed `session-notes.txt`, `operations-checklist.txt`, and the copied `SOURCE.json` |
 
-Open each saved JSON and check that it contains the whole response, not only the last terminal lines.
+Open each saved JSON and review the whole response. `--output` preserves it; saving alone does not establish a correct answer.
 An empty template or a filename alone is not execution evidence. If an item is missing, use the incomplete outcome below;
 do not repeat paid calls or fabricate files just to fill the inventory.
 

@@ -136,7 +136,9 @@ Luna의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
 ### 2. 작은 지식 원본 확인
 
 ```bash
-python scripts/workshop.py retrieve --provider local --question "2026년 9월 국내 출장 숙박비 한도는?"
+python scripts/workshop.py retrieve --provider local \
+  --question "2026년 9월 국내 출장 숙박비 한도는?" \
+  --output outputs/learner-notes-ko/retrieve-local.json
 ```
 
 `documents`, `source_ids`, `context_hash`를 확인합니다.
@@ -147,7 +149,7 @@ python scripts/workshop.py retrieve --provider local --question "2026년 9월 �
 **화면 확인:** `source_ids`와 `context_hash`를 확인합니다. 이 단계는 합성 파일의 로컬 검색입니다.
 Search나 IQ를 호출했다고 표시하지 않습니다. 설정된 endpoint 이름만 보지 말고 반환된 provider를 확인합니다.
 
-**저장:** `retrieve-local.json`을 Lab 00 기록 폴더에 저장합니다.
+**저장:** `retrieve-local.json`이 Lab 00 기록 폴더에 작성됩니다. 파일을 열어 원문 근거를 확인합니다.
 
 ### 3. 일반 Search 색인 만들기
 
@@ -177,7 +179,9 @@ python scripts/workshop.py seed-search --confirm-create
 Seed 성공을 확인한 뒤에만 해당 index를 조회합니다.
 
 ```bash
-python scripts/workshop.py retrieve --provider search --question "2026년 9월 국내 출장 숙박비 한도는?"
+python scripts/workshop.py retrieve --provider search \
+  --question "2026년 9월 국내 출장 숙박비 한도는?" \
+  --output outputs/learner-notes-ko/retrieve-search.json
 ```
 
 ![2026-09-15 새 국문 촬영: 일반 Search는 vector/IQ와 구분](../../assets/refresh-20260915-ko/screenshots/K06-100-keyword-2.webp)
@@ -185,7 +189,7 @@ python scripts/workshop.py retrieve --provider search --question "2026년 9월 �
 **화면 확인:** `--provider search` 명령의 결과를 읽고 endpoint/index가 본인 값인지 확인합니다.
 `references`·`activity`가 없는 일반 Search 결과를 IQ 결과로 바꾸어 적지 않습니다.
 
-**저장:** `retrieve-search.json`을 같은 기록 폴더에 저장한 뒤 IQ source/base를 만듭니다.
+**저장:** `retrieve-search.json`이 같은 기록 폴더에 작성됩니다. 검토한 뒤 IQ source/base를 만듭니다.
 
 ### 4. GA Foundry IQ knowledge source/base 만들기
 
@@ -197,7 +201,9 @@ Seed 결과의 `document_count: 6`과 의도한 `knowledge_base`가 null이 아�
 `outputs/azure-objects.json`을 보관하며, 중단할 때도 이 소유권 기록을 삭제하지 않습니다.
 
 ```bash
-python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
+python scripts/workshop.py retrieve --provider iq \
+  --question "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?" \
+  --output outputs/learner-notes-ko/retrieve-iq.json
 ```
 
 
@@ -231,12 +237,14 @@ Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확
 **화면 확인:** `activity`·base·API 버전·`references`·`documents`를 함께 읽습니다.
 보고되지 않은 지연이나 사용량은 임의로 채우지 않습니다.
 
-**저장:** `retrieve-iq.json`을 같은 기록 폴더에 저장합니다. 원문과 activity도 포함합니다.
+**저장:** `retrieve-iq.json`이 원문·activity와 함께 같은 기록 폴더에 작성됩니다. 답변 요청 전에 확인합니다.
 
 ### 5. 같은 질문을 근거와 함께 실제 모델에 전달
 
 ```bash
-python scripts/workshop.py answer --prompt v2 --retrieval iq --question "2026년 9월 국내 출장에서 170000원 호텔을 예약하려면 어떤 절차가 필요한가요?"
+python scripts/workshop.py answer --prompt v2 --retrieval iq \
+  --question "2026년 9월 국내 출장에서 170000원 호텔을 예약하려면 어떤 절차가 필요한가요?" \
+  --output outputs/learner-notes-ko/answer-iq.json
 ```
 
 검색→응답을 따로 둔 이유는 실패를 구분하기 위해서입니다.
@@ -247,7 +255,7 @@ python scripts/workshop.py answer --prompt v2 --retrieval iq --question "2026년
 **화면 확인:** `--retrieval iq` 명령 아래의 base/API 설정, `response_model`, `response_id`, `usage`를 확인합니다.
 `answer`의 금액·조건·인용을 원문과 대조합니다.
 
-**저장:** `answer-iq.json`을 같은 기록 폴더에 저장합니다. 응답과 검색 metadata 전체를 유지합니다.
+**저장:** `answer-iq.json`이 같은 기록 폴더에 작성됩니다. 응답과 검색 metadata 전체를 확인합니다.
 
 ```mermaid
 flowchart LR

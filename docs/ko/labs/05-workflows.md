@@ -98,6 +98,7 @@ JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합�
 워크플로를 정의하는 코드는 `src/foundry_workshop/agents.py`의 `run_workflow`입니다.
 같은 데이터·모델·지침을 유지한 채 MAF builder와 실행 순서의 차이를 확인합니다.
 이 명령은 포털 workflow 리소스를 생성하지 않습니다.
+각 명령의 JSON 전체는 `--output`으로 저장하며, 사람의 검토는 별도로 직접 작성합니다.
 
 ### 포털 중심 개념을 MAF 코드로 옮기기
 
@@ -115,7 +116,8 @@ JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합�
 ### 1. 순차: 앞 단계 결과가 다음 단계의 입력
 
 ```bash
-python scripts/workshop.py workflow --pattern sequential
+python scripts/workshop.py workflow --pattern sequential \
+  --output outputs/learner-notes-ko/workflow-sequential.json
 ```
 
 `PolicyAnalyst → AnswerWriter → EvidenceReviewer`를 사용합니다.
@@ -127,12 +129,13 @@ python scripts/workshop.py workflow --pattern sequential
 **화면 확인:** 순차 실행의 응답 내용을 위의 세 역할과 연결해 읽습니다.
 후속 검토자가 자연스럽게 설명해도 앞 단계의 잘못된 근거가 사라졌다고 가정하지 않습니다.
 
-**저장:** `workflow-sequential.json`을 Lab 00 기록 폴더에 저장한 뒤 다음 패턴으로 갑니다.
+**저장:** `workflow-sequential.json`이 Lab 00 기록 폴더에 작성됩니다. 파일을 연 뒤 다음 패턴으로 갑니다.
 
 ### 2. 병렬: 같은 입력을 독립적으로 검토
 
 ```bash
-python scripts/workshop.py workflow --pattern concurrent
+python scripts/workshop.py workflow --pattern concurrent \
+  --output outputs/learner-notes-ko/workflow-concurrent.json
 ```
 
 `ConcurrentBuilder`가 같은 질문·합성 근거를 세 역할에 보냅니다.
@@ -146,12 +149,13 @@ python scripts/workshop.py workflow --pattern concurrent
 **화면 확인:** `pattern: concurrent`와 여러 참여자의 출력을 확인합니다.
 여러 응답이 나왔다는 사실을 하나의 합의된 최종 답안으로 해석하지 말고 직접 비교·통합합니다.
 
-**저장:** `workflow-concurrent.json`을 같은 기록 폴더에 저장합니다.
+**저장:** `workflow-concurrent.json`이 같은 기록 폴더에 작성됩니다. 참여자 출력을 비교합니다.
 
 ### 3. Group Chat: 공유 대화와 종료 조건
 
 ```bash
-python scripts/workshop.py workflow --pattern group-chat
+python scripts/workshop.py workflow --pattern group-chat \
+  --output outputs/learner-notes-ko/workflow-group-chat.json
 ```
 
 이 예제는 정해진 순서로 최대 **3라운드**만 진행합니다.
@@ -166,7 +170,7 @@ python scripts/workshop.py workflow --pattern group-chat
 **화면 확인:** `pattern: group-chat`, 참여자 응답과 사람 검토 대기 상태를 확인합니다.
 3라운드 상한으로 끝난 것이므로 모델 스스로 합의하거나 실제 승인을 마쳤다는 뜻은 아닙니다.
 
-**저장:** `workflow-group-chat.json`을 같은 기록 폴더에 저장한 뒤 세 결과를 `workflow-review.txt`에서 비교합니다.
+**저장:** `workflow-group-chat.json`이 같은 기록 폴더에 작성됩니다. 저장된 세 결과를 `workflow-review.txt`에서 비교합니다.
 
 | 패턴 | 적합한 업무 | 주의할 점 |
 |---|---|---|

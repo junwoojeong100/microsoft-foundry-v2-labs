@@ -11,6 +11,10 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 [코드 블록 읽는 법](../labs/00-start.md#reading-code-blocks)에서 자리표시자·입력값·붙여 넣을 위치를 확인합니다.
 명령 성공을 실습 통과로 판단하기 전에 [결과의 의미](#reading-results)를 읽습니다.
 
+## 기본 B·오프라인 명령
+
+이 표를 위에서 아래로 실행하지 말고 [B의 순서](../paths/b-practitioner.md)를 따릅니다.
+
 | 명령 | Azure / 부작용 | 상세 |
 |---|---|---|
 | `python scripts/workshop.py doctor` | 없음 | Python·합성 데이터 검사 |
@@ -25,35 +29,42 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 | `workflow --pattern sequential` | 유료 모델 호출 | 대안: concurrent, group-chat |
 | `seed-search --confirm-create` | 본인 Search 객체 생성/업로드 | 기존 서비스만 사용 |
 | `seed-search --iq --confirm-create` | 위 + GA source/base | 소유권 검사 |
-| `iq-chat check` | 읽기 전용 | 고정 Luna/버전·Search identity/역할/source·별도 chat-base 준비 확인 |
-| `iq-chat setup --confirm-create` | 본인 Preview chat base만 생성 | 모델 배포·역할 부여·GA base 변경 없음 |
-| `iq-chat ask --label iq-chat-first --confirm-cost` | 유료 계획·합성 | 고정 Luna + Search MI; 원시 응답·원문 근거·실패 저장 |
-| `prompt-agent create ... --confirm-create` | 실제 agent version 생성 | 정확한 접두사 필요 |
-| `prompt-agent invoke ... --version ...` | 실제 agent 호출 | 버전 고정 |
 | `collect --label baseline --prompt v1` | dev 전체 유료 호출 | 오류 보존, 동시성 1 |
 | `evaluate --label baseline` | 없음 | 결정적 업무 검사 |
 | `compare --baseline baseline --candidate candidate` | 없음 | 통제된 dev 비교 |
 | `feedback --label baseline --case D03 --reason "구체적인 검토 이유"` | 없음, 로컬 검토 기록 | 실제 dev만, 승인 대기 |
-| `cloud-evaluate --label candidate --confirm-cost` | 유료 cloud judge | evaluator version·job 이력 |
 | `collect --split holdout ... --candidate candidate --unlock-holdout` | 고정 후보의 실제 평가 요청 | 개발용 재사용 금지 |
 | `accept --candidate candidate --holdout final-holdout` | 없음 | 사람의 인수 자료, 자동 승인 아님 |
-| `serve` | 로컬 서버 시작, 호출 시 유료 모델 | Hosted SDK 필요 |
 | `cleanup-plan` | 없음 | 삭제 안 함. 선택 언어의 정리 가이드 반환 |
-| `python scripts/export_policy_docs.py` | 없음, 텍스트 6개 생성 | 선택 export. A의 학습자 ZIP에 이미 포함 |
-| `python scripts/build_learner_materials.py` | 없음 | 두 언어의 학습자 자료를 canonical dev/지침/정책과 대조 |
-| `python scripts/build_learner_materials.py --write` | 두 로컬 학습자 번들 재생성 | 관리자용 생성. 모델·holdout 사용 없음 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
-| `python scripts/prepare_hosted_azd.py --language ko --kind runtime ...` | 패키지를 검증한 로컬 프로젝트. `--initialize-env`는 로컬 azd 상태 생성/재조회도 수행 | 입문 local/v2/Responses 패키지만. Provision·배포·역할 부여 없음 |
-| `python scripts/prepare_hosted_azd.py --language ko --kind matrix ...` | 패키지를 검증한 로컬 IQ matrix 프로젝트와 선택 azd 상태 | 순차 IQ/account-chat/Invocations v1/v2·정확한 모델 목록/Search 값. 배포 없음 |
-| `python scripts/play_recordings.py` | 없음, localhost 영상 서버 | 영어 기본·Lab 00–11 챕터 이동. `--edition ko`로 별도 국문 새 촬영본 선택. Azure 호출·업로드 없음 |
 
 표에서 생략한 옵션은 실행용 완전한 예제가 아닙니다.
-첫 IQ Chat 설정은 [담당자 실행 순서](../setup.md#4-환경-담당자의-준비)를 한 번 진행합니다.
-기본 GA `retrieve --provider iq`는 의도적으로 다른 경로입니다.
+정확한 필수 인자는 `python scripts/workshop.py --help`와 각 하위 명령의 `--help`에서 확인합니다.
+전체 명령은 해당 [실습](../paths.md)에 있습니다.
 
-대화형 `model`·`answer`·`maf`·`workflow`·`retrieve`는 JSON을 출력합니다.
-[B 기록 폴더](../labs/00-start.md#prepare-notes)에 출력 전체를 저장하며 batch는 이미 `outputs/<label>/`를 작성합니다.
-필수 값을 포함한 독립 Hosted 준비 명령 전체는 [Lab 08](../labs/08-hosted.md)을 사용합니다.
+<a id="saving-json"></a>
+
+## 터미널 텍스트를 복사하지 않고 응답 저장하기
+
+`model`·`answer`·`maf`·`workflow`·`workflow-agent`·`retrieve`는 **명령 뒤에 `--output FILE`**을 받습니다.
+화면에 출력하는 것과 같은 JSON 전체를 저장하며 response ID·원문·사용량·미검증 필드를 바꾸지 않습니다.
+기본 B 명령에는 파일명 12개가 이미 들어 있습니다. [기록 폴더](../labs/00-start.md#prepare-notes)만 한 번 준비합니다.
+
+준비 후 추가로 실행할 수 있는 **로컬 전용** 검색 예시입니다.
+
+```bash
+python scripts/workshop.py retrieve --provider local \
+  --output outputs/learner-notes-ko/retrieve-example.json
+```
+
+이 소스 복사본의 `outputs/` 안에 있는 새 `.json`이어야 하며 상위 폴더가 있어야 합니다.
+파일이 이미 있거나 안전한 범위 밖이면 **요청 전에 거절**합니다. 재개할 때는 저장된 결과를 열고, 새 요청에만 새 파일명을 사용합니다.
+`--output`을 생략하면 기존처럼 출력만 합니다.
+
+`Saved JSON: ...`는 stderr에, JSON은 stdout에 나옵니다. **저장은 평가 통과나 승인이 아닙니다.**
+요청이 실패하면 성공 응답 파일을 만들지 않습니다. 응답은 출력됐지만 저장에 실패했다면 stdout과 오류를 보관하고
+유료 요청을 반복하는 대신 직접 새 파일에 저장합니다.
+`collect`·`evaluate`와 심화 실행 명령은 자체 기록 폴더를 관리하므로 `--output`을 붙이거나 manifest를 출력 사본으로 대체하지 않습니다.
 
 <a id="reading-results"></a>
 
@@ -81,6 +92,7 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 
 | 실행 종류 | 소스 저장소 아래 위치 |
 |---|---|
+| `--output`을 지정한 대화형 명령 | 지정한 정확한 파일. 기본 B는 `outputs/learner-notes-ko/*.json` |
 | 입문 `demo` / `collect` | `outputs/<label>/` |
 | `benchmark smoke` | 로컬 azd가 다른 폴더여도 `outputs/smoke/<label>/` |
 | `benchmark collect` | `outputs/benchmarks/<label>/` |
@@ -90,7 +102,53 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 | `memory recall` | `outputs/memory-runs/<label>/`. Store 소유권은 별도 |
 | Code Interpreter / OpenAPI / A2A | 각각 `outputs/code-interpreter/<label>/`, `outputs/openapi-runs/<label>/`, `outputs/a2a-runs/<label>/` |
 
-## 한국어 통합 개정의 추가 명령
+## 선택 명령군
+
+<details>
+<summary>선택한 모듈만 확인 — 기본 B의 추가 필수 단계가 아닙니다</summary>
+
+로컬 계획도 Azure 요청을 하지 않을 뿐 선택한 모듈의 SDK·`.env`가 필요할 수 있습니다.
+각 명령군의 `--help`와 연결된 실습에서 필수 값·생성/비용/삭제 승인을 확인합니다.
+
+| 명령군 | 목적·경계 | 전체 가이드 |
+|---|---|---|
+| `prompt-agent` | 별도 버전의 관리형 agent 생성/호출. 로컬 MAF와 구분 | [Lab 03 SDK](../labs/03-prompt-agent.md) |
+| `iq-chat` | Luna/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup.md#4-환경-담당자의-준비) |
+| `workflow-agent` / `runtime-contract` | 검증된 workflow 출력 / 로컬 고정 profile·hash | [Lab 05 C](../labs/05-workflows.md) |
+| `benchmark` | 버전 고정 Hosted smoke·matrix·평가·trace·인수 | [평가 워크북](evaluation-workbook.md) |
+| `cloud-evaluate` / `calibrate-judge` | 저장된 응답의 유료 native 평가 / 별도 calibration fixture | [Lab 07](../labs/07-evaluation.md), [워크북](evaluation-workbook.md) |
+| `serve` | 로컬 host. 추론은 여전히 유료 | [Lab 08](../labs/08-hosted.md) |
+| `toolbox` | 본인 관리형 도구·버전·재조회·MAF 호출 | [Toolbox](../labs/extensions/toolbox.md) |
+| `prepare-extensions` | 동봉 dev/정책으로 로컬 심화 입력 생성. Holdout 사용 안 함 | [개발 도구](../labs/extensions/developer-toolkit.md) |
+| `conversations` | 다중 턴 dev 수집·턴/대화별 평가 구분 | [대화 평가](../labs/extensions/conversation-evaluation.md) |
+| `memory` | 명시적인 합성 store/scope 관리. 자동 agent memory 아님 | [Memory](../labs/extensions/memory.md) |
+| `a2a` | 본인 A2A 1.0 target/caller·위임 기록 | [A2A](../labs/extensions/a2a.md) |
+| `routines` | 기존 dispatch 확인. 전달 성공만으로 target 응답을 입증하지 않음 | [Routines](../labs/extensions/routines.md) |
+| `code-interpreter` / `openapi` | 합성 정책 CSV 생성 / 본인 Search index 읽기 | [추가 도구](../labs/extensions/additional-tools.md) |
+
+기본 GA `retrieve --provider iq`와 선택한 모델 기반 `iq-chat`은 의도적으로 다른 경로입니다.
+
+### 보조 스크립트
+
+| 스크립트 | 목적·부작용 |
+|---|---|
+| `scripts/export_policy_docs.py --language ko` | 선택 로컬 파일 6개 export. A의 학습자 ZIP에 이미 포함 |
+| `scripts/build_learner_materials.py` | 두 언어 번들 검사. 관리자의 `--write`는 모델/holdout 없이 재생성 |
+| `scripts/prepare_hosted_azd.py --kind runtime` | 검증된 패키지에서 별도 local/v2/Responses 프로젝트 생성. 전체 명령은 [Lab 08](../labs/08-hosted.md) |
+| `scripts/prepare_hosted_azd.py --kind matrix` | 별도 순차 IQ/account-chat/Invocations v1/v2 프로젝트. 값은 [워크북](evaluation-workbook.md)에서 준비 |
+| `scripts/play_recordings.py` | Localhost 영상 서버. 영어 기본, `--edition ko`로 독립 국문 세트 선택 |
+
+완전한 터미널 명령이 아니라 스크립트 이름입니다. 연결된 절차를 따라갈 때만 앞에 `python`을 붙입니다.
+Hosted 준비는 로컬 azd 상태를 생성/재조회할 수 있지만 provision·배포·역할 부여는 하지 않습니다.
+
+</details>
+
+<a id="한국어-통합-개정의-추가-명령"></a>
+
+## Hosted workflow와 평가 확장
+
+<details>
+<summary>심화 matrix 옵션 — 워크북의 준비를 마친 뒤에만 사용합니다</summary>
 
 | 명령 | 부작용 | 목적 |
 |---|---|---|
@@ -102,7 +160,7 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 | `retrieve --provider hybrid` | 실제 embedding·Search 조회 | text + vector query |
 | `benchmark plan ...` | 없음 | 명시적 모델 목록과 호출량 계획 |
 | `benchmark smoke ... --confirm-cost` | 실제 local/remote 모델 호출 | exact runtime contract와 응답 검사 |
-| `benchmark smoke --local --azd-directory ...` | 로컬 host + 유료 모델 | 준비한 azd 폴더를 명시적으로 선택하며 근거는 소스 복사본에 저장 |
+| `benchmark smoke --local --azd-directory ...` | 로컬 host + 유료 모델 | 폴더는 필수이며 소스 복사본에서 자동 선택하지 않음 |
 | `benchmark collect ... --confirm-cost` | 원격 session + 전체 matrix | 모델×case, 오류/원문/계보 보존 |
 | `benchmark evaluate --label LABEL --confirm-cost` | 실제 native judge | frozen responses의 평가 |
 | `benchmark evaluate ... --reference BASELINE` | 위와 같음 | 같은 evaluator/version/judge/threshold |
@@ -127,3 +185,27 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 
 실행 결과를 바꾸는 명령은 기존 label을 덮어쓰지 않습니다.
 점수나 raw 응답을 수정해 hash 검사를 통과시키려 하지 않습니다.
+
+</details>
+
+## 명령에 대응하는 코드 찾기
+
+시작점은 [`scripts/workshop.py`](../../../scripts/workshop.py), 다음은 [`cli.py`](../../../src/foundry_workshop/cli.py)입니다.
+CLI가 입력을 해석·검증하고 구현 하나를 선택해 결과를 출력/저장합니다.
+Cloud 분기는 `settings.py`로 `.env`를 읽고 오프라인 분기는 읽지 않습니다.
+모든 모듈을 순서대로 읽지 말고 아래의 해당 파일부터 확인합니다.
+
+| 확인할 내용 | `src/foundry_workshop/` 아래 파일 |
+|---|---|
+| 설정·입출력 schema·hash | `settings.py`, `contracts.py` |
+| 로컬 검색·기본 수집·업무 게이트 | `knowledge.py`, `experiments.py`, `evaluation.py` |
+| 프로젝트 모델 호출·관리형 Prompt Agent | `cloud.py` |
+| 로컬 MAF·배포용 workflow | `agents.py`, `runtime.py` |
+| Search/hybrid·별도 IQ Chat preset | `search.py`, `iq_chat.py` |
+| Runtime profile·패키지·Hosted 전송 | `profiles.py`, `packaging.py`, `hosted.py` |
+| Hosted matrix·native judge·trace | `benchmark_cli.py`, `benchmark.py`, `cloud_evaluation.py`, `native.py`, `calibration.py`, `observability.py` |
+| 관리형 도구·대화 | `toolbox.py`, `toolbox_host.py`, `conversations.py` |
+| 선택 심화 실습 | `a2a_lab.py`, `memory_lab.py`, `routines_lab.py`, `openapi_lab.py`, `code_interpreter_lab.py`, `resilience.py` |
+| 결정적 학습자/확장 자료 생성 | `materials.py`, `extension_materials.py` |
+
+대응하는 `tests/` 계약은 오프라인으로 실행합니다. `tests_sdk/`도 설치한 SDK와 명시적인 stub 전송을 사용하며 실제 Azure 실행이 아닙니다.

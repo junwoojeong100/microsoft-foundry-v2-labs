@@ -67,7 +67,7 @@ A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다.
 ### 이미 만든 파일 확인
 
 인계 완료 여부를 정하기 전에 이 목록과 대조합니다.
-출력 JSON과 기록은 `outputs/learner-notes-ko/`, 자동 생성된 실행과 소유권 기록은 원래 경로에 둡니다.
+`--output`으로 저장한 JSON과 개인 기록은 `outputs/learner-notes-ko/`, 자동 생성된 실행과 소유권 기록은 원래 경로에 둡니다.
 다른 이름을 선택했다면 `session-notes.txt`에 정확한 실제 경로를 적습니다.
 
 | 출처 | 보관할 것 |
@@ -80,7 +80,7 @@ A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다.
 | Lab 08 | `.build/hosted/package-manifest.json`과 그 manifest가 설명하는 패키지 |
 | 준비 / Lab 09 | 작성한 `session-notes.txt`, `operations-checklist.txt`, 복사한 `SOURCE.json` |
 
-각 JSON을 열어 마지막 터미널 몇 줄이 아니라 응답 전체가 있는지 확인합니다.
+각 JSON을 열어 응답 전체를 검토합니다. `--output`은 응답을 보존할 뿐, 저장됐다고 정답이 되는 것은 아닙니다.
 빈 양식이나 파일 이름만으로는 실행 근거가 되지 않습니다. 빠진 항목은 아래 미완료 상태로 인계합니다.
 목록을 채우려고 유료 호출을 반복하거나 파일을 꾸며 만들지 않습니다.
 

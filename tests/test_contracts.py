@@ -13,7 +13,7 @@ from foundry_workshop.contracts import (
     safe_label,
 )
 from foundry_workshop.knowledge import evidence, local_retrieve
-from foundry_workshop.settings import Settings, azure_endpoint
+from foundry_workshop.settings import Settings, azure_endpoint, require_uuid
 
 from . import ROOT
 
@@ -94,6 +94,59 @@ class ContractTests(unittest.TestCase):
             settings = Settings.from_env()
         self.assertEqual(settings.deployment, "actual-deployment-name")
         self.assertEqual(settings.auth_mode, "cli")
+
+    def test_uuid_errors_name_the_setting_without_echoing_its_value(self):
+        for name in (
+            "AZURE_TENANT_ID",
+            "AZURE_CLIENT_ID",
+            "AZURE_SUBSCRIPTION_ID",
+            "AZURE_APPLICATION_INSIGHTS_APP_ID",
+        ):
+            with (
+                self.subTest(name=name),
+                patch.dict(os.environ, {name: "unit-invalid"}, clear=True),
+            ):
+                with self.assertRaisesRegex(ValueError, name) as failure:
+                    require_uuid(name)
+                self.assertNotIn("unit-invalid", str(failure.exception))
+            value = "00000000-0000-0000-0000-000000000001"
+            with patch.dict(os.environ, {name: value}, clear=True):
+                self.assertEqual(require_uuid(name), value)
+
+    def test_settings_reject_invalid_identity_values_with_actionable_names(self):
+        environment = {
+            "AZURE_TENANT_ID": "00000000-0000-0000-0000-000000000001",
+            "AZURE_AI_PROJECT_ENDPOINT": "https://unit.services.ai.azure.com/api/projects/workshop",
+            "AZURE_AI_MODEL_DEPLOYMENT_NAME": "actual-deployment-name",
+        }
+        for name in ("AZURE_TENANT_ID", "AZURE_CLIENT_ID"):
+            with (
+                self.subTest(name=name),
+                patch.dict(os.environ, {**environment, name: "unit-invalid"}, clear=True),
+                self.assertRaisesRegex(ValueError, name),
+            ):
+                Settings.from_env()
+
+    def test_output_token_errors_name_the_setting_and_keep_exact_bounds(self):
+        environment = {
+            "WORKSHOP_AUTH_MODE": "managed-identity",
+            "AZURE_AI_PROJECT_ENDPOINT": "https://unit.services.ai.azure.com/api/projects/workshop",
+            "AZURE_AI_MODEL_DEPLOYMENT_NAME": "actual-deployment-name",
+        }
+        for value in ("", "not-a-number", "2048.5", "255", "8193"):
+            with (
+                self.subTest(value=value),
+                patch.dict(
+                    os.environ, {**environment, "WORKSHOP_MAX_OUTPUT_TOKENS": value}, clear=True
+                ),
+                self.assertRaisesRegex(ValueError, "WORKSHOP_MAX_OUTPUT_TOKENS.*256.*8192"),
+            ):
+                Settings.from_env()
+        for value in ("256", "2048", "8192"):
+            with patch.dict(
+                os.environ, {**environment, "WORKSHOP_MAX_OUTPUT_TOKENS": value}, clear=True
+            ):
+                self.assertEqual(Settings.from_env().max_output_tokens, int(value))
 
     def test_context_hash_is_order_independent(self):
         documents = load_documents(ROOT)

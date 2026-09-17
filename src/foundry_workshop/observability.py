@@ -4,11 +4,10 @@ import shutil
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
-from uuid import UUID
 
 from .contracts import digest, read_json, write_json
 from .hosted import HostedBinding, HostedTransport
-from .settings import Settings, credential_for, require_env
+from .settings import Settings, credential_for, require_uuid
 
 
 def trace_query(manifest: dict[str, Any], rows: list[dict[str, Any]]) -> str:
@@ -128,10 +127,8 @@ def monitor_matrix(root: Path, label: str) -> dict[str, Any]:
     settings = Settings.from_env()
     if settings.project_endpoint != manifest["runtime_contract"]["project_endpoint"]:
         raise ValueError("Query traces using the frozen matrix's project configuration.")
-    application = require_env("AZURE_APPLICATION_INSIGHTS_APP_ID")
-    subscription = require_env("AZURE_SUBSCRIPTION_ID")
-    UUID(application)
-    UUID(subscription)
+    application = require_uuid("AZURE_APPLICATION_INSIGHTS_APP_ID")
+    subscription = require_uuid("AZURE_SUBSCRIPTION_ID")
     plan = write_trace_plan(root, label)
     print("Read-only Application Insights query:\n```kql\n" + plan["query"] + "```", flush=True)
     from .contracts import parse_json

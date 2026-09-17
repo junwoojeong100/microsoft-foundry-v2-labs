@@ -138,6 +138,9 @@ Python 3.13/`main.py`·Invocations 1.0.0을 확인합니다.
 
 ## 4. 로컬과 원격 smoke를 구분
 
+**로컬 smoke에는 `--azd-directory`가 필수입니다.** 생략하면 smoke 근거 생성이나 azd 호출 전에 거절하며
+소스 복사본의 과거 `.azure` 상태를 자동 선택하지 않습니다. 원격 smoke는 기존처럼 정확한 endpoint·version 설정을 사용합니다.
+
 터미널 A:
 
 ```bash

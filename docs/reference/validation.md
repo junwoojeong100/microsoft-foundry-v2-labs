@@ -6,6 +6,38 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="repository-straightforwardness"></a>
+
+## Repository straightforwardness: guides, code and settings — September 17, 2026
+
+Reviewed the guide entry points, all 61 language pairs, CLI command families, shared source contracts,
+configuration templates and both CI workflows. The existing A/B routes and optional C boundaries remain intact.
+
+| Friction | Change |
+|---|---|
+| Core B required 12 manual terminal-to-editor JSON copies | Each command now has a non-overwriting `--output` path; the same 12 files lead directly to review and handoff |
+| Long CLI usage and generic help hid the first action and several advanced families | Short `COMMAND` usage, an offline starting sequence, distinct live-command help and a complete optional-family/code lookup |
+| Malformed UUIDs and output limits produced parser errors without the setting name | Shared named UUID validation and explicit integer/range diagnostics; the model, identity and limits are unchanged |
+| First-pass settings were mixed with advanced inputs; one reference template used an undeclared agent variable | Numbered minimal/Search/optional setup, documented Toolbox values and reference manifests aligned with the existing preparation helper |
+| Local matrix smoke could silently use the source copy's old azd project | Require `--azd-directory` before smoke output or azd invocation; remote endpoint/version selection is unchanged |
+| Documentation parsing rebuilt the same command tree for every example | One parser per check, with strict command, language and output-filename parity retained |
+
+The regression checks exercise actual local JSON saving, both language paths, pre-request overwrite/scope rejection,
+preserved stdout after a save race, failed requests, exact setting bounds and explicitly selected local smoke scope.
+Source English changes precede Korean completion and hash recording.
+This removes **12 required manual JSON-copy steps from B**, not its human review or business gates.
+It is not a measured novice completion time or a new usability score.
+
+**Local verification:** 253 offline tests passed on each of Python 3.13 and 3.14 without site packages;
+67 installed-SDK tests passed with explicit stub transports.
+Ruff 0.16.6 lint/format, compilation on both Python versions, dependency/import checks and both canonical learner bundles passed.
+Documentation checks cover 123 Markdown files, 61 language pairs and 330 CLI examples, with no pending translations.
+
+**Live Azure checks for this revision: not run.** No model/judge request, provisioning, deployment,
+role/subscription change, recording or company/Microsoft 365 data access was performed.
+Canonical prompts, datasets, policies, fixtures and earlier media remain unchanged.
+Ignored personal `.env`, `.azure/`, `azure.yaml` and existing outputs are preserved; earlier Azure results do not verify the changed source hashes.
+
 ## IQ Chat configuration screen — September 17, 2026
 
 The new [Lab 06 screen](../labs/06-knowledge.md#iq-chat-model) shows an existing saved chat KB with

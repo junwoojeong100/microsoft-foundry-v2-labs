@@ -133,7 +133,9 @@ An existing remote index plus an empty local ledger is not ready for a create/up
 ### 2. Inspect the small source corpus
 
 ```bash
-python scripts/workshop.py --language en retrieve --provider local --question "What is the domestic business-trip lodging limit for September 2026?"
+python scripts/workshop.py --language en retrieve --provider local \
+  --question "What is the domestic business-trip lodging limit for September 2026?" \
+  --output outputs/learner-notes-en/retrieve-local.json
 ```
 
 Inspect `documents`, `source_ids`, and `context_hash`. This educational keyword search is not a production semantic search engine.
@@ -144,7 +146,7 @@ Keep the selected English question unchanged within this experiment; `--language
 **What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
 retrieval, not Search/IQ. Check the returned provider, not just configured endpoint names.
 
-**Save:** `retrieve-local.json` in your Lab 00 notes directory.
+**Save:** `retrieve-local.json` is written to your Lab 00 notes directory. Open it and check the original evidence.
 
 ### 3. Create an ordinary Search index
 
@@ -172,13 +174,15 @@ failure is not overall success.
 Only after successful seeding, query that index:
 
 ```bash
-python scripts/workshop.py --language en retrieve --provider search --question "What is the domestic business-trip lodging limit for September 2026?"
+python scripts/workshop.py --language en retrieve --provider search \
+  --question "What is the domestic business-trip lodging limit for September 2026?" \
+  --output outputs/learner-notes-en/retrieve-search.json
 ```
 
 **What to check:** Read the result of `--provider search`; verify endpoint/index.
 Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
 
-**Save:** `retrieve-search.json` in the same notes directory before creating the IQ source/base.
+**Save:** `retrieve-search.json` is written to the same notes directory. Review it before creating the IQ source/base.
 
 ### 4. Create a GA IQ knowledge source/base
 
@@ -190,7 +194,9 @@ Continue only after the seed output has `document_count: 6` and the intended non
 Keep `outputs/azure-objects.json`; do not delete the ownership ledger when pausing.
 
 ```bash
-python scripts/workshop.py --language en retrieve --provider iq --question "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?"
+python scripts/workshop.py --language en retrieve --provider iq \
+  --question "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" \
+  --output outputs/learner-notes-en/retrieve-iq.json
 ```
 
 Meaning: advance-approval conditions for a KRW 170000 domestic hotel in September 2026.
@@ -221,12 +227,14 @@ IQ failure never automatically becomes Search.
 **What to check:** Read `activity`, base, API version, `references` and `documents` together.
 Do not fill unreported latency or usage with invented values.
 
-**Save:** `retrieve-iq.json` in the same notes directory, including the original documents and activity.
+**Save:** `retrieve-iq.json` is written to the same notes directory, including the original documents and activity. Inspect them before answering.
 
 ### 5. Send evidence to the real model
 
 ```bash
-python scripts/workshop.py --language en answer --prompt v2 --retrieval iq --question "What procedure is required to book a KRW 170000 hotel for a domestic business trip in September 2026?"
+python scripts/workshop.py --language en answer --prompt v2 --retrieval iq \
+  --question "What procedure is required to book a KRW 170000 hotel for a domestic business trip in September 2026?" \
+  --output outputs/learner-notes-en/answer-iq.json
 ```
 
 Meaning: steps required before booking that over-limit hotel.
@@ -237,7 +245,7 @@ different from misreading the effective date of a correctly retrieved policy.
 **What to check:** Verify the IQ base/API, `response_model`, `response_id`, and `usage`.
 Compare the amount, conditions, and citations in `answer` with the original documents.
 
-**Save:** `answer-iq.json` in the same notes directory, keeping the complete response and retrieval metadata.
+**Save:** `answer-iq.json` is written to the same notes directory. Check its complete response and retrieval metadata.
 
 ```mermaid
 flowchart LR

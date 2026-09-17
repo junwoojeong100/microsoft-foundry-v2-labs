@@ -152,9 +152,12 @@ If this folder already belongs to your current pass, keep it and resume without 
 For a new pass, choose a new notes-directory name and use it consistently. Never fill files under `data/learner/`.
 Keep `session-notes.txt` open; skip its browser-only fields in B.
 
-`model`, `answer`, `maf`, `workflow` and `retrieve` print JSON; they **do not save labeled run folders**.
-Save the complete current JSON object, from its opening `{` through its matching `}`, in this notes directory using your editor.
-Do not include shell prompts or earlier terminal output. On failure, record the actual error and failed step instead of claiming a saved file proves success.
+The B commands in Labs 02/04/05/06 include **`--output`**, which saves the complete JSON to this notes directory
+and still prints it. **No terminal-to-editor copying is needed.** Open the saved file at each **Save** checkpoint.
+The parent directory must exist; an existing file or an out-of-scope path stops before the request.
+If you chose another notes directory, change every `--output` path consistently. Keep an earlier result instead of repeating a paid call.
+Without `--output`, these commands still only print JSON. On a request failure, record the actual error and failed step;
+no successful-response file is created. [Save behavior and recovery](../reference/commands.md#saving-json).
 `collect`/`evaluate` already write `outputs/<label>/`; keep those generated folders in place and do not edit their responses.
 
 ### 2. Learn the output format without Azure
@@ -210,8 +213,9 @@ else
 fi
 ```
 
-Open `.env` in VS Code and enter instructor-provided values. If it already exists,
-inspect it instead of overwriting it with the copy command.
+Open `.env` in VS Code and fill **section 1** with the setup-card values. Keep its local defaults;
+add **section 2's Search endpoint only for Lab 06**. Leave the advanced fields alone unless that module is selected.
+If `.env` already exists, inspect it instead of overwriting it with the copy command.
 
 | Required setting | Source |
 |---|---|

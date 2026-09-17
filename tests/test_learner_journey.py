@@ -1,3 +1,4 @@
+import io
 import json
 import os
 import re
@@ -6,9 +7,11 @@ import shutil
 import subprocess
 import sys
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from itertools import pairwise
+from unittest.mock import patch
 
-from foundry_workshop.cli import parser
+from foundry_workshop.cli import main, parser
 from foundry_workshop.contracts import load_documents, read_json, read_jsonl
 from foundry_workshop.profiles import RuntimeProfile
 
@@ -435,11 +438,12 @@ class LearnerJourneyTests(unittest.TestCase):
         }
         for language, _, labs in self.language_labs():
             for number, filenames in expected.items():
-                core = self.core_section(language, labs[number], "B")
+                core = self.core_section(language, labs[number], "B").replace("\\\n", " ")
                 commands = DOCS.workshop_commands(core)
                 saved = []
                 for index, (line, arguments) in enumerate(commands):
-                    if parser().parse_args(arguments).command in {"doctor", "seed-search"}:
+                    parsed = parser().parse_args(arguments)
+                    if parsed.command in {"doctor", "seed-search"}:
                         continue
                     following = core.split(line, 1)[1]
                     if index + 1 < len(commands):
@@ -449,8 +453,61 @@ class LearnerJourneyTests(unittest.TestCase):
                     with self.subTest(language=language, lab=number, command=line):
                         self.assertIsNotNone(match, "Name the saved file before the next command.")
                         if match:
+                            self.assertEqual(
+                                str(parsed.output),
+                                f"outputs/learner-notes-{language}/{match[1]}",
+                                "The documented command must actually save the promised JSON.",
+                            )
                             saved.append(match[1])
                 self.assertEqual(tuple(saved), filenames)
+
+    def test_all_twelve_b_exports_execute_in_both_languages_without_overwriting(self):
+        def explicit_offline_transport(_root, arguments):
+            return {
+                "mode": "explicit-offline-command-stub",
+                "command": arguments.command,
+                "language": arguments.language,
+                "question": arguments.question,
+                "response_id": "unit-test-response",
+                "trace_id": None,
+            }
+
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language), workspace() as root:
+                notes = root / "outputs" / f"learner-notes-{language}"
+                notes.mkdir(parents=True)
+                saved = set()
+                for number in (2, 4, 5, 6):
+                    for _, arguments in DOCS.workshop_commands(
+                        self.core_section(language, labs[number], "B")
+                    ):
+                        parsed = parser().parse_args(arguments)
+                        if getattr(parsed, "output", None) is None:
+                            continue
+                        stdout, stderr = io.StringIO(), io.StringIO()
+                        with (
+                            redirect_stdout(stdout),
+                            redirect_stderr(stderr),
+                            patch(
+                                "foundry_workshop.cli.cloud_command",
+                                side_effect=explicit_offline_transport,
+                            ),
+                        ):
+                            self.assertEqual(main(root, arguments), 0, stderr.getvalue())
+                        target = root / parsed.output
+                        original = target.read_bytes()
+                        self.assertEqual(original, stdout.getvalue().encode("utf-8"))
+                        self.assertEqual(target.parent, notes)
+                        saved.add(target)
+                        with (
+                            redirect_stdout(io.StringIO()),
+                            redirect_stderr(io.StringIO()),
+                            patch("foundry_workshop.cli.cloud_command") as cloud,
+                        ):
+                            self.assertEqual(main(root, arguments), 2)
+                        cloud.assert_not_called()
+                        self.assertEqual(target.read_bytes(), original)
+                self.assertEqual(len(saved), 12)
 
     def test_b_handoff_lists_all_printed_results_and_review_files(self):
         filenames = (

@@ -11,6 +11,24 @@
 언어별 지침·corpus·dataset을 선택하고 Hosted profile에 고정합니다.
 따라서 오래된 터미널에서 예상하지 않은 값을 상속하지 않았는지 확인합니다.
 
+## 현재 실습에 필요한 값만 입력하기
+
+녹화나 오래된 `azure.yaml`이 아니라 [`.env.example`](../../../.env.example)의 번호 구간을 사용합니다.
+
+| 현재 단계 | 입력·유지할 값 |
+|---|---|
+| 오프라인 체험 | 없음. 해당 명령은 `.env`를 읽지 않음 |
+| 첫 실제 모델·MAF·로컬 검색 평가 | 1번 구간에 검증된 준비 카드 값 입력. `WORKSHOP_AUTH_MODE=cli`, 출력 한도 2048 유지 |
+| 기본 B의 Lab 06 Search/IQ | 2번 구간의 `AZURE_SEARCH_ENDPOINT` 추가. 객체 이름 기본값은 본인 prefix 사용 |
+| 선택 IQ Chat·hybrid·Toolbox·Hosted·cloud judge | 선택한 모듈이 명시한 추가 값만 입력 |
+
+잘못된 UUID·출력 한도는 단순 파서 오류 대신 **설정 이름**을 알려 줍니다.
+그 값만 고치며 관계없는 배포나 identity를 바꾸지 않습니다.
+소스 루트의 `azure.yaml`, `.azure/`, `.env`는 Git에서 제외되는 개인 상태이며 배포되는 실습 기본값이 아닙니다.
+Hosted 도우미가 검증된 값으로 별도 프로젝트를 생성하며, 로컬 matrix smoke에는 `--azd-directory`가 필수입니다.
+
+## 설정 찾아보기
+
 | 이름 | 쓰는 곳 | 비고 |
 |---|---|---|
 | `AZURE_SUBSCRIPTION_ID` | 로컬 CLI 인증과 ARM 조회 | UUID, 이 구독의 계정 프로필을 선택하며 기본 구독은 변경하지 않음 |
@@ -29,6 +47,8 @@
 | `AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME` | IQ | 기본 `<prefix>-source` |
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | IQ | 기본 `<prefix>-kb` |
 | `AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME` | 선택 IQ Chat preset | 별도 소유 base. 국문 기본 `<prefix>-chat-ko-kb`, 영문 `<prefix>-chat-en-kb` |
+| `TOOLBOX_SEARCH_CONNECTION_NAME` | 선택 관리형 Toolbox | 담당자가 같은 프로젝트에 준비한 keyless CognitiveSearch 연결 |
+| `TOOLBOX_NAME` | 선택 관리형 Toolbox | 기본 `<prefix>-tools-<language>`. 기존의 소유하지 않은 이름은 거절 |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | cloud judge | target와 구분해 명시 |
 
 IQ Chat 모델과 Search의 호출 identity는 **knowledge base의 모델 연결**에서 설정합니다.
@@ -116,6 +136,8 @@ Label만 또는 `WORKSHOP_PREFIX`만 바꾸어 초기화할 수 없습니다. �
 실행은 `outputs/<label>/`에 저장합니다. label은 경로가 아니라 제한된 이름입니다.
 기존 실행 디렉터리는 덮어쓰지 않습니다.
 `manifest.json`의 hash는 재현을 돕는 장치이며 전자서명이나 변조 방지 저장소는 아닙니다.
+대화형 명령은 [`--output`으로 JSON 전체를 저장](commands.md#saving-json)할 수도 있습니다.
+이 파일이 batch manifest나 Azure 소유권 기록을 대체하지는 않습니다.
 
 한국어와 영어는 별도 dataset/prompt/corpus hash를 사용하며 ID·한도·적용일·정답 기준은 동등하게 유지합니다.
 영어 파일 누락을 한국어로 대신하지 않습니다. [언어 번들](../../../data/README.ko.md)을 확인하세요.

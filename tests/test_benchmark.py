@@ -146,6 +146,9 @@ class BenchmarkTests(unittest.TestCase):
         ):
             for local in (True, False):
                 with workspace() as root:
+                    standalone = root / "standalone"
+                    standalone.mkdir()
+                    (standalone / "azure.yaml").write_text("name: explicit-unit-project\n")
                     with patch(
                         "foundry_workshop.benchmark_cli.subprocess.run",
                         return_value=SimpleNamespace(
@@ -164,11 +167,35 @@ class BenchmarkTests(unittest.TestCase):
                                 model_key="alpha",
                                 case_id="D01",
                                 confirmed=True,
+                                azd_directory=standalone if local else None,
                             )
                     command = invoked.call_args.args[0]
-                    self.assertEqual(command[:3], ["azd", "--cwd", str(root)])
+                    self.assertEqual(
+                        command[:3], ["azd", "--cwd", str(standalone.resolve() if local else root)]
+                    )
                     self.assertEqual("--protocol" in command, local)
                     self.assertEqual("--agent-endpoint" in command, not local)
+
+    def test_local_smoke_requires_a_directory_before_any_output_or_azd_call(self):
+        with (
+            workspace() as root,
+            patch("foundry_workshop.benchmark_cli.subprocess.run") as invoked,
+            patch("foundry_workshop.benchmark_cli.runtime_contract") as contract,
+        ):
+            with self.assertRaisesRegex(ValueError, "--azd-directory"):
+                smoke(
+                    root,
+                    settings(),
+                    RuntimeProfile(protocol="invocations"),
+                    label="missing-directory",
+                    local=True,
+                    model_key="alpha",
+                    case_id="D01",
+                    confirmed=True,
+                )
+            invoked.assert_not_called()
+            contract.assert_not_called()
+            self.assertFalse((root / "outputs").exists())
 
     def test_local_smoke_uses_explicit_azd_directory_but_keeps_evidence_in_source_copy(self):
         with (

@@ -112,7 +112,9 @@ python scripts/workshop.py doctor --cloud
 의도한 배포가 `Succeeded`인지 사전 확인한 뒤에만 실제 요청을 보냅니다.
 
 ```bash
-python scripts/workshop.py model --question "Foundry와 Agent Framework의 차이를 한국어로 세 문장으로 설명해 주세요."
+python scripts/workshop.py model \
+  --question "Foundry와 Agent Framework의 차이를 한국어로 세 문장으로 설명해 주세요." \
+  --output outputs/learner-notes-ko/model.json
 ```
 
 핵심 코드는 `src/foundry_workshop/cloud.py`의 `project_clients`, `call_model`입니다.
@@ -137,12 +139,13 @@ with AIProjectClient(endpoint=project_endpoint, credential=credential) as projec
 **화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다.
 `trace_id: null`과 `trace_export: not-configured`도 그대로 기록하며, 생성된 응답 ID를 Trace ID로 바꾸지 않습니다.
 
-**저장:** `model.json`을 Lab 00 기록 폴더에 저장한 뒤 다음 요청으로 갑니다. 답변 문장만이 아니라 JSON 전체를 복사합니다.
+**저장:** `model.json`은 `--output`이 Lab 00 기록 폴더에 작성합니다. 저장된 응답 전체를 연 뒤 다음 요청으로 갑니다.
 
 ### 구조화 출력까지 확인
 
 ```bash
-python scripts/workshop.py answer --prompt v2 --retrieval local
+python scripts/workshop.py answer --prompt v2 --retrieval local \
+  --output outputs/learner-notes-ko/answer-local.json
 ```
 
 이 명령은 합성 문서에서 로컬 키워드 검색을 한 뒤 **실제 Azure 모델**을 호출합니다.
@@ -153,7 +156,7 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 **화면 확인:** 답변 필드·`source_ids`·`response_id`·`usage`·`trace_export`를 포함한 출력 전체를 읽습니다.
 금액만 맞고 근거가 없는 것으로는 충분하지 않습니다.
 
-**저장:** `answer-local.json`을 같은 기록 폴더에 저장합니다. 원문과 응답 metadata도 포함합니다.
+**저장:** `answer-local.json`이 같은 기록 폴더에 작성됩니다. 답변뿐 아니라 원문과 응답 metadata도 확인합니다.
 
 지원하지 않는 모델이 `json_schema`를 거부하면 여기서 중단합니다.
 코드는 일반 텍스트로 몰래 전환하거나 JSON을 임의로 고치지 않습니다.

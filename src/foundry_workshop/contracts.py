@@ -71,11 +71,11 @@ def read_json(path: Path) -> Any:
     return parse_json(path.read_text(encoding="utf-8"))
 
 
-def write_json(path: Path, value: Any) -> None:
+def write_json(path: Path, value: Any, *, overwrite: bool = True) -> None:
+    text = json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8"
-    )
+    with path.open("w" if overwrite else "x", encoding="utf-8") as output:
+        output.write(text)
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:

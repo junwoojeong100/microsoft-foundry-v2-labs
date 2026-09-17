@@ -17,7 +17,8 @@ Lab 00에서 소스 복사본의 빈 양식으로 **`outputs/learner-notes-ko/`*
 터미널 출력 파일과 검토 기록은 여기에 저장합니다. B에는 브라우저 agent나 별도 학습자 ZIP이 필요 없습니다.
 자동 생성된 평가 폴더는 기록 폴더 안이 아니라 `outputs/<label>/`에 그대로 둡니다.
 값을 입력하라는 블록이 나오면 [코드 블록 읽는 법](../labs/00-start.md#reading-code-blocks)을 확인합니다.
-각 출력은 다음 요청 전에 **저장** 지점에서 보관합니다.
+핵심 명령이 **응답 JSON 12개 전체**를 `--output`으로 저장하므로 터미널 출력을 직접 복사하지 않습니다.
+다음 요청 전에 각 **저장** 지점에서 파일을 열고, 사람의 검토는 별도로 작성합니다.
 [Lab 11의 파일 목록](../labs/11-capstone.md#b-evidence)에 인계할 전체 항목이 있습니다.
 
 **첫 회차의 선택은 정해져 있습니다:** Luna, 입문 MAF 세 패턴, Lab 06의 GA Search/IQ,
@@ -35,8 +36,8 @@ Search 권한이 없으면 Lab 06을 미완료로 기록하고 전체 B 완료�
 |---|---|---|
 | 1 | [Lab 00 B](../labs/00-start.md#path-b): 공통 준비 | 환경·개인 기록 폴더·인증·fixture/실제 실행 구분 |
 | 2 | [Lab 02 B](../labs/02-models.md#path-b): 모델 API | 실제 응답·구조 검증·response ID·사용량 |
-| 3 | [Lab 04 B](../labs/04-agents-tools.md#path-b): 함수와 MCP | 세 명령의 실제 출력 전체를 개인 증거 폴더에 저장 |
-| 4 | [Lab 05 B](../labs/05-workflows.md#path-b): MAF workflow | 세 패턴의 출력과 사람 검토 저장 |
+| 3 | [Lab 04 B](../labs/04-agents-tools.md#path-b): 함수와 MCP | 명령이 저장한 JSON 세 개를 각각 검토 |
+| 4 | [Lab 05 B](../labs/05-workflows.md#path-b): MAF workflow | 자동 저장된 세 패턴 출력과 본인의 검토 |
 | 5 | [Lab 06 B](../labs/06-knowledge.md#path-b): Search와 IQ | 검색·응답 출력과 `outputs/azure-objects.json` 소유권 보존 |
 | 6 | [Lab 07 B](../labs/07-evaluation.md#path-b): 통제된 평가 | 오류를 포함한 `outputs/baseline/`, `outputs/candidate/`, `outputs/final-holdout/` |
 | 7 | [Lab 08 B](../labs/08-hosted.md#path-b): 패키징만 | `.build/hosted/package-manifest.json`. 로컬·원격 실행은 미실행 |

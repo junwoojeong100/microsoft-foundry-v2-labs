@@ -140,6 +140,9 @@ the September 15 recordings do not verify this new setup sequence.
 
 ## 4. Keep local and remote smoke tests separate
 
+**Local smoke requires `--azd-directory`.** It rejects an omitted directory before creating smoke evidence or invoking azd;
+it never chooses the source copy's historical `.azure` state for you. Remote smoke still uses the exact configured endpoint/version.
+
 Terminal A:
 
 ```bash

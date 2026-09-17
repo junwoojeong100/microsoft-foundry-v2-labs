@@ -12,7 +12,16 @@ def require_env(name: str) -> str:
     if not value or any(
         marker in value.casefold() for marker in ("<", ">", "your-", "replace", "changeme")
     ):
-        raise ValueError(f"Set {name} in .env using your instructor's real value.")
+        raise ValueError(f"Set {name} to the verified value from your setup card (.env locally).")
+    return value
+
+
+def require_uuid(name: str) -> str:
+    value = require_env(name)
+    try:
+        UUID(value)
+    except ValueError as exc:
+        raise ValueError(f"{name} must be a valid UUID from your setup card.") from exc
     return value
 
 
@@ -72,15 +81,20 @@ class Settings:
         mode = os.environ.get("WORKSHOP_AUTH_MODE", "cli")
         if mode not in {"cli", "managed-identity"}:
             raise ValueError("WORKSHOP_AUTH_MODE must be cli or managed-identity.")
-        tenant = require_env("AZURE_TENANT_ID") if mode == "cli" else None
-        if tenant:
-            UUID(tenant)
-        client_id = os.environ.get("AZURE_CLIENT_ID", "").strip() or None
-        if client_id:
-            UUID(client_id)
-        tokens = int(os.environ.get("WORKSHOP_MAX_OUTPUT_TOKENS", "2048"))
+        tenant = require_uuid("AZURE_TENANT_ID") if mode == "cli" else None
+        client_id = (
+            require_uuid("AZURE_CLIENT_ID")
+            if os.environ.get("AZURE_CLIENT_ID", "").strip()
+            else None
+        )
+        try:
+            tokens = int(os.environ.get("WORKSHOP_MAX_OUTPUT_TOKENS", "2048"))
+        except ValueError as exc:
+            raise ValueError(
+                "WORKSHOP_MAX_OUTPUT_TOKENS must be an integer from 256 to 8192."
+            ) from exc
         if not 256 <= tokens <= 8192:
-            raise ValueError("WORKSHOP_MAX_OUTPUT_TOKENS must be 256-8192.")
+            raise ValueError("WORKSHOP_MAX_OUTPUT_TOKENS must be an integer from 256 to 8192.")
         return cls(
             project_endpoint=azure_endpoint(require_env("AZURE_AI_PROJECT_ENDPOINT"), "project"),
             deployment=require_env("AZURE_AI_MODEL_DEPLOYMENT_NAME"),
@@ -102,8 +116,7 @@ def credential_for(settings: Settings, *, asynchronous: bool = False):
         from azure.identity import AzureCliCredential, ManagedIdentityCredential
 
     if settings.auth_mode == "cli":
-        subscription = require_env("AZURE_SUBSCRIPTION_ID")
-        UUID(subscription)
+        subscription = require_uuid("AZURE_SUBSCRIPTION_ID")
         profile = subprocess.run(
             [
                 "az",

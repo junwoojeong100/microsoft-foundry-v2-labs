@@ -17,7 +17,8 @@ Lab 00 creates **`outputs/learner-notes-en/`** from the source copy's blank work
 Use it for terminal-output files and review notes; no browser agent or separate learner ZIP is required for B.
 Generated evaluation folders remain at `outputs/<label>/`, not inside the notes directory.
 Use [the code-block rules](../labs/00-start.md#reading-code-blocks) if a block asks for values.
-Save each printed result at its **Save** checkpoint, before the next request;
+The core commands save all **12 response JSON files** through `--output`; no terminal-output copying is required.
+Open each file at its **Save** checkpoint before the next request, and write your human review separately;
 [Lab 11's file inventory](../labs/11-capstone.md#b-evidence) lists everything needed at handoff.
 
 **First-pass choices are already made:** Luna; all three introductory MAF patterns;
@@ -35,8 +36,8 @@ Without Search access, record Lab 06 incomplete rather than claiming the full B 
 |---|---|---|
 | 1 | [Lab 00 B](../labs/00-start.md#path-b): shared setup | Environment, personal notes directory, authentication and fixture/live distinction |
 | 2 | [Lab 02 B](../labs/02-models.md#path-b): model APIs | Actual response, validated structured answer, response ID and usage |
-| 3 | [Lab 04 B](../labs/04-agents-tools.md#path-b): functions and MCP | Save all three complete terminal outputs in your evidence folder |
-| 4 | [Lab 05 B](../labs/05-workflows.md#path-b): MAF workflows | Save three pattern outputs and a human review |
+| 3 | [Lab 04 B](../labs/04-agents-tools.md#path-b): functions and MCP | Three complete JSON files saved by the commands; review each |
+| 4 | [Lab 05 B](../labs/05-workflows.md#path-b): MAF workflows | Three automatically saved pattern outputs and your human review |
 | 5 | [Lab 06 B](../labs/06-knowledge.md#path-b): Search and IQ | Save retrieval/answer output and `outputs/azure-objects.json` ownership |
 | 6 | [Lab 07 B](../labs/07-evaluation.md#path-b): controlled evaluation | `outputs/baseline/`, `outputs/candidate/`, `outputs/final-holdout/`, including errors |
 | 7 | [Lab 08 B](../labs/08-hosted.md#path-b): package only | `.build/hosted-en/package-manifest.json`; local/remote execution marked not run |

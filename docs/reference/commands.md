@@ -11,6 +11,10 @@ Do not paste `...` or run every row; use the selected lab's complete block and a
 [Code-block rules](../labs/00-start.md#reading-code-blocks) explain placeholders, prompted values and where each block belongs.
 [Read the result](#reading-results) before deciding that a successful command means the lab passed.
 
+## Core B and offline lookup
+
+Follow [B's ordered route](../paths/b-practitioner.md), not this table from top to bottom.
+
 | Command | Azure/side effects | Purpose |
 |---|---|---|
 | `python scripts/workshop.py --language en doctor` | None | Python/synthetic-data checks |
@@ -25,37 +29,42 @@ Do not paste `...` or run every row; use the selected lab's complete block and a
 | `workflow --pattern sequential` | Paid model calls | Alternatives: concurrent, group-chat |
 | `seed-search --confirm-create` | Creates/uploads owned Search objects | Existing service only |
 | `seed-search --iq --confirm-create` | Above plus GA source/base | Ownership checks |
-| `iq-chat check` | Read-only | Fixed Luna/version, Search identity/role/source and separate chat-base readiness |
-| `iq-chat setup --confirm-create` | Creates only the owned Preview chat base | No model deployment, role assignment or GA-base rewrite |
-| `iq-chat ask --label iq-chat-first --confirm-cost` | Paid planning/synthesis | Fixed Luna + Search MI; saves raw response, source evidence and failures |
-| `prompt-agent create ... --confirm-create` | Creates an actual agent version | Exact prefix required |
-| `prompt-agent invoke ... --version ...` | Calls a real agent | Explicit version |
 | `collect --label baseline --prompt v1` | Paid calls for all dev cases | Preserves errors; concurrency one |
 | `evaluate --label baseline` | None | Deterministic business checks |
 | `compare --baseline baseline --candidate candidate` | None | Controlled dev comparison |
 | `feedback --label baseline --case D03 --reason "specific review reason"` | Local review record | Real dev only; pending approval |
-| `cloud-evaluate --label candidate --confirm-cost` | Paid cloud judge | Evaluator version and job lineage |
 | `collect --split holdout ... --candidate candidate --unlock-holdout` | Frozen candidate's actual final requests | No reuse for development |
 | `accept --candidate candidate --holdout final-holdout` | None | Human acceptance evidence, not automatic approval |
-| `serve` | Local server; paid model on invocation | Hosted SDK needed |
 | `cleanup-plan` | None | Deletes nothing; returns the cleanup guide for the selected language |
-| `python scripts/export_policy_docs.py --language en` | Creates six local text files | Optional export; A's learner ZIP already contains them |
-| `python scripts/build_learner_materials.py` | None | Checks both committed learner bundles against canonical dev/prompt/policy inputs |
-| `python scripts/build_learner_materials.py --write` | Regenerates the two local learner bundles | Maintainer-only generation; no model or holdout use |
 | `python scripts/package_hosted.py --language en` | Local package | No deployment/installation |
-| `python scripts/prepare_hosted_azd.py --language en --kind runtime ...` | Local package-verified project; `--initialize-env` also creates/read-checks local azd state | Introductory local v2 Responses packages only; no provision/deploy/role assignment |
-| `python scripts/prepare_hosted_azd.py --language en --kind matrix ...` | Local package-verified IQ matrix project and optional azd state | Sequential IQ/account-chat/Invocations v1/v2; exact model map and Search settings, no deployment |
-| `python scripts/play_recordings.py` | Localhost video server | English by default; `--edition ko` selects the independently recorded Korean set |
 
 Abbreviated rows are not complete executable examples. Read
 `python scripts/workshop.py --language en --help` and subcommand `--help` for required arguments.
 Full commands appear in the [labs](../paths.md).
-For the first IQ Chat setup, use [the owner sequence](../setup.md#4-environment-owner-checklist) once;
-the default GA `retrieve --provider iq` is intentionally a different path.
 
-Interactive `model`/`answer`/`maf`/`workflow`/`retrieve` commands print JSON; use [B's notes directory](../labs/00-start.md#prepare-notes)
-for complete copied outputs. Batch runs already write `outputs/<label>/`.
-For the complete standalone Hosted preparation command and its required values, use [Lab 08](../labs/08-hosted.md).
+<a id="saving-json"></a>
+
+## Save one response without copying terminal text
+
+`model`, `answer`, `maf`, `workflow`, `workflow-agent` and `retrieve` accept **`--output FILE` after the command**.
+They still print the same JSON and save that complete object without changing response IDs, sources, usage or unverified fields.
+Core B already supplies all 12 filenames. Prepare [the notes directory](../labs/00-start.md#prepare-notes) once.
+
+For an extra **local-only** retrieval example after that preparation:
+
+```bash
+python scripts/workshop.py --language en retrieve --provider local \
+  --output outputs/learner-notes-en/retrieve-example.json
+```
+
+The file must be a new `.json` under this source copy's `outputs/`, with an existing parent directory.
+Existing files and unsafe paths are rejected **before the request**. Open the existing result to resume; use a new filename only for a new request.
+Without `--output`, the print-only behavior is unchanged.
+
+`Saved JSON: ...` appears on stderr; stdout remains the JSON. **Saved is not assessed or approved.**
+A failed request creates no successful-response file. If the response printed but saving failed, preserve that stdout and the error;
+save it manually rather than repeating a paid call. `collect`/`evaluate` and advanced run families already manage their own evidence directories;
+do not add `--output` to them or replace their manifests with an exported response.
 
 <a id="reading-results"></a>
 
@@ -83,6 +92,7 @@ Keep an existing run and all failures; a new target request needs a new label.
 
 | Run family | Location under the source repository |
 |---|---|
+| Interactive commands with `--output` | The exact file you selected; core B uses `outputs/learner-notes-en/*.json` |
 | Introductory `demo` / `collect` | `outputs/<label>/` |
 | `benchmark smoke` | `outputs/smoke/<label>/` even when local azd uses another directory |
 | `benchmark collect` | `outputs/benchmarks/<label>/` |
@@ -101,7 +111,51 @@ English uses `--language en` with its own frozen policies/prompts/datasets.
 The other operational flags and schema remain aligned with Korean.
 Approved free-text query translations are explicit in `data/guide-questions.json`.
 
+## Optional command families
+
+<details>
+<summary>Choose only the module you selected — these are not extra core-B steps</summary>
+
+Local plans can need the selected module's SDKs and `.env` even when they make no Azure request.
+Every family's own `--help` and linked lab specify its required values and create/cost/delete approvals.
+
+| Family | Purpose / boundary | Complete guide |
+|---|---|---|
+| `prompt-agent` | Create/invoke a separately versioned managed agent, not the local MAF agent | [Lab 03 SDK branch](../labs/03-prompt-agent.md) |
+| `iq-chat` | Fixed Luna/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup.md#4-environment-owner-checklist) |
+| `workflow-agent` / `runtime-contract` | Validated workflow output / local frozen profile and hashes | [Lab 05 C](../labs/05-workflows.md) |
+| `benchmark` | Version-pinned Hosted smoke, matrices, evaluation, traces and acceptance | [Evaluation workbook](evaluation-workbook.md) |
+| `cloud-evaluate` / `calibrate-judge` | Billable native judges on recorded responses / separate calibration fixtures | [Lab 07](../labs/07-evaluation.md), [workbook](evaluation-workbook.md) |
+| `serve` | Local host; inference is still billable | [Lab 08](../labs/08-hosted.md) |
+| `toolbox` | Owned managed tools, versions, readback and MAF calls | [Toolbox](../labs/extensions/toolbox.md) |
+| `prepare-extensions` | Local advanced inputs from bundled dev/policies only; never holdout | [Developer tools](../labs/extensions/developer-toolkit.md) |
+| `conversations` | Multi-turn dev collection and separate turn/conversation evaluation | [Conversation evaluation](../labs/extensions/conversation-evaluation.md) |
+| `memory` | Explicit synthetic store/scope lifecycle, not automatic agent memory | [Memory](../labs/extensions/memory.md) |
+| `a2a` | Owned A2A 1.0 target/caller and recorded delegation | [A2A](../labs/extensions/a2a.md) |
+| `routines` | Inspect an existing dispatch; delivery alone does not prove a target response | [Routines](../labs/extensions/routines.md) |
+| `code-interpreter` / `openapi` | Generated synthetic-policy CSV / read-only query of the owned Search index | [Additional tools](../labs/extensions/additional-tools.md) |
+
+The default GA `retrieve --provider iq` is deliberately different from the optional `iq-chat` model-based path.
+
+### Supporting scripts
+
+| Script | Purpose / side effect |
+|---|---|
+| `scripts/export_policy_docs.py --language en` | Optional local six-file export; A's learner ZIP already contains it |
+| `scripts/build_learner_materials.py` | Check both committed learner bundles; maintainer `--write` regenerates them without model/holdout use |
+| `scripts/prepare_hosted_azd.py --kind runtime` | Generate the separate local v2 Responses project from a verified package; [Lab 08](../labs/08-hosted.md) supplies the complete command |
+| `scripts/prepare_hosted_azd.py --kind matrix` | Separate sequential IQ/account-chat/Invocations v1/v2 project; [workbook](evaluation-workbook.md) supplies its values |
+| `scripts/play_recordings.py` | Localhost video server; English by default, `--edition ko` selects the separate Korean set |
+
+These are script names, not complete terminal commands. Prefix them with `python` only when following the linked procedure.
+Hosted preparation can create/read back local azd environment state; it does not provision, deploy or assign roles.
+
+</details>
+
 ## Hosted workflow and evaluation extension
+
+<details>
+<summary>Advanced matrix flags — use only after the workbook's preparation</summary>
 
 Prepend `python scripts/workshop.py --language en` to these abbreviated commands.
 
@@ -112,7 +166,7 @@ Prepend `python scripts/workshop.py --language en` to these abbreviated commands
 | `seed-search --hybrid --confirm-create --confirm-cost` | Real embeddings and a separately owned vector index |
 | `retrieve --provider hybrid` | Combined text/vector search, not a renamed keyword query |
 | `benchmark plan` | Model/case/cost shape only; no Azure call |
-| `benchmark smoke --local --azd-directory ...` | Actual local host plus billable model; explicitly selects the prepared azd directory while keeping evidence in the source copy |
+| `benchmark smoke --local --azd-directory ...` | Actual local host plus billable model; the directory is required, never inferred from the source copy |
 | `benchmark smoke` | Exact remote version/endpoint, no gold labels in requests |
 | `benchmark collect` | Complete explicit model-by-case matrix; errors retained |
 | `benchmark evaluate --reference ...` | Actual native scores with a pinned catalog/version/judge |
@@ -125,3 +179,27 @@ Prepend `python scripts/workshop.py --language en` to these abbreviated commands
 | `benchmark stop-session` | Stop only the recorded session/version or confirm it is already idle |
 
 Complete commands and approval boundaries are in the [evaluation workbook](evaluation-workbook.md).
+
+</details>
+
+## Find the code behind a command
+
+The entry point is [`scripts/workshop.py`](../../scripts/workshop.py), then [`cli.py`](../../src/foundry_workshop/cli.py).
+The CLI parses/validates input, selects one implementation and prints/saves its result.
+Cloud branches load `.env` through `settings.py`; offline branches do not.
+Start at the matching file below rather than reading every module in order.
+
+| What to inspect | File under `src/foundry_workshop/` |
+|---|---|
+| Settings, input/output schemas and hashes | `settings.py`, `contracts.py` |
+| Local retrieval, core collection and business gates | `knowledge.py`, `experiments.py`, `evaluation.py` |
+| Project model calls and managed Prompt Agents | `cloud.py` |
+| Local MAF and the deployable workflow | `agents.py`, `runtime.py` |
+| Search/hybrid and the separate IQ Chat preset | `search.py`, `iq_chat.py` |
+| Runtime profiles, packages and Hosted transport | `profiles.py`, `packaging.py`, `hosted.py` |
+| Hosted matrix, native judges and traces | `benchmark_cli.py`, `benchmark.py`, `cloud_evaluation.py`, `native.py`, `calibration.py`, `observability.py` |
+| Managed tools and conversations | `toolbox.py`, `toolbox_host.py`, `conversations.py` |
+| Selected specialist exercises | `a2a_lab.py`, `memory_lab.py`, `routines_lab.py`, `openapi_lab.py`, `code_interpreter_lab.py`, `resilience.py` |
+| Deterministic learner/extension material generation | `materials.py`, `extension_materials.py` |
+
+The matching `tests/` contracts run offline. `tests_sdk/` uses installed SDKs with explicit stub transports, not live Azure.

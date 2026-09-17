@@ -4,7 +4,6 @@ from contextlib import contextmanager
 from importlib.metadata import version
 from pathlib import Path
 from typing import Any
-from uuid import UUID
 
 from .contracts import (
     ANSWER_SCHEMA,
@@ -15,7 +14,7 @@ from .contracts import (
     write_json,
 )
 from .knowledge import local_retrieve
-from .settings import Settings, credential_for, require_env
+from .settings import Settings, credential_for, require_env, require_uuid
 
 
 @contextmanager
@@ -239,8 +238,7 @@ def invoke_prompt_agent(
 
 
 def doctor_cloud(settings: Settings) -> dict[str, Any]:
-    subscription = require_env("AZURE_SUBSCRIPTION_ID")
-    UUID(subscription)
+    subscription = require_uuid("AZURE_SUBSCRIPTION_ID")
     result = subprocess.run(
         [
             "az",

@@ -24,6 +24,11 @@ def smoke(
         raise ValueError("The smoke request calls a paid model; explicitly pass --confirm-cost.")
     if profile.protocol != "invocations":
         raise ValueError("Use the typed Invocations profile for this smoke check.")
+    if local and azd_directory is None:
+        raise ValueError(
+            "Local smoke requires --azd-directory with the prepared standalone azd project. "
+            "The source repository's azd state is never selected automatically."
+        )
     execution_root = root
     if azd_directory is not None:
         if not local:

@@ -99,6 +99,7 @@ Continue to [Lab 06 A](06-knowledge.md#path-a); do not run the three B commands 
 All commands call a real Azure model. Inspect `run_workflow` in
 `src/foundry_workshop/agents.py`. Keep data, model, and instructions fixed while
 examining builders and execution order. No command creates a portal workflow resource.
+Each command saves its full JSON through `--output`; you still write the separate human review.
 
 | Concept | MAF implementation in this lab |
 |---|---|
@@ -114,7 +115,8 @@ Explicitly design business state, errors, and retries in code.
 ### 1. Sequential: each stage feeds the next
 
 ```bash
-python scripts/workshop.py --language en workflow --pattern sequential
+python scripts/workshop.py --language en workflow --pattern sequential \
+  --output outputs/learner-notes-en/workflow-sequential.json
 ```
 
 Compare `PolicyAnalyst → AnswerWriter → EvidenceReviewer` with the builder's participants
@@ -124,12 +126,13 @@ and actual outputs. An incorrect source interpretation can propagate to the draf
 **What to check:** Map the output to the three roles. Fluent review does not
 automatically remove an earlier evidence error.
 
-**Save:** `workflow-sequential.json` in your Lab 00 notes directory before changing patterns.
+**Save:** `workflow-sequential.json` is written to your Lab 00 notes directory. Open it before changing patterns.
 
 ### 2. Concurrent: independent views of the same input
 
 ```bash
-python scripts/workshop.py --language en workflow --pattern concurrent
+python scripts/workshop.py --language en workflow --pattern concurrent \
+  --output outputs/learner-notes-en/workflow-concurrent.json
 ```
 
 `ConcurrentBuilder` sends the same question/evidence to three roles.
@@ -142,12 +145,13 @@ Lower wall-clock time does not necessarily mean fewer calls or lower costs.
 **What to check:** Verify `pattern: concurrent` and multiple participant outputs.
 Compare them rather than treating them as an agreed answer.
 
-**Save:** `workflow-concurrent.json` in the same notes directory.
+**Save:** `workflow-concurrent.json` is written to the same notes directory. Compare the participant outputs.
 
 ### 3. Group Chat: shared discussion with a stopping rule
 
 ```bash
-python scripts/workshop.py --language en workflow --pattern group-chat
+python scripts/workshop.py --language en workflow --pattern group-chat \
+  --output outputs/learner-notes-en/workflow-group-chat.json
 ```
 
 The example uses a fixed speaker order and at most **three rounds**.
@@ -159,7 +163,7 @@ Calculate call/token budgets before increasing either bound.
 **What to check:** Read `pattern: group-chat`, participant responses, and pending
 human review. Reaching the round limit is not model consensus or business approval.
 
-**Save:** `workflow-group-chat.json` in the same notes directory, then compare all three outputs in `workflow-review.txt`.
+**Save:** `workflow-group-chat.json` is written to the same notes directory. Compare all three saved outputs in `workflow-review.txt`.
 
 | Pattern | Appropriate use | Main caution |
 |---|---|---|

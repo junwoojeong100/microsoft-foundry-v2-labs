@@ -18,6 +18,8 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | `${NAME:?...}` reports a missing value | Restore the named value from this pass's setup/output notes; the command has not run | Remove the guard, paste a recording's ID or assume another terminal supplied the value |
 | A model-comparison command finished or failed | Its [scoped override](../labs/extensions/model-operations.md) leaves the original setup unchanged; inspect the saved comparison/error | Change `.env` to continue or repeat paid work merely to restore the first model |
 | B's notes directory already exists | Resume that pass's files, or choose a new directory for a new pass; the guarded copy block intentionally stops | Overwrite your filled records with blank templates |
+| `--output` says the file already exists | Open the saved JSON; the new request was not sent. Choose another filename only for an intentionally new request | Delete the evidence or repeat a paid call just to save it again |
+| The response printed, but saving failed | Keep the complete stdout and save it manually to a new file; retain the file error | Repeat the model request to recover an already returned answer |
 | A label already exists | Inspect the directory printed by that module; [saved-result locations](commands.md#saved-results) distinguish core, matrix, Toolbox and conversation runs | Delete the run or invoke `collect` with that same label |
 | `collect` returned a nonzero exit code | Preserve all rows/errors; use `evaluate` to inspect them, resolve the cause, then collect a new explicitly labeled dev run | Replace failed rows with fixtures or silently change the provider/model |
 | `evaluate` returned `1` | Read `total`, `passed`, `errors` and per-case `checks`; review a baseline failure, but keep holdout closed for a failing candidate | Treat a completed request as a passed business gate |
@@ -27,7 +29,7 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | Introductory Hosted preparation rejects a directory/profile | Select a new empty directory outside existing azd projects and the exact local v2 Responses package/language | Repeat `azd ai agent init`, use `--force`, or weaken the package checks |
 | A required evaluation is still blocked | Save existing records and use [incomplete handoff](../labs/11-capstone.md#incomplete-handoff) | Create an acceptance report for absent runs or call blocked work complete |
 | Cloud judge timed out | Resume polling with the **same** `cloud-evaluate --label` command and saved job IDs | Apply the new-collection-label rule to an already submitted judge job |
-| Local matrix smoke selects the source project's agent | Use `benchmark smoke --local --azd-directory` with the standalone directory prepared by the workbook | Copy another agent's `azure.yaml` into the source root |
+| Local matrix smoke requires `--azd-directory` | Supply the standalone directory prepared by the workbook; there is no implicit source-project default | Copy another agent's `azure.yaml` into the source root |
 | A Toolbox remote-output folder already exists | Preserve its raw stream and verification/failure; choose a new directory in every path only for a genuinely new request | Overwrite the prior raw stream or call the model only to rerun the local verifier |
 
 For a genuinely new dev experiment, choose one fresh **baseline/candidate/final-holdout** label set and
@@ -40,6 +42,8 @@ Read-only reinspection does not create new inference evidence.
 |---|---|---|
 | Cannot find `scripts/workshop.py` | The terminal must contain `README.md`, `pyproject.toml`, and `scripts/`; the learner ZIP is not the source ZIP | [00 B](../labs/00-start.md#path-b) |
 | Missing Python/package | Supported Python, active `.venv`, then the pinned install step; stop on installation errors | [00 B](../labs/00-start.md#path-b) |
+| `--output` directory missing or outside `outputs/` | Prepare Lab 00's notes directory and use a new `.json` path inside this source copy | [Saving JSON](commands.md#saving-json) |
+| A setting must be a UUID / output tokens must be an integer | Correct the named setting from the setup card; tokens must be 256–8192. Check inherited process variables too | [Configuration](configuration.md) |
 | `check_sdk.py` reports a missing hosting package in core B | That check covers the optional Hosted/Toolbox SDK too. Core B does not require it; selected extensions use the declared extra | [Module SDK preparation](../labs/extensions/developer-toolkit.md#hosted-sdk) |
 | Prefix rejected | `mfv2-` is mandatory; lowercase letters/digits, single hyphens, no trailing hyphen and at most 32 characters total | [Configuration](configuration.md#workspace-scope) |
 | 401/403 or project missing | Intended tenant, actual caller identity and resource-scoped permissions; owner resolves access | [00](../labs/00-start.md) / [setup](../setup.md) |

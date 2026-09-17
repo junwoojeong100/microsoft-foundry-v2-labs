@@ -105,7 +105,9 @@ python scripts/workshop.py --language en doctor --cloud
 Continue only after preflight identifies the intended deployment in `Succeeded` state. Then make one actual request:
 
 ```bash
-python scripts/workshop.py --language en model --question "Explain the difference between Foundry and Agent Framework in three English sentences."
+python scripts/workshop.py --language en model \
+  --question "Explain the difference between Foundry and Agent Framework in three English sentences." \
+  --output outputs/learner-notes-en/model.json
 ```
 
 The question requests three English sentences. Model-only questions may be translated freely;
@@ -132,12 +134,13 @@ do not relabel a response ID as a trace ID.
 **What to check:** Read `text`, `response_model`, `response_id`, and `usage` below
 the last command. Preserve `trace_id: null` and `trace_export: not-configured` honestly.
 
-**Save:** `model.json` in your Lab 00 notes directory before the next request. Copy the complete JSON, not only the answer text.
+**Save:** `model.json` is written to your Lab 00 notes directory by `--output`. Open the complete saved response before the next request.
 
 ### Verify Structured Outputs
 
 ```bash
-python scripts/workshop.py --language en answer --prompt v2 --retrieval local
+python scripts/workshop.py --language en answer --prompt v2 --retrieval local \
+  --output outputs/learner-notes-en/answer-local.json
 ```
 
 The command performs local keyword retrieval over synthetic documents, then calls a
@@ -149,7 +152,7 @@ The command performs local keyword retrieval over synthetic documents, then call
 **What to check:** Read the complete output: answer fields, `source_ids`, `response_id`,
 `usage`, and `trace_export`. A correct amount without its sources is not enough.
 
-**Save:** `answer-local.json` in the same notes directory, including the source and response metadata.
+**Save:** `answer-local.json` is written to the same notes directory. Check its source and response metadata, not just the answer.
 
 Stop if the model rejects `json_schema`. The code does not silently switch to plain
 text or repair invalid JSON. Explicitly configure an instructor-verified deployment

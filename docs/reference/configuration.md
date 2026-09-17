@@ -11,6 +11,24 @@ Check for unexpected inherited values in old terminals.
 English commands explicitly use `--language en`; existing commands default to Korean.
 The language freezes prompt/corpus/dataset selection and is part of the Hosted profile.
 
+## Fill only what your current lab needs
+
+Use the numbered sections of [`.env.example`](../../.env.example), not a recording or an old `azure.yaml`.
+
+| Current step | Fill / keep |
+|---|---|
+| Offline rehearsal | Nothing; these commands do not load `.env` |
+| First live model, MAF and local-retrieval evaluation | Section 1's verified setup-card values; keep `WORKSHOP_AUTH_MODE=cli` and output limit 2048 |
+| Core B Search/IQ in Lab 06 | Also section 2's `AZURE_SEARCH_ENDPOINT`; default names use your prefix |
+| Optional IQ Chat, hybrid, Toolbox, Hosted or cloud judge | Only the additional settings named by that selected module |
+
+Invalid UUIDs and token limits report the **setting name**, not just a parser error.
+Correct that field; do not change an unrelated deployment or identity.
+The source-root `azure.yaml`, `.azure/` and `.env` are ignored personal state, not distributed workshop defaults.
+Hosted helpers generate a separate project from verified settings. Local matrix smoke requires an explicit `--azd-directory`.
+
+## Setting lookup
+
 | Setting | Used by | Contract |
 |---|---|---|
 | `AZURE_SUBSCRIPTION_ID` | Local CLI authentication/ARM | UUID; selects this subscription's account without changing the default |
@@ -29,6 +47,8 @@ The language freezes prompt/corpus/dataset selection and is part of the Hosted p
 | `AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME` | IQ | Default `<prefix>-source` |
 | `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | IQ | Default `<prefix>-kb` |
 | `AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME` | Optional IQ Chat preset | Separate owned base; default `<prefix>-chat-en-kb` for English or `<prefix>-chat-ko-kb` for Korean |
+| `TOOLBOX_SEARCH_CONNECTION_NAME` | Optional managed Toolbox | Owner-prepared keyless CognitiveSearch connection in the same project |
+| `TOOLBOX_NAME` | Optional managed Toolbox | Default `<prefix>-tools-<language>`; existing unowned names are rejected |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | Cloud judge | Explicitly separate from target |
 | `WORKSHOP_MODEL_DEPLOYMENTS_JSON` | Hosted matrix | 1–8 explicit unique key/deployment pairs; no model substitution |
 | `WORKSHOP_HOSTED_AGENT_NAME` | Hosted matrix | Exact approved agent name |
@@ -106,5 +126,7 @@ types are rejected.
 Runs live under `outputs/<label>/`; a label is a restricted name, not a path.
 Existing run directories are not overwritten. Manifest hashes aid reproduction but
 are not digital signatures or tamper-proof storage.
+Interactive commands can also [save their complete JSON with `--output`](commands.md#saving-json).
+That file does not replace a batch manifest or an Azure ownership ledger.
 English uses separate translated dataset/prompt/corpus hashes with unchanged schema, IDs, amounts, dates, and reference judgments.
 Missing English assets do not fall back to Korean. See [language bundles](../../data/README.md).
