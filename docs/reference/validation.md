@@ -6,6 +6,26 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+## Manual-assessment follow-through — September 17, 2026
+
+The A/B entry and core-lab review found remaining ambiguity in A's six-question assessment.
+The focused correction links [Lab 03's saved instruction snapshot](../labs/03-prompt-agent.md#path-a),
+[Lab 07's assessment](../labs/07-evaluation.md#path-a), the learner ZIP's notes and the final handoff.
+
+| Gap | Correction |
+|---|---|
+| Several assessment rows omitted exact required sources; D03/D06 also omitted the applicable limit | Match all six rows to the selected language's canonical dev amounts and citations; never copy expected IDs into an actual-response field |
+| One worksheet could combine versions or a candidate could inherit filled baseline answers | One saved version per six-case sheet, named instruction snapshots and a fresh blank candidate only for a justified change |
+| Request failures, unrun rows and a completed assessment could be confused with passing | Preserve the six-case denominator; record errors/unrun counts and incomplete work explicitly; keep all-pass/no-change as a valid stopping point |
+
+**Offline result:** 232 tests passed on each of Python 3.13 and 3.14, including both languages' criteria and snapshot/notes/handoff checks.
+Ruff 0.16.6 lint/format, compilation on both Python versions, deterministic learner bundles and documentation checks passed:
+61 language pairs, 328 workshop CLI examples and no pending translations.
+
+**Verification boundary:** these checks do not demonstrate novice completion time or a new usability score.
+No new Azure calls, deployment, roles or recording were performed; canonical prompts, datasets, policies and prior media are unchanged.
+Earlier review counts and live results below retain their original scope.
+
 <a id="learner-action-review"></a>
 
 ## Learner-action and handoff review — September 17, 2026

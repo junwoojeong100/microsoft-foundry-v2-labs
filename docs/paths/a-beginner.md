@@ -26,10 +26,10 @@ The numbered links below open A's exact section; use **A done** to leave each la
 | 1 | [Lab 00 A](../labs/00-start.md#path-a): account, project and files | Setup section of `session-notes.txt` is filled |
 | 2 | [Lab 01 A](../labs/01-foundry.md#path-a): distinguish account/project/deployment/agent | Add your four-object sketch and actual endpoint |
 | 3 | [Lab 02 A](../labs/02-models.md#path-a): Playground | Save one actual answer and one missing-evidence observation in `session-notes.txt` |
-| 4 | [Lab 03 A](../labs/03-prompt-agent.md#path-a): paste the complete inline instructions and Save | Save agent/version, instructions and four actual checks in `session-notes.txt` |
+| 4 | [Lab 03 A](../labs/03-prompt-agent.md#path-a): paste the complete inline instructions and Save | Save `instructions-baseline.txt`; link its agent/version and four actual checks in `session-notes.txt` |
 | 5 | [Lab 05 A](../labs/05-workflows.md#path-a): one prepared sequential command | `workflow-review.txt` contains the complete actual output and your review |
 | 6 | [Lab 06 A](../labs/06-knowledge.md#path-a): inspect cited policy IDs and dates | Source checks are in `session-notes.txt`; IQ Chat is not selected on the default route |
-| 7 | [Lab 07 A](../labs/07-evaluation.md#path-a): assess all six dev questions | All six rows of `assessment-baseline.csv` contain your real result and reason |
+| 7 | [Lab 07 A](../labs/07-evaluation.md#path-a): assess all six dev questions on one saved version | Six real answers/citations/reasons in `assessment-baseline.csv`; record the version and passed / 6 in `session-notes.txt`. Candidate only for a justified change |
 | 8 | [Lab 09 A](../labs/09-operations.md#path-a): four operations checks | `operations-checklist.txt` identifies owned assets and remaining costs |
 | 9 | [Lab 11 A](../labs/11-capstone.md#path-a): handoff | The evidence folder is complete and cleanup ownership is clear |
 

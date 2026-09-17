@@ -485,25 +485,51 @@ class LearnerJourneyTests(unittest.TestCase):
                 package = "hosted-en" if language == "en" else "hosted"
                 self.assertIn(f"`.build/{package}/package-manifest.json`", inventory[1])
 
-    def test_first_agent_checks_use_the_same_dev_limits_and_citations_as_assessment(self):
+    def test_browser_check_tables_use_the_canonical_dev_limits_and_citations(self):
         for language, _, labs in self.language_labs():
-            core = self.core_section(language, labs[3], "A")
-            rows = {
-                match[1]: line
-                for line in core.splitlines()
-                if (match := re.match(r"^\| (D\d{2})(?: |[|·])", line))
-            }
             directory = ROOT / "data/evaluation"
             if language == "en":
                 directory /= "en"
             cases = {case["case_id"]: case for case in read_jsonl(directory / "dev.jsonl")}
-            self.assertEqual(set(rows), {"D01", "D02", "D03", "D05"})
-            for case_id, row in rows.items():
-                with self.subTest(language=language, case=case_id):
-                    for source_id in cases[case_id]["required_citations"]:
-                        self.assertIn(f"`{source_id}`", row)
-                    if cases[case_id]["expected_limit_krw"] is not None:
-                        self.assertIn(str(cases[case_id]["expected_limit_krw"]), row)
+            for number, expected in ((3, ["D01", "D02", "D03", "D05"]), (7, list(cases))):
+                core = self.core_section(language, labs[number], "A")
+                rows = [
+                    (match[1], line)
+                    for line in core.splitlines()
+                    if (match := re.match(r"^\| (D\d{2})(?: |[|·])", line))
+                ]
+                with self.subTest(language=language, lab=number):
+                    self.assertEqual([case_id for case_id, _ in rows], expected)
+                for case_id, row in rows:
+                    with self.subTest(language=language, lab=number, case=case_id):
+                        for source_id in cases[case_id]["required_citations"]:
+                            self.assertIn(f"`{source_id}`", row)
+                        if cases[case_id]["expected_limit_krw"] is not None:
+                            self.assertIn(str(cases[case_id]["expected_limit_krw"]), row)
+
+    def test_a_assessment_snapshots_are_named_at_creation_review_and_handoff(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                materials = ROOT / "data/learner" / language
+                notes = (materials / "session-notes.txt").read_text()
+                start = (materials / "START-HERE.txt").read_text()
+                agent = self.core_section(language, labs[3], "A")
+                assessment = self.core_section(language, labs[7], "A")
+                handoff = self.core_section(language, labs[11], "A")
+                route = (directory / "paths/a-beginner.md").read_text()
+                for text in (agent, route, start):
+                    self.assertIn("instructions-baseline.txt", text)
+                for filename in (
+                    "instructions-baseline.txt",
+                    "instructions-candidate.txt",
+                    "assessment-baseline.csv",
+                    "assessment-candidate.csv",
+                ):
+                    for text in (assessment, handoff, notes):
+                        self.assertIn(filename, text)
+                self.assertIn("Lab 07 A", notes)
+                self.assertIn("pass_or_fail", assessment)
+                self.assertIn("review_note", assessment)
 
     def test_model_comparison_overrides_are_scoped_and_preserve_failures(self):
         for language, directory, _ in self.language_labs():

@@ -44,12 +44,16 @@ Put these in your own evidence folder, without `.env`, credentials or another le
 | File/result | Completion check |
 |---|---|
 | Completed `session-notes.txt` | Setup card, sketch, actual project/deployment/agent version, model observations and source checks are identifiable |
-| Actual saved instructions plus the learner ZIP's `SOURCE.json` | Original text and any browser edits/version changes remain distinguishable |
-| `assessment-baseline.csv`; candidate sheet only if changed | All D01–D06 actual answers/citations/reasons, not copied answer keys |
+| `instructions-baseline.txt` and the learner ZIP's `SOURCE.json` | Snapshot matches the assessed baseline version; `SOURCE.json` identifies the supplied bundle, not your later edits |
+| `assessment-baseline.csv` | All D01–D06 actual answers/citations/reasons and the version recorded in `session-notes.txt`; not copied answer keys |
+| Only for a changed candidate: `instructions-candidate.txt`, `assessment-candidate.csv` | New saved version, change reason and all six new results; no overwritten baseline or mixed-version rows |
 | `workflow-review.txt` | One real sequential command/output and your review |
 | `operations-checklist.txt` | Owned/shared assets, cleanup outcomes or pending owner action, remaining costs, unrun optional features |
 
 Open each file and check it against the table. For self-study, review it yourself; for a class, hand it over only through the agreed channel.
+A complete assessment may contain business failures. Missing answers, request errors or mixed versions instead mean **assessment incomplete**:
+record that outcome in **Lab 07 A** of `session-notes.txt`, preserve the existing files and still hand over cleanup ownership.
+Do not invent responses or repeat paid calls just to fill the folder.
 A does **not** run the B/C acceptance commands below or open holdout.
 **A done:** complete the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
 No optional module or new Azure request is needed to submit these files.

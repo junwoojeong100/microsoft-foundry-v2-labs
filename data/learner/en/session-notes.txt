@@ -1,6 +1,6 @@
 BLANK WORKSHEET - fill with your own results; this is not execution evidence.
 Use a personal untracked copy, not data/learner/. B may use its outputs/learner-notes-en/ folder.
-No passwords, keys, tokens or .env. In B, mark browser-only Labs 01/03 as not run.
+No passwords, keys, tokens or .env. In B, skip browser-only Labs 01/03 and Lab 07 A notes.
 
 Lab 00 - setup card
 Language / path:
@@ -24,7 +24,7 @@ My finding:
 
 Lab 03 - saved agent and four actual checks
 Agent name / saved version / deployment:
-Evidence method / saved instructions filename:
+Evidence method / instructions-baseline.txt path:
 Actual D01 answer and citations:
 Actual D02 answer and citations:
 Actual D03 answer and citations:
@@ -36,6 +36,17 @@ Current-policy ID / effective dates / finding:
 Historical-policy ID / effective dates / finding:
 Over-limit approval source / finding:
 Optional IQ Chat outcome or not run:
+
+Lab 07 A - one saved version per six-question assessment
+Baseline agent / version / deployment:
+Baseline instructions-baseline.txt / assessment-baseline.csv paths:
+Baseline passed / 6; request errors / not run:
+Review findings / justified instruction change or no change:
+Candidate agent / version / deployment, only if changed:
+Candidate instructions-candidate.txt / assessment-candidate.csv paths, only if changed:
+Candidate passed / 6; request errors / not run, only if changed:
+Outcome (complete assessment / incomplete; not production approval):
+Missing steps / next permitted action / responsible owner:
 
 B - code evidence and incomplete handoff
 Personal notes directory:

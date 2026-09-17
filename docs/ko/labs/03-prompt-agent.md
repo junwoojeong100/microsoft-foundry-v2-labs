@@ -182,7 +182,11 @@ Lab 07과 같은 기준이며 이미 agent가 통과했다는 뜻은 아닙니�
 
 </details>
 
-**A 완료:** 실제 저장 지침·agent 버전·확인 4건을 증거 폴더에 보관합니다.
+**저장:** **저장한 agent 버전에 표시되는 Instructions 전체**를 복사해 개인 증거 폴더의 `instructions-baseline.txt`로 저장합니다.
+`session-notes.txt`에 이 파일명과 버전을 함께 적습니다.
+내려받은 지침 파일만으로 실제 저장 내용을 증명할 수는 없습니다. 이전 회차의 지침 사본은 덮어쓰지 않습니다.
+
+**A 완료:** `instructions-baseline.txt`·해당 agent 버전·확인 4건을 증거 폴더에 보관합니다.
 [Lab 05 A](05-workflows.md#path-a)로 이동합니다. Lab 04와 아래 SDK 경로는 A의 필수 단계가 아닙니다.
 
 ## B. 선택 SDK 경로 — 관리형 prompt agent와 로컬 MAF 구분

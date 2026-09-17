@@ -1,6 +1,6 @@
 빈 기록 양식 - 본인의 실제 결과로 채우세요. 이 파일 자체는 실행 증거가 아닙니다.
 data/learner/ 원본이 아닌 Git에 추적되지 않는 개인 복사본을 사용합니다. B는 outputs/learner-notes-ko/를 사용할 수 있습니다.
-비밀번호·key·token·.env는 넣지 않습니다. B는 브라우저 전용 Lab 01/03을 미실행으로 표시합니다.
+비밀번호·key·token·.env는 넣지 않습니다. B는 브라우저 전용 Lab 01/03과 Lab 07 A 기록을 건너뜁니다.
 
 Lab 00 - 설정 카드
 언어 / 경로:
@@ -24,7 +24,7 @@ Lab 02 - 실제 Playground 관찰
 
 Lab 03 - 저장한 agent와 실제 확인 4건
 Agent 이름 / 저장 버전 / 배포:
-근거 방식 / 저장한 지침 파일명:
+근거 방식 / instructions-baseline.txt 경로:
 실제 D01 응답과 인용:
 실제 D02 응답과 인용:
 실제 D03 응답과 인용:
@@ -36,6 +36,17 @@ Lab 06 - 인용과 정책 원문 비교
 과거 정책 ID / 적용일 / 확인 결과:
 한도 초과 승인 근거 / 확인 결과:
 선택 IQ Chat의 결과 또는 미실행:
+
+Lab 07 A - 6문항 평가표 하나에 저장 버전 하나
+Baseline agent / 버전 / 배포:
+Baseline instructions-baseline.txt / assessment-baseline.csv 경로:
+Baseline 통과 수 / 6, 요청 오류 / 미실행 수:
+검토 결과 / 정당한 지침 변경 이유 또는 변경 없음:
+Candidate agent / 버전 / 배포(변경한 경우만):
+Candidate instructions-candidate.txt / assessment-candidate.csv 경로(변경한 경우만):
+Candidate 통과 수 / 6, 요청 오류 / 미실행 수(변경한 경우만):
+결과(평가 완료 / 미완료이며 운영 사용 승인이 아님):
+미완료 단계 / 다음 허용 작업 / 담당자:
 
 B - 코드 근거와 미완료 인계
 개인 기록 폴더:

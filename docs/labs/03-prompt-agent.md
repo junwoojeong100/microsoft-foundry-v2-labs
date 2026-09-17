@@ -148,7 +148,11 @@ approval conditions with the row above; save the answer and your finding in `ses
 Withholding the international amount is correct, but a missing `SCOPE-01` citation is still a finding.
 These are the same criteria used in Lab 07, not a promise that your agent already passes them.
 
-**A done:** keep the actual saved instructions, agent version and four checks in your evidence folder.
+**Save:** copy the complete **Instructions text from your saved agent version** into `instructions-baseline.txt`
+in your personal evidence folder. Record that filename and version in `session-notes.txt`.
+The downloaded instruction file alone does not establish what was actually saved. Do not overwrite an earlier pass's snapshot.
+
+**A done:** keep `instructions-baseline.txt`, its agent version and four checks in your evidence folder.
 Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the SDK branch below are not required for A.
 
 ## B. Optional SDK branch: managed Prompt Agent versus local MAF

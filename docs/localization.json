@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "source_language": "en",
-  "revision": "learner-actions-20260917",
+  "revision": "manual-assessment-20260917",
   "pending_files": {},
   "completed_translations": {
     "docs/paths/a-beginner.md": {
-      "revision": "guide-clarity-20260917",
+      "revision": "manual-assessment-20260917",
       "pending_source_record": {
-        "english_sha256": "2551a8df7a8220e3655a67327e0d24f43ff6488621d800605105ad88a06fae54",
-        "korean_sha256": "7e153bb702629ab6c2ca7db6e1ba0be9f33d1655a80d855b25f83719489f0d35"
+        "english_sha256": "0ec881536cefcb0f0a23fcb0605b60c8fe70a93455b55c2eeab42a028ecdfc16",
+        "korean_sha256": "6006e4218efa76e9daa2bd30f78dce256c7efc53ef7873abd652eb3d4e47fc52"
       },
-      "english_sha256_at_completion": "2551a8df7a8220e3655a67327e0d24f43ff6488621d800605105ad88a06fae54",
-      "korean_sha256_at_completion": "ede4ad5cd648e21b2ecfbb77fa45282b5f2154c8ae6b23e2851de9b9fade4d0d",
+      "english_sha256_at_completion": "0ec881536cefcb0f0a23fcb0605b60c8fe70a93455b55c2eeab42a028ecdfc16",
+      "korean_sha256_at_completion": "d4071afc2c1f8b5ea2d85614abf02e8f6f97c3e29ef2925e4669da142cb28c31",
       "cli_parity_verified": true
     },
     "docs/paths/b-practitioner.md": {
@@ -285,13 +285,13 @@
       "cli_parity_verified": true
     },
     "docs/setup.md": {
-      "revision": "whole-guide-20260917",
+      "revision": "manual-assessment-20260917",
       "pending_source_record": {
-        "english_sha256": "32cfdc1b8c923d5f72d1af624676b2762e150c3f51a5204ffc8c01ff16647fc8",
-        "korean_sha256": "85ec4ca076ad5ccabee9f4f333334039f7ca58a504498e200e45260c6668159d"
+        "english_sha256": "2731b4ea1afa7646c75e4d5b752f330b1bbe8375a2e5718724896d3f0c7858e9",
+        "korean_sha256": "6a39fa56982572182270be4957e59645000cadc3ccde45159443cc4971391389"
       },
-      "english_sha256_at_completion": "32cfdc1b8c923d5f72d1af624676b2762e150c3f51a5204ffc8c01ff16647fc8",
-      "korean_sha256_at_completion": "e2abf10c53bb4c70109d8f4ff4cfff45c5234e17d91fae1abbd786ee23eed6f7",
+      "english_sha256_at_completion": "2731b4ea1afa7646c75e4d5b752f330b1bbe8375a2e5718724896d3f0c7858e9",
+      "korean_sha256_at_completion": "631156a856579f016b9cd60ba5c4dcced8c842a0e5c7656e5763df1d404b309a",
       "cli_parity_verified": true
     },
     "docs/labs/00-start.md": {
@@ -325,13 +325,13 @@
       "cli_parity_verified": true
     },
     "docs/labs/03-prompt-agent.md": {
-      "revision": "learner-actions-20260917",
+      "revision": "manual-assessment-20260917",
       "pending_source_record": {
-        "english_sha256": "47fa9015099da8af88d6fb3d40e76a41ee5c6d31f52a09443691b909db333824",
-        "korean_sha256": "f741f634ee5f09735efef481a4e0c9feafbb98f7878ee781f88bed25dbc35abe"
+        "english_sha256": "85ff4d3c92717afb995cf8676c1c37624b7f4ddf1e43f20509b33374020866f0",
+        "korean_sha256": "3455cf37b0adf0402eeb6c155f7323243ed7978018f16fe9f3eb60f63ac91d29"
       },
-      "english_sha256_at_completion": "47fa9015099da8af88d6fb3d40e76a41ee5c6d31f52a09443691b909db333824",
-      "korean_sha256_at_completion": "6acfa0daacc076fe4d9c14c2ddd7a71ed76ff91df8c4eb5abcc1bf9e8c118074",
+      "english_sha256_at_completion": "85ff4d3c92717afb995cf8676c1c37624b7f4ddf1e43f20509b33374020866f0",
+      "korean_sha256_at_completion": "f706e08136b40097ed9bfde226adb6d57bfd304f376dad9c3725a2f3792823f8",
       "cli_parity_verified": true
     },
     "docs/labs/04-agents-tools.md": {
@@ -365,13 +365,13 @@
       "cli_parity_verified": true
     },
     "docs/labs/07-evaluation.md": {
-      "revision": "learner-actions-20260917",
+      "revision": "manual-assessment-20260917",
       "pending_source_record": {
-        "english_sha256": "f2e92af2741766b224a7d750cd3952c0893d8aa2db363b916e52c65dab1b0bcc",
-        "korean_sha256": "785d102fa1d7e21c02c979a72a14c3e915d193344e47c9f61f8c1e358dcd3b23"
+        "english_sha256": "38a99be2de5d85047b7acae9de86cd7fd57169461aab908384694003a7bdb296",
+        "korean_sha256": "976ca41d41c8d8978c9f4ba6fc8acaf11b09167080ca16a4c35dcf2a6b78ad46"
       },
-      "english_sha256_at_completion": "f2e92af2741766b224a7d750cd3952c0893d8aa2db363b916e52c65dab1b0bcc",
-      "korean_sha256_at_completion": "d0c87fbcc16bb074e0711025e6ee82987f8ca89a885403fb4fb510b25458bd1a",
+      "english_sha256_at_completion": "38a99be2de5d85047b7acae9de86cd7fd57169461aab908384694003a7bdb296",
+      "korean_sha256_at_completion": "1ba73df36453a274512ced74cb219575fde2c682bcd24969b937cf74b4551f1a",
       "cli_parity_verified": true
     },
     "docs/labs/08-hosted.md": {
@@ -395,13 +395,13 @@
       "cli_parity_verified": true
     },
     "docs/labs/11-capstone.md": {
-      "revision": "learner-actions-20260917",
+      "revision": "manual-assessment-20260917",
       "pending_source_record": {
-        "english_sha256": "f4a766119921068a068f46fafa8fd3b02bdd173d70052d44f655bb938adf3a86",
-        "korean_sha256": "d4794e6eb93f7c0d1bfb0d8b862b09b462a538ef59b2be8f593d1f48acdea9c5"
+        "english_sha256": "1a2e4f25d6b0c822d3c10e0328410eb6a280f1e39150c39392869cd2b4e04442",
+        "korean_sha256": "e3de9f04d9fcb6348abfdb93f030abe0797372f65315d52b6fa4e3348491169b"
       },
-      "english_sha256_at_completion": "f4a766119921068a068f46fafa8fd3b02bdd173d70052d44f655bb938adf3a86",
-      "korean_sha256_at_completion": "da94f76554b3a873e01891414983b0eed2cb5d80c3659cad8def552b0185bf67",
+      "english_sha256_at_completion": "1a2e4f25d6b0c822d3c10e0328410eb6a280f1e39150c39392869cd2b4e04442",
+      "korean_sha256_at_completion": "8b8589d4778189d2ee1dac61421aea3956ced6f004a6088827a992d59cb4fb5a",
       "cli_parity_verified": true
     },
     "docs/reference/troubleshooting.md": {
@@ -415,13 +415,13 @@
       "cli_parity_verified": true
     },
     "docs/reference/validation.md": {
-      "revision": "learner-actions-20260917",
+      "revision": "manual-assessment-20260917",
       "pending_source_record": {
-        "english_sha256": "190b14e7fb8b1f13aae0675e4cecb4a4a0ad54c9968b2b387b62c4c0c536fc96",
-        "korean_sha256": "ca45d93ab4d021cda26c11b77e2833f85b7bff86e83d81d0fd3128e4cda96cdc"
+        "english_sha256": "52134f714edbd01c6f7e35bdf708afae5a78152040651b5625c89973f2a02d03",
+        "korean_sha256": "049f352f8bd78478fa5cc7e2015ad96d144b60e27ac9c56d0b68461e92494118"
       },
-      "english_sha256_at_completion": "190b14e7fb8b1f13aae0675e4cecb4a4a0ad54c9968b2b387b62c4c0c536fc96",
-      "korean_sha256_at_completion": "77f95a64374cea76e3ebbd53fe67bc5eb8808582e8673b3518fcb0d39d0974b3",
+      "english_sha256_at_completion": "52134f714edbd01c6f7e35bdf708afae5a78152040651b5625c89973f2a02d03",
+      "korean_sha256_at_completion": "538a7c6ed4e9d82f9409c113f162a14c194f0685032bf57e884b82a072738541",
       "cli_parity_verified": true
     },
     "docs/instructor.md": {

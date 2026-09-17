@@ -44,12 +44,16 @@
 | 파일/결과 | 완료 확인 |
 |---|---|
 | 작성한 `session-notes.txt` | 설정 카드·구조 그림·실제 프로젝트/배포/agent 버전·모델 관찰·원문 확인을 식별 가능 |
-| 실제 저장한 지침·학습자 ZIP의 `SOURCE.json` | 원문과 브라우저 수정/버전 변경을 구분 가능 |
-| `assessment-baseline.csv`, 바꾼 경우만 candidate 표 | D01–D06 실제 응답·인용·이유 전부. 정답표 복사 금지 |
+| `instructions-baseline.txt`·학습자 ZIP의 `SOURCE.json` | 지침 사본과 평가한 baseline 버전이 일치. `SOURCE.json`은 제공한 원본 묶음의 식별 정보이지 이후 수정 내용의 근거가 아님 |
+| `assessment-baseline.csv` | D01–D06 실제 응답·인용·이유 전부와 `session-notes.txt`의 버전 연결. 정답표 복사 금지 |
+| 변경한 candidate만: `instructions-candidate.txt`, `assessment-candidate.csv` | 새 저장 버전·변경 이유·새 응답 6개 전부. Baseline 덮어쓰기나 버전 혼합 금지 |
 | `workflow-review.txt` | 실제 순차 명령/출력 한 번과 본인의 검토 |
 | `operations-checklist.txt` | 본인/공유 자산·정리 결과 또는 담당자 대기 항목·잔여 비용·선택 기능 미실행 여부 |
 
 각 파일을 열어 표와 대조합니다. 혼자 학습하면 직접 검토하고, 수업이면 합의한 경로로만 인계합니다.
+평가를 마친 표에도 업무 실패는 있을 수 있습니다. 반면 응답 누락·요청 오류·버전 혼합은 **평가 미완료**입니다.
+`session-notes.txt`의 **Lab 07 A**에 그 결과를 적고 기존 파일을 보존하며 정리 책임도 인계합니다.
+폴더를 채우려고 답변을 꾸미거나 유료 호출을 반복하지 않습니다.
 A는 아래 B/C 인수 명령을 실행하거나 holdout을 열지 않습니다.
 **A 완료:** [리뷰어 체크리스트](#리뷰어의-인수-체크리스트)와 [정리 인계](../reference/cleanup.md)로 마칩니다.
 이 파일들을 제출하려고 선택 모듈이나 새 Azure 요청을 실행할 필요는 없습니다.

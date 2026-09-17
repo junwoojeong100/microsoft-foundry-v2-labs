@@ -25,10 +25,10 @@ File Search·IQ Chat·Hosted·cloud judge·C 모듈은 별도로 선택하지 �
 | 1 | [Lab 00 A](../labs/00-start.md#path-a): 계정·프로젝트·파일 | `session-notes.txt`의 설정 카드가 채워짐 |
 | 2 | [Lab 01 A](../labs/01-foundry.md#path-a): account/project/deployment/agent 구분 | 네 객체의 관계 그림과 실제 endpoint 추가 |
 | 3 | [Lab 02 A](../labs/02-models.md#path-a): Playground | 실제 답변과 근거 부족 관찰을 `session-notes.txt`에 기록 |
-| 4 | [Lab 03 A](../labs/03-prompt-agent.md#path-a): 전체 지침 붙여넣기·저장 | `session-notes.txt`에 agent/버전·저장 지침·실제 확인 4건 기록 |
+| 4 | [Lab 03 A](../labs/03-prompt-agent.md#path-a): 전체 지침 붙여넣기·저장 | `instructions-baseline.txt` 저장. `session-notes.txt`에 해당 agent/버전·실제 확인 4건 연결 |
 | 5 | [Lab 05 A](../labs/05-workflows.md#path-a): 준비된 순차 명령 한 번 | `workflow-review.txt`에 실제 출력 전체와 내 검토가 있음 |
 | 6 | [Lab 06 A](../labs/06-knowledge.md#path-a): 정책 ID·날짜 확인 | `session-notes.txt`에 원문 확인 기록. 기본 경로는 IQ Chat 미선택 |
-| 7 | [Lab 07 A](../labs/07-evaluation.md#path-a): dev 6문항 평가 | `assessment-baseline.csv`의 6행 모두 실제 결과와 이유가 있음 |
+| 7 | [Lab 07 A](../labs/07-evaluation.md#path-a): 저장한 버전 하나로 dev 6문항 평가 | `assessment-baseline.csv`에 실제 응답·인용·이유 6건. `session-notes.txt`에 버전·통과 수 / 6 기록. Candidate는 정당한 변경이 있을 때만 |
 | 8 | [Lab 09 A](../labs/09-operations.md#path-a): 운영 확인 4가지 | `operations-checklist.txt`에 소유 자산과 잔여 비용이 있음 |
 | 9 | [Lab 11 A](../labs/11-capstone.md#path-a): 인계 | 근거 폴더와 정리 책임자가 명확함 |
 

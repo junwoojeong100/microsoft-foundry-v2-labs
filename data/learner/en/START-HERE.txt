@@ -3,10 +3,11 @@ This is the small learner ZIP, not the source repository or a ready code environ
 Keep this extracted personal copy outside the repository; never commit filled notes or credentials.
 1. Complete docs/setup.md and the setup section of session-notes.txt. Use prepared gpt-5.6-luna, not the judge or a router.
 2. Follow docs/paths/a-beginner.md. Record Labs 00-03 and 06 in session-notes.txt.
-3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Do not paste it into chat.
+3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Keep the actual saved text as instructions-baseline.txt and record its version. Do not paste instructions into chat.
 4. Copy only a question from dev-questions.txt into each new chat, not IDs or assessment columns.
 5. In Lab 05, fill workflow-review.txt with your complete actual command/output and review.
-6. In Lab 07, save assessment.csv as assessment-baseline.csv and fill all six rows. No answer keys are included.
+6. In Lab 07, save assessment.csv as assessment-baseline.csv and assess all six rows on one saved version. Record versions, file paths and findings in Lab 07 A of session-notes.txt. No answer keys are included.
+Keep errors and unrun rows in the six-case denominator. A candidate is optional, only for a justified change; preserve the baseline.
 7. In Lab 09, fill operations-checklist.txt; Lab 11 hands over these files without new Azure calls.
 Optional only: policies/ and instructions.txt are for a separately selected File Search agent.
 Use session-notes.txt to save your last completed step and next link before pausing.

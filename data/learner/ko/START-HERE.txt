@@ -3,10 +3,11 @@
 압축을 푼 개인 복사본은 저장소 밖에 보관합니다. 작성한 기록이나 인증정보를 커밋하지 않습니다.
 1. docs/ko/setup.md와 session-notes.txt의 설정 카드를 채웁니다. judge/router가 아닌 준비된 gpt-5.6-luna를 사용합니다.
 2. docs/ko/paths/a-beginner.md를 따릅니다. Lab 00-03과 06은 session-notes.txt에 기록합니다.
-3. Lab 03에서 instructions-with-policies.txt 전체를 대화창이 아닌 Instructions(지침)에 붙여 넣고 Save(저장)합니다.
+3. Lab 03에서 instructions-with-policies.txt 전체를 대화창이 아닌 Instructions(지침)에 붙여 넣고 Save(저장)합니다. 실제 저장 내용은 instructions-baseline.txt로 보관하고 버전을 적습니다.
 4. dev-questions.txt에서 질문 하나만 복사해 매번 새 대화에 보냅니다. ID나 평가 열은 보내지 않습니다.
 5. Lab 05에서 실제 명령·출력 전체와 내 검토로 workflow-review.txt를 채웁니다.
-6. Lab 07에서 assessment.csv를 assessment-baseline.csv로 저장하고 6행 모두 채웁니다. 정답표는 없습니다.
+6. Lab 07에서 assessment.csv를 assessment-baseline.csv로 저장하고 저장 버전 하나로 6행 모두 평가합니다. session-notes.txt의 Lab 07 A에 버전·파일 경로·판단을 기록합니다. 정답표는 없습니다.
+오류·미실행도 6문항 분모에 남깁니다. Candidate는 정당한 변경이 있을 때만 선택하며 baseline을 보존합니다.
 7. Lab 09에서 operations-checklist.txt를 채우고, Lab 11에서 새 Azure 호출 없이 이 파일들을 인계합니다.
 선택 전용: policies/와 instructions.txt는 별도로 선택한 File Search agent에만 사용합니다.
 중단하기 전 session-notes.txt에 마지막 완료 단계와 다음 링크를 적습니다.

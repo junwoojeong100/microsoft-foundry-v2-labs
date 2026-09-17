@@ -59,7 +59,7 @@ For private repositories, use a GitHub account with read access.
 | `policies/` | Exactly six synthetic TXT files to upload for File Search |
 | `dev-questions.txt` | Copy one question, not the case ID or an evaluation record, into each new chat |
 | `assessment.csv` | Blank six-case worksheet; record your actual answers/citations/pass or fail |
-| `session-notes.txt` | Blank setup card, Lab 01–03/06 observations, last completed step and resume link |
+| `session-notes.txt` | Blank setup card, Lab 01–03/06 observations, Lab 07 A versions/results, last completed step and resume link |
 | `workflow-review.txt` | Blank Lab 05 command/output and human review record |
 | `operations-checklist.txt` | Blank Lab 09 owned/shared asset, cleanup and residual-cost checklist |
 | `SOURCE.json` | Language and canonical input hashes |

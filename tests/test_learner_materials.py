@@ -88,7 +88,7 @@ class LearnerMaterialTests(unittest.TestCase):
                     for answer_key in ("expected_limit_krw", "required_citations", "H01"):
                         self.assertNotIn(answer_key, text)
                 notes = files["session-notes.txt"].decode()
-                for lab in ("00", "01", "02", "03", "06"):
+                for lab in ("00", "01", "02", "03", "06", "07"):
                     self.assertIn(f"Lab {lab}", notes)
                 self.assertIn("assessment-baseline.csv", start)
                 self.assertIn("approval_status", files["workflow-review.txt"].decode())

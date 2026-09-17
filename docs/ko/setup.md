@@ -59,7 +59,7 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
 | `policies/` | File Search에 올릴 합성 TXT 원문 정확히 6개 |
 | `dev-questions.txt` | 매번 새 대화에 질문 하나만 복사. ID나 평가 레코드 전체는 보내지 않음 |
 | `assessment.csv` | 빈 6문항 평가표. 실제 응답·인용·통과/실패 기록 |
-| `session-notes.txt` | 빈 설정 카드·Lab 01–03/06 관찰·마지막 완료 단계·재개 링크 |
+| `session-notes.txt` | 빈 설정 카드·Lab 01–03/06 관찰·Lab 07 A 버전/평가 결과·마지막 완료 단계·재개 링크 |
 | `workflow-review.txt` | Lab 05의 실제 명령·출력·사람 검토용 빈 양식 |
 | `operations-checklist.txt` | Lab 09의 소유/공유 자산·정리·남은 비용용 빈 양식 |
 | `SOURCE.json` | 언어와 canonical 입력 hash |
