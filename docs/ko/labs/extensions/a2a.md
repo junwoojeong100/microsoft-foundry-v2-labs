@@ -88,14 +88,6 @@ caller 사용량만 있으면 target 사용량을 만들어 더하지 않습니�
 helper는 실제로 수락된 `a2a/1.0` 설정과 일치하는 target output을 확인하고 원래 event 이름을 남깁니다.
 이것을 wire packet을 캡처한 프로토콜 검증이라고 주장하지 않습니다.
 
-<!-- edition-checkpoint:KP18-007-retained-same-target-diagnostic -->
-
-![실제 국문 촬영: 동일 버전·프로토콜의 제한된 진단 요청과 원래 HTTP 오류 보존](../../../assets/edition-20260916-ko/screenshots/KP18-007-retained-same-target-diagnostic-2.webp)
-
-**확인할 것:** 첫 HTTP 오류를 남기고 같은 target·버전·프로토콜의 진단 결과를 확인했습니다. 원래 위임 call/output과 수락된 a2a/1.0 설정은 wire packet capture와 다릅니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=441.96) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 5. 검토·정리
 
 card는 기능 설명이지 사용 권한이 아닙니다. 성공한 위임도 예약·승인·지급 권한을 주지 않습니다.

@@ -40,8 +40,8 @@ Packaging, local invocation, remote deployment, native evaluation and human appr
 The [coverage record](../coverage.md) identifies which modules have executable steps,
 which have actual new Azure evidence, and which remain design-only or blocked.
 An official product page or an installed SDK is not evidence that this workshop ran the feature.
-Use [this edition's recorded results](../edition-results.md) to see the actual first-pass outcomes,
-including baseline-only optimization and delivery-only routine verification.
+The modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset (for example, baseline-only
+optimization and delivery-only routine verification). They were not re-run with `gpt-6-sol`; verify each module yourself.
 
 ## Pick a sensible next module
 

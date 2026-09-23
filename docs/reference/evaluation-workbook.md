@@ -381,6 +381,6 @@ Cleanup receipts are separate from immutable manifests, preserving candidate/reg
 Inspect smoke-session headers or the azd session list and stop only your own IDs.
 Models, Search, logs, and storage can still cost money; follow [cleanup](cleanup.md).
 
-**Actual results:** the Korean run verified the four-model 24/24/16 matrix, native evaluation, calibration, and traces.
-The English run has its own labels and recordings.
-See [live results](../live-run.md) and [validation](validation.md); never reuse the other language's outcome as your own.
+**Actual results, September 15, 2026 (earlier `gpt-5.6-luna` edition):** the Korean run verified the four-model 24/24/16 matrix,
+native evaluation, calibration, and traces; this workbook was not re-run with `gpt-6-sol`.
+See [validation](validation.md); never reuse the other language's outcome as your own.

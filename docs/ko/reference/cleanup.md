@@ -137,15 +137,15 @@ cleanup receipt는 별도 파일이므로 frozen candidate와 regression source 
 <summary>별도로 승인된 미디어 교체의 유지보수 담당자만 — 학습자는 저장소의 데이터·영상을 보존합니다</summary>
 
 **새 국문·영문 세트를 각각 검증한 뒤 기존 미디어를 교체합니다.**
-국문은 `docs/assets/refresh-20260915-ko/media.json`,
-영문은 대응하는 `refresh-20260915-en/media.json`의 실제 파일·해시를 기준으로 검수합니다.
+국문은 `docs/assets/g6sol-20260923-ko/media.json`,
+영문은 대응하는 `g6sol-20260923-en/media.json`의 실제 파일·해시를 기준으로 검수합니다.
 한쪽만 완성한 상태에서 다른 언어의 기존 파일을 먼저 삭제하지 않습니다.
 평가 입력·응답·실패·평가자·소유권 기록은 관련 실행 증거이므로 미디어와 별도로 보존합니다.
 
 | 위치 | 보존 기준 |
 |---|---|
-| `docs/assets/refresh-20260915-ko/` | 별도 국문 새 캡처·영상·액션·source-frame 검증 |
-| `docs/assets/refresh-20260915-en/` | 별도 영문 새 캡처·영상·액션·source-frame 검증 |
+| `docs/assets/g6sol-20260923-ko/` | 별도 국문 캡처·영상·액션·source-frame 검증 |
+| `docs/assets/g6sol-20260923-en/` | 별도 영문 캡처·영상·액션·source-frame 검증 |
 | `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
 | `outputs/benchmarks/<label>/` | 실제 matrix, 원시 오류, dataset/corpus/response/native/trace/cleanup 계보 |
 | `outputs/judge-calibration/` | target과 분리된 평가자 calibration |

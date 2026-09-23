@@ -16,7 +16,7 @@ from . import workspace
 def settings(language="en"):
     return Settings(
         "https://unit.services.ai.azure.com/api/projects/workshop",
-        "gpt-5.6-luna",
+        "gpt-6-sol",
         "00000000-0000-0000-0000-000000000001",
         "cli",
         None,

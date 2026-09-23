@@ -30,7 +30,7 @@ Fill only the rows required for your selected route; optional fields do not bloc
 | Azure tenant and subscription IDs | A/B | Azure portal → Subscriptions / directory |
 | Foundry account, project and resource group | A/B | Your training project's resource details |
 | Full project endpoint | A's prepared terminal / B | Foundry project home; retain `/api/projects/<project>` |
-| **Answer deployment** | A/B | **`gpt-5.6-luna`**, underlying model of the same name, version **`2026-07-09`** for this dated workshop preset |
+| **Answer deployment** | A/B | **`gpt-6-sol`**, underlying model of the same name, version **`2026-09-22`** for this dated workshop preset (September 23, 2026) |
 | Prefix | A/B | Must start with **`mfv2-`**; use lowercase letters/digits and single hyphens, no trailing hyphen, maximum 32 characters total. Example: `mfv2-team01-en-0917` |
 | Code environment | A Lab 05 / all B code | Repository folder, Python 3.13, activated `.venv`, learner's own Azure sign-in |
 | Search endpoint | B Lab 06 / optional IQ Chat | Existing training Search service; not required for A's inline source checks |
@@ -38,9 +38,10 @@ Fill only the rows required for your selected route; optional fields do not bloc
 | IQ chat base | Optional IQ Chat only | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
 | Hosted inputs | Optional local/remote hosting only | Actual project ARM ID and location code, owned agent name, an empty standalone local directory and required approvals; **not needed to package** |
 
-**Model choice is not a learner experiment on the first pass.** Use Luna, not `-judge`, Astra or a router.
+**Model choice is not a learner experiment on the first pass.** Use `gpt-6-sol`, not its `-judge` deployment, another listed model or a router.
 If this exact deployment/version is unavailable, the owner must resolve availability or explicitly revalidate another edition.
 The code never silently selects a replacement. A fixed model prevents a common mismatch; it cannot guarantee service uptime or quota.
+[Why `gpt-6-sol`](reference/model-choice.md): on September 23, 2026 it passed the checked agent paths and the recorded main A/B steps; `gpt-6-luna` failed on the agent path.
 
 ## 3. Download the ready learner materials
 
@@ -77,7 +78,7 @@ Empty templates are not completed evidence. Nothing in this ZIP installs a code 
 ## 4. Ready to start
 
 - [ ] I can open the intended project with my own account.
-- [ ] The actual Luna deployment/version is prepared.
+- [ ] The actual `gpt-6-sol` deployment and version `2026-09-22` are prepared.
 - [ ] A: I have the learner ZIP and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
 - [ ] My Lab 05 terminal is ready; if not, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
 - [ ] For B, Search access and owned-object creation costs are approved. For A, IQ Chat is **not selected** unless separately prepared.
@@ -99,7 +100,7 @@ If you are learning alone, you are also the environment owner. These are prepara
 1. Select a dedicated training subscription/resource group and a region with the required model quota.
    Use the [current Foundry setup guide](https://learn.microsoft.com/azure/foundry/quickstarts/get-started-code);
    do not choose a classic Hub/threads-runs tutorial.
-2. Prepare **`gpt-5.6-luna` / `2026-07-09`** with deployment name **`gpt-5.6-luna`**.
+2. Prepare **`gpt-6-sol` / `2026-09-22`** with deployment name **`gpt-6-sol`**.
    Verify its state is `Succeeded`. Do not create another model after an unexplained error.
 3. Give the learner the appropriate Foundry project/model permissions.
    The CLI's deployment preflight also needs **Reader on the training Foundry account**. Test with that learner's account, not only an administrator.
@@ -107,7 +108,8 @@ If you are learning alone, you are also the environment owner. These are prepara
    and Search read/write permissions for the person who seeds the synthetic index.
    For B learners starting from a fresh copy, prepare the **service and permissions**, not objects under their new prefixes.
    If supplying pre-seeded objects, supply the authorized matching working copy; endpoint/base names alone do not supply its local ownership ledger.
-5. **Only for optional model-based IQ Chat**, enable Search's system-assigned identity.
+5. **Only for optional model-based IQ Chat**, enable Search's system-assigned identity and prepare a separate
+   **`gpt-5.6-luna` / `2026-07-09`** deployment named **`gpt-5.6-luna`**; Search knowledge bases accepted no GPT-6 model on September 23, 2026.
    On the model's Foundry account, give **the Search identity** `Cognitive Services User`.
    A role assigned to the user or Hosted agent does not grant it to Search.
 6. Complete [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment), including `.env`, before running the owner commands below.
@@ -134,7 +136,7 @@ python scripts/workshop.py --language en iq-chat ask --label iq-chat-first --con
 `ask` is billable and records actual planning, synthesis and original evidence under `outputs/iq-chat/iq-chat-first/`.
 Use a **new label** for each new request; do not overwrite the first result.
 
-As checked on **September 15, 2026**, the optional Preview preset fixes Luna, Search system-assigned identity,
+As checked on **September 15, 2026**, the optional Preview preset fixes `gpt-5.6-luna`, Search system-assigned identity,
 `2026-08-01-preview`, `low`, and `answerSynthesis`. Preview planning/synthesis is not required for A's source checks or B's GA retrieval.
 It uses the verified `maxOutputSize` request field rather than the field rejected in the earlier diagnostic.
 Return the printed chat-base name to the learner. They should open **that base**, not the model-free `<prefix>-kb`.

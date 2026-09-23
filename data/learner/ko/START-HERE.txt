@@ -1,7 +1,7 @@
 합성 실습 자료만 포함하며 실제 회사 데이터가 아닙니다.
 작은 학습자 ZIP이며 소스 저장소나 준비된 코드 실행 환경이 아닙니다.
 압축을 푼 개인 복사본은 저장소 밖에 보관합니다. 작성한 기록이나 인증정보를 커밋하지 않습니다.
-1. docs/ko/setup.md와 session-notes.txt의 설정 카드를 채웁니다. judge/router가 아닌 준비된 gpt-5.6-luna를 사용합니다.
+1. docs/ko/setup.md와 session-notes.txt의 설정 카드를 채웁니다. judge/router가 아닌 준비된 gpt-6-sol을 사용합니다.
 2. docs/ko/paths/a-beginner.md를 따릅니다. Lab 00-03과 06은 session-notes.txt에 기록합니다.
 3. Lab 03에서 instructions-with-policies.txt 전체를 대화창이 아닌 Instructions(지침)에 붙여 넣고 Save(저장)합니다. 실제 저장 내용은 instructions-baseline.txt로 보관하고 버전을 적습니다.
 4. dev-questions.txt에서 질문 하나만 복사해 매번 새 대화에 보냅니다. ID나 평가 열은 보내지 않습니다.

@@ -130,17 +130,6 @@ Managed identity 지원 여부와 Preview 여부는 별개입니다.
 capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참조하는지 점검합니다.
 다른 조의 연결이나 조직 전체 consent를 임의로 삭제하지 않습니다.
 
-<details>
-<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
-
-아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
-
-![2026-09-15 새 국문 촬영: 외부 Work/Fabric IQ는 별도 승인 경로](../../assets/refresh-20260915-ko/screenshots/K10-100-boundaries-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
-
-</details>
+Lab 10은 선택 단원이며 2026-09-23 `gpt-6-sol` 녹화에 포함하지 않았습니다. [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 다음: A: [Lab 11로 이동](11-capstone.md) · B: [Lab 11로 이동](11-capstone.md)

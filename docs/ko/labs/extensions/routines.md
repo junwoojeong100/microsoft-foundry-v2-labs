@@ -94,14 +94,6 @@ helper는 **전달**을 확인합니다. 답변 내용이나 미래 timer 발화
 `--verify-response`와 새 label은 원래 답변을 엄격하게 조회하며 불가하면 오류를 남깁니다.
 모델 요청을 새로 보내지 않습니다.
 
-<!-- edition-checkpoint:KP20-104-paused-original-history -->
-
-![실제 국문 촬영: 원래 전달·취소된 미래 timer·비활성 상태를 구분](../../../assets/edition-20260916-ko/screenshots/KP20-104-paused-original-history-2.webp)
-
-**확인할 것:** 원래 수동 전달은 Completed이며 미래 timer 시도는 Cancelled입니다. 원래 답변 조회는 404였으므로 전달과 답변 검증을 구분합니다. 이후 내 routine만 정리했습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=514.36) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 5. 기록·정리
 
 생성 설정, 정확한 dispatch/run ID, 보고된 대상 버전, 답변/오류 또는 미검증 상태,

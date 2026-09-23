@@ -1,67 +1,73 @@
-# English live execution and evaluation results
+# gpt-6-sol live execution and evaluation results — September 23, 2026
 
 **English** | [한국어](ko/live-run.md)
 
-**These are this language edition's actual Azure execution results.** They are not copied from upstream repositories or the other language run.
+**These are this English recording's actual Azure results from September 23, 2026.** They are not copied from the Korean run, from the earlier `gpt-5.6-luna` editions or from upstream repositories.
 
-| Cohort | Version | Rows | Errors | Business | Groundedness | Relevance | Root traces |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| en-baseline-recall | 11 | 24 | 0 | 24/24 | 24/24 | 20/24 | 24/24 |
-| en-candidate | 12 | 24 | 0 | 23/24 | 24/24 | 20/24 | 24/24 |
-| en-holdout | 12 | 12 | 0 | 12/12 | 12/12 | 9/12 | 12/12 |
+## Environment
 
-Business gates and native scores measure different things. `review-native-findings` is not production approval. This is a small, public synthetic dev/holdout set, not proof of statistical superiority or an unseen production validation set.
+| Item | Value |
+|---|---|
+| Region / project | Sweden Central / `mfv2-g6luna-20260923` |
+| Answer deployment | `gpt-6-sol` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 150K TPM, NoAutoUpgrade |
+| Judge deployment | `gpt-6-sol-judge` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 100K TPM |
+| Created by the portal | `text-embedding-3-large` Standard 110K — created when the first portal agent opened; not used by these labs |
+| Owned prefix | `mfv2-sol-20260923-en` |
 
-The initial English baseline's actual 20/24 result is preserved separately. Its missing scope-policy evidence led to an explicit same-provider retrieval-recall experiment, not a changed evaluator or reference answer. The new controlled baseline/candidate use that same recall setting. D05 remains pending human review and was not consumed as an approved regression.
+Resource names keep the environment's original `g6luna` label; the recorded deployments are `gpt-6-sol`. Local keys are disabled; every call used Microsoft Entra ID.
 
-## Execution corrections
+## Lab 07 business evaluation
 
-The Korean prerequisite run identified and corrected endpoint/protocol flag conflicts, dropped API-version query parameters, explicit account embedding configuration, App Insights credential scoping, and cleanup of already-idle sessions. The English run uses the corrected code. Earlier diagnostics are retained separately; no model, endpoint, provider, or fixture is substituted automatically after errors.
+| Cohort | Split | Instructions | Rows | Errors | Business | Median latency |
+|---|---|---|---:|---:|---:|---:|
+| baseline | dev | v1 | 6 | 0 | 6/6 | 1.96 s |
+| candidate | dev | v2 | 6 | 0 | 6/6 | 2.37 s |
+| final-holdout | holdout | v2 (frozen) | 4 | 0 | 4/4 | 1.79 s |
+
+- The feedback/regression step was **not run** because the actual baseline had no failed case. An all-pass baseline is recorded as-is, not as proof that v2 is better.
+- The candidate was frozen before the single holdout run. Holdout was not used for prompt development.
+- Acceptance: `ready-for-human-review`, `deployment_approved: false`. This is a small public synthetic set, not a production validation.
+
+## Optional Foundry cloud judge
+
+Candidate dev rows (6), judged by `gpt-6-sol-judge`. Evaluation `eval_f32ab14675784588ba27de99c3713bde`, run `evalrun_ed83f7b8ebc0413db758bc12b66f74b9`, status `completed`.
+
+| Evaluator | Passed | Failed | Errored |
+|---|---:|---:|---:|
+| groundedness | 6 | 0 | 0 |
+| relevance | 5 | 1 | 0 |
+
+The failed relevance row is **D05** (score 3), the intended abstention case: no international policy exists, and the answer correctly declined to give an amount. A low relevance score on a correct abstention is a judge limitation to review; it is not a reason to invent an amount, and the score is kept unchanged. Native judge scores are not part of the acceptance decision.
+
+## Other live results
+
+- **Lab 02:** `response_model: gpt-6-sol` for the first SDK request; the validated structured answer cited `TRAVEL-2026`, `RECEIPT-01`, `APPROVAL-01`.
+- **Lab 03:** portal agent `mfv2-sol-20260923-en-policy` saved as version 2 (answers captured as screens, not scored); SDK agent `mfv2-sol-20260923-en-policy-sdk` version 1 created and invoked.
+- **Lab 04–05:** MAF runs with `tools: none`, `function` and `local-mcp`; workflow patterns sequential, concurrent and group-chat. All exited 0.
+- **Lab 06:** local, Search and GA IQ retrieval against the six synthetic policies. The IQ-grounded answer retrieved `TRAVEL-2025`, `TRAVEL-2026` and cited `TRAVEL-2026` (`needs_approval`, KRW 150,000). This retrieval did not return `APPROVAL-01`, so the answer said the approval document was not provided instead of inventing the procedure. It is kept unchanged; compare it with the D03 expectation (`TRAVEL-2026` + `APPROVAL-01`).
+- **Lab 08–09:** packaging only (no Hosted deployment); cleanup inventory only (nothing deleted).
 
 ## Lineage
 
-### Retained initial diagnostic cohort
+- base commit `47f3b492d5146d8050faf303b4060db2dfc75185`, working-tree source hash `267291d92bfa9ec4d87a9a2aa750bf8abe06b0891588f270472d38a474963038`
+- `baseline` run `c87dc00a-02c7-47fd-9523-26b32d0cbfc4`: dataset `1fa5362e46e027e3…`, corpus `9df56da4500a010c…`, code `466558728a75693c…`, prompt `705dc29ecb89c047…`, responses `bbe67be1f89bfc03…`
+- `candidate` run `e48d902b-213f-4897-b560-d68361e63e7b`: dataset `1fa5362e46e027e3…`, corpus `9df56da4500a010c…`, code `466558728a75693c…`, prompt `05c0d23b0f56b080…`, responses `78bc9cdbd8a90d2d…`
+- `final-holdout` run `a91de1c7-c613-4181-bb62-98ae32b95af3`: dataset `e276e82bbac04260…`, corpus `9df56da4500a010c…`, code `466558728a75693c…`, prompt `05c0d23b0f56b080…`, responses `e887dbf79b78584d…`
+- cloud judge: input `1b5daf431e3e3f06…`, evaluator `a0e7f44a59d34f75…`, results `152165cf10c4e7c5…`
 
-- `en-baseline-final`: version 10, 20/24 business checks, 0 execution errors; original response hash `6dec763ba04058a5947179d03b130207c7d9f48efae4bc8c76d01709480ba374`.
-- Actual native eval/run: `eval_043b9f00f88841c4ba8f7ff8815d3c23` / `evalrun_aef67541bd7e4d65bb6cdf006712b707`.
+Full hashes are in [live-results.json](assets/g6sol-20260923-en/live-results.json).
 
-### Dev-based final model selection
+## Not run with gpt-6-sol
 
-The English V2 candidate retained Astra's failed `citations_relevant` check on dev D05 (5/6 for that model). Only the dev-eligible Luna/Sol/Terra models were frozen for final holdout, before any holdout response was generated. Its denominator is therefore 3 models × 4 cases = 12, not 16. The original four-model candidate score remains visible.
+- Lab 03 portal File Search
+- Lab 06 IQ Chat preset (gpt-5.6-luna) and hybrid RAG
+- Lab 07 feedback/regression step (no baseline failure)
+- Lab 07 Hosted model matrix
+- Lab 08 local server and Hosted deployment
+- Lab 09 server-side tracing checks and continuous evaluation
+- Lab 10 external IQ extensions
+- Extension modules
 
-### en-baseline-recall
+Earlier `gpt-5.6-luna` recordings and result pages (September 15–17, 2026) were removed from the working tree; they remain only in git history and are not results for this preset.
 
-- Agent version: `11`
-- Target run: `matrix-6b49cdf3234f4d458f313b01fa25af77`
-- Foundry eval/run: `eval_7ea2977e60c042d5a86a182b84d96870` / `evalrun_756a28a027bc47d6ba48d488a2694c16`
-- Dataset: `1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e`
-- Corpus: `9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14`
-- Runtime code: `7eeeb72da904805d20e8ca9233d343198839527590c3b142f1a172778dd14fcd`
-- Responses: `29052db55de360270317fc1810e2234250a4959b9f307319d6c49653a24c7a84`
-- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
-
-### en-candidate
-
-- Agent version: `12`
-- Target run: `matrix-dd16b7f1eaac4c7a8ceae602af7a0c8a`
-- Foundry eval/run: `eval_57f2a3c163734e39b70947492a1d7cb8` / `evalrun_0eefc4c313414900b60d975f01f05a1e`
-- Dataset: `1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e`
-- Corpus: `9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14`
-- Runtime code: `7eeeb72da904805d20e8ca9233d343198839527590c3b142f1a172778dd14fcd`
-- Responses: `a615918e81bcb301190cd5c2221b21f75daa89a6839e2350d13ec6fb936f45d4`
-- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
-
-### en-holdout
-
-- Agent version: `12`
-- Target run: `matrix-ced9f6d46031434aad9907018d73523b`
-- Foundry eval/run: `eval_322b9e08d490427599460ccddfc94462` / `evalrun_4b526d17261b41ba9d53b58421d902f2`
-- Dataset: `e276e82bbac04260e11747f802b6671b2ad2a5c340c3af4a5b44895ca2aa14b9`
-- Corpus: `9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14`
-- Runtime code: `7eeeb72da904805d20e8ca9233d343198839527590c3b142f1a172778dd14fcd`
-- Responses: `3b0f05045abe44ebfc52086994c36bea2694600450989fa3ba4efe717c6581ee`
-- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
-
-Original responses, native output, failures, trace-query results, and cleanup receipts are retained. Stopping sessions does not remove all persistent files, models, Search, or log costs.
-
-[Recordings](video-summary.md) · [Acceptance](reference/consolidation.md)
+[Videos](video-summary.md) · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)

@@ -377,6 +377,6 @@ python scripts/workshop.py benchmark stop-session --label wf-final
 별도 smoke의 session은 저장된 raw HTTP/azd session 목록에서 확인해 본인 것만 중지합니다.
 모델·Search·로그·파일 저장소 비용은 별도이며 [정리](cleanup.md)를 따릅니다.
 
-**이번 실제 실행:** 국문은 네 모델의 baseline/candidate/holdout 24/24/16행, native 평가·calibration·trace를 확인했습니다.
-점수·추가 진단·기능별 한계는 [실행 결과](../live-run.md)와 [검증 기록](validation.md)에 구분합니다.
+**2026-09-15 실제 실행(이전 `gpt-5.6-luna` 판):** 국문은 네 모델의 baseline/candidate/holdout 24/24/16행, native 평가·calibration·trace를 확인했으며
+이 워크북은 `gpt-6-sol`로 다시 실행하지 않았습니다. 점수·추가 진단·기능별 한계는 [검증 기록](validation.md)에 구분합니다.
 다른 언어의 영상이나 다른 저장소의 성공을 이 워크북의 실행 결과로 사용하지 않습니다.

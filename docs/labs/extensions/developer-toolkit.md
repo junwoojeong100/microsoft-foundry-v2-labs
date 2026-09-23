@@ -51,14 +51,6 @@ An SDK mismatch remains a preparation error, not a reason to upgrade arbitrary p
 
 </details>
 
-<!-- edition-checkpoint:EP00-001-environment -->
-
-![Recorded English checkpoint: One environment, explicit English synthetic inputs](../../assets/edition-20260916-en/screenshots/EP00-001-environment-2.webp)
-
-**What to check:** The recorded environment check identifies the actual Python and explicit English source path. It does not prove model or deployment success. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=2.00) · [All actions and failures](../../edition-actions.md)
-
 <a id="azd-check"></a>
 
 ## 2. Inspect azd without modifying shared settings

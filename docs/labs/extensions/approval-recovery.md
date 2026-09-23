@@ -11,8 +11,8 @@ not change Lab 05, the workshop CLI, deployment configuration, or canonical data
 inference, retrieval, evaluator, booking, payment, email, or real authorization.
 `synthetic-runtime-only` is a protocol label, **not an Azure model deployment**.
 The only scenario is the bundled English development question `D03`. Holdout is
-not used. A new English stop/restart/continuation was recorded on September 16;
-[the results](../../edition-results.md) distinguish it from Azure execution.
+not used. An English stop/restart/continuation ran on September 16, 2026 in the earlier
+`gpt-5.6-luna` edition; it was not an Azure execution and was not re-run for the `gpt-6-sol` preset.
 
 **First pass:** the five steps under Recommended first pass, without a restart or crash.
 Save the local completion evidence, stop your server and hand off. The branches and maintainer tests below are optional.
@@ -181,14 +181,6 @@ Do not reuse a cleaned run ID; choose a new one and keep the earlier evidence.
 The SDK multi-turn chain otherwise stays suspended even after its final turn;
 do not mistake application completion for automatic chain deletion.
 
-<!-- edition-checkpoint:EP16-008-simulated-decision -->
-
-![Recorded English checkpoint: Submit an explicitly simulated decision and verify exact checkpoint preservation](../../assets/edition-20260916-en/screenshots/EP16-008-simulated-decision-2.webp)
-
-**What to check:** The original output ID survived recovery. human_authorization remains not-granted and external_actions_performed remains false. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=336.60) · [All actions and failures](../../edition-actions.md)
-
 ## Optional branches, after the first pass
 
 <details>
@@ -316,12 +308,12 @@ registries and release of the previous lifetime's file locks prevent memory
 from masquerading as durable storage. These are **local contract results**,
 not a Linux hard-crash run, a Hosted deployment result, or an evaluation score.
 
-**This edition's local evidence, 2026-09-16:** all 27 targeted tests passed.
+**Local evidence, 2026-09-16:** all 27 targeted tests passed.
 A real macOS loopback server was also gracefully stopped with a pending gate,
 restarted, and explicitly given a simulated decision. It completed under the
 same response/task IDs with three distinct outputs and the original committed
 output preserved. Human authorization remained `not-granted`. This was not a
-hard crash or an Azure run. The later English recording of the same bounded workflow is linked above.
+hard crash or an Azure run.
 
 An important pinned-version distinction: core 2.1.0's `TaskContext` returns a
 recovery sentinel, so its handler uses `return await ctx.exit_for_recovery()`.

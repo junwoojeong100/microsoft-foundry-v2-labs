@@ -23,17 +23,16 @@
 <details>
 <summary>Optional screenshot help — execute the current text, not the recording</summary>
 
-Reference images come from **new, separately recorded English execution**.
-The setup cards and ready learner files were added after those recordings. Follow the current text;
-historical screens do not claim the new preparation sequence was filmed.
-[Recordings and scope](../video-summary.md) distinguish actual calls, fixtures, observations, and failures.
+Reference images come from the **September 23, 2026 English recording with `gpt-6-sol`**,
+made in a separate training project with the setup card and the ready learner files.
+[Recordings and scope](../video-summary.md) distinguish actual calls, fixtures, observations, and what was not recorded.
 Click to enlarge. Compare account, project, model, and prefix with your instructor's
 values; do not copy identifiers from images.
 
 In terminal images, read the **last entered command** (the line with text after `workshop $`)
 and its output. Earlier output can remain above it. An empty prompt at the bottom means
 the command finished. Distinguish `OFFLINE FIXTURE` from `LIVE AZURE`.
-`RUN_TOOLS` and extra `tee` paths are recording helpers, not learner commands.
+`RUN_TOOLS/configure_env.py` in the `.env` step is a recording helper that wrote the setup-card values; edit `.env` yourself.
 **Execute the code blocks in the guide**, not text transcribed from screenshots.
 More before/after views are in the [action index](../action-captures.md).
 
@@ -61,6 +60,8 @@ prevent translated datasets from being presented as the same-input experiment.
 **What to check:** If the project picker is hard to use, choose **View all resources**,
 enter the training project name, and verify the result's name, parent resource, and region before opening it.
 
+
+![September 23 English recording: Open the intended training project](../assets/g6sol-20260923-en/screenshots/EP00-001-home-2.webp)
 
 **What to check:** The project name at the top must change. **Project endpoint** is the
 value for `.env`; it is not the browser's `ai.azure.com` address. Authentication/PIN screens were not recorded.
@@ -132,6 +133,8 @@ Expected fields include `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`,
 
 
 
+![September 23 English recording: Open the source folder and run the offline doctor](../assets/g6sol-20260923-en/screenshots/E00-001-folder-2.webp)
+
 **What to check:** Read all three counts and `azure_tested: false`. This checks files
 and the local runtime, not a successful Azure call.
 
@@ -174,6 +177,8 @@ checker; v2 uses the original fixture. Their score difference is **not a measure
 prompt improvement**. Use fresh labels such as `rehearsal2-v1` to rerun.
 
 
+![September 23 English recording: Compare fixtures without claiming model quality](../assets/g6sol-20260923-en/screenshots/E00-005-fixture-compare-2.webp)
+
 **What to check:** Read `OFFLINE FIXTURE` and the final warning. No model was called
 with two prompts to obtain this difference.
 
@@ -195,6 +200,8 @@ disabling certificate validation or using an untrusted mirror.
 In each new terminal, return to the repository root and reactivate the venv.
 Do not paste Bash into a browser developer console or Python's `>>>` prompt.
 
+
+![September 23 English recording: Create the virtual environment and install the pinned SDKs](../assets/g6sol-20260923-en/screenshots/E00-006-install-2.webp)
 
 **What to check:** The command has ended and the shell prompt returned. Resolve any
 installation errors; matching the final screen is not sufficient. Installation is not Azure connectivity.
@@ -222,7 +229,7 @@ If `.env` already exists, inspect it instead of overwriting it with the copy com
 | `AZURE_SUBSCRIPTION_ID`, `AZURE_TENANT_ID` | IDs of the designated subscription/directory |
 | `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME` | Prepared training resources |
 | `AZURE_AI_PROJECT_ENDPOINT` | **Full** project endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-5.6-luna`; owner verifies model version `2026-07-09` |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-6-sol`; owner verifies model version `2026-09-22` |
 | `WORKSHOP_PREFIX` | Must start with `mfv2-`; lowercase letters/digits and single hyphens, no trailing hyphen, at most 32 characters total |
 | `WORKSHOP_AUTH_MODE` | `cli` locally; `managed-identity` only in an actual Azure runtime |
 
@@ -244,6 +251,8 @@ Preflight does not prove data-plane permissions or Structured Outputs support;
 [Lab 02](02-models.md) tests an actual request.
 
 
+![September 23 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260923-en/screenshots/E00-008-preflight-2.webp)
+
 **What to check:** Read `deployment.name`, `deployment.model.name`, `deployment.model.version`,
 `deployment.state: Succeeded`, `inference_tested: false`, and `note`.
 Only an actual response verifies inference. If you came here to prepare Lab 05, complete Lab 02 B's actual response check and then return to Lab 05.
@@ -252,25 +261,25 @@ Only an actual response verifies inference. If you came here to prepare Lab 05, 
 Continue to [Lab 02 B](02-models.md#path-b) for actual inference. Keep all later terminal commands at this repository root with `.venv` active.
 
 <details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
+<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![Activate the verified Python environment](../assets/refresh-20260915-en/screenshots/E00-002-environment-2.webp)
+![September 23 English recording: Prepare B's personal notes once](../assets/g6sol-20260923-en/screenshots/E00-002-notes-2.webp)
 
-**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+**What to check:** B prepares the personal notes folder once; later commands save their JSON there. Nothing here calls Azure.
 
-![Check the separate English corpus and evaluation bundle](../assets/refresh-20260915-en/screenshots/E00-004-english-assets-2.webp)
+![September 23 English recording: Offline fixture v1: not a model response](../assets/g6sol-20260923-en/screenshots/E00-003-fixture-v1-2.webp)
 
-**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+**What to check:** `OFFLINE FIXTURE` v1 is a fixed sample file, not a model response. Its failed checks are part of the exercise.
 
-![English V1 fixture: not a model response](../assets/refresh-20260915-en/screenshots/E00-005-fixture-v1-2.webp)
+![September 23 English recording: Offline fixture v2 and its lineage](../assets/g6sol-20260923-en/screenshots/E00-004-fixture-v2-2.webp)
 
-**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+**What to check:** v2 changes only the fixture. Read its lineage fields; do not treat the result as model quality.
 
-![Compare fixtures without claiming model quality](../assets/refresh-20260915-en/screenshots/E00-007-fixture-compare-2.webp)
+![September 23 English recording: Copy .env.example and fill it from the setup card](../assets/g6sol-20260923-en/screenshots/E00-007-env-2.webp)
 
-**What to check:** Confirm the English language selection and distinguish fixed offline output from real Azure execution.
+**What to check:** The recording's `RUN_TOOLS/configure_env.py` helper wrote the setup-card values into `.env`; edit yours by hand. Compare the project endpoint, `gpt-6-sol`, the judge deployment and your prefix with your own card.
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 

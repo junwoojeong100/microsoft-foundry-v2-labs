@@ -22,7 +22,7 @@ HOSTED_PACKAGE = load_script("package_hosted")
 
 class ToolboxAzdTests(unittest.TestCase):
     def test_matrix_preparation_preserves_v1_and_v2_packages_and_explicit_runtime_settings(self):
-        models = {"a": "gpt-5.6-luna", "b": "approved-second-model"}
+        models = {"a": "gpt-6-sol", "b": "approved-second-model"}
         environment = {
             **ENV,
             **ENVIRONMENT,
@@ -123,7 +123,7 @@ class ToolboxAzdTests(unittest.TestCase):
         environment = {
             **ENV,
             **ENVIRONMENT,
-            "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"gpt-5.6-luna"}',
+            "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"gpt-6-sol"}',
             "WORKSHOP_HOSTED_AGENT_NAME": "mfv2-unit-matrix",
         }
         configuration = replace(settings(), openai_endpoint="https://unit.openai.azure.com")
@@ -155,9 +155,7 @@ class ToolboxAzdTests(unittest.TestCase):
                     ({"WORKSHOP_MODEL_DEPLOYMENTS_JSON": ""}, {}),
                     ({"WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"unapproved-default"}'}, {}),
                     (
-                        {
-                            "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"gpt-5.6-luna","b":"gpt-5.6-luna"}'
-                        },
+                        {"WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"a":"gpt-6-sol","b":"gpt-6-sol"}'},
                         {},
                     ),
                     ({"WORKSHOP_IQ_RERANKER_THRESHOLD": "nan"}, {}),
@@ -272,7 +270,7 @@ class ToolboxAzdTests(unittest.TestCase):
             ):
                 environment = {
                     **ENV,
-                    "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"primary":"gpt-5.6-luna"}',
+                    "WORKSHOP_MODEL_DEPLOYMENTS_JSON": '{"primary":"gpt-6-sol"}',
                 }
                 with patch.dict(os.environ, environment, clear=True):
                     profile = RuntimeProfile(
@@ -295,7 +293,7 @@ class ToolboxAzdTests(unittest.TestCase):
                     self.assertNotIn("AZURE_SEARCH_ENDPOINT", agent["env"])
                     self.assertEqual(
                         json.loads(agent["env"]["WORKSHOP_MODEL_DEPLOYMENTS_JSON"]),
-                        {"primary": "gpt-5.6-luna"},
+                        {"primary": "gpt-6-sol"},
                     )
 
     def test_ci_workflow_rejects_other_profiles_and_model_maps(self):

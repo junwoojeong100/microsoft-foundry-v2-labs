@@ -113,7 +113,7 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 | 명령군 | 목적·경계 | 전체 가이드 |
 |---|---|---|
 | `prompt-agent` | 별도 버전의 관리형 agent 생성/호출. 로컬 MAF와 구분 | [Lab 03 SDK](../labs/03-prompt-agent.md) |
-| `iq-chat` | Luna/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup.md#4-환경-담당자의-준비) |
+| `iq-chat` | `gpt-5.6-luna`/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup.md#4-환경-담당자의-준비) |
 | `workflow-agent` / `runtime-contract` | 검증된 workflow 출력 / 로컬 고정 profile·hash | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | 버전 고정 Hosted smoke·matrix·평가·trace·인수 | [평가 워크북](evaluation-workbook.md) |
 | `cloud-evaluate` / `calibrate-judge` | 저장된 응답의 유료 native 평가 / 별도 calibration fixture | [Lab 07](../labs/07-evaluation.md), [워크북](evaluation-workbook.md) |

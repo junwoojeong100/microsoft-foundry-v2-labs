@@ -36,7 +36,7 @@ Hosted 도우미가 검증된 값으로 별도 프로젝트를 생성하며, 로
 | `AZURE_RESOURCE_GROUP` | 배포 확인 | 실제 실습 그룹 |
 | `AZURE_AI_ACCOUNT_NAME` | 배포 확인 | 실제 Foundry account |
 | `AZURE_AI_PROJECT_ENDPOINT` | 모델·agent·평가 SDK | 전체 `/api/projects/...` endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | target 모델 | 템플릿 기본 `gpt-5.6-luna`; 실제 배포를 먼저 준비. 자동 대체 없음 |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | target 모델 | 템플릿 기본 `gpt-6-sol`; 실제 배포를 먼저 준비. 자동 대체 없음 |
 | `WORKSHOP_AUTH_MODE` | 인증 | `cli` 또는 `managed-identity` |
 | `AZURE_CLIENT_ID` | 선택 user-assigned managed identity | 실제 런타임에 필요할 때만 |
 | `WORKSHOP_PREFIX` | 생성할 agent/Search 이름 | `mfv2-`로 시작. 소문자 영문·숫자를 하이픈 하나로 구분하며 끝 하이픈 금지. 전체 최대 32자 |
@@ -58,7 +58,7 @@ Seed/retrieve 명령은 planner 환경변수 placeholder를 읽거나 그 모델
 
 **2026-09-15 IQ Chat preset:** 배포/모델 `gpt-5.6-luna`, 실제 버전 `2026-07-09`,
 Search **system-assigned** identity, `2026-08-01-preview`, `low`, `answerSynthesis`입니다.
-응답 모델 환경변수를 바꿔도 이 preset은 바뀌지 않습니다.
+응답 모델 환경변수를 바꿔도 이 preset은 바뀌지 않습니다. 2026-09-23 Search는 KB 연결에서 GPT-6 모델을 받지 않았습니다.
 `AZURE_OPENAI_ENDPOINT`에는 프로젝트와 같은 Foundry 계정의 OpenAI root가 필요합니다.
 `iq-chat check`가 실제 배포·source·명시된 역할을 검사하고 `setup`은 source/corpus가 맞는 로컬 소유권 기록을 요구합니다.
 기본 GA base는 변경하지 않으며 새 chat-base 이름은 본인 prefix로 시작해야 합니다.

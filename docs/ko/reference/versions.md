@@ -44,6 +44,7 @@ App Insights 인증 scope는 오류 기록과 함께 수정했습니다.
 
 | 기능 | 이 에디션의 선택 | 구분 |
 |---|---|---|
+| 응답 모델 preset | 2026-09-23부터 `gpt-6-sol` / `2026-09-22`, 별도 `gpt-6-sol-judge` | 확인한 agent 경로와 녹화한 A/B 주요 단계 통과. 그날 `gpt-6-luna`는 agent 경로에서 실패. [모델 선택](model-choice.md) |
 | 현재 Foundry / Agents v2 / Responses | 기본 경로 | classic SDK 1.x/threads/runs와 분리 |
 | Prompt Agent | 모델+지침, 명시적 버전 | 생성/호출의 실제 API를 기록 |
 | MAF | `Agent`, `FoundryChatClient`, `model=` | 공급자 패키지의 버전이 core와 같을 필요 없음 |
@@ -53,8 +54,8 @@ App Insights 인증 scope는 오류 기록과 함께 수정했습니다.
 | IQ GA | REST `2026-04-01`, `intents` | 별도 planner 배포 없이 사용; 실제 activity/요금은 별도 확인 |
 | richer IQ | `2026-08-01-preview` | 별도 환경·설정·승인; 기본 코드와 혼합 금지 |
 | 포털 IQ | 포털이 사용하는 Preview 계약 | GA REST 코드와 동일하다고 가정하지 않음 |
-| IQ Chat 모델 + managed identity | 2026-09-15 실측: Search SMI→Luna, `low` 계획·`answerSynthesis`, HTTP 200 | MI 자체가 Preview 기능은 아님. [정확한 설정과 요청](iq-model-identity.md) |
-| 첫 Chat preset | `iq-chat check/setup/ask`: 배포/모델 `gpt-5.6-luna`, 버전 `2026-07-09`, Search SMI, `2026-08-01-preview`, 별도 소유 base | 새 명령의 실제 사전 검사는 읽기 전용. 이전 임시 base 추론과 구분 |
+| IQ Chat 모델 + managed identity | 2026-09-15 실측: Search SMI→`gpt-5.6-luna`, `low` 계획·`answerSynthesis`, HTTP 200 | MI 자체가 Preview 기능은 아님. [정확한 설정과 요청](iq-model-identity.md) |
+| 첫 Chat preset | `iq-chat check/setup/ask`: 배포/모델 `gpt-5.6-luna`, 버전 `2026-07-09`, Search SMI, `2026-08-01-preview`, 별도 소유 base | 새 명령의 실제 사전 검사는 읽기 전용. 이전 임시 base 추론과 구분. 2026-09-23 Search가 GPT-6 모델을 받지 않아 응답 모델을 따르지 않음 |
 | Hosted Agent 서비스 | GA, 선택 배포 | 지역·권한·session 비용은 별도 |
 | Python hosting 패키지 | 고정 prerelease 패키지 | 서비스 GA와 패키지 상태를 따로 표시 |
 | cloud evaluation | 프로젝트 OpenAI `evals` | evaluator/카탈로그의 기능·스키마를 별도 확인 |

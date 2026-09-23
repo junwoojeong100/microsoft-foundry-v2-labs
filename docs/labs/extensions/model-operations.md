@@ -23,19 +23,6 @@ Do not use a Router as a fixed-model baseline or reuse results from another lang
 The new deployment must already exist and be permitted in the same experiment.
 This lab does not deploy models or increase quota.
 
-<details>
-<summary>Historical configuration checkpoint — not a recorded model-migration or Router comparison</summary>
-
-<!-- edition-checkpoint:EP15-002-freeze-optimizer-version -->
-
-![Recorded English checkpoint: Freeze only the new temporary optimizer deployment during the comparison](../../assets/edition-20260916-en/screenshots/EP15-002-freeze-optimizer-version-2.webp)
-
-**What to check:** Only the separately approved temporary optimizer deployment was version-frozen. Existing answer/judge deployments were not replaced. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=196.80) · [All actions and failures](../../edition-actions.md)
-
-</details>
-
 ## 2. Check the second model without changing your saved setup
 
 Keep `.env` unchanged. Enter the approved second **deployment name**, not its catalog model name.

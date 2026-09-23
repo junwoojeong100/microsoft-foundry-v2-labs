@@ -41,7 +41,8 @@ The default `2026-04-01` path uses direct intents and extractive retrieval witho
 Grant model access to the Search identity and verify model-based planning/synthesis in a separate owned base.
 A missing-model form message is not an MI authentication failure.
 Follow the [configuration, caller identity, and actual verification guide](iq-model-identity.md).
-For that optional chat experiment, the first-pass choice is **`iq-chat` with `gpt-5.6-luna` / `2026-07-09`, Search SMI, `low` and `answerSynthesis`**.
+For that optional chat experiment, the first-pass choice is **`iq-chat` with `gpt-5.6-luna` / `2026-07-09`, Search SMI, `low` and `answerSynthesis`**,
+separate from the `gpt-6-sol` answer model (Search accepted no GPT-6 model on September 23, 2026).
 Use [the prepared setup sequence](../setup.md#4-environment-owner-checklist); it creates a separate base and does not change the GA workflow/evaluation target above.
 
 ## 2. Choose hybrid and IQ explicitly

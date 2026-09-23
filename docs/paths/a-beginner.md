@@ -9,7 +9,7 @@ subscription setup, permissions and installations happen before the class.
 ## Start here
 
 Complete [the setup card](../setup.md), download the English learner ZIP, and open `START-HERE.txt`.
-Use the prepared **gpt-5.6-luna** deployment. Keep `instructions-with-policies.txt`,
+Use the prepared **gpt-6-sol** deployment. Keep `instructions-with-policies.txt`,
 `dev-questions.txt` and a working copy of `assessment.csv` ready. Use the ZIP's blank
 `session-notes.txt`, `workflow-review.txt` and `operations-checklist.txt`; you do not need to invent a report format.
 For the single MAF exercise, the owner supplies an activated, learner-signed-in terminal;

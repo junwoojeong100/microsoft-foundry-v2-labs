@@ -36,7 +36,7 @@ Hosted helpers generate a separate project from verified settings. Local matrix 
 | `AZURE_RESOURCE_GROUP` | Deployment verification | Actual training group |
 | `AZURE_AI_ACCOUNT_NAME` | Deployment verification | Actual Foundry account |
 | `AZURE_AI_PROJECT_ENDPOINT` | Model/agent/evaluation SDK | Full `/api/projects/...` endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Target model | Template default `gpt-5.6-luna`; prepare the real deployment first. No automatic replacement |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | Target model | Template default `gpt-6-sol`; prepare the real deployment first. No automatic replacement |
 | `WORKSHOP_AUTH_MODE` | Authentication | `cli` or `managed-identity` |
 | `AZURE_CLIENT_ID` | Optional user-assigned managed identity | Only when needed in the actual runtime |
 | `WORKSHOP_PREFIX` | Agent/Search object names | Must start with `mfv2-`; lowercase letters/digits separated by single hyphens, no trailing hyphen, at most 32 characters in total |
@@ -69,7 +69,7 @@ See [keyless IQ model configuration](iq-model-identity.md).
 
 **September 15, 2026 IQ Chat preset:** deployment/model `gpt-5.6-luna`, underlying version `2026-07-09`,
 Search **system-assigned** identity, `2026-08-01-preview`, `low`, `answerSynthesis`.
-Changing the answer deployment does not change this preset. `iq-chat check` verifies its actual deployment, source and documented role;
+Changing the answer deployment does not change this preset: on September 23, 2026 Search accepted no GPT-6 model for KB binding. `iq-chat check` verifies its actual deployment, source and documented role;
 `setup` requires the matching local source/corpus ownership ledger. Neither modifies the default GA base.
 The new chat-base name must start with your prefix. [Setup sequence](../setup.md#4-environment-owner-checklist).
 

@@ -47,6 +47,7 @@
 | Prefix 거절 | `mfv2-` 필수. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 전체 최대 32자 | [설정](configuration.md#workspace-scope) |
 | 401/403·프로젝트 없음 | 의도한 tenant·실제 호출 주체·리소스 범위 권한. 담당자가 접근 해결 | [00](../labs/00-start.md) / [준비](../setup.md) |
 | 모델 404 / 429 | 전체 project endpoint·배포 이름 / quota·동시성. 모델 대체 금지 | [02 B](../labs/02-models.md#path-b) |
+| 새 모델 출시 직후 `model`·`answer`·MAF·agent에서 HTTP 500 | 프로젝트 agent 경로가 아직 그 모델을 지원하지 않을 수 있음(2026-09-23 `gpt-6-luna`). 멈추고 기록. 모델·endpoint 변경 금지 | [모델 선택](model-choice.md) |
 | IQ에 Chat 모델이 없다고 나옴 | 기본 B는 모델 없는 GA 검색. 선택 A IQ Chat은 별도로 준비한 base 필요 | [06](../labs/06-knowledge.md) |
 | Hosted 명령이 다른 로컬 프로젝트를 선택 | 기록한 절대 경로 `HOSTED_DIRECTORY`를 복구하고 모든 azd 명령에 `--cwd` 사용 | [08](../labs/08-hosted.md) |
 
@@ -75,7 +76,8 @@
 | Search 부분 upload 실패 | 개별 `status`, 문서 수·키, index 필드 | 06 |
 | 기존 Search 객체 거부 | 내 접두사/소유권 ledger인지 확인; 공유 객체 덮어쓰기 금지 | 06 |
 | IQ 400 | GA intents와 Preview messages를 혼합했는지, 실제 API 버전 | 06 |
-| `Chat completions model is required` | 모델 미선택이지 MI 실패가 아님. **Luna + Search SMI**로 준비된 chat base를 열고 모델 없는 GA base에 포털 기본값을 저장하지 않음 | 06 |
+| `Chat completions model is required` | 모델 미선택이지 MI 실패가 아님. **`gpt-5.6-luna` + Search SMI**로 준비된 chat base를 열고 모델 없는 GA base에 포털 기본값을 저장하지 않음 | 06 |
+| `Unsupported model type in Knowledge Base Model Configuration` | Search가 그 모델을 KB에 허용하지 않음. IQ Chat은 GPT-6 모델이 아닌 별도 `gpt-5.6-luna` 배포 사용 | 06 |
 | `iq-chat check`의 모델/버전/역할 실패 | [고정 preset](iq-model-identity.md)의 `gpt-5.6-luna` / `2026-07-09`·Search SMI·계정 범위 역할 확인. 담당자가 준비를 해결하며 대체 모델을 고르지 않음 | 06 |
 | `ready_for_setup: true`, `configured: false` | 선행 조건은 통과했지만 별도 chat base는 아직 없음. Source를 소유한 작업 폴더에서 담당자가 승인된 setup 진행 | 06 |
 | IQ Chat label이 이미 있음 | 이전 요청·응답·실패부터 읽고 명시적으로 승인한 새 유료 시도에만 새 label 사용 | 06 |

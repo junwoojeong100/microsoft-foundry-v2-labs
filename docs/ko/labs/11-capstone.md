@@ -106,6 +106,8 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 로컬 프로젝트 Responses 결과를 다른 Hosted 경로의 성능으로 재사용하지 않습니다.
 
 
+![2026-09-23 국문 녹화: 인계: 저장한 기록과 실제 인수 결과](../../assets/g6sol-20260923-ko/screenshots/K11-001-handoff-2.webp)
+
 **화면 확인:** `candidate_grade`, `holdout_grade`, `business_gate_passed`,
 `recommendation`(`ready-for-human-review` 또는 `reject`)을 읽습니다.
 `deployment_approved: false`, `cloud_judge_results_included: false`는 명시적인 범위 제한이며 우회할 승인 오류가 아닙니다.
@@ -187,21 +189,6 @@ Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--
 실제 회사에 적용하려면 업무 전문가의 규정 승인, 더 넓은 평가셋, 위협 모델,
 부하/복구/접근 통제 검토, 서비스별 SLA·가격·보존 정책 검토가 추가로 필요합니다.
 
-<details>
-<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
-
-아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
-
-![2026-09-15 새 국문 촬영: 실제 국문 24/24/16행·native·trace 결과 정리](../../assets/refresh-20260915-ko/screenshots/K11-010-live-summary-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 세션 정리 후에도 결과·계보 인수 조건 유지](../../assets/refresh-20260915-ko/screenshots/K11-011-after-cleanup-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
-
-</details>
+[전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 다음: A → [정리](../reference/cleanup.md) · B → [정리](../reference/cleanup.md)

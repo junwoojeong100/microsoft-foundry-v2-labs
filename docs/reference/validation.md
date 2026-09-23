@@ -6,6 +6,42 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="gpt-6-sol-20260923"></a>
+
+## gpt-6-sol environment, recordings and removal of earlier media — September 23, 2026
+
+**Environment:** a dedicated Sweden Central resource group with a Foundry account (API keys disabled) and project,
+Basic Search with a system-assigned identity and key authentication disabled, Log Analytics (30 days, 1 GB/day cap),
+Application Insights, keyless Search and Application Insights project connections, and resource-scoped roles only.
+Resource names keep the environment's original `g6luna` label. The default Azure CLI subscription was not changed.
+
+**Model switch:** `gpt-6-luna` deployed but failed on the project Responses, prompt-agent and MAF paths (HTTP 500; the
+portal agent reported `reasoning.effort` unsupported). `gpt-6-sol` and `gpt-6-astra` passed the same agent checks and
+`gpt-6-sol` was selected ([model choice](model-choice.md)). The environment now has `gpt-6-sol` (150K TPM) and
+`gpt-6-sol-judge` (100K TPM), Data Zone Standard `2026-09-22` with `NoAutoUpgrade`. The `gpt-6-luna`, `gpt-6-luna-judge`
+and `gpt-6-astra` deployments, probe agents and a temporary North Central US account (also purged) were deleted.
+Opening the first portal agent created a `text-embedding-3-large` deployment (Standard, 110K) that the labs do not use.
+Search accepted no GPT-6 model for knowledge bases, so the optional IQ Chat preset stays on `gpt-5.6-luna`.
+
+**Recordings:** independent English and Korean runs of the main A/B steps of Labs 00–09 and 11 — 69 actions and
+207 lossless captures per language, three edited videos each (English 4:36 / 2:30 / 1:43, Korean 4:32 / 2:27 / 1:43),
+175 and 176 source segments with minimum midpoint SSIM 0.9925 (English) and 0.9922 (Korean), local byte-range playback
+and all 11 chapter seeks verified. Not uploaded or pushed. Every recorded action exited 0; the feedback step was not run
+because neither baseline had a failed case. In each language the business checks were baseline 6/6, candidate 6/6 and
+holdout 4/4, and the optional cloud judge on the candidate returned groundedness 6/6 and relevance 5/6 (D05, a correct
+abstention). [Recordings](../video-summary.md) · [Actual results](../live-run.md).
+
+**Removed:** the September 15 foundation recordings, the September 16 extension recordings, the September 23
+`gpt-6-luna` recordings and their pages were deleted from the working tree; they remain in git history at `47f3b49`.
+Earlier GitHub attachment URLs are no longer linked; removing those hosted copies is a separate manual action.
+The September 17 IQ Chat configuration captures remain because that preset is unchanged.
+
+**Local verification:** 244 offline tests passed on each of Python 3.13 and 3.14; 67 installed-SDK tests passed with
+stub transports. Ruff 0.16.6 lint/format, compilation, the CI offline commands in a clean copy and both learner bundles passed.
+Documentation checks cover 117 Markdown files, 58 language pairs and 330 CLI examples, with no pending translations.
+Azure changes in this revision were limited to the deployments above and the recorded agents, Search objects and
+evaluation runs under each `mfv2-sol-20260923-<language>` prefix; no role or default-subscription change.
+
 <a id="repository-straightforwardness"></a>
 
 ## Repository straightforwardness: guides, code and settings — September 17, 2026
@@ -228,7 +264,7 @@ All six extension videos played locally, and every one of the 15 chapter seeks i
 waited for seek completion and a decoded frame. Korean reboot parts keep their own video epochs;
 authentication transitions and source tails are explicitly excluded.
 
-[English results](../edition-results.md) and [Korean results](../ko/edition-results.md) preserve actual failures.
+The September 16 English and Korean result pages preserved actual failures (removed on September 23, 2026; see git history at `47f3b49`).
 The Optimizer's self-referential grounding inputs are not accepted as source verification or a promotion gate.
 The separate conversation evaluations retained the original policy JSON in their actual judge inputs.
 The Korean safety D06 tool-discovery failure remains a failed response despite CLI exit 0.
@@ -286,7 +322,7 @@ Astra failed the predeclared citation-relevance check on dev D05.
 Only Luna/Sol/Terra were selected **using dev results before any holdout response**; the final denominator is 12, not 16.
 The original four-model candidate remains 23/24. English calibration classified both fixed examples correctly.
 The D05 regression candidate remains pending human review and was not promoted/consumed without approval.
-Read the [full English lineage](../live-run.md); neither language's outcomes are copied into the other.
+The full September 15 English lineage page was replaced on September 23, 2026 (git history at `47f3b49`); neither language's outcomes are copied into the other.
 
 ## Corrections established by actual calls
 
@@ -294,8 +330,9 @@ Endpoint/protocol CLI conflicts, dropped API-version query parameters, explicit 
 App Insights credential scoping, and already-idle session cleanup were fixed while preserving original failures.
 Changed runtime versions and controlled comparisons remain separately labeled.
 
-## Media evidence
+## Media evidence — September 15, 2026
 
+These recordings were removed from the working tree on September 23, 2026 (git history at `47f3b49`).
 The Korean set contains 182 actions, 543 lossless screenshots, and three edited videos.
 Published WebP pixels exactly match source PNGs.
 All 435 retained source-video segments were compared, with minimum midpoint SSIM 0.987849.

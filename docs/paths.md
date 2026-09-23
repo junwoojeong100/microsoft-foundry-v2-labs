@@ -19,14 +19,14 @@ A downloads the learner ZIP; B uses the source copy and its included note templa
 Read the start card, perform the action/command, and check its completion criterion.
 Images and collapsed recording galleries are optional references, not your own results.
 Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide),
-[new English recordings](video-summary.md), and [new action index](action-captures.md).
+[September 23 `gpt-6-sol` English recordings](video-summary.md), and [action index](action-captures.md).
 English commands select their own frozen English policy/prompt/evaluation bundle with `--language en`.
 [Language and lineage rules](reference/languages.md) distinguish translation from an unchanged-dataset comparison.
 
 ## A. Complete beginner: four hours in a prepared environment
 
 You need a browser, an Entra account, and an instructor-prepared Foundry project and
-**`gpt-5.6-luna` deployment**. Lab 05 also needs a **prepared MAF environment** with SDKs installed
+**`gpt-6-sol` deployment**. Lab 05 also needs a **prepared MAF environment** with SDKs installed
 and the learner signed in. Copy commands and read their results; Python authoring,
 installation, and subscription billing setup are preparation, not class exercises.
 For self-study, complete [the environment-owner checklist](setup.md#4-environment-owner-checklist)

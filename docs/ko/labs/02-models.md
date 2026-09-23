@@ -10,7 +10,7 @@
 
 **이번 순서:** A는 Playground, B는 CLI 확인과 구조화 출력을 실행합니다. 첫 회차에는 모델 비교를 건너뜁니다.
 
-**준비물:** 준비된 gpt-5.6-luna 배포. B는 Lab 00의 활성 환경과 .env.
+**준비물:** 준비된 gpt-6-sol 배포. B는 Lab 00의 활성 환경과 .env.
 
 **다음으로 갈 기준:** 실제 응답과 배포 이름을 기록했습니다. B는 구조화된 답변도 확인했습니다.
 
@@ -27,13 +27,13 @@
 ### 1. 사용할 배포 확인
 
 1. 실습 프로젝트의 모델/배포 목록을 엽니다.
-2. **`gpt-5.6-luna`**를 선택하고 모델 **`gpt-5.6-luna`**, 버전 **`2026-07-09`**를 확인합니다.
+2. **`gpt-6-sol`**을 선택하고 모델 **`gpt-6-sol`**, 버전 **`2026-09-22`**를 확인합니다.
    이번에는 두 이름이 같아도 카탈로그 모델 이름·버전·배포 이름을 따로 적습니다.
 
-![2026-09-15 새 국문 촬영: 실제 모델 배포 목록으로 이동](../../assets/refresh-20260915-ko/screenshots/KP02-001-deployments-2.webp)
+![2026-09-23 국문 녹화: gpt-6-sol을 선택하고 버전 2026-09-22 확인](../../assets/g6sol-20260923-ko/screenshots/KP02-002-select-sol-2.webp)
 
 **화면 확인:** **Name**은 호출할 배포 이름, **Model / Version**은 기반 모델 정보입니다.
-촬영에서는 응답용 `gpt-5.6-luna`와 평가용 `gpt-5.6-luna-judge`를 구분했습니다.
+2026-09-23 환경은 응답용 `gpt-6-sol`과 평가용 `gpt-6-sol-judge`를 따로 배포합니다.
 상세 패널에 judge가 보이더라도 질문은 강사가 지정한 응답용 배포의 Playground에서 보냅니다.
 
 ### 2. 외부 웹 도구 끄기
@@ -41,12 +41,12 @@
 해당 모델의 Playground를 엽니다.
 Tools에 기본 Web Search가 있으면 **Actions → Remove**로 제거합니다. 이 기본 경로는 외부 웹을 조회하지 않습니다.
 
-![2026-09-15 새 국문 촬영: 기본 웹 검색 도구 메뉴 확인](../../assets/refresh-20260915-ko/screenshots/KP02-003-web-menu-2.webp)
+![2026-09-23 국문 녹화: 기본 Web search 도구 작업 열기](../../assets/g6sol-20260923-ko/screenshots/KP02-006-web-menu-2.webp)
 
 **화면 확인:** **Web search** 행의 Actions 메뉴를 열고 **Remove**를 선택합니다.
 안내 배너를 닫는 **Dismiss**는 도구 제거가 아닙니다.
 
-![2026-09-15 새 국문 촬영: 모델 호출 전 웹 검색 제거](../../assets/refresh-20260915-ko/screenshots/KP02-004-remove-web-2.webp)
+![2026-09-23 국문 녹화: 질문 전에 외부 Web search 제거](../../assets/g6sol-20260923-ko/screenshots/KP02-007-remove-web-2.webp)
 
 **화면 확인:** Web search 행이 도구 목록에서 사라졌는지 확인한 뒤 질문을 입력합니다.
 다른 Playground나 새 에이전트로 이동하면 도구 설정을 다시 확인해야 합니다.
@@ -55,12 +55,12 @@ Tools에 기본 Web Search가 있으면 **Actions → Remove**로 제거합니�
 
 > Foundry 리소스, 프로젝트, 모델 배포, 에이전트의 차이를 초보자에게 네 문장으로 설명해 주세요.
 
-![2026-09-15 새 국문 촬영: 프로젝트·모델·에이전트 개념 질문 입력](../../assets/refresh-20260915-ko/screenshots/KP02-005-input-2.webp)
+![2026-09-23 국문 녹화: 개념 질문과 실제 gpt-6-sol 답변](../../assets/g6sol-20260923-ko/screenshots/KP02-008-question-1.webp)
 
 **화면 확인:** 오른쪽 아래 **Chat with the model...**에 질문을 넣고 전송합니다.
 왼쪽 **Instructions**는 시스템 지침 입력란이므로 질문과 혼동하지 않습니다.
 
-![2026-09-15 새 국문 촬영: 실제 모델의 국문 응답 확인](../../assets/refresh-20260915-ko/screenshots/KP02-006-response-2.webp)
+![2026-09-23 국문 녹화: 개념 질문과 실제 gpt-6-sol 답변](../../assets/g6sol-20260923-ko/screenshots/KP02-008-question-2.webp)
 
 **화면 확인:** 응답 내용뿐 아니라 답변 아래의 모델 이름·시간·토큰 표시도 기록합니다.
 이 화면은 촬영 환경의 예시이며, 참가자의 결과가 자동으로 같아지는 것은 아닙니다.
@@ -72,18 +72,20 @@ Tools에 기본 Web Search가 있으면 **Actions → Remove**로 제거합니�
 실제 회사 정책을 아는지 시험하는 질문이 아닙니다.
 
 
+![2026-09-23 국문 녹화: 새 대화: 정책 근거 없이 질문](../../assets/g6sol-20260923-ko/screenshots/KP02-009-new-chat-2.webp)
+
 **화면 확인:** 근거를 제공하지 않았을 때 확인이 필요하다고 답하는지 봅니다.
 그럴듯한 금액을 제시했다면 성공이 아니라 근거 없는 응답으로 기록하세요.
 
 이제 모델만으로는 회사의 규정·적용 시점·승인 기준이 생기지 않는다는 점을 확인합니다.
 
-이번 새 국문 화면에서도 도구를 제거한 뒤 다른 탭으로 이동할 때
-**Leave without saving?** 확인 창이 나타났습니다. 이 모델 Playground의 임시 설정을
+도구를 제거한 뒤 다른 탭으로 이동하면 **Leave without saving?** 확인 창이 나타날 수 있습니다
+(2026-09-23 녹화에서도 나타났습니다). 이 모델 Playground의 임시 설정을
 유지할 필요가 없다면 **Leave without saving**으로 이동합니다.
 새 에이전트에 이 설정이 자동 적용되는 것은 아니므로 [Lab 03](03-prompt-agent.md)에서
 모델과 도구 목록을 다시 확인합니다.
 
-![2026-09-15 새 국문 촬영: 모델 세부 정보로 이동](../../assets/refresh-20260915-ko/screenshots/KP02-007-model-details-2.webp)
+![2026-09-23 국문 녹화: 임시 Playground 설정을 저장하지 않고 나가기](../../assets/g6sol-20260923-ko/screenshots/KP02-010-leave-2.webp)
 
 **화면 확인:** 화면 이동이 멈춘 것처럼 보이면 **Leave without saving?** 창이 있는지 확인합니다.
 임시 모델 설정을 유지하지 않을 때만 **Leave without saving**을 선택합니다.
@@ -91,7 +93,8 @@ Tools에 기본 Web Search가 있으면 **Actions → Remove**로 제거합니�
 ### 배포가 아직 없다면
 
 여기서 멈추고 권한 있는 환경 담당자와 [준비 카드](../setup.md)를 완료합니다.
-이 날짜의 첫 경로는 텍스트·도구·Structured Outputs·IQ chat을 확인한 **Luna**를 사용합니다.
+이 날짜의 첫 경로는 2026-09-23 텍스트·도구·Structured Outputs를 확인한 **`gpt-6-sol`**을 사용합니다
+([모델 선택](../reference/model-choice.md)). 선택 IQ Chat은 별도 `gpt-5.6-luna` 배포를 사용합니다.
 배포가 없다는 이유로 `-judge`, router, 목록의 다른 모델을 선택하지 않습니다.
 다른 모델은 명시적으로 재검증한 별도 변형이며 같은 preset이 아닙니다.
 승인된 생성 작업 전에도 quota/SKU/리전/가격을 확인합니다.
@@ -134,9 +137,9 @@ with AIProjectClient(endpoint=project_endpoint, credential=credential) as projec
 `trace_id: null`은 아직 Application Insights trace를 수집한 것이 아니라는 뜻입니다.
 `response_id`를 임의의 trace ID로 바꿔 적지 않습니다.
 
-![2026-09-15 새 국문 촬영: 직접 모델 API 호출](../../assets/refresh-20260915-ko/screenshots/K02-100-model-2.webp)
+![2026-09-23 국문 녹화: 프로젝트 Responses API로 첫 실제 gpt-6-sol 요청](../../assets/g6sol-20260923-ko/screenshots/K02-001-model-2.webp)
 
-**화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다.
+**화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다. `gpt-6-sol`은 짧은 답에도 `usage`에 reasoning token을 보고합니다.
 `trace_id: null`과 `trace_export: not-configured`도 그대로 기록하며, 생성된 응답 ID를 Trace ID로 바꾸지 않습니다.
 
 **저장:** `model.json`은 `--output`이 Lab 00 기록 폴더에 작성합니다. 저장된 응답 전체를 연 뒤 다음 요청으로 갑니다.
@@ -152,6 +155,8 @@ python scripts/workshop.py answer --prompt v2 --retrieval local \
 JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 `local`은 검색 위치를 뜻할 뿐 **모델 호출이 오프라인이라는 뜻이 아닙니다.**
 
+
+![2026-09-23 국문 녹화: 로컬 근거를 사용한 검증된 구조화 답변](../../assets/g6sol-20260923-ko/screenshots/K02-002-answer-2.webp)
 
 **화면 확인:** 답변 필드·`source_ids`·`response_id`·`usage`·`trace_export`를 포함한 출력 전체를 읽습니다.
 금액만 맞고 근거가 없는 것으로는 충분하지 않습니다.

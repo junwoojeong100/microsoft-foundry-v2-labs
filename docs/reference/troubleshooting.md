@@ -48,6 +48,7 @@ Read-only reinspection does not create new inference evidence.
 | Prefix rejected | `mfv2-` is mandatory; lowercase letters/digits, single hyphens, no trailing hyphen and at most 32 characters total | [Configuration](configuration.md#workspace-scope) |
 | 401/403 or project missing | Intended tenant, actual caller identity and resource-scoped permissions; owner resolves access | [00](../labs/00-start.md) / [setup](../setup.md) |
 | Model 404 / 429 | Full project endpoint and deployment name / quota and concurrency; no replacement model | [02 B](../labs/02-models.md#path-b) |
+| HTTP 500 from `model`, `answer`, MAF or an agent right after a model release | The project agent path may not support that model yet (seen with `gpt-6-luna` on September 23, 2026). Stop and record it; no model or endpoint switch | [Model choice](model-choice.md) |
 | IQ reports no chat model | Default B uses model-free GA retrieval; optional A IQ Chat needs a different prepared base | [06](../labs/06-knowledge.md) |
 | Hosted call selects the wrong local project | Restore the recorded absolute `HOSTED_DIRECTORY` and use `--cwd` on every azd command | [08](../labs/08-hosted.md) |
 
@@ -76,7 +77,8 @@ Read-only reinspection does not create new inference evidence.
 | Partial Search upload | Per-document status, count/keys, index fields | 06 |
 | Existing Search object rejected | Prefix and ownership ledger; no shared-object overwrite | 06 |
 | IQ 400 | GA intents mixed with Preview messages; actual API version | 06 |
-| `Chat completions model is required` | Missing model selection, not MI failure. Open the prepared chat base with **Luna + Search SMI**; do not save portal defaults over the model-free GA base | 06 |
+| `Chat completions model is required` | Missing model selection, not MI failure. Open the prepared chat base with **`gpt-5.6-luna` + Search SMI**; do not save portal defaults over the model-free GA base | 06 |
+| `Unsupported model type in Knowledge Base Model Configuration` | Search does not accept that model for a KB; IQ Chat uses its own `gpt-5.6-luna` deployment, not a GPT-6 model | 06 |
 | `iq-chat check` model/version/role failure | Use the [fixed preset](iq-model-identity.md): `gpt-5.6-luna` / `2026-07-09`, Search SMI, account-scoped role. The owner resolves preparation; no replacement model | 06 |
 | `ready_for_setup: true`, `configured: false` | Prerequisites pass but the separate chat base does not exist. Owner completes the authorized setup in the source-owning workshop copy | 06 |
 | IQ Chat label exists | Read the prior request/response/failure first; use a new label only for an explicitly new paid attempt | 06 |

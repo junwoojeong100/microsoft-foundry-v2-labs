@@ -62,6 +62,8 @@ Meaning: a domestic hotel costs KRW 170000 in September 2026; explain the applic
 limit and the steps required before booking.
 
 
+![September 23 English recording: A's one prepared sequential workflow command](../assets/g6sol-20260923-en/screenshots/E05-001-prepared-2.webp)
+
 **What to check:** Read the last command's `pattern: sequential` and `outputs`.
 This is a terminal-executed MAF result, not portal Workflow Designer activity.
 
@@ -123,6 +125,8 @@ Compare `PolicyAnalyst → AnswerWriter → EvidenceReviewer` with the builder's
 and actual outputs. An incorrect source interpretation can propagate to the draft.
 
 
+![September 23 English recording: Sequential MAF workflow](../assets/g6sol-20260923-en/screenshots/E05-002-sequential-2.webp)
+
 **What to check:** Map the output to the three roles. Fluent review does not
 automatically remove an earlier evidence error.
 
@@ -142,6 +146,8 @@ Lower wall-clock time does not necessarily mean fewer calls or lower costs.
 
 
 
+![September 23 English recording: Concurrent MAF workflow](../assets/g6sol-20260923-en/screenshots/E05-003-concurrent-2.webp)
+
 **What to check:** Verify `pattern: concurrent` and multiple participant outputs.
 Compare them rather than treating them as an agreed answer.
 
@@ -159,6 +165,8 @@ The example uses a fixed speaker order and at most **three rounds**.
 alone is not a business answer. The entire workflow also has a 240-second timeout.
 Calculate call/token budgets before increasing either bound.
 
+
+![September 23 English recording: Bounded Group Chat workflow](../assets/g6sol-20260923-en/screenshots/E05-004-group-chat-2.webp)
 
 **What to check:** Read `pattern: group-chat`, participant responses, and pending
 human review. Reaching the round limit is not model consensus or business approval.
@@ -195,7 +203,7 @@ Telling a model "you are the approver" cannot replace human authorization.
 <details>
 <summary>Advanced C: expand the deployable wrapper after completing the introductory patterns</summary>
 
-**This path was exercised with real Azure and separately recorded in the Korean run; the English run uses independent recording sources.**
+**This advanced path was exercised with real Azure on September 15, 2026 with the earlier `gpt-5.6-luna` preset; it was not re-run or re-recorded with `gpt-6-sol`.**
 The original `workflow` command retains its introductory output shapes.
 `workflow-agent` returns original evidence, actual service-call lineage, and one validated final answer.
 
@@ -257,42 +265,11 @@ Do not send an IQ package through the introductory local-retrieval helper or tra
 
 </details>
 
-<details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
-
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
-
-![Execute a real English sequential MAF workflow](../assets/refresh-20260915-en/screenshots/E05-001-english-workflow-2.webp)
-
-**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
-
-![Run the sequential MAF pattern](../assets/refresh-20260915-en/screenshots/E05-101-sequential-2.webp)
-
-**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
-
-![Run the concurrent MAF pattern](../assets/refresh-20260915-en/screenshots/E05-102-concurrent-2.webp)
-
-**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
-
-![Run the bounded three-round group chat](../assets/refresh-20260915-en/screenshots/E05-103-group-2.webp)
-
-**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
-
-![Run a concurrent workflow with validated final output](../assets/refresh-20260915-en/screenshots/E05-104-wrapped-concurrent-2.webp)
-
-**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
-
-![Run group chat with a validated final output](../assets/refresh-20260915-en/screenshots/E05-105-wrapped-group-2.webp)
-
-**What to check:** Inspect participants, final output, actual model-call IDs and bounded rounds. Do not infer human approval from completion.
-
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
 
 ## Completion
 
-[Execution records](../live-run.md) distinguish actual patterns and recorded actions.
+[Execution records](../live-run.md) list the three recorded September 23 patterns.
 A retains a sequential run and human review. B compares call counts, output shapes,
 and review effort for all three patterns. Concluding that one agent is better for this
 scenario is valid; the number of agents is not a success metric.

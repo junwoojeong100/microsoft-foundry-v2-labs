@@ -23,17 +23,15 @@
 <details>
 <summary>선택 화면 도움말 — 녹화가 아니라 현재 본문의 명령을 실행합니다</summary>
 
-각 단계의 이미지는 **2026-09-15에 별도로 실행하고 새로 촬영한 국문 화면**입니다.
-시작 카드와 학습자 파일은 녹화 뒤에 보강했습니다. 현재 본문을 따르며,
-기존 화면을 새 준비 순서를 촬영한 증거로 표시하지 않습니다.
-영문 촬영본을 재사용하지 않았습니다. 이번 실행은 기존 실습 프로젝트와 설치 환경을 재사용했으며,
-설치·리소스 생성 명령을 새로 실행한 것처럼 표시하지 않습니다.
-[새 영상과 범위](../video-summary.md)에서 실제 호출·fixture·관찰·실패를 구분합니다. 클릭하면 크게 볼 수 있습니다.
+각 단계의 이미지는 **2026-09-23에 `gpt-6-sol`로 별도 실행한 국문 녹화 화면**입니다.
+설정 카드와 준비된 학습자 파일을 사용해 별도 실습 프로젝트에서 촬영했으며 영문 촬영본을 재사용하지 않았습니다.
+실습 프로젝트 생성은 녹화 전에 따로 준비했으므로 리소스 생성 명령을 녹화한 것처럼 표시하지 않습니다.
+[녹화 영상과 범위](../video-summary.md)에서 실제 호출·fixture·관찰·녹화하지 않은 범위를 구분합니다. 클릭하면 크게 볼 수 있습니다.
 화면의 계정·프로젝트·모델·접두사를 그대로 복사하지 말고 강사가 제공한 본인 값과 대조하세요.
 터미널 이미지는 **마지막으로 입력한 명령(`workshop $` 뒤에 내용이 있는 줄)과 그 아래 결과**를 읽습니다.
 위쪽에는 앞 명령의 출력이 남아 있을 수 있고, 맨 아래의 빈 프롬프트는 명령이 끝났다는 표시입니다.
-`OFFLINE FIXTURE`와 `LIVE AZURE`를 구분하고, `RUN_TOOLS`·추가 `tee` 저장 경로는 촬영 보조용이므로
-이미지에서 복사하지 않습니다. **실행할 명령은 본문의 코드 블록**입니다.
+`OFFLINE FIXTURE`와 `LIVE AZURE`를 구분합니다. `.env` 단계의 `RUN_TOOLS/configure_env.py`는 설정 카드 값을 써 넣은
+촬영 보조 도구이므로 이미지에서 복사하지 않고 `.env`를 직접 편집합니다. **실행할 명령은 본문의 코드 블록**입니다.
 더 많은 전·후 화면은 [액션 인덱스](../action-captures.md)에 있습니다.
 
 </details>
@@ -56,7 +54,7 @@
 **화면 확인:** 프로젝트 선택 메뉴에서 찾기 어렵다면 **View all resources**로 이동하고 검색칸에
 실습 프로젝트 이름을 입력합니다. 결과 행의 이름·부모 리소스·리전을 확인한 뒤 프로젝트 링크를 누르세요.
 
-![2026-09-15 새 국문 촬영: 국문 포털의 실제 프로젝트 확인](../../assets/refresh-20260915-ko/screenshots/KP01-001-home-2.webp)
+![2026-09-23 국문 녹화: 지정한 실습 프로젝트 열기](../../assets/g6sol-20260923-ko/screenshots/KP00-001-home-2.webp)
 
 **화면 확인:** 상단의 프로젝트 이름이 바뀌었는지 확인합니다. **Project endpoint**는 뒤의 `.env`에 넣을 값이며,
 현재 브라우저 주소 `ai.azure.com`과 다릅니다. 로그인·PIN 화면은 촬영하지 않았습니다.
@@ -128,7 +126,7 @@ python3.13 scripts/workshop.py doctor
 **이 PASS는 Azure 로그인 성공이 아닙니다.**
 
 
-![2026-09-15 새 국문 촬영: 합성 자료와 offline/cloud 경계 확인](../../assets/refresh-20260915-ko/screenshots/K00-004-doctor-2.webp)
+![2026-09-23 국문 녹화: 소스 폴더에서 오프라인 doctor 실행](../../assets/g6sol-20260923-ko/screenshots/K00-001-folder-2.webp)
 
 **화면 확인:** `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`와 함께 `azure_tested: false`를 읽습니다.
 이 단계에서는 파일과 실행 환경만 확인하며 Azure 호출 성공을 판정하지 않습니다.
@@ -172,7 +170,7 @@ v1은 **고정 답변에서 인용을 제거한 검사기 연습**, v2는 고정
 두 점수의 차이를 “프롬프트 개선 실측”이라고 발표하면 안 됩니다.
 재실행하려면 `rehearsal2-v1`처럼 새 label을 사용합니다.
 
-![2026-09-15 새 국문 촬영: fixture 비교를 모델 품질과 구분](../../assets/refresh-20260915-ko/screenshots/K00-007-fixture-compare-2.webp)
+![2026-09-23 국문 녹화: 모델 품질 주장 없이 fixture 비교](../../assets/g6sol-20260923-ko/screenshots/K00-005-fixture-compare-2.webp)
 
 **화면 확인:** 상단의 `OFFLINE FIXTURE` 표시와 결과 끝의 주의 문구를 확인합니다.
 고정 답변에 대한 검사 결과이지, 두 프롬프트로 모델을 실제 호출해 얻은 성능 차이가 아닙니다.
@@ -195,6 +193,8 @@ python -m pip install -e ".[cloud,agents]"
 새 터미널을 열 때는 저장소 루트로 돌아와 `source .venv/bin/activate`를 다시 실행합니다.
 브라우저의 개발자 콘솔이나 Python의 `>>>` 프롬프트에 Bash 명령을 붙여 넣지 않습니다.
 
+
+![2026-09-23 국문 녹화: 가상환경을 만들고 고정 SDK 설치](../../assets/g6sol-20260923-ko/screenshots/K00-006-install-2.webp)
 
 **화면 확인:** 설치 명령이 끝나고 셸 프롬프트가 돌아왔는지 확인합니다. 설치 중 오류가 있었다면
 이 화면과 같다고 넘어가지 말고 해결하세요. 설치 완료도 Azure 연결 성공과는 별개입니다.
@@ -222,7 +222,7 @@ VS Code에서 `.env`의 **1번 구간**에 준비 카드의 값을 입력하고 
 | `AZURE_SUBSCRIPTION_ID`, `AZURE_TENANT_ID` | 지정된 구독과 디렉터리의 ID |
 | `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME` | 강사가 준비한 실습 리소스 |
 | `AZURE_AI_PROJECT_ENDPOINT` | 프로젝트의 **전체** endpoint |
-| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-5.6-luna`; 담당자가 모델 버전 `2026-07-09` 확인 |
+| `AZURE_AI_MODEL_DEPLOYMENT_NAME` | `gpt-6-sol`; 담당자가 모델 버전 `2026-09-22` 확인 |
 | `WORKSHOP_PREFIX` | 반드시 `mfv2-`로 시작. 소문자 영문·숫자·하이픈 하나씩 사용, 끝 하이픈 금지, 전체 최대 32자 |
 | `WORKSHOP_AUTH_MODE` | 로컬은 `cli`; 실제 Azure 런타임만 `managed-identity` |
 
@@ -243,7 +243,7 @@ ARM을 읽을 권한이 없는 참가자는 강사에게 확인을 요청합니�
 검사 통과만으로 모델의 데이터 평면 권한/Structured Outputs 지원이 증명되지는 않습니다.
 그 확인은 [Lab 02](02-models.md)의 실제 호출에서 합니다.
 
-![2026-09-15 새 국문 촬영: 승인된 기존 프로젝트의 배포 확인](../../assets/refresh-20260915-ko/screenshots/K01-002-cloud-doctor-2.webp)
+![2026-09-23 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../../assets/g6sol-20260923-ko/screenshots/K00-008-preflight-2.webp)
 
 **화면 확인:** `deployment.name`, `deployment.model.name`, `deployment.model.version`,
 `deployment.state: Succeeded`, `inference_tested: false`, `note`를 읽습니다.

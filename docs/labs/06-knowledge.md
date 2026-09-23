@@ -8,6 +8,7 @@
 
 **IQ Chat can use a chat model with Search managed identity.** For that optional exercise, open the
 **prepared chat KB** with **`gpt-5.6-luna` / Low / Answer synthesis**, not the model-free GA KB.
+This is a separate deployment from the `gpt-6-sol` answer model: Search accepted no GPT-6 model for KB binding on September 23, 2026 ([details](../reference/model-choice.md)).
 [The configured screen and exact checks](#iq-chat-model) are below. A's default source check does not require IQ Chat.
 
 ## Before you start
@@ -16,7 +17,7 @@
 
 **Need:** A: Lab 03 responses and learner files. B: .env, a prepared Search service, writer permissions and a fresh owned prefix or matching ownership ledger.
 
-**Continue when:** A: policy IDs and dates are checked. B: Search and GA IQ outputs are saved. Luna planning/synthesis is required only for the separately selected IQ Chat branch.
+**Continue when:** A: policy IDs and dates are checked. B: Search and GA IQ outputs are saved. `gpt-5.6-luna` planning/synthesis is required only for the separately selected IQ Chat branch.
 
 **If blocked:** Resolve the selected path's source/access error without changing providers. A's default source check needs no IQ chat model.
 
@@ -51,7 +52,7 @@ Only expand the branch below if it was separately selected and prepared before e
 
 <a id="iq-chat-model"></a>
 
-### Optional IQ Chat: open the prepared Luna chat KB
+### Optional IQ Chat: open the prepared gpt-5.6-luna chat KB
 
 <details>
 <summary>Optional Preview IQ Chat — requires a prepared chat base and separate cost approval</summary>
@@ -78,7 +79,7 @@ Planning/synthesis for this Search-index source is **Preview as of September 15,
 | Reasoning / output | **`low` / `answerSynthesis`** |
 | API | **`2026-08-01-preview`**; no API key |
 
-![September 17 English capture: the saved IQ Chat KB with Luna, Low and Answer synthesis](../assets/iq-chat-20260917/en-configured-kb.png)
+![September 17 English capture: the saved IQ Chat KB with gpt-5.6-luna, Low and Answer synthesis](../assets/iq-chat-20260917/en-configured-kb.png)
 
 **What to check:** `gpt-5.6-luna`, **Low**, **Answer synthesis**, the English source and **Active** are visible.
 There is no **Chat completions model is required** validation message. Required-field asterisks and the gray MI notice are normal:
@@ -86,9 +87,9 @@ the notice says Search will use its identity, not that authentication failed or 
 This is a fresh, unedited view of an **already saved** chat KB; no Save, deployment or model request was performed for this capture.
 Use your own returned name, not the screenshot's name.
 
-**Do not clear the selected Luna model or deploy a recommendation to match the picture.**
+**Do not clear the selected `gpt-5.6-luna` model or deploy a recommendation to match the picture.**
 On September 17, the quick model list and **Browse more models** opened a deployment catalog, not the existing-deployment inventory.
-The prepared Luna binding displayed correctly even though Luna was absent from that catalog.
+The prepared `gpt-5.6-luna` binding displayed correctly even though it was absent from that catalog.
 Keep the saved selection; use the owner's fixed CLI preset for initial setup rather than choosing another model or enabling API keys.
 
 ```bash
@@ -102,7 +103,7 @@ python scripts/workshop.py --language en iq-chat ask --label iq-chat-lab06 --con
 ```
 
 The result must show `model_planning_verified: true`, `model_synthesis_verified: true`,
-and actual `modelQueryPlanning` / `modelAnswerSynthesis` for Luna.
+and actual `modelQueryPlanning` / `modelAnswerSynthesis` for `gpt-5.6-luna`.
 Request, response, source evidence and failures stay in `outputs/iq-chat/iq-chat-lab06/`; use a new label for another request.
 `check` does not change Azure and `ask` never chooses another model/provider.
 For `configured: false`, missing permissions, a wrong version, 403 or 429, stop and use [the fixed-preset recovery guide](../reference/iq-model-identity.md).
@@ -143,6 +144,8 @@ If evidence is missing, record the limitation instead of hardcoding answers.
 Keep the selected English question unchanged within this experiment; `--language en` selects English documents.
 
 
+![September 23 English recording: Local keyword retrieval over the six synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-001-local-2.webp)
+
 **What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
 retrieval, not Search/IQ. Check the returned provider, not just configured endpoint names.
 
@@ -168,6 +171,8 @@ Do not delete the old ledger. Partial document upload
 failure is not overall success.
 
 
+![September 23 English recording: Create the owned Search index with the synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-002-seed-search-2.webp)
+
 **What to check:** The seed result has `mode: live`, your `index`, `document_count: 6`,
 `hybrid: false`, and `knowledge_base: null`. It created ordinary Search objects, not IQ.
 
@@ -178,6 +183,8 @@ python scripts/workshop.py --language en retrieve --provider search \
   --question "What is the domestic business-trip lodging limit for September 2026?" \
   --output outputs/learner-notes-en/retrieve-search.json
 ```
+
+![September 23 English recording: Keyword retrieval from Azure AI Search](../assets/g6sol-20260923-en/screenshots/E06-003-search-2.webp)
 
 **What to check:** Read the result of `--provider search`; verify endpoint/index.
 Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
@@ -202,6 +209,8 @@ python scripts/workshop.py --language en retrieve --provider iq \
 Meaning: advance-approval conditions for a KRW 170000 domestic hotel in September 2026.
 
 
+![September 23 English recording: Create the owned GA IQ knowledge source and base](../assets/g6sol-20260923-en/screenshots/E06-004-seed-iq-2.webp)
+
 **What to check:** The seed result now has a non-null `knowledge_base` and `document_count: 6`.
 The **retrieve** result reports the source/base configuration and `api_version: 2026-04-01`.
 Keep the `ledger` file, `outputs/azure-objects.json`, which records ownership.
@@ -224,6 +233,8 @@ IQ failure never automatically becomes Search.
 
 
 
+![September 23 English recording: GA Foundry IQ retrieval with source references](../assets/g6sol-20260923-en/screenshots/E06-005-iq-2.webp)
+
 **What to check:** Read `activity`, base, API version, `references` and `documents` together.
 Do not fill unreported latency or usage with invented values.
 
@@ -241,6 +252,8 @@ Meaning: steps required before booking that over-limit hotel.
 Retrieval and generation are separated to diagnose failures: a missing policy is
 different from misreading the effective date of a correctly retrieved policy.
 
+
+![September 23 English recording: Send IQ evidence to gpt-6-sol for a validated answer](../assets/g6sol-20260923-en/screenshots/E06-006-answer-iq-2.webp)
 
 **What to check:** Verify the IQ base/API, `response_model`, `response_id`, and `usage`.
 Compare the amount, conditions, and citations in `answer` with the original documents.
@@ -272,6 +285,7 @@ Continue to [Lab 07 B](07-evaluation.md#path-b). That lesson starts a **declared
 <details>
 <summary>Expand the optional embedding and hybrid-index exercise</summary>
 
+**This optional branch was not re-run with `gpt-6-sol` on September 23, 2026.**
 Use a separate owned index instead of silently changing the existing text index.
 Configure a verified embedding deployment and its actual dimensions.
 
@@ -341,45 +355,8 @@ A `models` property in the GA schema does not imply that every source's LLM feat
 Use version-matched request fields from the [MI model-binding guide](../reference/iq-model-identity.md).
 Keep the model-free GA base unchanged for its frozen evaluation; use the separate prepared chat base for the optional model-based mode.
 The [new configured screen](#iq-chat-model) is the reference for IQ Chat.
-The older empty-model screen below is historical GA inspection, not the target state to reproduce.
-
-<details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
-
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
-
-![Inspect the separate English IQ knowledge base in the portal](../assets/refresh-20260915-en/screenshots/EP06-040-knowledge-2.webp)
-
-**What to check:** Verify the English source IDs, selected provider, index/vector-store distinction, actual dimensions and completed file count.
-
-![Inspect the actual English knowledge-base configuration without saving UI defaults](../assets/refresh-20260915-en/screenshots/EP06-041-english-kb-2.webp)
-
-**Historical limitation:** this September 15 GA base had `models: []`. Its missing-model validation is not MI failure
-and is not the desired IQ Chat configuration. Do not overwrite it to match the new chat exercise.
-
-![Inspect actual English text/vector retrieval and embedding dimensions](../assets/refresh-20260915-en/screenshots/E06-011-hybrid-query-2.webp)
-
-**What to check:** Verify the English source IDs, selected provider, index/vector-store distinction, actual dimensions and completed file count.
-
-![Select only the six verified English synthetic files](../assets/refresh-20260915-en/screenshots/EP06-014-choose-files-2.webp)
-
-**What to check:** Verify the English source IDs, selected provider, index/vector-store distinction, actual dimensions and completed file count.
-
-![Verify all six English files finished indexing](../assets/refresh-20260915-en/screenshots/EP06-017-file-status-2.webp)
-
-**What to check:** Verify the English source IDs, selected provider, index/vector-store distinction, actual dimensions and completed file count.
-
-![FILES-D01 · Inspect the actual answer and evidence](../assets/refresh-20260915-en/screenshots/EP06-020-file-answer-send-2.webp)
-
-**What to check:** Verify the English source IDs, selected provider, index/vector-store distinction, actual dimensions and completed file count.
-
-![Read the six actual remote English files and verify every source hash](../assets/refresh-20260915-en/screenshots/E06-030-file-hashes-2.webp)
-
-**What to check:** Verify the English source IDs, selected provider, index/vector-store distinction, actual dimensions and completed file count.
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
 
 ## Completion
 

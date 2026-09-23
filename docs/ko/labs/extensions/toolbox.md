@@ -101,14 +101,6 @@ python scripts/workshop.py --language ko toolbox ask --version "$TOOLBOX_VERSION
 논리 모델 호출 6회와 180초 제한이 있으나 SDK/service 사용량까지 포함한 화폐 상한은 아닙니다.
 새 요청에는 새 label을 사용합니다. 촬영을 위해 성공한 유료 요청을 반복하지 않습니다.
 
-<!-- edition-checkpoint:KP12-006-actual-maf-answer -->
-
-![실제 국문 촬영: 고정된 Toolbox와 MAF로 국문 원문 기반 답변 생성](../../../assets/edition-20260916-ko/screenshots/KP12-006-actual-maf-answer-2.webp)
-
-**확인할 것:** 고정 버전의 실제 MAF 요청이 policy 도구를 사용했습니다. 유창한 답변뿐 아니라 원래 모델·도구 ID와 정책 인용을 확인합니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=68.48) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 6. 통제된 버전 변경
 
 <details>

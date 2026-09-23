@@ -49,14 +49,6 @@ SDK 불일치는 준비 오류이며 임의 패키지 upgrade나 Azure 호출로
 
 </details>
 
-<!-- edition-checkpoint:KP00-011-final-recording-environment -->
-
-![실제 국문 촬영: 입력 전송을 수정한 새 파트에서 동일 소스 환경 재개](../../../assets/edition-20260916-ko/screenshots/KP00-011-final-recording-environment-2.webp)
-
-**확인할 것:** 실제 Python과 국문 합성 파일을 확인했습니다. offline-check PASS는 Azure 연결·모델·배포 성공을 뜻하지 않습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=17.44) · [전체 액션과 실패](../../edition-actions.md)
-
 <a id="azd-check"></a>
 
 ## 2. 공유 설정을 바꾸지 않고 azd 확인

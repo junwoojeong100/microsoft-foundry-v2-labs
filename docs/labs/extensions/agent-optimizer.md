@@ -83,14 +83,6 @@ Do not submit another job because the first one is waiting or because a screensh
 An incomplete/failed run is not an improved candidate.
 Retain the error and partial artifacts without presenting the successful subset as a completed optimization.
 
-<!-- edition-checkpoint:EP15-126-review-cost-scope -->
-
-![Recorded English checkpoint: Review the exact target, dataset, two candidates, criteria and cost estimate before submitting](../../assets/edition-20260916-en/screenshots/EP15-126-review-cost-scope-2.webp)
-
-**What to check:** The review shows instruction-only optimization, two candidates, the named dev dataset and separate judge. The displayed cost range is an estimate. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=287.00) · [All actions and failures](../../edition-actions.md)
-
 ## 5. Read candidates before considering promotion
 
 For every candidate, retain:
@@ -103,7 +95,7 @@ For every candidate, retain:
 The highest aggregate score is a **proposal**, not automatic acceptance.
 If all candidates are worse or indistinguishable on this small dataset, keep the baseline.
 Changing wording without a useful measured improvement is not a success claim.
-The [recorded English run](../../edition-results.md) returned only the baseline.
+The September 16 English run (earlier `gpt-5.6-luna` edition; not re-run with `gpt-6-sol`) returned only the baseline.
 Its generic early-stop message said the samples were perfect, but detailed results included a failed D05 relevance score.
 Read the individual rows rather than treating a successful job status or generic message as all-pass evidence.
 
@@ -117,14 +109,6 @@ Do not silently repair columns, relax thresholds or submit another run to produc
 Save an `optimizer-review.txt` containing the run ID, baseline/candidate IDs, findings,
 the selected candidate **or** `pending-human-review`, and the review reason.
 Do not impersonate a human reviewer in that record.
-
-<!-- edition-checkpoint:EP15-129-download-actual-run -->
-
-![Recorded English checkpoint: Download the completed run’s actual JSON, including its no-improvement outcome](../../assets/edition-20260916-en/screenshots/EP15-129-download-actual-run-2.webp)
-
-**What to check:** The actual run generated no optimized candidate and showed no improvement. Its generic stop warning does not replace the detailed failed D05 metric. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=300.52) · [All actions and failures](../../edition-actions.md)
 
 ## 6. Promote only after a person approves
 

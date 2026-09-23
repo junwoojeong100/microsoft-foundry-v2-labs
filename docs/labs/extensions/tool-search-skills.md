@@ -141,14 +141,6 @@ An attached skill alone is not proof that the agent loaded it.
 The MAF provider must actually call `load_skill`, then the policy tool, and preserve the resulting answer.
 The code rejects skill-script execution and rejects a fluent final answer if a tool failed.
 
-<!-- edition-checkpoint:EP13-008-actual-skill-load -->
-
-![Recorded English checkpoint: Run the actual Skill load and synthetic policy tool with a validated output schema](../../assets/edition-20260916-en/screenshots/EP13-008-actual-skill-load-2.webp)
-
-**What to check:** Actual load_skill, tool_search and call_tool completed. The stored Skill version and validated structured answer remain separate evidence. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=147.20) · [All actions and failures](../../edition-actions.md)
-
 ## 6. Keep publication and cleanup explicit
 
 Keep the verified version/Skill IDs and `outputs/toolbox-runs/skilled-policy-answer/`.

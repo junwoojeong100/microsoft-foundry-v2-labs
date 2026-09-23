@@ -155,14 +155,6 @@ agent/Session/Conversation/Trace ID와 실제 Toolbox 결과를 보관합니다.
 모델을 다시 호출하지 않습니다.
 연결이나 index 자체는 바뀔 수 있으므로 그 설정과 실제 결과도 별도로 고정·확인합니다.
 
-<!-- edition-checkpoint:KP25-017-verify-original-completed-stream -->
-
-![실제 국문 촬영: 원래 원격 응답의 완료·버전·코드·Skill 근거 검증](../../../assets/edition-20260916-ko/screenshots/KP25-017-verify-original-completed-stream-2.webp)
-
-**확인할 것:** 원래 completed SSE가 Hosted v1, Toolbox v4, Skill v1과 package hash에 일치합니다. 별도 내려받은 근거 8개와 146개 trace 행도 확인했지만 모든 child span export까지 보장하지 않습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=721.76) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 6. 근거를 내려받고 내 세션만 정리
 
 검증 결과의 `remote_evidence_directory`를 기준으로 `azd ai agent files list`와

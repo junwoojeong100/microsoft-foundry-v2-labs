@@ -1,0 +1,30 @@
+{
+  "language": "ko",
+  "azure_calls": 0,
+  "videos": [
+    {
+      "filename": "cli-edited.mp4",
+      "native_playback": true,
+      "range_status": 206,
+      "duration_seconds": 147.8,
+      "chapters_checked": 0,
+      "seek_validation": "seek-complete-and-decoded-frame"
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "native_playback": true,
+      "range_status": 206,
+      "duration_seconds": 103.08,
+      "chapters_checked": 0,
+      "seek_validation": "seek-complete-and-decoded-frame"
+    },
+    {
+      "filename": "guide-ordered.mp4",
+      "native_playback": true,
+      "range_status": 206,
+      "duration_seconds": 272.88,
+      "chapters_checked": 11,
+      "seek_validation": "seek-complete-and-decoded-frame"
+    }
+  ]
+}

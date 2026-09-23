@@ -45,14 +45,6 @@ helper가 합성 CSV만 업로드하고 새 이름의 Prompt Agent를 만듭니�
 모델이 제시한 경로를 그대로 신뢰하지 않고 고정 로컬 파일명에 저장합니다.
 열·누락·중복·순서·title 변경은 검증 실패입니다. 틀린 출력도 그대로 보관합니다.
 
-<!-- edition-checkpoint:KP19-003-generated-korean-csv -->
-
-![실제 국문 촬영: Code Interpreter가 실제 생성한 국문 정책 CSV 6행 다운로드·검증](../../../assets/edition-20260916-ko/screenshots/KP19-003-generated-korean-csv-2.webp)
-
-**확인할 것:** Code Interpreter가 실제 생성한 CSV를 내려받아 원래 국문 정책 6행과 대조했습니다. 로컬에서 만든 대체 CSV가 아닙니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=463.88) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 4. 내 임시 리소스 정리
 
 ```bash

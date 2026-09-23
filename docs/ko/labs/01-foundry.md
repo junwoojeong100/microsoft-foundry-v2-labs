@@ -10,7 +10,7 @@
 
 **이번 순서:** A는 준비된 프로젝트를 확인합니다. 환경이 없는 담당자만 2절의 준비를 진행합니다.
 
-**준비물:** 시작 카드의 tenant·프로젝트·계정과 gpt-5.6-luna 배포.
+**준비물:** 시작 카드의 tenant·프로젝트·계정과 gpt-6-sol 배포.
 
 **다음으로 갈 기준:** 계정·프로젝트·배포·agent를 구분하고 본인의 endpoint를 확인했습니다.
 
@@ -26,7 +26,7 @@
 |---|---|---|
 | Foundry 리소스 | Azure에서 AI 서비스를 운영하는 자원 | 실습용 Foundry account |
 | 프로젝트 | 에이전트·연결·평가를 함께 관리하는 작업 공간 | 한빛기술 실습 프로젝트 |
-| 모델 배포 | 특정 모델·버전·SKU를 호출할 수 있게 한 구성 | 이번 preset의 호출 이름 `gpt-5.6-luna` |
+| 모델 배포 | 특정 모델·버전·SKU를 호출할 수 있게 한 구성 | 이번 preset의 호출 이름 `gpt-6-sol` |
 | 에이전트 | 모델에 지침·도구·실행 방식을 붙인 업무 단위 | 출장 규정 안내 도우미 |
 
 **Foundry는 클라우드 플랫폼, Microsoft Agent Framework(MAF)는 코드로 에이전트와
@@ -56,7 +56,7 @@ flowchart TD
    [마이그레이션 지도](../reference/migration.md)를 확인합니다. 서로 다른 API를 섞지 않습니다.
 
 
-![2026-09-15 새 국문 촬영: 국문 포털의 실제 프로젝트 확인](../../assets/refresh-20260915-ko/screenshots/KP01-001-home-2.webp)
+![2026-09-23 국문 녹화: 프로젝트 endpoint와 계정 OpenAI endpoint 구분](../../assets/g6sol-20260923-ko/screenshots/KP01-001-endpoints-2.webp)
 
 **화면 확인:** **View deployments**는 모델 배포, **Start building**은 에이전트 제작의 진입점입니다.
 같은 프로젝트 안에 있어도 모델 배포와 에이전트는 다른 자산이라는 점을 위 관계 그림과 연결해 보세요.
@@ -93,7 +93,7 @@ flowchart TD
 3. 리전을 선택하기 전에 필요한 **모델/SKU/할당량**을 확인합니다.
    Hosted를 쓸 경우에는 [Hosted 지원 리전](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)도
    별도로 확인합니다. 두 목록이 항상 같지는 않습니다.
-4. `gpt-5.6-luna`, 모델 버전 `2026-07-09`를 배포 이름 `gpt-5.6-luna`로 준비합니다.
+4. `gpt-6-sol`, 모델 버전 `2026-09-22`를 배포 이름 `gpt-6-sol`로 준비합니다.
    녹화의 리전/SKU/capacity를 복사하지 말고 실제 가용성을 확인합니다.
 5. 프로젝트에 필요한 참가자 역할을 부여하고 반영을 기다립니다.
 6. 한 명의 학습자 계정으로 실제 모델 호출을 확인합니다.
@@ -103,8 +103,8 @@ flowchart TD
 평면의 권한이 다릅니다.** 실습자 모두에게 구독 Owner를 부여하지 않습니다.
 
 
-이번 새 촬영은 기존 실습용 Resource Group/프로젝트를 재사용했습니다.
-새 Resource Group을 생성한 것으로 집계하지 않습니다. 참가자는 강사의 준비 단계를 승인 없이 실행하지 않습니다.
+2026-09-23 녹화는 녹화 전에 따로 준비한 실습 프로젝트를 사용했으며 녹화 중에 리소스를 만들지 않았습니다.
+참가자는 강사의 준비 단계를 승인 없이 실행하지 않습니다.
 
 ## 3. 최소 권한의 출발점
 
@@ -120,7 +120,7 @@ flowchart TD
 바꾸지 않습니다. 필요한 추가 권한과 역할 ID는 [공식 RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를
 확인합니다. 사용자, Search managed identity, Hosted agent identity는 서로 다른 주체입니다.
 
-![2026-09-15 새 국문 촬영: 승인된 기존 프로젝트의 배포 확인](../../assets/refresh-20260915-ko/screenshots/K01-002-cloud-doctor-2.webp)
+![2026-09-23 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../../assets/g6sol-20260923-ko/screenshots/K00-008-preflight-2.webp)
 
 **화면 확인:** `doctor --cloud`가 읽어 온 모델 배포 정보와 본인의 설정을 대조합니다.
 관리 평면을 읽을 수 있다는 사실과 실제 추론 권한은 다릅니다. [Lab 02](02-models.md)의 요청까지 확인하세요.

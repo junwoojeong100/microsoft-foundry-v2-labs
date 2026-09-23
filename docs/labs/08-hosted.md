@@ -64,6 +64,8 @@ that **exact generated directory** first. Compare hashes after source changes.
 For package-only completion, retain the manifest and continue to [Lab 09](09-operations.md).
 
 
+![September 23 English recording: Package the Hosted bundle only; no deployment](../assets/g6sol-20260923-en/screenshots/E08-001-package-2.webp)
+
 **What to check:** `package_hosted.py` returns `.build/hosted-en`. This is packaging, not
 Azure deployment. Check included/excluded files against the manifest.
 
@@ -234,8 +236,8 @@ a Hosted version; collect a separately version-pinned dev/holdout evaluation.
 
 
 Verify evaluation type, exact agent/version, evaluator, and the complete case denominator.
-The new English recording deploys and measures the workflow extension below.
-See [execution records](../live-run.md); do not transfer scores between these targets.
+The September 23 `gpt-6-sol` recording covers packaging only; the local server, remote deployment and the workflow
+extension below were not re-run. See [execution records](../live-run.md); do not transfer scores between these targets.
 
 </details>
 
@@ -318,46 +320,7 @@ The introductory `--kind runtime` and single-model CI `--kind workflow` contract
 
 </details>
 
-<details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
-
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
-
-![Freeze the English Responses workflow package](../assets/refresh-20260915-en/screenshots/E08-001-package-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
-![Terminal B: verify readiness separately from inference](../assets/refresh-20260915-en/screenshots/E08-003-readiness-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
-![Invoke the actual English workflow endpoint](../assets/refresh-20260915-en/screenshots/E08-004-local-invoke-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
-![Deploy the actual English workflow as a new Hosted version](../assets/refresh-20260915-en/screenshots/E08-006-deploy-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
-![Record the actual deployed English version](../assets/refresh-20260915-en/screenshots/E08-007-binding-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
-![Open the actually deployed English Responses workflow version](../assets/refresh-20260915-en/screenshots/EP08-001-english-hosted-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
-![WF03 · Inspect the actual answer and evidence](../assets/refresh-20260915-en/screenshots/EP08-002-hosted-answer-send-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
-![Pin the actual English baseline version and endpoint](../assets/refresh-20260915-en/screenshots/E07B-binding-2.webp)
-
-**What to check:** Check profile language, exact deployed version, endpoint/protocol, readiness versus inference, and actual service response IDs.
-
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
 
 ## Completion and cleanup
 

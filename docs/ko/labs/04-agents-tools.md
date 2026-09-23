@@ -33,7 +33,7 @@ python scripts/workshop.py maf \
   --output outputs/learner-notes-ko/maf-none.json
 ```
 
-![2026-09-15 새 국문 촬영: 실제 MAF Agent 응답](../../assets/refresh-20260915-ko/screenshots/K04-100-maf-2.webp)
+![2026-09-23 국문 녹화: 도구 없는 MAF agent](../../assets/g6sol-20260923-ko/screenshots/K04-001-maf-2.webp)
 
 **화면 확인:** 마지막 출력의 `mode: live`, `orchestration: local`, `tools: none`을 읽습니다.
 로컬 Python이 실행을 소유해도 답변 모델 호출은 Azure에서 이루어집니다.
@@ -78,7 +78,7 @@ sequenceDiagram
 ```
 
 
-![2026-09-15 새 국문 촬영: 읽기 전용 함수 도구 호출](../../assets/refresh-20260915-ko/screenshots/K04-101-tools-2.webp)
+![2026-09-23 국문 녹화: 읽기 전용 함수 도구를 쓰는 MAF](../../assets/g6sol-20260923-ko/screenshots/K04-002-tools-2.webp)
 
 **화면 확인:** `tools: function`과 `answer` 안의 `decision`, `limit_krw`, `citations`를 확인합니다.
 사진의 `needs_approval`은 승인 완료가 아니라 사람의 사전 승인이 필요하다는 뜻입니다.
@@ -121,7 +121,7 @@ python scripts/workshop.py maf --mcp \
 `answer`의 문장뿐 아니라 `decision`, `limit_krw`, `citations`도 함께 확인합니다.
 형식이 잘못되면 응답을 임의로 고쳐 성공으로 처리하지 않습니다.
 
-![2026-09-15 새 국문 촬영: 실제 로컬 MCP handshake와 정책 도구](../../assets/refresh-20260915-ko/screenshots/K04-102-mcp-2.webp)
+![2026-09-23 국문 녹화: 로컬 MCP 정책 도구를 쓰는 MAF](../../assets/g6sol-20260923-ko/screenshots/K04-003-mcp-2.webp)
 
 **화면 확인:** `tools: local-mcp`를 확인하고 2026년 5월에 과거 한도와 `TRAVEL-2025`를 적용했는지 봅니다.
 함수 도구 결과로 MCP 실행을 대신한 것이 아닙니다.
@@ -165,7 +165,9 @@ Azure 호출 전 입력 거절이며 환경이 망가졌다는 뜻이 아닙니�
 
 ## 완료·문제 해결
 
-[실행 기록](../live-run.md)에는 새 환경의 함수·MCP 호출과 정확한 2001자 입력 거절 확인을 남겼습니다.
+[실행 기록](../live-run.md)에는 2026-09-23의 함수 도구·MCP 호출을 남겼습니다. 선택 2001자 입력 거절은 다시 녹화하지 않았습니다.
+
+[전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 세 명령의 실제 출력과 도구 경계를 설명하면 완료입니다.
 MCP 실행 실패 시 [환경/도구 문제 해결](../reference/troubleshooting.md)을 확인합니다.

@@ -105,6 +105,8 @@ python scripts/workshop.py cleanup-plan
 5. 보존 정책과 권한을 확인하고, 필요 이상의 원문을 export하지 않습니다.
 
 
+![2026-09-23 국문 녹화: 기록된 agent 요청의 추적](../../assets/g6sol-20260923-ko/screenshots/KP09-002-traces-2.webp)
+
 **화면 확인:** 본인 에이전트의 **Traces → Trace view**에서 날짜 범위와 agent version을 먼저 확인합니다.
 최신 행이라는 이유만으로 방금 보낸 요청이라고 판단하지 않습니다.
 
@@ -114,8 +116,7 @@ python scripts/workshop.py cleanup-plan
 
 
 **화면 확인:** 트리의 최상위 `invoke_agent`와 Metadata의 상태를 확인합니다.
-새 촬영에서 선택한 trace는 **17개 span과 chat 2개**가 포털에 보였습니다.
-응답의 `model_calls`에는 실제 호출 3개가 있으므로 포털의 일부 span 관측을 전체 호출 수로 바꾸어 적지 않습니다.
+포털에 보이는 일부 span 수를 응답 `model_calls`의 전체 호출 수로 바꾸어 적지 않습니다.
 
 보호된 테이블은 일반 로그 조회 역할 외에 추가 권한을 요구할 수 있습니다.
 트레이스가 늦게 도착하는 동안 호출을 반복해 비용을 늘리지 않습니다.
@@ -162,7 +163,7 @@ App Insights 인증 오류, idle 세션 stop 충돌을 구분해 보존하고 �
 <details>
 <summary>심화 C 전용 — 입문 Lab 07이 아니라 Hosted matrix를 수집한 뒤 펼칩니다</summary>
 
-**2026-09-15 실제 새 국문 실행으로 확인한 경로입니다.**
+**2026-09-15에 이전 `gpt-5.6-luna` preset으로 확인한 경로이며 `gpt-6-sol`로는 다시 실행하지 않았습니다.**
 [평가 워크북](../reference/evaluation-workbook.md)에서 실제 만든 matrix label을 사용합니다.
 `wf-candidate`는 입문의 `candidate`가 아닙니다. 모든 명령에서 본인의 실제 matrix label로 바꿉니다.
 
@@ -175,7 +176,7 @@ python scripts/workshop.py benchmark monitor --label wf-candidate
 `monitor`는 `.env`의 **AZURE_APPLICATION_INSIGHTS_APP_ID**와 명시적 구독을 사용해 실제 조회합니다.
 credential은 지정된 구독/tenant로 scope를 고정하고
 `https://api.applicationinsights.io/.default` 토큰으로 동일 Application Insights query API를 호출합니다.
-실제 실행에서 일반 CLI query의 `InvalidTokenError`를 보존한 뒤 이 인증 경로를 수정했습니다.
+2026-09-15 국문 실행(이전 `gpt-5.6-luna` 판)에서 일반 CLI query의 `InvalidTokenError`를 보존한 뒤 이 인증 경로를 수정했습니다.
 다른 사용자·다른 App Insights로 바꾸는 우회가 아닙니다.
 Application ID는 workspace ID나 instrumentation key와 다릅니다.
 쿼리는 실행 전에 표시하고, 해당 run의 agent·기간·trace ID만 조회합니다.
@@ -209,35 +210,23 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 </details>
 
 <details>
-<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
+<summary>2026-09-23 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
 
-아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+2026-09-23 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
 
-![2026-09-15 새 국문 촬영: 기간 선택 상태를 유지하고 정확한 trace 검색](../../assets/refresh-20260915-ko/screenshots/KP09-007-search-trace-2.webp)
+![2026-09-23 국문 녹화: Agent 세부 정보: 이름·저장 버전·모델](../../assets/g6sol-20260923-ko/screenshots/KP09-001-details-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** 세부 정보에서 agent 이름·저장 버전·`gpt-6-sol`을 평가표와 대조합니다.
 
-![2026-09-15 새 국문 촬영: 동일 trace의 실제 span·모델 호출 관찰](../../assets/refresh-20260915-ko/screenshots/KP09-009-trace-observe-2.webp)
+![2026-09-23 국문 녹화: 모니터링 합계는 평가 정답 여부가 아님](../../assets/g6sol-20260923-ko/screenshots/KP09-003-monitor-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** 모니터링 합계는 요청·토큰 수이며 평가 정답 여부가 아닙니다.
 
-![2026-09-15 새 국문 촬영: 실제 workflow trace 그래프 보기](../../assets/refresh-20260915-ko/screenshots/KP09-010-graph-2.webp)
+![2026-09-23 국문 녹화: 소유 자산 정리 목록 (삭제하지 않음)](../../assets/g6sol-20260923-ko/screenshots/K09-001-cleanup-plan-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** 정리 목록은 본인 prefix로 기록된 Search 객체만 보여 주고 `deletes_resources: false`입니다. 나머지는 수동 점검 목록입니다.
 
-![2026-09-15 새 국문 촬영: 실제 운영 집계와 요청별 trace 구분](../../assets/refresh-20260915-ko/screenshots/KP09-012-monitor-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 동일 App Insights·계정에 정확한 token scope 적용](../../assets/refresh-20260915-ko/screenshots/K09-003-scoped-trace-query-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 본인 session의 실제 idle/stopped 상태 확인](../../assets/refresh-20260915-ko/screenshots/K09-cleanup-3-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+[전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 </details>
 
@@ -245,7 +234,7 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 
 Hosted matrix를 선택한 경우에만 본인 실행의 root trace와 세션 상태를 확인합니다.
 A와 기본 B는 선택적인 telemetry 없이 정리 인계를 마칠 수 있습니다.
-2026-09-15 국문 기록은 baseline/candidate/holdout의 **64개 root trace ID**를 실제 App Insights에서 확인한 과거 결과입니다.
+2026-09-23 `gpt-6-sol` 녹화는 agent 세부 정보·추적·모니터링 탭과 정리 목록만 포함합니다.
 전체 요청의 확인을 모든 하위 span이 빠짐없이 export되었다는 의미로 확대하지 않습니다.
 이미 idle인 세션은 다시 stop을 호출해 409를 만들지 않고 실제 상태를 확인합니다.
 활성 세션은 중지 후 재조회하고 [실행 기록](../live-run.md)에 별도 receipt를 남깁니다.
@@ -256,7 +245,7 @@ A는 위 체크리스트·담당자 인계를 사용합니다. B는 3단계에�
 정리 완료는 “명령을 실행했다”가 아니라 **활성 session·잔여 리소스·과금 상태를 다시 확인했다**는 뜻입니다.
 
 
-**화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다. 새 촬영의 평가 세션 네 개는 최종 `idle`을 확인했습니다.
+**화면 확인:** 본인 세션의 상태와 다음 페이지 여부를 확인합니다.
 화면의 세션 ID를 그대로 중지하지 말고 자신의 ID를 사용합니다. idle이어도 파일 저장소·Search·로그 비용이 모두 사라지는 것은 아닙니다.
 
 다음: A → [Lab 11](11-capstone.md#path-a) · B → [Lab 11](11-capstone.md#path-b)

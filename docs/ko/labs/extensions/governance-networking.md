@@ -58,14 +58,6 @@ Search Identity/IAM에서는 Search 자체 ID와 index 호출자를 구분합니
 모든 403에 반복 로그인을 기본 해결책으로 쓰지 않습니다.
 Search Service Contributor는 읽기 전용 권한이 아니라는 점도 함께 설명합니다.
 
-<!-- edition-checkpoint:KP24-001-fixed-model-and-scoped-role-readback -->
-
-![실제 국문 촬영: 모델·버전과 제한된 역할 조건만 읽기·새 배포 없음](../../../assets/edition-20260916-ko/screenshots/KP24-001-fixed-model-and-scoped-role-readback-2.webp)
-
-**확인할 것:** 실제 역할의 조건과 범위를 확인합니다. Foundry Project Manager의 역할 위임 조건을 구독 Owner 권한과 혼동하지 않고, 사설망은 검증했다고 주장하지 않습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=622.92) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 4. 네트워크 격리는 별도
 
 `PublicNetworkAccessDisabled`, private-endpoint 403, timeout에는 실제 망 설정을 확인합니다.

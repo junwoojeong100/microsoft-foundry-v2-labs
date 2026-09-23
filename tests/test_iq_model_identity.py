@@ -6,7 +6,6 @@ from datetime import datetime
 from foundry_workshop.contracts import load_documents, read_json
 
 from . import ROOT
-from .test_learner_journey import expanded_markdown
 
 
 class IQModelIdentityEvidenceTests(unittest.TestCase):
@@ -156,7 +155,7 @@ class IQChatConfigurationCaptureTests(unittest.TestCase):
                 self.assertGreaterEqual(item["width"], 1000)
                 self.assertGreaterEqual(item["height"], 800)
 
-    def test_lab_06_uses_ready_screens_and_keeps_empty_model_images_historical(self):
+    def test_lab_06_uses_ready_screens_without_removed_historical_images(self):
         for item in self.evidence["images"]:
             language = item["guide_language"]
             directory = ROOT / ("docs" if language == "en" else "docs/ko")
@@ -164,12 +163,6 @@ class IQChatConfigurationCaptureTests(unittest.TestCase):
             with self.subTest(language=language):
                 self.assertIn('<a id="iq-chat-model"></a>', text)
                 self.assertEqual(text.count(f"/iq-chat-20260917/{item['file']}"), 1)
-                self.assertNotIn(
-                    f"refresh-20260915-{language}/screenshots/",
-                    text.split('<a id="path-b"></a>', 1)[0],
-                )
-                historical = (
-                    "EP06-041-english-kb-2.webp" if language == "en" else "KP06-002-kb-2.webp"
-                )
-                self.assertIn(historical, text)
-                self.assertNotIn(historical, expanded_markdown(text))
+                self.assertNotIn("refresh-20260915", text)
+                for historical in ("EP06-041-english-kb-2.webp", "KP06-002-kb-2.webp"):
+                    self.assertNotIn(historical, text)

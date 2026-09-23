@@ -142,14 +142,6 @@ active lock, symlink, 모르는 파일, 소유 marker 누락을 거부합니다.
 프로세스나 Azure resource를 강제로 삭제하지 않습니다.
 정리한 run ID를 다시 쓰지 않습니다.
 
-<!-- edition-checkpoint:KP16-005-simulated-recovery-completion -->
-
-![실제 국문 촬영: 같은 국문 Response를 모의 결정으로 완료하고 원래 output ID 검증](../../../assets/edition-20260916-ko/screenshots/KP16-005-simulated-recovery-completion-2.webp)
-
-**확인할 것:** 원래 response·gate·output ID로 복구했습니다. 결정은 명시적 모의 입력이며 human_authorization은 not-granted입니다. 실제 승인이나 Azure crash 검증이 아닙니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=336.96) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 첫 실행 이후 선택 분기
 
 <details>

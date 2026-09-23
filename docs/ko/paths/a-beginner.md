@@ -8,7 +8,7 @@
 ## 먼저 준비하기
 
 [설정 카드](../setup.md)를 채우고 국문 학습자 ZIP의 `START-HERE.txt`를 엽니다.
-준비된 **gpt-5.6-luna** 배포와 `instructions-with-policies.txt`, `dev-questions.txt`,
+준비된 **gpt-6-sol** 배포와 `instructions-with-policies.txt`, `dev-questions.txt`,
 복사한 `assessment.csv`를 사용합니다. ZIP의 빈 `session-notes.txt`, `workflow-review.txt`,
 `operations-checklist.txt`를 쓰므로 보고서 형식을 따로 만들 필요가 없습니다.
 MAF 실습 한 번에는 학습자 계정으로 로그인된 준비 터미널이 필요합니다.

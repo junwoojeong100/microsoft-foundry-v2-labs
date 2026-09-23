@@ -2,7 +2,9 @@
 
 **English** | [한국어](ko/coverage.md)
 
-**English-first extension execution recorded — September 16, 2026.**
+**English-first extension execution — September 16, 2026 (earlier `gpt-5.6-luna` preset).**
+The September 23, 2026 `gpt-6-sol` recording re-ran only the main A/B steps of Labs 00–09 and 11; the extension
+evidence below was not re-run with `gpt-6-sol`, and the September 15–17 recordings were removed.
 This page is a coverage record, not a claim that every Foundry feature has been executed.
 The production order is English guide → English recording → English refinement → Korean guide →
 independent Korean recording → Korean refinement.
@@ -46,14 +48,11 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 
 ## Evidence that already exists
 
-[Historical English execution](live-run.md), [historical recordings](video-summary.md), and
-[validation scope](reference/validation.md) retain their original dates, code versions and results.
-The September 15 artifacts are not relabeled as executions of the new modules.
-See [the September 16 English extension results](edition-results.md) for exact successes and limitations.
-The [new English extension videos](edition-videos.md) have completed source-frame and local playback checks.
-The independent [Korean recordings](ko/edition-videos.md) now contain 172 actions and 516 captures.
-All six extension videos now have verified private GitHub bytes, native playback and completed chapter seeks.
-This publication check remains distinct from the workflow's actual execution and quality gate.
+The [September 23 `gpt-6-sol` execution](live-run.md), its [recordings](video-summary.md) and the
+[validation scope](reference/validation.md) keep their own dates, code versions and results.
+The September 23 recording is not relabeled as an execution of the extension modules.
+The September 16 extension results and videos (earlier `gpt-5.6-luna` preset) were removed from the working tree;
+the dated outcomes in the table above remain historical notes, not evidence for `gpt-6-sol`.
 
 New evidence must identify the language, source commit/package, actual model and agent version,
 question/dataset/corpus/evaluator hashes, all responses and failures, and resource cleanup state.

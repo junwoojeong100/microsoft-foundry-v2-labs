@@ -125,14 +125,6 @@ helper는 v2 절차가 요구하는 JSON schema를 명시적으로 제공하고 
 저장된 Skill 내용을 몰래 바꾸지 않습니다. 실제 `load_skill`과 정책 도구 사용이 필요하며
 script 실행이나 실패 뒤의 유창한 답변만으로 완료되지 않습니다.
 
-<!-- edition-checkpoint:KP13-009-actual-korean-skill-load -->
-
-![실제 국문 촬영: 국문 MAF 요청에서 실제 Skill 로드·도구 발견·원문 검색 확인](../../../assets/edition-20260916-ko/screenshots/KP13-009-actual-korean-skill-load-2.webp)
-
-**확인할 것:** 국문 Skill v1과 Toolbox v4에서 실제 load_skill → tool_search → call_tool을 확인했습니다. 목록 조회만으로 실행 성공을 판단하지 않습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=127.80) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 6. 공개와 정리
 
 검증한 버전·Skill ID와 `outputs/toolbox-runs/skilled-policy-answer/`를 보관합니다.

@@ -94,14 +94,6 @@ workshop gate에서 실패했습니다. 원래 HTTP200/CLI exit 0 뒤에도 SSE�
 네트워크 제어는 별도 승인된 allow/deny 목적지 테스트가 필요합니다.
 공유망을 수정하거나 준비되지 않은 사설망을 검증했다고 표시하지 않습니다.
 
-<!-- edition-checkpoint:KP21-008-no-matched-tool-not-guardrail -->
-
-![실제 국문 촬영: 원래 Tool Search의 no-match 오류를 확인·안전 제어 차단으로 오인하지 않음](../../../assets/edition-20260916-ko/screenshots/KP21-008-no-matched-tool-not-guardrail-2.webp)
-
-**확인할 것:** D01은 완료됐지만 D06은 Tool Search의 No tools matched 오류로 failed였습니다. CLI exit 0도 성공이 아니며 이를 platform guardrail 차단으로 주장하지 않습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=592.00) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 6. 선택: AI red teaming
 
 <details>

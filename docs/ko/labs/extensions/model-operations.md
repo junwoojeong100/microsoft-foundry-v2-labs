@@ -18,19 +18,6 @@ deployment/model/version, project/API, prompt, corpus, retrieval, 출력 제한�
 원래 run 폴더를 유지하고 Router를 고정 모델 baseline으로 사용하지 않습니다.
 다른 언어 결과도 재사용하지 않습니다. 이 실습은 모델 생성이나 quota 증액을 하지 않습니다.
 
-<details>
-<summary>과거 설정 확인 화면 — 모델 이전·Router 비교를 녹화한 근거가 아닙니다</summary>
-
-<!-- edition-checkpoint:KP24-001-fixed-model-and-scoped-role-readback -->
-
-![실제 국문 촬영: 모델·버전과 제한된 역할 조건만 읽기·새 배포 없음](../../../assets/edition-20260916-ko/screenshots/KP24-001-fixed-model-and-scoped-role-readback-2.webp)
-
-**확인할 것:** 모델과 실제 버전을 읽었으며 새 응답 모델을 만들지 않았습니다. 별도 승인한 임시 Optimizer 모델은 두 실험 뒤 정리했습니다. Router 이전이나 모델 우열 검증은 아닙니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=622.92) · [전체 액션과 실패](../../edition-actions.md)
-
-</details>
-
 ## 2. 저장된 설정을 바꾸지 않고 두 번째 모델 확인
 
 `.env`는 그대로 둡니다. 카탈로그 모델 이름이 아니라 승인된 두 번째 **배포 이름**을 입력합니다.

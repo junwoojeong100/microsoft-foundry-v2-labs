@@ -21,7 +21,7 @@ Lab 00에서 소스 복사본의 빈 양식으로 **`outputs/learner-notes-ko/`*
 다음 요청 전에 각 **저장** 지점에서 파일을 열고, 사람의 검토는 별도로 작성합니다.
 [Lab 11의 파일 목록](../labs/11-capstone.md#b-evidence)에 인계할 전체 항목이 있습니다.
 
-**첫 회차의 선택은 정해져 있습니다:** Luna, 입문 MAF 세 패턴, Lab 06의 GA Search/IQ,
+**첫 회차의 선택은 정해져 있습니다:** `gpt-6-sol`, 입문 MAF 세 패턴, Lab 06의 GA Search/IQ,
 Lab 07의 **로컬 검색 + 실제 Azure 모델**, Lab 08의 **패키징만**입니다.
 Lab 06의 검색 학습 뒤 Lab 07의 명시된 로컬 실험으로 이동하는 것이며 IQ 오류 뒤의 자동 대체가 아닙니다.
 File Search·hybrid/Preview IQ·cloud judge·로컬 Hosted 서버·원격 배포는 기본 단계가 아닙니다.

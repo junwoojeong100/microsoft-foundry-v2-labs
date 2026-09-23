@@ -250,7 +250,7 @@ def parser() -> argparse.ArgumentParser:
     seed.add_argument("--confirm-create", action="store_true")
     iq_chat = commands.add_parser(
         "iq-chat",
-        help="Fixed Luna + Search managed identity preset; separate from model-free GA retrieval.",
+        help="Fixed gpt-5.6-luna + Search managed identity preset; separate from model-free GA retrieval.",
     )
     iq_actions = iq_chat.add_subparsers(dest="iq_chat_action", required=True)
     iq_actions.add_parser(

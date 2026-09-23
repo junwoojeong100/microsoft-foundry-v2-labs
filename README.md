@@ -52,13 +52,15 @@ Follow the **[beginner or practitioner guide](docs/paths.md)**. Each lab places 
 images and a **What to check** explanation beside the relevant action or command.
 Read [how to use the screenshots](docs/labs/00-start.md#how-to-read-this-guide) first.
 
-**[Foundational English recordings — September 15](docs/video-summary.md)** ·
-[New action/capture index](docs/action-captures.md) · [Actual results and limitations](docs/live-run.md)
+**September 23 `gpt-6-sol` recordings:** [English videos](docs/video-summary.md) ·
+[Action/capture index](docs/action-captures.md) · [Chapters](docs/video-chapters.md) ·
+[Actual results and limitations](docs/live-run.md)
 
-The September 15 English set contains **172 actions, 516 lossless captures, and three videos**:
-**13:53 combined**, 7:47 CLI, and 5:42 portal.
-All six foundational English/Korean videos are hosted on GitHub and verified for playback.
-Sign in with an account that can access this private repository.
+The English set contains **69 actions, 207 lossless captures, and three videos**: **4:36 in guide order**,
+2:30 CLI and 1:43 portal. It covers the main A (portal) and B (CLI) steps of Labs 00–09 and 11 with
+`gpt-6-sol` / `2026-09-22` in a new Sweden Central project ([model choice](docs/reference/model-choice.md)).
+Local playback and chapter seeks are verified; the videos were not uploaded to GitHub.
+Play them with `python scripts/play_recordings.py --edition en`. Earlier `gpt-5.6-luna` recordings were removed.
 
 English uses **separate English instructions, synthetic policies, dev/calibration/holdout datasets, and fixtures**.
 Select them explicitly with `--language en`; original Korean files remain unchanged.
@@ -74,12 +76,9 @@ The labs, Python code, synthetic policies, evaluation data, and instructor guide
 
 **September 16 English-first expansion:** [A — Beginner](docs/paths/a-beginner.md) ·
 [B — Implementation](docs/paths/b-practitioner.md) · [C — Advanced modules](docs/paths/c-advanced.md).
-Use the [capability/evidence record](docs/coverage.md) to distinguish existing labs, new executable modules,
-actual Azure verification and recordings. New modules are not considered recorded merely because the earlier videos play.
-The [September 16 extension results](docs/edition-results.md) report the new English experiments
-separately, including their failures and unverified boundaries.
-[New English extension recordings](docs/edition-videos.md) provide a **13:21 module-ordered walkthrough**,
-166 actions and 496 lossless captures; publication status is stated on that page.
+Use the [capability/evidence record](docs/coverage.md) to distinguish existing labs, executable modules
+and actual Azure verification. The extension modules were exercised on September 16, 2026 with the earlier
+`gpt-5.6-luna` preset; they were not re-run or re-recorded with `gpt-6-sol`, and their recordings were removed.
 
 </details>
 
@@ -141,8 +140,10 @@ existing runs are not overwritten.
 
 - Current Foundry and Projects SDK **2.x**; no mixing with classic threads/runs code.
 - **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded.
-- The first-pass preset is **`gpt-5.6-luna`**, deployed with that exact name, model version **`2026-07-09`**.
-  The optional IQ Chat path checks that model and Search managed identity before use; other models belong to explicit comparison experiments.
+- The first-pass preset is **`gpt-6-sol`**, deployed with that exact name, model version **`2026-09-22`**
+  (September 23, 2026; [why this model](docs/reference/model-choice.md)).
+  The optional IQ Chat path keeps its own `gpt-5.6-luna` deployment because Search knowledge bases accepted no GPT-6 model;
+  other models belong to explicit comparison experiments.
 - Service GA and SDK Preview are separate. The Hosted Agent service is GA, while this
   edition's Python hosting package is prerelease. Foundry IQ GA and richer Preview contracts are distinct.
 - Model replacement, instruction improvement, and accumulating evaluation evidence are included.

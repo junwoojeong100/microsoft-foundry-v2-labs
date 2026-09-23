@@ -164,14 +164,6 @@ it does not repeat inference.
 The package rejects different project/model/Toolbox/connection values instead of selecting an alternative at runtime.
 A Toolbox upstream connection/index can still change; freeze those assets and inspect returned evidence separately.
 
-<!-- edition-checkpoint:EP25-017-verified-http-and-sse -->
-
-![Recorded English checkpoint: Verify both HTTP and completed SSE plus exact runtime lineage from the original remote request](../../assets/edition-20260916-en/screenshots/EP25-017-verified-http-and-sse-2.webp)
-
-**What to check:** The actual completed stream matches agent v2, Toolbox v4, Skill v1 and the frozen package. The failed v1 attempt remains separate. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=775.12) · [All actions and failures](../../edition-actions.md)
-
 ## 6. Finish without breaking shared tools
 
 Use [owned-session cleanup](../../reference/cleanup.md) for this new Hosted agent.

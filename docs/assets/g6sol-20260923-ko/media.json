@@ -1,0 +1,174 @@
+{
+  "recorded_on": "2026-09-23",
+  "edition": "ko",
+  "edition_id": "g6sol-20260923",
+  "default_video": "guide-ordered.mp4",
+  "recording_dates": [
+    "2026-09-23"
+  ],
+  "recording_timezone": "Asia/Seoul",
+  "videos": [
+    {
+      "filename": "cli-edited.mp4",
+      "bytes": 9383632,
+      "sha256": "70b028dd6882b0a3e7c791cabd07790da62ef56effe4da41d73be9226cf4654a",
+      "duration_seconds": 147.8,
+      "frames": 3695,
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "bytes": 5668393,
+      "sha256": "8626c6eb82c90ae2ed81ba863933c671a7ebd6044c6a2eaef0cf5b93a748f327",
+      "duration_seconds": 103.08,
+      "frames": 2577,
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true
+    },
+    {
+      "filename": "guide-ordered.mp4",
+      "bytes": 15278337,
+      "sha256": "12866bd60ad7efb3aa6e44e54bc47b91ed108abd16c13061e4013b30980044d2",
+      "duration_seconds": 272.88,
+      "frames": 6822,
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true,
+      "chapters": [
+        {
+          "id": "lab-00",
+          "lab": 0,
+          "title": "Lab 00 · 시작하기",
+          "start_seconds": 0.0,
+          "end_seconds": 39.04
+        },
+        {
+          "id": "lab-01",
+          "lab": 1,
+          "title": "Lab 01 · Foundry와 프로젝트",
+          "start_seconds": 39.04,
+          "end_seconds": 44.12
+        },
+        {
+          "id": "lab-02",
+          "lab": 2,
+          "title": "Lab 02 · 모델: Playground와 SDK",
+          "start_seconds": 44.12,
+          "end_seconds": 84.04
+        },
+        {
+          "id": "lab-03",
+          "lab": 3,
+          "title": "Lab 03 · 첫 에이전트",
+          "start_seconds": 84.04,
+          "end_seconds": 128.6
+        },
+        {
+          "id": "lab-04",
+          "lab": 4,
+          "title": "Lab 04 · MAF와 도구",
+          "start_seconds": 128.6,
+          "end_seconds": 142.44
+        },
+        {
+          "id": "lab-05",
+          "lab": 5,
+          "title": "Lab 05 · MAF 워크플로",
+          "start_seconds": 142.44,
+          "end_seconds": 160.12
+        },
+        {
+          "id": "lab-06",
+          "lab": 6,
+          "title": "Lab 06 · RAG와 Foundry IQ",
+          "start_seconds": 160.12,
+          "end_seconds": 185.2
+        },
+        {
+          "id": "lab-07",
+          "lab": 7,
+          "title": "Lab 07 · 평가와 학습",
+          "start_seconds": 185.2,
+          "end_seconds": 244.16
+        },
+        {
+          "id": "lab-08",
+          "lab": 8,
+          "title": "Lab 08 · Hosted Agent: 패키징",
+          "start_seconds": 244.16,
+          "end_seconds": 249.56
+        },
+        {
+          "id": "lab-09",
+          "lab": 9,
+          "title": "Lab 09 · 운영과 정리",
+          "start_seconds": 249.56,
+          "end_seconds": 266.48
+        },
+        {
+          "id": "lab-11",
+          "lab": 11,
+          "title": "Lab 11 · 최종 인계",
+          "start_seconds": 266.48,
+          "end_seconds": 272.88
+        }
+      ]
+    }
+  ],
+  "actions": 69,
+  "source_recordings": [
+    {
+      "id": "terminal",
+      "sha256": "4223dd0487f128ad2a98a1e3366de737b747c62cfb7d3c339b16de715dd35727",
+      "bytes": 35535241,
+      "frames": 13790,
+      "duration_seconds": 551.6,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "portal",
+      "sha256": "4361d3353da6492b1067d6384e816b1a172e9ec9d305625c16bab4c65ebf34cb",
+      "bytes": 21574561,
+      "frames": 7981,
+      "duration_seconds": 319.24,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "authentication_recorded": false,
+  "original_korean_assets_preserved": true,
+  "authentication_excluded_from_published_media": true,
+  "authentication_exclusions": [],
+  "translated_english_assets": false,
+  "independent_language_capture": true,
+  "new_azure_execution": true,
+  "all_failures_retained_in_private_source": true,
+  "includes_explicit_local_simulation": false,
+  "model_preset": {
+    "deployment": "gpt-6-sol",
+    "model": "gpt-6-sol",
+    "version": "2026-09-22",
+    "judge_deployment": "gpt-6-sol-judge"
+  },
+  "upstream_results_reused_as_this_edition": false,
+  "source_frame_verification": {
+    "segments": 176,
+    "minimum_ssim": 0.992221
+  },
+  "screenshot_count": 207
+}

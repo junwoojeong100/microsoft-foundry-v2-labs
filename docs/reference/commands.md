@@ -122,7 +122,7 @@ Every family's own `--help` and linked lab specify its required values and creat
 | Family | Purpose / boundary | Complete guide |
 |---|---|---|
 | `prompt-agent` | Create/invoke a separately versioned managed agent, not the local MAF agent | [Lab 03 SDK branch](../labs/03-prompt-agent.md) |
-| `iq-chat` | Fixed Luna/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup.md#4-environment-owner-checklist) |
+| `iq-chat` | Fixed `gpt-5.6-luna`/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup.md#4-environment-owner-checklist) |
 | `workflow-agent` / `runtime-contract` | Validated workflow output / local frozen profile and hashes | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | Version-pinned Hosted smoke, matrices, evaluation, traces and acceptance | [Evaluation workbook](evaluation-workbook.md) |
 | `cloud-evaluate` / `calibrate-judge` | Billable native judges on recorded responses / separate calibration fixtures | [Lab 07](../labs/07-evaluation.md), [workbook](evaluation-workbook.md) |

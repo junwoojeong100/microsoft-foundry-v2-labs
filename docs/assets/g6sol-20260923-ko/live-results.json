@@ -1,0 +1,285 @@
+{
+ "schema_version": 1,
+ "series": "gpt-6-sol",
+ "edition_id": "g6sol-20260923",
+ "language": "ko",
+ "recorded_on": "2026-09-23",
+ "holdout_used_for_development": false,
+ "production_approval": false,
+ "base_commit": "47f3b492d5146d8050faf303b4060db2dfc75185",
+ "source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+ "environment": {
+  "region": "swedencentral",
+  "resource_group": "rg-mfv2-g6luna-swc-20260923",
+  "account": "ai-mfv2-g6luna-swc-20260923",
+  "project": "mfv2-g6luna-20260923",
+  "resource_names_note": "Resource names keep the original g6luna label; the answer and judge deployments are gpt-6-sol.",
+  "new_for_this_edition": true,
+  "local_auth_disabled": true
+ },
+ "deployments": [
+  {
+   "name": "gpt-6-sol",
+   "model": "gpt-6-sol",
+   "version": "2026-09-22",
+   "sku": "DataZoneStandard",
+   "capacity_k_tpm": 150,
+   "version_upgrade": "NoAutoUpgrade",
+   "role": "answer"
+  },
+  {
+   "name": "gpt-6-sol-judge",
+   "model": "gpt-6-sol",
+   "version": "2026-09-22",
+   "sku": "DataZoneStandard",
+   "capacity_k_tpm": 100,
+   "version_upgrade": "NoAutoUpgrade",
+   "role": "cloud-judge"
+  }
+ ],
+ "portal_created_deployment": {
+  "name": "text-embedding-3-large",
+  "sku": "Standard",
+  "capacity_k_tpm": 110,
+  "created_with_first_portal_agent": true,
+  "note": "Created by the Foundry portal when the first agent playground opened; not used by the recorded labs."
+ },
+ "prefix": "mfv2-sol-20260923-ko",
+ "actions": {
+  "total": 69,
+  "failed": [],
+  "nonzero_exit": [],
+  "skipped": [
+   {
+    "id": "K07-003-feedback",
+    "reason": "The actual baseline had no failed case to harvest."
+   }
+  ]
+ },
+ "cli": {
+  "model_response_model": "gpt-6-sol",
+  "structured_answer": {
+   "answer": "2026년 9월 국내 출장 숙박비 한도는 1인 1박 150,000원입니다. 정산에는 영수증이 필요하며, 한도를 초과하는 숙소는 예약 전에 팀장의 명시적 사전 승인을 받아야 합니다.",
+   "decision": "answer",
+   "limit_krw": 150000,
+   "citations": [
+    "TRAVEL-2026",
+    "RECEIPT-01",
+    "APPROVAL-01"
+   ]
+  },
+  "maf": {
+   "none": "none",
+   "function": "function",
+   "mcp": "local-mcp"
+  },
+  "workflows": {
+   "sequential": "sequential",
+   "concurrent": "concurrent",
+   "group-chat": "group-chat"
+  },
+  "retrieval_source_ids": {
+   "local": [
+    "APPROVAL-01",
+    "MEAL-01",
+    "RECEIPT-01",
+    "SCOPE-01",
+    "TRAVEL-2025",
+    "TRAVEL-2026"
+   ],
+   "search": [
+    "APPROVAL-01",
+    "MEAL-01",
+    "RECEIPT-01",
+    "SCOPE-01",
+    "TRAVEL-2025",
+    "TRAVEL-2026"
+   ],
+   "foundry_iq": [
+    "APPROVAL-01",
+    "TRAVEL-2025",
+    "TRAVEL-2026"
+   ]
+  },
+  "iq_answer": {
+   "knowledge_base": "mfv2-sol-20260923-ko-kb",
+   "api_version": "2026-04-01",
+   "retrieved_source_ids": [
+    "APPROVAL-01",
+    "RECEIPT-01",
+    "TRAVEL-2025",
+    "TRAVEL-2026"
+   ],
+   "decision": "needs_approval",
+   "limit_krw": 150000,
+   "citations": [
+    "TRAVEL-2026",
+    "APPROVAL-01",
+    "RECEIPT-01"
+   ],
+   "response_model": "gpt-6-sol"
+  },
+  "search_objects": [
+   "indexes/mfv2-sol-20260923-ko-policies",
+   "knowledgesources('mfv2-sol-20260923-ko-source')",
+   "knowledgebases('mfv2-sol-20260923-ko-kb')"
+  ],
+  "hosted": "packaged only; no deployment",
+  "cleanup": "inventory only; nothing deleted"
+ },
+ "portal": {
+  "agent": "mfv2-sol-20260923-ko-policy",
+  "agent_version_saved": 2,
+  "sdk_agent": "mfv2-sol-20260923-ko-policy-sdk",
+  "sdk_agent_version": 1,
+  "playground_answers": 2,
+  "lab03_cases_answered": [
+   "D01",
+   "D02",
+   "D03",
+   "D05"
+  ],
+  "lab07_cases_answered": [
+   "D01",
+   "D02",
+   "D03",
+   "D04",
+   "D05",
+   "D06"
+  ],
+  "portal_answers_evaluated": false,
+  "note": "Portal answers were captured as screens; they are not scored rows."
+ },
+ "cohorts": [
+  {
+   "label": "baseline",
+   "split": "dev",
+   "prompt_version": "v1",
+   "retrieval": "local",
+   "deployment": "gpt-6-sol",
+   "observed_models": [
+    "gpt-6-sol"
+   ],
+   "run_id": "9e580bed-b058-4aaf-a18c-175eb09b6b2d",
+   "rows": 6,
+   "expected_rows": 6,
+   "errors": 0,
+   "business_passed": 6,
+   "business_failed": 0,
+   "median_latency_seconds": 3.005,
+   "frozen_candidate_run_id": null,
+   "dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
+   "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+   "code_hash": "466558728a75693c723a40b753291af3d2303b240525027368cee4cf9eea895d",
+   "prompt_hash": "fb6e5f43288e2aa5d6a6c719a46f568783d7df13847d273228c788910d1e3516",
+   "responses_hash": "7db267763206633a75c572e9355a03d61b7bcc57037a189c5dd6d09d588c351c",
+   "business_report_sha256": "e9a2531cd0a10ae9719725a7b1dc6eab886ba864a2fc24f002b217ab5cdb3b70"
+  },
+  {
+   "label": "candidate",
+   "split": "dev",
+   "prompt_version": "v2",
+   "retrieval": "local",
+   "deployment": "gpt-6-sol",
+   "observed_models": [
+    "gpt-6-sol"
+   ],
+   "run_id": "edfc93ff-e95e-4923-9f8a-82cb8d710699",
+   "rows": 6,
+   "expected_rows": 6,
+   "errors": 0,
+   "business_passed": 6,
+   "business_failed": 0,
+   "median_latency_seconds": 2.667,
+   "frozen_candidate_run_id": null,
+   "dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
+   "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+   "code_hash": "466558728a75693c723a40b753291af3d2303b240525027368cee4cf9eea895d",
+   "prompt_hash": "2b4a2b5e322a85349559fd55436521edf29334b8e69556bfbb4b43239edb9e25",
+   "responses_hash": "3d16a909e84f16e6029d7a9f44033f5b7b4a46c458966c963d94e493629b3320",
+   "business_report_sha256": "2c36ca87b033d2458db205e9156c5df482ccd555371ae364c64705aafd3fccea"
+  },
+  {
+   "label": "final-holdout",
+   "split": "holdout",
+   "prompt_version": "v2",
+   "retrieval": "local",
+   "deployment": "gpt-6-sol",
+   "observed_models": [
+    "gpt-6-sol"
+   ],
+   "run_id": "dd5125d8-5427-4aaf-9ea5-bae14cac2e82",
+   "rows": 4,
+   "expected_rows": 4,
+   "errors": 0,
+   "business_passed": 4,
+   "business_failed": 0,
+   "median_latency_seconds": 2.86,
+   "frozen_candidate_run_id": "edfc93ff-e95e-4923-9f8a-82cb8d710699",
+   "dataset_hash": "9d478d727527064c78985201052e86a94eaeb551327d19f29b83cc23e5c53e9c",
+   "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+   "code_hash": "466558728a75693c723a40b753291af3d2303b240525027368cee4cf9eea895d",
+   "prompt_hash": "2b4a2b5e322a85349559fd55436521edf29334b8e69556bfbb4b43239edb9e25",
+   "responses_hash": "d3cb72bb228d96afb0683d401c018e36a7c25277cb65b92bc82eebac2b037036",
+   "business_report_sha256": "e5f6b82c15fd5bf5cf91f8893a671bbbce5f1fa521ceb88c4aa30e5da89dd667"
+  }
+ ],
+ "comparison": {
+  "variable": "prompt",
+  "baseline": "baseline",
+  "candidate": "candidate"
+ },
+ "acceptance": {
+  "recommendation": "ready-for-human-review",
+  "business_gate_passed": true,
+  "deployment_approved": false,
+  "cloud_judge_results_included": false
+ },
+ "cloud_judge": {
+  "source_cohort": "candidate",
+  "source_run_id": "edfc93ff-e95e-4923-9f8a-82cb8d710699",
+  "judge_deployment": "gpt-6-sol-judge",
+  "evaluation_id": "eval_dcf423a3bfc543b4be4302bd768bdbc0",
+  "run_id": "evalrun_4867d27cfee6416d85fd8205b07ebefc",
+  "status": "completed",
+  "validation_status": "valid",
+  "rows": 6,
+  "evaluators": {
+   "groundedness": {
+    "passed": 6,
+    "failed": 0,
+    "errored": 0,
+    "skipped": 0
+   },
+   "relevance": {
+    "passed": 5,
+    "failed": 1,
+    "errored": 0,
+    "skipped": 0
+   }
+  },
+  "failed_cases": {
+   "relevance": [
+    {
+     "case_id": "D05",
+     "score": 2.0
+    }
+   ]
+  },
+  "input_hash": "13c236a677a9c5fab124bb007aebe4b23fd9b70c667618e6430c2c266b15b1af",
+  "dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
+  "evaluator_hash": "a0e7f44a59d34f755ea7f45fc9be5b4a464fa8db3ab60a19c9b365e41636a16c",
+  "results_hash": "7f24c791f13c23dcb4bb622c2915a14d567526fe2d6055cfad818bb5c9e0b880",
+  "included_in_acceptance": false
+ },
+ "not_run": [
+  "Lab 03 portal File Search",
+  "Lab 06 IQ Chat preset (gpt-5.6-luna) and hybrid RAG",
+  "Lab 07 feedback/regression step (no baseline failure)",
+  "Lab 07 Hosted model matrix",
+  "Lab 08 local server and Hosted deployment",
+  "Lab 09 server-side tracing checks and continuous evaluation",
+  "Lab 10 external IQ extensions",
+  "Extension modules"
+ ]
+}

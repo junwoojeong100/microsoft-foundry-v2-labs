@@ -1,20 +1,21 @@
-# 새 국문 영상 챕터
+# gpt-6-sol 영상 챕터
 
 [English](../video-chapters.md) | **한국어**
 
-| Lab | 시작 / Start | 챕터 / Chapter |
-|---|---:|---|
-| 00 | [00:00](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=0.00) | Lab 00 · 시작과 실습 환경 |
-| 01 | [00:26](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=25.84) | Lab 01 · 프로젝트·모델·권한 |
-| 02 | [00:48](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=47.52) | Lab 02 · 실제 모델 요청 |
-| 03 | [01:50](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=110.44) | Lab 03 · 에이전트와 원문 |
-| 04 | [03:01](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=180.64) | Lab 04 · MAF 함수와 MCP |
-| 05 | [03:15](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=195.04) | Lab 05 · MAF 워크플로 |
-| 06 | [03:45](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=225.48) | Lab 06 · Search·IQ·실제 hybrid |
-| 07 | [05:21](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=321.44) | Lab 07 · 평가·calibration·holdout |
-| 08 | [12:09](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=728.80) | Lab 08 · Workflow Hosted 배포 |
-| 09 | [13:27](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=807.36) | Lab 09 · Trace·Monitor·정리 |
-| 10 | [14:53](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=893.04) | Lab 10 · 선택 기능의 경계 |
-| 11 | [14:59](https://github.com/user-attachments/assets/79604cf7-4f7a-4298-a6f2-5d4ff7c952dc#t=899.44) | Lab 11 · 최종 인수와 결과 |
+로컬 통합본(04:32)의 챕터입니다. Lab 10은 이번 녹화에 포함하지 않았습니다.
 
-[영상 / Videos](video-summary.md) · [전체 액션 / All actions](action-captures.md)
+| Lab | 시작 | 챕터 |
+|---|---:|---|
+| 00 | [00:00](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=0.00) | Lab 00 · 시작하기 |
+| 01 | [00:39](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=39.04) | Lab 01 · Foundry와 프로젝트 |
+| 02 | [00:44](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=44.12) | Lab 02 · 모델: Playground와 SDK |
+| 03 | [01:24](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=84.04) | Lab 03 · 첫 에이전트 |
+| 04 | [02:08](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=128.60) | Lab 04 · MAF와 도구 |
+| 05 | [02:22](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=142.44) | Lab 05 · MAF 워크플로 |
+| 06 | [02:40](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=160.12) | Lab 06 · RAG와 Foundry IQ |
+| 07 | [03:05](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=185.20) | Lab 07 · 평가와 학습 |
+| 08 | [04:04](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=244.16) | Lab 08 · Hosted Agent: 패키징 |
+| 09 | [04:09](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=249.56) | Lab 09 · 운영과 정리 |
+| 11 | [04:26](../assets/g6sol-20260923-ko/guide-ordered.mp4#t=266.48) | Lab 11 · 최종 인계 |
+
+[영상](video-summary.md) · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

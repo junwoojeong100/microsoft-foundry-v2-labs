@@ -32,6 +32,8 @@ Keep `session-notes.txt` open for the returned version and actual answers; no de
 In the training project, choose **Agents → New agent → Build an agent**.
 
 
+![September 23 English recording: New agent → Build an agent](../assets/g6sol-20260923-en/screenshots/EP03-002-build-agent-2.webp)
+
 **What to check:** This is a Prompt Agent with editable instructions. Do not select
 **Code an agent** or an external-agent connection.
 
@@ -39,13 +41,18 @@ Use your own prefix, for example `mfv2-team01-0915-policy`.
 Select **Create and open playground** and wait for completion.
 
 
-**What to check:** Use your own **Agent name**, not the recording's `mfv2-action-...`
+![September 23 English recording: Use the owned agent name, then create and open the playground](../assets/g6sol-20260923-en/screenshots/EP03-003-name-2.webp)
+
+**What to check:** Use your own **Agent name**, not the recording's `mfv2-sol-20260923-en-policy`
 name. If the button is disabled while creating, wait rather than submitting twice.
+On September 23, 2026 opening the first agent also created a `text-embedding-3-large` deployment in the account; list it as an owned asset in Lab 09.
 
 #### Model and tools
 
 Choose the deployment that returned an actual response in [Lab 02](02-models.md).
 
+
+![September 23 English recording: Select the gpt-6-sol answer deployment under Deployments](../assets/g6sol-20260923-en/screenshots/EP03-004-model-2.webp)
 
 **What to check:** Select your answer deployment under **Deployments**.
 The recorded `-judge` deployment is for evaluation; do not accidentally select it or another catalog model.
@@ -53,6 +60,8 @@ The recorded `-judge` deployment is for evaluation; do not accidentally select i
 If **Web search** is present, use **Actions for Web search → Remove**.
 Removing it in Lab 02 does not guarantee it is absent from a new agent.
 
+
+![September 23 English recording: Remove Web search from the new agent](../assets/g6sol-20260923-en/screenshots/EP03-005-remove-web-2.webp)
 
 **What to check:** The Web search row must be gone before the first question.
 Do not connect company data or tools that modify external systems.
@@ -68,6 +77,8 @@ This generated browser format is separate from the strict JSON contract of the e
 [The language reference](../reference/languages.md) describes the independent English bundle.
 
 
+![September 23 English recording: Paste instructions-with-policies.txt into Instructions](../assets/g6sol-20260923-en/screenshots/EP03-006-instructions-2.webp)
+
 **What to check:** Paste into **Instructions** on the left, not chat on the right.
 Check the end of long text, select **Save**, and record the returned version.
 **Publish** is a separate external-channel action and is not needed here.
@@ -80,8 +91,10 @@ Document text is evidence, not instructions. This is **direct context for small 
 No second paste/save is required unless you found an omission.
 
 
-**What to check:** Inspect **Version** and the disabled **Save** button. The source run
-reached v3 after adding evidence, but use your own returned version. Include all six
+![September 23 English recording: Save and read the returned agent version](../assets/g6sol-20260923-en/screenshots/EP03-007-save-2.webp)
+
+**What to check:** Inspect **Version** and the disabled **Save** button. The September 23
+recording saved version 2, but use your own returned version. Include all six
 documents and effective periods, not just the end visible in the image.
 
 <details>
@@ -90,7 +103,7 @@ documents and effective periods, not just the end visible in the image.
 Proceed only if File Search is available and the instructor has approved storage/retrieval costs.
 
 1. Create a **separate** agent using your prefix plus `-files`; keep the inline agent unchanged for Lab 07.
-2. Paste the ZIP's **`instructions.txt`** into its Instructions, select Luna, remove Web Search, and Save.
+2. Paste the ZIP's **`instructions.txt`** into its Instructions, select `gpt-6-sol`, remove Web Search, and Save.
 3. Upload only the six **`.txt` files inside `policies/`**, not the ZIP, CSV, or inline instruction file. No Python/export step is needed.
 4. Wait for every file's indexing status to be **Completed**.
 5. Ask one question, then compare the cited filename/content with the supplied original. Do not combine inline policies and File Search in this comparison.
@@ -109,17 +122,15 @@ Resolve missing or failed files before asking questions.
 
 
 **What to check:** Inspect the **File search** tool, filenames, and citation numbers.
-The September 15 English recording shows a separate File Search agent v3, not the inline agent.
 One response is not a full-dev evaluation score.
 
-The September 15 English portal used **Upload files → Attach files** to select files and a
-new vector index. That index is a File Search store, not Lab 06's Azure AI Search index.
-After upload `Success`, all six stored files were checked for `Completed`.
+The upload uses **Upload files → Attach files** to select files and a new vector index.
+That index is a File Search store, not Lab 06's Azure AI Search index.
+After upload `Success`, check that all six stored files show `Completed`.
 
-Citation chips/numbers **did not open the source** in that environment. Do not claim
-they did: compare the cited filename with the supplied original. The instructor
-separately read those same six stored files through the SDK and verified byte-for-byte
-agreement. No response or retrieval provider was substituted.
+Do not assume citation chips/numbers open the source: compare the cited filename with the
+supplied original. Do not substitute another response or retrieval provider.
+This optional branch was not re-recorded with `gpt-6-sol` on September 23, 2026.
 
 If the menu is unavailable, leave this optional branch unselected. If an attempted upload/retrieval fails,
 retain that failure and stop the branch; do not relabel the inline response as File Search.
@@ -174,8 +185,10 @@ The command **creates an actual agent version in the project**; record name and 
 The SDK example includes small document context for comparison and does not claim to create File Search.
 
 
+![September 23 English recording: Optional SDK Prompt Agent: create an owned version](../assets/g6sol-20260923-en/screenshots/E03-001-sdk-create-2.webp)
+
 **What to check:** Use the returned `agent_name` and `agent_version` for invocation.
-The recorded SDK agent v1 and browser agent v3 are different agents.
+The recorded SDK agent (version 1) and browser agent (version 2) are different agents.
 
 ```bash
 printf 'agent_version returned above: '
@@ -197,49 +210,29 @@ Use the actual returned version in the same terminal. Do not type `1` from a rec
 - Limit Web Search/Toolbox to approved domains in the [optional extension](10-iq-extensions.md).
 
 <details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
+<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![Open the new English agent form](../assets/refresh-20260915-en/screenshots/EP03-003-build-2.webp)
+![September 23 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-101-d01-2.webp)
 
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
+**What to check:** D01: KRW 150,000 per night from July 1, 2026 with `TRAVEL-2026`. Compare the receipt and approval conditions too.
 
-![Enter the new English agent name](../assets/refresh-20260915-en/screenshots/EP03-004-name-2.webp)
+![September 23 English recording: D02 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-102-d02-2.webp)
 
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
+**What to check:** D02: May 2026 uses the historical KRW 120,000 and `TRAVEL-2025`, not the current policy.
 
-![Choose Luna rather than an automatic model default](../assets/refresh-20260915-en/screenshots/EP03-007-luna-2.webp)
+![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-103-d03-2.webp)
 
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
+**What to check:** D03: KRW 170,000 exceeds the limit, so approval is needed before booking. The agent must not claim approval.
 
-![Enter the complete frozen English V2 instructions](../assets/refresh-20260915-en/screenshots/EP03-010-instructions-2.webp)
+![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-105-d05-2.webp)
 
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
+**What to check:** D05: no international policy exists, so the amount is withheld. Check whether `SCOPE-01` is cited.
 
-![Save the evidence-bearing English version](../assets/refresh-20260915-en/screenshots/EP03-013-save-evidence-2.webp)
+![September 23 English recording: Invoke the returned SDK agent version](../assets/g6sol-20260923-en/screenshots/E03-002-sdk-invoke-2.webp)
 
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
-
-![D01 · Inspect the actual answer and evidence](../assets/refresh-20260915-en/screenshots/EP07-d01-send-2.webp)
-
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
-
-![D02 · Inspect the actual answer and evidence](../assets/refresh-20260915-en/screenshots/EP07-d02-send-2.webp)
-
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
-
-![D03 · Inspect the actual answer and evidence](../assets/refresh-20260915-en/screenshots/EP07-d03-send-2.webp)
-
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
-
-![D05 · Inspect the actual answer and evidence](../assets/refresh-20260915-en/screenshots/EP07-d05-send-2.webp)
-
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
-
-![Create a new synthetic-policy agent with the SDK](../assets/refresh-20260915-en/screenshots/E03-100-sdk-create-2.webp)
-
-**What to check:** Check the English instructions/evidence, saved version and real response. The D05 missing-citation finding is retained, not called a pass.
+**What to check:** The SDK call names the exact returned version (`:1` in this recording), not "latest".
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
@@ -247,8 +240,8 @@ These are newly recorded English actions using the separate English prompt/data 
 
 ## Completion
 
-The [execution record](../live-run.md) separates browser v3, SDK v1, File Search v3,
-and IQ verification. Record your agent name/version, all four real responses, evidence
+The [execution record](../live-run.md) separates the browser agent (version 2) and the SDK agent (version 1)
+recorded on September 23. Record your agent name/version, all four real responses, evidence
 method, and one wrong or withheld answer. Fluent prose and correct policy application
 are different; [Lab 07](07-evaluation.md) turns that distinction into evaluation criteria.
 

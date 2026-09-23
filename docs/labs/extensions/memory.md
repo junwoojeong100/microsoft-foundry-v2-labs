@@ -90,14 +90,6 @@ The model must not repeat a marker from another scope.
 An empty alpha search after writing is a finding to diagnose, not permission to fabricate recall.
 Keep the original empty result and indexing/service error before an explicitly new attempt.
 
-<!-- edition-checkpoint:EP17-108-alpha-content -->
-
-![Recorded English checkpoint: Read the actual updated alpha record after the debounced request finishes](../../assets/edition-20260916-en/screenshots/EP17-108-alpha-content-2.webp)
-
-**What to check:** The actual alpha scope contains only the updated synthetic marker/question. Selecting a partition is not authentication as a different user. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=428.40) · [All actions and failures](../../edition-actions.md)
-
 ## 5. Update the item, then forget it
 
 Change the stored study question from historical D02 to current D01:

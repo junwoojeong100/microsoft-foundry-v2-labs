@@ -66,14 +66,6 @@ If a role is added, record the exact assignment ID and resource scope so only th
 Role propagation can take time. A missing role and a stale token are different causes;
 repeated sign-in is not the default response to every 403.
 
-<!-- edition-checkpoint:EP24-004-project-search-schema -->
-
-![Recorded English checkpoint: Check the project-managed native Search path: add schema access beside its existing data-reader role](../../assets/edition-20260916-en/screenshots/EP24-004-project-search-schema-2.webp)
-
-**What to check:** This project-identity metadata role was scoped to the synthetic training Search service. It is not a subscription-wide role or a read-only permission. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=664.60) · [All actions and failures](../../edition-actions.md)
-
 ## 4. Keep network isolation separate
 
 For `PublicNetworkAccessDisabled`, private-endpoint 403 or a timeout, inspect the account's network settings.

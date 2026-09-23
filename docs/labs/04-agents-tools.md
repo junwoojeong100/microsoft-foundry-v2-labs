@@ -35,6 +35,8 @@ python scripts/workshop.py --language en maf \
 The question asks for a three-sentence explanation of Foundry versus Agent Framework.
 
 
+![September 23 English recording: MAF agent without tools](../assets/g6sol-20260923-en/screenshots/E04-001-maf-2.webp)
+
 **What to check:** Read `mode: live`, `orchestration: local`, and `tools: none`.
 Local Python owns execution, but the answer model is called in Azure.
 
@@ -80,6 +82,8 @@ sequenceDiagram
 
 
 
+![September 23 English recording: MAF with the read-only function tool](../assets/g6sol-20260923-en/screenshots/E04-002-tools-2.webp)
+
 **What to check:** Inspect `tools: function` and the nested `decision`, `limit_krw`,
 and `citations`. `needs_approval` means prior human approval is required, not granted.
 
@@ -116,6 +120,8 @@ Both tool paths receive the same answer schema and validate returned JSON.
 Inspect `decision`, `limit_krw`, and `citations`, not just fluent text.
 Do not repair invalid output and call it success.
 
+
+![September 23 English recording: MAF with the local MCP policy tool](../assets/g6sol-20260923-en/screenshots/E04-003-mcp-2.webp)
 
 **What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
 for May 2026. A function-tool response cannot stand in for an MCP execution.
@@ -155,31 +161,12 @@ Do not create real messaging or payment tools just for this exercise.
 
 </details>
 
-<details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
-
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
-
-![Run the real MAF agent](../assets/refresh-20260915-en/screenshots/E04-100-maf-2.webp)
-
-**What to check:** Read the actual command/output and distinguish no tool, the local function, and the separate MCP server.
-
-![Invoke the read-only function tool](../assets/refresh-20260915-en/screenshots/E04-101-tools-2.webp)
-
-**What to check:** Read the actual command/output and distinguish no tool, the local function, and the separate MCP server.
-
-![Use the real local MCP policy tool](../assets/refresh-20260915-en/screenshots/E04-102-mcp-2.webp)
-
-**What to check:** Read the actual command/output and distinguish no tool, the local function, and the separate MCP server.
-
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
 
 ## Completion and troubleshooting
 
-The [source execution record](../live-run.md) includes function/MCP calls and exact
-2001-character rejection. Keep all three actual outputs and explain the tool boundaries.
+The [execution record](../live-run.md) lists the September 23 function-tool and MCP calls; the optional
+2001-character rejection was not re-recorded. Keep all three actual outputs and explain the tool boundaries.
 For MCP failures, use [Troubleshooting](../reference/troubleshooting.md);
 never substitute a function-tool answer while claiming MCP success.
 

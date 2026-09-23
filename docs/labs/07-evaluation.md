@@ -99,9 +99,13 @@ Completing the assessment is not the same as passing every case or approving pro
 Continue to [Lab 09 A](09-operations.md#path-a). The commands below are a separate B experiment, not extra browser steps.
 
 
+![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-103-d03-2.webp)
+
 **What to check:** For D03, record the actual limit, approval-before-booking condition
 and cited IDs. Compare them with the criterion; do not prefill a pass.
 
+
+![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-105-d05-2.webp)
 
 **What to check:** Withholding an amount is not automatically a business failure.
 For D05, check both the explanation of missing international policy and its `SCOPE-01` citation.
@@ -152,6 +156,8 @@ Never edit actual model responses to manufacture a result.
 Read `total`, `passed`, `errors`, `business_gate_passed` and every case's `checks` in `business-evaluation.json`.
 
 
+
+![September 23 English recording: Local business checks for the baseline](../assets/g6sol-20260923-en/screenshots/E07-002-evaluate-baseline-2.webp)
 
 **What to check:** Read `completed`, `schema`, `decision`, and `required_citations`
 inside each case's `checks`. Inspect the summary and all six rows, not just the last visible case.
@@ -211,9 +217,13 @@ Do not edit JSONL responses or scores. After instruction/code changes, collect u
 a new label. Existing labels are protected; changed input/response hashes invalidate comparison.
 
 
+![September 23 English recording: Local business checks for the candidate](../assets/g6sol-20260923-en/screenshots/E07-005-evaluate-candidate-2.webp)
+
 **What to check:** Inspect the complete `business-evaluation.json`, using the same
 criteria as baseline. The last few passing rows do not establish full success.
 
+
+![September 23 English recording: Compare v1 and v2 on the same dev data and model](../assets/g6sol-20260923-en/screenshots/E07-006-compare-2.webp)
 
 **What to check:** open `outputs/candidate/comparison-vs-baseline.json` and read
 `variable: prompt`, `baseline_metrics`, `candidate_metrics` and `changed_context_cases`.
@@ -250,6 +260,8 @@ longer unused validation. Do not claim final acceptance without a new holdout.
 Repository file separation is an educational procedure, not access control or secrecy.
 `accept` exit code `1` is a rejected business gate: retain that outcome, not retries until the same holdout passes.
 
+![September 23 English recording: Acceptance handoff, not a deployment approval](../assets/g6sol-20260923-en/screenshots/E07-009-accept-2.webp)
+
 **What to check:** inspect all four cases and their candidate link, then open
 `outputs/final-holdout/acceptance.json`. Preserve `recommendation` and `deployment_approved: false`.
 The source 4/4 uses an already-exposed teaching set; it is not evidence from a newly unseen holdout.
@@ -282,9 +294,11 @@ python scripts/workshop.py --language en cloud-evaluate --label candidate --time
 results**, then inspect individual failures. Native quality and deterministic business checks are distinct.
 
 
+![September 23 English recording: Optional Foundry cloud judge with gpt-6-sol-judge](../assets/g6sol-20260923-en/screenshots/E07-010-cloud-judge-2.webp)
+
 **What to check:** Read actual native pass counts and case-level reasons.
 Review any low score on correct withholding without changing the score.
-`RUN_TOOLS` is an instructor summary helper; learners read their own native result files.
+The September 23 candidate recorded groundedness 6/6 and relevance 5/6; the relevance failure was D05's correct withholding.
 
 `data/evaluation/en/calibration.jsonl` contains two explicitly correct/incorrect examples.
 Use them in a separate evaluator experiment before production. They are not generated
@@ -335,45 +349,29 @@ Holdout is never prompt-development or regression-harvesting material.
 </details>
 
 <details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
+<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![Collect every real model-by-case response](../assets/refresh-20260915-en/screenshots/E07B-run-collect-2.webp)
+![September 23 English recording: Collect the dev baseline with v1 instructions](../assets/g6sol-20260923-en/screenshots/E07-001-baseline-2.webp)
 
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
+**What to check:** Six dev rows with v1 instructions and the same deployment. Every row keeps its response ID.
 
-![Diagnose the actual D05 evidence miss without changing the evaluator](../assets/refresh-20260915-en/screenshots/E06-040-recall-diagnostic-2.webp)
+![September 23 English recording: Use the frozen candidate once on holdout](../assets/g6sol-20260923-en/screenshots/E07-007-holdout-2.webp)
 
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
+**What to check:** The frozen candidate is used once on the four holdout rows; the manifest links the candidate run.
 
-![Collect every real model-by-case response](../assets/refresh-20260915-en/screenshots/E07R-run-collect-2.webp)
+![September 23 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-101-d01-2.webp)
 
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
+**What to check:** Portal D01 on the saved agent version. Portal answers are captured screens; assess them in your own sheet.
 
-![Inspect the new recall-controlled English baseline with the same native evaluators](../assets/refresh-20260915-en/screenshots/EP07-031-recall-native-2.webp)
+![September 23 English recording: D04 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-104-d04-2.webp)
 
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
+**What to check:** D04 asks about meals: KRW 30,000 per day from July 1, 2026 with `MEAL-01`, not the lodging limit.
 
-![Inspect the actual English V2 native results; business failures remain separate](../assets/refresh-20260915-en/screenshots/EP07-040-candidate-native-2.webp)
+![September 23 English recording: D06 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-106-d06-2.webp)
 
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
-
-![Read Astra D05 and preserve the over-broad citation finding](../assets/refresh-20260915-en/screenshots/EP07-042-astra-finding-2.webp)
-
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
-
-![Inspect the actual English judge calibration, not target-generated answers](../assets/refresh-20260915-en/screenshots/EP07-043-calibration-2.webp)
-
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
-
-![Freeze the three dev-eligible models before opening English holdout](../assets/refresh-20260915-en/screenshots/E07H-select-2.webp)
-
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
-
-![Inspect the actual 12-row English holdout for the three dev-selected models](../assets/refresh-20260915-en/screenshots/EP07-044-holdout-2.webp)
-
-**What to check:** Keep actual numerators/denominators, business checks and native findings separate. The initial 20/24, candidate 23/24 and three-model holdout selection are not hidden.
+**What to check:** D06: a KRW 200,000 hotel exceeds the limit by KRW 50,000. The answer must not claim that approval was granted.
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
@@ -381,7 +379,8 @@ These are newly recorded English actions using the separate English prompt/data 
 
 ## Completion
 
-The introductory path uses six dev/four holdout cases; the four-model Hosted path has 24/24/16 rows.
+The introductory path uses six dev/four holdout cases. The September 23 English run recorded business checks of
+6/6 (baseline), 6/6 (candidate) and 4/4 (holdout) with `gpt-6-sol`; the four-model Hosted matrix was not re-run.
 See the [actual English run](../live-run.md) for its own scores, failures, and native findings.
 Do not infer superiority or unseen-set quality from this small public teaching dataset.
 

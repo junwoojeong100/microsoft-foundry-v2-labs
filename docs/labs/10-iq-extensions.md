@@ -124,18 +124,7 @@ It uses the pinned HTTP client and does not require installing a Preview Search 
 
 </details>
 
-<details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
-
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
-
-![External Work/Fabric IQ remain separate opt-in paths](../assets/refresh-20260915-en/screenshots/E10-100-boundaries-2.webp)
-
-**What to check:** No external company, Fabric or Microsoft 365 data was queried. This is an inventory/boundary exercise, not a live connection.
-
-[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
+Lab 10 is optional and was not recorded in the September 23 `gpt-6-sol` edition. [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
 ## Finish
 

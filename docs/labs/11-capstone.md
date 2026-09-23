@@ -107,6 +107,8 @@ Do not transfer local project Responses quality scores to a different Hosted pat
 
 
 
+![September 23 English recording: Handoff: saved notes and the actual acceptance result](../assets/g6sol-20260923-en/screenshots/E11-001-handoff-2.webp)
+
 **What to check:** Read `candidate_grade`, `holdout_grade`, `business_gate_passed`,
 and `recommendation` (`ready-for-human-review` or `reject`).
 `deployment_approved: false` and `cloud_judge_results_included: false` are explicit limits, not missing approvals to bypass.
@@ -182,21 +184,6 @@ Six/four cases are workshop gates. Production adoption also requires business-ex
 policy approval, broader evaluation, threat modeling, load/recovery/access reviews,
 and service-specific SLA, price, and retention reviews.
 
-<details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
-
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
-
-![Record the actual English results, initial failure and dev-only selection](../assets/refresh-20260915-en/screenshots/E11-002-summary-2.webp)
-
-**What to check:** Read the retained initial failure, actual four-model candidate score and dev-selected three-model holdout. Human review remains separate.
-
-![Reverify actual English acceptance after cleanup and report rendering](../assets/refresh-20260915-en/screenshots/E11-010-after-cleanup-2.webp)
-
-**What to check:** Read the retained initial failure, actual four-model candidate score and dev-selected three-model holdout. Human review remains separate.
-
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
 
 Next: A → [Cleanup](../reference/cleanup.md) · B → [Cleanup](../reference/cleanup.md)

@@ -1,64 +1,73 @@
-# 새 국문 실제 실행과 평가 결과
+# gpt-6-sol 실제 실행·평가 결과 — 2026-09-23
 
 [English](../live-run.md) | **한국어**
 
-**이번 언어의 실제 Azure 실행 결과**입니다. 다른 저장소나 다른 언어의 결과를 복사하지 않았습니다.
+**2026-09-23 국문 녹화의 실제 Azure 실행 결과입니다.** 영문 실행, 이전 `gpt-5.6-luna` 판, 원본 저장소의 결과를 복사하지 않았습니다.
 
-| Cohort | Version | Rows | Errors | Business | Groundedness | Relevance | Root traces |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| ko-baseline-final | 7 | 24 | 0 | 24/24 | 24/24 | 19/24 | 24/24 |
-| ko-candidate | 8 | 24 | 0 | 24/24 | 22/24 | 20/24 | 24/24 |
-| ko-holdout | 8 | 16 | 0 | 16/16 | 16/16 | 13/16 | 16/16 |
+## 환경
 
-업무 gate와 native 점수는 다릅니다. `review-native-findings`를 운영 승인으로 처리하지 않습니다. 작은 공개 합성 dev/holdout이며 통계적 우월성·미사용 운영 검증셋을 주장하지 않습니다.
+| 항목 | 값 |
+|---|---|
+| 리전 / 프로젝트 | Sweden Central / `mfv2-g6luna-20260923` |
+| 응답 배포 | `gpt-6-sol` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 150K TPM, NoAutoUpgrade |
+| 평가 배포 | `gpt-6-sol-judge` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 100K TPM |
+| 포털이 만든 배포 | `text-embedding-3-large` Standard 110K — 첫 포털 agent를 열 때 자동 생성; 이 실습에서는 사용하지 않음 |
+| 소유 prefix | `mfv2-sol-20260923-ko` |
 
-Baseline이 모두 통과했으므로 실패를 만들거나 정답을 바꾸지 않았습니다. 회귀 승격을 강제하지 않았고 실제 소비 여부를 기록했습니다.
+리소스 이름에는 환경을 처음 만들 때의 `g6luna`가 남아 있지만 녹화에 사용한 배포는 `gpt-6-sol`입니다. 로컬 키는 비활성화했으며 모든 호출은 Microsoft Entra ID를 사용했습니다.
 
-## 실제 발견한 문제와 수정
+## Lab 07 업무 기준 평가
 
-- 전체 endpoint와 protocol 옵션의 충돌을 수정했습니다.
-- batch session query에 API version을 보존했습니다.
-- 프로젝트 embedding 404 이후 원본 실패를 보존하고 같은 account API를 명시적으로 설정했습니다.
-- App Insights 전용 audience와 고정 구독/tenant credential을 적용했습니다.
-- 이미 idle인 세션은 불필요한 stop 충돌 없이 실제 상태를 확인합니다.
+| Cohort | Split | 지침 | 행 | 오류 | 업무 기준 | 지연 중앙값 |
+|---|---|---|---:|---:|---:|---:|
+| baseline | dev | v1 | 6 | 0 | 6/6 | 3.00 s |
+| candidate | dev | v2 | 6 | 0 | 6/6 | 2.67 s |
+| final-holdout | holdout | v2 (고정) | 4 | 0 | 4/4 | 2.86 s |
 
-초기 진단용 24행은 본 비교와 분리해 보존했습니다. 모델/endpoint/provider/fixture를 오류 뒤에 자동으로 바꾸지 않습니다.
+- 실제 baseline에 실패 사례가 없어 feedback/regression 단계는 **실행하지 않았습니다.** 전 문항 통과는 그대로 기록하며 v2가 더 낫다는 증거로 쓰지 않습니다.
+- holdout 한 번 실행 전에 후보를 고정했으며 holdout을 지침 개발에 쓰지 않았습니다.
+- 인수 판단: `ready-for-human-review`, `deployment_approved: false`. 작은 공개 합성 데이터이며 운영 검증이 아닙니다.
 
-## Lineage
+## 선택 Foundry cloud judge
 
-### ko-baseline-final
+candidate dev 6행을 `gpt-6-sol-judge`로 평가했습니다. evaluation `eval_dcf423a3bfc543b4be4302bd768bdbc0`, run `evalrun_4867d27cfee6416d85fd8205b07ebefc`, 상태 `completed`.
 
-- Agent version: `7`
-- Target run: `matrix-9530742c2acd40de97a0d3cce4dc6a6a`
-- Foundry eval/run: `eval_59324eff64524d27bd35c29557101648` / `evalrun_b9cc9ae783244a7eb6396f38c5c874ae`
-- Dataset: `84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22`
-- Corpus: `3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39`
-- Runtime code: `08325304035042a9f697eaa262c355d214a62e8bf314c01e46ffaf2da977690b`
-- Responses: `af3b0ced94d6e63b12e8cfc83523f85504f1123b827a01cb333f4e497188752c`
-- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
+| Evaluator | 통과 | 실패 | 오류 |
+|---|---:|---:|---:|
+| groundedness | 6 | 0 | 0 |
+| relevance | 5 | 1 | 0 |
 
-### ko-candidate
+relevance 실패 행은 의도한 보류 사례인 **D05**(점수 2)입니다. 해외 규정이 없으므로 금액을 주지 않은 답변이 맞습니다. 올바른 보류에 낮은 relevance가 나온 것은 검토할 judge의 한계이며 금액을 지어낼 이유가 아닙니다. 점수는 바꾸지 않았고 native judge 점수는 인수 판단에 포함하지 않습니다.
 
-- Agent version: `8`
-- Target run: `matrix-36556fe3863a4247b84d7d78b21a5823`
-- Foundry eval/run: `eval_cc623f5cd1dc4c2e9a38e1cb09a210e2` / `evalrun_a6c99fd13c66435cb14ecebd8364a75f`
-- Dataset: `84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22`
-- Corpus: `3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39`
-- Runtime code: `08325304035042a9f697eaa262c355d214a62e8bf314c01e46ffaf2da977690b`
-- Responses: `9e8d331112b7b0dbd6ee677f44a1eaddd6e662913c4afd01e14d70b0fcc0eaba`
-- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
+## 그 밖의 실제 결과
 
-### ko-holdout
+- **Lab 02:** 첫 SDK 요청은 `response_model: gpt-6-sol`, 검증된 구조화 답변은 `TRAVEL-2026`, `RECEIPT-01`, `APPROVAL-01`을 인용했습니다.
+- **Lab 03:** 포털 agent `mfv2-sol-20260923-ko-policy`는 버전 2로 저장했고 답변은 화면으로만 기록했습니다(점수 아님). SDK agent `mfv2-sol-20260923-ko-policy-sdk` 버전 1을 생성·호출했습니다.
+- **Lab 04–05:** `tools: none`·`function`·`local-mcp` MAF 실행과 sequential·concurrent·group-chat workflow가 모두 종료 코드 0으로 끝났습니다.
+- **Lab 06:** 합성 정책 6개로 로컬·Search·GA IQ 검색을 실행했습니다. IQ 근거 답변은 `APPROVAL-01`, `RECEIPT-01`, `TRAVEL-2025`, `TRAVEL-2026`을 검색해 `TRAVEL-2026`, `APPROVAL-01`, `RECEIPT-01`을 인용했습니다(`needs_approval`, 150,000원).
+- **Lab 08–09:** 패키징만(Hosted 배포 없음), 정리 목록만(삭제 없음) 실행했습니다.
 
-- Agent version: `8`
-- Target run: `matrix-9794a3a0b3e84471b1fe95d8c32398e1`
-- Foundry eval/run: `eval_9d62c3804cb748aca4a85d52cf648b76` / `evalrun_3932c6e8aefd4afab33240b55f64154a`
-- Dataset: `9d478d727527064c78985201052e86a94eaeb551327d19f29b83cc23e5c53e9c`
-- Corpus: `3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39`
-- Runtime code: `08325304035042a9f697eaa262c355d214a62e8bf314c01e46ffaf2da977690b`
-- Responses: `065059c0cc2e85f5b66b947a66c8a2f764b7054bcdaa9e34e21548b102d597cf`
-- Evaluator: `841f69a07fb66f5d05d27f8175b016ec9d923759b62e49abd71f8f1c289f328e`
+## 계보
 
-현재 원본 응답·native output·실패·trace 조회·cleanup receipt는 실행 이력으로 보존합니다. 세션 중지는 파일·모델·Search·로그 비용이 모두 삭제됨을 의미하지 않습니다.
+- base commit `47f3b492d5146d8050faf303b4060db2dfc75185`, 작업 트리 source hash `40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99`
+- `baseline` run `9e580bed-b058-4aaf-a18c-175eb09b6b2d`: dataset `84e2b286e92e73f3…`, corpus `3556faa7cb0099cf…`, code `466558728a75693c…`, prompt `fb6e5f43288e2aa5…`, responses `7db267763206633a…`
+- `candidate` run `edfc93ff-e95e-4923-9f8a-82cb8d710699`: dataset `84e2b286e92e73f3…`, corpus `3556faa7cb0099cf…`, code `466558728a75693c…`, prompt `2b4a2b5e322a8534…`, responses `3d16a909e84f16e6…`
+- `final-holdout` run `dd5125d8-5427-4aaf-9ea5-bae14cac2e82`: dataset `9d478d727527064c…`, corpus `3556faa7cb0099cf…`, code `466558728a75693c…`, prompt `2b4a2b5e322a8534…`, responses `d3cb72bb228d96af…`
+- cloud judge: input `13c236a677a9c5fa…`, evaluator `a0e7f44a59d34f75…`, results `7f24c791f13c23dc…`
 
-[새 촬영본 / Recordings](video-summary.md) · [인수 기준 / Acceptance](reference/consolidation.md)
+전체 hash는 [live-results.json](../assets/g6sol-20260923-ko/live-results.json)에 있습니다.
+
+## gpt-6-sol로 실행하지 않은 것
+
+- Lab 03 포털 File Search
+- Lab 06 IQ Chat preset(gpt-5.6-luna)과 하이브리드 RAG
+- Lab 07 feedback/regression 단계(baseline 실패 없음)
+- Lab 07 Hosted 모델 matrix
+- Lab 08 로컬 서버와 Hosted 배포
+- Lab 09 서버 측 tracing 확인과 continuous evaluation
+- Lab 10 외부 IQ 확장
+- 확장 모듈
+
+이전 `gpt-5.6-luna` 녹화와 결과 페이지(2026-09-15~17)는 작업 트리에서 삭제했습니다. git 기록에만 남아 있으며 이 preset의 결과가 아닙니다.
+
+[영상](video-summary.md) · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

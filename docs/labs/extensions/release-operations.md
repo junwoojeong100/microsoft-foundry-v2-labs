@@ -97,14 +97,6 @@ The official [Hosted CI/CD quickstart](https://learn.microsoft.com/azure/foundry
 is the deployment/authentication reference. Adapt it to this repository's actual package/profile and version-pinned smoke contract;
 nonempty stdout alone is not proof that an agent returned a valid result.
 
-<!-- edition-checkpoint:EP22-002-main-only-environment -->
-
-![Recorded English checkpoint: Configure only this private repository’s main-restricted OIDC environment and non-secret scope variables](../../assets/edition-20260916-en/screenshots/EP22-002-main-only-environment-2.webp)
-
-**What to check:** The private repository environment is restricted to main and stores non-secret scope variables. Configuration is not proof of a successful workflow run. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=644.12) · [All actions and failures](../../edition-actions.md)
-
 ## 5. Define the release sequence
 
 This repository includes the manually dispatched

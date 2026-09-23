@@ -13,12 +13,10 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSET_RUN = "refresh-20260915-en"
-ASSET_RUNS = {"en": ASSET_RUN, "ko": "refresh-20260915-ko"}
-SERIES = {
-    "foundation": ASSET_RUNS,
-    "extensions": {"en": "edition-20260916-en", "ko": "edition-20260916-ko"},
-}
+ASSET_RUN = "g6sol-20260923-en"
+ASSET_RUNS = {"en": ASSET_RUN, "ko": "g6sol-20260923-ko"}
+DEFAULT_SERIES = "gpt-6-sol"
+SERIES = {DEFAULT_SERIES: ASSET_RUNS}
 
 
 def byte_range(value: str | None, size: int) -> tuple[int, int]:
@@ -42,12 +40,12 @@ def byte_range(value: str | None, size: int) -> tuple[int, int]:
 
 
 def media_catalog(
-    root: Path, edition: str = "en", series: str = "foundation"
+    root: Path, edition: str = "en", series: str = DEFAULT_SERIES
 ) -> tuple[dict, dict[str, Path]]:
     if edition not in ASSET_RUNS:
         raise ValueError("Choose recording edition en or ko.")
     if series not in SERIES:
-        raise ValueError("Choose recording series foundation or extensions.")
+        raise ValueError(f"Choose recording series {DEFAULT_SERIES}.")
     directory = root / "docs/assets" / SERIES[series][edition]
     metadata = json.loads((directory / "media.json").read_text(encoding="utf-8"))
     videos = metadata["videos"]
@@ -168,7 +166,7 @@ class RecordingHandler(BaseHTTPRequestHandler):
 
 
 def create_server(
-    root: Path, port: int, edition: str = "en", series: str = "foundation"
+    root: Path, port: int, edition: str = "en", series: str = DEFAULT_SERIES
 ) -> ThreadingHTTPServer:
     catalog, files = media_catalog(root, edition, series)
     handler = functools.partial(
@@ -187,13 +185,13 @@ def main() -> int:
         "--edition",
         choices=tuple(ASSET_RUNS),
         default="en",
-        help="Recording set: English-guide recordings (default) or the Korean source recordings.",
+        help="Recording set: the English recording (default) or the separate Korean recording.",
     )
     parser.add_argument(
         "--series",
         choices=tuple(SERIES),
-        default="foundation",
-        help="Keep foundational recordings and the September 16 extensions as separate evidence sets.",
+        default=DEFAULT_SERIES,
+        help="The September 23, 2026 gpt-6-sol recording of the main labs (the only published series).",
     )
     args = parser.parse_args()
     if not 1024 <= args.port <= 65535:

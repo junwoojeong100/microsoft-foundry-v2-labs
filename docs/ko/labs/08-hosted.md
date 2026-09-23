@@ -64,6 +64,8 @@ python scripts/package_hosted.py
 패키지만 선택했다면 manifest를 보관하고 [Lab 09](09-operations.md)로 이동합니다.
 
 
+![2026-09-23 국문 녹화: Hosted bundle 패키징만; 배포 없음](../../assets/g6sol-20260923-ko/screenshots/K08-001-package-2.webp)
+
 **화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted` 위치를 반환하는지 확인합니다.
 파일을 묶은 단계일 뿐 Azure 배포 성공이 아닙니다. 위 표와 manifest로 포함·제외 파일을 대조하세요.
 
@@ -230,8 +232,7 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 
 
 앞의 기본 단일-agent 경로와 다음 workflow 경로는 서로 다른 target입니다.
-이번 새 촬영은 workflow Responses version 2를 실제 호출하고,
-통제된 평가에는 Invocations baseline version 7과 candidate/holdout version 8을 사용했습니다.
+2026-09-23 `gpt-6-sol` 녹화는 패키징만 포함하며 로컬 서버·원격 배포·아래 workflow 경로는 다시 실행하지 않았습니다.
 정확한 결과와 한계는 [실행 기록](../live-run.md)을 확인합니다.
 
 </details>
@@ -241,7 +242,7 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 <details>
 <summary>심화 C — 별도 workflow target입니다. 첫 회차 B는 Lab 09로 이동합니다</summary>
 
-**2026-09-15 실제 배포·호출·평가와 새 국문 촬영으로 확인한 프로필입니다.**
+**2026-09-15에 이전 `gpt-5.6-luna` preset으로 실제 배포·호출·평가한 프로필이며 `gpt-6-sol`로는 다시 실행하지 않았습니다.**
 `serve`와 `package_hosted.py`는 인자를 생략하면 이전 단일 함수 Agent 경로를 유지합니다.
 워크플로를 선택한 경우에는 `runtime-profile.json`에 kind/pattern/retrieval/prompt/API/protocol을 고정합니다.
 
@@ -320,46 +321,7 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 
 </details>
 
-<details>
-<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
-
-아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
-
-![2026-09-15 새 국문 촬영: 구성 도구 복구 후 동일 Responses 프로필 패키징](../../assets/refresh-20260915-ko/screenshots/K08-011-profile-responses-ready-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 터미널 B: 실제 readiness 확인](../../assets/refresh-20260915-ko/screenshots/K08-013-local-ready-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: Workflow Responses endpoint 실제 호출](../../assets/refresh-20260915-ko/screenshots/K08-014-local-invoke-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 실제 MAF workflow를 Hosted Responses로 배포](../../assets/refresh-20260915-ko/screenshots/K08-016-deploy-responses-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 배포된 실제 workflow version·endpoint 확인](../../assets/refresh-20260915-ko/screenshots/K08-017-record-responses-version-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 실제 배포·호출한 workflow version 2 열기](../../assets/refresh-20260915-ko/screenshots/KP08-001-workflow-version2-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: WF03 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP08-002-hosted-chat-send-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 실제 배포 version 기록](../../assets/refresh-20260915-ko/screenshots/K07F-binding-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
-
-</details>
+[전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 ## 완료·정리
 

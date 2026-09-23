@@ -8,6 +8,7 @@
 
 **IQ Chat은 Search의 관리 ID로 채팅 모델을 사용할 수 있습니다.** 이 선택 실습에서는 모델 없는 GA KB가 아니라
 **`gpt-5.6-luna` / 낮음 / 응답 합성이 설정된 chat KB**를 엽니다.
+`gpt-6-sol` 응답 모델과 별도 배포입니다. 2026-09-23 Search는 KB 연결에서 GPT-6 모델을 받지 않았습니다([상세](../reference/model-choice.md)).
 [정상 설정 화면과 확인 순서](#iq-chat-model)를 참고하세요. A의 기본 원문 확인에는 IQ Chat이 필요 없습니다.
 
 ## 시작 전
@@ -16,7 +17,7 @@
 
 **준비물:** A: Lab 03 응답·학습자 파일. B: .env·준비된 Search 서비스·작성 권한·새 소유 prefix 또는 대응하는 소유권 ledger.
 
-**다음으로 갈 기준:** A는 정책 ID·날짜 대조, B는 Search·GA IQ 출력을 저장합니다. Luna 계획·합성은 별도로 선택한 IQ Chat에서만 필요합니다.
+**다음으로 갈 기준:** A는 정책 ID·날짜 대조, B는 Search·GA IQ 출력을 저장합니다. `gpt-5.6-luna` 계획·합성은 별도로 선택한 IQ Chat에서만 필요합니다.
 
 **막히면:** 선택한 경로의 원본·권한 문제를 해결하고 provider를 바꾸지 않습니다. 기본 A의 원문 확인에는 IQ Chat 모델이 필요 없습니다.
 
@@ -51,7 +52,7 @@
 
 <a id="iq-chat-model"></a>
 
-### 선택 IQ Chat — 준비된 Luna chat KB 열기
+### 선택 IQ Chat — 준비된 gpt-5.6-luna chat KB 열기
 
 <details>
 <summary>선택 Preview IQ Chat — 준비된 chat base·별도 비용 승인이 필요합니다</summary>
@@ -80,7 +81,7 @@
 | Reasoning / 출력 | **`low` / `answerSynthesis`** — 국문 화면에서는 **낮음 / 응답 합성** |
 | API | **`2026-08-01-preview`**, API key 없음 |
 
-![2026-09-17 새 국문 캡처: Luna·낮음·응답 합성이 저장된 IQ Chat KB](../../assets/iq-chat-20260917/ko-configured-kb.png)
+![2026-09-17 새 국문 캡처: gpt-5.6-luna·낮음·응답 합성이 저장된 IQ Chat KB](../../assets/iq-chat-20260917/ko-configured-kb.png)
 
 **화면 확인:** `gpt-5.6-luna`, **낮음**, **응답 합성**, 국문 source와 **활성** 상태가 보입니다.
 **Chat completions model is required** 같은 모델 미선택 오류가 없습니다. 필수 표시 별표와 회색 MI 안내는 정상입니다.
@@ -88,9 +89,9 @@ MI 안내는 Search의 ID를 사용한다는 뜻이지 인증 실패나 역할 �
 **이미 저장된** chat KB를 새로 캡처한 원본 화면이며, 이번 캡처를 위해 저장·배포·모델 호출을 하지는 않았습니다.
 화면의 이름을 복사하지 말고 본인에게 반환된 이름을 사용합니다.
 
-**화면을 맞추려고 선택된 Luna를 지우거나 추천 모델을 배포하지 않습니다.**
+**화면을 맞추려고 선택된 `gpt-5.6-luna`를 지우거나 추천 모델을 배포하지 않습니다.**
 2026-09-17 확인 당시 빠른 모델 목록과 **Browse more models**는 기존 배포 목록이 아니라 배포용 카탈로그를 열었습니다.
-그 카탈로그에 Luna가 없어도 이미 저장된 Luna 연결은 정상 표시됐습니다.
+그 카탈로그에 없어도 이미 저장된 `gpt-5.6-luna` 연결은 정상 표시됐습니다.
 기존 선택을 유지하고, 최초 구성은 담당자의 고정 CLI preset으로 합니다. 다른 모델 선택이나 API key 활성화로 우회하지 않습니다.
 
 ```bash
@@ -104,7 +105,7 @@ python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 ```
 
 결과의 `model_planning_verified: true`, `model_synthesis_verified: true`와
-Luna의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
+`gpt-5.6-luna`의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
 요청·응답·원문 근거·실패는 `outputs/iq-chat/iq-chat-lab06/`에 남습니다. 새 요청은 새 label을 사용합니다.
 `check`는 Azure를 변경하지 않고 `ask`는 모델/provider를 자동 대체하지 않습니다.
 `configured: false`, 권한 누락, 다른 모델 버전, 403/429이면 멈추고 [고정 preset 복구 안내](../reference/iq-model-identity.md)를 따릅니다.
@@ -146,6 +147,8 @@ python scripts/workshop.py retrieve --provider local \
 검색 문서가 부족하면 정답을 코드에 넣지 말고 검색의 한계를 기록합니다.
 
 
+![2026-09-23 국문 녹화: 여섯 합성 정책의 로컬 키워드 검색](../../assets/g6sol-20260923-ko/screenshots/K06-001-local-2.webp)
+
 **화면 확인:** `source_ids`와 `context_hash`를 확인합니다. 이 단계는 합성 파일의 로컬 검색입니다.
 Search나 IQ를 호출했다고 표시하지 않습니다. 설정된 endpoint 이름만 보지 말고 반환된 provider를 확인합니다.
 
@@ -173,6 +176,8 @@ python scripts/workshop.py seed-search --confirm-create
 문서 업로드가 부분 실패하면 전체 성공으로 처리하지 않습니다.
 
 
+![2026-09-23 국문 녹화: 합성 정책으로 소유 Search index 생성](../../assets/g6sol-20260923-ko/screenshots/K06-002-seed-search-2.webp)
+
 **화면 확인:** seed 결과의 `mode: live`, 본인의 `index`, `document_count: 6`,
 `hybrid: false`, `knowledge_base: null`을 확인합니다. IQ가 아니라 일반 Search 객체를 만든 단계입니다.
 
@@ -184,7 +189,7 @@ python scripts/workshop.py retrieve --provider search \
   --output outputs/learner-notes-ko/retrieve-search.json
 ```
 
-![2026-09-15 새 국문 촬영: 일반 Search는 vector/IQ와 구분](../../assets/refresh-20260915-ko/screenshots/K06-100-keyword-2.webp)
+![2026-09-23 국문 녹화: Azure AI Search 키워드 검색](../../assets/g6sol-20260923-ko/screenshots/K06-003-search-2.webp)
 
 **화면 확인:** `--provider search` 명령의 결과를 읽고 endpoint/index가 본인 값인지 확인합니다.
 `references`·`activity`가 없는 일반 Search 결과를 IQ 결과로 바꾸어 적지 않습니다.
@@ -206,6 +211,8 @@ python scripts/workshop.py retrieve --provider iq \
   --output outputs/learner-notes-ko/retrieve-iq.json
 ```
 
+
+![2026-09-23 국문 녹화: 소유 GA IQ knowledge source·base 생성](../../assets/g6sol-20260923-ko/screenshots/K06-004-seed-iq-2.webp)
 
 **화면 확인:** seed 결과의 `knowledge_base`가 이제 null이 아니며 `document_count: 6`입니다.
 Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확인합니다.
@@ -232,7 +239,7 @@ Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확
 실패 시 Search로 자동 대체하지 않습니다.
 
 
-![2026-09-15 새 국문 촬영: 새 MAF 순차 workflow의 실제 IQ·Luna 응답](../../assets/refresh-20260915-ko/screenshots/K05-100-local-pipeline-2.webp)
+![2026-09-23 국문 녹화: 원문 참조가 있는 GA Foundry IQ 검색](../../assets/g6sol-20260923-ko/screenshots/K06-005-iq-2.webp)
 
 **화면 확인:** `activity`·base·API 버전·`references`·`documents`를 함께 읽습니다.
 보고되지 않은 지연이나 사용량은 임의로 채우지 않습니다.
@@ -250,7 +257,7 @@ python scripts/workshop.py answer --prompt v2 --retrieval iq \
 검색→응답을 따로 둔 이유는 실패를 구분하기 위해서입니다.
 검색에 현재 규정이 없는 것과, 올바른 규정을 받았는데 적용일을 잘못 해석한 것은 다른 문제입니다.
 
-![2026-09-15 새 국문 촬영: 새 MAF 순차 workflow의 실제 IQ·Luna 응답](../../assets/refresh-20260915-ko/screenshots/K05-100-local-pipeline-2.webp)
+![2026-09-23 국문 녹화: IQ 근거를 gpt-6-sol에 보내 검증된 답변 받기](../../assets/g6sol-20260923-ko/screenshots/K06-006-answer-iq-2.webp)
 
 **화면 확인:** `--retrieval iq` 명령 아래의 base/API 설정, `response_model`, `response_id`, `usage`를 확인합니다.
 `answer`의 금액·조건·인용을 원문과 대조합니다.
@@ -281,7 +288,7 @@ flowchart LR
 <details>
 <summary>선택 embedding·하이브리드 index 실습 펼치기</summary>
 
-**2026-09-15 실제 실행·촬영 결과는 기록 당시의 환경에 해당합니다.**
+**이 선택 경로는 2026-09-23에 `gpt-6-sol`로 다시 실행하지 않았습니다.**
 이미 만든 텍스트 index의 필드를 몰래 바꾸지 않습니다.
 같은 실습 prefix 아래 별도 index 이름을 `.env`에 정하고, 강사가 확인한 embedding 배포와
 **실제 반환 차원**을 입력합니다. embedding 모델을 새로 배포하는 작업은 별도 승인 대상입니다.
@@ -345,44 +352,8 @@ GA schema의 `models` 존재와 모든 source에 대한 LLM 기능 지원은 같
 요청 필드도 API별로 확인하며, 검증 예시는 [MI 모델 연결 가이드](../reference/iq-model-identity.md)에 있습니다.
 기존 평가의 재현을 위해 모델 없는 GA base는 유지하고, 모델 기반 실습에는 별도로 준비한 chat base를 사용합니다.
 IQ Chat의 기준 화면은 [새 정상 설정 캡처](#iq-chat-model)입니다.
-아래 과거의 모델 미선택 화면은 GA 상태를 관찰한 기록이지 그대로 재현할 완료 화면이 아닙니다.
 
-<details>
-<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
-
-영문 후속 실험에서 D05의 실제 IQ 근거에 `SCOPE-01`이 빠져 필수 인용 검사가 실패했습니다.
-문서의 관측 reranker score는 약 1.775였으며 같은 endpoint·질문·corpus에
-`WORKSHOP_IQ_RERANKER_THRESHOLD=0`을 명시한 진단은 합성 원문 6개를 반환했습니다.
-검색 필터 조정이지 업무 rubric이나 judge 기준 변경이 아닙니다.
-초기 실패를 보존하고 새 baseline/candidate는 같은 설정으로 실행합니다.
-운영 권장값으로 일반화하거나 provider fallback으로 처리하지 않습니다.
-
-아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
-
-![2026-09-15 과거 국문 촬영: GA Knowledge 목록 확인](../../assets/refresh-20260915-ko/screenshots/KP06-001-knowledge-2.webp)
-
-**과거 기록의 범위:** 기존 GA base 목록이며 새 chat preset의 설정 완료 화면이 아닙니다.
-
-![2026-09-15 과거 국문 촬영: 모델 없는 GA KB의 설정 화면](../../assets/refresh-20260915-ko/screenshots/KP06-002-kb-2.webp)
-
-**과거 기록의 한계:** 이 GA base는 `models: []`였습니다. 모델 미선택 오류는 MI 실패가 아니며,
-IQ Chat에서 따라 할 완료 상태도 아닙니다. 새 채팅 실습에 맞추려고 이 base를 덮어쓰지 않습니다.
-
-![2026-09-15 새 국문 촬영: 동일 계정 embedding API를 명시적으로 선택](../../assets/refresh-20260915-ko/screenshots/K06-012-explicit-account-hybrid-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 실제 text/vector hybrid 결과·원문 확인](../../assets/refresh-20260915-ko/screenshots/K06-013-hybrid-query-account-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-![2026-09-15 새 국문 촬영: 실제 원격 6개 파일을 SDK로 읽어 원본 해시 대조](../../assets/refresh-20260915-ko/screenshots/K06-030-source-hashes-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
-
-</details>
+[전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 ## 완료 확인
 

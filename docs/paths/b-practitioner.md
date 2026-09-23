@@ -21,7 +21,7 @@ The core commands save all **12 response JSON files** through `--output`; no ter
 Open each file at its **Save** checkpoint before the next request, and write your human review separately;
 [Lab 11's file inventory](../labs/11-capstone.md#b-evidence) lists everything needed at handoff.
 
-**First-pass choices are already made:** Luna; all three introductory MAF patterns;
+**First-pass choices are already made:** `gpt-6-sol`; all three introductory MAF patterns;
 GA Search/IQ in Lab 06; **local retrieval + a real Azure model** for Lab 07; **package only** in Lab 08.
 Changing from Lab 06's retrieval lesson to Lab 07's declared local experiment is deliberate, not an IQ-error fallback.
 File Search, hybrid/Preview IQ, cloud judges, local Hosted serving and remote deployment are not core steps.

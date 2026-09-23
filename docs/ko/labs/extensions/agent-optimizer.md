@@ -75,14 +75,6 @@ Review의 baseline/dataset/모델/평가 기준/후보 상한을 확인합니다
 대기하거나 화면을 놓쳤다는 이유로 재제출하지 않습니다.
 실패/불완전 실행의 성공 부분만 좋은 후보로 보고하지 않습니다.
 
-<!-- edition-checkpoint:KP15-139-final-cost-and-lineage -->
-
-![실제 국문 촬영: 예상 US$0.27·최대 US$0.90 표시와 원래 lineage 보존](../../../assets/edition-20260916-ko/screenshots/KP15-139-final-cost-and-lineage-2.webp)
-
-**확인할 것:** 지침만, 최대 후보 2개, 원래 dev v1과 별도 judge를 유지했습니다. US$0.27/0.90은 표시된 추정치이지 청구 상한이 아닙니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=285.76) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 5. 후보보다 세부 결과 먼저
 
 각 후보의 모든 결과/분모, 지침 diff, 모델/도구 설정 변화, 실제 사용량,
@@ -90,9 +82,9 @@ Review의 baseline/dataset/모델/평가 기준/후보 상한을 확인합니다
 가장 높은 종합점수도 제안일 뿐 자동 수락이 아닙니다.
 개선이 없거나 구별되지 않으면 baseline을 유지합니다.
 
-[영문 실행](../../../edition-results.md)은 후보 없이 중단되었습니다.
+2026-09-16 영문 실행(이전 `gpt-5.6-luna` 판, `gpt-6-sol`로 재실행하지 않음)은 후보 없이 중단되었습니다.
 일반 중단 문구는 “perfect”라고 표시했지만 실제 D05 relevance는 실패했습니다.
-[국문 결과](../../edition-results.md)는 별도로 실행한 baseline과 두 후보를 보존합니다.
+같은 날 국문 실행은 별도로 실행한 baseline과 두 후보를 남겼습니다.
 상태 문구 대신 개별 행을 확인하고 영문 점수를 국문 결과로 옮기지 않습니다.
 
 **업로드한 열뿐 아니라 실제 judge 입력을 확인합니다.** 각 평가자의 `sample.input`과
@@ -104,14 +96,6 @@ Groundedness의 `context`에 원래 정책 대신 생성한 답변 자체가 들
 
 `optimizer-review.txt`에 run, baseline/candidate ID, 관찰, 선택 후보 또는
 `pending-human-review`, 이유를 적습니다. AI가 사람의 검토를 사칭하지 않습니다.
-
-<!-- edition-checkpoint:KP15-002-all-candidate-source-readback -->
-
-![실제 국문 촬영: 세 후보의 원래 여섯 행과 실제 평가자 context를 대조](../../../assets/edition-20260916-ko/screenshots/KP15-002-all-candidate-source-readback-2.webp)
-
-**확인할 것:** baseline과 두 후보의 6행을 모두 읽었습니다. Groundedness 입력 18개가 답변 자체를 context로 사용했으므로 점수를 원문 검증이나 승격 근거로 인정하지 않았습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=307.48) · [전체 액션과 실패](../../edition-actions.md)
 
 ## 6. 사람 승인 후에만 승격
 

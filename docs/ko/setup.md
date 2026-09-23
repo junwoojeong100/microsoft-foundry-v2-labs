@@ -30,7 +30,7 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
 | Azure tenant·subscription ID | A/B | Azure 포털 → 구독·디렉터리 |
 | Foundry 계정·프로젝트·리소스 그룹 | A/B | 실습 프로젝트의 리소스 상세 |
 | 전체 project endpoint | A의 준비 터미널 / B | Foundry 프로젝트 홈. `/api/projects/<project>`를 유지 |
-| **응답 모델 배포** | A/B | **`gpt-5.6-luna`**, 실제 모델도 같은 이름, 이 날짜의 preset은 **`2026-07-09`** 버전 |
+| **응답 모델 배포** | A/B | **`gpt-6-sol`**, 실제 모델도 같은 이름, 이 날짜의 preset은 **`2026-09-22`** 버전(2026-09-23) |
 | Prefix | A/B | 반드시 **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈 하나씩 사용하며 끝 하이픈 금지. 전체 최대 32자. 예: `mfv2-team01-ko-0917` |
 | 코드 환경 | A Lab 05 / B 전체 코드 | 저장소 폴더·Python 3.13·활성화된 `.venv`·학습자 본인 Azure 로그인 |
 | Search endpoint | B Lab 06 / 선택 IQ Chat | 기존 실습 Search 서비스. A의 인라인 원문 확인에는 불필요 |
@@ -38,9 +38,10 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
 | IQ chat base | 선택 IQ Chat만 | `iq-chat setup`의 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
 | Hosted 값 | 선택 로컬·원격 호스팅만 | 실제 project ARM ID·location 코드·본인 agent 이름·빈 독립 로컬 폴더·필요한 승인. **패키징에는 불필요** |
 
-**첫 실습에서 모델 선택 실험은 하지 않습니다.** Luna를 사용하고 `-judge`·Astra·router를 고르지 않습니다.
+**첫 실습에서 모델 선택 실험은 하지 않습니다.** `gpt-6-sol`을 사용하고 `-judge` 배포·목록의 다른 모델·router를 고르지 않습니다.
 해당 배포/버전이 없으면 환경 담당자가 가용성을 해결하거나 다른 에디션을 명시적으로 재검증해야 합니다.
 코드는 다른 모델을 자동 선택하지 않습니다. 모델 고정은 흔한 불일치를 예방하지만 서비스 가동·quota까지 보장하지는 않습니다.
+[`gpt-6-sol`을 고른 이유](reference/model-choice.md): 2026-09-23 확인한 agent 경로와 녹화한 A/B 주요 단계를 통과했고 `gpt-6-luna`는 agent 경로에서 실패했습니다.
 
 ## 3. 바로 쓰는 학습자 자료 내려받기
 
@@ -77,7 +78,7 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
 ## 4. 시작 가능 여부
 
 - [ ] 본인 계정으로 정확한 프로젝트를 열 수 있습니다.
-- [ ] 실제 Luna 배포/버전이 준비되었습니다.
+- [ ] 실제 `gpt-6-sol` 배포와 버전 `2026-09-22`가 준비되었습니다.
 - [ ] A: 학습자 ZIP을 받았고 Instructions와 대화창에 넣을 파일을 구분합니다. B: Lab 00의 소스 복사본·기록 준비 순서를 확인했습니다.
 - [ ] Lab 05 터미널이 준비됐습니다. 아니라면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
 - [ ] B라면 Search 접근·본인 객체 작성 비용이 승인됐습니다. A의 IQ Chat은 별도 준비하지 않았다면 **미선택**입니다.
@@ -99,7 +100,7 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
 1. 전용 실습 구독·리소스 그룹과 필요한 모델 quota가 있는 리전을 선택합니다.
    [현재 Foundry 준비 가이드](https://learn.microsoft.com/azure/foundry/quickstarts/get-started-code)를 사용하고
    classic Hub/threads-runs 튜토리얼을 섞지 않습니다.
-2. **`gpt-5.6-luna` / `2026-07-09`**를 배포 이름 **`gpt-5.6-luna`**로 준비하고 상태 `Succeeded`를 확인합니다.
+2. **`gpt-6-sol` / `2026-09-22`**를 배포 이름 **`gpt-6-sol`**로 준비하고 상태 `Succeeded`를 확인합니다.
    설명되지 않은 오류 뒤에 다른 모델을 새로 만들지 않습니다.
 3. 학습자에게 필요한 Foundry 프로젝트/모델 권한을 줍니다.
    CLI의 배포 사전 조회에는 **실습 Foundry 계정의 Reader**도 필요합니다. 관리자뿐 아니라 학습자 계정으로 실제 호출을 점검합니다.
@@ -107,7 +108,8 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
    합성 index를 작성할 사람의 Search 읽기/쓰기 권한을 준비합니다.
    새 복사본으로 시작하는 B 학습자에게는 **서비스·권한**을 준비하고, 새 학습자 prefix의 객체를 미리 만들지 않습니다.
    이미 seed한 객체를 제공한다면 승인된 대응 작업 폴더를 제공합니다. Endpoint/base 이름만으로 로컬 소유권 ledger가 생기지 않습니다.
-5. **선택 모델 기반 IQ Chat에서만** Search의 system-assigned identity를 켭니다.
+5. **선택 모델 기반 IQ Chat에서만** Search의 system-assigned identity를 켜고, 별도의
+   **`gpt-5.6-luna` / `2026-07-09`** 배포(이름 **`gpt-5.6-luna`**)를 준비합니다. 2026-09-23 Search knowledge base는 GPT-6 모델을 받지 않았습니다.
    모델의 Foundry 계정에서 **Search identity**에 `Cognitive Services User`를 부여합니다.
    사용자나 Hosted agent에 준 역할이 Search에 생기는 것은 아닙니다.
 6. 아래 담당자 명령 전에 `.env`를 포함한 [Lab 00 B 설치](labs/00-start.md#b-코드--한-폴더-한-환경)를 완료합니다.
@@ -134,7 +136,7 @@ python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
 `ask`는 유료 요청이고 실제 계획·합성·원문 근거를 `outputs/iq-chat/iq-chat-first/`에 남깁니다.
 새 요청은 **새 label**을 사용하며 첫 결과를 덮어쓰지 않습니다.
 
-**2026-09-15 확인한 선택 Preview preset**은 Luna, Search system-assigned identity,
+**2026-09-15 확인한 선택 Preview preset**은 `gpt-5.6-luna`, Search system-assigned identity,
 `2026-08-01-preview`, `low`, `answerSynthesis`로 고정됩니다.
 Preview 계획·합성은 A의 원문 확인이나 B의 GA 검색 완료에 필수가 아닙니다.
 이전 진단에서 거절된 필드 대신 검증된 `maxOutputSize` 요청 필드를 사용합니다.

@@ -37,12 +37,11 @@ A는 복사한 `assessment.csv`도 작성합니다.
 | IQ·Toolbox·Fabric·Work IQ의 선택 경계 | [IQ 확장 워크북](reference/iq-workbook.md) |
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
-| 새 영상으로 실제 조작 따라가기 | [대기 제거 편집본: 포털 5분 53초 · CLI 8분 56초](video-summary.md) |
-| 별도 영문 가이드·데이터·새 촬영 | [현재 영문 영상](../video-summary.md) |
-| 새 국문 촬영본의 액션별 화면 | [182개 액션·543개 캡처](action-captures.md) |
-| 가이드 순서대로 한 영상에서 보기 | [CLI·포털 통합본 15분 14초와 챕터](video-chapters.md) |
+| 2026-09-23 `gpt-6-sol` 녹화로 실제 조작 따라가기 | [대기 제거 편집본: 포털 1분 43초 · CLI 2분 27초](video-summary.md) |
+| 별도 영문 가이드·데이터·녹화 | [영문 영상](../video-summary.md) |
+| 국문 녹화의 액션별 화면 | [69개 액션·207개 캡처](action-captures.md) |
+| 가이드 순서대로 한 영상에서 보기 | [CLI·포털 통합본 4분 32초와 챕터](video-chapters.md) |
 | 실제 결과와 아직 확인하지 않은 것 | [실행·검증 기록](live-run.md) |
-| 9월 16일 추가 모듈과 실제 한계 | [확장 결과](edition-results.md) · [별도 확장 영상](edition-videos.md) |
 | 마지막에 확인할 결과물 | [캡스톤](labs/11-capstone.md) |
 | 현재 지원 상태와 버전 | [호환성 기준](reference/versions.md) |
 | 오류·권한·할당량 문제 | [문제 해결](reference/troubleshooting.md) |

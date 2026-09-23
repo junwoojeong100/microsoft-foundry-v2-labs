@@ -1,0 +1,3490 @@
+{
+  "language": "ko",
+  "actions": [
+    {
+      "id": "K00-001-folder",
+      "title": "소스 폴더에서 오프라인 doctor 실행",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:55:09.261517+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL CHECK",
+      "start_seconds": 27.572,
+      "status": "recorded",
+      "command_sha256": "a51f36635005e748e6d6a03ce41279da4b33bcece7e064ededa1621f3b4fa356",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 32.388,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-001-folder-0.webp",
+        "screenshots/K00-001-folder-1.webp",
+        "screenshots/K00-001-folder-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 0.0,
+          "end_seconds": 1.76
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 1.76,
+          "end_seconds": 3.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 2.0,
+          "end_seconds": 3.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 3.76,
+          "end_seconds": 5.4
+        }
+      ],
+      "combined_start_seconds": 2.0
+    },
+    {
+      "id": "K00-002-notes",
+      "title": "B의 개인 기록 폴더를 한 번 준비",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:55:14.168927+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL SETUP",
+      "start_seconds": 32.479,
+      "status": "recorded",
+      "command_sha256": "5ef6c268a9d2c429c00fd5fd8bff715aa3d1f99a58c044f6f3ac277d2b6fa891",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 37.162,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-002-notes-0.webp",
+        "screenshots/K00-002-notes-1.webp",
+        "screenshots/K00-002-notes-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 3.4,
+          "end_seconds": 5.08
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 5.08,
+          "end_seconds": 6.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 5.4,
+          "end_seconds": 7.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 7.08,
+          "end_seconds": 8.76
+        }
+      ],
+      "combined_start_seconds": 5.4
+    },
+    {
+      "id": "K00-003-fixture-v1",
+      "title": "오프라인 fixture v1: 모델 응답이 아님",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:55:18.929137+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "OFFLINE FIXTURE",
+      "start_seconds": 37.239,
+      "status": "recorded",
+      "command_sha256": "69fd72ee8ab1e843ca19219a474989ae3b81e3535e3b6d8d485f2fd9b01af322",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 42.033,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-003-fixture-v1-0.webp",
+        "screenshots/K00-003-fixture-v1-1.webp",
+        "screenshots/K00-003-fixture-v1-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 6.76,
+          "end_seconds": 8.48
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 8.48,
+          "end_seconds": 10.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 8.76,
+          "end_seconds": 10.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 10.48,
+          "end_seconds": 12.28
+        }
+      ],
+      "combined_start_seconds": 8.76
+    },
+    {
+      "id": "K00-004-fixture-v2",
+      "title": "오프라인 fixture v2와 lineage",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:55:23.969800+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "OFFLINE FIXTURE",
+      "start_seconds": 42.28,
+      "status": "recorded",
+      "command_sha256": "c89f8df2e110fb78e3d49920739d094b61a7426775860ea65ffbb5841961f61a",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 47.347,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-004-fixture-v2-0.webp",
+        "screenshots/K00-004-fixture-v2-1.webp",
+        "screenshots/K00-004-fixture-v2-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 10.28,
+          "end_seconds": 12.16
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 12.16,
+          "end_seconds": 13.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 12.28,
+          "end_seconds": 14.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 14.16,
+          "end_seconds": 15.8
+        }
+      ],
+      "combined_start_seconds": 12.28
+    },
+    {
+      "id": "K00-005-fixture-compare",
+      "title": "모델 품질 주장 없이 fixture 비교",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:55:29.105089+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "OFFLINE FIXTURE",
+      "start_seconds": 47.415,
+      "status": "recorded",
+      "command_sha256": "e9b8c5b9d4d73b2633cdead86ef92f99be04b956b435eadd18c2d6eeab85397a",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 52.23,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-005-fixture-compare-0.webp",
+        "screenshots/K00-005-fixture-compare-1.webp",
+        "screenshots/K00-005-fixture-compare-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 13.8,
+          "end_seconds": 15.56
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 15.56,
+          "end_seconds": 17.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 15.8,
+          "end_seconds": 17.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 17.56,
+          "end_seconds": 19.2
+        }
+      ],
+      "combined_start_seconds": 15.8
+    },
+    {
+      "id": "K00-006-install",
+      "title": "가상환경을 만들고 고정 SDK 설치",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:55:33.978656+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL SETUP",
+      "start_seconds": 52.289,
+      "status": "recorded",
+      "command_sha256": "5f445dd07e9475c60c5c834dc19f868fbf6cbf1a314a3aa755e1e19662ba48a5",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 105.377,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-006-install-0.webp",
+        "screenshots/K00-006-install-1.webp",
+        "screenshots/K00-006-install-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 17.2,
+          "end_seconds": 19.4
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 19.4,
+          "end_seconds": 21.08
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 21.08,
+          "end_seconds": 22.76
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 22.76,
+          "end_seconds": 24.44
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 24.44,
+          "end_seconds": 26.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 19.2,
+          "end_seconds": 21.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 21.4,
+          "end_seconds": 23.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 23.08,
+          "end_seconds": 24.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 24.76,
+          "end_seconds": 26.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 26.44,
+          "end_seconds": 28.12
+        }
+      ],
+      "combined_start_seconds": 19.2
+    },
+    {
+      "id": "K00-007-env",
+      "title": ".env.example을 복사하고 설정 카드 값 채우기",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:56:27.162409+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL SETUP",
+      "start_seconds": 105.473,
+      "status": "recorded",
+      "command_sha256": "3beff0dc423b29b4b650ba5743611d72fb1ea8046553d3246e19bd54b27138ec",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 110.305,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-007-env-0.webp",
+        "screenshots/K00-007-env-1.webp",
+        "screenshots/K00-007-env-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 26.12,
+          "end_seconds": 27.92
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 27.92,
+          "end_seconds": 29.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 28.12,
+          "end_seconds": 29.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 29.92,
+          "end_seconds": 31.6
+        }
+      ],
+      "combined_start_seconds": 28.12
+    },
+    {
+      "id": "K00-008-preflight",
+      "title": "읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded",
+      "guide": "docs/ko/labs/00-start.md",
+      "recorded_at": "2026-09-23T02:56:32.084611+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "READ-ONLY AZURE",
+      "start_seconds": 110.395,
+      "status": "recorded",
+      "command_sha256": "8f0f853c9f5f307b09aa514afe4e29599d04881b796d7ca2db868f767b9e50c7",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 120.712,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K00-008-preflight-0.webp",
+        "screenshots/K00-008-preflight-1.webp",
+        "screenshots/K00-008-preflight-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 29.6,
+          "end_seconds": 31.88
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 31.88,
+          "end_seconds": 33.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 31.6,
+          "end_seconds": 33.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 33.88,
+          "end_seconds": 35.6
+        }
+      ],
+      "combined_start_seconds": 31.6
+    },
+    {
+      "id": "K02-001-model",
+      "title": "프로젝트 Responses API로 첫 실제 gpt-6-sol 요청",
+      "guide": "docs/ko/labs/02-models.md#path-b",
+      "recorded_at": "2026-09-23T02:56:42.488306+00:00",
+      "lab": 2,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 120.798,
+      "status": "recorded",
+      "command_sha256": "218265db308c82c1883b125e57d4b32881f25d4d0222b96aa16f6db7d0a0168a",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 135.832,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K02-001-model-0.webp",
+        "screenshots/K02-001-model-1.webp",
+        "screenshots/K02-001-model-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 33.6,
+          "end_seconds": 35.84
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 35.84,
+          "end_seconds": 37.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 46.12,
+          "end_seconds": 48.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 48.36,
+          "end_seconds": 50.04
+        }
+      ],
+      "combined_start_seconds": 46.12
+    },
+    {
+      "id": "K02-002-answer",
+      "title": "로컬 근거를 사용한 검증된 구조화 답변",
+      "guide": "docs/ko/labs/02-models.md#path-b",
+      "recorded_at": "2026-09-23T02:56:57.613954+00:00",
+      "lab": 2,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 135.924,
+      "status": "recorded",
+      "command_sha256": "586f40a81d48c99c1949b33e5c798c2860ebefc4423eb16dd4f06816fa9928dd",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 147.417,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K02-002-answer-0.webp",
+        "screenshots/K02-002-answer-1.webp",
+        "screenshots/K02-002-answer-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 37.52,
+          "end_seconds": 39.8
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 39.8,
+          "end_seconds": 41.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 50.04,
+          "end_seconds": 52.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 52.32,
+          "end_seconds": 54.04
+        }
+      ],
+      "combined_start_seconds": 50.04
+    },
+    {
+      "id": "K03-001-sdk-create",
+      "title": "선택 SDK Prompt Agent: 소유 버전 생성",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-b",
+      "recorded_at": "2026-09-23T02:57:09.229241+00:00",
+      "lab": 3,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 147.539,
+      "status": "recorded",
+      "command_sha256": "261e175aee5819d25dc6a048849d09d7107351489b664d32175723e5bcb9e4c9",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 163.813,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K03-001-sdk-create-0.webp",
+        "screenshots/K03-001-sdk-create-1.webp",
+        "screenshots/K03-001-sdk-create-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 41.52,
+          "end_seconds": 43.8
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 43.8,
+          "end_seconds": 45.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 86.04,
+          "end_seconds": 88.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 88.32,
+          "end_seconds": 90.0
+        }
+      ],
+      "combined_start_seconds": 86.04
+    },
+    {
+      "id": "K03-002-sdk-invoke",
+      "title": "반환된 SDK agent 버전 호출",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-b",
+      "recorded_at": "2026-09-23T02:57:25.591006+00:00",
+      "lab": 3,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 163.901,
+      "status": "recorded",
+      "command_sha256": "75e41ba629f2b7fd63f0b6bb6b9a86ed36c104cb2ea651cbfb81f546c8e0a935",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 173.38,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K03-002-sdk-invoke-0.webp",
+        "screenshots/K03-002-sdk-invoke-1.webp",
+        "screenshots/K03-002-sdk-invoke-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 45.48,
+          "end_seconds": 47.68
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 47.68,
+          "end_seconds": 49.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 90.0,
+          "end_seconds": 92.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 92.2,
+          "end_seconds": 93.84
+        }
+      ],
+      "combined_start_seconds": 90.0
+    },
+    {
+      "id": "K04-001-maf",
+      "title": "도구 없는 MAF agent",
+      "guide": "docs/ko/labs/04-agents-tools.md#path-b",
+      "recorded_at": "2026-09-23T02:57:35.168653+00:00",
+      "lab": 4,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 173.479,
+      "status": "recorded",
+      "command_sha256": "25844c64b7aecec2d91fc5fb469456d1126ed079c59a432fa91457e95cdd2880",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 184.547,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K04-001-maf-0.webp",
+        "screenshots/K04-001-maf-1.webp",
+        "screenshots/K04-001-maf-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 49.32,
+          "end_seconds": 51.56
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 51.56,
+          "end_seconds": 53.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 130.6,
+          "end_seconds": 132.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 132.84,
+          "end_seconds": 134.56
+        }
+      ],
+      "combined_start_seconds": 130.6
+    },
+    {
+      "id": "K04-002-tools",
+      "title": "읽기 전용 함수 도구를 쓰는 MAF",
+      "guide": "docs/ko/labs/04-agents-tools.md#path-b",
+      "recorded_at": "2026-09-23T02:57:46.438459+00:00",
+      "lab": 4,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 184.748,
+      "status": "recorded",
+      "command_sha256": "681fc961efe8976345d61b6f7417270ed8b127c97e4a51f0e3a9517f04f408b3",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 197.622,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K04-002-tools-0.webp",
+        "screenshots/K04-002-tools-1.webp",
+        "screenshots/K04-002-tools-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 53.28,
+          "end_seconds": 55.52
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 55.52,
+          "end_seconds": 57.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 134.56,
+          "end_seconds": 136.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 136.8,
+          "end_seconds": 138.48
+        }
+      ],
+      "combined_start_seconds": 134.56
+    },
+    {
+      "id": "K04-003-mcp",
+      "title": "로컬 MCP 정책 도구를 쓰는 MAF",
+      "guide": "docs/ko/labs/04-agents-tools.md#path-b",
+      "recorded_at": "2026-09-23T02:57:59.403907+00:00",
+      "lab": 4,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 197.714,
+      "status": "recorded",
+      "command_sha256": "638c64c77b00b06665328af967ac06baaed301763c17f180a5a63d2050b06f17",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 210.275,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K04-003-mcp-0.webp",
+        "screenshots/K04-003-mcp-1.webp",
+        "screenshots/K04-003-mcp-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 57.2,
+          "end_seconds": 59.48
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 59.48,
+          "end_seconds": 61.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 138.48,
+          "end_seconds": 140.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 140.76,
+          "end_seconds": 142.44
+        }
+      ],
+      "combined_start_seconds": 138.48
+    },
+    {
+      "id": "K05-001-prepared",
+      "title": "A의 준비된 순차 workflow 명령 하나",
+      "guide": "docs/ko/labs/05-workflows.md#path-a",
+      "recorded_at": "2026-09-23T02:58:12.059538+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 210.369,
+      "status": "recorded",
+      "command_sha256": "4f622f1821ba7128fa904ed0d05181753602d6b98dac2d51a4c3b1e622bf7a5a",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 227.814,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K05-001-prepared-0.webp",
+        "screenshots/K05-001-prepared-1.webp",
+        "screenshots/K05-001-prepared-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 61.16,
+          "end_seconds": 63.4
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 63.4,
+          "end_seconds": 65.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 144.44,
+          "end_seconds": 146.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 146.68,
+          "end_seconds": 148.36
+        }
+      ],
+      "combined_start_seconds": 144.44
+    },
+    {
+      "id": "K05-002-sequential",
+      "title": "순차 MAF workflow",
+      "guide": "docs/ko/labs/05-workflows.md#path-b",
+      "recorded_at": "2026-09-23T02:58:29.579951+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 227.89,
+      "status": "recorded",
+      "command_sha256": "e54ab40a6256dfe38020cda753ca6dcbeb8d30424ac942112295d52b2d32a2f9",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 245.25,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K05-002-sequential-0.webp",
+        "screenshots/K05-002-sequential-1.webp",
+        "screenshots/K05-002-sequential-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 65.08,
+          "end_seconds": 67.32
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 67.32,
+          "end_seconds": 69.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 148.36,
+          "end_seconds": 150.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 150.6,
+          "end_seconds": 152.28
+        }
+      ],
+      "combined_start_seconds": 148.36
+    },
+    {
+      "id": "K05-003-concurrent",
+      "title": "병렬 MAF workflow",
+      "guide": "docs/ko/labs/05-workflows.md#path-b",
+      "recorded_at": "2026-09-23T02:58:47.025175+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 245.335,
+      "status": "recorded",
+      "command_sha256": "fb3c87f44512e0adc3a3f2b196fa06aec7d211a5d20e00ac253c3a0aa2392ae5",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 257.105,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K05-003-concurrent-0.webp",
+        "screenshots/K05-003-concurrent-1.webp",
+        "screenshots/K05-003-concurrent-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 69.0,
+          "end_seconds": 71.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 71.24,
+          "end_seconds": 72.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 152.28,
+          "end_seconds": 154.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 154.52,
+          "end_seconds": 156.2
+        }
+      ],
+      "combined_start_seconds": 152.28
+    },
+    {
+      "id": "K05-004-group-chat",
+      "title": "제한된 Group Chat workflow",
+      "guide": "docs/ko/labs/05-workflows.md#path-b",
+      "recorded_at": "2026-09-23T02:58:58.907864+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 257.218,
+      "status": "recorded",
+      "command_sha256": "f21f91d4d08d90fa05e21aa3b9f7e42d15e30a2e6433c3b6fda9259637e3a625",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 274.92,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K05-004-group-chat-0.webp",
+        "screenshots/K05-004-group-chat-1.webp",
+        "screenshots/K05-004-group-chat-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 72.92,
+          "end_seconds": 75.16
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 75.16,
+          "end_seconds": 76.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 156.2,
+          "end_seconds": 158.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 158.44,
+          "end_seconds": 160.12
+        }
+      ],
+      "combined_start_seconds": 156.2
+    },
+    {
+      "id": "K06-001-local",
+      "title": "여섯 합성 정책의 로컬 키워드 검색",
+      "guide": "docs/ko/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T02:59:16.701747+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LOCAL CHECK",
+      "start_seconds": 275.012,
+      "status": "recorded",
+      "command_sha256": "2d73600dca73e12d5f156566f0635c6d9306f8e521504e6101eb1b68681ad4b6",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 279.84,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K06-001-local-0.webp",
+        "screenshots/K06-001-local-1.webp",
+        "screenshots/K06-001-local-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 76.84,
+          "end_seconds": 78.64
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 78.64,
+          "end_seconds": 80.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 162.12,
+          "end_seconds": 163.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 163.92,
+          "end_seconds": 165.6
+        }
+      ],
+      "combined_start_seconds": 162.12
+    },
+    {
+      "id": "K06-002-seed-search",
+      "title": "합성 정책으로 소유 Search index 생성",
+      "guide": "docs/ko/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T02:59:21.611597+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 279.921,
+      "status": "recorded",
+      "command_sha256": "594b20c545b275853ebf9576ba2302c5eaa2a2157269e608401b6e535ab8ae94",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 289.891,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K06-002-seed-search-0.webp",
+        "screenshots/K06-002-seed-search-1.webp",
+        "screenshots/K06-002-seed-search-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 80.32,
+          "end_seconds": 82.56
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 82.56,
+          "end_seconds": 84.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 165.6,
+          "end_seconds": 167.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 167.84,
+          "end_seconds": 169.52
+        }
+      ],
+      "combined_start_seconds": 165.6
+    },
+    {
+      "id": "K06-003-search",
+      "title": "Azure AI Search 키워드 검색",
+      "guide": "docs/ko/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T02:59:31.654592+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 289.964,
+      "status": "recorded",
+      "command_sha256": "71354c77ece95e04289b5541f8508a972e6da1da1a31159e858df0e44cb91480",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 298.016,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K06-003-search-0.webp",
+        "screenshots/K06-003-search-1.webp",
+        "screenshots/K06-003-search-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 84.24,
+          "end_seconds": 86.48
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 86.48,
+          "end_seconds": 88.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 169.52,
+          "end_seconds": 171.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 171.76,
+          "end_seconds": 173.44
+        }
+      ],
+      "combined_start_seconds": 169.52
+    },
+    {
+      "id": "K06-004-seed-iq",
+      "title": "소유 GA IQ knowledge source·base 생성",
+      "guide": "docs/ko/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T02:59:39.788284+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 298.098,
+      "status": "recorded",
+      "command_sha256": "215f99a2edaaf5050e595358a694e6526e32ffb4b0da82a2e102482ee14d8eea",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 309.773,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K06-004-seed-iq-0.webp",
+        "screenshots/K06-004-seed-iq-1.webp",
+        "screenshots/K06-004-seed-iq-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 88.16,
+          "end_seconds": 90.44
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 90.44,
+          "end_seconds": 92.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 173.44,
+          "end_seconds": 175.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 175.72,
+          "end_seconds": 177.4
+        }
+      ],
+      "combined_start_seconds": 173.44
+    },
+    {
+      "id": "K06-005-iq",
+      "title": "원문 참조가 있는 GA Foundry IQ 검색",
+      "guide": "docs/ko/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T02:59:51.543583+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 309.853,
+      "status": "recorded",
+      "command_sha256": "cf99d2fa19db5ca10e3d7733ad3a91d2d77e4f0798c9551b65ccb7411d209b04",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 317.601,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K06-005-iq-0.webp",
+        "screenshots/K06-005-iq-1.webp",
+        "screenshots/K06-005-iq-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 92.12,
+          "end_seconds": 94.4
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 94.4,
+          "end_seconds": 96.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 177.4,
+          "end_seconds": 179.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 179.68,
+          "end_seconds": 181.36
+        }
+      ],
+      "combined_start_seconds": 177.4
+    },
+    {
+      "id": "K06-006-answer-iq",
+      "title": "IQ 근거를 gpt-6-sol에 보내 검증된 답변 받기",
+      "guide": "docs/ko/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T02:59:59.371510+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 317.681,
+      "status": "recorded",
+      "command_sha256": "aab935197539c2f1e71f073414a8479741b1e382cb8a95581ef0a7a8f3676f41",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 329.822,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K06-006-answer-iq-0.webp",
+        "screenshots/K06-006-answer-iq-1.webp",
+        "screenshots/K06-006-answer-iq-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 96.08,
+          "end_seconds": 98.28
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 98.28,
+          "end_seconds": 99.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 181.36,
+          "end_seconds": 183.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 183.56,
+          "end_seconds": 185.2
+        }
+      ],
+      "combined_start_seconds": 181.36
+    },
+    {
+      "id": "K07-001-baseline",
+      "title": "v1 지침으로 dev baseline 수집",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:00:11.607937+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 329.918,
+      "status": "recorded",
+      "command_sha256": "b7f4b4b7294bea95dd702ebd5ccee7cae852c527c92f4b2b729b0705d600ed58",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 352.755,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-001-baseline-0.webp",
+        "screenshots/K07-001-baseline-1.webp",
+        "screenshots/K07-001-baseline-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 99.92,
+          "end_seconds": 101.72
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 101.72,
+          "end_seconds": 103.4
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 103.4,
+          "end_seconds": 105.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 187.2,
+          "end_seconds": 189.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 189.0,
+          "end_seconds": 190.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 190.68,
+          "end_seconds": 192.36
+        }
+      ],
+      "combined_start_seconds": 187.2
+    },
+    {
+      "id": "K07-002-evaluate-baseline",
+      "title": "baseline 로컬 업무 기준 평가",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:00:34.528085+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 352.838,
+      "status": "recorded",
+      "command_sha256": "b7653c28e84ea004ff8817370b05e48d957b0280b1dbc1b12fc6fbccab719649",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 357.579,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-002-evaluate-baseline-0.webp",
+        "screenshots/K07-002-evaluate-baseline-1.webp",
+        "screenshots/K07-002-evaluate-baseline-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 105.08,
+          "end_seconds": 106.8
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 106.8,
+          "end_seconds": 108.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 192.36,
+          "end_seconds": 194.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 194.08,
+          "end_seconds": 195.72
+        }
+      ],
+      "combined_start_seconds": 192.36
+    },
+    {
+      "id": "K07-004-candidate",
+      "title": "v2 지침으로 dev candidate 수집",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:00:39.372420+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 357.682,
+      "status": "recorded",
+      "command_sha256": "743b533b41738b8a29f26f25b0dbbc592d9c6d8435585887be10cc8b3b72c149",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 384.064,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-004-candidate-0.webp",
+        "screenshots/K07-004-candidate-1.webp",
+        "screenshots/K07-004-candidate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 108.44,
+          "end_seconds": 110.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 110.24,
+          "end_seconds": 111.92
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 111.92,
+          "end_seconds": 113.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 195.72,
+          "end_seconds": 197.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 197.52,
+          "end_seconds": 199.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 199.2,
+          "end_seconds": 200.84
+        }
+      ],
+      "combined_start_seconds": 195.72
+    },
+    {
+      "id": "K07-005-evaluate-candidate",
+      "title": "candidate 로컬 업무 기준 평가",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:01:05.846242+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 384.156,
+      "status": "recorded",
+      "command_sha256": "5634cc5cd6371efc11189cc1855edbf2be3dfc390c935e0dad020ed49b92763b",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 389.007,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-005-evaluate-candidate-0.webp",
+        "screenshots/K07-005-evaluate-candidate-1.webp",
+        "screenshots/K07-005-evaluate-candidate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 113.56,
+          "end_seconds": 115.32
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 115.32,
+          "end_seconds": 117.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 200.84,
+          "end_seconds": 202.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 202.6,
+          "end_seconds": 204.32
+        }
+      ],
+      "combined_start_seconds": 200.84
+    },
+    {
+      "id": "K07-006-compare",
+      "title": "같은 dev 데이터·모델에서 v1과 v2 비교",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:01:10.816162+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 389.126,
+      "status": "recorded",
+      "command_sha256": "d8e6b624e471852c3fc8c0725d47aaec4357e8c46da9f7110d2dc307a3dcffff",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 394.034,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-006-compare-0.webp",
+        "screenshots/K07-006-compare-1.webp",
+        "screenshots/K07-006-compare-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 117.04,
+          "end_seconds": 118.88
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 118.88,
+          "end_seconds": 120.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 204.32,
+          "end_seconds": 206.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 206.16,
+          "end_seconds": 207.84
+        }
+      ],
+      "combined_start_seconds": 204.32
+    },
+    {
+      "id": "K07-007-holdout",
+      "title": "고정한 candidate로 holdout 한 번 사용",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:01:15.824886+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 394.134,
+      "status": "recorded",
+      "command_sha256": "088f1cf514be291b0a423358b41bcb12870a2293494f5d79046c7210a053bec6",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 412.998,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-007-holdout-0.webp",
+        "screenshots/K07-007-holdout-1.webp",
+        "screenshots/K07-007-holdout-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 120.56,
+          "end_seconds": 122.8
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 122.8,
+          "end_seconds": 124.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 207.84,
+          "end_seconds": 210.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 210.08,
+          "end_seconds": 211.76
+        }
+      ],
+      "combined_start_seconds": 207.84
+    },
+    {
+      "id": "K07-008-evaluate-holdout",
+      "title": "최종 holdout 로컬 업무 기준 평가",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:01:34.797023+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 413.106,
+      "status": "recorded",
+      "command_sha256": "3d759f20295129de51c5529c0b02bcfc27052cc8951b9b1da3d5cf0c531c7323",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 417.933,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-008-evaluate-holdout-0.webp",
+        "screenshots/K07-008-evaluate-holdout-1.webp",
+        "screenshots/K07-008-evaluate-holdout-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 124.48,
+          "end_seconds": 126.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 126.24,
+          "end_seconds": 127.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 211.76,
+          "end_seconds": 213.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 213.52,
+          "end_seconds": 215.2
+        }
+      ],
+      "combined_start_seconds": 211.76
+    },
+    {
+      "id": "K07-009-accept",
+      "title": "배포 승인이 아닌 인수 판단",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:01:39.710745+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 418.02,
+      "status": "recorded",
+      "command_sha256": "2821bd0930c7a31175cb72ef68d18c93f3c0b4fa84208913c906c536fbbf7857",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 422.85,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-009-accept-0.webp",
+        "screenshots/K07-009-accept-1.webp",
+        "screenshots/K07-009-accept-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 127.92,
+          "end_seconds": 129.72
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 129.72,
+          "end_seconds": 131.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 215.2,
+          "end_seconds": 217.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 217.0,
+          "end_seconds": 218.72
+        }
+      ],
+      "combined_start_seconds": 215.2
+    },
+    {
+      "id": "K07-010-cloud-judge",
+      "title": "선택 Foundry cloud judge: gpt-6-sol-judge",
+      "guide": "docs/ko/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T03:01:44.652082+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 422.962,
+      "status": "recorded",
+      "command_sha256": "4ae593d47a0c922438f0c5657ee8a7b29735d839ec72655d6f9001774b139372",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 461.8,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K07-010-cloud-judge-0.webp",
+        "screenshots/K07-010-cloud-judge-1.webp",
+        "screenshots/K07-010-cloud-judge-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 131.44,
+          "end_seconds": 133.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 133.24,
+          "end_seconds": 134.92
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 134.92,
+          "end_seconds": 136.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 218.72,
+          "end_seconds": 220.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 220.52,
+          "end_seconds": 222.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 222.2,
+          "end_seconds": 223.88
+        }
+      ],
+      "combined_start_seconds": 218.72
+    },
+    {
+      "id": "K08-001-package",
+      "title": "Hosted bundle 패키징만; 배포 없음",
+      "guide": "docs/ko/labs/08-hosted.md#path-b",
+      "recorded_at": "2026-09-23T03:02:23.563293+00:00",
+      "lab": 8,
+      "channel": "terminal",
+      "mode": "PACKAGE",
+      "start_seconds": 461.873,
+      "status": "recorded",
+      "command_sha256": "d7b655a9e548500849616626143c2ae0045f39b2180fdf22c0cb9e9f79e9c1dd",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 466.671,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K08-001-package-0.webp",
+        "screenshots/K08-001-package-1.webp",
+        "screenshots/K08-001-package-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 136.6,
+          "end_seconds": 138.36
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 138.36,
+          "end_seconds": 140.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 246.16,
+          "end_seconds": 247.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 247.92,
+          "end_seconds": 249.56
+        }
+      ],
+      "combined_start_seconds": 246.16
+    },
+    {
+      "id": "K09-001-cleanup-plan",
+      "title": "소유 자산 정리 목록 (삭제하지 않음)",
+      "guide": "docs/ko/labs/09-operations.md#path-b",
+      "recorded_at": "2026-09-23T03:02:28.425819+00:00",
+      "lab": 9,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 466.735,
+      "status": "recorded",
+      "command_sha256": "f2b5aede20b02b6531d277ab32f2409e257bd3fd19c36ace27fc0d7775a44219",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 471.5,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K09-001-cleanup-plan-0.webp",
+        "screenshots/K09-001-cleanup-plan-1.webp",
+        "screenshots/K09-001-cleanup-plan-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 140.0,
+          "end_seconds": 141.76
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 141.76,
+          "end_seconds": 143.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 251.56,
+          "end_seconds": 253.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 253.32,
+          "end_seconds": 254.96
+        }
+      ],
+      "combined_start_seconds": 251.56
+    },
+    {
+      "id": "K11-001-handoff",
+      "title": "인계: 저장한 기록과 실제 인수 결과",
+      "guide": "docs/ko/labs/11-capstone.md#path-b",
+      "recorded_at": "2026-09-23T03:02:33.259409+00:00",
+      "lab": 11,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 471.569,
+      "status": "recorded",
+      "command_sha256": "f4f1fbdc729706172b0742525ea6e12efa603be6ab66f9d9f0cb4a01ea4e0246",
+      "working_tree_source_hash": "40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 476.371,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/K11-001-handoff-0.webp",
+        "screenshots/K11-001-handoff-1.webp",
+        "screenshots/K11-001-handoff-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 143.4,
+          "end_seconds": 145.16
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 145.16,
+          "end_seconds": 147.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 268.48,
+          "end_seconds": 270.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 270.24,
+          "end_seconds": 272.88
+        }
+      ],
+      "combined_start_seconds": 268.48
+    },
+    {
+      "id": "KP00-001-home",
+      "title": "지정한 실습 프로젝트 열기",
+      "guide": "docs/ko/labs/00-start.md#path-a",
+      "recorded_at": "2026-09-23T03:05:56.911262+00:00",
+      "lab": 0,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 9.231,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 23.608,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP00-001-home-0.webp",
+        "screenshots/KP00-001-home-1.webp",
+        "screenshots/KP00-001-home-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 0.0,
+          "end_seconds": 1.68
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 1.68,
+          "end_seconds": 3.08
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 3.08,
+          "end_seconds": 3.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 35.6,
+          "end_seconds": 37.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 37.28,
+          "end_seconds": 38.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 38.68,
+          "end_seconds": 39.04
+        }
+      ],
+      "combined_start_seconds": 35.6
+    },
+    {
+      "id": "KP01-001-endpoints",
+      "title": "프로젝트 endpoint와 계정 OpenAI endpoint 구분",
+      "guide": "docs/ko/labs/01-foundry.md#path-a",
+      "recorded_at": "2026-09-23T03:06:11.295126+00:00",
+      "lab": 1,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 23.615,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 28.367,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP01-001-endpoints-0.webp",
+        "screenshots/KP01-001-endpoints-1.webp",
+        "screenshots/KP01-001-endpoints-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 3.44,
+          "end_seconds": 4.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 4.76,
+          "end_seconds": 6.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 6.16,
+          "end_seconds": 6.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 41.04,
+          "end_seconds": 42.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 42.36,
+          "end_seconds": 43.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 43.76,
+          "end_seconds": 44.12
+        }
+      ],
+      "combined_start_seconds": 41.04
+    },
+    {
+      "id": "KP02-001-deployments",
+      "title": "배포 목록 열기: gpt-6-sol과 judge",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:16.053499+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 28.373,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 36.62,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-001-deployments-0.webp",
+        "screenshots/KP02-001-deployments-1.webp",
+        "screenshots/KP02-001-deployments-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 6.52,
+          "end_seconds": 7.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 7.88,
+          "end_seconds": 9.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 9.28,
+          "end_seconds": 9.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 54.04,
+          "end_seconds": 55.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 55.4,
+          "end_seconds": 56.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 56.8,
+          "end_seconds": 57.2
+        }
+      ],
+      "combined_start_seconds": 54.04
+    },
+    {
+      "id": "KP02-002-select-sol",
+      "title": "gpt-6-sol을 선택하고 버전 2026-09-22 확인",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:24.307675+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 36.627,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 41.831,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-002-select-sol-0.webp",
+        "screenshots/KP02-002-select-sol-1.webp",
+        "screenshots/KP02-002-select-sol-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 9.68,
+          "end_seconds": 11.0
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 11.0,
+          "end_seconds": 12.4
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 12.4,
+          "end_seconds": 12.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 57.2,
+          "end_seconds": 58.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 58.52,
+          "end_seconds": 59.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 59.92,
+          "end_seconds": 60.32
+        }
+      ],
+      "combined_start_seconds": 57.2
+    },
+    {
+      "id": "KP02-003-playground",
+      "title": "gpt-6-sol Playground 열기",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:29.518549+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 41.838,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 49.325,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-003-playground-0.webp",
+        "screenshots/KP02-003-playground-1.webp",
+        "screenshots/KP02-003-playground-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 12.8,
+          "end_seconds": 14.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 14.12,
+          "end_seconds": 15.8
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 15.8,
+          "end_seconds": 16.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 60.32,
+          "end_seconds": 61.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 61.64,
+          "end_seconds": 63.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 63.32,
+          "end_seconds": 63.68
+        }
+      ],
+      "combined_start_seconds": 60.32
+    },
+    {
+      "id": "KP02-004-deployments-list",
+      "title": "judge나 카탈로그 모델이 아닌 응답 배포 확인",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:37.008350+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 49.328,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 53.993,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-004-deployments-list-0.webp",
+        "screenshots/KP02-004-deployments-list-1.webp",
+        "screenshots/KP02-004-deployments-list-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 16.16,
+          "end_seconds": 17.44
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 17.44,
+          "end_seconds": 18.84
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 18.84,
+          "end_seconds": 19.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 63.68,
+          "end_seconds": 64.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 64.96,
+          "end_seconds": 66.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 66.36,
+          "end_seconds": 66.76
+        }
+      ],
+      "combined_start_seconds": 63.68
+    },
+    {
+      "id": "KP02-005-keep-sol",
+      "title": "gpt-6-sol 선택 유지",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:41.677554+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 53.997,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 57.341,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-005-keep-sol-0.webp",
+        "screenshots/KP02-005-keep-sol-1.webp",
+        "screenshots/KP02-005-keep-sol-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 19.24,
+          "end_seconds": 19.84
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 19.84,
+          "end_seconds": 21.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 21.2,
+          "end_seconds": 21.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 66.76,
+          "end_seconds": 67.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 67.36,
+          "end_seconds": 68.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 68.72,
+          "end_seconds": 69.12
+        }
+      ],
+      "combined_start_seconds": 66.76
+    },
+    {
+      "id": "KP02-006-web-menu",
+      "title": "기본 Web search 도구 작업 열기",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:45.026372+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 57.346,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 61.039,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-006-web-menu-0.webp",
+        "screenshots/KP02-006-web-menu-1.webp",
+        "screenshots/KP02-006-web-menu-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 21.6,
+          "end_seconds": 22.36
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 22.36,
+          "end_seconds": 23.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 23.76,
+          "end_seconds": 24.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 69.12,
+          "end_seconds": 69.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 69.88,
+          "end_seconds": 71.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 71.28,
+          "end_seconds": 71.64
+        }
+      ],
+      "combined_start_seconds": 69.12
+    },
+    {
+      "id": "KP02-007-remove-web",
+      "title": "질문 전에 외부 Web search 제거",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:48.722309+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 61.042,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 65.246,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-007-remove-web-0.webp",
+        "screenshots/KP02-007-remove-web-1.webp",
+        "screenshots/KP02-007-remove-web-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 24.12,
+          "end_seconds": 25.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 25.12,
+          "end_seconds": 26.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 26.52,
+          "end_seconds": 26.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 71.64,
+          "end_seconds": 72.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 72.64,
+          "end_seconds": 74.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 74.04,
+          "end_seconds": 74.4
+        }
+      ],
+      "combined_start_seconds": 71.64
+    },
+    {
+      "id": "KP02-008-question",
+      "title": "개념 질문과 실제 gpt-6-sol 답변",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:52.931622+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 65.251,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 72.297,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-008-question-0.webp",
+        "screenshots/KP02-008-question-1.webp",
+        "screenshots/KP02-008-question-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 26.88,
+          "end_seconds": 28.08
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 28.08,
+          "end_seconds": 29.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 29.76,
+          "end_seconds": 30.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 74.4,
+          "end_seconds": 75.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 75.6,
+          "end_seconds": 77.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 77.28,
+          "end_seconds": 77.64
+        }
+      ],
+      "combined_start_seconds": 74.4
+    },
+    {
+      "id": "KP02-009-new-chat",
+      "title": "새 대화: 정책 근거 없이 질문",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:06:59.984784+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 72.304,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 80.357,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-009-new-chat-0.webp",
+        "screenshots/KP02-009-new-chat-1.webp",
+        "screenshots/KP02-009-new-chat-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 30.12,
+          "end_seconds": 31.44
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 31.44,
+          "end_seconds": 33.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 33.12,
+          "end_seconds": 33.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 77.64,
+          "end_seconds": 78.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 78.96,
+          "end_seconds": 80.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 80.64,
+          "end_seconds": 81.0
+        }
+      ],
+      "combined_start_seconds": 77.64
+    },
+    {
+      "id": "KP02-010-leave",
+      "title": "임시 Playground 설정을 저장하지 않고 나가기",
+      "guide": "docs/ko/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T03:07:08.038621+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 80.358,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 88.598,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP02-010-leave-0.webp",
+        "screenshots/KP02-010-leave-1.webp",
+        "screenshots/KP02-010-leave-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 33.48,
+          "end_seconds": 34.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 34.76,
+          "end_seconds": 36.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 36.16,
+          "end_seconds": 36.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 81.0,
+          "end_seconds": 82.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 82.28,
+          "end_seconds": 83.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 83.68,
+          "end_seconds": 84.04
+        }
+      ],
+      "combined_start_seconds": 81.0
+    },
+    {
+      "id": "KP03-001-agents",
+      "title": "같은 프로젝트의 Agents 열기",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:07:16.285097+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 88.604,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 101.653,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-001-agents-0.webp",
+        "screenshots/KP03-001-agents-1.webp",
+        "screenshots/KP03-001-agents-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 36.52,
+          "end_seconds": 37.84
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 37.84,
+          "end_seconds": 39.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 39.2,
+          "end_seconds": 39.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 93.84,
+          "end_seconds": 95.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 95.16,
+          "end_seconds": 96.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 96.52,
+          "end_seconds": 96.88
+        }
+      ],
+      "combined_start_seconds": 93.84
+    },
+    {
+      "id": "KP03-002-build-agent",
+      "title": "New agent → Build an agent",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:07:29.336607+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 101.656,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 108.198,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-002-build-agent-0.webp",
+        "screenshots/KP03-002-build-agent-1.webp",
+        "screenshots/KP03-002-build-agent-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 39.56,
+          "end_seconds": 40.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 40.88,
+          "end_seconds": 42.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 42.28,
+          "end_seconds": 42.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 96.88,
+          "end_seconds": 98.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 98.2,
+          "end_seconds": 99.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 99.6,
+          "end_seconds": 99.96
+        }
+      ],
+      "combined_start_seconds": 96.88
+    },
+    {
+      "id": "KP03-003-name",
+      "title": "소유 prefix 이름으로 만들고 playground 열기",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:07:35.884581+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 108.204,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 124.525,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-003-name-0.webp",
+        "screenshots/KP03-003-name-1.webp",
+        "screenshots/KP03-003-name-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 42.64,
+          "end_seconds": 43.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 43.96,
+          "end_seconds": 45.64
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 45.64,
+          "end_seconds": 46.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 99.96,
+          "end_seconds": 101.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 101.28,
+          "end_seconds": 102.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 102.96,
+          "end_seconds": 103.32
+        }
+      ],
+      "combined_start_seconds": 99.96
+    },
+    {
+      "id": "KP03-004-model",
+      "title": "배포 아래 gpt-6-sol 응답 배포 선택",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:07:52.208275+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 124.527,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 131.276,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-004-model-0.webp",
+        "screenshots/KP03-004-model-1.webp",
+        "screenshots/KP03-004-model-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 46.0,
+          "end_seconds": 47.32
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 47.32,
+          "end_seconds": 48.68
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 48.68,
+          "end_seconds": 49.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 103.32,
+          "end_seconds": 104.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 104.64,
+          "end_seconds": 106.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 106.0,
+          "end_seconds": 106.36
+        }
+      ],
+      "combined_start_seconds": 103.32
+    },
+    {
+      "id": "KP03-005-remove-web",
+      "title": "새 agent에서 Web search 제거",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:07:58.962223+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 131.281,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 137.01,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-005-remove-web-0.webp",
+        "screenshots/KP03-005-remove-web-1.webp",
+        "screenshots/KP03-005-remove-web-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 49.04,
+          "end_seconds": 50.36
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 50.36,
+          "end_seconds": 51.72
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 51.72,
+          "end_seconds": 52.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 106.36,
+          "end_seconds": 107.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 107.68,
+          "end_seconds": 109.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 109.04,
+          "end_seconds": 109.4
+        }
+      ],
+      "combined_start_seconds": 106.36
+    },
+    {
+      "id": "KP03-006-instructions",
+      "title": "instructions-with-policies.txt를 Instructions에 붙여 넣기",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:08:04.696779+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 137.016,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 140.765,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-006-instructions-0.webp",
+        "screenshots/KP03-006-instructions-1.webp",
+        "screenshots/KP03-006-instructions-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 52.08,
+          "end_seconds": 52.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 52.88,
+          "end_seconds": 54.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 54.28,
+          "end_seconds": 54.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 109.4,
+          "end_seconds": 110.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 110.2,
+          "end_seconds": 111.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 111.6,
+          "end_seconds": 111.96
+        }
+      ],
+      "combined_start_seconds": 109.4
+    },
+    {
+      "id": "KP03-007-save",
+      "title": "저장하고 반환된 agent 버전 확인",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:08:08.450556+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 140.77,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 150.028,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-007-save-0.webp",
+        "screenshots/KP03-007-save-1.webp",
+        "screenshots/KP03-007-save-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 54.64,
+          "end_seconds": 55.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 55.96,
+          "end_seconds": 57.32
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 57.32,
+          "end_seconds": 57.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 111.96,
+          "end_seconds": 113.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 113.28,
+          "end_seconds": 114.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 114.64,
+          "end_seconds": 115.04
+        }
+      ],
+      "combined_start_seconds": 111.96
+    },
+    {
+      "id": "KP03-101-d01",
+      "title": "D01 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:08:17.714925+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 150.034,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 163.861,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-101-d01-0.webp",
+        "screenshots/KP03-101-d01-1.webp",
+        "screenshots/KP03-101-d01-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 57.72,
+          "end_seconds": 59.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 59.04,
+          "end_seconds": 60.72
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 60.72,
+          "end_seconds": 61.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 115.04,
+          "end_seconds": 116.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 116.36,
+          "end_seconds": 118.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 118.04,
+          "end_seconds": 118.44
+        }
+      ],
+      "combined_start_seconds": 115.04
+    },
+    {
+      "id": "KP03-102-d02",
+      "title": "D02 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:08:31.549240+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 163.868,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 174.096,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-102-d02-0.webp",
+        "screenshots/KP03-102-d02-1.webp",
+        "screenshots/KP03-102-d02-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 61.12,
+          "end_seconds": 62.44
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 62.44,
+          "end_seconds": 64.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 64.12,
+          "end_seconds": 64.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 118.44,
+          "end_seconds": 119.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 119.76,
+          "end_seconds": 121.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 121.44,
+          "end_seconds": 121.8
+        }
+      ],
+      "combined_start_seconds": 118.44
+    },
+    {
+      "id": "KP03-103-d03",
+      "title": "D03 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:08:41.781379+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 174.1,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 185.25,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-103-d03-0.webp",
+        "screenshots/KP03-103-d03-1.webp",
+        "screenshots/KP03-103-d03-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 64.48,
+          "end_seconds": 65.8
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 65.8,
+          "end_seconds": 67.48
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 67.48,
+          "end_seconds": 67.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 121.8,
+          "end_seconds": 123.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 123.12,
+          "end_seconds": 124.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 124.8,
+          "end_seconds": 125.2
+        }
+      ],
+      "combined_start_seconds": 121.8
+    },
+    {
+      "id": "KP03-105-d05",
+      "title": "D05 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T03:08:52.935569+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 185.255,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 195.876,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP03-105-d05-0.webp",
+        "screenshots/KP03-105-d05-1.webp",
+        "screenshots/KP03-105-d05-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 67.88,
+          "end_seconds": 69.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 69.2,
+          "end_seconds": 70.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 70.88,
+          "end_seconds": 71.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 125.2,
+          "end_seconds": 126.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 126.52,
+          "end_seconds": 128.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 128.2,
+          "end_seconds": 128.6
+        }
+      ],
+      "combined_start_seconds": 125.2
+    },
+    {
+      "id": "KP07-101-d01",
+      "title": "D01 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T03:09:03.563144+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 195.882,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 207.549,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP07-101-d01-0.webp",
+        "screenshots/KP07-101-d01-1.webp",
+        "screenshots/KP07-101-d01-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 71.28,
+          "end_seconds": 72.6
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 72.6,
+          "end_seconds": 74.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 74.28,
+          "end_seconds": 74.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 223.88,
+          "end_seconds": 225.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 225.2,
+          "end_seconds": 226.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 226.88,
+          "end_seconds": 227.28
+        }
+      ],
+      "combined_start_seconds": 223.88
+    },
+    {
+      "id": "KP07-102-d02",
+      "title": "D02 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T03:09:15.237731+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 207.557,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 219.894,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP07-102-d02-0.webp",
+        "screenshots/KP07-102-d02-1.webp",
+        "screenshots/KP07-102-d02-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 74.68,
+          "end_seconds": 76.0
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 76.0,
+          "end_seconds": 77.68
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 77.68,
+          "end_seconds": 78.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 227.28,
+          "end_seconds": 228.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 228.6,
+          "end_seconds": 230.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 230.28,
+          "end_seconds": 230.64
+        }
+      ],
+      "combined_start_seconds": 227.28
+    },
+    {
+      "id": "KP07-103-d03",
+      "title": "D03 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T03:09:29.551902+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 219.899,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 232.012,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP07-103-d03-0.webp",
+        "screenshots/KP07-103-d03-1.webp",
+        "screenshots/KP07-103-d03-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 78.04,
+          "end_seconds": 79.36
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 79.36,
+          "end_seconds": 81.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 81.04,
+          "end_seconds": 81.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 230.64,
+          "end_seconds": 231.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 231.96,
+          "end_seconds": 233.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 233.64,
+          "end_seconds": 234.0
+        }
+      ],
+      "combined_start_seconds": 230.64
+    },
+    {
+      "id": "KP07-104-d04",
+      "title": "D04 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T03:09:41.669459+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 232.017,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 243.709,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP07-104-d04-0.webp",
+        "screenshots/KP07-104-d04-1.webp",
+        "screenshots/KP07-104-d04-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 81.4,
+          "end_seconds": 82.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 82.76,
+          "end_seconds": 84.44
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 84.44,
+          "end_seconds": 84.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 234.0,
+          "end_seconds": 235.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 235.36,
+          "end_seconds": 237.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 237.04,
+          "end_seconds": 237.44
+        }
+      ],
+      "combined_start_seconds": 234.0
+    },
+    {
+      "id": "KP07-105-d05",
+      "title": "D05 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T03:09:53.368383+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 243.716,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 255.907,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP07-105-d05-0.webp",
+        "screenshots/KP07-105-d05-1.webp",
+        "screenshots/KP07-105-d05-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 84.84,
+          "end_seconds": 86.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 86.16,
+          "end_seconds": 87.84
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 87.84,
+          "end_seconds": 88.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 237.44,
+          "end_seconds": 238.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 238.76,
+          "end_seconds": 240.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 240.44,
+          "end_seconds": 240.84
+        }
+      ],
+      "combined_start_seconds": 237.44
+    },
+    {
+      "id": "KP07-106-d06",
+      "title": "D06 · 새 대화, 질문, 실제 답변",
+      "guide": "docs/ko/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T03:10:05.565924+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 255.913,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 267.525,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP07-106-d06-0.webp",
+        "screenshots/KP07-106-d06-1.webp",
+        "screenshots/KP07-106-d06-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 88.24,
+          "end_seconds": 89.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 89.52,
+          "end_seconds": 91.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 91.2,
+          "end_seconds": 91.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 240.84,
+          "end_seconds": 242.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 242.12,
+          "end_seconds": 243.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 243.8,
+          "end_seconds": 244.16
+        }
+      ],
+      "combined_start_seconds": 240.84
+    },
+    {
+      "id": "KP09-001-details",
+      "title": "Agent 세부 정보: 이름·저장 버전·모델",
+      "guide": "docs/ko/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T03:10:17.183150+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 267.531,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 274.755,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP09-001-details-0.webp",
+        "screenshots/KP09-001-details-1.webp",
+        "screenshots/KP09-001-details-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 91.56,
+          "end_seconds": 92.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 92.88,
+          "end_seconds": 94.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 94.28,
+          "end_seconds": 94.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 254.96,
+          "end_seconds": 256.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 256.28,
+          "end_seconds": 257.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 257.68,
+          "end_seconds": 258.08
+        }
+      ],
+      "combined_start_seconds": 254.96
+    },
+    {
+      "id": "KP09-002-traces",
+      "title": "기록된 agent 요청의 추적",
+      "guide": "docs/ko/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T03:10:24.413448+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 274.761,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 284.962,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP09-002-traces-0.webp",
+        "screenshots/KP09-002-traces-1.webp",
+        "screenshots/KP09-002-traces-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 94.68,
+          "end_seconds": 96.0
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 96.0,
+          "end_seconds": 97.4
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 97.4,
+          "end_seconds": 97.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 258.08,
+          "end_seconds": 259.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 259.4,
+          "end_seconds": 260.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 260.8,
+          "end_seconds": 261.16
+        }
+      ],
+      "combined_start_seconds": 258.08
+    },
+    {
+      "id": "KP09-003-monitor",
+      "title": "모니터링 합계는 평가 정답 여부가 아님",
+      "guide": "docs/ko/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T03:10:34.622795+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 284.97,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 295.208,
+      "exit_code": 0,
+      "source_id": "portal",
+      "images": [
+        "screenshots/KP09-003-monitor-0.webp",
+        "screenshots/KP09-003-monitor-1.webp",
+        "screenshots/KP09-003-monitor-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 97.76,
+          "end_seconds": 99.08
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 99.08,
+          "end_seconds": 100.48
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 100.48,
+          "end_seconds": 103.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 261.16,
+          "end_seconds": 262.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 262.48,
+          "end_seconds": 263.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 263.88,
+          "end_seconds": 266.48
+        }
+      ],
+      "combined_start_seconds": 261.16
+    }
+  ]
+}

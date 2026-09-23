@@ -7,8 +7,17 @@ from itertools import pairwise
 from . import ROOT
 
 ASSETS = {
-    language: ROOT / "docs/assets" / f"refresh-20260915-{language}" for language in ("ko", "en")
+    language: ROOT / "docs/assets" / f"g6sol-20260923-{language}" for language in ("ko", "en")
 }
+REMOVED_SERIES = ("refresh-20260915", "edition-20260916", "g6luna-20260923")
+REMOVED_PAGES = (
+    "edition-results.md",
+    "edition-videos.md",
+    "edition-actions.md",
+    "edition-chapters.md",
+    "gpt-6-luna-recordings.md",
+)
+HASH_FIELDS = ("dataset_hash", "corpus_hash", "code_hash", "prompt_hash", "responses_hash")
 
 
 def read(path):
@@ -16,11 +25,12 @@ def read(path):
 
 
 class MediaIntegrityTests(unittest.TestCase):
+    """September 23 gpt-6-sol recordings of the main A/B steps (Labs 00-09 and 11)."""
+
     assets = ASSETS
-    recorded_on = "2026-09-15"
-    lab_ids = list(range(12))
-    guide_glob = "*.md"
-    required_guide_images = None
+    recorded_on = "2026-09-23"
+    lab_ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11]
+    unrecorded_guides = {"10-iq-extensions"}
     action_index = "action-captures.md"
     video_summary = "video-summary.md"
     supplemental_assets = ("iq-chat-20260917",)
@@ -35,6 +45,19 @@ class MediaIntegrityTests(unittest.TestCase):
             self.assertTrue(media["new_azure_execution"])
             self.assertTrue(media["all_failures_retained_in_private_source"])
             self.assertEqual(len(media["videos"]), 3)
+            self.assertEqual(media["edition_id"], "g6sol-20260923")
+            self.assertEqual(
+                media["model_preset"],
+                {
+                    "deployment": "gpt-6-sol",
+                    "model": "gpt-6-sol",
+                    "version": "2026-09-22",
+                    "judge_deployment": "gpt-6-sol-judge",
+                },
+            )
+            self.assertTrue(media["independent_language_capture"])
+            self.assertFalse(media["translated_english_assets"])
+            self.assertFalse(media["upstream_results_reused_as_this_edition"])
             hashes[language] = {
                 item["sha256"] for item in media["source_recordings"] + media["videos"]
             }
@@ -76,12 +99,12 @@ class MediaIntegrityTests(unittest.TestCase):
             self.assertEqual(len(actions), media["actions"])
             self.assertEqual(len(actions), len({item["id"] for item in actions}))
             self.assertEqual({item["lab"] for item in actions}, set(self.lab_ids))
-            self.assertEqual(
-                {item["channel"] for item in actions}, {"terminal", "local-server", "portal"}
-            )
+            self.assertEqual({item["channel"] for item in actions}, {"terminal", "portal"})
             for action in actions:
                 self.assertTrue(action["id"].startswith("K" if language == "ko" else "E"))
-                self.assertIn(action["status"], {"recorded", "failed"})
+                self.assertEqual(action["status"], "recorded")
+                self.assertEqual(action["exit_code"], 0)
+                self.assertTrue(action["capture_status_is_not_execution_success"])
                 self.assertTrue(action["images"])
                 self.assertTrue(set(action["images"]) <= known)
                 intervals = [
@@ -171,6 +194,7 @@ class MediaIntegrityTests(unittest.TestCase):
                 self.assertEqual(
                     item["chapters_checked"], len(known[item["filename"]].get("chapters", []))
                 )
+                self.assertEqual(item["seek_validation"], "seek-complete-and-decoded-frame")
 
     def test_guides_reference_only_their_own_new_language_images(self):
         for language, directory in self.assets.items():
@@ -186,12 +210,21 @@ class MediaIntegrityTests(unittest.TestCase):
                     for item in read(supplement / "captures.json")["images"]
                     if item["guide_language"] == language
                 )
-            for path in (docs / "labs").glob(self.guide_glob):
+            used = set()
+            for path in sorted((docs / "labs").glob("*.md")):
                 images = re.findall(r"!\[[^\]]+\]\(([^)]+)\)", path.read_text())
-                if self.required_guide_images is None or path.stem in self.required_guide_images:
-                    self.assertTrue(images, path.name)
-                for image in images:
-                    self.assertIn((path.parent / image).resolve(), known)
+                with self.subTest(language=language, guide=path.name):
+                    if path.stem in self.unrecorded_guides:
+                        self.assertFalse(images)
+                    else:
+                        self.assertTrue(images)
+                    for image in images:
+                        target = (path.parent / image).resolve()
+                        self.assertIn(target, known)
+                        used.add(target)
+            self.assertGreaterEqual(len(used), 50)
+            for path in sorted((docs / "labs/extensions").glob("*.md")):
+                self.assertFalse(re.findall(r"!\[[^\]]+\]\(([^)]+)\)", path.read_text()), path)
             index = (docs / self.action_index).read_text()
             for action in read(directory / "actions.json")["actions"]:
                 self.assertIn(f"| {action['id']} |", index)
@@ -203,37 +236,70 @@ class MediaIntegrityTests(unittest.TestCase):
             for language, directory in self.assets.items()
         }
         for language, result in results.items():
-            self.assertEqual(result["language"], language)
-            self.assertFalse(result["holdout_used_for_development"])
-            self.assertFalse(result["production_approval"])
-            self.assertEqual([item["rows"] for item in result["cohorts"][:2]], [24, 24])
-            final = result["cohorts"][-1]
-            self.assertEqual(final["rows"], 4 * len(result["selected_holdout_model_keys"]))
-            for item in result["cohorts"]:
-                self.assertLessEqual(item["business_passed"], item["rows"])
-                self.assertLessEqual(item["groundedness_passed"], item["rows"])
-                self.assertLessEqual(item["relevance_passed"], item["rows"])
-                self.assertEqual(item["verified_traces"], item["rows"])
-                for key in (
-                    "dataset_hash",
-                    "corpus_hash",
-                    "code_hash",
-                    "responses_hash",
-                    "evaluator_hash",
-                ):
-                    self.assertRegex(item[key], "^[0-9a-f]{64}$")
-        self.assertNotEqual(
-            results["ko"]["cohorts"][0]["dataset_hash"], results["en"]["cohorts"][0]["dataset_hash"]
-        )
-        self.assertNotEqual(
-            results["ko"]["cohorts"][0]["corpus_hash"], results["en"]["cohorts"][0]["corpus_hash"]
-        )
-        diagnostic = results["en"]["diagnostics"][0]
-        self.assertEqual((diagnostic["rows"], diagnostic["business_passed"]), (24, 20))
-        self.assertEqual(results["en"]["regression_review"], "pending-human-review")
-        self.assertFalse(results["en"]["regressions_consumed"])
-        self.assertEqual(results["en"]["cohorts"][1]["business_passed"], 23)
-        self.assertEqual(results["en"]["selected_holdout_model_keys"], ["luna", "sol", "terra"])
+            with self.subTest(language=language):
+                actions = read(self.assets[language] / "actions.json")["actions"]
+                self.assertEqual(result["language"], language)
+                self.assertEqual(result["series"], "gpt-6-sol")
+                self.assertEqual(result["edition_id"], "g6sol-20260923")
+                self.assertFalse(result["holdout_used_for_development"])
+                self.assertFalse(result["production_approval"])
+                self.assertRegex(result["source_hash"], "^[0-9a-f]{64}$")
+                self.assertRegex(result["base_commit"], "^[0-9a-f]{40}$")
+                self.assertEqual(
+                    {
+                        (item["name"], item["model"], item["version"])
+                        for item in result["deployments"]
+                    },
+                    {
+                        ("gpt-6-sol", "gpt-6-sol", "2026-09-22"),
+                        ("gpt-6-sol-judge", "gpt-6-sol", "2026-09-22"),
+                    },
+                )
+                self.assertEqual(result["actions"]["total"], len(actions))
+                self.assertEqual(
+                    result["actions"]["failed"],
+                    [item["id"] for item in actions if item["status"] == "failed"],
+                )
+                self.assertEqual(
+                    [item["id"] for item in result["actions"]["skipped"]],
+                    [("K" if language == "ko" else "E") + "07-003-feedback"],
+                )
+                cohorts = result["cohorts"]
+                self.assertEqual(
+                    [item["label"] for item in cohorts], ["baseline", "candidate", "final-holdout"]
+                )
+                self.assertEqual([item["split"] for item in cohorts], ["dev", "dev", "holdout"])
+                self.assertEqual([item["rows"] for item in cohorts], [6, 6, 4])
+                self.assertEqual([item["prompt_version"] for item in cohorts], ["v1", "v2", "v2"])
+                self.assertEqual(cohorts[2]["frozen_candidate_run_id"], cohorts[1]["run_id"])
+                for item in cohorts:
+                    self.assertEqual(item["rows"], item["expected_rows"])
+                    self.assertEqual(item["observed_models"], ["gpt-6-sol"])
+                    self.assertEqual(
+                        item["business_passed"] + item["business_failed"] + item["errors"],
+                        item["rows"],
+                    )
+                    for key in (*HASH_FIELDS, "business_report_sha256"):
+                        self.assertRegex(item[key], "^[0-9a-f]{64}$")
+                self.assertNotEqual(cohorts[0]["prompt_hash"], cohorts[1]["prompt_hash"])
+                self.assertEqual(cohorts[1]["prompt_hash"], cohorts[2]["prompt_hash"])
+                acceptance = result["acceptance"]
+                self.assertFalse(acceptance["deployment_approved"])
+                self.assertFalse(acceptance["cloud_judge_results_included"])
+                judge = result["cloud_judge"]
+                self.assertEqual(judge["judge_deployment"], "gpt-6-sol-judge")
+                self.assertEqual(judge["source_run_id"], cohorts[1]["run_id"])
+                self.assertEqual(judge["dataset_hash"], cohorts[1]["dataset_hash"])
+                self.assertFalse(judge["included_in_acceptance"])
+                self.assertEqual(set(judge["evaluators"]), {"groundedness", "relevance"})
+                for name, counts in judge["evaluators"].items():
+                    self.assertEqual(sum(counts.values()), judge["rows"])
+                    self.assertEqual(counts["failed"], len(judge["failed_cases"].get(name, [])))
+                for key in ("input_hash", "dataset_hash", "evaluator_hash", "results_hash"):
+                    self.assertRegex(judge[key], "^[0-9a-f]{64}$")
+                self.assertFalse(result["portal"]["portal_answers_evaluated"])
+        for key in ("dataset_hash", "corpus_hash"):
+            self.assertNotEqual(results["ko"]["cohorts"][0][key], results["en"]["cohorts"][0][key])
 
     def test_publication_status_is_not_inferred_from_local_file_existence(self):
         for language, directory in self.assets.items():
@@ -256,178 +322,20 @@ class MediaIntegrityTests(unittest.TestCase):
                 self.assertEqual(status["videos"], [])
                 self.assertNotIn("https://github.com/user-attachments/assets/", summary)
 
-
-class ExtensionMediaIntegrityTests(MediaIntegrityTests):
-    supplemental_assets = ()
-    assets = {
-        language: ROOT / "docs/assets" / f"edition-20260916-{language}" for language in ("ko", "en")
-    }
-    recorded_on = "2026-09-16"
-    lab_ids = [0, 6, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25]
-    guide_glob = "extensions/*.md"
-    required_guide_images = {
-        "toolbox",
-        "tool-search-skills",
-        "conversation-evaluation",
-        "agent-optimizer",
-        "approval-recovery",
-        "memory",
-        "a2a",
-        "additional-tools",
-        "routines",
-        "agent-safety",
-        "release-operations",
-        "model-operations",
-        "governance-networking",
-        "developer-toolkit",
-        "toolbox-hosted",
-    }
-    action_index = "edition-actions.md"
-    video_summary = "edition-videos.md"
-
-    def test_actual_language_results_and_failures_keep_separate_lineage(self):
-        results = {
-            language: read(directory / "live-results.json")
-            for language, directory in self.assets.items()
-        }
-        for language, result in results.items():
-            self.assertEqual(result["language"], language)
-            self.assertFalse(result["holdout_used_for_development"])
-            self.assertFalse(result["production_approval"])
-            for key in (
-                "source_hash",
-                "latest_source_hash",
-                "corpus_hash",
-                "optimizer_dataset_file_sha256",
-            ):
-                self.assertRegex(result[key], r"^[0-9a-f]{64}$")
-            conversations = result["conversations"]
-            self.assertEqual(conversations["turns"], 6)
-            self.assertEqual(conversations["conversations"], 2)
-            self.assertLessEqual(conversations["business_passed"], 6)
-            for level, count in (("native_turn", 6), ("native_conversation", 2)):
-                native = conversations[level]
-                self.assertEqual(native["rows"], count)
-                self.assertEqual(native["actual_judge_inputs_with_original_policy"], count)
-                self.assertTrue(
-                    all(0 <= passed <= count for passed in native["reported_pass_counts"].values())
-                )
-                for key in ("input_hash", "dataset_hash", "evaluator_hash", "raw_results_sha256"):
-                    self.assertRegex(native[key], r"^[0-9a-f]{64}$")
-            optimizer = result["optimizer"]
-            self.assertFalse(optimizer["promoted"])
-            self.assertFalse(optimizer["grounding_reference_valid"])
-            self.assertEqual(optimizer["max_candidates"], 2)
-            self.assertEqual(optimizer["returned_candidates"], 0 if language == "en" else 2)
-            self.assertEqual(len(optimizer["evaluations"]), optimizer["returned_candidates"] + 1)
-            for evaluation in optimizer["evaluations"]:
-                self.assertEqual(evaluation["rows"], 6)
-                self.assertEqual(evaluation["valid_source_grounding_inputs"], 0)
-                self.assertEqual(evaluation["self_referential_grounding_inputs"], 6)
-                self.assertTrue(evaluation["failed_cases"])
-                self.assertRegex(evaluation["raw_results_sha256"], r"^[0-9a-f]{64}$")
-            self.assertEqual(len(result["hosted"]["downloaded_evidence_files"]), 8)
-            self.assertTrue(result["memory_cleanup"]["verified_absent"])
-            self.assertTrue(result["routine"]["manual_delivery_verified"])
-            self.assertFalse(result["routine"]["agent_answer_verified"])
-            self.assertFalse(result["routine"]["scheduled_trigger_verified"])
-            self.assertFalse(result["continuous_evaluation_tested"])
-        self.assertNotEqual(results["en"]["corpus_hash"], results["ko"]["corpus_hash"])
-        self.assertNotEqual(
-            results["en"]["optimizer_dataset_file_sha256"],
-            results["ko"]["optimizer_dataset_file_sha256"],
-        )
-        korean_cases = {item["case_id"]: item for item in results["ko"]["safety"]["cases"]}
-        self.assertEqual(korean_cases["D01"]["status"], "completed")
-        self.assertEqual(korean_cases["D06"]["status"], "failed")
-        self.assertEqual(korean_cases["D06"]["failure_type"], "tool-search-no-match")
-        self.assertFalse(korean_cases["D06"]["guardrail_intervention_proven"])
-        self.assertTrue(results["ko"]["routine_cleanup"]["verified_absent"])
-        self.assertEqual(results["ko"]["hosted"]["trace"]["rows"], 146)
-        self.assertEqual(len(results["ko"]["hosted"]["trace"]["matched_model_response_ids"]), 3)
-        ci = results["ko"]["github_ci_execution"]
-        self.assertEqual(ci["status"], "success")
-        self.assertEqual(ci["language"], "ko")
-        self.assertEqual((ci["rows"], ci["business_passed"], ci["errors"]), (6, 6, 0))
-        self.assertTrue(ci["artifact_hashes_verified"])
-        self.assertTrue(ci["business_report_recomputed"])
-        self.assertTrue(ci["live_session_status_verified"])
-        self.assertEqual(ci["session_status"], "idle")
-        self.assertFalse(ci["holdout_used"])
-        self.assertFalse(ci["production_approval"])
-        self.assertFalse(ci["native_evaluation_run"])
-        self.assertFalse(ci["recorded_in_extension_videos"])
-        self.assertEqual(results["en"]["github_ci_execution"]["status"], "not-run-for-english")
-
-    def test_reboot_parts_exclude_authentication_and_never_reuse_foundation_sources(self):
-        old_hashes = {
-            item["sha256"]
-            for directory in ASSETS.values()
-            for item in read(directory / "media.json")["source_recordings"]
-        }
-        for language, directory in self.assets.items():
-            media = read(directory / "media.json")
-            self.assertTrue(media["independent_language_capture"])
-            self.assertFalse(media["translated_english_assets"])
-            self.assertFalse(media["upstream_results_reused_as_this_edition"])
-            self.assertFalse(old_hashes & {item["sha256"] for item in media["source_recordings"]})
-            playback = read(directory / "local-playback.json")
-            for video in playback["videos"]:
-                self.assertEqual(video["seek_validation"], "seek-complete-and-decoded-frame")
-            if language == "ko":
-                sources = {item["id"] for item in media["source_recordings"]}
-                self.assertTrue(
-                    {
-                        "part1-terminal",
-                        "part1-local-server",
-                        "part1-portal",
-                        "part2-terminal",
-                        "part2-local-server",
-                        "part2-portal",
-                        "part3-terminal",
-                        "part3-portal",
-                    }
-                    <= sources
-                )
-                exclusions = media["authentication_exclusions"]
-                self.assertEqual(
-                    {item["action_id"] for item in exclusions},
-                    {
-                        "KP15-118-explicit-workshop-tenant",
-                        "KP24-102-original-models-retained",
-                    },
-                )
-                actions = read(directory / "actions.json")["actions"]
-                self.assertFalse(
-                    {item["id"] for item in actions} & {item["action_id"] for item in exclusions}
-                )
-                for segment in read(directory / "guide-ordered-timeline.json"):
-                    for excluded in exclusions:
-                        if segment.get("source_id") == excluded["source_id"]:
-                            self.assertTrue(
-                                segment["last_frame"] < excluded["first_frame"]
-                                or segment["first_frame"] > excluded["last_frame"]
-                            )
-                failed_stream = next(
-                    item for item in actions if item["id"] == "KP21-005-unchanged-d06"
-                )
-                self.assertEqual(failed_stream["exit_code"], 0)
-                self.assertTrue(failed_stream["capture_status_is_not_execution_success"])
-
-    def test_published_extension_media_requires_real_remote_playback_evidence(self):
-        for directory in self.assets.values():
-            publication = read(directory / "github-playback.json")
-            if publication["status"] == "published":
-                media = {
-                    item["filename"]: item for item in read(directory / "media.json")["videos"]
-                }
-                self.assertFalse(publication["signed_media_urls_saved"])
-                for video in publication["videos"]:
-                    self.assertTrue(video["remote_sha256_verified"])
-                    self.assertTrue(video["native_playback_verified"])
-                    self.assertFalse(video["signed_media_urls_saved"])
-                    self.assertEqual(video["remote_bytes"], media[video["filename"]]["bytes"])
-                    self.assertEqual(
-                        video["chapter_seeks_verified"],
-                        len(media[video["filename"]].get("chapters", [])),
-                    )
+    def test_removed_recordings_are_neither_kept_nor_linked(self):
+        for name in REMOVED_SERIES:
+            for language in ("ko", "en"):
+                self.assertFalse((ROOT / "docs/assets" / f"{name}-{language}").exists())
+        for name in REMOVED_PAGES:
+            self.assertFalse((ROOT / "docs" / name).exists())
+            self.assertFalse((ROOT / "docs/ko" / name).exists())
+        pages = [ROOT / "README.md", ROOT / "README.ko.md", *sorted((ROOT / "docs").rglob("*.md"))]
+        for path in pages:
+            text = path.read_text()
+            with self.subTest(page=path.relative_to(ROOT)):
+                self.assertNotIn("github.com/user-attachments/assets/", text)
+                for name in REMOVED_SERIES:
+                    self.assertNotIn(f"{name}-en", text)
+                    self.assertNotIn(f"{name}-ko", text)
+                for name in REMOVED_PAGES:
+                    self.assertNotIn(name, text)

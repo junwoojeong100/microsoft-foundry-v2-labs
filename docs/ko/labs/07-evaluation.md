@@ -8,7 +8,7 @@
 
 > **2026-09-15 한국어 개정:** 아래 A/B는 기존 입문 평가를 유지합니다.
 > 원본 평가 실습을 대체하는 심화 경로는 [Hosted 워크플로 평가 워크북](../reference/evaluation-workbook.md)입니다.
-> 새 국문 촬영은 실제 Hosted workflow의 24/24/16행과 native 평가·trace를 포함합니다.
+> 2026-09-23 `gpt-6-sol` 녹화는 입문 A/B만 포함하며 Hosted workflow matrix는 다시 실행하지 않았습니다.
 > 아래 입문 B의 단일 모델 예제와 심화 C의 다중 모델 실측은 구분합니다.
 
 ## 시작 전
@@ -101,12 +101,12 @@ D01–D06 행을 모두 유지합니다. **통과 수 / 6**과 요청 오류·�
 평가를 마쳤다는 뜻이지 전 문항 통과나 운영 사용 승인이라는 뜻은 아닙니다.
 [Lab 09 A](09-operations.md#path-a)로 이동합니다. 아래 명령은 별도 B 실험이지 브라우저 경로의 추가 단계가 아닙니다.
 
-![2026-09-15 새 국문 촬영: D03 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d03-send-2.webp)
+![2026-09-23 국문 녹화: D03 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-103-d03-2.webp)
 
 **화면 확인:** D03에는 실제 한도·예약 전 승인 조건·인용 ID를 적습니다.
 위 기준과 대조하며 통과로 미리 채우지 않습니다.
 
-![2026-09-15 새 국문 촬영: D05 · 실제 응답과 근거 확인](../../assets/refresh-20260915-ko/screenshots/KP07-d05-send-2.webp)
+![2026-09-23 국문 녹화: D05 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-105-d05-2.webp)
 
 **화면 확인:** D05는 금액을 주지 않았다는 이유만으로 업무 실패가 되지 않습니다.
 해외 규정이 없다는 설명과 `SCOPE-01` 인용을 모두 확인합니다.
@@ -156,6 +156,8 @@ python scripts/workshop.py evaluate --label baseline
 `business-evaluation.json`의 `total`, `passed`, `errors`, `business_gate_passed`와 모든 사례의 `checks`를 읽습니다.
 
 
+![2026-09-23 국문 녹화: baseline 로컬 업무 기준 평가](../../assets/g6sol-20260923-ko/screenshots/K07-002-evaluate-baseline-2.webp)
+
 **화면 확인:** `checks` 안의 `completed`, `schema`, `decision`, `required_citations`를 읽습니다.
 마지막에 보이는 사례만 보지 말고 summary와 6개 행 전체를 확인합니다.
 
@@ -195,10 +197,8 @@ python scripts/workshop.py feedback --label baseline --case "$FAILED_CASE" --rea
 `prompts/v1.txt`와 `prompts/v2.txt`를 비교합니다.
 v2는 적용일, 증빙/승인, 문서 ID, 근거 부족 처리의 우선순위를 명확히 합니다.
 
-![2026-09-15 새 국문 촬영: v1·v2 제공 지침의 실제 차이 읽기](../../assets/refresh-20260915-ko/screenshots/K07C-prompt-diff-2.webp)
-
 **화면 확인:** 추가·변경된 지침을 보고 어떤 누락을 막으려는지 설명합니다.
-이것은 텍스트 차이이며 평가 점수 자체가 아닙니다. 촬영에서 비교한 두 고정 지침도 성능 우위를 보장하지 않습니다.
+이것은 텍스트 차이이며 평가 점수 자체가 아닙니다. 두 고정 지침의 차이가 성능 우위를 보장하지는 않습니다.
 
 ```bash
 python scripts/workshop.py collect --split dev --label candidate --prompt v2 --retrieval local
@@ -216,9 +216,13 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 명령은 기존 label을 덮어쓰지 않으며, 입력/응답 hash가 달라지면 비교를 거부합니다.
 
 
+![2026-09-23 국문 녹화: candidate 로컬 업무 기준 평가](../../assets/g6sol-20260923-ko/screenshots/K07-005-evaluate-candidate-2.webp)
+
 **화면 확인:** candidate도 baseline과 같은 항목으로 검사합니다.
 마지막 몇 행만 보고 전부 통과했다고 하지 말고 `business-evaluation.json` 전체를 확인합니다.
 
+
+![2026-09-23 국문 녹화: 같은 dev 데이터·모델에서 v1과 v2 비교](../../assets/g6sol-20260923-ko/screenshots/K07-006-compare-2.webp)
 
 **화면 확인:** `outputs/candidate/comparison-vs-baseline.json`에서
 `variable: prompt`, `baseline_metrics`, `candidate_metrics`, `changed_context_cases`를 읽습니다.
@@ -254,6 +258,8 @@ Holdout은 4건입니다. 실패를 보고 지침을 고치면 더 이상 미사
 새 holdout 없이 최종 합격이라고 하지 않습니다. 저장소 파일 분리는 교육적 절차이지 접근 통제나 비밀 보장이 아닙니다.
 `accept` 종료 코드 `1`은 업무 게이트 반려입니다. 같은 holdout이 통과할 때까지 재시도하지 않고 그 결과를 보존합니다.
 
+![2026-09-23 국문 녹화: 배포 승인이 아닌 인수 판단](../../assets/g6sol-20260923-ko/screenshots/K07-009-accept-2.webp)
+
 **화면 확인:** 4개 사례와 후보 연결을 확인한 뒤 `outputs/final-holdout/acceptance.json`을 엽니다.
 `recommendation`, `deployment_approved: false`를 유지합니다.
 기존 촬영의 교육용 세트는 이미 노출된 자료이며 새로운 미사용 holdout의 증거가 아닙니다.
@@ -286,10 +292,11 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 상세 표의 각 사례와 실패 이유까지 읽어야 하며 결정적 업무 검사와 같은 점수가 아닙니다.
 
 
-**화면 확인:** 새 심화 촬영의 baseline은 groundedness 24/24, relevance 19/24였습니다.
-실제 D05 보류 답변의 낮은 relevance 이유도 확인합니다.
+![2026-09-23 국문 녹화: 선택 Foundry cloud judge: gpt-6-sol-judge](../../assets/g6sol-20260923-ko/screenshots/K07-010-cloud-judge-2.webp)
+
+**화면 확인:** 실제 native 통과 수와 사례별 이유를 읽습니다.
+2026-09-23 candidate는 groundedness 6/6, relevance 5/6이었고 relevance 실패는 D05의 올바른 보류였습니다.
 기본 relevance가 올바른 보류를 낮게 평가한 이유를 검토하되 점수는 바꾸지 않습니다.
-이 화면의 `RUN_TOOLS` 명령은 강사용 요약 도구이며 참가자는 자신의 native 결과 파일을 읽습니다.
 
 `data/evaluation/calibration.jsonl`에는 명시적으로 맞는 답/틀린 답 두 개가 있습니다.
 실제 운영 전에 이런 예를 포털 또는 별도 evaluator 실험으로 평가해 judge의 판별 능력을
@@ -344,43 +351,39 @@ holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계
 </details>
 
 <details>
-<summary>녹화 당시 참고 화면 (선택; 그대로 재실행할 단계가 아님)</summary>
+<summary>2026-09-23 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
 
-아래는 이번 국문 실행에서 새로 캡처한 화면입니다. 초기 진단·실패와 최종 비교 결과를 구분하며, 영문 촬영본을 재사용하지 않았습니다.
+2026-09-23 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
 
-![2026-09-15 새 국문 촬영: 실제 모델×사례 전체 수집](../../assets/refresh-20260915-ko/screenshots/K07F-collect-2.webp)
+![2026-09-23 국문 녹화: v1 지침으로 dev baseline 수집](../../assets/g6sol-20260923-ko/screenshots/K07-001-baseline-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** v1 지침과 같은 배포로 dev 6행을 수집했습니다. 모든 행에 응답 ID가 남습니다.
 
-![2026-09-15 새 국문 촬영: 통제된 baseline 24행의 실제 native 결과](../../assets/refresh-20260915-ko/screenshots/KP07-030-controlled-baseline-2.webp)
+![2026-09-23 국문 녹화: 고정한 candidate로 holdout 한 번 사용](../../assets/g6sol-20260923-ko/screenshots/K07-007-holdout-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** 고정한 후보를 holdout 4행에 한 번만 사용합니다. manifest에 후보 run이 연결됩니다.
 
-![2026-09-15 새 국문 촬영: v2 후보 24행의 실제 native 결과](../../assets/refresh-20260915-ko/screenshots/KP07-031-candidate-native-2.webp)
+![2026-09-23 국문 녹화: D01 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-101-d01-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** 저장한 agent 버전의 포털 D01입니다. 포털 답변은 화면 기록이므로 본인 평가표에서 판단합니다.
 
-![2026-09-15 새 국문 촬영: 실제 보류 응답과 relevance의 낮은 점수 확인](../../assets/refresh-20260915-ko/screenshots/KP07-014-abstention-detail-2.webp)
+![2026-09-23 국문 녹화: D04 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-104-d04-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** D04는 식비 질문입니다. 2026-07-01부터 1일 30,000원과 `MEAL-01`이며 숙박 한도가 아닙니다.
 
-![2026-09-15 새 국문 촬영: 정답/오답 calibration 2개: agent 응답 아님](../../assets/refresh-20260915-ko/screenshots/KP07-032-calibration-2.webp)
+![2026-09-23 국문 녹화: D06 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-106-d06-2.webp)
 
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
+**화면 확인:** D06: 200,000원 호텔은 한도를 50,000원 초과합니다. 승인됐다고 주장하면 안 됩니다.
 
-![2026-09-15 새 국문 촬영: 동결한 후보의 최종 holdout 16행 결과](../../assets/refresh-20260915-ko/screenshots/KP07-033-holdout-native-2.webp)
-
-**화면 확인:** 실제 command·언어·version·label·근거와 출력 상태를 확인합니다. 촬영 결과를 본인의 실행이나 운영 승인으로 대신하지 않습니다.
-
-[새 영상과 액션 인덱스](../video-summary.md) · [실제 결과·계보](../live-run.md)
+[전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 </details>
 
 ## 완료 기준
 
-2026-09-15 새 국문 실행은 네 모델의 baseline 24/24, candidate 24/24, holdout 16/16 업무 통과를 기록했습니다.
-Native groundedness는 각각 24/24, 22/24, 16/16이고 relevance는 19/24, 20/24, 13/16입니다.
-판단 결과는 `review-native-findings`이며 v2의 일괄적 우월성이나 운영 승인을 주장하지 않습니다.
+입문 경로는 dev 6개·holdout 4개 사례를 사용합니다. 2026-09-23 국문 실행은 `gpt-6-sol`로 baseline 6/6, candidate 6/6,
+holdout 4/4 업무 통과를 기록했고 네 모델 Hosted matrix는 다시 실행하지 않았습니다.
+판단 결과는 `ready-for-human-review`이며 v2의 일괄적 우월성이나 운영 승인을 주장하지 않습니다.
 숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.
 데이터·실패 원인·분리된 평가 경로는 [실행 기록](../live-run.md)을 확인합니다.
 

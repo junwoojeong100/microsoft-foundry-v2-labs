@@ -43,24 +43,27 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 
 **처음에는 에이전트 하나를 만들고, 마지막에는 지식·평가·운영 기준이 남는 시스템을 만듭니다.**
 
-> **2026-09-15 새 국문 실제 실행·촬영**
+> **2026-09-15 국문 심화 실행(이전 `gpt-5.6-luna` 판)**
 > MAF workflow→Hosted, 네 모델의 24/24/16행, native 평가·calibration·trace 인수를 실제 실행했습니다.
+> `gpt-6-sol`로는 다시 실행하지 않았습니다.
 > [통합 범위와 인수 기준](docs/ko/reference/consolidation.md) ·
 > [Hosted 평가 워크북](docs/ko/reference/evaluation-workbook.md) ·
 > [IQ 확장 워크북](docs/ko/reference/iq-workbook.md).
-> 국문과 영문은 별도 실행·별도 화면·별도 녹화본으로 제공합니다.
 
-한국어 · 합성 데이터 · **2026-09-15 실제 실행 / Pre-Ignite 2026 Edition**
+한국어 · 합성 데이터 · **2026-09-23 `gpt-6-sol` 녹화 / Pre-Ignite 2026 Edition**
 
-**[기본 과정 국문 영상 — 2026-09-15](docs/ko/video-summary.md)** —
-통합본 **15분 14초**, CLI **8분 56초**, 포털 **5분 53초**.
-[182개 실제 액션·543개 무손실 캡처](docs/ko/action-captures.md)를 제공합니다.
+**[2026-09-23 `gpt-6-sol` 국문 녹화](docs/ko/video-summary.md)** —
+통합본 **4분 32초**, CLI **2분 27초**, 포털 **1분 43초**.
+새 Sweden Central 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) 주요 단계를 `gpt-6-sol` / `2026-09-22`로 실제 실행했습니다
+([모델 선택](docs/ko/reference/model-choice.md)).
+[69개 실제 액션·207개 무손실 캡처](docs/ko/action-captures.md)를 제공합니다.
 영상은 실제 화면 녹화에서 대기를 덜어낸 것이며 스크린샷 슬라이드쇼가 아닙니다.
 
-[Lab 00–11 챕터 이동](docs/ko/video-chapters.md) · [실측 결과와 한계](docs/ko/live-run.md)
+[Lab 챕터 이동](docs/ko/video-chapters.md) · [실측 결과와 한계](docs/ko/live-run.md)
 
-기본 과정 국문·영문 영상 6개는 GitHub에 게시하고 실제 재생·챕터 이동을 확인했습니다.
-비공개 저장소이므로 접근 권한이 있는 GitHub 계정으로 로그인해 재생하세요.
+로컬 재생·챕터 이동을 확인했으며 GitHub에는 업로드하지 않았습니다.
+`python scripts/play_recordings.py --edition ko`로 재생합니다. 이전 `gpt-5.6-luna` 녹화는 삭제했습니다.
+국문과 영문은 별도 실행·별도 화면·별도 녹화본입니다.
 
 각 랩 본문에는 새 국문 캡처와 화면 확인 포인트를 배치했습니다.
 먼저 [화면 읽는 법](docs/ko/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
@@ -73,10 +76,9 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 
 **9월 16일 확장 경로:** [A — 입문](docs/ko/paths/a-beginner.md) ·
 [B — 구현](docs/ko/paths/b-practitioner.md) · [C — 고급 모듈](docs/ko/paths/c-advanced.md).
-[기능·근거 상태](docs/ko/coverage.md)와 [이번 판의 결과](docs/ko/edition-results.md)에서
-기존 기본 과정과 새 모듈, 영문·국문 실행을 따로 확인합니다.
-[국문 확장 영상](docs/ko/edition-videos.md)은 **12분 23초 통합본, 172개 동작·516장 캡처**를 제공합니다.
-실제 게시 상태는 영상 페이지에 별도로 표시하며 영문 영상을 국문 실행으로 재사용하지 않습니다.
+[기능·근거 상태](docs/ko/coverage.md)에서 기존 기본 과정과 새 모듈, 실제 Azure 확인 범위를 구분합니다.
+확장 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며 `gpt-6-sol`로는 다시 실행·녹화하지 않았고,
+해당 녹화는 삭제했습니다.
 
 </details>
 
@@ -136,8 +138,10 @@ python3.13 scripts/workshop.py evaluate --label first-offline
 
 - 현재 Foundry / Projects SDK **2.x**를 사용합니다. classic의 threads/runs 코드를 혼합하지 않습니다.
 - 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다.
-- 첫 실습 preset은 **`gpt-5.6-luna`**, 같은 이름의 배포, 모델 버전 **`2026-07-09`**입니다.
-  선택 IQ Chat 경로는 이 모델과 Search 관리 ID를 사전 검사합니다. 다른 모델은 명시적인 비교 실험에서 사용합니다.
+- 첫 실습 preset은 **`gpt-6-sol`**, 같은 이름의 배포, 모델 버전 **`2026-09-22`**입니다
+  (2026-09-23, [이 모델을 고른 이유](docs/ko/reference/model-choice.md)).
+  Search knowledge base가 GPT-6 모델을 받지 않아 선택 IQ Chat 경로는 별도 `gpt-5.6-luna` 배포를 유지합니다.
+  다른 모델은 명시적인 비교 실험에서 사용합니다.
 - 서비스 GA와 SDK Preview는 따로 표시합니다. Hosted Agent 서비스는 GA지만 이 랩의 Python hosting
   패키지는 prerelease입니다. Foundry IQ도 GA 계약과 richer Preview 계약을 구분합니다.
 - 모델 교체, 지침 개선, 평가 데이터 축적을 다룹니다. **자동 가중치 학습·fine-tuning·RL을 수행하지 않습니다.**

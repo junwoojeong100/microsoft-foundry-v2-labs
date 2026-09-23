@@ -16,22 +16,25 @@ class RecordingPlayerTests(unittest.TestCase):
     def test_recording_editions_are_explicit_and_default_to_english(self):
         from . import ROOT
 
-        for edition, date in (("en", "2026-09-15"), ("ko", "2026-09-15")):
+        for edition in ("en", "ko"):
             with self.subTest(edition=edition):
                 catalog, files = PLAYER.media_catalog(ROOT, edition)
                 self.assertEqual(catalog["edition"], edition)
-                self.assertEqual(catalog["recorded_on"], date)
+                self.assertEqual(catalog["recorded_on"], "2026-09-23")
+                self.assertEqual(catalog["series"], "gpt-6-sol")
                 self.assertIn(catalog["default_video"], files)
+                self.assertEqual(
+                    set(files), {"cli-edited.mp4", "portal-edited.mp4", "guide-ordered.mp4"}
+                )
         catalog, _ = PLAYER.media_catalog(ROOT)
         self.assertEqual(catalog["edition"], "en")
+        korean, _ = PLAYER.media_catalog(ROOT, "ko")
+        self.assertNotEqual(catalog["videos"][0]["sha256"], korean["videos"][0]["sha256"])
+        self.assertEqual(tuple(PLAYER.SERIES), ("gpt-6-sol",))
         with self.assertRaisesRegex(ValueError, "edition"):
             PLAYER.media_catalog(ROOT, "unknown")
         with self.assertRaisesRegex(ValueError, "series"):
-            PLAYER.media_catalog(ROOT, "en", "unknown")
-        extensions, _ = PLAYER.media_catalog(ROOT, "en", "extensions")
-        self.assertEqual(extensions["series"], "extensions")
-        self.assertEqual(extensions["recorded_on"], "2026-09-16")
-        self.assertNotEqual(catalog["videos"][0]["sha256"], extensions["videos"][0]["sha256"])
+            PLAYER.media_catalog(ROOT, "en", "extensions")
 
     def test_default_video_and_chapter_ranges_are_validated(self):
         with tempfile.TemporaryDirectory(prefix="recording-chapters-test-") as directory:

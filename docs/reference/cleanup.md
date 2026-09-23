@@ -114,7 +114,7 @@ Inspect separately created smoke sessions using their own raw HTTP/azd records.
 <summary>Maintainers only, after a separately authorized media replacement — learners preserve the repository's data and videos</summary>
 
 Verify both new language sets before replacing older screenshots/videos.
-Use each `docs/assets/refresh-20260915-ko/` and `refresh-20260915-en/` media manifest,
+Use each `docs/assets/g6sol-20260923-ko/` and `g6sol-20260923-en/` media manifest,
 actual byte hashes, frame checks, playback, and document links.
 Do not delete one language's old assets while only the other replacement is ready.
 

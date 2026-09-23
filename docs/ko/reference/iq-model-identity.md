@@ -12,6 +12,10 @@
 기존 Luna 배포도 모델 버전 **`2026-07-09`**, 상태 **`Succeeded`**로 읽기 확인했습니다.
 이번 확인에서는 KB 저장·역할 변경·모델 배포·추론 호출을 하지 않았습니다.
 
+**2026-09-23:** 워크숍 응답 preset은 `gpt-6-sol`로 바뀌었지만 이 IQ Chat preset은 **`gpt-5.6-luna`**를 유지합니다.
+Search가 GPT-6 연결을 `Unsupported model type in Knowledge Base Model Configuration`으로 거절했고 허용 목록의 마지막은 `gpt-5.6-luna`였습니다.
+이 선택 경로에만 별도 `gpt-5.6-luna` 배포를 준비합니다. [모델 선택](model-choice.md).
+
 ## 첫 실습: 고정된 실행 preset 사용
 
 **배포/모델 `gpt-5.6-luna`, 모델 버전 `2026-07-09`, Search system-assigned identity**를 사용합니다.
@@ -41,7 +45,7 @@ python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
 `check`는 Azure 변경 없이 정확한 실제 모델/버전·Search identity/역할·source를 검사합니다.
 `setup`은 **별도의 본인 소유** `<prefix>-chat-ko-kb`를 만듭니다(`AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME`으로 명시적 변경).
 소유권/설정이 다른 base 덮어쓰기, 모델 배포, 역할 부여, GA base 변경은 하지 않습니다.
-`ask`는 `outputs/iq-chat/<label>/`에 요청·응답·근거를 남기며 실제 Luna 계획 **및** 합성을 요구합니다.
+`ask`는 `outputs/iq-chat/<label>/`에 요청·응답·근거를 남기며 실제 `gpt-5.6-luna` 계획 **및** 합성을 요구합니다.
 유료 POST 전에 실제 모델/버전을 다시 확인하고 선택 언어의 canonical 원문과 다른 근거를 거부합니다.
 `model-preflight.json`, `knowledge-base-response.json`, 실패 단계로 모델 준비·KB 읽기·검색·답변 검사를 구분합니다.
 기존 source는 별도 날짜 필드 없이 `id`, `title`, `content`를 반환합니다.
@@ -89,18 +93,18 @@ Reader만으로는 검색할 수 없고 data-reader만으로는 객체 정의를
 
 모델 없는 GA base를 다른 실험으로 바꾸지 않고 준비된 preset을 사용합니다.
 
-1. 담당자가 기존 Luna 배포·Search 관리 ID·**모델의 Foundry 계정**에 부여된
+1. 담당자가 기존 `gpt-5.6-luna` 배포·Search 관리 ID·**모델의 Foundry 계정**에 부여된
    Search ID의 `Cognitive Services User` 역할을 확인합니다. 빠진 조건만 별도로 승인받아 변경합니다.
    학습자나 Hosted ID의 역할을 Search의 역할로 대신할 수 없습니다.
 2. Chat base가 없을 때 위 **check → 승인된 setup** 순서를 완료합니다.
-   다른 모델을 배포하지 않고 Luna/MI/낮음/응답 합성 연결을 저장합니다.
+   다른 모델을 배포하지 않고 `gpt-5.6-luna`/MI/낮음/응답 합성 연결을 저장합니다.
 3. **Knowledge → Knowledge bases → 반환된 chat-base 이름**을 엽니다. 기존 모델 선택을 유지하고
    **`gpt-5.6-luna`**, **낮음**, **응답 합성**, 해당 합성 source를 확인합니다.
    이미 준비된 KB를 관찰하려고 다시 저장할 필요는 없습니다.
 4. 회색 API-key-disabled/managed-identity 안내는 정보성 메시지입니다. 없애려고 key를 활성화하지 않습니다.
    반면 빨간 **`Chat completions model is required`**는 모델 미선택입니다. `<prefix>-kb`가 아닌 chat base를 열었는지 먼저 확인합니다.
 5. **Browse more models → Deploy**로 이 폼을 고치지 않습니다. 9월 17일 Foundry 선택기에는 제한된 카탈로그가 표시됐지만
-   이미 저장된 Luna 연결은 정상 표시됐습니다. 카탈로그 선택·배포·저장된 연결 열기는 다른 동작입니다.
+   이미 저장된 `gpt-5.6-luna` 연결은 정상 표시됐습니다. 카탈로그 선택·배포·저장된 연결 열기는 다른 동작입니다.
 6. 승인된 새 요청에는 `iq-chat ask`를 사용하고 실제 `modelQueryPlanning`, `modelAnswerSynthesis`,
    references와 응답을 남깁니다. 폼이 채워졌다는 사실만으로 모델 호출이나 역할 전파를 입증할 수는 없습니다.
 

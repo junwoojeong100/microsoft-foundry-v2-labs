@@ -31,8 +31,9 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
 ## 2. 3–7일 전: 계정·권한·비용
 
 1. 실습용 구독/Resource Group과 담당자를 정합니다. 운영 자원과 섞지 않습니다.
-2. 현재 Foundry 프로젝트와 **`gpt-5.6-luna` / `2026-07-09`**, 배포 이름 **`gpt-5.6-luna`**를 확인합니다.
+2. 현재 Foundry 프로젝트와 **`gpt-6-sol` / `2026-09-22`**, 배포 이름 **`gpt-6-sol`**을 확인합니다.
    Quota/SKU/리전을 점검하며 초보자에게 대체 모델을 추측하게 하지 않습니다.
+   수업 전에 [모델 선택](reference/model-choice.md)과 공개 가격을 다시 확인합니다.
 3. 참가자에게 프로젝트의 `Foundry User` 등 필요한 역할을 부여합니다.
 4. Search에는 데이터 읽기/작성 역할을 따로 준비합니다.
 5. 원격 agent identity가 모델/도구에 접근할 때 필요한 역할을 별도로 준비합니다.
@@ -43,9 +44,9 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
 Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로 보일 수 있습니다.
 현재 [역할 표](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를 기준으로 확인합니다.
 
-![새 국문 촬영의 실제 모델 배포·SKU·capacity](../assets/refresh-20260915-ko/screenshots/K02-005-models-after-2.webp)
+![2026-09-23 국문 녹화: 배포 목록 열기: gpt-6-sol과 judge](../assets/g6sol-20260923-ko/screenshots/KP02-001-deployments-2.webp)
 
-**화면 확인:** 실제 배포의 SKU/capacity이며 quota의 `used`/`limit`와는 다릅니다. 할당량과 지역 가용 용량은 수업 직전에 별도로 다시 조회합니다.
+**화면 확인:** 2026-09-23 배포 목록의 배포 유형(SKU)이며 quota의 `used`/`limit`와는 다릅니다. 할당량과 지역 가용 용량은 수업 직전에 별도로 다시 조회합니다.
 사진의 숫자나 Sweden Central 가용성을 다른 구독·날짜의 배포 가능 여부로 복사하지 않습니다.
 
 ### 조별로 전달할 값
@@ -54,7 +55,7 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 
 - 구독·tenant, Resource Group, Foundry 리소스 이름.
 - `/api/projects/...`까지 포함한 프로젝트 endpoint.
-- 응답용 배포 `gpt-5.6-luna`와 확인한 실제 모델 버전 `2026-07-09`.
+- 응답용 배포 `gpt-6-sol`과 확인한 실제 모델 버전 `2026-09-22`.
 - 조별 `WORKSHOP_PREFIX`: `mfv2-` 뒤에 소문자 영문·숫자·하이픈 하나씩 사용하며 전체 최대 32자.
 - 선택 Search endpoint·계정 OpenAI root·**`iq-chat setup`이 출력한 chat-base 이름**. GA base와 구분.
 - 선택 judge 배포와 실제 underlying model.
@@ -83,7 +84,8 @@ Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화
 확인합니다. Chat completion model을 쓸 때는 **Search 서비스 identity**에 모델의 Foundry 계정 범위로
 `Cognitive Services User`를 부여해야 합니다. Managed identity 선택은 정상 지원되며,
 사용자나 Hosted agent의 역할을 대신 사용하는 것이 아닙니다.
-선택 Preview 실습은 **Luna + Search system-assigned identity + `low` + `answerSynthesis`** preset으로 고정합니다.
+선택 Preview 실습은 **`gpt-5.6-luna` + Search system-assigned identity + `low` + `answerSynthesis`** preset으로 고정합니다.
+2026-09-23 Search가 KB 연결에서 GPT-6 모델을 받지 않았으므로 이 별도 배포를 준비합니다.
 [담당자 실행 순서](setup.md#4-환경-담당자의-준비)를 한 번 완료하고 출력된 정확한 chat-base 이름을 전달합니다.
 모델 없는 GA base를 채팅 준비 완료로 전달하지 않습니다.
 `iq-chat check`는 읽기 전용, `iq-chat setup --confirm-create`는 별도 본인 base 생성,
@@ -133,9 +135,9 @@ python scripts/workshop.py workflow --pattern sequential
 여기서 실제 모델 호출이 실패하면 리허설은 통과가 아닙니다.
 권한, quota, 모델의 tool/Structured Outputs 지원을 해결한 뒤 다시 확인합니다.
 
-![기존 승인된 실습 환경의 사전 검증](../assets/refresh-20260915-ko/screenshots/K01-002-cloud-doctor-2.webp)
+![2026-09-23 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260923-ko/screenshots/K00-008-preflight-2.webp)
 
-**화면 확인:** 이번 촬영은 기존 승인 환경을 재사용했습니다. 새 Resource Group을 만든 결과가 아닙니다.
+**화면 확인:** 2026-09-23 녹화는 녹화 전에 준비한 실습 환경을 사용했으며 리소스를 생성한 결과가 아닙니다.
 한 리소스의 생성 성공만으로 전체 환경이 준비됐다고 판단하지 않습니다. 실제 참가자 계정의 첫 모델 호출은 별도 게이트입니다.
 
 추가 모듈은 실제 선택한 것만 확인합니다.

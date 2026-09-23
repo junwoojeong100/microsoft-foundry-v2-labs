@@ -31,8 +31,9 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
 ## 2. Three to seven days before: accounts, permissions, costs
 
 1. Assign an owner and a dedicated training subscription/resource group; keep production separate.
-2. Verify the current Foundry project and **`gpt-5.6-luna` / `2026-07-09`**, deployed as **`gpt-5.6-luna`**.
+2. Verify the current Foundry project and **`gpt-6-sol` / `2026-09-22`**, deployed as **`gpt-6-sol`**.
    Check quota, SKU and region; do not let first-time learners guess a replacement.
+   Recheck [the model choice](reference/model-choice.md) and its published price before class.
 3. Assign the required project roles, such as `Foundry User`, to participants.
 4. Prepare separate Search data read/write roles.
 5. Prepare the roles the remote agent identity needs for models and tools.
@@ -43,10 +44,11 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
 Role names may still appear as `Azure AI ...`. Check the current
 [Foundry role table](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
+![September 23 English recording: Open the deployment inventory: gpt-6-sol and its judge](assets/g6sol-20260923-en/screenshots/EP02-001-deployments-2.webp)
 
-**What to check:** This is a September 14, 2026 preparation example. Distinguish `used`,
-`limit`, and SKU, and query again immediately before class. These numbers and Sweden
-Central availability do not apply automatically to another subscription or date.
+**What to check:** This is the September 23, 2026 deployment list. A deployment type (SKU) is not quota `used`/`limit`;
+query quota and capacity again immediately before class. This Sweden Central availability does not apply automatically
+to another subscription or date.
 
 ### Values to give each team
 
@@ -54,7 +56,7 @@ Distribute **values only**, separately, in `.env.example` format. Never distribu
 
 - Subscription/tenant IDs, resource group, and Foundry account.
 - Full project endpoint, including `/api/projects/...`.
-- Exact `gpt-5.6-luna` answer deployment and verified model version `2026-07-09`.
+- Exact `gpt-6-sol` answer deployment and verified model version `2026-09-22`.
 - Unique `WORKSHOP_PREFIX`: `mfv2-` followed by lowercase letters/digits and single hyphens, at most 32 characters total.
 - Optional Search endpoint, account OpenAI root, and the **chat-base name printed by `iq-chat setup`**, distinct from the GA base.
 - Optional judge deployment and underlying model.
@@ -82,7 +84,8 @@ Scripts do not silently change billing to `standard`. An administrator reviews
 For a Chat completion model, give **the Search service's identity** `Cognitive Services User` on the model's Foundry account.
 Selecting managed identity is supported; it does not borrow the local user's or Hosted agent's role.
 The model-based Preview path is separate from the default direct-intent retrieval experiment.
-For that optional segment, use the fixed **Luna + Search system-assigned identity + `low` + `answerSynthesis`** preset.
+For that optional segment, use the fixed **`gpt-5.6-luna` + Search system-assigned identity + `low` + `answerSynthesis`** preset;
+Search accepted no GPT-6 model for KB binding on September 23, 2026, so prepare that separate deployment.
 Follow [the owner sequence](setup.md#4-environment-owner-checklist) once and give learners its exact chat-base name.
 Do not hand out the model-free GA base as a ready-to-chat configuration.
 `iq-chat check` is read-only; `iq-chat setup --confirm-create` creates only the owned separate base;
@@ -134,6 +137,7 @@ The connection-check question means: "This response checks the synthetic worksho
 connection. Answer briefly in English." If a real model call fails, rehearsal has not
 passed. Resolve roles, quota, and tool/Structured Outputs support before proceeding.
 
+![September 23 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](assets/g6sol-20260923-en/screenshots/E00-008-preflight-2.webp)
 
 **What to check:** Review project, Search, and logging resources together. One successful
 resource creation is not a ready environment. The participant's first model call is a separate gate.

@@ -64,10 +64,10 @@ Archiving does not remove code or existing URLs.
 | Media | New captures matching current commands; no single-agent footage relabeled as workflow proof |
 | Languages | Follow the active source-language order; each language's recording needs its own execution/corrections |
 
-The Korean follow-up verified actual workflow deployment, four-model 24/24/16 rows, native evaluation,
-calibration, 64 root traces, and separate recordings.
+On September 15, 2026 (earlier `gpt-5.6-luna` edition) the Korean follow-up verified actual workflow deployment,
+four-model 24/24/16 rows, native evaluation, calibration and 64 root traces; that matrix was not re-run with `gpt-6-sol`.
 That does not validate every optional external Work IQ/Fabric/Toolbox path.
-Read the actual language-specific [live results](../live-run.md).
+The September 23 [live results](../live-run.md) cover only the main A/B steps with `gpt-6-sol`.
 
 ## Release sequence
 

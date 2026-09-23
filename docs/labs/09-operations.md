@@ -99,6 +99,8 @@ does not enable sensitive input/output capture by default.
 5. Check retention/permissions and avoid unnecessary raw-content export.
 
 
+![September 23 English recording: Traces for the recorded agent requests](../assets/g6sol-20260923-en/screenshots/EP09-002-traces-2.webp)
+
 **What to check:** In **Traces → Trace view**, check date range and agent version.
 The newest row is not automatically the request you just sent.
 
@@ -154,6 +156,7 @@ Six passing teaching cases do not authorize production.
 <details>
 <summary>Advanced C only: expand after collecting the Hosted matrix, not after introductory Lab 07</summary>
 
+**This advanced path was checked on September 15, 2026 with the earlier `gpt-5.6-luna` preset; it was not re-run with `gpt-6-sol`.**
 Use an existing matrix label from the [evaluation workbook](../reference/evaluation-workbook.md).
 `wf-candidate` is not the introductory `candidate` run; substitute your actual matrix label in every command.
 
@@ -164,7 +167,7 @@ python scripts/workshop.py --language en benchmark monitor --label wf-candidate
 
 The first writes KQL only. The second queries the configured App Insights application ID
 with a subscription/tenant-scoped credential and `https://api.applicationinsights.io/.default`.
-The Korean run retained a CLI `InvalidTokenError` and corrected that credential path, not the identity or target.
+The September 15 Korean run (earlier `gpt-5.6-luna` edition) retained a CLI `InvalidTokenError` and corrected that credential path, not the identity or target.
 Application IDs are not workspace IDs or instrumentation keys.
 
 Queries are displayed and restricted by agent, time, and exact trace IDs.
@@ -192,33 +195,21 @@ Rule configuration and actual evaluated samples are different evidence; nothing 
 </details>
 
 <details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
+<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
+These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![Find the exact English D05 trace ID](../assets/refresh-20260915-en/screenshots/EP09-005-find-trace-2.webp)
+![September 23 English recording: Agent details: name, saved version and model](../assets/g6sol-20260923-en/screenshots/EP09-001-details-2.webp)
 
-**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+**What to check:** Details shows the agent name, the saved version and `gpt-6-sol`; compare them with your worksheet.
 
-![Open the actual English workflow trace detail](../assets/refresh-20260915-en/screenshots/EP09-006-trace-detail-2.webp)
+![September 23 English recording: Monitor totals are not evaluation correctness](../assets/g6sol-20260923-en/screenshots/EP09-003-monitor-2.webp)
 
-**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+**What to check:** Monitor totals count requests and tokens. They are not evaluation correctness.
 
-![Inspect the actual English workflow trace graph](../assets/refresh-20260915-en/screenshots/EP09-007-graph-2.webp)
+![September 23 English recording: Owned-asset cleanup inventory (deletes nothing)](../assets/g6sol-20260923-en/screenshots/E09-001-cleanup-plan-2.webp)
 
-**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
-
-![Distinguish actual monitoring totals from evaluation correctness](../assets/refresh-20260915-en/screenshots/EP09-009-monitor-2.webp)
-
-**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
-
-![Recheck the same last trace after ingestion; preserve the first 23-of-24 query](../assets/refresh-20260915-en/screenshots/E09-001-trace-ingestion-2.webp)
-
-**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
-
-![Confirm or stop only this owned English evaluation session](../assets/refresh-20260915-en/screenshots/E09-cleanup-3-2.webp)
-
-**What to check:** Use exact trace/session IDs and versions. Root verification does not prove every child span is present; estimated cost is not a billing statement.
+**What to check:** The inventory lists only the Search objects recorded for your prefix and `deletes_resources: false`; the rest is a manual checklist.
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
@@ -229,6 +220,7 @@ These are newly recorded English actions using the separate English prompt/data 
 If you selected the Hosted matrix, verify its exact root traces and owned session states.
 A and core B do not need that optional telemetry to finish their cleanup handoff.
 Completed overall does not mean every child span is exported or error-free.
+The September 23 `gpt-6-sol` recording covers the agent Details/Traces/Monitor tabs and the cleanup inventory only.
 [Execution records](../live-run.md) list actual outcomes and retained assets.
 
 A uses the checklist and owner handoff above. B has already printed the local inventory in step 3.

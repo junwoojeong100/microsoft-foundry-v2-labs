@@ -5,6 +5,38 @@
 **설치·offline 계약·실제 Azure 실행·모델 품질·미디어 검수는 서로 다른 검증입니다.**
 국문과 영문은 별도 label과 촬영 원본을 사용합니다. 이전 영상이나 upstream 성공을 새 결과로 재분류하지 않습니다.
 
+<a id="gpt-6-sol-20260923"></a>
+
+## gpt-6-sol 환경·녹화·이전 미디어 삭제 — 2026-09-23
+
+**환경:** 전용 Sweden Central 리소스 그룹에 Foundry 계정(API 키 비활성)·프로젝트, system-assigned identity를 켜고
+키 인증을 끈 Basic Search, Log Analytics(30일·일 1GB 한도), Application Insights, 키 없는 Search·Application Insights
+프로젝트 연결과 리소스 범위 역할만 만들었습니다. 리소스 이름에는 처음 만든 `g6luna`가 남아 있습니다. 기본 Azure CLI 구독은 바꾸지 않았습니다.
+
+**모델 변경:** `gpt-6-luna`는 배포됐지만 프로젝트 Responses·프롬프트 agent·MAF 경로에서 실패했습니다(HTTP 500, 포털 agent는
+`reasoning.effort` 미지원). `gpt-6-sol`과 `gpt-6-astra`는 같은 agent 확인을 통과했고 `gpt-6-sol`을 선택했습니다
+([모델 선택](model-choice.md)). 현재 환경에는 Data Zone Standard `2026-09-22`·`NoAutoUpgrade`의 `gpt-6-sol`(150K TPM)과
+`gpt-6-sol-judge`(100K TPM)가 있습니다. `gpt-6-luna`·`gpt-6-luna-judge`·`gpt-6-astra` 배포, probe agent, 임시 North Central US
+계정(purge 포함)은 삭제했습니다. 첫 포털 agent를 열 때 실습에서 쓰지 않는 `text-embedding-3-large`(Standard, 110K) 배포가 생성됐습니다.
+Search knowledge base가 GPT-6 모델을 받지 않아 선택 IQ Chat preset은 `gpt-5.6-luna`를 유지합니다.
+
+**녹화:** Lab 00–09·11의 A/B 주요 단계를 영문·국문 따로 실행했습니다. 언어별 69개 액션·무손실 캡처 207장·편집 영상 3개
+(영문 4:36 / 2:30 / 1:43, 국문 4:32 / 2:27 / 1:43), 원본 구간 175·176개의 최소 중간 프레임 SSIM은 영문 0.9925·국문 0.9922이며
+로컬 byte-range 재생과 챕터 이동 11개를 모두 확인했습니다. 업로드·push는 하지 않았습니다. 녹화한 모든 액션이 종료 코드 0이었고,
+두 언어 모두 baseline 실패가 없어 feedback 단계는 실행하지 않았습니다. 언어별 업무 기준은 baseline 6/6·candidate 6/6·holdout 4/4,
+candidate의 선택 cloud judge는 groundedness 6/6·relevance 5/6(D05, 올바른 보류)입니다.
+[녹화](../video-summary.md) · [실제 결과](../live-run.md).
+
+**삭제:** 2026-09-15 기본 과정 녹화, 2026-09-16 확장 녹화, 2026-09-23 `gpt-6-luna` 녹화와 해당 페이지를 작업 트리에서 삭제했습니다.
+git 기록의 `47f3b49`에는 남아 있습니다. 이전 GitHub 첨부 URL은 더 이상 연결하지 않으며, 호스팅된 사본 삭제는 별도 수동 작업입니다.
+IQ Chat preset은 바뀌지 않았으므로 2026-09-17 IQ Chat 설정 캡처는 유지합니다.
+
+**로컬 검증:** Python 3.13·3.14 각각 offline 테스트 244개, stub transport를 쓰는 설치 SDK 테스트 67개가 통과했습니다.
+Ruff 0.16.6 lint/format, compilation, 깨끗한 복사본의 CI offline 명령, 두 학습자 bundle 검사가 통과했습니다.
+문서 검사는 Markdown 117개·언어 쌍 58개·CLI 예제 330개이며 보류된 번역은 없습니다.
+이번 개정의 Azure 변경은 위 배포와 언어별 `mfv2-sol-20260923-<language>` prefix의 녹화용 agent·Search 객체·평가 run뿐이며
+역할이나 기본 구독은 바꾸지 않았습니다.
+
 <a id="repository-straightforwardness"></a>
 
 ## 저장소 straightforwardness: 가이드·코드·설정 — 2026-09-17
@@ -223,7 +255,7 @@ Python compilation, 의존성 호환성, 결정적 학습자 bundle 검사가 �
 확장 영상 6개를 실제 로컬 player에서 재생하고 각 통합본의 15개 챕터마다 seek 완료와 decoded frame을 확인했습니다.
 국문 리부팅 파트는 별도 시간축을 유지하며 인증 전환과 그 뒤의 원본 구간은 공개 영상에서 제외했습니다.
 
-[영문 결과](../../edition-results.md)와 [국문 결과](../edition-results.md)에 실제 실패를 남겼습니다.
+9월 16일 영문·국문 결과 페이지에 실제 실패를 남겼습니다(2026-09-23 작업 트리에서 삭제, git 기록 `47f3b49`).
 Optimizer의 답변 자기 비교를 원문 grounding이나 승격 근거로 인정하지 않았습니다.
 별도 대화 평가의 실제 judge 입력에는 원래 정책 JSON이 보존돼 있습니다.
 국문 안전 실습 D06은 CLI exit 0이어도 도구 발견 실패에 따른 failed 응답입니다.
@@ -262,7 +294,7 @@ Calibration은 고정 정답/오답 두 건 중 두 건을 기대대로 분류�
 실제 점수와 이유를 그대로 남깁니다. V2가 모든 지표에서 개선됐다고 주장하지 않습니다.
 Baseline이 모두 통과해 실패를 만들거나 회귀 승격을 강제하지 않았습니다.
 
-**실행·평가 계보:** [현재 실행 결과](../live-run.md), 새 asset 디렉토리의 `live-results.json`,
+**실행·평가 계보:** 2026-09-15 실행 결과 페이지와 당시 asset 디렉토리의 `live-results.json`(2026-09-23 삭제, git 기록 `47f3b49`),
 원본 `outputs/benchmarks/`의 dataset/corpus/response/native/trace/cleanup 기록으로 연결합니다.
 공개 holdout은 최종 인수 절차 교육용이며 미사용 운영 검증셋이 아닙니다.
 
@@ -272,7 +304,7 @@ Baseline이 모두 통과해 실패를 만들거나 회귀 승격을 강제하�
 같은 provider의 검색 필터를 명시한 새 baseline을 24/24로 확인했습니다.
 V2 candidate는 23/24이며 Astra의 dev D05 인용 관련성 실패를 그대로 남겼습니다.
 Dev에서 통과한 Luna/Sol/Terra만 사전에 선택해 holdout 12/12를 확인했습니다.
-영문 native 결과와 3모델 선택 이유는 [영문 실행 기록](../../live-run.md)에 별도로 있습니다.
+영문 native 결과와 3모델 선택 이유는 당시 영문 실행 기록(2026-09-23 교체, git 기록 `47f3b49`)에 별도로 있었습니다.
 국문 결과나 16행 분모를 영문으로 복사하지 않습니다.
 
 - full agent endpoint와 `--protocol`을 동시에 지정하는 azd 인자 충돌.
@@ -284,8 +316,9 @@ Dev에서 통과한 Luna/Sol/Terra만 사전에 선택해 holdout 12/12를 확�
 수정 중에 결과를 덮어쓰거나 다른 모델/원본/fixture로 성공을 만들지 않았습니다.
 Runtime 코드가 바뀐 초기 진단과 최종 비교는 별도 version·label로 남겼습니다.
 
-## 미디어 검증
+## 미디어 검증 — 2026-09-15
 
+이 녹화는 2026-09-23 작업 트리에서 삭제했습니다(git 기록 `47f3b49`).
 새 국문은 **182개 액션**, **543개 무손실 캡처**, 세 개의 편집 영상입니다.
 선택된 WebP는 원본 PNG와 RGB 픽셀이 동일합니다.
 **435개 편집 구간**을 실제 원본 영상과 대조했고 최소 midpoint SSIM은 **0.987849**였습니다.

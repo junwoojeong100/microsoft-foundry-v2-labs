@@ -99,14 +99,6 @@ python scripts/workshop.py --language ko memory cleanup --confirm-delete
 store 소유 marker와 알려진 scope의 빈 상태를 확인합니다.
 공유 프로젝트·모델·다른 store는 삭제하지 않고 원문/응답/소유 기록을 유지합니다.
 
-<!-- edition-checkpoint:KP17-009-original-absence-and-owned-cleanup -->
-
-![실제 국문 촬영: 이미 없는 원래 항목을 구분하고 내 빈 Memory Store만 정리](../../../assets/edition-20260916-ko/screenshots/KP17-009-original-absence-and-owned-cleanup-2.webp)
-
-**확인할 것:** 리부팅 뒤 원래 항목은 이미 없었습니다. delete_requested:false와 already_absent:true를 새 삭제로 포장하지 않았고, 내 빈 store의 삭제만 별도로 확인했습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=408.60) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 선택: 자동 agent memory는 별도
 
 <details>

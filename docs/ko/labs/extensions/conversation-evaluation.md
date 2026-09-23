@@ -12,8 +12,8 @@
 **첫 회차:** 1–6절 순서입니다. 두 평가 수준에 같은 수집 label을 사용합니다.
 새 target 대화에는 새 label이 필요하지만 저장된 judge job을 조회할 때는 바꾸지 않습니다.
 
-**실행 근거(2026-09-16):** [국문 실행 결과](../../edition-results.md)에 실제 6턴 수집과
-두 수준의 native 평가를 별도로 기록했습니다. [영문 결과](../../../edition-results.md)를 국문 결과로 재사용하지 않습니다.
+**실행 근거(2026-09-16, 이전 `gpt-5.6-luna` 판):** 국문 실행에서 실제 6턴 수집과
+두 수준의 native 평가를 별도로 실행했으며 `gpt-6-sol` preset으로는 다시 실행하지 않았습니다. 영문 결과를 국문 결과로 재사용하지 않습니다.
 본인 실험도 새 label로 실행하고 각 실행이 읽은 실제 evaluator catalog를 고정합니다.
 
 ## 1. 모델 호출 전 계획
@@ -92,14 +92,6 @@ python scripts/workshop.py --language ko conversations evaluate --label conversa
 오류나 누락된 대화는 점수를 좋게 만드는 이유가 될 수 없습니다.
 Timeout이면 같은 명령으로 저장된 평가 job의 조회를 재개합니다.
 새 target 대화를 만들거나 좋은 점수가 나올 때까지 평가를 반복하지 않습니다.
-
-<!-- edition-checkpoint:KP14-103-completed-native-report -->
-
-![실제 국문 촬영: 로드가 끝난 실제 국문 대화 평가의 상태와 분모 확인](../../../assets/edition-20260916-ko/screenshots/KP14-103-completed-native-report-2.webp)
-
-**확인할 것:** 전체 대화 보고서는 2개 항목입니다. 6턴과 2대화의 분모를 비교해 품질이 개선됐다고 해석하지 않습니다. 실제 judge 입력에도 원래 정책 JSON이 보존됐는지 별도로 확인했습니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=174.44) · [전체 액션과 실패](../../edition-actions.md)
 
 ## 6. 인계
 

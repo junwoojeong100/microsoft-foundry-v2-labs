@@ -10,7 +10,7 @@
 
 **This pass:** A verifies the prepared project; environment owners use section 2 only if it is not prepared.
 
-**Need:** The setup card's tenant, project, account and gpt-5.6-luna deployment.
+**Need:** The setup card's tenant, project, account and gpt-6-sol deployment.
 
 **Continue when:** You can distinguish account, project, deployment and agent, and identify your own endpoint.
 
@@ -26,7 +26,7 @@
 |---|---|---|
 | Foundry resource | Azure resource operating AI services | Training Foundry account |
 | Project | Workspace for agents, connections, and evaluations | Hanbit Technology training project |
-| Model deployment | Configuration exposing a model/version/SKU for calls | This preset's invocation name: `gpt-5.6-luna` |
+| Model deployment | Configuration exposing a model/version/SKU for calls | This preset's invocation name: `gpt-6-sol` |
 | Agent | Model plus instructions, tools, and execution behavior | Travel-policy assistant |
 
 **Foundry is the cloud platform. Microsoft Agent Framework (MAF) is the open-source
@@ -55,6 +55,8 @@ flowchart TD
    [migration map](../reference/migration.md). Do not combine incompatible APIs.
 
 
+
+![September 23 English recording: Distinguish the project endpoint from the account OpenAI endpoint](../assets/g6sol-20260923-en/screenshots/EP01-001-endpoints-2.webp)
 
 **What to check:** **View deployments** opens model deployments; **Start building**
 starts agent creation. They are distinct assets even inside the same project.
@@ -91,7 +93,7 @@ These steps are outside participant class time and require separate authorizatio
 3. Verify **model/SKU/quota** before choosing a region. If using Hosted, separately
    check [Hosted regions](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents);
    the region lists need not match.
-4. Prepare `gpt-5.6-luna`, model version `2026-07-09`, with the exact deployment name `gpt-5.6-luna`.
+4. Prepare `gpt-6-sol`, model version `2026-09-22`, with the exact deployment name `gpt-6-sol`.
    Check availability rather than copying a recording's region/SKU/capacity.
 5. Assign necessary project roles and wait for propagation.
 6. Verify an actual model request with a learner account.
@@ -101,7 +103,7 @@ Resource-creation permission does not imply model-invocation permission.
 **Management-plane and data-plane permissions differ.** Do not give every learner subscription Owner.
 
 
-The September 15 recording reused an existing approved resource group/project; it did not create them.
+The September 23 recording used a training project prepared before recording; the recording did not create it.
 Use [the environment-owner checklist](../setup.md#4-environment-owner-checklist) for preparation, not commands transcribed from a recording.
 
 ## 3. Starting points for least privilege
@@ -118,31 +120,14 @@ Names may still display as `Azure AI User`; renaming does not change existing ro
 Check additional permissions and IDs in [official RBAC guidance](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 The user, Search managed identity, and Hosted agent identity are separate principals.
 
+![September 23 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260923-en/screenshots/E00-008-preflight-2.webp)
+
 **What to check:** Compare the deployment returned by `doctor --cloud` with your
 settings. ARM read access does not establish inference permission; complete [Lab 02](02-models.md).
 
 </details>
 
-<details>
-<summary>Recorded reference screens (optional; not steps to repeat)</summary>
-
-These are newly recorded English actions using the separate English prompt/data bundle. Use your own returned resource IDs and record your own results.
-
-![Inspect the real project in the English UI](../assets/refresh-20260915-en/screenshots/EP01-001-home-2.webp)
-
-**What to check:** Check the actual project/account endpoint and your own deployment configuration; a preflight is not inference.
-
-![Distinguish project and account endpoints](../assets/refresh-20260915-en/screenshots/EP01-002-endpoint-2.webp)
-
-**What to check:** Check the actual project/account endpoint and your own deployment configuration; a preflight is not inference.
-
-![Verify the approved existing project](../assets/refresh-20260915-en/screenshots/E01-002-preflight-2.webp)
-
-**What to check:** Check the actual project/account endpoint and your own deployment configuration; a preflight is not inference.
-
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
 
 ## Completion
 

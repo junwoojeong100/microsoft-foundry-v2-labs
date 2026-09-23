@@ -92,14 +92,6 @@ the accepted definition is `type: a2a`, `a2a_version: 1.0`.
 The helper verifies that actual accepted configuration and its matching target output;
 it records the event name separately and does not claim packet-level protocol capture.
 
-<!-- edition-checkpoint:EP18-007-verify-original-delegation -->
-
-![Recorded English checkpoint: Validate the original actual delegation against accepted 1.0 configuration; no repeat inference](../../assets/edition-20260916-en/screenshots/EP18-007-verify-original-delegation-2.webp)
-
-**What to check:** The original paired target output was checked against the accepted a2a/1.0 configuration. Legacy event naming was retained, not rewritten. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=485.64) · [All actions and failures](../../edition-actions.md)
-
 ## 5. Review and clean up
 
 An agent card describes capabilities; it does not grant permission to use them.

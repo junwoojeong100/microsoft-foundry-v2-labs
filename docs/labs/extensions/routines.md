@@ -104,14 +104,6 @@ when the original response is unavailable. It never repeats the model request.
 Inspect the matching run's state and returned answer/error; list again only to observe that same run, not to dispatch another.
 Confirm the final routine state is disabled before leaving the lab.
 
-<!-- edition-checkpoint:EP20-007-delivery-not-answer -->
-
-![Recorded English checkpoint: Verify the finished manual delivery while explicitly marking answer content unverified](../../assets/edition-20260916-en/screenshots/EP20-007-delivery-not-answer-2.webp)
-
-**What to check:** The original manual delivery finished, but agent_answer_verified is false. Cancelled future-timer attempts are not successful scheduled firings. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=556.72) · [All actions and failures](../../edition-actions.md)
-
 ## 5. Record the outcome and clean up
 
 Retain the creation configuration, exact dispatch/run IDs, target version where reported,

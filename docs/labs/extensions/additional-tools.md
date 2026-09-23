@@ -50,14 +50,6 @@ It writes to a fixed local filename rather than trusting a model-provided path.
 Wrong columns, missing/duplicate/reordered rows or modified titles fail verification.
 Keep the mismatched output unchanged for diagnosis.
 
-<!-- edition-checkpoint:EP19-003-code-interpreter-csv -->
-
-![Recorded English checkpoint: Generate and download a real CSV from the six synthetic policy records](../../assets/edition-20260916-en/screenshots/EP19-003-code-interpreter-csv-2.webp)
-
-**What to check:** A real generated file was downloaded and all six rows verified. A local sample CSV would not establish Code Interpreter execution. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=501.16) · [All actions and failures](../../edition-actions.md)
-
 ## 4. Clean up the owned temporary resources
 
 ```bash

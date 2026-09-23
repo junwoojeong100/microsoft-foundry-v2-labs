@@ -13,8 +13,8 @@ as two three-turn conversations, retaining each conversation's earlier answers.
 **First pass:** steps 1–6, in order. Keep the same collection label for both evaluation levels;
 a new target conversation needs a new label, but polling the saved judge job does not.
 
-**Evidence status, September 16, 2026:** the English six-turn collection and both native
-evaluation levels ran and were recorded. See [the actual denominators and limits](../../edition-results.md).
+**Evidence status, September 16, 2026 (earlier `gpt-5.6-luna` edition):** the English six-turn collection and both native
+evaluation levels ran; they were not re-run with the `gpt-6-sol` preset.
 Each execution freezes the real evaluator catalog it reads; catalog availability alone is not an evaluation result.
 
 ## 1. Read the plan before calling a model
@@ -104,14 +104,6 @@ Compare the reasons, not just pass percentages:
 
 Generic evaluator disagreement is a finding to review, not permission to edit the score or repeatedly rerun for a favorable result.
 A timeout resumes the same saved evaluation job when you rerun the same command; it does not silently create a new target conversation.
-
-<!-- edition-checkpoint:EP14-102-native-conversation-report -->
-
-![Recorded English checkpoint: Open the actual two-item full-conversation evaluation report](../../assets/edition-20260916-en/screenshots/EP14-102-native-conversation-report-2.webp)
-
-**What to check:** The whole-conversation report has two items. Do not compare its 2/2 denominator directly with six individual turns. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=184.04) · [All actions and failures](../../edition-actions.md)
 
 ## 6. Handoff
 

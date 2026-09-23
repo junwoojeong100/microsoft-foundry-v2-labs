@@ -83,14 +83,6 @@ identity·issuer·audience·Azure 역할·GitHub 보안 설정은 바꾸지 않�
 [GitHub OIDC 계약](https://docs.github.com/en/actions/reference/security/oidc)과
 [정확한 federated credential 수정 계약](https://learn.microsoft.com/graph/api/federatedidentitycredential-update)을 확인합니다.
 
-<!-- edition-checkpoint:KP22-002-explicit-tenant-oidc-readback -->
-
-![실제 국문 촬영: 기본 구독을 바꾸지 않고 원래 실습 테넌트의 CI app만 조회](../../../assets/edition-20260916-ko/screenshots/KP22-002-explicit-tenant-oidc-readback-2.webp)
-
-**확인할 것:** 기본 구독을 바꾸지 않고 원래 실습 테넌트·비공개 저장소·main·환경에 묶인 OIDC 설정을 읽었습니다. 이 촬영은 CI 실행 성공이 아니라 설정 검증입니다. 내 리소스 이름과 ID는 영상과 다릅니다.
-
-[이 동작 영상 보기](https://github.com/user-attachments/assets/126a7406-b8ff-4d9f-9b3d-1780b9fad328#t=602.24) · [전체 액션과 실패](../../edition-actions.md)
-
 ## 5. 릴리스 순서
 
 [수동 hosted-lab-release workflow](../../../../.github/workflows/hosted-lab-release.yml)는

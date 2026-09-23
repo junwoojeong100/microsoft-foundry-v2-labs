@@ -13,9 +13,8 @@ a prepared keyless Search project connection, and approval to create your own To
 **Stop when:** one pinned MAF request has a real tool result, model response and version binding.
 **If blocked:** preserve the error and return to the prerequisite owner; never replace the provider.
 
-**Evidence status, September 16, 2026:** a new English MCP discovery, direct Search query,
-MAF answer and version binding were executed and recorded. See [this edition's results](../../edition-results.md).
-The September 15 videos are separate historical evidence.
+**Evidence status, September 16, 2026 (earlier `gpt-5.6-luna` edition):** an English MCP discovery, direct Search query,
+MAF answer and version binding were executed; they were not re-run with the `gpt-6-sol` preset.
 
 ## 1. Get the two owner values first
 
@@ -129,14 +128,6 @@ The run preserves raw tool/model results and failures. A model answer without an
 The demonstration is bounded to six logical model calls and a 180-second invocation timeout;
 SDK/service work can add usage, so these are not a currency spending cap.
 Use a **new label** for every new request. Do not repeat a successful paid request merely to obtain another screenshot.
-
-<!-- edition-checkpoint:EP12-010-verified-maf-toolbox -->
-
-![Recorded English checkpoint: Complete the real MAF-to-Toolbox policy request with the corrected prerequisites](../../assets/edition-20260916-en/screenshots/EP12-010-verified-maf-toolbox-2.webp)
-
-**What to check:** The actual version-pinned MAF run used the policy tool. Check the model-call IDs and original policy citations, not just a fluent answer. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=91.32) · [All actions and failures](../../edition-actions.md)
 
 ## 6. Practice a controlled version change
 

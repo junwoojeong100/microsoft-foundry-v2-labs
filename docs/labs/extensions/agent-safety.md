@@ -100,14 +100,6 @@ A business-boundary refusal and a platform safety block are different evidence.
 For network egress controls, use a separate approved allow/deny test against non-sensitive destinations.
 Do not alter shared networking or describe an unconfigured private network as tested.
 
-<!-- edition-checkpoint:EP21-006-honest-safety-outcomes -->
-
-![Recorded English checkpoint: Preserve both unblocked outcomes and stop only their owned sessions; do not claim a filter intervention](../../assets/edition-20260916-en/screenshots/EP21-006-honest-safety-outcomes-2.webp)
-
-**What to check:** Both original cases were unblocked. The correct approval-boundary refusal does not prove that a platform filter intervened. Your resource names and IDs will differ.
-
-[Watch this recorded action](https://github.com/user-attachments/assets/798a020d-664c-480e-83ba-f2cb381139da#t=629.56) · [All actions and failures](../../edition-actions.md)
-
 ## 6. Optional AI red teaming
 
 <details>

@@ -1,7 +1,7 @@
 Synthetic workshop materials only; no real company data.
 This is the small learner ZIP, not the source repository or a ready code environment.
 Keep this extracted personal copy outside the repository; never commit filled notes or credentials.
-1. Complete docs/setup.md and the setup section of session-notes.txt. Use prepared gpt-5.6-luna, not the judge or a router.
+1. Complete docs/setup.md and the setup section of session-notes.txt. Use prepared gpt-6-sol, not the judge or a router.
 2. Follow docs/paths/a-beginner.md. Record Labs 00-03 and 06 in session-notes.txt.
 3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Keep the actual saved text as instructions-baseline.txt and record its version. Do not paste instructions into chat.
 4. Copy only a question from dev-questions.txt into each new chat, not IDs or assessment columns.

@@ -12,6 +12,10 @@ without the missing-model error. [Open that configured screen](../labs/06-knowle
 The existing Luna deployment was also read back as model version **`2026-07-09`**, state **`Succeeded`**.
 This new check did not save a KB, change roles, deploy a model or perform inference.
 
+**September 23, 2026:** the workshop's answer preset moved to `gpt-6-sol`, but this IQ Chat preset stays on **`gpt-5.6-luna`**.
+Search rejected a GPT-6 binding with `Unsupported model type in Knowledge Base Model Configuration`; its accepted list ended with `gpt-5.6-luna`.
+Prepare a separate `gpt-5.6-luna` deployment only for this optional branch. [Model choice](model-choice.md).
+
 ## First pass: use the fixed executable preset
 
 Use **deployment/model `gpt-5.6-luna`, model version `2026-07-09`, Search system-assigned identity**.
@@ -41,7 +45,7 @@ This is the same sequence as the setup card, not another mandatory test. Do not 
 `check` verifies the exact underlying model/version, Search identity/role and source without changing Azure.
 `setup` creates a **separate owned** `<prefix>-chat-en-kb` (override: `AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME`).
 It will not overwrite an unowned/mismatched base, deploy models, grant roles, or change the GA base.
-`ask` preserves request/response/evidence under `outputs/iq-chat/<label>/` and requires actual Luna planning **and** synthesis.
+`ask` preserves request/response/evidence under `outputs/iq-chat/<label>/` and requires actual `gpt-5.6-luna` planning **and** synthesis.
 It rechecks the underlying model/version before the paid POST and rejects evidence that differs from the selected canonical language corpus.
 `model-preflight.json`, `knowledge-base-response.json` and failure stages distinguish model preparation, KB reads, retrieval and answer validation.
 The existing source returns `id`, `title`, and `content`, not separate date fields.
@@ -89,18 +93,18 @@ Do not add subscription-wide Owner merely to run a read-only check.
 
 Use the prepared preset rather than turning a model-free GA base into a different experiment:
 
-1. The owner verifies the existing Luna deployment, Search managed identity and the Search identity's
+1. The owner verifies the existing `gpt-5.6-luna` deployment, Search managed identity and the Search identity's
    `Cognitive Services User` role on the **model's Foundry account**. Only missing prerequisites need separately approved changes.
    A role assigned to the learner or Hosted identity is not a role assigned to Search.
 2. Complete the **check → authorized setup** sequence above when the chat base does not yet exist.
-   This saves the Luna/MI/Low/Answer synthesis binding without deploying another model.
+   This saves the `gpt-5.6-luna`/MI/Low/Answer synthesis binding without deploying another model.
 3. Open **Knowledge → Knowledge bases → the returned chat-base name**. Keep its model selection;
    confirm **`gpt-5.6-luna`**, **Low**, **Answer synthesis** and the correct synthetic source.
    No additional Save is needed to inspect an already prepared KB.
 4. The gray API-key-disabled/managed-identity notice is informational. Do not enable keys to remove it.
    A red **`Chat completions model is required`** instead means no model is selected; first check that you opened the chat base, not `<prefix>-kb`.
 5. Do not use **Browse more models → Deploy** to repair that form. On September 17, the Foundry picker offered a limited catalog,
-   while the already saved Luna binding rendered correctly. Catalog selection, deployment and opening a saved binding are different actions.
+   while the already saved `gpt-5.6-luna` binding rendered correctly. Catalog selection, deployment and opening a saved binding are different actions.
 6. For an approved new request, use `iq-chat ask` and retain actual `modelQueryPlanning`, `modelAnswerSynthesis`,
    references and the answer. A filled form does not prove model invocation or role propagation.
 
