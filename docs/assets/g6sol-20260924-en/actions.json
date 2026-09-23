@@ -1,0 +1,5078 @@
+{
+  "language": "en",
+  "actions": [
+    {
+      "id": "E00-001-folder",
+      "title": "Open the source folder and run the offline doctor",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:02:58.556961+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL CHECK",
+      "start_seconds": 35.082,
+      "status": "recorded",
+      "command_sha256": "4eeb607e64786e99256c68b4a366037f7dc7ad76aa22325bd947bf038ed974ca",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 39.962,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-001-folder-0.webp",
+        "screenshots/E00-001-folder-1.webp",
+        "screenshots/E00-001-folder-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 0.0,
+          "end_seconds": 1.8
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 1.8,
+          "end_seconds": 3.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 2.0,
+          "end_seconds": 3.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 3.8,
+          "end_seconds": 5.52
+        }
+      ],
+      "combined_start_seconds": 2.0
+    },
+    {
+      "id": "E00-002-notes",
+      "title": "Prepare B's personal notes once",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:03:03.609742+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL SETUP",
+      "start_seconds": 40.135,
+      "status": "recorded",
+      "command_sha256": "4c7825b713e40f521fe45d676cf68e4f1652fa93722d14435072fe670bd33721",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 44.857,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-002-notes-0.webp",
+        "screenshots/E00-002-notes-1.webp",
+        "screenshots/E00-002-notes-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 3.52,
+          "end_seconds": 5.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 5.24,
+          "end_seconds": 7.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 5.52,
+          "end_seconds": 7.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 7.24,
+          "end_seconds": 9.0
+        }
+      ],
+      "combined_start_seconds": 5.52
+    },
+    {
+      "id": "E00-003-fixture-v1",
+      "title": "Offline fixture v1: not a model response",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:03:08.517720+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "OFFLINE FIXTURE",
+      "start_seconds": 45.043,
+      "status": "recorded",
+      "command_sha256": "647d32b9baf192fd9228b5559b558a32816a16db80a47f115a2f808ca57156ff",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 50.022,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-003-fixture-v1-0.webp",
+        "screenshots/E00-003-fixture-v1-1.webp",
+        "screenshots/E00-003-fixture-v1-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 7.0,
+          "end_seconds": 8.84
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 8.84,
+          "end_seconds": 10.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 9.0,
+          "end_seconds": 10.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 10.84,
+          "end_seconds": 12.52
+        }
+      ],
+      "combined_start_seconds": 9.0
+    },
+    {
+      "id": "E00-004-fixture-v2",
+      "title": "Offline fixture v2 and its lineage",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:03:13.600892+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "OFFLINE FIXTURE",
+      "start_seconds": 50.126,
+      "status": "recorded",
+      "command_sha256": "ef0ca489ab9498b8c1b643a13fe19a8776cc78c9784216d0fdeb6bd4f7cce67e",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 55.014,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-004-fixture-v2-0.webp",
+        "screenshots/E00-004-fixture-v2-1.webp",
+        "screenshots/E00-004-fixture-v2-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 10.52,
+          "end_seconds": 12.32
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 12.32,
+          "end_seconds": 14.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 12.52,
+          "end_seconds": 14.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 14.32,
+          "end_seconds": 16.04
+        }
+      ],
+      "combined_start_seconds": 12.52
+    },
+    {
+      "id": "E00-005-fixture-compare",
+      "title": "Compare fixtures without claiming model quality",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:03:18.630145+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "OFFLINE FIXTURE",
+      "start_seconds": 55.155,
+      "status": "recorded",
+      "command_sha256": "79d512815d95d79a0a9e03cd91fcfafd51360cfa145faa5cd303b19829a3ed56",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 60.063,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-005-fixture-compare-0.webp",
+        "screenshots/E00-005-fixture-compare-1.webp",
+        "screenshots/E00-005-fixture-compare-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 14.04,
+          "end_seconds": 15.84
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 15.84,
+          "end_seconds": 17.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 16.04,
+          "end_seconds": 17.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 17.84,
+          "end_seconds": 19.48
+        }
+      ],
+      "combined_start_seconds": 16.04
+    },
+    {
+      "id": "E00-006-install",
+      "title": "Create the virtual environment and install the pinned SDKs",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:03:23.638982+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL SETUP",
+      "start_seconds": 60.164,
+      "status": "recorded",
+      "command_sha256": "5f445dd07e9475c60c5c834dc19f868fbf6cbf1a314a3aa755e1e19662ba48a5",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 109.674,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-006-install-0.webp",
+        "screenshots/E00-006-install-1.webp",
+        "screenshots/E00-006-install-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 17.48,
+          "end_seconds": 19.76
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 19.76,
+          "end_seconds": 21.44
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 21.44,
+          "end_seconds": 23.12
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 23.12,
+          "end_seconds": 24.8
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 24.8,
+          "end_seconds": 26.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 19.48,
+          "end_seconds": 21.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 21.76,
+          "end_seconds": 23.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 23.44,
+          "end_seconds": 25.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 25.12,
+          "end_seconds": 26.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 26.8,
+          "end_seconds": 28.56
+        }
+      ],
+      "combined_start_seconds": 19.48
+    },
+    {
+      "id": "E00-007-env",
+      "title": "Copy .env.example and fill it from the setup card",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:04:13.408911+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "LOCAL SETUP",
+      "start_seconds": 109.934,
+      "status": "recorded",
+      "command_sha256": "9b2c7579bb5bbd556e9bae30fd91a2d79a16d67c12091800c336a122aa9e476a",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 114.776,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-007-env-0.webp",
+        "screenshots/E00-007-env-1.webp",
+        "screenshots/E00-007-env-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 26.56,
+          "end_seconds": 28.32
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 28.32,
+          "end_seconds": 30.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 28.56,
+          "end_seconds": 30.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 30.32,
+          "end_seconds": 32.0
+        }
+      ],
+      "combined_start_seconds": 28.56
+    },
+    {
+      "id": "E00-008-preflight",
+      "title": "Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded",
+      "guide": "docs/labs/00-start.md",
+      "recorded_at": "2026-09-23T15:04:18.367766+00:00",
+      "lab": 0,
+      "channel": "terminal",
+      "mode": "READ-ONLY AZURE",
+      "start_seconds": 114.893,
+      "status": "recorded",
+      "command_sha256": "ddda2da5e58b100f3d7f07cdbe1500aa5bda67bd244ee9d4b8d62c607bf17ea2",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 128.959,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E00-008-preflight-0.webp",
+        "screenshots/E00-008-preflight-1.webp",
+        "screenshots/E00-008-preflight-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 30.0,
+          "end_seconds": 32.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 32.24,
+          "end_seconds": 33.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 32.0,
+          "end_seconds": 34.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 34.24,
+          "end_seconds": 35.92
+        }
+      ],
+      "combined_start_seconds": 32.0
+    },
+    {
+      "id": "E02-001-model",
+      "title": "First real gpt-6-sol request through the project Responses API",
+      "guide": "docs/labs/02-models.md#path-b",
+      "recorded_at": "2026-09-23T15:04:32.545773+00:00",
+      "lab": 2,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 129.07,
+      "status": "recorded",
+      "command_sha256": "8e8cecb3ce1497b0193f4a7e14c1356c598f99e3da855429d4648fd13b675ee6",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 144.392,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E02-001-model-0.webp",
+        "screenshots/E02-001-model-1.webp",
+        "screenshots/E02-001-model-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 33.92,
+          "end_seconds": 36.2
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 36.2,
+          "end_seconds": 37.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 46.48,
+          "end_seconds": 48.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 48.76,
+          "end_seconds": 50.44
+        }
+      ],
+      "combined_start_seconds": 46.48
+    },
+    {
+      "id": "E02-002-answer",
+      "title": "Validated structured answer with local evidence",
+      "guide": "docs/labs/02-models.md#path-b",
+      "recorded_at": "2026-09-23T15:04:47.982882+00:00",
+      "lab": 2,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 144.507,
+      "status": "recorded",
+      "command_sha256": "69b31e87a76cd401d35b5e1ff9e140fb19ad6b6c5643a029f34443058f3dc267",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 156.417,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E02-002-answer-0.webp",
+        "screenshots/E02-002-answer-1.webp",
+        "screenshots/E02-002-answer-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 37.88,
+          "end_seconds": 40.12
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 40.12,
+          "end_seconds": 41.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 50.44,
+          "end_seconds": 52.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 52.68,
+          "end_seconds": 54.4
+        }
+      ],
+      "combined_start_seconds": 50.44
+    },
+    {
+      "id": "E03-001-sdk-create",
+      "title": "Optional SDK Prompt Agent: create an owned version",
+      "guide": "docs/labs/03-prompt-agent.md#path-b",
+      "recorded_at": "2026-09-23T15:05:00.019552+00:00",
+      "lab": 3,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 156.544,
+      "status": "recorded",
+      "command_sha256": "38d4340e0e48dc3767feb2f3016b19d2d430ff9386c1af5d12a5df1cf930dd4b",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 171.627,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E03-001-sdk-create-0.webp",
+        "screenshots/E03-001-sdk-create-1.webp",
+        "screenshots/E03-001-sdk-create-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 41.84,
+          "end_seconds": 44.08
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 44.08,
+          "end_seconds": 45.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 86.44,
+          "end_seconds": 88.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 88.68,
+          "end_seconds": 90.36
+        }
+      ],
+      "combined_start_seconds": 86.44
+    },
+    {
+      "id": "E03-002-sdk-invoke",
+      "title": "Invoke the returned SDK agent version",
+      "guide": "docs/labs/03-prompt-agent.md#path-b",
+      "recorded_at": "2026-09-23T15:05:15.241249+00:00",
+      "lab": 3,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 171.766,
+      "status": "recorded",
+      "command_sha256": "8ce598610800b9c3134d871cbd29b5611ddc937a5d9a93c9b8b98eed4eee6730",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 182.377,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E03-002-sdk-invoke-0.webp",
+        "screenshots/E03-002-sdk-invoke-1.webp",
+        "screenshots/E03-002-sdk-invoke-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 45.76,
+          "end_seconds": 48.04
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 48.04,
+          "end_seconds": 49.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 90.36,
+          "end_seconds": 92.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 92.64,
+          "end_seconds": 94.36
+        }
+      ],
+      "combined_start_seconds": 90.36
+    },
+    {
+      "id": "E04-001-maf",
+      "title": "MAF agent without tools",
+      "guide": "docs/labs/04-agents-tools.md#path-b",
+      "recorded_at": "2026-09-23T15:05:25.971133+00:00",
+      "lab": 4,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 182.495,
+      "status": "recorded",
+      "command_sha256": "fa7aa79acbdad8543bb8289bf451df02788f332db6ba383085eacb790b7d711f",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 194.622,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E04-001-maf-0.webp",
+        "screenshots/E04-001-maf-1.webp",
+        "screenshots/E04-001-maf-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 49.76,
+          "end_seconds": 52.04
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 52.04,
+          "end_seconds": 53.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 131.16,
+          "end_seconds": 133.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 133.44,
+          "end_seconds": 135.12
+        }
+      ],
+      "combined_start_seconds": 131.16
+    },
+    {
+      "id": "E04-002-tools",
+      "title": "MAF with the read-only function tool",
+      "guide": "docs/labs/04-agents-tools.md#path-b",
+      "recorded_at": "2026-09-23T15:05:38.196135+00:00",
+      "lab": 4,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 194.72,
+      "status": "recorded",
+      "command_sha256": "65dfe23648f27eff522664f7924edc02111b785bf8c3a81444eaeab4a324c4d4",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 206.712,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E04-002-tools-0.webp",
+        "screenshots/E04-002-tools-1.webp",
+        "screenshots/E04-002-tools-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 53.72,
+          "end_seconds": 56.0
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 56.0,
+          "end_seconds": 57.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 135.12,
+          "end_seconds": 137.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 137.4,
+          "end_seconds": 139.08
+        }
+      ],
+      "combined_start_seconds": 135.12
+    },
+    {
+      "id": "E04-003-mcp",
+      "title": "MAF with the local MCP policy tool",
+      "guide": "docs/labs/04-agents-tools.md#path-b",
+      "recorded_at": "2026-09-23T15:05:50.297839+00:00",
+      "lab": 4,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 206.822,
+      "status": "recorded",
+      "command_sha256": "ebc55e0c832f9e7e1aaba566840699edf9ab0dd08185fee01103db66759c5336",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 222.493,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E04-003-mcp-0.webp",
+        "screenshots/E04-003-mcp-1.webp",
+        "screenshots/E04-003-mcp-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 57.68,
+          "end_seconds": 59.96
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 59.96,
+          "end_seconds": 61.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 139.08,
+          "end_seconds": 141.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 141.36,
+          "end_seconds": 143.08
+        }
+      ],
+      "combined_start_seconds": 139.08
+    },
+    {
+      "id": "E04-004-maf-evaluate",
+      "title": "Optional: score the MAF tool calls with Foundry evaluators",
+      "guide": "docs/labs/04-agents-tools.md#path-b",
+      "recorded_at": "2026-09-23T15:06:06.080703+00:00",
+      "lab": 4,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 222.605,
+      "status": "recorded",
+      "command_sha256": "97100721e914204003221bce545d7b9512ef2caa89cec865e485f159f1bab246",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 301.858,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E04-004-maf-evaluate-0.webp",
+        "screenshots/E04-004-maf-evaluate-1.webp",
+        "screenshots/E04-004-maf-evaluate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 61.68,
+          "end_seconds": 63.52
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 63.52,
+          "end_seconds": 65.2
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 65.2,
+          "end_seconds": 66.88
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 66.88,
+          "end_seconds": 68.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 143.08,
+          "end_seconds": 144.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 144.92,
+          "end_seconds": 146.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 146.6,
+          "end_seconds": 148.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 148.28,
+          "end_seconds": 149.92
+        }
+      ],
+      "combined_start_seconds": 143.08
+    },
+    {
+      "id": "E05-001-prepared",
+      "title": "A's one prepared sequential workflow command",
+      "guide": "docs/labs/05-workflows.md#path-a",
+      "recorded_at": "2026-09-23T15:07:25.413834+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 301.937,
+      "status": "recorded",
+      "command_sha256": "a07ce7503cb0075dc74ebeaaf78add5761470d3cfe5d7cdb03bf81bce0d3f1b4",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 322.697,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E05-001-prepared-0.webp",
+        "screenshots/E05-001-prepared-1.webp",
+        "screenshots/E05-001-prepared-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 68.52,
+          "end_seconds": 70.32
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 70.32,
+          "end_seconds": 72.0
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 72.0,
+          "end_seconds": 73.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 151.92,
+          "end_seconds": 153.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 153.72,
+          "end_seconds": 155.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 155.4,
+          "end_seconds": 157.12
+        }
+      ],
+      "combined_start_seconds": 151.92
+    },
+    {
+      "id": "E05-002-sequential",
+      "title": "Sequential MAF workflow",
+      "guide": "docs/labs/05-workflows.md#path-b",
+      "recorded_at": "2026-09-23T15:07:48.314543+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 322.817,
+      "status": "recorded",
+      "command_sha256": "356ce62e51ab83dcae6d3f4af36e48a87c599d84ec32f54676c46a6d828aaa0f",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 341.402,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E05-002-sequential-0.webp",
+        "screenshots/E05-002-sequential-1.webp",
+        "screenshots/E05-002-sequential-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 73.72,
+          "end_seconds": 75.96
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 75.96,
+          "end_seconds": 77.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 157.12,
+          "end_seconds": 159.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 159.36,
+          "end_seconds": 161.04
+        }
+      ],
+      "combined_start_seconds": 157.12
+    },
+    {
+      "id": "E05-003-concurrent",
+      "title": "Concurrent MAF workflow",
+      "guide": "docs/labs/05-workflows.md#path-b",
+      "recorded_at": "2026-09-23T15:08:06.998596+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 341.501,
+      "status": "recorded",
+      "command_sha256": "12acd0bd82e3c1f938ed7c93afcb43664dba395604da330fb11d14744ada346a",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 353.316,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E05-003-concurrent-0.webp",
+        "screenshots/E05-003-concurrent-1.webp",
+        "screenshots/E05-003-concurrent-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 77.64,
+          "end_seconds": 79.88
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 79.88,
+          "end_seconds": 81.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 161.04,
+          "end_seconds": 163.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 163.28,
+          "end_seconds": 164.96
+        }
+      ],
+      "combined_start_seconds": 161.04
+    },
+    {
+      "id": "E05-004-group-chat",
+      "title": "Bounded Group Chat workflow",
+      "guide": "docs/labs/05-workflows.md#path-b",
+      "recorded_at": "2026-09-23T15:08:18.933738+00:00",
+      "lab": 5,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 353.436,
+      "status": "recorded",
+      "command_sha256": "30003b2d70975dd44199aace9810aaef8680f583ed225b3a91e80f79e55f588c",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 371.471,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E05-004-group-chat-0.webp",
+        "screenshots/E05-004-group-chat-1.webp",
+        "screenshots/E05-004-group-chat-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 81.56,
+          "end_seconds": 83.8
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 83.8,
+          "end_seconds": 85.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 164.96,
+          "end_seconds": 167.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 167.2,
+          "end_seconds": 168.88
+        }
+      ],
+      "combined_start_seconds": 164.96
+    },
+    {
+      "id": "E06-001-local",
+      "title": "Local keyword retrieval over the six synthetic policies",
+      "guide": "docs/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T15:08:37.078924+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LOCAL CHECK",
+      "start_seconds": 371.581,
+      "status": "recorded",
+      "command_sha256": "d5d5fe113a41e1f5ba6f2b26ee1dbd585e3589457ac729a5078fb411717814dc",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 376.485,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E06-001-local-0.webp",
+        "screenshots/E06-001-local-1.webp",
+        "screenshots/E06-001-local-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 85.48,
+          "end_seconds": 87.28
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 87.28,
+          "end_seconds": 88.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 170.88,
+          "end_seconds": 172.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 172.68,
+          "end_seconds": 174.36
+        }
+      ],
+      "combined_start_seconds": 170.88
+    },
+    {
+      "id": "E06-002-seed-search",
+      "title": "Create the owned Search index with the synthetic policies",
+      "guide": "docs/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T15:08:42.060653+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 376.563,
+      "status": "recorded",
+      "command_sha256": "e3306abd413670a63f3fd12dfaed03798a27c9168f3759e6732dbcc603e09dda",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 387.75,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E06-002-seed-search-0.webp",
+        "screenshots/E06-002-seed-search-1.webp",
+        "screenshots/E06-002-seed-search-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 88.96,
+          "end_seconds": 91.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 91.24,
+          "end_seconds": 92.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 174.36,
+          "end_seconds": 176.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 176.64,
+          "end_seconds": 178.32
+        }
+      ],
+      "combined_start_seconds": 174.36
+    },
+    {
+      "id": "E06-003-search",
+      "title": "Keyword retrieval from Azure AI Search",
+      "guide": "docs/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T15:08:53.365670+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 387.868,
+      "status": "recorded",
+      "command_sha256": "a927272e51b4aa36461198e594498fe7ec0e9b1dc1fe2a3d6b18a3f4be7d9fb0",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 395.612,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E06-003-search-0.webp",
+        "screenshots/E06-003-search-1.webp",
+        "screenshots/E06-003-search-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 92.92,
+          "end_seconds": 95.16
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 95.16,
+          "end_seconds": 96.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 178.32,
+          "end_seconds": 180.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 180.56,
+          "end_seconds": 182.24
+        }
+      ],
+      "combined_start_seconds": 178.32
+    },
+    {
+      "id": "E06-004-seed-iq",
+      "title": "Create the owned GA IQ knowledge source and base",
+      "guide": "docs/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T15:09:01.221622+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 395.724,
+      "status": "recorded",
+      "command_sha256": "0266e0445ca535be86819335004587075d85865d2656c53bcb3b7572d4a79f85",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 406.9,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E06-004-seed-iq-0.webp",
+        "screenshots/E06-004-seed-iq-1.webp",
+        "screenshots/E06-004-seed-iq-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 96.84,
+          "end_seconds": 99.08
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 99.08,
+          "end_seconds": 100.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 182.24,
+          "end_seconds": 184.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 184.48,
+          "end_seconds": 186.16
+        }
+      ],
+      "combined_start_seconds": 182.24
+    },
+    {
+      "id": "E06-005-iq",
+      "title": "GA Foundry IQ retrieval with source references",
+      "guide": "docs/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T15:09:12.503571+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 407.005,
+      "status": "recorded",
+      "command_sha256": "7fa2a74d86c59d814dbe40e51ae5e20ffa12a9dab7c92c2818c5ee078829dca4",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 414.788,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E06-005-iq-0.webp",
+        "screenshots/E06-005-iq-1.webp",
+        "screenshots/E06-005-iq-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 100.76,
+          "end_seconds": 103.0
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 103.0,
+          "end_seconds": 104.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 186.16,
+          "end_seconds": 188.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 188.4,
+          "end_seconds": 190.08
+        }
+      ],
+      "combined_start_seconds": 186.16
+    },
+    {
+      "id": "E06-006-answer-iq",
+      "title": "Send IQ evidence to gpt-6-sol for a validated answer",
+      "guide": "docs/labs/06-knowledge.md#path-b",
+      "recorded_at": "2026-09-23T15:09:20.404146+00:00",
+      "lab": 6,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 414.906,
+      "status": "recorded",
+      "command_sha256": "d3fb1a294b6dce1b693769c8cb078dd34a0a1fdab856cfd159d6246d81a126ca",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 428.932,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E06-006-answer-iq-0.webp",
+        "screenshots/E06-006-answer-iq-1.webp",
+        "screenshots/E06-006-answer-iq-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 104.68,
+          "end_seconds": 106.96
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 106.96,
+          "end_seconds": 108.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 190.08,
+          "end_seconds": 192.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 192.36,
+          "end_seconds": 194.04
+        }
+      ],
+      "combined_start_seconds": 190.08
+    },
+    {
+      "id": "E07-001-baseline",
+      "title": "Collect the dev baseline with v1 instructions",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:09:34.537462+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 429.039,
+      "status": "recorded",
+      "command_sha256": "05185535bc7cfc9415d16312ba6ba1caf9aaaa6d3064c33f655c5ed526b1120a",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 454.685,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-001-baseline-0.webp",
+        "screenshots/E07-001-baseline-1.webp",
+        "screenshots/E07-001-baseline-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 108.64,
+          "end_seconds": 110.44
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 110.44,
+          "end_seconds": 112.12
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 112.12,
+          "end_seconds": 113.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 196.04,
+          "end_seconds": 197.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 197.84,
+          "end_seconds": 199.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 199.52,
+          "end_seconds": 201.2
+        }
+      ],
+      "combined_start_seconds": 196.04
+    },
+    {
+      "id": "E07-002-evaluate-baseline",
+      "title": "Local business checks for the baseline",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:10:00.277661+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 454.779,
+      "status": "recorded",
+      "command_sha256": "0ce5a66829e1d7795633f0bb3374b768bdc42cb8e22a6c774c574e0d2cf8ef68",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 459.657,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-002-evaluate-baseline-0.webp",
+        "screenshots/E07-002-evaluate-baseline-1.webp",
+        "screenshots/E07-002-evaluate-baseline-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 113.8,
+          "end_seconds": 115.6
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 115.6,
+          "end_seconds": 117.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 201.2,
+          "end_seconds": 203.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 203.0,
+          "end_seconds": 204.68
+        }
+      ],
+      "combined_start_seconds": 201.2
+    },
+    {
+      "id": "E07-021-diagnostic",
+      "title": "All six passed: collect the dev-only no-evidence diagnostic",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:10:05.223825+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 459.725,
+      "status": "recorded",
+      "command_sha256": "dd53654e5d9e3261420f6bdaeb9895043ccfeef935b34ab84e23f8ff824a089c",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 482.917,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-021-diagnostic-0.webp",
+        "screenshots/E07-021-diagnostic-1.webp",
+        "screenshots/E07-021-diagnostic-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 117.28,
+          "end_seconds": 119.04
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 119.04,
+          "end_seconds": 120.72
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 120.72,
+          "end_seconds": 122.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 204.68,
+          "end_seconds": 206.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 206.44,
+          "end_seconds": 208.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 208.12,
+          "end_seconds": 209.8
+        }
+      ],
+      "combined_start_seconds": 204.68
+    },
+    {
+      "id": "E07-022-diagnostic-evaluate",
+      "title": "The diagnostic fails honestly: 0/6 with 0 errors",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:10:28.506643+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 483.008,
+      "status": "recorded",
+      "command_sha256": "8c3d03d61cf228703459d2a4b65415d908cbfe45adb14f406e6173f4bb187997",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 487.798,
+      "exit_code": 1,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-022-diagnostic-evaluate-0.webp",
+        "screenshots/E07-022-diagnostic-evaluate-1.webp",
+        "screenshots/E07-022-diagnostic-evaluate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 122.4,
+          "end_seconds": 124.16
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 124.16,
+          "end_seconds": 125.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 209.8,
+          "end_seconds": 211.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 211.56,
+          "end_seconds": 213.2
+        }
+      ],
+      "combined_start_seconds": 209.8
+    },
+    {
+      "id": "E07-004-candidate",
+      "title": "Collect the dev candidate with v2 instructions",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:10:33.369601+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 487.871,
+      "status": "recorded",
+      "command_sha256": "b301068709458b9f1a47b73b577ba61a4604578b283d1e43536d5c8f76bf122b",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 514.467,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-004-candidate-0.webp",
+        "screenshots/E07-004-candidate-1.webp",
+        "screenshots/E07-004-candidate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 125.8,
+          "end_seconds": 127.6
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 127.6,
+          "end_seconds": 129.28
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 129.28,
+          "end_seconds": 130.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 213.2,
+          "end_seconds": 215.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 215.0,
+          "end_seconds": 216.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 216.68,
+          "end_seconds": 218.36
+        }
+      ],
+      "combined_start_seconds": 213.2
+    },
+    {
+      "id": "E07-005-evaluate-candidate",
+      "title": "Local business checks for the candidate",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:11:00.081275+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 514.582,
+      "status": "recorded",
+      "command_sha256": "302c1d607267bb36404684372ea7c6d075f88f6a2ad51eedec7e4fb9905c13b4",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 519.436,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-005-evaluate-candidate-0.webp",
+        "screenshots/E07-005-evaluate-candidate-1.webp",
+        "screenshots/E07-005-evaluate-candidate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 130.96,
+          "end_seconds": 132.76
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 132.76,
+          "end_seconds": 134.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 218.36,
+          "end_seconds": 220.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 220.16,
+          "end_seconds": 221.84
+        }
+      ],
+      "combined_start_seconds": 218.36
+    },
+    {
+      "id": "E07-006-compare",
+      "title": "Compare v1 and v2 on the same dev data and model",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:11:05.039055+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 519.54,
+      "status": "recorded",
+      "command_sha256": "d0144aa5f28923a96a68bd5ad3e655836124338bafc3f8e2d63da48ae9ad9403",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 524.362,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-006-compare-0.webp",
+        "screenshots/E07-006-compare-1.webp",
+        "screenshots/E07-006-compare-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 134.44,
+          "end_seconds": 136.24
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 136.24,
+          "end_seconds": 137.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 221.84,
+          "end_seconds": 223.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 223.64,
+          "end_seconds": 225.32
+        }
+      ],
+      "combined_start_seconds": 221.84
+    },
+    {
+      "id": "E07-007-holdout",
+      "title": "Use the frozen candidate once on holdout",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:11:09.929962+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 524.431,
+      "status": "recorded",
+      "command_sha256": "bb29a07fa0d15669b10a8e79b4725e7f69e20b0d2d5b70d117cffb6985c664d7",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 547.516,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-007-holdout-0.webp",
+        "screenshots/E07-007-holdout-1.webp",
+        "screenshots/E07-007-holdout-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 137.92,
+          "end_seconds": 139.72
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 139.72,
+          "end_seconds": 141.4
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 141.4,
+          "end_seconds": 143.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 225.32,
+          "end_seconds": 227.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 227.12,
+          "end_seconds": 228.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 228.8,
+          "end_seconds": 230.48
+        }
+      ],
+      "combined_start_seconds": 225.32
+    },
+    {
+      "id": "E07-008-evaluate-holdout",
+      "title": "Local business checks for the final holdout",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:11:33.129915+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 547.631,
+      "status": "recorded",
+      "command_sha256": "fed4788d7f283dde9347147fa4fc6051be9d2e99ae67c9b7d1064c363e16945e",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 552.451,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-008-evaluate-holdout-0.webp",
+        "screenshots/E07-008-evaluate-holdout-1.webp",
+        "screenshots/E07-008-evaluate-holdout-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 143.08,
+          "end_seconds": 144.84
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 144.84,
+          "end_seconds": 146.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 230.48,
+          "end_seconds": 232.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 232.24,
+          "end_seconds": 233.92
+        }
+      ],
+      "combined_start_seconds": 230.48
+    },
+    {
+      "id": "E07-009-accept",
+      "title": "Acceptance handoff, not a deployment approval",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:11:38.067175+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 552.568,
+      "status": "recorded",
+      "command_sha256": "f5067ed6cc3d638a5bd1b8baf22cac20976f6209c1c4dfeddcc8b0bc2f14df09",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 557.379,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-009-accept-0.webp",
+        "screenshots/E07-009-accept-1.webp",
+        "screenshots/E07-009-accept-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 146.52,
+          "end_seconds": 148.28
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 148.28,
+          "end_seconds": 149.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 233.92,
+          "end_seconds": 235.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 235.68,
+          "end_seconds": 237.32
+        }
+      ],
+      "combined_start_seconds": 233.92
+    },
+    {
+      "id": "E07-010-cloud-judge",
+      "title": "Optional Foundry cloud judge with gpt-6-sol-judge",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:11:42.942155+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 557.443,
+      "status": "recorded",
+      "command_sha256": "7257f7666d13e0c20d49135e2bf0d09886ed8d2206ceeaaeff35993e3f4b19a9",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 608.767,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-010-cloud-judge-0.webp",
+        "screenshots/E07-010-cloud-judge-1.webp",
+        "screenshots/E07-010-cloud-judge-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 149.92,
+          "end_seconds": 151.72
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 151.72,
+          "end_seconds": 153.4
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 153.4,
+          "end_seconds": 155.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 237.32,
+          "end_seconds": 239.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 239.12,
+          "end_seconds": 240.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 240.8,
+          "end_seconds": 242.48
+        }
+      ],
+      "combined_start_seconds": 237.32
+    },
+    {
+      "id": "E07-011-business-baseline",
+      "title": "Preview: baseline with the code-based business rubric in Foundry",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:12:34.366843+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 608.867,
+      "status": "failed",
+      "command_sha256": "d05530afc2121c81a11dcc1a7d232f625e60088cfa64092c0435f1fbcdb86045",
+      "working_tree_source_hash": "612d9dae1000dc9716c1908bc37a22c6ac71bf336f3283ce08193ed22ed362c8",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 711.169,
+      "exit_code": 2,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-011-business-baseline-0.webp",
+        "screenshots/E07-011-business-baseline-1.webp",
+        "screenshots/E07-011-business-baseline-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 155.08,
+          "end_seconds": 156.88
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 156.88,
+          "end_seconds": 158.56
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 158.56,
+          "end_seconds": 161.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 242.48,
+          "end_seconds": 244.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 244.28,
+          "end_seconds": 245.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 272.44,
+          "end_seconds": 275.08
+        }
+      ],
+      "combined_start_seconds": 242.48
+    },
+    {
+      "id": "E07-013-business-retry",
+      "title": "The service omitted business_rubric: retry that invalid attempt once, keeping it",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:23:26.542891+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 1261.039,
+      "status": "recorded",
+      "command_sha256": "746f8ca8760bb58e2f799b0f4289ddd4697804311cc0ad68aedec5f7765e1471",
+      "working_tree_source_hash": "fa3fb5ce076c15a3a0df2ba6433021bce7e36b03125c799699c91624001f7aa7",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1309.909,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-013-business-retry-0.webp",
+        "screenshots/E07-013-business-retry-1.webp",
+        "screenshots/E07-013-business-retry-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 161.2,
+          "end_seconds": 163.0
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 163.0,
+          "end_seconds": 164.68
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 164.68,
+          "end_seconds": 166.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 285.12,
+          "end_seconds": 286.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 286.92,
+          "end_seconds": 288.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 288.6,
+          "end_seconds": 290.28
+        }
+      ],
+      "combined_start_seconds": 285.12
+    },
+    {
+      "id": "E07-012-business-candidate",
+      "title": "Preview: candidate joins the same evaluation for Compare runs",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:24:15.526111+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 1310.022,
+      "status": "failed",
+      "command_sha256": "5f4d75cc82a50a46483758711c0dbddd26f1378716e0042bbc0384fbc261cf9c",
+      "working_tree_source_hash": "fa3fb5ce076c15a3a0df2ba6433021bce7e36b03125c799699c91624001f7aa7",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1315.826,
+      "exit_code": 2,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-012-business-candidate-0.webp",
+        "screenshots/E07-012-business-candidate-1.webp",
+        "screenshots/E07-012-business-candidate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 166.36,
+          "end_seconds": 168.6
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 168.6,
+          "end_seconds": 171.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 290.28,
+          "end_seconds": 292.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 292.52,
+          "end_seconds": 295.16
+        }
+      ],
+      "combined_start_seconds": 290.28
+    },
+    {
+      "id": "E07-014-business-readback",
+      "title": "After the fix: read back the retried baseline; no new job",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:27:48.040191+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 1522.534,
+      "status": "recorded",
+      "command_sha256": "d05530afc2121c81a11dcc1a7d232f625e60088cfa64092c0435f1fbcdb86045",
+      "working_tree_source_hash": "b38ff5780d8fb920661e822c0ac8fafb0d3bcf0d170e572400735e952937ca4f",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1531.631,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-014-business-readback-0.webp",
+        "screenshots/E07-014-business-readback-1.webp",
+        "screenshots/E07-014-business-readback-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 171.24,
+          "end_seconds": 173.48
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 173.48,
+          "end_seconds": 175.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 307.68,
+          "end_seconds": 309.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 309.92,
+          "end_seconds": 311.56
+        }
+      ],
+      "combined_start_seconds": 307.68
+    },
+    {
+      "id": "E07-015-business-candidate",
+      "title": "Preview: candidate joins the same evaluation for Compare runs",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:27:57.206489+00:00",
+      "lab": 7,
+      "channel": "terminal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 1531.701,
+      "status": "recorded",
+      "command_sha256": "5f4d75cc82a50a46483758711c0dbddd26f1378716e0042bbc0384fbc261cf9c",
+      "working_tree_source_hash": "b38ff5780d8fb920661e822c0ac8fafb0d3bcf0d170e572400735e952937ca4f",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1579.345,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E07-015-business-candidate-0.webp",
+        "screenshots/E07-015-business-candidate-1.webp",
+        "screenshots/E07-015-business-candidate-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 175.12,
+          "end_seconds": 176.92
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 176.92,
+          "end_seconds": 178.6
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 178.6,
+          "end_seconds": 180.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 311.56,
+          "end_seconds": 313.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 313.36,
+          "end_seconds": 315.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 315.04,
+          "end_seconds": 316.68
+        }
+      ],
+      "combined_start_seconds": 311.56
+    },
+    {
+      "id": "E08-001-package",
+      "title": "Package the Hosted bundle only; no deployment",
+      "guide": "docs/labs/08-hosted.md#path-b",
+      "recorded_at": "2026-09-23T15:28:44.924312+00:00",
+      "lab": 8,
+      "channel": "terminal",
+      "mode": "PACKAGE",
+      "start_seconds": 1579.418,
+      "status": "recorded",
+      "command_sha256": "54e5db021a05935bc4dc6f4b38db5313bc3a1acad2e9b4e5c25c4d00868c1cf2",
+      "working_tree_source_hash": "b38ff5780d8fb920661e822c0ac8fafb0d3bcf0d170e572400735e952937ca4f",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1584.259,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E08-001-package-0.webp",
+        "screenshots/E08-001-package-1.webp",
+        "screenshots/E08-001-package-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 180.24,
+          "end_seconds": 182.04
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 182.04,
+          "end_seconds": 183.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 348.84,
+          "end_seconds": 350.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 350.64,
+          "end_seconds": 352.28
+        }
+      ],
+      "combined_start_seconds": 348.84
+    },
+    {
+      "id": "E09-001-cleanup-plan",
+      "title": "Owned-asset cleanup inventory (deletes nothing)",
+      "guide": "docs/labs/09-operations.md#path-b",
+      "recorded_at": "2026-09-23T15:28:49.857951+00:00",
+      "lab": 9,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 1584.352,
+      "status": "recorded",
+      "command_sha256": "31b14970a33655a34066ffbc69ea4af67261e37b9d5418a975deb7bbac2143da",
+      "working_tree_source_hash": "b38ff5780d8fb920661e822c0ac8fafb0d3bcf0d170e572400735e952937ca4f",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1589.2,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E09-001-cleanup-plan-0.webp",
+        "screenshots/E09-001-cleanup-plan-1.webp",
+        "screenshots/E09-001-cleanup-plan-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 183.68,
+          "end_seconds": 185.48
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 185.48,
+          "end_seconds": 187.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 371.04,
+          "end_seconds": 372.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 372.84,
+          "end_seconds": 374.52
+        }
+      ],
+      "combined_start_seconds": 371.04
+    },
+    {
+      "id": "E11-001-handoff",
+      "title": "Handoff: saved notes and the actual acceptance result",
+      "guide": "docs/labs/11-capstone.md#path-b",
+      "recorded_at": "2026-09-23T15:28:54.801869+00:00",
+      "lab": 11,
+      "channel": "terminal",
+      "mode": "READ SAVED EVIDENCE",
+      "start_seconds": 1589.295,
+      "status": "recorded",
+      "command_sha256": "cb3815aac7f5e459036d28bdb90f79e2c0d60d535d748093f8cb57f62c797475",
+      "working_tree_source_hash": "b38ff5780d8fb920661e822c0ac8fafb0d3bcf0d170e572400735e952937ca4f",
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1594.099,
+      "exit_code": 0,
+      "source_id": "terminal",
+      "images": [
+        "screenshots/E11-001-handoff-0.webp",
+        "screenshots/E11-001-handoff-1.webp",
+        "screenshots/E11-001-handoff-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 187.16,
+          "end_seconds": 188.92
+        },
+        {
+          "video": "cli-edited.mp4",
+          "start_seconds": 188.92,
+          "end_seconds": 191.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 384.84,
+          "end_seconds": 386.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 386.6,
+          "end_seconds": 389.24
+        }
+      ],
+      "combined_start_seconds": 384.84
+    },
+    {
+      "id": "EP00-001-home",
+      "title": "Open the intended training project",
+      "guide": "docs/labs/00-start.md#path-a",
+      "recorded_at": "2026-09-23T15:09:32.536493+00:00",
+      "lab": 0,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 3.423,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 15.823,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP00-001-home-0.webp",
+        "screenshots/EP00-001-home-1.webp",
+        "screenshots/EP00-001-home-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 0.0,
+          "end_seconds": 1.68
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 1.68,
+          "end_seconds": 3.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 3.04,
+          "end_seconds": 3.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 35.92,
+          "end_seconds": 37.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 37.6,
+          "end_seconds": 38.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 38.96,
+          "end_seconds": 39.36
+        }
+      ],
+      "combined_start_seconds": 35.92
+    },
+    {
+      "id": "EP01-001-endpoints",
+      "title": "Distinguish the project endpoint from the account OpenAI endpoint",
+      "guide": "docs/labs/01-foundry.md#path-a",
+      "recorded_at": "2026-09-23T15:09:44.938734+00:00",
+      "lab": 1,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 15.825,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 20.606,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP01-001-endpoints-0.webp",
+        "screenshots/EP01-001-endpoints-1.webp",
+        "screenshots/EP01-001-endpoints-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 3.44,
+          "end_seconds": 4.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 4.76,
+          "end_seconds": 6.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 6.16,
+          "end_seconds": 6.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 41.36,
+          "end_seconds": 42.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 42.68,
+          "end_seconds": 44.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 44.08,
+          "end_seconds": 44.48
+        }
+      ],
+      "combined_start_seconds": 41.36
+    },
+    {
+      "id": "EP02-001-deployments",
+      "title": "Open the deployment inventory: gpt-6-sol and its judge",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:09:49.721760+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 20.608,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 28.877,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-001-deployments-0.webp",
+        "screenshots/EP02-001-deployments-1.webp",
+        "screenshots/EP02-001-deployments-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 6.56,
+          "end_seconds": 7.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 7.88,
+          "end_seconds": 9.24
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 9.24,
+          "end_seconds": 9.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 54.4,
+          "end_seconds": 55.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 55.72,
+          "end_seconds": 57.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 57.08,
+          "end_seconds": 57.48
+        }
+      ],
+      "combined_start_seconds": 54.4
+    },
+    {
+      "id": "EP02-002-select-sol",
+      "title": "Select gpt-6-sol and read version 2026-09-22",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:09:57.995901+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 28.882,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 34.099,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-002-select-sol-0.webp",
+        "screenshots/EP02-002-select-sol-1.webp",
+        "screenshots/EP02-002-select-sol-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 9.64,
+          "end_seconds": 10.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 10.96,
+          "end_seconds": 12.32
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 12.32,
+          "end_seconds": 12.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 57.48,
+          "end_seconds": 58.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 58.8,
+          "end_seconds": 60.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 60.16,
+          "end_seconds": 60.56
+        }
+      ],
+      "combined_start_seconds": 57.48
+    },
+    {
+      "id": "EP02-003-playground",
+      "title": "Open the gpt-6-sol Playground",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:03.219338+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 34.106,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 41.093,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-003-playground-0.webp",
+        "screenshots/EP02-003-playground-1.webp",
+        "screenshots/EP02-003-playground-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 12.72,
+          "end_seconds": 14.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 14.04,
+          "end_seconds": 15.72
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 15.72,
+          "end_seconds": 16.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 60.56,
+          "end_seconds": 61.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 61.88,
+          "end_seconds": 63.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 63.56,
+          "end_seconds": 63.92
+        }
+      ],
+      "combined_start_seconds": 60.56
+    },
+    {
+      "id": "EP02-004-deployments-list",
+      "title": "Confirm the answer deployment, not the judge or a catalog model",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:10.212013+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 41.098,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 45.814,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-004-deployments-list-0.webp",
+        "screenshots/EP02-004-deployments-list-1.webp",
+        "screenshots/EP02-004-deployments-list-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 16.08,
+          "end_seconds": 17.36
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 17.36,
+          "end_seconds": 18.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 18.76,
+          "end_seconds": 19.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 63.92,
+          "end_seconds": 65.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 65.2,
+          "end_seconds": 66.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 66.6,
+          "end_seconds": 66.96
+        }
+      ],
+      "combined_start_seconds": 63.92
+    },
+    {
+      "id": "EP02-005-keep-sol",
+      "title": "Keep gpt-6-sol selected",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:14.934579+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 45.821,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 49.197,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-005-keep-sol-0.webp",
+        "screenshots/EP02-005-keep-sol-1.webp",
+        "screenshots/EP02-005-keep-sol-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 19.12,
+          "end_seconds": 19.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 19.76,
+          "end_seconds": 21.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 21.16,
+          "end_seconds": 21.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 66.96,
+          "end_seconds": 67.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 67.6,
+          "end_seconds": 69.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 69.0,
+          "end_seconds": 69.4
+        }
+      ],
+      "combined_start_seconds": 66.96
+    },
+    {
+      "id": "EP02-006-web-menu",
+      "title": "Open the default Web search tool actions",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:18.316606+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 49.203,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 52.933,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-006-web-menu-0.webp",
+        "screenshots/EP02-006-web-menu-1.webp",
+        "screenshots/EP02-006-web-menu-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 21.56,
+          "end_seconds": 22.36
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 22.36,
+          "end_seconds": 23.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 23.76,
+          "end_seconds": 24.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 69.4,
+          "end_seconds": 70.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 70.2,
+          "end_seconds": 71.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 71.6,
+          "end_seconds": 71.96
+        }
+      ],
+      "combined_start_seconds": 69.4
+    },
+    {
+      "id": "EP02-007-remove-web",
+      "title": "Remove external web search before any question",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:22.054055+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 52.94,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 57.138,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-007-remove-web-0.webp",
+        "screenshots/EP02-007-remove-web-1.webp",
+        "screenshots/EP02-007-remove-web-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 24.12,
+          "end_seconds": 25.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 25.16,
+          "end_seconds": 26.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 26.52,
+          "end_seconds": 26.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 71.96,
+          "end_seconds": 73.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 73.0,
+          "end_seconds": 74.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 74.36,
+          "end_seconds": 74.72
+        }
+      ],
+      "combined_start_seconds": 71.96
+    },
+    {
+      "id": "EP02-008-question",
+      "title": "Concept question and actual gpt-6-sol answer",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:26.259577+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 57.146,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 65.719,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-008-question-0.webp",
+        "screenshots/EP02-008-question-1.webp",
+        "screenshots/EP02-008-question-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 26.88,
+          "end_seconds": 28.08
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 28.08,
+          "end_seconds": 29.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 29.76,
+          "end_seconds": 30.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 74.72,
+          "end_seconds": 75.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 75.92,
+          "end_seconds": 77.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 77.6,
+          "end_seconds": 77.96
+        }
+      ],
+      "combined_start_seconds": 74.72
+    },
+    {
+      "id": "EP02-009-new-chat",
+      "title": "New chat: ask without any policy evidence",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:34.839266+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 65.725,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 74.847,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-009-new-chat-0.webp",
+        "screenshots/EP02-009-new-chat-1.webp",
+        "screenshots/EP02-009-new-chat-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 30.12,
+          "end_seconds": 31.44
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 31.44,
+          "end_seconds": 33.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 33.12,
+          "end_seconds": 33.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 77.96,
+          "end_seconds": 79.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 79.28,
+          "end_seconds": 80.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 80.96,
+          "end_seconds": 81.32
+        }
+      ],
+      "combined_start_seconds": 77.96
+    },
+    {
+      "id": "EP02-010-leave",
+      "title": "Leave the temporary Playground settings unsaved",
+      "guide": "docs/labs/02-models.md#path-a",
+      "recorded_at": "2026-09-23T15:10:43.967680+00:00",
+      "lab": 2,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 74.854,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 83.14,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP02-010-leave-0.webp",
+        "screenshots/EP02-010-leave-1.webp",
+        "screenshots/EP02-010-leave-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 33.48,
+          "end_seconds": 34.8
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 34.8,
+          "end_seconds": 36.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 36.2,
+          "end_seconds": 36.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 81.32,
+          "end_seconds": 82.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 82.64,
+          "end_seconds": 84.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 84.04,
+          "end_seconds": 84.44
+        }
+      ],
+      "combined_start_seconds": 81.32
+    },
+    {
+      "id": "EP03-001-agents",
+      "title": "Open Agents in the same project",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:10:52.260090+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 83.146,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 96.156,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-001-agents-0.webp",
+        "screenshots/EP03-001-agents-1.webp",
+        "screenshots/EP03-001-agents-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 36.6,
+          "end_seconds": 37.92
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 37.92,
+          "end_seconds": 39.32
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 39.32,
+          "end_seconds": 39.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 94.36,
+          "end_seconds": 95.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 95.68,
+          "end_seconds": 97.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 97.08,
+          "end_seconds": 97.48
+        }
+      ],
+      "combined_start_seconds": 94.36
+    },
+    {
+      "id": "EP03-002-build-agent",
+      "title": "New agent → Build an agent",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:11:05.276564+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 96.162,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 102.733,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-002-build-agent-0.webp",
+        "screenshots/EP03-002-build-agent-1.webp",
+        "screenshots/EP03-002-build-agent-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 39.72,
+          "end_seconds": 41.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 41.04,
+          "end_seconds": 42.4
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 42.4,
+          "end_seconds": 42.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 97.48,
+          "end_seconds": 98.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 98.8,
+          "end_seconds": 100.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 100.16,
+          "end_seconds": 100.52
+        }
+      ],
+      "combined_start_seconds": 97.48
+    },
+    {
+      "id": "EP03-003-name",
+      "title": "Use the owned agent name, then create and open the playground",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:11:11.847810+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 102.734,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 119.582,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-003-name-0.webp",
+        "screenshots/EP03-003-name-1.webp",
+        "screenshots/EP03-003-name-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 42.76,
+          "end_seconds": 44.08
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 44.08,
+          "end_seconds": 45.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 45.76,
+          "end_seconds": 46.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 100.52,
+          "end_seconds": 101.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 101.84,
+          "end_seconds": 103.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 103.52,
+          "end_seconds": 103.92
+        }
+      ],
+      "combined_start_seconds": 100.52
+    },
+    {
+      "id": "EP03-004-model",
+      "title": "Select the gpt-6-sol answer deployment under Deployments",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:11:28.704287+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 119.59,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 126.339,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-004-model-0.webp",
+        "screenshots/EP03-004-model-1.webp",
+        "screenshots/EP03-004-model-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 46.16,
+          "end_seconds": 47.44
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 47.44,
+          "end_seconds": 48.84
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 48.84,
+          "end_seconds": 49.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 103.92,
+          "end_seconds": 105.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 105.2,
+          "end_seconds": 106.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 106.6,
+          "end_seconds": 106.96
+        }
+      ],
+      "combined_start_seconds": 103.92
+    },
+    {
+      "id": "EP03-005-remove-web",
+      "title": "Remove Web search from the new agent",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:11:35.458665+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 126.344,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 132.124,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-005-remove-web-0.webp",
+        "screenshots/EP03-005-remove-web-1.webp",
+        "screenshots/EP03-005-remove-web-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 49.2,
+          "end_seconds": 50.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 50.52,
+          "end_seconds": 51.92
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 51.92,
+          "end_seconds": 52.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 106.96,
+          "end_seconds": 108.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 108.28,
+          "end_seconds": 109.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 109.68,
+          "end_seconds": 110.04
+        }
+      ],
+      "combined_start_seconds": 106.96
+    },
+    {
+      "id": "EP03-006-instructions",
+      "title": "Paste instructions-with-policies.txt into Instructions",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:11:41.244447+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 132.13,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 135.813,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-006-instructions-0.webp",
+        "screenshots/EP03-006-instructions-1.webp",
+        "screenshots/EP03-006-instructions-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 52.28,
+          "end_seconds": 53.08
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 53.08,
+          "end_seconds": 54.44
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 54.44,
+          "end_seconds": 54.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 110.04,
+          "end_seconds": 110.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 110.84,
+          "end_seconds": 112.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 112.2,
+          "end_seconds": 112.56
+        }
+      ],
+      "combined_start_seconds": 110.04
+    },
+    {
+      "id": "EP03-007-save",
+      "title": "Save and read the returned agent version",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:11:44.928039+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 135.814,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 145.009,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-007-save-0.webp",
+        "screenshots/EP03-007-save-1.webp",
+        "screenshots/EP03-007-save-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 54.8,
+          "end_seconds": 56.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 56.12,
+          "end_seconds": 57.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 57.52,
+          "end_seconds": 57.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 112.56,
+          "end_seconds": 113.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 113.88,
+          "end_seconds": 115.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 115.28,
+          "end_seconds": 115.64
+        }
+      ],
+      "combined_start_seconds": 112.56
+    },
+    {
+      "id": "EP03-101-d01",
+      "title": "D01 · new chat, question and actual answer",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:11:54.126572+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 145.012,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 155.155,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-101-d01-0.webp",
+        "screenshots/EP03-101-d01-1.webp",
+        "screenshots/EP03-101-d01-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 57.88,
+          "end_seconds": 59.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 59.2,
+          "end_seconds": 60.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 60.88,
+          "end_seconds": 61.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 115.64,
+          "end_seconds": 116.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 116.96,
+          "end_seconds": 118.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 118.64,
+          "end_seconds": 119.04
+        }
+      ],
+      "combined_start_seconds": 115.64
+    },
+    {
+      "id": "EP03-102-d02",
+      "title": "D02 · new chat, question and actual answer",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:12:04.276137+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 155.162,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 165.81,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-102-d02-0.webp",
+        "screenshots/EP03-102-d02-1.webp",
+        "screenshots/EP03-102-d02-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 61.28,
+          "end_seconds": 62.6
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 62.6,
+          "end_seconds": 64.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 64.28,
+          "end_seconds": 64.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 119.04,
+          "end_seconds": 120.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 120.36,
+          "end_seconds": 122.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 122.04,
+          "end_seconds": 122.4
+        }
+      ],
+      "combined_start_seconds": 119.04
+    },
+    {
+      "id": "EP03-103-d03",
+      "title": "D03 · new chat, question and actual answer",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:12:14.932108+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 165.817,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 176.959,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-103-d03-0.webp",
+        "screenshots/EP03-103-d03-1.webp",
+        "screenshots/EP03-103-d03-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 64.64,
+          "end_seconds": 65.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 65.96,
+          "end_seconds": 67.64
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 67.64,
+          "end_seconds": 68.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 122.4,
+          "end_seconds": 123.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 123.72,
+          "end_seconds": 125.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 125.4,
+          "end_seconds": 125.76
+        }
+      ],
+      "combined_start_seconds": 122.4
+    },
+    {
+      "id": "EP03-105-d05",
+      "title": "D05 · new chat, question and actual answer",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "recorded_at": "2026-09-23T15:12:26.081362+00:00",
+      "lab": 3,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 176.967,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 188.131,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP03-105-d05-0.webp",
+        "screenshots/EP03-105-d05-1.webp",
+        "screenshots/EP03-105-d05-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 68.0,
+          "end_seconds": 69.32
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 69.32,
+          "end_seconds": 71.0
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 71.0,
+          "end_seconds": 71.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 125.76,
+          "end_seconds": 127.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 127.08,
+          "end_seconds": 128.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 128.76,
+          "end_seconds": 129.16
+        }
+      ],
+      "combined_start_seconds": 125.76
+    },
+    {
+      "id": "EP07-101-d01",
+      "title": "D01 · new chat, question and actual answer",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:12:37.246323+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 188.132,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 199.785,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-101-d01-0.webp",
+        "screenshots/EP07-101-d01-1.webp",
+        "screenshots/EP07-101-d01-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 71.4,
+          "end_seconds": 72.72
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 72.72,
+          "end_seconds": 74.4
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 74.4,
+          "end_seconds": 74.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 245.96,
+          "end_seconds": 247.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 247.28,
+          "end_seconds": 248.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 248.96,
+          "end_seconds": 249.36
+        }
+      ],
+      "combined_start_seconds": 245.96
+    },
+    {
+      "id": "EP07-102-d02",
+      "title": "D02 · new chat, question and actual answer",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:12:48.907110+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 199.792,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 210.426,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-102-d02-0.webp",
+        "screenshots/EP07-102-d02-1.webp",
+        "screenshots/EP07-102-d02-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 74.8,
+          "end_seconds": 76.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 76.12,
+          "end_seconds": 77.8
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 77.8,
+          "end_seconds": 78.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 249.36,
+          "end_seconds": 250.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 250.68,
+          "end_seconds": 252.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 252.36,
+          "end_seconds": 252.76
+        }
+      ],
+      "combined_start_seconds": 249.36
+    },
+    {
+      "id": "EP07-103-d03",
+      "title": "D03 · new chat, question and actual answer",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:12:59.548792+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 210.434,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 223.594,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-103-d03-0.webp",
+        "screenshots/EP07-103-d03-1.webp",
+        "screenshots/EP07-103-d03-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 78.2,
+          "end_seconds": 79.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 79.52,
+          "end_seconds": 81.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 81.2,
+          "end_seconds": 81.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 252.76,
+          "end_seconds": 254.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 254.08,
+          "end_seconds": 255.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 255.76,
+          "end_seconds": 256.16
+        }
+      ],
+      "combined_start_seconds": 252.76
+    },
+    {
+      "id": "EP07-104-d04",
+      "title": "D04 · new chat, question and actual answer",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:13:12.714703+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 223.6,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 234.773,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-104-d04-0.webp",
+        "screenshots/EP07-104-d04-1.webp",
+        "screenshots/EP07-104-d04-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 81.6,
+          "end_seconds": 82.92
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 82.92,
+          "end_seconds": 84.6
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 84.6,
+          "end_seconds": 84.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 256.16,
+          "end_seconds": 257.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 257.48,
+          "end_seconds": 259.16
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 259.16,
+          "end_seconds": 259.52
+        }
+      ],
+      "combined_start_seconds": 256.16
+    },
+    {
+      "id": "EP07-105-d05",
+      "title": "D05 · new chat, question and actual answer",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:13:23.892987+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 234.778,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 245.99,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-105-d05-0.webp",
+        "screenshots/EP07-105-d05-1.webp",
+        "screenshots/EP07-105-d05-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 84.96,
+          "end_seconds": 86.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 86.28,
+          "end_seconds": 87.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 87.96,
+          "end_seconds": 88.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 259.52,
+          "end_seconds": 260.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 260.84,
+          "end_seconds": 262.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 262.52,
+          "end_seconds": 262.92
+        }
+      ],
+      "combined_start_seconds": 259.52
+    },
+    {
+      "id": "EP07-106-d06",
+      "title": "D06 · new chat, question and actual answer",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:13:35.113447+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 245.998,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 256.629,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-106-d06-0.webp",
+        "screenshots/EP07-106-d06-1.webp",
+        "screenshots/EP07-106-d06-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 88.36,
+          "end_seconds": 89.68
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 89.68,
+          "end_seconds": 91.36
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 91.36,
+          "end_seconds": 91.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 262.92,
+          "end_seconds": 264.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 264.24,
+          "end_seconds": 265.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 265.92,
+          "end_seconds": 266.32
+        }
+      ],
+      "combined_start_seconds": 262.92
+    },
+    {
+      "id": "EP07-201-eval-create",
+      "title": "Optional: the Evaluation tab → Create",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:13:45.752257+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 256.637,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 269.952,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-201-eval-create-0.webp",
+        "screenshots/EP07-201-eval-create-1.webp",
+        "screenshots/EP07-201-eval-create-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 91.76,
+          "end_seconds": 93.08
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 93.08,
+          "end_seconds": 94.48
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 94.48,
+          "end_seconds": 94.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 266.32,
+          "end_seconds": 267.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 267.64,
+          "end_seconds": 269.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 269.04,
+          "end_seconds": 269.44
+        }
+      ],
+      "combined_start_seconds": 266.32
+    },
+    {
+      "id": "EP07-202-target-scope",
+      "title": "Keep Agent, Individual turns and One time",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:13:59.071847+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 269.956,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 282.737,
+      "exit_code": 0,
+      "outcome": "Superseded: the Target list had preselected Version 1 (the first version, which still had Web search) and the capture tool did not change it. Guide step 2 requires the saved version; EP07-211 to EP07-217 repeat the evaluation with Version 2.",
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-202-target-scope-0.webp",
+        "screenshots/EP07-202-target-scope-1.webp",
+        "screenshots/EP07-202-target-scope-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 94.88,
+          "end_seconds": 96.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 96.16,
+          "end_seconds": 97.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 97.52,
+          "end_seconds": 97.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 269.44,
+          "end_seconds": 270.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 270.72,
+          "end_seconds": 272.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 272.08,
+          "end_seconds": 272.44
+        }
+      ],
+      "combined_start_seconds": 269.44
+    },
+    {
+      "id": "EP07-203-dataset",
+      "title": "Upload the question-only dev-questions.jsonl",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:14:11.858135+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 282.743,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 306.386,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-203-dataset-0.webp",
+        "screenshots/EP07-203-dataset-1.webp",
+        "screenshots/EP07-203-dataset-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 97.88,
+          "end_seconds": 99.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 99.2,
+          "end_seconds": 100.56
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 100.56,
+          "end_seconds": 100.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 275.08,
+          "end_seconds": 276.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 276.4,
+          "end_seconds": 277.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 277.76,
+          "end_seconds": 278.16
+        }
+      ],
+      "combined_start_seconds": 275.08
+    },
+    {
+      "id": "EP07-204-configure",
+      "title": "Keep the user prompt {{item.query}}",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:14:35.509395+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 306.394,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 320.716,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-204-configure-0.webp",
+        "screenshots/EP07-204-configure-1.webp",
+        "screenshots/EP07-204-configure-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 100.96,
+          "end_seconds": 102.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 102.28,
+          "end_seconds": 103.64
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 103.64,
+          "end_seconds": 104.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 278.16,
+          "end_seconds": 279.48
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 279.48,
+          "end_seconds": 280.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 280.84,
+          "end_seconds": 281.2
+        }
+      ],
+      "combined_start_seconds": 278.16
+    },
+    {
+      "id": "EP07-205-criteria",
+      "title": "Criteria: gpt-6-sol-judge with Relevance, Coherence and TaskAdherence",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:14:49.836943+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 320.721,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 336.079,
+      "exit_code": 0,
+      "capture_issue": "The capture tool clicked TaskAdherence before the Add evaluators list had loaded (Target count 0). The judge and evaluator removals were already applied; EP07-205-criteria-resume added TaskAdherence after the list loaded. Not a Foundry failure.",
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-205-criteria-0.webp",
+        "screenshots/EP07-205-criteria-1.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 104.0,
+          "end_seconds": 105.32
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 105.32,
+          "end_seconds": 107.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 281.2,
+          "end_seconds": 282.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 282.52,
+          "end_seconds": 285.12
+        }
+      ],
+      "combined_start_seconds": 281.2
+    },
+    {
+      "id": "EP07-205-criteria-resume",
+      "title": "Criteria, continued: add TaskAdherence after the list loads",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:25:04.542216+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 935.422,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 943.803,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-205-criteria-resume-0.webp",
+        "screenshots/EP07-205-criteria-resume-1.webp",
+        "screenshots/EP07-205-criteria-resume-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 107.92,
+          "end_seconds": 109.6
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 109.6,
+          "end_seconds": 111.0
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 111.0,
+          "end_seconds": 113.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 295.16,
+          "end_seconds": 296.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 296.84,
+          "end_seconds": 298.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 298.24,
+          "end_seconds": 300.84
+        }
+      ],
+      "combined_start_seconds": 295.16
+    },
+    {
+      "id": "EP07-206-submit",
+      "title": "Name and submit, then wait for Completed",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:25:26.853412+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 957.733,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1068.656,
+      "exit_code": 0,
+      "outcome": "Superseded: this evaluation ran agent Version 1 with Web search, not the saved Version 2.",
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-206-submit-0.webp",
+        "screenshots/EP07-206-submit-1.webp",
+        "screenshots/EP07-206-submit-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 113.6,
+          "end_seconds": 115.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 115.28,
+          "end_seconds": 116.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 116.96,
+          "end_seconds": 117.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 300.84,
+          "end_seconds": 302.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 302.52,
+          "end_seconds": 304.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 304.2,
+          "end_seconds": 304.56
+        }
+      ],
+      "combined_start_seconds": 300.84
+    },
+    {
+      "id": "EP07-207-results",
+      "title": "Overall and detailed results for the six questions",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T15:27:17.781883+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1068.661,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1079.954,
+      "exit_code": 0,
+      "outcome": "Superseded: results for agent Version 1 with Web search; see EP07-217-results for Version 2.",
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-207-results-0.webp",
+        "screenshots/EP07-207-results-1.webp",
+        "screenshots/EP07-207-results-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 117.32,
+          "end_seconds": 118.64
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 118.64,
+          "end_seconds": 120.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 120.04,
+          "end_seconds": 120.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 304.56,
+          "end_seconds": 305.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 305.88,
+          "end_seconds": 307.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 307.28,
+          "end_seconds": 307.68
+        }
+      ],
+      "combined_start_seconds": 304.56
+    },
+    {
+      "id": "EP09-001-details",
+      "title": "Agent details: name, saved version and model",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:27:29.080817+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1079.96,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1099.021,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-001-details-0.webp",
+        "screenshots/EP09-001-details-1.webp",
+        "screenshots/EP09-001-details-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 120.44,
+          "end_seconds": 121.76
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 121.76,
+          "end_seconds": 123.16
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 123.16,
+          "end_seconds": 123.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 354.28,
+          "end_seconds": 355.6
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 355.6,
+          "end_seconds": 357.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 357.0,
+          "end_seconds": 357.4
+        }
+      ],
+      "combined_start_seconds": 354.28
+    },
+    {
+      "id": "EP09-002-traces",
+      "title": "Traces for the recorded agent requests",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:27:48.151249+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1099.03,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1109.267,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-002-traces-0.webp",
+        "screenshots/EP09-002-traces-1.webp",
+        "screenshots/EP09-002-traces-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 123.56,
+          "end_seconds": 124.88
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 124.88,
+          "end_seconds": 126.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 126.28,
+          "end_seconds": 126.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 357.4,
+          "end_seconds": 358.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 358.72,
+          "end_seconds": 360.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 360.12,
+          "end_seconds": 360.52
+        }
+      ],
+      "combined_start_seconds": 357.4
+    },
+    {
+      "id": "EP09-003-monitor",
+      "title": "Monitor totals are not evaluation correctness",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:27:58.393279+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1109.272,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1119.526,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-003-monitor-0.webp",
+        "screenshots/EP09-003-monitor-1.webp",
+        "screenshots/EP09-003-monitor-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 126.68,
+          "end_seconds": 127.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 127.96,
+          "end_seconds": 129.36
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 129.36,
+          "end_seconds": 129.72
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 360.52,
+          "end_seconds": 361.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 361.8,
+          "end_seconds": 363.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 363.2,
+          "end_seconds": 363.56
+        }
+      ],
+      "combined_start_seconds": 360.52
+    },
+    {
+      "id": "EP09-101-traces-create",
+      "title": "Optional: evaluate the recorded answers from traces",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:28:08.654935+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1119.534,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1143.473,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-101-traces-create-0.webp",
+        "screenshots/EP09-101-traces-create-1.webp",
+        "screenshots/EP09-101-traces-create-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 129.72,
+          "end_seconds": 131.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 131.04,
+          "end_seconds": 132.4
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 132.4,
+          "end_seconds": 132.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 363.56,
+          "end_seconds": 364.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 364.88,
+          "end_seconds": 366.24
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 366.24,
+          "end_seconds": 366.64
+        }
+      ],
+      "combined_start_seconds": 363.56
+    },
+    {
+      "id": "EP09-102-traces-data",
+      "title": "Existing traces: the conversations recorded above",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:28:32.600693+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1143.479,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1154.719,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-102-traces-data-0.webp",
+        "screenshots/EP09-102-traces-data-1.webp",
+        "screenshots/EP09-102-traces-data-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 132.8,
+          "end_seconds": 134.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 134.12,
+          "end_seconds": 135.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 135.52,
+          "end_seconds": 135.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 366.64,
+          "end_seconds": 367.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 367.96,
+          "end_seconds": 369.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 369.36,
+          "end_seconds": 369.72
+        }
+      ],
+      "combined_start_seconds": 366.64
+    },
+    {
+      "id": "EP09-103-traces-criteria",
+      "title": "The same criteria with gpt-6-sol-judge",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:28:43.847216+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1154.726,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1188.672,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-103-traces-criteria-0.webp",
+        "screenshots/EP09-103-traces-criteria-1.webp",
+        "screenshots/EP09-103-traces-criteria-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 135.88,
+          "end_seconds": 137.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 137.2,
+          "end_seconds": 138.6
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 138.6,
+          "end_seconds": 139.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 369.72,
+          "end_seconds": 371.04
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 374.52,
+          "end_seconds": 375.92
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 375.92,
+          "end_seconds": 376.32
+        }
+      ],
+      "combined_start_seconds": 369.72
+    },
+    {
+      "id": "EP09-104-traces-submit",
+      "title": "Name and submit the trace evaluation",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:29:17.796856+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 1188.675,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1254.806,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-104-traces-submit-0.webp",
+        "screenshots/EP09-104-traces-submit-1.webp",
+        "screenshots/EP09-104-traces-submit-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 139.0,
+          "end_seconds": 140.32
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 140.32,
+          "end_seconds": 142.0
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 142.0,
+          "end_seconds": 142.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 376.32,
+          "end_seconds": 377.64
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 377.64,
+          "end_seconds": 379.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 379.32,
+          "end_seconds": 379.68
+        }
+      ],
+      "combined_start_seconds": 376.32
+    },
+    {
+      "id": "EP09-105-traces-results",
+      "title": "Each trace's query carries the agent instructions",
+      "guide": "docs/labs/09-operations.md#path-a",
+      "recorded_at": "2026-09-23T15:30:23.935152+00:00",
+      "lab": 9,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1254.813,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1266.108,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP09-105-traces-results-0.webp",
+        "screenshots/EP09-105-traces-results-1.webp",
+        "screenshots/EP09-105-traces-results-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 142.36,
+          "end_seconds": 143.68
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 143.68,
+          "end_seconds": 145.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 145.12,
+          "end_seconds": 145.52
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 379.68,
+          "end_seconds": 381.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 381.0,
+          "end_seconds": 382.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 382.44,
+          "end_seconds": 382.84
+        }
+      ],
+      "combined_start_seconds": 379.68
+    },
+    {
+      "id": "EP07-301-compare",
+      "title": "B step 5: Compare runs for baseline and candidate",
+      "guide": "docs/labs/07-evaluation.md#path-b",
+      "recorded_at": "2026-09-23T15:30:35.235785+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 1266.113,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 1297.445,
+      "exit_code": 0,
+      "source_id": "portal-part1",
+      "images": [
+        "screenshots/EP07-301-compare-0.webp",
+        "screenshots/EP07-301-compare-1.webp",
+        "screenshots/EP07-301-compare-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 145.52,
+          "end_seconds": 146.84
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 146.84,
+          "end_seconds": 148.24
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 148.24,
+          "end_seconds": 150.84
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 316.68,
+          "end_seconds": 318.0
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 318.0,
+          "end_seconds": 319.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 319.4,
+          "end_seconds": 322.0
+        }
+      ],
+      "combined_start_seconds": 316.68
+    },
+    {
+      "id": "EP07-211-eval-create",
+      "title": "Evaluate again from the freshly opened agent: Evaluation tab → Create",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T16:02:38.692950+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 17.9,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 42.542,
+      "exit_code": 0,
+      "source_id": "portal-part2",
+      "images": [
+        "screenshots/EP07-211-eval-create-0.webp",
+        "screenshots/EP07-211-eval-create-1.webp",
+        "screenshots/EP07-211-eval-create-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 150.84,
+          "end_seconds": 152.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 152.52,
+          "end_seconds": 153.92
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 153.92,
+          "end_seconds": 154.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 322.0,
+          "end_seconds": 323.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 323.68,
+          "end_seconds": 325.08
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 325.08,
+          "end_seconds": 325.48
+        }
+      ],
+      "combined_start_seconds": 322.0
+    },
+    {
+      "id": "EP07-212-target-version",
+      "title": "Target: select only Version 2, the saved agent without Web search",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T16:03:03.339946+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 42.547,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 59.041,
+      "exit_code": 0,
+      "source_id": "portal-part2",
+      "images": [
+        "screenshots/EP07-212-target-version-0.webp",
+        "screenshots/EP07-212-target-version-1.webp",
+        "screenshots/EP07-212-target-version-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 154.32,
+          "end_seconds": 155.64
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 155.64,
+          "end_seconds": 157.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 157.04,
+          "end_seconds": 157.4
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 325.48,
+          "end_seconds": 326.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 326.8,
+          "end_seconds": 328.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 328.2,
+          "end_seconds": 328.56
+        }
+      ],
+      "combined_start_seconds": 325.48
+    },
+    {
+      "id": "EP07-213-dataset",
+      "title": "Data: select the uploaded dev-questions dataset",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T16:03:19.837264+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 59.044,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 76.226,
+      "exit_code": 0,
+      "source_id": "portal-part2",
+      "images": [
+        "screenshots/EP07-213-dataset-0.webp",
+        "screenshots/EP07-213-dataset-1.webp",
+        "screenshots/EP07-213-dataset-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 157.4,
+          "end_seconds": 158.72
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 158.72,
+          "end_seconds": 160.4
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 160.4,
+          "end_seconds": 160.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 328.56,
+          "end_seconds": 329.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 329.88,
+          "end_seconds": 331.56
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 331.56,
+          "end_seconds": 331.96
+        }
+      ],
+      "combined_start_seconds": 328.56
+    },
+    {
+      "id": "EP07-214-configure",
+      "title": "Keep the user prompt {{item.query}}",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T16:03:37.027037+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 76.234,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 90.575,
+      "exit_code": 0,
+      "source_id": "portal-part2",
+      "images": [
+        "screenshots/EP07-214-configure-0.webp",
+        "screenshots/EP07-214-configure-1.webp",
+        "screenshots/EP07-214-configure-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 160.8,
+          "end_seconds": 162.12
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 162.12,
+          "end_seconds": 163.52
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 163.52,
+          "end_seconds": 163.88
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 331.96,
+          "end_seconds": 333.28
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 333.28,
+          "end_seconds": 334.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 334.68,
+          "end_seconds": 335.04
+        }
+      ],
+      "combined_start_seconds": 331.96
+    },
+    {
+      "id": "EP07-215-criteria",
+      "title": "Criteria: gpt-6-sol-judge with Relevance, Coherence and TaskAdherence",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T16:03:51.375915+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 90.582,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 118.492,
+      "exit_code": 0,
+      "source_id": "portal-part2",
+      "images": [
+        "screenshots/EP07-215-criteria-0.webp",
+        "screenshots/EP07-215-criteria-1.webp",
+        "screenshots/EP07-215-criteria-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 163.88,
+          "end_seconds": 165.2
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 165.2,
+          "end_seconds": 166.6
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 166.6,
+          "end_seconds": 166.96
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 335.04,
+          "end_seconds": 336.36
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 336.36,
+          "end_seconds": 337.76
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 337.76,
+          "end_seconds": 338.12
+        }
+      ],
+      "combined_start_seconds": 335.04
+    },
+    {
+      "id": "EP07-216-submit",
+      "title": "Name and submit, then wait for Completed",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T16:04:19.293142+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "LIVE AZURE",
+      "start_seconds": 118.499,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 183.694,
+      "exit_code": 0,
+      "source_id": "portal-part2",
+      "images": [
+        "screenshots/EP07-216-submit-0.webp",
+        "screenshots/EP07-216-submit-1.webp",
+        "screenshots/EP07-216-submit-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 166.96,
+          "end_seconds": 168.28
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 168.28,
+          "end_seconds": 169.96
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 169.96,
+          "end_seconds": 170.32
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 338.12,
+          "end_seconds": 339.44
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 339.44,
+          "end_seconds": 341.12
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 341.12,
+          "end_seconds": 341.48
+        }
+      ],
+      "combined_start_seconds": 338.12
+    },
+    {
+      "id": "EP07-217-results",
+      "title": "Overall and detailed results for the six questions (agent version 2)",
+      "guide": "docs/labs/07-evaluation.md#path-a",
+      "recorded_at": "2026-09-23T16:05:24.495447+00:00",
+      "lab": 7,
+      "channel": "portal",
+      "mode": "ACTUAL PORTAL",
+      "start_seconds": 183.701,
+      "status": "recorded",
+      "command_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_source_hash": null,
+      "capture_status_is_not_execution_success": true,
+      "end_seconds": 195.021,
+      "exit_code": 0,
+      "source_id": "portal-part2",
+      "images": [
+        "screenshots/EP07-217-results-0.webp",
+        "screenshots/EP07-217-results-1.webp",
+        "screenshots/EP07-217-results-2.webp"
+      ],
+      "video_intervals": [
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 170.32,
+          "end_seconds": 171.64
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 171.64,
+          "end_seconds": 173.04
+        },
+        {
+          "video": "portal-edited.mp4",
+          "start_seconds": 173.04,
+          "end_seconds": 175.68
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 341.48,
+          "end_seconds": 342.8
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 342.8,
+          "end_seconds": 344.2
+        },
+        {
+          "video": "guide-ordered.mp4",
+          "start_seconds": 344.2,
+          "end_seconds": 346.84
+        }
+      ],
+      "combined_start_seconds": 341.48
+    }
+  ]
+}

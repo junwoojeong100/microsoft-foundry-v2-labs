@@ -30,7 +30,7 @@
 모델 **`gpt-6-sol`**, 버전 **`2026-09-22`**를 확인하고 배포 이름·모델·버전을 `session-notes.txt`에 적습니다
 (여기서는 배포 이름과 모델 이름이 같지만 서로 다른 대상입니다).
 
-![2026-09-23 국문 녹화: gpt-6-sol을 선택하고 버전 2026-09-22 확인](../../assets/g6sol-20260923-ko/screenshots/KP02-002-select-sol-2.webp)
+![2026-09-24 국문 녹화: gpt-6-sol을 선택하고 버전 2026-09-22 확인](../../assets/g6sol-20260924-ko/screenshots/KP02-002-select-sol-2.webp)
 
 **화면 확인:** **이름**은 호출할 배포 이름, **모델**·**버전**은 기반 모델 정보입니다.
 2026-09-23 환경은 응답용 `gpt-6-sol`과 평가용 `gpt-6-sol-judge`를 따로 배포합니다.
@@ -41,12 +41,12 @@
 **`gpt-6-sol`** 이름 링크를 선택해 플레이그라운드를 엽니다. **도구**에서 **웹 검색** 행의
 **⋮** 메뉴를 열고 **제거**를 선택합니다. 이 기본 경로는 외부 웹을 조회하지 않습니다.
 
-![2026-09-23 국문 녹화: 기본 웹 검색 도구의 ⋮ 메뉴 열기](../../assets/g6sol-20260923-ko/screenshots/KP02-006-web-menu-2.webp)
+![2026-09-24 국문 녹화: 기본 웹 검색 도구의 ⋮ 메뉴 열기](../../assets/g6sol-20260924-ko/screenshots/KP02-006-web-menu-2.webp)
 
 **화면 확인:** **웹 검색** 행의 **⋮** 메뉴에 **제거**가 보입니다.
 그 위 안내 상자의 **X**는 안내만 닫으며 도구를 제거하지 않습니다.
 
-![2026-09-23 국문 녹화: 질문 전에 외부 웹 검색 제거](../../assets/g6sol-20260923-ko/screenshots/KP02-007-remove-web-2.webp)
+![2026-09-24 국문 녹화: 질문 전에 외부 웹 검색 제거](../../assets/g6sol-20260924-ko/screenshots/KP02-007-remove-web-2.webp)
 
 **화면 확인:** **웹 검색** 행이 도구 목록에서 사라졌는지 확인한 뒤 질문을 입력합니다.
 다른 플레이그라운드나 새 에이전트로 이동하면 도구 설정을 다시 확인해야 합니다.
@@ -55,12 +55,12 @@
 
 > Foundry 리소스, 프로젝트, 모델 배포, 에이전트의 차이를 초보자에게 네 문장으로 설명해 주세요.
 
-![2026-09-23 국문 녹화: 개념 질문과 실제 gpt-6-sol 답변](../../assets/g6sol-20260923-ko/screenshots/KP02-008-question-1.webp)
+![2026-09-24 국문 녹화: 개념 질문과 실제 gpt-6-sol 답변](../../assets/g6sol-20260924-ko/screenshots/KP02-008-question-1.webp)
 
 **화면 확인:** 오른쪽 아래 **모델과 채팅...**에 질문을 넣고 보내기 화살표를 선택합니다.
 왼쪽 **지침**은 시스템 지침 입력란이므로 질문 입력란과 혼동하지 않습니다.
 
-![2026-09-23 국문 녹화: 개념 질문과 실제 gpt-6-sol 답변](../../assets/g6sol-20260923-ko/screenshots/KP02-008-question-2.webp)
+![2026-09-24 국문 녹화: 개념 질문과 실제 gpt-6-sol 답변](../../assets/g6sol-20260924-ko/screenshots/KP02-008-question-2.webp)
 
 **화면 확인:** 응답 내용뿐 아니라 답변 아래의 모델 이름·시간·토큰 표시도 기록합니다.
 이 화면은 촬영 환경의 예시이며, 참가자의 결과가 자동으로 같아지는 것은 아닙니다.
@@ -72,7 +72,7 @@
 실제 회사 정책을 아는지 시험하는 질문이 아닙니다.
 
 
-![2026-09-23 국문 녹화: 새 대화: 정책 근거 없이 질문](../../assets/g6sol-20260923-ko/screenshots/KP02-009-new-chat-2.webp)
+![2026-09-24 국문 녹화: 새 대화: 정책 근거 없이 질문](../../assets/g6sol-20260924-ko/screenshots/KP02-009-new-chat-2.webp)
 
 **화면 확인:** 근거를 제공하지 않았을 때 확인이 필요하다고 답하는지 봅니다.
 그럴듯한 금액을 제시했다면 성공이 아니라 근거 없는 응답으로 기록하세요.
@@ -82,7 +82,7 @@
 뒤로 화살표(←)나 다른 메뉴를 선택하면 저장 확인 창이 나타날 수 있습니다.
 **저장하지 않고 나가기**를 선택합니다. 이 임시 플레이그라운드 설정은 필요 없고 새 에이전트에도 적용되지 않습니다.
 
-![2026-09-23 국문 녹화: 임시 플레이그라운드 설정을 저장하지 않고 나가기](../../assets/g6sol-20260923-ko/screenshots/KP02-010-leave-2.webp)
+![2026-09-24 국문 녹화: 임시 플레이그라운드 설정을 저장하지 않고 나가기](../../assets/g6sol-20260924-ko/screenshots/KP02-010-leave-2.webp)
 
 **화면 확인:** 화면 이동이 멈춘 것처럼 보이면 확인 창이 열려 있는지 봅니다.
 저장하지 않을 임시 설정만 버립니다.
@@ -130,7 +130,7 @@ with AIProjectClient(endpoint=project_endpoint, credential=credential) as projec
 `trace_id: null`은 아직 Application Insights trace를 수집한 것이 아니라는 뜻입니다.
 `response_id`를 임의의 trace ID로 바꿔 적지 않습니다.
 
-![2026-09-23 국문 녹화: 프로젝트 Responses API로 첫 실제 gpt-6-sol 요청](../../assets/g6sol-20260923-ko/screenshots/K02-001-model-2.webp)
+![2026-09-24 국문 녹화: 프로젝트 Responses API로 첫 실제 gpt-6-sol 요청](../../assets/g6sol-20260924-ko/screenshots/K02-001-model-2.webp)
 
 **화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다. `gpt-6-sol`은 짧은 답에도 `usage`에 reasoning token을 보고합니다.
 `trace_id: null`과 `trace_export: not-configured`도 그대로 기록하며, 생성된 응답 ID를 Trace ID로 바꾸지 않습니다.
@@ -149,7 +149,7 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 `local`은 검색 위치를 뜻할 뿐 **모델 호출이 오프라인이라는 뜻이 아닙니다.**
 
 
-![2026-09-23 국문 녹화: 로컬 근거를 사용한 검증된 구조화 답변](../../assets/g6sol-20260923-ko/screenshots/K02-002-answer-2.webp)
+![2026-09-24 국문 녹화: 로컬 근거를 사용한 검증된 구조화 답변](../../assets/g6sol-20260924-ko/screenshots/K02-002-answer-2.webp)
 
 **화면 확인:** 답변 필드·`source_ids`·`response_id`·`usage`·`trace_export`를 포함한 출력 전체를 읽습니다.
 금액만 맞고 근거가 없는 것으로는 충분하지 않습니다.
@@ -186,15 +186,15 @@ Router가 없어도 이 랩은 완료할 수 있습니다.
 </details>
 
 <details>
-<summary>2026-09-23 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
+<summary>2026-09-24 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
 
-2026-09-23 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
+2026-09-24 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
 
-![2026-09-23 국문 녹화: 배포 목록 열기: gpt-6-sol과 judge](../../assets/g6sol-20260923-ko/screenshots/KP02-001-deployments-2.webp)
+![2026-09-24 국문 녹화: 배포 목록 열기: gpt-6-sol과 judge](../../assets/g6sol-20260924-ko/screenshots/KP02-001-deployments-2.webp)
 
 **화면 확인:** 목록에는 응답용 `gpt-6-sol`, 별도의 `gpt-6-sol-judge`, 포털이 만든 `text-embedding-3-large`가 있습니다. 질문은 응답용 배포로만 보냅니다.
 
-![2026-09-23 국문 녹화: judge나 카탈로그 모델이 아닌 응답 배포 확인](../../assets/g6sol-20260923-ko/screenshots/KP02-004-deployments-list-2.webp)
+![2026-09-24 국문 녹화: judge나 카탈로그 모델이 아닌 응답 배포 확인](../../assets/g6sol-20260924-ko/screenshots/KP02-004-deployments-list-2.webp)
 
 **화면 확인:** 모델 선택 목록은 기존 배포와 카탈로그 모델을 따로 보여 줍니다. `gpt-6-sol`을 유지하고 judge나 카탈로그 모델을 고르지 않습니다.
 

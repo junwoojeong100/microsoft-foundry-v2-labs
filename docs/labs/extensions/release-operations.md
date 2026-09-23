@@ -10,7 +10,7 @@ Do not enable recurring paid work or push a deployment without its own approval.
 
 | Lane | Follow | Need / finish |
 |---|---|---|
-| Bounded monitoring | Steps 1–3 | Owned deployed target, relevant evaluation/trace access and budget; record the sample outcome and disabled rule |
+| Bounded monitoring | Steps 1–3 | Owned agent with one completed trace evaluation, trace access and budget; record the sample outcome and the paused schedule |
 | CI release | Steps 4–6 | Owner-prepared GitHub OIDC and deployment/runtime permissions; retain the actual workflow result and rollback/cleanup decision |
 
 **Need:** only the selected lane's prerequisites. Monitoring does not require a GitHub identity.
@@ -29,32 +29,38 @@ It must not omit failed/missing cases or copy another target's scores.
 
 ## 2. Create a bounded recurring evaluation configuration
 
-In Foundry, open **Build → Evaluations → Recurring Configs → Create**.
-Select only your dedicated lab agent and the intended evaluation level.
+Start from one completed trace evaluation of your dedicated lab agent ([Lab 09 A](../09-operations.md#path-a)),
+then select **Make recurring** on that evaluation's page.
 
 Choose one mode, not both on the first pass:
 
 | Mode | Purpose | First-pass boundary |
 |---|---|---|
-| Scheduled | Evaluate a selected dataset or traffic on a schedule | A short, explicitly approved test; disable immediately afterward |
-| Continuous | Sample agent traffic as it occurs | Lowest supported sampling/run limit; no uncontrolled traffic generation |
+| Scheduled | Evaluate live traffic (or a dataset's existing data) on a schedule | A short, explicitly approved test; pause immediately afterward |
+| Continuous | Sample agent traffic as it occurs | Lowest supported sampling/run limit; no uncontrolled traffic generation. Unavailable for trace evaluations on September 23, 2026 |
 
-Choose the appropriate dataset/live-traffic source and compatible evaluator.
-Record the rule ID, agent filter, sampling mode, maximum runs, evaluator version, owner and disable plan.
-Use a maximum of one hourly run where supported for the first demonstration.
+For the first pass keep **Scheduled** and **Live traffic**, set **Run interval** to 1 **Hourly**, keep **Random** sampling and set
+**Maximum traces to evaluate per run** to `5`, then select **Save**. The page's button changes to **Pause**.
+Record the schedule ID (listed by the SDK as `<agent>-scheduled-<suffix>`), agent/version filter, sampling mode, maximum traces,
+evaluator versions, owner and pause plan.
 
-Creating or enabling a rule does not prove that a sample was evaluated.
-Use one planned synthetic request, then inspect that same request/rule's evaluation history.
+Creating or enabling a schedule does not prove that a sample was evaluated.
+Use one planned synthetic request, then inspect that schedule's runs.
 Do not send repeated model calls solely to make a chart populate.
 
-## 3. Inspect actual results, then disable
+## 3. Inspect actual results, then pause
 
-Open the agent's **Monitor** view and the matching evaluation run.
-Verify the time range, agent/version, selected sample, completed/failed status and individual findings.
+Scheduled runs appear on the same evaluation page next to the one-time run.
+Verify each run's trace window, agent/version, sampled conversations, completed/failed status and individual findings.
 Keep missing telemetry as **unverified**, not zero errors or zero cost.
 
-Disable the temporary recurring configuration after the test and read back its disabled state.
-Keep the rule/run IDs and result artifacts. Removing a rule does not erase model, Search or logging charges.
+On September 23, 2026 the first scheduled run started as soon as the schedule was saved, and every run drew its random sample
+from the latest seven days (the one-time run's time range), not only the last hour. The next hourly run sampled the English
+planned request (5/5 passed) but not the Korean one (5/5 from earlier conversations). That is a sampling outcome to record,
+not a reason to send the request again.
+
+Select **Pause** after the test and read back the paused state: the SDK listed both schedules with `enabled: false`.
+Keep the schedule/run IDs and result artifacts. Pausing does not erase model, Search or logging charges already incurred.
 
 **Monitoring done:** add those records to [Lab 11](../11-capstone.md).
 Do not create an OIDC identity unless you separately chose the CI lane.
@@ -135,6 +141,15 @@ Select the dataset language and explicitly acknowledge the deployment/inference 
 The workflow fails rather than returning a skipped success when that acknowledgement is absent.
 Do not add a scheduled trigger or a deploy-on-every-push rule just to demonstrate automation.
 If the workflow has not been published/executed, mark **pipeline configuration only**, not CI/CD verified.
+
+**September 23, 2026 with `gpt-6-sol`:** the owner pointed the `foundry-workshop` variables at the `gpt-6-sol` project
+(prefix `mfv2-sol-20260923-ci`) and gave the existing CI identity project-scoped **Foundry Project Manager** and account **Reader**;
+its federated credential was unchanged. The manually dispatched
+[English](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314) and
+[Korean](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318) releases passed on the first attempt:
+Hosted agent `mfv2-sol-20260923-ci-hosted` versions 1 and 2, **Foundry User** granted once to its runtime identity (reused by version 2),
+the six-case dev gate 6/6 with 0 errors on `gpt-6-sol-2026-09-22` in each language, and the created session confirmed idle.
+Neither run executed native judging or holdout.
 
 ## 6. Roll back deliberately
 

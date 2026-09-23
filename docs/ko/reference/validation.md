@@ -5,6 +5,91 @@
 **설치·offline 계약·실제 Azure 실행·모델 품질·미디어 검수는 서로 다른 검증입니다.**
 국문과 영문은 별도 label과 촬영 원본을 사용합니다. 이전 영상이나 upstream 성공을 새 결과로 재분류하지 않습니다.
 
+<a id="gpt-6-sol-20260924"></a>
+
+## 선택 평가 단계를 포함한 재녹화 — 2026-09-24
+
+**녹화:** 00:00 KST 이후 새로 시작한 영문·국문 녹화입니다. 같은 Sweden Central 프로젝트에서 `gpt-6-sol` / `gpt-6-sol-judge`와
+prefix `mfv2-sol-20260924-<language>`로 Lab 00–09·11의 A/B 주요 단계와 선택 Foundry 평가 단계를 실행했습니다.
+영문: 액션 98개, 무손실 캡처 293장, 영상 6:29 / 3:11 / 2:55, 터미널 녹화 1개와 포털 녹화 2개에서 나온 원본 구간 262개(최소 SSIM 0.9922).
+국문: 액션 91개, 캡처 272장, 6:03 / 2:57 / 2:43, 구간 244개(최소 SSIM 0.9923). 두 언어 모두 로컬 byte-range 재생과 챕터 11개 이동을
+확인했고 업로드·push는 하지 않았습니다. `g6sol-20260923` 녹화와 별도 `eval-portal-20260923` 캡처는 작업 트리에서 삭제했습니다
+(git 기록 `90b18b3`). `videos/`에는 각 언어 통합본의 사본 `gpt-6-sol-20260924-en-summary.mp4`, `-ko-summary.mp4`가 있습니다.
+[녹화](../video-summary.md) · [실제 결과](../live-run.md).
+
+**녹화에 남긴 실패와 바뀐 점:**
+
+- `E07-011`: 업무 기준 baseline 실행이 groundedness·relevance만 반환하고 `business_rubric`은 반환하지 않았습니다(오류 0).
+  평가에는 testing criteria 3개가 있었습니다. CLI는 이 시도를 invalid로 거부했습니다. 국문 `K07-011`은 첫 시도에 세 결과를 모두 반환했습니다.
+- `cloud-evaluate`에 `--retry-failed`(native 재시도는 이미 있었음)와 빠진 평가자 이름을 알려 주는 오류를 추가했습니다.
+  `E07-013`이 한 번 재시도했고 첫 시도는 `native-attempts/attempt-1`에 보존했습니다.
+- 이어서 `E07-012`가 `--reference baseline`을 거부했습니다. 재시도에서 다시 만든 상태에 `item_fields`가 빠진 재시도 경로 버그였습니다.
+  이제 재시도가 `item_fields`를 유지합니다(회귀 테스트 추가). `E07-014`가 새 작업 없이 완료된 재시도를 다시 읽었고
+  `E07-015`에서 candidate를 추가했습니다. 두 source 변경과 hash는 `live-results.json`의 `source_updates`에 있습니다.
+  녹화 뒤에는 `--reference` 실행도 재시도할 수 있게 했습니다. 재시도는 참조한 평가에 `<label>-retry-N`으로 남고,
+  `--retry-failed` 안내는 `cloud-evaluate` 오류에만 표시됩니다. 이 변경은 offline·SDK 테스트만 했으며 Azure에서 실행하지 않았습니다.
+- playground에서 연 포털 평가 마법사는 Web search가 남아 있던 에이전트 **버전 1**을 미리 선택했습니다. 영문 캡처 도구가 이를 그대로 두어(`EP07-202`)
+  `EP07-206`/`EP07-207`은 버전 1을 채점했습니다(TaskAdherence 4/6, D05에 외부의 미국 기준 금액을 답함). 두 언어 모두 버전 2로 평가를 다시
+  실행했습니다(`*P07-211`~`*P07-217`): Relevance 6/6, Coherence 6/6, TaskAdherence 0/6. Lab 07 A 4단계의 2번과 Lab 09 A 추적 평가의 1번에 저장한 버전만 남기라는 안내를 추가했습니다.
+- Foundry 실패가 아닌 캡처 도구 타이밍 문제: `EP07-205`는 평가자 목록이 열리기 전에 클릭했고, `KP07-203`은 업로드가 성공한 뒤
+  새로 고쳐지지 않은 데이터 세트 행을 기다렸으며, `KP07-215`는 이름 변경 창이 열리기 전에 입력했습니다. 각 단계는 이름이 다른 이후 액션이 완료했습니다.
+
+**언어별 결과:** 업무 검사 baseline 6/6, candidate 6/6, holdout 4/4. 근거 없음 진단 0/6·오류 0. cloud judge groundedness 6/6, relevance 5/6(D05).
+업무 기준 일치는 두 실행 모두 6/6이었고 **실행 비교**의 relevance 평균은 3.83 → 4.83(영문), 4.17 → 4.50(국문)으로 **샘플이 너무 적음**이 표시되었습니다.
+MAF 도구 호출은 영문 6/6·6/6, 국문 tool_call_accuracy 5/6(D03 검색어의 `APPROVAL-01`을 평가자가 지어낸 인자로 판단)·relevance 5/6(D05)이었습니다.
+추적 평가는 영문 10/10, 국문 15/15이며 국문에는 앞선 포털 평가가 만든 대화 5개가 포함되었습니다.
+
+**Azure 변경:** 새 prefix 아래 포털 에이전트(버전 1–2)와 SDK 에이전트, Search index, IQ knowledge source·base, 데이터 세트, 평가와 실행,
+사용자 지정 평가자 버전 `mfv2_sol_20260924_en_business_rubric` 1과 `mfv2_sol_20260924_ko_business_rubric` 1을 만들었고
+유료 모델·judge 호출이 발생했습니다. 국문 녹화를 위해 포털 언어를 한국어로 바꾼 뒤 영어로 되돌렸습니다. 배포·역할 할당·기본 구독 변경은 없습니다.
+
+**로컬 검증:** offline 테스트 256개가 Python 3.13·3.14에서 각각 통과했고, SDK import 검사와 설치 SDK 테스트 77개,
+Ruff·서식·컴파일·문서 검사가 통과했습니다.
+
+<a id="previously-not-run-items"></a>
+
+## 이전에 실행하지 않은 평가·안전·릴리스 항목 — 2026-09-23
+
+담당자가 평가 추가분에서 실행하지 않은 항목을 요청했습니다. 같은 날 저녁 같은 프로젝트, `gpt-6-sol` / `gpt-6-sol-judge`,
+prefix `mfv2-sol-20260923-<language>`로 실행했으며 편집 영상에는 포함되지 않습니다.
+
+| 항목 | 먼저 한 담당자 조치 | 영문 | 국문 |
+|---|---|---|---|
+| 기존 추적 평가(Lab 09 A) | Application Insights에 대한 프로젝트 ID의 **모니터링 읽기 권한자** | Relevance·Coherence·TaskAdherence 15/15 | 각 15/15 |
+| 되풀이 평가 | 위 역할 외 없음 | 저장 시 첫 실행 5/5, 다음 시간별 실행이 계획 요청을 표본에 포함해 5/5, 일시 중지 | 첫 실행 5/5, 다음 시간별 실행은 계획 요청 없이 5/5, 일시 중지 |
+| Agent Optimizer | 임시 `gpt-5.5` optimizer 배포, 이후 삭제 | baseline만, 0.979 | baseline만, 0.938(D05 relevance 2) |
+| 클라우드 red teaming(Preview) | taxonomy 검토. 행동 삭제로 범위를 줄인 것은 포털 실행뿐(SDK의 `enabled` 플래그는 생성 공격을 제한하지 않음) | SDK 표시 ASR 89%(75/84), 포털 100%(6/6) | SDK 표시 ASR 57%(48/84) |
+| 승인된 Hosted 릴리스 | CI ID에 프로젝트 범위 **Foundry Project Manager**와 계정 **Reader** 부여, 환경 변수를 이 프로젝트로 변경 | [실행 35856612314](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314): 6/6, 오류 0 | [실행 35857252318](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318): 6/6, 오류 0 |
+
+**발견 사항은 그대로 남깁니다:**
+
+- 평가자가 받는 입력이 검증할 수 있는 범위를 정합니다. 추적의 `query`에는 정책 6개를 포함한 에이전트 지침이 들어 있어
+  TaskAdherence가 15/15였고, 질문만 보낸 Lab 07 A의 데이터 세트 기반 실행은 영문 1/6, 국문 0/6이었습니다.
+- 되풀이 실행은 마지막 1시간이 아니라 최근 7일에서 표본을 뽑습니다. 첫 실행은 일정을 저장하자마자 시작해 이전 대화를 다시 채점했고,
+  16개 중 무작위 5개에 영문 계획 요청은 들어갔지만 국문 계획 요청은 들어가지 않았습니다.
+  일정 설정과 실제 평가된 표본은 별도 증거로 두며, 표본을 채우려고 요청을 다시 보내지 않았습니다.
+- red-team 서비스는 reasoning이 "응답이 거절했다"고 적은 행을 공격 성공(점수 0, threshold 3)으로 표시했습니다. 모든 응답을 읽었고
+  금지 행동을 수행하거나 수행했다고 주장한 응답은 없었으며, 공격 3개는 콘텐츠 필터가 차단했습니다. 따라서 표시된 ASR은 무효로 둡니다.
+  taxonomy의 `enabled` 플래그는 공격 생성 범위를 제한하지 않았고 포털에서 행동을 삭제하면 제한되었습니다. taxonomy PATCH에는
+  전체 객체가 필요하고 변경 직후 조회는 이전 버전을 반환할 수 있습니다.
+- optimizer의 일반 중단 문구는 모든 후보가 만점이라고 했지만 실패한 행이 있었고, Groundedness judge는 각 답변을 자기 자신과
+  비교했습니다. 그래서 어떤 후보도 승격하지 않았고 `optimizer-review.txt`에는 `pending-human-review`를 기록했습니다.
+- 기본 모델 선택이 잘못된 배포를 가리킬 수 있습니다. 임시 optimizer 배포가 있는 동안 새 평가의 **판단 모델** 기본값이 그 배포였고,
+  optimizer의 **Evaluation model** 기본값은 `gpt-6-sol`이었습니다. 둘 다 `gpt-6-sol-judge`로 바꿨습니다.
+- red-team 호출은 에이전트 추적을 남기지 않았고 optimizer 실행은 에이전트마다 27개를 남겼습니다. 그래서 optimizer는 격리한 에이전트
+  복사본을 사용했고 되풀이 일정의 표본은 영향을 받지 않았습니다.
+- 한국어 포털은 red-team wizard를 **빨간색 팀 실행 만들기**, 탭을 **레드 팀 미리 보기**, **최적화 미리 보기**로 표시했습니다.
+  국문 scan과 optimizer 실행은 영문 UI에서 제출했습니다.
+
+**Azure 변경:** 역할 할당(Application Insights에 대한 프로젝트 ID의 모니터링 읽기 권한자, CI ID의 프로젝트 범위 Foundry Project Manager와
+계정 Reader, 파이프라인이 부여한 Hosted 런타임의 Foundry User), 배포 `mfv2-sol-20260923-opt-gpt55` 생성 후 삭제, 에이전트
+`mfv2-sol-20260923-<language>-optimize`(버전 1)와 `mfv2-sol-20260923-ci-hosted`(버전 1–2), 데이터 세트 `mfv2-sol-20260923-<language>-optimizer-dev`,
+추적·optimizer·red-team 평가와 red-team taxonomy, 일시 중지한 일정 2개, 바뀐 `foundry-workshop` 환경 변수(이전 값은 세션 기록에 보관).
+9월 14일 프로젝트에 대한 CI ID의 역할은 그대로 두었습니다. 기본 구독은 바꾸지 않았습니다.
+
+**여전히 실행하지 않음:** Lab 08의 로컬 서버와 학습자 본인의 Hosted 배포, Hosted agent의 서버 측 tracing, `gpt-6-sol`로의 guardrail 연결,
+되풀이의 **연속** 모드(추적 평가에서는 사용할 수 없음).
+
 <a id="foundry-evaluation-additions"></a>
 
 ## 선택 Foundry 평가 추가분 — 2026-09-23
@@ -40,14 +125,14 @@
 한국어 포털에서는 Relevance·Coherence 평가자의 한국어 기본 이름이 평가자 이름 검사를 통과하지 못해 이름을 바꾸기 전까지
 **다음**이 비활성화되었습니다. 가이드에 우회 방법을 적었습니다. 6문항은 포털의 통계 비교에 너무 적습니다.
 
-**실행하지 않음:** 기존 추적 평가(프로젝트 관리 ID의 모니터링 읽기 권한자 역할 요구), 되풀이 평가, Agent Optimizer
-(`gpt-6-sol`에서 지원되는 최적화 모델 없음), cloud red teaming, 새 릴리스 파이프라인 실행.
+**같은 날 나중에 실행:** 기존 추적 평가, 되풀이 평가, Agent Optimizer, cloud red teaming, 새 릴리스 파이프라인 실행.
+담당자 조치는 [다음 절](#previously-not-run-items)에 적었습니다.
 
 **Azure 변경:** 업로드한 dev 질문 데이터 세트 2개, `cloud-evaluate`가 자동으로 만든 데이터 세트, 포털·SDK 평가와 실행(`...-trial-...` 이름의 평가 3개는 사전 점검이며 그중 하나는 오프라인 fixture 행을 채점, 무효 처리된 진단 실행도 남겨 둠),
 본인 소유 사용자 지정 평가자 버전(`mfv2_sol_20260923_en_business_rubric` 1–2, `mfv2_sol_20260923_ko_business_rubric` 1).
 모두 `mfv2-sol-20260923-<language>` prefix 아래에 있으며 유료 에이전트·judge 호출이 발생했습니다. 국문 캡처를 위해 포털 언어를
 한국어로 바꾼 뒤 영어로 되돌렸습니다. 배포·역할 할당·기본 구독 변경은 없습니다.
-[캡처](../../assets/eval-portal-20260923/captures.json) · [국문 결과](../live-run.md#선택-평가-추가분--별도-검증-2026-09-23)
+[국문 결과](../live-run.md#선택-평가-추가분--별도-검증-2026-09-23) · [같은 포털 단계의 2026-09-24 녹화](../action-captures.md)
 
 **로컬 검증:** 오프라인 테스트 255개가 Python 3.13과 3.14에서 각각 통과했고, 설치 SDK 테스트 73개가 stub transport로
 통과했습니다. 새 테스트는 grader와 로컬 규칙의 일치, 진단 실행의 거부 경로, 건너뛴 judge 행, 사용자 지정 평가자 기준,

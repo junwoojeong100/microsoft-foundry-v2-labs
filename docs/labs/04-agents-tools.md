@@ -35,7 +35,7 @@ python scripts/workshop.py --language en maf \
 The question asks for a three-sentence explanation of Foundry versus Agent Framework.
 
 
-![September 23 English recording: MAF agent without tools](../assets/g6sol-20260923-en/screenshots/E04-001-maf-2.webp)
+![September 24 English recording: MAF agent without tools](../assets/g6sol-20260924-en/screenshots/E04-001-maf-2.webp)
 
 **What to check:** Read `mode: live`, `orchestration: local`, and `tools: none`.
 Local Python owns execution, but the answer model is called in Azure.
@@ -80,7 +80,7 @@ sequenceDiagram
 
 
 
-![September 23 English recording: MAF with the read-only function tool](../assets/g6sol-20260923-en/screenshots/E04-002-tools-2.webp)
+![September 24 English recording: MAF with the read-only function tool](../assets/g6sol-20260924-en/screenshots/E04-002-tools-2.webp)
 
 **What to check:** Inspect `tools: function` and the nested `decision`, `limit_krw`,
 and `citations`. `needs_approval` means prior human approval is required, not granted.
@@ -118,7 +118,7 @@ Inspect `decision`, `limit_krw`, and `citations`, not just fluent text.
 Do not repair invalid output and call it success.
 
 
-![September 23 English recording: MAF with the local MCP policy tool](../assets/g6sol-20260923-en/screenshots/E04-003-mcp-2.webp)
+![September 24 English recording: MAF with the local MCP policy tool](../assets/g6sol-20260924-en/screenshots/E04-003-mcp-2.webp)
 
 **What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
 for May 2026. A function-tool response cannot stand in for an MCP execution.
@@ -173,9 +173,11 @@ the command stops if the judge is missing or is the answer deployment `gpt-6-sol
 python scripts/workshop.py --language en maf-evaluate --confirm-cost --output outputs/learner-notes-en/maf-tool-evaluation.json
 ```
 
+![September 24 English recording: Optional: score the MAF tool calls with Foundry evaluators](../assets/g6sol-20260924-en/screenshots/E04-004-maf-evaluate-2.webp)
+
 **What to check:** `complete: true` and `errors: 0`; each row lists its recorded `tool_calls` (one `lookup_policy` call)
 and a `tool_call_accuracy` and `relevance` score. Open `report_url` for the reasons. MAF prints one `ExperimentalWarning`
-for `FoundryEvals`; that is expected. On September 23, 2026 the English run scored tool_call_accuracy 6/6 and relevance 6/6.
+for `FoundryEvals`; that is expected. In the September 24, 2026 English recording it scored tool_call_accuracy 6/6 and relevance 6/6.
 These scores judge tool use, not business correctness, so keep Lab 07's business checks separate.
 The MAF evaluation API was experimental and several agent evaluators were marked Preview on September 23, 2026.
 
@@ -185,7 +187,7 @@ The MAF evaluation API was experimental and several agent evaluators were marked
 
 ## Completion and troubleshooting
 
-The [execution record](../live-run.md) lists the September 23 function-tool and MCP calls; the optional
+The [execution record](../live-run.md) lists the September 24 function-tool and MCP calls; the optional
 2001-character rejection was not re-recorded. Keep all three actual outputs and explain the tool boundaries.
 For MCP failures, use [Troubleshooting](../reference/troubleshooting.md);
 never substitute a function-tool answer while claiming MCP success.

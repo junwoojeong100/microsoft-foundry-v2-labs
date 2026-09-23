@@ -23,7 +23,7 @@
 <details>
 <summary>선택 화면 도움말 — 녹화가 아니라 현재 본문의 명령을 실행합니다</summary>
 
-각 단계의 이미지는 **2026-09-23에 `gpt-6-sol`로 별도 실행한 국문 녹화 화면**입니다.
+각 단계의 이미지는 **2026-09-24에 `gpt-6-sol`로 별도 실행한 국문 녹화 화면**입니다.
 설정 카드와 준비된 학습자 파일을 사용해 별도 실습 프로젝트에서 촬영했으며 영문 촬영본을 재사용하지 않았습니다.
 실습 프로젝트 생성은 녹화 전에 따로 준비했으므로 리소스 생성 명령을 녹화한 것처럼 표시하지 않습니다.
 [녹화 영상과 범위](../video-summary.md)에서 실제 호출·fixture·관찰·녹화하지 않은 범위를 구분합니다. 클릭하면 크게 볼 수 있습니다.
@@ -55,7 +55,7 @@
    Python 코드를 직접 작성하거나 포털에서 workflow를 만들지는 않습니다.
 5. 아래 표로 ZIP의 `session-notes.txt` 설정 카드를 채웁니다. 화면 전체나 개인 정보를 공유 채팅에 올리지 않습니다.
 
-![2026-09-23 국문 녹화: 지정한 실습 프로젝트 열기](../../assets/g6sol-20260923-ko/screenshots/KP00-001-home-2.webp)
+![2026-09-24 국문 녹화: 지정한 실습 프로젝트 열기](../../assets/g6sol-20260924-ko/screenshots/KP00-001-home-2.webp)
 
 **화면 확인:** 상단의 프로젝트 이름이 바뀌었는지 확인합니다. **프로젝트 엔드포인트**는 뒤의 `.env`에 넣을 값이며,
 현재 브라우저 주소 `ai.azure.com`과 다릅니다.
@@ -126,7 +126,7 @@ python3.13 scripts/workshop.py doctor
 **이 PASS는 Azure 로그인 성공이 아닙니다.**
 
 
-![2026-09-23 국문 녹화: 소스 폴더에서 오프라인 doctor 실행](../../assets/g6sol-20260923-ko/screenshots/K00-001-folder-2.webp)
+![2026-09-24 국문 녹화: 소스 폴더에서 오프라인 doctor 실행](../../assets/g6sol-20260924-ko/screenshots/K00-001-folder-2.webp)
 
 **화면 확인:** `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`와 함께 `azure_tested: false`를 읽습니다.
 이 단계에서는 파일과 실행 환경만 확인하며 Azure 호출 성공을 판정하지 않습니다.
@@ -170,7 +170,7 @@ v1은 **고정 답변에서 인용을 제거한 검사기 연습**, v2는 고정
 두 점수의 차이를 “프롬프트 개선 실측”이라고 발표하면 안 됩니다.
 재실행하려면 `rehearsal2-v1`처럼 새 label을 사용합니다.
 
-![2026-09-23 국문 녹화: 모델 품질 주장 없이 fixture 비교](../../assets/g6sol-20260923-ko/screenshots/K00-005-fixture-compare-2.webp)
+![2026-09-24 국문 녹화: 모델 품질 주장 없이 fixture 비교](../../assets/g6sol-20260924-ko/screenshots/K00-005-fixture-compare-2.webp)
 
 **화면 확인:** 상단의 `OFFLINE FIXTURE` 표시와 결과 끝의 주의 문구를 확인합니다.
 고정 답변에 대한 검사 결과이지, 두 프롬프트로 모델을 실제 호출해 얻은 성능 차이가 아닙니다.
@@ -194,7 +194,7 @@ python -m pip install -e ".[cloud,agents]"
 브라우저의 개발자 콘솔이나 Python의 `>>>` 프롬프트에 Bash 명령을 붙여 넣지 않습니다.
 
 
-![2026-09-23 국문 녹화: 가상환경을 만들고 고정 SDK 설치](../../assets/g6sol-20260923-ko/screenshots/K00-006-install-2.webp)
+![2026-09-24 국문 녹화: 가상환경을 만들고 고정 SDK 설치](../../assets/g6sol-20260924-ko/screenshots/K00-006-install-2.webp)
 
 **화면 확인:** 설치 명령이 끝나고 셸 프롬프트가 돌아왔는지 확인합니다. 설치 중 오류가 있었다면
 이 화면과 같다고 넘어가지 말고 해결하세요. 설치 완료도 Azure 연결 성공과는 별개입니다.
@@ -243,7 +243,7 @@ python scripts/workshop.py doctor --cloud
 검사 통과만으로 모델의 데이터 평면 권한/Structured Outputs 지원이 증명되지는 않습니다.
 그 확인은 [Lab 02](02-models.md)의 실제 호출에서 합니다.
 
-![2026-09-23 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../../assets/g6sol-20260923-ko/screenshots/K00-008-preflight-2.webp)
+![2026-09-24 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../../assets/g6sol-20260924-ko/screenshots/K00-008-preflight-2.webp)
 
 **화면 확인:** `deployment.name`, `deployment.model.name`, `deployment.model.version`,
 `deployment.state: Succeeded`, `inference_tested: false`, `note`를 읽습니다.
@@ -254,23 +254,23 @@ Lab 05 환경 준비 때문에 왔다면 Lab 02 B의 실제 응답 확인까지 
 [Lab 02 B](02-models.md#path-b)에서 실제 추론을 확인합니다. 이후 명령도 저장소 루트·활성 `.venv`에서 실행합니다.
 
 <details>
-<summary>2026-09-23 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
+<summary>2026-09-24 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
 
-2026-09-23 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
+2026-09-24 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
 
-![2026-09-23 국문 녹화: B의 개인 기록 폴더를 한 번 준비](../../assets/g6sol-20260923-ko/screenshots/K00-002-notes-2.webp)
+![2026-09-24 국문 녹화: B의 개인 기록 폴더를 한 번 준비](../../assets/g6sol-20260924-ko/screenshots/K00-002-notes-2.webp)
 
 **화면 확인:** B는 개인 기록 폴더를 한 번만 준비하고, 이후 명령은 JSON을 그 폴더에 저장합니다. 여기서는 Azure를 호출하지 않습니다.
 
-![2026-09-23 국문 녹화: 오프라인 fixture v1: 모델 응답이 아님](../../assets/g6sol-20260923-ko/screenshots/K00-003-fixture-v1-2.webp)
+![2026-09-24 국문 녹화: 오프라인 fixture v1: 모델 응답이 아님](../../assets/g6sol-20260924-ko/screenshots/K00-003-fixture-v1-2.webp)
 
 **화면 확인:** `OFFLINE FIXTURE` v1은 고정된 예시 파일이지 모델 응답이 아닙니다. 실패한 검사도 실습의 일부입니다.
 
-![2026-09-23 국문 녹화: 오프라인 fixture v2와 lineage](../../assets/g6sol-20260923-ko/screenshots/K00-004-fixture-v2-2.webp)
+![2026-09-24 국문 녹화: 오프라인 fixture v2와 lineage](../../assets/g6sol-20260924-ko/screenshots/K00-004-fixture-v2-2.webp)
 
 **화면 확인:** v2는 fixture만 바꿉니다. lineage 필드를 읽고, 결과를 모델 품질로 해석하지 않습니다.
 
-![2026-09-23 국문 녹화: .env.example을 복사하고 설정 카드 값 채우기](../../assets/g6sol-20260923-ko/screenshots/K00-007-env-2.webp)
+![2026-09-24 국문 녹화: .env.example을 복사하고 설정 카드 값 채우기](../../assets/g6sol-20260924-ko/screenshots/K00-007-env-2.webp)
 
 **화면 확인:** 녹화에서는 `RUN_TOOLS/configure_env.py` 도우미가 설정 카드 값을 `.env`에 넣었습니다. 본인은 직접 편집합니다.
 프로젝트 엔드포인트, `gpt-6-sol`, judge 배포, 본인 prefix를 본인 설정 카드와 대조합니다.

@@ -48,26 +48,26 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 > [Hosted 평가 워크북](docs/ko/reference/evaluation-workbook.md) ·
 > [IQ 확장 워크북](docs/ko/reference/iq-workbook.md).
 
-한국어 · 합성 데이터 · **2026-09-23 `gpt-6-sol` 녹화 / Pre-Ignite 2026 Edition**
+한국어 · 합성 데이터 · **2026-09-24 `gpt-6-sol` 녹화 / Pre-Ignite 2026 Edition**
 
-**[2026-09-23 `gpt-6-sol` 국문 녹화](docs/ko/video-summary.md)** —
-통합본 **4분 32초**, CLI **2분 27초**, 포털 **1분 43초**.
-새 Sweden Central 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) 주요 단계를 `gpt-6-sol` / `2026-09-22`로 실제 실행했습니다
+**[2026-09-24 `gpt-6-sol` 국문 녹화](docs/ko/video-summary.md)** —
+통합본 **6분 3초**, CLI **2분 57초**, 포털 **2분 43초**.
+Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) 주요 단계와 선택 Foundry 평가 단계를 `gpt-6-sol` / `2026-09-22`로 실제 실행했습니다
 ([모델 선택](docs/ko/reference/model-choice.md)).
-[69개 실제 액션·207개 무손실 캡처](docs/ko/action-captures.md)를 제공합니다.
+[91개 실제 액션·272개 무손실 캡처](docs/ko/action-captures.md)를 제공합니다.
 영상은 실제 화면 녹화에서 대기를 덜어낸 것이며 스크린샷 슬라이드쇼가 아닙니다.
 
 [Lab 챕터 이동](docs/ko/video-chapters.md) · [실측 결과와 한계](docs/ko/live-run.md)
 
 로컬 재생·챕터 이동을 확인했으며 GitHub에는 업로드하지 않았습니다.
-`python scripts/play_recordings.py --edition ko`로 재생합니다. 이전 `gpt-5.6-luna` 녹화는 삭제했습니다.
+`python scripts/play_recordings.py --edition ko`로 재생합니다. 이전 녹화는 삭제했습니다.
 국문과 영문은 별도 실행·별도 화면·별도 녹화본입니다.
 
 국문과 영문은 **각자 고정된 지침·합성 정책·dev/calibration/holdout 데이터·fixture**를 사용합니다.
 국문은 기본값이고 영문만 `--language en`으로 선택합니다. [언어 계약](docs/ko/reference/languages.md)과
 [버전별 데이터 묶음](data/README.ko.md)이 언어별 계보를 따로 보존합니다.
 
-각 랩 본문에는 2026-09-23 국문 캡처와 화면 확인 포인트를 배치했습니다.
+각 랩 본문에는 2026-09-24 국문 캡처와 화면 확인 포인트를 배치했습니다.
 먼저 [화면 읽는 법](docs/ko/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
 
 에이전트·워크플로·지식·평가·운영을 **하나의 환경과 업무 시나리오**로 구성했습니다.

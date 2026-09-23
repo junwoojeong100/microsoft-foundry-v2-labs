@@ -114,7 +114,7 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 로컬 프로젝트 Responses 결과를 다른 Hosted 경로의 성능으로 재사용하지 않습니다.
 
 
-![2026-09-23 국문 녹화: 인계: 저장한 기록과 실제 인수 결과](../../assets/g6sol-20260923-ko/screenshots/K11-001-handoff-2.webp)
+![2026-09-24 국문 녹화: 인계: 저장한 기록과 실제 인수 결과](../../assets/g6sol-20260924-ko/screenshots/K11-001-handoff-2.webp)
 
 **화면 확인:** `candidate_grade`, `holdout_grade`, `business_gate_passed`,
 `recommendation`(`ready-for-human-review` 또는 `reject`)을 읽습니다.

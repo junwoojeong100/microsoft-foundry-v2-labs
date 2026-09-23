@@ -157,6 +157,75 @@ class NativeEvaluationTests(unittest.TestCase):
             self.assertEqual(result["run_id"], "run-unit-3")
             self.assertTrue(read_json(target / "cloud-evaluation.json")["retry_of"])
 
+    def test_a_retried_run_can_be_the_reference_for_compare_runs(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base, candidate = Path(folder, "base"), Path(folder, "candidate")
+            self.omit_rows = True
+            with self.assertRaisesRegex(ValueError, "exactly one result"):
+                self.evaluate(base)
+            self.omit_rows = False
+            self.evaluate(base, retry_failed=True)
+            state = read_json(base / "cloud-evaluation.json")
+            self.assertEqual(state["item_fields"], sorted(self.items[0]))
+            self.assertEqual(state["validation_status"], "valid")
+            self.items[0]["response"] = "Candidate synthetic answer"
+            result = self.evaluate(
+                candidate,
+                source_run_id="unit-candidate",
+                reference_state=base / "cloud-evaluation.json",
+                reference_catalog=base / "evaluator-catalog.json",
+            )
+            self.assertEqual(result["reference_run_id"], state["run_id"])
+            self.assertEqual(self.run_calls[-1]["eval_id"], state["evaluation_id"])
+
+    def test_an_invalid_reference_run_retries_inside_the_same_evaluation(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base, candidate = Path(folder, "base"), Path(folder, "candidate")
+            self.evaluate(base)
+            base_state = read_json(base / "cloud-evaluation.json")
+            self.items[0]["response"] = "Candidate synthetic answer"
+            reference = {
+                "source_run_id": "unit-candidate",
+                "reference_state": base / "cloud-evaluation.json",
+                "reference_catalog": base / "evaluator-catalog.json",
+            }
+            self.omit_rows = True
+            with self.assertRaisesRegex(ValueError, "exactly one result"):
+                self.evaluate(candidate, **reference)
+            self.omit_rows = False
+            with self.assertRaisesRegex(ValueError, "same reference"):
+                self.evaluate(candidate, source_run_id="unit-candidate", retry_failed=True)
+            self.assertFalse((candidate / "native-attempts").exists())
+            result = self.evaluate(candidate, retry_failed=True, **reference)
+            self.assertEqual(len(self.create_calls), 1)
+            self.assertEqual(
+                [call["eval_id"] for call in self.run_calls], [base_state["evaluation_id"]] * 3
+            )
+            self.assertEqual(
+                [call["name"] for call in self.run_calls],
+                ["unit-eval", "unit-eval", "unit-eval-retry-1"],
+            )
+            self.assertEqual(result["reference_run_id"], base_state["run_id"])
+            self.assertEqual(result["run_name"], "unit-eval-retry-1")
+            state = read_json(candidate / "cloud-evaluation.json")
+            self.assertEqual(state["retry_of"]["attempt"], 1)
+            self.assertTrue(
+                (candidate / "native-attempts/attempt-1/cloud-evaluation.json").is_file()
+            )
+
+    def test_only_cloud_evaluate_advice_names_the_retry_flag(self):
+        with tempfile.TemporaryDirectory() as folder:
+            self.omit_rows = True
+            with self.assertRaises(ValueError) as plain:
+                self.evaluate(Path(folder, "plain"))
+            self.assertNotIn("--retry-failed", str(plain.exception))
+            path = Path(folder, "advised")
+            with self.assertRaisesRegex(ValueError, "once with --retry-failed"):
+                self.evaluate(path, retry_advice=True)
+            with self.assertRaisesRegex(ValueError, "not valid either"):
+                self.evaluate(path, retry_failed=True, retry_advice=True)
+            self.assertTrue((path / "native-attempts/attempt-1/cloud-evaluation.json").is_file())
+
     def test_reference_run_joins_the_same_evaluation_with_the_same_catalog(self):
         with tempfile.TemporaryDirectory() as folder:
             base, candidate = Path(folder, "base"), Path(folder, "candidate")
@@ -437,6 +506,53 @@ class BusinessEvaluatorTests(unittest.TestCase):
                 evaluate_cloud(
                     root, settings(), "final", timeout=5, confirmed=True, reference="candidate"
                 )
+
+    def test_retry_failed_is_forwarded_only_as_an_explicit_request(self):
+        from foundry_workshop.cloud_evaluation import evaluate_cloud
+        from foundry_workshop.contracts import load_documents
+        from foundry_workshop.experiments import collect
+        from foundry_workshop.knowledge import evidence
+        from tests import workspace
+
+        def answer(case):
+            return {
+                **evidence(load_documents(root, "en"), "unit-test"),
+                "answer": {
+                    "answer": "Unit-test response, not an LLM result.",
+                    "decision": case["expected_decision"],
+                    "limit_krw": case["expected_limit_krw"],
+                    "citations": case["required_citations"],
+                },
+                "response_id": "unit-" + case["case_id"],
+                "response_model": "unit-model",
+                "usage": None,
+            }
+
+        seen = []
+
+        def fake_evaluate(_settings, directory, items, **kwargs):
+            seen.append((kwargs["retry_failed"], kwargs["retry_advice"]))
+            return {"mode": "live", "label": kwargs["label"]}
+
+        with workspace() as root:
+            collect(
+                root,
+                label="baseline",
+                split="dev",
+                prompt_version="v1",
+                retrieval="local",
+                mode="live",
+                deployment="unit-deployment",
+                inference={"project_endpoint": "https://unit.invalid"},
+                answer_case=answer,
+                language="en",
+            )
+            with patch("foundry_workshop.native.evaluate_items", fake_evaluate):
+                for retry in (False, True):
+                    evaluate_cloud(
+                        root, settings(), "baseline", timeout=5, confirmed=True, retry_failed=retry
+                    )
+        self.assertEqual(seen, [(False, True), (True, True)])
 
     def test_no_evidence_diagnostic_is_refused_before_any_cloud_call(self):
         from foundry_workshop.cloud_evaluation import evaluate_cloud

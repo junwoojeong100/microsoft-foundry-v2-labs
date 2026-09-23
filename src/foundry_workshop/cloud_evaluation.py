@@ -97,9 +97,15 @@ def normalize_results(
             raise ValueError("Unknown or duplicate cloud evaluation case ID.")
         seen.add(row_id)
         results = item.get("results")
-        if not isinstance(results, list) or len(results) != len(evaluator_names):
-            raise ValueError("Missing evaluator results.")
-        if {result.get("name") for result in results} != set(evaluator_names):
+        if not isinstance(results, list):
+            raise ValueError(f"Missing evaluator results for {row_id}.")
+        returned = sorted(str(result.get("name")) for result in results if isinstance(result, dict))
+        missing = sorted(set(evaluator_names) - set(returned))
+        if missing:
+            raise ValueError(
+                f"Missing evaluator results for {row_id}: returned {returned}, missing {missing}."
+            )
+        if len(results) != len(evaluator_names) or set(returned) != set(evaluator_names):
             raise ValueError("Unexpected evaluator names.")
         for result in results:
             score = result.get("score")
@@ -127,6 +133,7 @@ def evaluate_cloud(
     confirmed: bool,
     business_evaluator: bool = False,
     reference: str | None = None,
+    retry_failed: bool = False,
 ) -> dict[str, Any]:
     from .native import evaluate_items
 
@@ -204,6 +211,8 @@ def evaluate_cloud(
         confirmed=confirmed,
         timeout=timeout,
         custom_catalog=custom_catalog,
+        retry_failed=retry_failed,
+        retry_advice=True,
         reference_catalog=reference_directory / "evaluator-catalog.json"
         if reference_directory
         else None,

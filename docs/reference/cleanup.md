@@ -68,7 +68,11 @@ Never treat an unverified stop request as a confirmed stopped state.
 | Prompt/Hosted agent and version | Confirm the exact project, name, version and owner; the owner deletes it |
 | Search knowledge base/source/index | Dependency order base → source → index; only your names in the ledger |
 | Uploaded files/vector stores | Separate your File Search material from shared material |
-| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, `eval-data-...` datasets created by `cloud-evaluate`, and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
+| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` and `<prefix>-optimizer-dev` datasets, `<prefix>-...` evaluations and optimization runs, `eval-data-...` datasets created by `cloud-evaluate`, and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
+| Recurring evaluation schedules | Your `<agent>-scheduled-...` schedule: select **Pause** on its evaluation page and read back the paused state; pausing keeps earlier results |
+| Red-team taxonomies and red teams | Your `<prefix>-...redteam` taxonomies, red teams and runs; keep every output item and the review record before the owner deletes them |
+| Roles added for monitoring or CI | Only the owner removes roles they added, for example **Monitoring Reader** for the project identity on Application Insights, the CI identity's project roles and a Hosted runtime's **Foundry User** |
+| Temporary optimizer deployment | Only the owner who created it deletes it, after every optimizer run that used it has finished and been reviewed; confirm the answer and judge deployments remain |
 | Model deployments | Check whether it is team-only or shared; keep shared models |
 | Search service | Deleting an index does not remove the service's fixed cost |
 | Application Insights/Log Analytics | Check required evidence, retention and sharing |
@@ -130,7 +134,7 @@ Inspect separately created smoke sessions using their own raw HTTP/azd records.
 <summary>Maintainers only, after a separately authorized media replacement — learners preserve the repository's data and videos</summary>
 
 Verify both new language sets before replacing older screenshots/videos.
-Use each `docs/assets/g6sol-20260923-ko/` and `g6sol-20260923-en/` media manifest,
+Use each `docs/assets/g6sol-20260924-ko/` and `g6sol-20260924-en/` media manifest,
 actual byte hashes, frame checks, playback, and document links.
 Do not delete one language's old assets while only the other replacement is ready.
 

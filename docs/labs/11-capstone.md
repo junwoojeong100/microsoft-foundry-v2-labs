@@ -115,7 +115,7 @@ Do not transfer local project Responses quality scores to a different Hosted pat
 
 
 
-![September 23 English recording: Handoff: saved notes and the actual acceptance result](../assets/g6sol-20260923-en/screenshots/E11-001-handoff-2.webp)
+![September 24 English recording: Handoff: saved notes and the actual acceptance result](../assets/g6sol-20260924-en/screenshots/E11-001-handoff-2.webp)
 
 **What to check:** Read `candidate_grade`, `holdout_grade`, `business_gate_passed`,
 and `recommendation` (`ready-for-human-review` or `reject`).

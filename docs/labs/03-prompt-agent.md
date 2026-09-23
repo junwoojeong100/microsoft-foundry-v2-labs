@@ -32,7 +32,7 @@ Keep `session-notes.txt` open for the returned version and actual answers; no de
 Select **Build** in the top bar and **Agents** in the left menu, then **New agent** → **Build an agent**.
 
 
-![September 23 English recording: New agent → Build an agent](../assets/g6sol-20260923-en/screenshots/EP03-002-build-agent-2.webp)
+![September 24 English recording: New agent → Build an agent](../assets/g6sol-20260924-en/screenshots/EP03-002-build-agent-2.webp)
 
 **What to check:** This is a Prompt Agent with editable instructions. Do not select
 **Code an agent** or an external-agent connection.
@@ -41,7 +41,7 @@ In **Agent name**, replace the generated name with one that starts with your pre
 Select **Create and open playground** and wait for completion.
 
 
-![September 23 English recording: Use the owned agent name, then create and open the playground](../assets/g6sol-20260923-en/screenshots/EP03-003-name-2.webp)
+![September 24 English recording: Use the owned agent name, then create and open the playground](../assets/g6sol-20260924-en/screenshots/EP03-003-name-2.webp)
 
 **What to check:** Use your own **Agent name**, not the recording's `mfv2-sol-20260923-en-policy`
 name. If the button is disabled while creating, wait rather than submitting twice.
@@ -52,7 +52,7 @@ Opening the first agent can also create a `text-embedding-3-large` deployment; n
 Open the **Model** list at the top left and select **`gpt-6-sol`** under **Deployments** (the deployment that answered in [Lab 02](02-models.md)).
 
 
-![September 23 English recording: Select the gpt-6-sol answer deployment under Deployments](../assets/g6sol-20260923-en/screenshots/EP03-004-model-2.webp)
+![September 24 English recording: Select the gpt-6-sol answer deployment under Deployments](../assets/g6sol-20260924-en/screenshots/EP03-004-model-2.webp)
 
 **What to check:** Select your answer deployment under **Deployments**.
 `gpt-6-sol-judge` is for evaluation; do not select it or another catalog model.
@@ -61,7 +61,7 @@ In **Tools**, if **Web search** is listed, open its **⋮** menu and select **Re
 Removing it in Lab 02 does not remove it from a new agent.
 
 
-![September 23 English recording: Remove Web search from the new agent](../assets/g6sol-20260923-en/screenshots/EP03-005-remove-web-2.webp)
+![September 24 English recording: Remove Web search from the new agent](../assets/g6sol-20260924-en/screenshots/EP03-005-remove-web-2.webp)
 
 **What to check:** The Web search row must be gone before the first question.
 Do not connect company data or tools that modify external systems.
@@ -76,7 +76,7 @@ Do not connect company data or tools that modify external systems.
 The file already contains the instructions and all six synthetic policies; do not add other text.
 
 
-![September 23 English recording: Paste instructions-with-policies.txt into Instructions](../assets/g6sol-20260923-en/screenshots/EP03-006-instructions-2.webp)
+![September 24 English recording: Paste instructions-with-policies.txt into Instructions](../assets/g6sol-20260924-en/screenshots/EP03-006-instructions-2.webp)
 
 **What to check:** the pasted text is in **Instructions** and ends with the file's last paragraph, **Browser output format: …**.
 After **Save**, a version number appears at the top. **Publish** is not needed in this lab.
@@ -89,7 +89,7 @@ The pasted file puts six synthetic policies directly into the agent's context (n
 2. Open the same six files in the ZIP's `policies/` folder and compare each amount and effective period.
 3. If one is missing or different, paste the whole file again and select **Save**; otherwise change nothing.
 
-![September 23 English recording: Save and read the returned agent version](../assets/g6sol-20260923-en/screenshots/EP03-007-save-2.webp)
+![September 24 English recording: Save and read the returned agent version](../assets/g6sol-20260924-en/screenshots/EP03-007-save-2.webp)
 
 **What to check:** all six IDs, amounts and effective periods match `policies/`. **Save** is greyed out after saving,
 and **Version** shows your returned number (the recording shows version 2; yours may differ).
@@ -98,7 +98,7 @@ and **Version** shows your returned number (the recording shows version 2; yours
 <summary>Optional: retrieve the same synthetic files with File Search</summary>
 
 Proceed only if File Search is available and the instructor has approved storage/retrieval costs.
-This optional branch was not re-recorded with `gpt-6-sol` on September 23, 2026, so it has no screenshots.
+This optional branch is not in the September 24, 2026 `gpt-6-sol` recording, so it has no screenshots.
 
 1. Create a **separate** agent using your prefix plus `-files`; keep the inline agent unchanged for Lab 07.
 2. Paste the ZIP's **`instructions.txt`** into its **Instructions**, select `gpt-6-sol`, remove **Web search**, and select **Save**.
@@ -140,21 +140,21 @@ For each of the four questions:
    For D05, withholding the amount is correct, but a missing `SCOPE-01` citation is still a finding.
 
 <details>
-<summary>September 23 English recording — not the results of your own four questions</summary>
+<summary>September 24 English recording — not the results of your own four questions</summary>
 
-![September 23 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-101-d01-2.webp)
+![September 24 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP03-101-d01-2.webp)
 
 **What to check:** D01: KRW 150,000 per night from July 1, 2026 with `TRAVEL-2026`. Compare the receipt and approval conditions too.
 
-![September 23 English recording: D02 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-102-d02-2.webp)
+![September 24 English recording: D02 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP03-102-d02-2.webp)
 
 **What to check:** D02: May 2026 uses the historical KRW 120,000 and `TRAVEL-2025`, not the current policy.
 
-![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-103-d03-2.webp)
+![September 24 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP03-103-d03-2.webp)
 
 **What to check:** D03: KRW 170,000 exceeds the limit, so approval is needed before booking. The agent must not claim approval.
 
-![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-105-d05-2.webp)
+![September 24 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP03-105-d05-2.webp)
 
 **What to check:** D05: no international policy exists, so the amount is withheld. Check whether `SCOPE-01` is cited.
 
@@ -188,7 +188,7 @@ The command **creates an actual agent version in the project**; record name and 
 The SDK example includes small document context for comparison and does not claim to create File Search.
 
 
-![September 23 English recording: Optional SDK Prompt Agent: create an owned version](../assets/g6sol-20260923-en/screenshots/E03-001-sdk-create-2.webp)
+![September 24 English recording: Optional SDK Prompt Agent: create an owned version](../assets/g6sol-20260924-en/screenshots/E03-001-sdk-create-2.webp)
 
 **What to check:** Use the returned `agent_name` and `agent_version` for invocation.
 The recorded SDK agent (version 1) and browser agent (version 2) are different agents.
@@ -201,7 +201,7 @@ python scripts/workshop.py --language en prompt-agent invoke --name "$AGENT_NAME
 
 Use the actual returned version in the same terminal. Do not type `1` from a recording or invoke "latest."
 
-![September 23 English recording: Invoke the returned SDK agent version](../assets/g6sol-20260923-en/screenshots/E03-002-sdk-invoke-2.webp)
+![September 24 English recording: Invoke the returned SDK agent version](../assets/g6sol-20260924-en/screenshots/E03-002-sdk-invoke-2.webp)
 
 **What to check:** The SDK call names the exact returned version (`1` in this recording), not "latest".
 
@@ -220,7 +220,7 @@ Use the actual returned version in the same terminal. Do not type `1` from a rec
 ## Completion
 
 The [execution record](../live-run.md) separates the browser agent (version 2) and the SDK agent (version 1)
-recorded on September 23. Record your agent name/version, all four real responses, evidence
+recorded on September 24. Record your agent name/version, all four real responses, evidence
 method, and one wrong or withheld answer. Fluent prose and correct policy application
 are different; [Lab 07](07-evaluation.md) turns that distinction into evaluation criteria.
 

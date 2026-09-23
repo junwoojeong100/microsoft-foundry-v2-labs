@@ -41,7 +41,8 @@ The [coverage record](../coverage.md) identifies which modules have executable s
 which have actual new Azure evidence, and which remain design-only or blocked.
 An official product page or an installed SDK is not evidence that this workshop ran the feature.
 The modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset (for example, baseline-only
-optimization and delivery-only routine verification). They were not re-run with `gpt-6-sol`; verify each module yourself.
+optimization and delivery-only routine verification). With `gpt-6-sol`, conversation evaluation, Agent Optimizer, the red-team
+step of agent safety and release operations were re-run on September 23; the others were not. Verify each module yourself.
 
 ## Pick a sensible next module
 

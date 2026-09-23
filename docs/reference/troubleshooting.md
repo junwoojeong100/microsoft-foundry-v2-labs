@@ -99,6 +99,7 @@ Read-only reinspection does not create new inference evidence.
 | Stop returns 409 for idle session | Re-read the exact recorded session/version and record the idle state without another stop request | 09 |
 | Host profile/contract mismatch | Exact profile language, model map, source package, actual version and retrieval configuration | 08 |
 | Native quality score is low | Preserve the completed run; review the evaluator against business requirements, not retries until a favorable score | 07 |
+| `Missing evaluator results … missing ['business_rubric']` | The service omitted one evaluator; the attempt is saved as invalid. Rerun the same `cloud-evaluate` command once with `--retry-failed`; the attempt stays in `native-attempts/`. A retried `--reference` run stays in that evaluation as `<label>-retry-1` | 07 |
 
 </details>
 

@@ -100,6 +100,7 @@
 | `account-chat` endpoint 불일치 | 같은 Foundry account의 실제 OpenAI root. 실패했다고 자동 URL 전환 금지 |
 | native timeout | 같은 label로 조회 재개. 새 job 자동 생성 금지 |
 | native failed/invalid | 원본 시도를 보존한 `--retry-failed`. 완료된 낮은 점수의 반복 재시도는 거부 |
+| `Missing evaluator results … missing ['business_rubric']` | 서비스가 평가자 하나를 빠뜨려 시도가 invalid로 저장됨. 같은 `cloud-evaluate` 명령에 `--retry-failed`를 붙여 한 번 재실행. 시도는 `native-attempts/`에 보존. `--reference`로 추가한 실행은 재시도해도 그 평가에 `<label>-retry-1`로 남음 |
 | 회귀 파일이 질문/정답을 바꿈 | 기존 dev 계약을 유지하거나 별도 dataset version 설계. holdout을 회귀로 사용하지 않음 |
 | matrix 누락/중복 | 성공 prefix를 평가하지 않음. 원인을 해결한 후 새 label로 완전 수집 |
 | trace 누락 | 정확한 App Insights app ID·agent·기간·권한·sampling을 확인. 0건을 정상 운영으로 처리하지 않음 |

@@ -53,7 +53,7 @@ flowchart TD
 4. 상단 막대의 **빌드**(**빌드 시작** 버튼이 아님)를 누르고 왼쪽 메뉴에서 **에이전트**, **모델**, **지식**, **평가**를 찾습니다.
    모두 이 프로젝트 하나에 속합니다. 메뉴 이름은 언어·배포 시점에 따라 다를 수 있으니 같은 대상을 찾습니다.
 
-![2026-09-23 국문 녹화: 프로젝트 엔드포인트와 계정 OpenAI 엔드포인트 구분](../../assets/g6sol-20260923-ko/screenshots/KP01-001-endpoints-2.webp)
+![2026-09-24 국문 녹화: 프로젝트 엔드포인트와 계정 OpenAI 엔드포인트 구분](../../assets/g6sol-20260924-ko/screenshots/KP01-001-endpoints-2.webp)
 
 **화면 확인:** **프로젝트 엔드포인트**는 `/api/projects/<project>`로 끝나고, 옆의 **Azure OpenAI 엔드포인트**는
 `.openai.azure.com`으로 끝나는 다른 값입니다. **배포 보기**는 모델 배포, **빌드 시작**은 에이전트 만들기로 이어지며
@@ -110,7 +110,7 @@ classic Hub 프로젝트나 threads/runs 코드가 보이면 멈추고 [마이�
 평면의 권한이 다릅니다.** 실습자 모두에게 구독 Owner를 부여하지 않습니다.
 
 
-2026-09-23 녹화는 녹화 전에 따로 준비한 실습 프로젝트를 사용했으며 녹화 중에 리소스를 만들지 않았습니다.
+2026-09-24 녹화는 녹화 전에 따로 준비한 실습 프로젝트를 사용했으며 녹화 중에 리소스를 만들지 않았습니다.
 참가자는 강사의 준비 단계를 승인 없이 실행하지 않습니다.
 
 ## 3. 최소 권한의 출발점
@@ -127,7 +127,7 @@ classic Hub 프로젝트나 threads/runs 코드가 보이면 멈추고 [마이�
 바꾸지 않습니다. 필요한 추가 권한과 역할 ID는 [공식 RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를
 확인합니다. 사용자, Search managed identity, Hosted agent identity는 서로 다른 주체입니다.
 
-![2026-09-23 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../../assets/g6sol-20260923-ko/screenshots/K00-008-preflight-2.webp)
+![2026-09-24 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../../assets/g6sol-20260924-ko/screenshots/K00-008-preflight-2.webp)
 
 **화면 확인:** `doctor --cloud`가 읽어 온 모델 배포 정보와 본인의 설정을 대조합니다.
 관리 평면을 읽을 수 있다는 사실과 실제 추론 권한은 다릅니다. [Lab 02](02-models.md)의 요청까지 확인하세요.

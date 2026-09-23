@@ -32,9 +32,9 @@ Do not put credentials or your filled files in the repository's generated data d
 | A starting point and schedule | [Learning paths](paths.md) |
 | First-run instructions | [Lab 00](labs/00-start.md) |
 | Classroom preparation | [Instructor guide](instructor.md) |
-| September 23 `gpt-6-sol` English recordings | [Videos: 4:36 in guide order, 2:30 CLI, 1:43 portal](video-summary.md) |
+| September 24 `gpt-6-sol` English recordings | [Videos: 6:29 in guide order, 3:11 CLI, 2:55 portal](video-summary.md) |
 | One video in guide order | [Lab chapters](video-chapters.md) |
-| A particular screen or action | [69 actions and 207 captures](action-captures.md) |
+| A particular screen or action | [98 actions and 293 captures](action-captures.md) |
 | Actual results and limits | [Execution evidence](live-run.md) |
 | Separate Korean recordings | [Korean videos](ko/video-summary.md) |
 | Hosted matrices and independent gates | [Evaluation workbook](reference/evaluation-workbook.md) |

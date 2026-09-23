@@ -61,7 +61,7 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 
 그 파일이 이미 있으면 엽니다. 이 질문으로 본인이 실행한 결과일 때만 사용하고, 아니면 `--output`의 파일 이름을 바꿔 다시 실행합니다.
 
-![2026-09-23 국문 녹화: A의 준비된 순차 workflow 명령 하나](../../assets/g6sol-20260923-ko/screenshots/K05-001-prepared-2.webp)
+![2026-09-24 국문 녹화: A의 준비된 순차 workflow 명령 하나](../../assets/g6sol-20260924-ko/screenshots/K05-001-prepared-2.webp)
 
 **화면 확인:** 출력에 `mode: live`, `pattern: sequential`, `outputs`가 있습니다.
 터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다. 녹화는 같은 명령을 `--output` 없이 실행했습니다.
@@ -125,7 +125,7 @@ python scripts/workshop.py workflow --pattern sequential \
 `SequentialBuilder`의 participants 순서와 실제 출력의 흐름을 비교합니다.
 원문 오류를 초안이 그대로 이어받을 수 있다는 점도 관찰합니다.
 
-![2026-09-23 국문 녹화: 순차 MAF workflow](../../assets/g6sol-20260923-ko/screenshots/K05-002-sequential-2.webp)
+![2026-09-24 국문 녹화: 순차 MAF workflow](../../assets/g6sol-20260924-ko/screenshots/K05-002-sequential-2.webp)
 
 **화면 확인:** 순차 실행의 응답 내용을 위의 세 역할과 연결해 읽습니다.
 후속 검토자가 자연스럽게 설명해도 앞 단계의 잘못된 근거가 사라졌다고 가정하지 않습니다.
@@ -145,7 +145,7 @@ python scripts/workshop.py workflow --pattern concurrent \
 벽시계 시간이 줄어도 총 모델 호출 수나 비용이 줄었다고 단정하지 않습니다.
 
 
-![2026-09-23 국문 녹화: 병렬 MAF workflow](../../assets/g6sol-20260923-ko/screenshots/K05-003-concurrent-2.webp)
+![2026-09-24 국문 녹화: 병렬 MAF workflow](../../assets/g6sol-20260924-ko/screenshots/K05-003-concurrent-2.webp)
 
 **화면 확인:** `pattern: concurrent`와 여러 참여자의 출력을 확인합니다.
 여러 응답이 나왔다는 사실을 하나의 합의된 최종 답안으로 해석하지 말고 직접 비교·통합합니다.
@@ -166,7 +166,7 @@ python scripts/workshop.py workflow --pattern group-chat \
 전체 workflow timeout도 240초로 제한합니다.
 큰 수로 늘리기 전에 호출량과 token budget을 먼저 계산합니다.
 
-![2026-09-23 국문 녹화: 제한된 Group Chat workflow](../../assets/g6sol-20260923-ko/screenshots/K05-004-group-chat-2.webp)
+![2026-09-24 국문 녹화: 제한된 Group Chat workflow](../../assets/g6sol-20260924-ko/screenshots/K05-004-group-chat-2.webp)
 
 **화면 확인:** `pattern: group-chat`, 참여자 응답과 사람 검토 대기 상태를 확인합니다.
 3라운드 상한으로 끝난 것이므로 모델 스스로 합의하거나 실제 승인을 마쳤다는 뜻은 아닙니다.
@@ -276,7 +276,7 @@ IQ 패키지를 입문 로컬 검색 도우미에 넣거나 서로 다른 프로
 
 ## 완료 확인
 
-2026-09-23에 녹화한 세 패턴의 실제 실행 결과는 [실행 기록](../live-run.md)에 있습니다.
+2026-09-24에 녹화한 세 패턴의 실제 실행 결과는 [실행 기록](../live-run.md)에 있습니다.
 
 A는 순차 MAF 실행과 사람의 검토 결과를 남깁니다.
 B는 같은 질문에 대해 세 패턴의 호출 수·출력 형태·검토 부담을 비교한 표를 남깁니다.

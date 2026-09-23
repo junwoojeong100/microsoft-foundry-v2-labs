@@ -44,9 +44,9 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
 Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로 보일 수 있습니다.
 현재 [역할 표](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를 기준으로 확인합니다.
 
-![2026-09-23 국문 녹화: 배포 목록 열기: gpt-6-sol과 judge](../assets/g6sol-20260923-ko/screenshots/KP02-001-deployments-2.webp)
+![2026-09-24 국문 녹화: 배포 목록 열기: gpt-6-sol과 judge](../assets/g6sol-20260924-ko/screenshots/KP02-001-deployments-2.webp)
 
-**화면 확인:** 2026-09-23 배포 목록의 배포 유형(SKU)이며 quota의 `used`/`limit`와는 다릅니다. 할당량과 지역 가용 용량은 수업 직전에 별도로 다시 조회합니다.
+**화면 확인:** 2026-09-24 배포 목록의 배포 유형(SKU)이며 quota의 `used`/`limit`와는 다릅니다. 할당량과 지역 가용 용량은 수업 직전에 별도로 다시 조회합니다.
 사진의 숫자나 Sweden Central 가용성을 다른 구독·날짜의 배포 가능 여부로 복사하지 않습니다.
 
 ### 조별로 전달할 값
@@ -135,9 +135,9 @@ python scripts/workshop.py workflow --pattern sequential
 여기서 실제 모델 호출이 실패하면 리허설은 통과가 아닙니다.
 권한, quota, 모델의 tool/Structured Outputs 지원을 해결한 뒤 다시 확인합니다.
 
-![2026-09-23 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260923-ko/screenshots/K00-008-preflight-2.webp)
+![2026-09-24 국문 녹화: 읽기 전용 Azure 사전 확인: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260924-ko/screenshots/K00-008-preflight-2.webp)
 
-**화면 확인:** 2026-09-23 녹화는 녹화 전에 준비한 실습 환경을 사용했으며 리소스를 생성한 결과가 아닙니다.
+**화면 확인:** 2026-09-24 녹화는 녹화 전에 준비한 실습 환경을 사용했으며 리소스를 생성한 결과가 아닙니다.
 한 리소스의 생성 성공만으로 전체 환경이 준비됐다고 판단하지 않습니다. 실제 참가자 계정의 첫 모델 호출은 별도 게이트입니다.
 
 추가 모듈은 실제 선택한 것만 확인합니다.

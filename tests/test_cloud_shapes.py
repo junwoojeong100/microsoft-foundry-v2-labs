@@ -122,6 +122,20 @@ class CloudShapeTests(unittest.TestCase):
             with self.subTest(items=items), self.assertRaises(ValueError):
                 normalize_results(items, ["D01"])
 
+    def test_a_missing_evaluator_is_named_without_a_command_specific_hint(self):
+        item = self.result_item()
+        item["results"] = item["results"][:1]
+        with self.assertRaisesRegex(ValueError, r"missing \['relevance'\]") as caught:
+            normalize_results([item], ["D01"])
+        self.assertNotIn("--retry-failed", str(caught.exception))
+
+    def test_malformed_results_are_rejected_as_values_not_type_errors(self):
+        for results in (None, 1, True, "relevance", {"name": "relevance"}, [1, 2]):
+            item = self.result_item()
+            item["results"] = results
+            with self.subTest(results=results), self.assertRaises(ValueError):
+                normalize_results([item], ["D01"])
+
     def test_skipped_judge_row_is_named_and_never_passes(self):
         item = self.result_item()
         item["results"][0] = {

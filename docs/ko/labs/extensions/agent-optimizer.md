@@ -2,7 +2,7 @@
 
 [English](../../../labs/extensions/agent-optimizer.md) | **한국어**
 
-**C 선택 Preview · 2026-09-16 기준.** 첫 경로는 **Prompt Agent 최적화 wizard**입니다.
+**C 선택 Preview · 2026-09-16 기준, 2026-09-23 `gpt-6-sol`로 재실행.** 첫 경로는 **Prompt Agent 최적화 wizard**입니다.
 fine-tuning이나 모델 가중치 변경이 아닙니다. 기존 Hosted matrix와 수동 v1/v2 실험은 별도 대상으로 유지합니다.
 
 **준비:** 전용 합성 Prompt Agent와 baseline 버전, 파생 dev 파일, 지원되는 기존 optimizer 배포, 별도 judge, 비용 승인.
@@ -40,16 +40,21 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 | 최적화 대상 | **Instruction만** |
 
 지원되는 optimizer 모델이 없으면 미실행으로 멈춥니다.
-답변 모델이 동작한다는 사실만으로 optimizer 용도를 지원한다고 판단하지 않습니다.
-2026-09-23 실습 프로젝트의 에이전트 **최적화** 탭은 `gpt-6-sol`만 배포된 상태에서 지원되는 최적화 모델이 없다고 표시했습니다.
-그래서 이 모듈은 `gpt-6-sol` preset으로 다시 실행하지 않았습니다. 다른 모델 배포는 담당자가 결정합니다.
+답변 모델이 동작한다는 사실만으로 optimizer 용도를 지원한다고 판단하지 않습니다. `gpt-6-sol`만 배포된 2026-09-23에는
+**Optimize** 탭이 **No supported optimization model**을 표시했습니다. 그날
+[Microsoft Learn의 optimizer 모델 목록](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-overview#models)은
+`gpt-5`, `gpt-5.1`, `gpt-5.2`, `gpt-5.4`, `gpt-5.5`, `DeepSeek-V4-Pro`, `DeepSeek-V-3.2`였습니다. 9월 23일 실행에서는 담당자가
+임시 `gpt-5.5` 배포(`<prefix>-opt-gpt55`, DataZoneStandard)를 추가했고 두 언어 실행이 끝난 뒤 삭제했습니다.
+최적화 대상은 Lab 03 에이전트와 지침이 같은 격리 복사본 `<prefix>-optimize` 버전 1이었습니다.
 
 ## 2. Wizard 열기
 
-1. **Agents → 내 agent → Optimize Preview**를 엽니다.
+1. **에이전트 → 내 에이전트 → 최적화 미리 보기**(영문 UI: **Optimize Preview**)를 엽니다. 9월 23일 실행은 영문 UI에서 진행했으므로
+   이하 wizard 이름은 영문 UI 기준입니다.
 2. 처음에는 **Optimize my agent**, 기존 run이 있으면 **Create optimization run**을 선택합니다.
 3. Target에서 실제 baseline 버전을 확인합니다.
 4. 준비된 optimizer/judge와 후보 수 2를 지정합니다.
+   9월 23일에는 **Evaluation model** 기본값이 답변 배포 `gpt-6-sol`이었으므로 `gpt-6-sol-judge`로 바꿉니다.
 5. **Choose targets → Instruction**을 선택하고 **Model**을 해제합니다.
 
 명시적 대상 선택으로 전환할 때 Model이 자동 선택되었던 화면을 관찰했습니다.
@@ -62,7 +67,7 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 3. 새 dataset 버전과 `case_id`, `query`, `context`, `ground_truth`를 확인합니다.
 4. 미리보기는 **상위 5행만** 보여줍니다. 원본 파일과 나중의 실제 평가 결과에서 6행 전체를 확인합니다.
 5. Criteria에서 **Custom only**를 해제하고 **Groundedness-Evaluator**, **Relevance-Evaluator**를 고릅니다.
-   Service-Groundedness와 혼동하지 않고 threshold는 둘 다 **4**입니다.
+   Service-Groundedness와 혼동하지 않습니다. 고를 때마다 **Configure** 대화상자가 열리면 **Threshold**를 **4**로 두고 **Apply**를 누릅니다.
 
 실제 evaluator 버전과 기준을 기록합니다.
 필수 인용 기준을 완화하거나 올바른 승인 거절을 오답으로 바꾸거나 어려운 행을 빼서 점수를 올리지 않습니다.
@@ -72,6 +77,7 @@ schema 불일치는 원인을 확인하며 평가 정답을 target에 보내는 
 
 Review의 baseline/dataset/모델/평가 기준/후보 상한을 확인합니다.
 답변·judge·개선 생성 비용을 구분합니다. 표시된 범위는 **추정치**이지 실제 청구액이나 강제 예산 제한이 아닙니다.
+9월 23일에는 agent 호출 약 35회, 채점 약 70회, 개선 생성 약 3회에 추정 $0.27(범위 $0.00–$0.90)로 표시되었습니다.
 
 승인 후 **Submit**을 한 번 누릅니다. 같은 run ID를 끝까지 확인합니다.
 대기하거나 화면을 놓쳤다는 이유로 재제출하지 않습니다.
@@ -84,13 +90,14 @@ Review의 baseline/dataset/모델/평가 기준/후보 상한을 확인합니다
 가장 높은 종합점수도 제안일 뿐 자동 수락이 아닙니다.
 개선이 없거나 구별되지 않으면 baseline을 유지합니다.
 
-2026-09-16 영문 실행(이전 `gpt-5.6-luna` 판, `gpt-6-sol`로 재실행하지 않음)은 후보 없이 중단되었습니다.
-일반 중단 문구는 “perfect”라고 표시했지만 실제 D05 relevance는 실패했습니다.
-같은 날 국문 실행은 별도로 실행한 baseline과 두 후보를 남겼습니다.
+2026-09-23 `gpt-6-sol` 실행은 9월 16일 영문 실행(이전 `gpt-5.6-luna` 판)처럼 두 언어 모두 baseline만 반환했습니다.
+영문 0.979, 국문 0.938이며 각각 약 4.5분 걸렸습니다. 실행마다 내부 초안 4개를 3건짜리 미니 배치로 평가했지만 후보로 반환하지 않았습니다.
+일반 중단 문구는 모든 후보가 만점이라고 표시했지만, 국문 baseline은 D05 relevance(2)가 실패했고 영문 미니 배치는 D01·D05·D06 relevance가 실패했습니다.
+9월 16일 국문 실행은 별도로 실행한 baseline과 두 후보를 남겼습니다.
 상태 문구 대신 개별 행을 확인하고 영문 점수를 국문 결과로 옮기지 않습니다.
 
 **업로드한 열뿐 아니라 실제 judge 입력을 확인합니다.** 각 평가자의 `sample.input`과
-고정한 dataset을 비교합니다. 9월 16일 영문 baseline과 국문 baseline·두 후보 모두
+고정한 dataset을 비교합니다. 9월 23일 두 언어 실행에서도, 9월 16일 영문 baseline과 국문 baseline·두 후보처럼
 Groundedness의 `context`에 원래 정책 대신 생성한 답변 자체가 들어갔습니다.
 서비스가 6/6을 보고해도 자기 답변과의 비교는 원문 근거 검증이 아닙니다.
 원래 점수·입력 hash를 보존하고 참조 binding을 무효로 표시하며 **이 결과로 승격하지 않습니다**.

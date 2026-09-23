@@ -44,9 +44,9 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
 Role names may still appear as `Azure AI ...`. Check the current
 [Foundry role table](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 
-![September 23 English recording: Open the deployment inventory: gpt-6-sol and its judge](assets/g6sol-20260923-en/screenshots/EP02-001-deployments-2.webp)
+![September 24 English recording: Open the deployment inventory: gpt-6-sol and its judge](assets/g6sol-20260924-en/screenshots/EP02-001-deployments-2.webp)
 
-**What to check:** This is the September 23, 2026 deployment list. A deployment type (SKU) is not quota `used`/`limit`;
+**What to check:** This is the September 24, 2026 deployment list. A deployment type (SKU) is not quota `used`/`limit`;
 query quota and capacity again immediately before class. This Sweden Central availability does not apply automatically
 to another subscription or date.
 
@@ -137,7 +137,7 @@ The connection-check question means: "This response checks the synthetic worksho
 connection. Answer briefly in English." If a real model call fails, rehearsal has not
 passed. Resolve roles, quota, and tool/Structured Outputs support before proceeding.
 
-![September 23 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](assets/g6sol-20260923-en/screenshots/E00-008-preflight-2.webp)
+![September 24 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](assets/g6sol-20260924-en/screenshots/E00-008-preflight-2.webp)
 
 **What to check:** Review project, Search, and logging resources together. One successful
 resource creation is not a ready environment. The participant's first model call is a separate gate.

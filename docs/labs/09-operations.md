@@ -58,16 +58,33 @@ menus can be normal for your role. Gaining subscription-wide permissions is not 
 
 This scores your recorded Lab 03 and Lab 07 conversations without new agent calls; the judge calls still cost.
 
-1. Open your agent's **Evaluation** tab and select **Create**. Keep **Agent**, **Individual turns** and **One time**.
-2. In **Data**, select **Existing traces**. Your conversations appear with their trace and response IDs; allow 3–5 minutes after your last question.
+1. Open your agent's **Evaluation** tab and select **Create**. Keep **Agent** with only your saved **Version** selected
+   (as in item 2 of [Lab 07 A step 4](07-evaluation.md#path-a)), **Individual turns** and **One time**.
+2. In **Data**, select **Existing traces**. Keep **Number of traces** `15` and **Time range** **7D**; your conversations appear with
+   their trace and response IDs. Allow 3–5 minutes after your last question.
 3. If a **Setup incomplete** banner asks you to give the project's managed identity the **Monitoring Reader** role on
    Application Insights, stop and ask the owner. Do not select **Resolve**: it changes a role assignment.
-4. Otherwise select **Next** and set **Criteria** as in Lab 07 A step 4: judge model `gpt-6-sol-judge`; **Remove all** under Safety and Agents;
-   keep Relevance and Coherence; add TaskAdherence (Preview) if it is listed; then **Next** and **Submit**.
+4. Otherwise select **Next** and set **Criteria** as in Lab 07 A step 4: open **Judge model** and pick `gpt-6-sol-judge` under
+   **Deployments** (the default can be another deployment); **Remove all** under Safety and Agents; remove Groundedness and Fluency;
+   **Add new evaluator** → **Task-Adherence-Evaluator-(Preview)** → **Confirm**. Select **Next**, name it `<your prefix>-traces` and **Submit**.
+5. When the run shows **Completed** (about two minutes), open it.
 
-On September 23, 2026 the training project showed this banner, so the trace-based evaluation was **not run** for this edition.
-**Recurring** in the **Frequency** step, or **Make recurring** on a trace or agent evaluation, turns it into continuous evaluation;
-dataset-based runs cannot be made recurring. Recurring runs need their own cost approval and an owner who turns them off.
+![September 24 English recording: Each trace's query carries the agent instructions](../assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-2.webp)
+
+**What to check:** **Overall metric results** shows passed / N for Relevance, Coherence and TaskAdherence, where N is your
+number of conversations (at most 15), and each row's
+`query` starts with your agent's **Instructions** (with the six policies) before the question.
+In the September 24, 2026 English recording (the owner had assigned that role on September 23), the trace evaluation scored
+10/10 on all three evaluators: the ten recorded conversations of agent Version 2. If the optional Lab 07 A evaluation ran first,
+its six agent runs are traces of the same version too; the Korean recording's 15 traces included five of them.
+The dataset-based run in Lab 07 A scored TaskAdherence 0/6 because it sent only the question: what the evaluator receives decides what it can verify.
+
+**Make recurring** on the evaluation page (enabled after one successful trace run) offers **Scheduled** runs on **Live traffic**
+with an **Hourly** interval, **Random** or **Intelligent** sampling and a **Maximum traces to evaluate per run**.
+On September 23, 2026 the first run started as soon as the schedule was saved, and each run sampled from the latest seven days
+(the one-time run's **Time range**), not only the last hour, so earlier conversations were scored again.
+**Continuous** was unavailable; for a dataset-based evaluation the same dialog offers **Scheduled** on **Existing data** instead.
+**Pause** on the evaluation page stops the schedule. Recurring runs need their own cost approval and an owner who pauses them.
 
 </details>
 
@@ -129,7 +146,7 @@ does not enable sensitive input/output capture by default.
 5. Check retention/permissions and avoid unnecessary raw-content export.
 
 
-![September 23 English recording: Traces for the recorded agent requests](../assets/g6sol-20260923-en/screenshots/EP09-002-traces-2.webp)
+![September 24 English recording: Traces for the recorded agent requests](../assets/g6sol-20260924-en/screenshots/EP09-002-traces-2.webp)
 
 **What to check:** In **Traces → Trace view**, check date range and agent version.
 The newest row is not automatically the request you just sent.
@@ -219,26 +236,27 @@ Shared services, models, evaluation history, and persistent files remain.
 
 Approve data scope, sampling, hourly caps, evaluator versions, ongoing costs, and a disable/cleanup owner.
 Follow [current recurring-evaluation guidance](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard#set-up-continuous-evaluation).
-In the portal, **Recurring** in an evaluation's **Frequency** step (September 23, 2026) creates such a rule for an agent or trace evaluation.
+In the portal, **Make recurring** on a completed trace evaluation creates such a schedule (verified September 23, 2026;
+see [release operations](extensions/release-operations.md#2-create-a-bounded-recurring-evaluation-configuration)).
 Do not repeatedly invoke just to manufacture a sampled screenshot.
 Rule configuration and actual evaluated samples are different evidence; nothing is enabled automatically.
 
 </details>
 
 <details>
-<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
+<summary>More September 24 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
+These captures come from the September 24, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![September 23 English recording: Agent details: name, saved version and model](../assets/g6sol-20260923-en/screenshots/EP09-001-details-2.webp)
+![September 24 English recording: Agent details: name, saved version and model](../assets/g6sol-20260924-en/screenshots/EP09-001-details-2.webp)
 
 **What to check:** Details shows the agent name, the saved version and `gpt-6-sol`; compare them with your worksheet.
 
-![September 23 English recording: Monitor totals are not evaluation correctness](../assets/g6sol-20260923-en/screenshots/EP09-003-monitor-2.webp)
+![September 24 English recording: Monitor totals are not evaluation correctness](../assets/g6sol-20260924-en/screenshots/EP09-003-monitor-2.webp)
 
 **What to check:** Monitor totals count requests and tokens. They are not evaluation correctness.
 
-![September 23 English recording: Owned-asset cleanup inventory (deletes nothing)](../assets/g6sol-20260923-en/screenshots/E09-001-cleanup-plan-2.webp)
+![September 24 English recording: Owned-asset cleanup inventory (deletes nothing)](../assets/g6sol-20260924-en/screenshots/E09-001-cleanup-plan-2.webp)
 
 **What to check:** The inventory lists only the Search objects recorded for your prefix and `deletes_resources: false`; the rest is a manual checklist.
 
@@ -251,7 +269,7 @@ These captures come from the September 23, 2026 English recording with `gpt-6-so
 If you selected the Hosted matrix, verify its exact root traces and owned session states.
 A and core B do not need that optional telemetry to finish their cleanup handoff.
 Completed overall does not mean every child span is exported or error-free.
-The September 23 `gpt-6-sol` recording covers the agent Details/Traces/Monitor tabs and the cleanup inventory only.
+The September 24 `gpt-6-sol` recording covers the agent Details/Traces/Monitor tabs, the optional trace evaluation and the cleanup inventory only.
 [Execution records](../live-run.md) list actual outcomes and retained assets.
 
 A uses the checklist and owner handoff above. B has already printed the local inventory in step 3.

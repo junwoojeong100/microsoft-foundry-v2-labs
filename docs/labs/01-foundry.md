@@ -52,7 +52,7 @@ flowchart TD
 4. Select **Build** in the top bar (not the **Start building** button). In the left menu, find **Agents**, **Models**, **Knowledge** and **Evaluations**:
    they all belong to this one project. Menu labels can differ by language or rollout; look for the same objects.
 
-![September 23 English recording: Distinguish the project endpoint from the account OpenAI endpoint](../assets/g6sol-20260923-en/screenshots/EP01-001-endpoints-2.webp)
+![September 24 English recording: Distinguish the project endpoint from the account OpenAI endpoint](../assets/g6sol-20260924-en/screenshots/EP01-001-endpoints-2.webp)
 
 **What to check:** the **Project endpoint** ends with `/api/projects/<project>`; the **Azure OpenAI endpoint** beside it
 ends with `.openai.azure.com` and is a different endpoint. **View deployments** opens model deployments and
@@ -109,7 +109,7 @@ Resource-creation permission does not imply model-invocation permission.
 **Management-plane and data-plane permissions differ.** Do not give every learner subscription Owner.
 
 
-The September 23 recording used a training project prepared before recording; the recording did not create it.
+The September 24 recording used a training project prepared before recording; the recording did not create it.
 Use [the environment-owner checklist](../setup.md#4-environment-owner-checklist) for preparation, not commands transcribed from a recording.
 
 ## 3. Starting points for least privilege
@@ -126,7 +126,7 @@ Names may still display as `Azure AI User`; renaming does not change existing ro
 Check additional permissions and IDs in [official RBAC guidance](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry).
 The user, Search managed identity, and Hosted agent identity are separate principals.
 
-![September 23 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260923-en/screenshots/E00-008-preflight-2.webp)
+![September 24 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260924-en/screenshots/E00-008-preflight-2.webp)
 
 **What to check:** Compare the deployment returned by `doctor --cloud` with your
 settings. ARM read access does not establish inference permission; complete [Lab 02](02-models.md).

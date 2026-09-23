@@ -62,7 +62,7 @@ python scripts/workshop.py --language en workflow --pattern sequential --questio
 If that file already exists, open it: use it only if it is your own run with this question; otherwise change the file name in `--output` and run again.
 
 
-![September 23 English recording: A's one prepared sequential workflow command](../assets/g6sol-20260923-en/screenshots/E05-001-prepared-2.webp)
+![September 24 English recording: A's one prepared sequential workflow command](../assets/g6sol-20260924-en/screenshots/E05-001-prepared-2.webp)
 
 **What to check:** the output shows `mode: live`, `pattern: sequential` and `outputs`.
 This is a MAF run in the terminal, not portal Workflow Designer activity. The recording ran the same command without `--output`.
@@ -126,7 +126,7 @@ Compare `PolicyAnalyst → AnswerWriter → EvidenceReviewer` with the builder's
 and actual outputs. An incorrect source interpretation can propagate to the draft.
 
 
-![September 23 English recording: Sequential MAF workflow](../assets/g6sol-20260923-en/screenshots/E05-002-sequential-2.webp)
+![September 24 English recording: Sequential MAF workflow](../assets/g6sol-20260924-en/screenshots/E05-002-sequential-2.webp)
 
 **What to check:** Map the output to the three roles. Fluent review does not
 automatically remove an earlier evidence error.
@@ -147,7 +147,7 @@ Lower wall-clock time does not necessarily mean fewer calls or lower costs.
 
 
 
-![September 23 English recording: Concurrent MAF workflow](../assets/g6sol-20260923-en/screenshots/E05-003-concurrent-2.webp)
+![September 24 English recording: Concurrent MAF workflow](../assets/g6sol-20260924-en/screenshots/E05-003-concurrent-2.webp)
 
 **What to check:** Verify `pattern: concurrent` and multiple participant outputs.
 Compare them rather than treating them as an agreed answer.
@@ -167,7 +167,7 @@ alone is not a business answer. The entire workflow also has a 240-second timeou
 Calculate call/token budgets before increasing either bound.
 
 
-![September 23 English recording: Bounded Group Chat workflow](../assets/g6sol-20260923-en/screenshots/E05-004-group-chat-2.webp)
+![September 24 English recording: Bounded Group Chat workflow](../assets/g6sol-20260924-en/screenshots/E05-004-group-chat-2.webp)
 
 **What to check:** Read `pattern: group-chat`, participant responses, and pending
 human review. Reaching the round limit is not model consensus or business approval.
@@ -270,7 +270,7 @@ Do not send an IQ package through the introductory local-retrieval helper or tra
 
 ## Completion
 
-[Execution records](../live-run.md) list the three recorded September 23 patterns.
+[Execution records](../live-run.md) list the three recorded September 24 patterns.
 A retains a sequential run and human review. B compares call counts, output shapes,
 and review effort for all three patterns. Concluding that one agent is better for this
 scenario is valid; the number of agents is not a success metric.

@@ -124,7 +124,7 @@ It uses the pinned HTTP client and does not require installing a Preview Search 
 
 </details>
 
-Lab 10 is optional and was not recorded in the September 23 `gpt-6-sol` edition. [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+Lab 10 is optional and was not recorded in the September 24 `gpt-6-sol` edition. [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
 ## Finish
 

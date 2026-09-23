@@ -31,7 +31,7 @@ Check model **`gpt-6-sol`** and version **`2026-09-22`**, and write the deployme
 (here the deployment and model names match, but they are different things).
 
 
-![September 23 English recording: Select gpt-6-sol and read version 2026-09-22](../assets/g6sol-20260923-en/screenshots/EP02-002-select-sol-2.webp)
+![September 24 English recording: Select gpt-6-sol and read version 2026-09-22](../assets/g6sol-20260924-en/screenshots/EP02-002-select-sol-2.webp)
 
 **What to check:** **Name** is the invocation name; **Model** and **Version** identify the
 underlying model. The September 23 environment deploys `gpt-6-sol` for answers and
@@ -43,13 +43,13 @@ Select the **`gpt-6-sol`** name link to open its Playground. In **Tools**, find 
 open its **⋮** menu and select **Remove**. The core workshop does not query the external web.
 
 
-![September 23 English recording: Open the default Web search tool actions](../assets/g6sol-20260923-en/screenshots/EP02-006-web-menu-2.webp)
+![September 24 English recording: Open the default Web search tool actions](../assets/g6sol-20260924-en/screenshots/EP02-006-web-menu-2.webp)
 
 **What to check:** the **⋮** menu of the **Web search** row shows **Remove**.
 The **X** on the notice above it only closes the notice; it does not remove the tool.
 
 
-![September 23 English recording: Remove external web search before any question](../assets/g6sol-20260923-en/screenshots/EP02-007-remove-web-2.webp)
+![September 24 English recording: Remove external web search before any question](../assets/g6sol-20260924-en/screenshots/EP02-007-remove-web-2.webp)
 
 **What to check:** Verify that the Web search row is gone before entering a question.
 Recheck tools whenever you switch Playgrounds or create an agent.
@@ -60,13 +60,13 @@ Recheck tools whenever you switch Playgrounds or create an agent.
 > and an agent to a beginner in four sentences.
 
 
-![September 23 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260923-en/screenshots/EP02-008-question-1.webp)
+![September 24 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260924-en/screenshots/EP02-008-question-1.webp)
 
 **What to check:** Enter the question in **Chat with the model...** at the lower right and select the send arrow.
 **Instructions** on the left is a system-instruction field, not the chat input.
 
 
-![September 23 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260923-en/screenshots/EP02-008-question-2.webp)
+![September 24 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260924-en/screenshots/EP02-008-question-2.webp)
 
 **What to check:** Record the model name, time, and token information as well as the
 answer. The recording is a separate run, not your own response.
@@ -80,7 +80,7 @@ Select **New chat** (the + icon at the top right of the chat), then ask the cano
 know an amount.** This is not a test of knowledge about an actual company.
 
 
-![September 23 English recording: New chat: ask without any policy evidence](../assets/g6sol-20260923-en/screenshots/EP02-009-new-chat-2.webp)
+![September 24 English recording: New chat: ask without any policy evidence](../assets/g6sol-20260924-en/screenshots/EP02-009-new-chat-2.webp)
 
 **What to check:** Does it request evidence or clarification? A plausible invented
 amount is an ungrounded response, not a success.
@@ -90,7 +90,7 @@ When you select the back arrow (←) or another menu, **Leave without saving?** 
 Choose **Leave without saving**: these temporary Playground settings are not needed and do not apply to new agents.
 
 
-![September 23 English recording: Leave the temporary Playground settings unsaved](../assets/g6sol-20260923-en/screenshots/EP02-010-leave-2.webp)
+![September 24 English recording: Leave the temporary Playground settings unsaved](../assets/g6sol-20260924-en/screenshots/EP02-010-leave-2.webp)
 
 **What to check:** If navigation seems stuck, look for the confirmation dialog.
 Discard only the temporary settings you intended to leave unsaved.
@@ -142,7 +142,7 @@ Results retain `response_id`, actual `response_model`, and token usage.
 do not relabel a response ID as a trace ID.
 
 
-![September 23 English recording: First real gpt-6-sol request through the project Responses API](../assets/g6sol-20260923-en/screenshots/E02-001-model-2.webp)
+![September 24 English recording: First real gpt-6-sol request through the project Responses API](../assets/g6sol-20260924-en/screenshots/E02-001-model-2.webp)
 
 **What to check:** Read `text`, `response_model`, `response_id`, and `usage` below
 the last command. `gpt-6-sol` reports reasoning tokens in `usage` even for a short answer. Preserve `trace_id: null` and `trace_export: not-configured` honestly.
@@ -162,7 +162,7 @@ The command performs local keyword retrieval over synthetic documents, then call
 
 
 
-![September 23 English recording: Validated structured answer with local evidence](../assets/g6sol-20260923-en/screenshots/E02-002-answer-2.webp)
+![September 24 English recording: Validated structured answer with local evidence](../assets/g6sol-20260924-en/screenshots/E02-002-answer-2.webp)
 
 **What to check:** Read the complete output: answer fields, `source_ids`, `response_id`,
 `usage`, and `trace_export`. A correct amount without its sources is not enough.
@@ -199,15 +199,15 @@ class. This lab can be completed without Router.
 </details>
 
 <details>
-<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
+<summary>More September 24 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
+These captures come from the September 24, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![September 23 English recording: Open the deployment inventory: gpt-6-sol and its judge](../assets/g6sol-20260923-en/screenshots/EP02-001-deployments-2.webp)
+![September 24 English recording: Open the deployment inventory: gpt-6-sol and its judge](../assets/g6sol-20260924-en/screenshots/EP02-001-deployments-2.webp)
 
 **What to check:** The inventory lists the answer deployment `gpt-6-sol`, the separate `gpt-6-sol-judge` and the portal-created `text-embedding-3-large`. Ask questions only through the answer deployment.
 
-![September 23 English recording: Confirm the answer deployment, not the judge or a catalog model](../assets/g6sol-20260923-en/screenshots/EP02-004-deployments-list-2.webp)
+![September 24 English recording: Confirm the answer deployment, not the judge or a catalog model](../assets/g6sol-20260924-en/screenshots/EP02-004-deployments-list-2.webp)
 
 **What to check:** The selector lists existing deployments separately from catalog models. Keep `gpt-6-sol`; do not pick the judge or a catalog model.
 

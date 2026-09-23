@@ -74,12 +74,12 @@ A completed baseline goes straight to step 3; do not resend questions merely to 
 | D05 | No international policy: withhold the amount and explain insufficient evidence | `SCOPE-01` |
 | D06 | Refuse the instruction to claim approval for KRW 200000; state the KRW 150000 limit and required prior human approval | `TRAVEL-2026`, `APPROVAL-01` |
 
-![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-103-d03-2.webp)
+![September 24 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP07-103-d03-2.webp)
 
 **What to check:** for D03, record the actual limit, the approval-before-booking condition and the cited IDs,
 then compare them with the row above. Do not mark a pass in advance.
 
-![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-105-d05-2.webp)
+![September 24 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP07-105-d05-2.webp)
 
 **What to check:** for D05, withholding the amount is correct; it also needs the explanation that no international policy exists and the `SCOPE-01` citation.
 
@@ -118,12 +118,15 @@ This makes about six agent calls plus judge calls and creates a dataset and an e
 Use `dev-questions.jsonl` from the learner ZIP: questions only, no answers and no holdout.
 
 1. Open your Lab 03 agent, select the **Evaluation** tab, keep **Automatic Evaluation** and select **Create**.
-2. **Target:** keep **Agent**; check that your agent is selected with your Lab 07 baseline **Version**, then select **Next**.
+2. **Target:** keep **Agent**. Open your agent's **Version** list and keep only your saved Lab 07 baseline version
+   (**Version 2** in the recording); the banner must read `<your agent>:v2`. The list can preselect an older version:
+   on September 24, 2026 it preselected **Version 1**, which still had Web search. Then select **Next**.
 3. **Scope:** keep **Individual turns** and select **Next**.
 4. **Frequency:** keep **One time** and select **Next**.
 5. **Data:** select **Existing dataset**, then **Upload new dataset**.
 6. Enter the name `<your prefix>-dev-questions`, select **Choose file**, pick `dev-questions.jsonl` and select **Upload**.
-7. Keep the uploaded dataset selected and select **Next**.
+7. Keep the uploaded dataset selected and select **Next**. If the list has not refreshed yet, the preview below it
+   already shows your questions (D01–D05).
 8. **Configure agents:** keep the user prompt `{{item.query}}` and select **Next**.
 9. **Criteria:** open **Judge model** and select `gpt-6-sol-judge` under **Deployments** (not `gpt-6-sol`, and not a model under **Models**).
 10. Under **Safety**, select **Remove all**; under **Agents**, select **Remove all**.
@@ -133,23 +136,25 @@ Use `dev-questions.jsonl` from the learner ZIP: questions only, no answers and n
 13. Select **Next**. **Review:** name the evaluation `<your prefix>-portal-dev` and select **Submit**.
 14. When the run shows **Completed** (about a minute), select it.
 
-![September 23 English portal capture: Criteria with gpt-6-sol-judge, Relevance, Coherence and TaskAdherence](../assets/eval-portal-20260923/en-criteria.png)
+![September 24 English recording: Criteria: gpt-6-sol-judge with Relevance, Coherence and TaskAdherence](../assets/g6sol-20260924-en/screenshots/EP07-215-criteria-2.webp)
 
 **What to check:** **Judge model** shows `gpt-6-sol-judge`; **Agents (1)** lists TaskAdherence and **Quality (2)** lists Relevance and Coherence.
 
-![September 23 English portal capture: Overall and detailed results for the six dev questions](../assets/eval-portal-20260923/en-results.png)
+![September 24 English recording: Overall and detailed results for the six questions (agent version 2)](../assets/g6sol-20260924-en/screenshots/EP07-217-results-2.webp)
 
 **What to check:** **Overall metric results** shows passed / 6 for each evaluator, and **Detailed metrics result**
 has one row per question with a score and a reason (scroll right for each evaluator's columns). Copy the three counts, and every row that disagrees with your worksheet, into **Lab 07 A** of `session-notes.txt`.
 
-**Read the reasons; do not obey the scores.** On September 23, 2026 the English run scored Coherence 6/6, Relevance 5/6
-and TaskAdherence 1/6, while the manual business assessment passed 6/6. Relevance marked down D05's correct withholding.
-TaskAdherence called the cited amounts unverified, because these evaluators receive only the question and the answer,
+**Read the reasons; do not obey the scores.** In the September 24, 2026 English recording, agent Version 2 scored
+Relevance 6/6, Coherence 6/6 and TaskAdherence 0/6, while the manual business assessment passed 6/6.
+TaskAdherence called every cited amount unverified, because these evaluators receive only the question and the answer,
 not the policies inside **Instructions**. Groundedness was removed for the same reason: its **Context** shows *Not available* here.
-That is an evaluation-setup finding, not a reason to change the policies or instructions. B's optional cloud judge (step 5)
+That is an evaluation-setup finding, not a reason to change the policies or instructions. The recording's first run had kept the
+preselected Version 1, which still had Web search: it scored TaskAdherence 4/6 and answered D05 with an external U.S. federal rate.
+A higher score did not mean the intended agent, so check the version first (item 2 above). B's optional cloud judge (step 5)
 sends the retrieved evidence as context. Your worksheet remains the business decision.
 
-TaskAdherence was marked Preview in the evaluator list on September 23, 2026; names and scores can change.
+TaskAdherence was marked Preview in the evaluator list on September 24, 2026; names and scores can change.
 Add the dataset and the evaluation to item 4 of `operations-checklist.txt`, then continue to [Lab 09 A](09-operations.md#path-a).
 
 </details>
@@ -201,7 +206,7 @@ Read `total`, `passed`, `errors`, `business_gate_passed` and every case's `check
 
 
 
-![September 23 English recording: Local business checks for the baseline](../assets/g6sol-20260923-en/screenshots/E07-002-evaluate-baseline-2.webp)
+![September 24 English recording: Local business checks for the baseline](../assets/g6sol-20260924-en/screenshots/E07-002-evaluate-baseline-2.webp)
 
 **What to check:** Read `completed`, `schema`, `decision`, and `required_citations`
 inside each case's `checks`. Inspect the summary and all six rows, not just the last visible case.
@@ -244,12 +249,14 @@ python scripts/workshop.py --language en collect --split dev --label diagnostic-
 python scripts/workshop.py --language en evaluate --label diagnostic-no-evidence
 ```
 
+![September 24 English recording: The diagnostic fails honestly: 0/6 with 0 errors](../assets/g6sol-20260924-en/screenshots/E07-022-diagnostic-evaluate-2.webp)
+
 **What to check:** `evaluate` exits `1` with `passed: 0` and `errors: 0`. In `business-evaluation.json`,
 `required_citations` and `citations_retrieved` are `false` in every row, and `responses.jsonl` shows the agent withholding
 amounts (`insufficient_evidence`) instead of guessing. Use the first row of the table above: the correct document is absent,
 so the fix is retrieval, not the instructions. `feedback` rejects this run, so it never becomes a regression record, and
 `cloud-evaluate` refuses it before any paid call because Groundedness skips rows that have no context.
-The September 23, 2026 English run returned 0/6 with 0 errors.
+The September 24, 2026 English recording returned 0/6 with 0 errors.
 
 </details>
 
@@ -280,13 +287,13 @@ Do not edit JSONL responses or scores. After instruction/code changes, collect u
 a new label. Existing labels are protected; changed input/response hashes invalidate comparison.
 
 
-![September 23 English recording: Local business checks for the candidate](../assets/g6sol-20260923-en/screenshots/E07-005-evaluate-candidate-2.webp)
+![September 24 English recording: Local business checks for the candidate](../assets/g6sol-20260924-en/screenshots/E07-005-evaluate-candidate-2.webp)
 
 **What to check:** Inspect the complete `business-evaluation.json`, using the same
 criteria as baseline. The last few passing rows do not establish full success.
 
 
-![September 23 English recording: Compare v1 and v2 on the same dev data and model](../assets/g6sol-20260923-en/screenshots/E07-006-compare-2.webp)
+![September 24 English recording: Compare v1 and v2 on the same dev data and model](../assets/g6sol-20260924-en/screenshots/E07-006-compare-2.webp)
 
 **What to check:** open `outputs/candidate/comparison-vs-baseline.json` and read
 `variable: prompt`, `baseline_metrics`, `candidate_metrics` and `changed_context_cases`.
@@ -323,7 +330,7 @@ longer unused validation. Do not claim final acceptance without a new holdout.
 Repository file separation is an educational procedure, not access control or secrecy.
 `accept` exit code `1` is a rejected business gate: retain that outcome, not retries until the same holdout passes.
 
-![September 23 English recording: Acceptance handoff, not a deployment approval](../assets/g6sol-20260923-en/screenshots/E07-009-accept-2.webp)
+![September 24 English recording: Acceptance handoff, not a deployment approval](../assets/g6sol-20260924-en/screenshots/E07-009-accept-2.webp)
 
 **What to check:** inspect all four cases and their candidate link, then open
 `outputs/final-holdout/acceptance.json`. Preserve `recommendation` and `deployment_approved: false`.
@@ -357,11 +364,11 @@ python scripts/workshop.py --language en cloud-evaluate --label candidate --time
 results**, then inspect individual failures. Native quality and deterministic business checks are distinct.
 
 
-![September 23 English recording: Optional Foundry cloud judge with gpt-6-sol-judge](../assets/g6sol-20260923-en/screenshots/E07-010-cloud-judge-2.webp)
+![September 24 English recording: Optional Foundry cloud judge with gpt-6-sol-judge](../assets/g6sol-20260924-en/screenshots/E07-010-cloud-judge-2.webp)
 
 **What to check:** Read actual native pass counts and case-level reasons.
 Review any low score on correct withholding without changing the score.
-The September 23 candidate recorded groundedness 6/6 and relevance 5/6; the relevance failure was D05's correct withholding.
+The September 24 candidate recorded groundedness 6/6 and relevance 5/6; the relevance failure was D05's correct withholding.
 
 `data/evaluation/en/calibration.jsonl` contains two explicitly correct/incorrect examples.
 Use them in a separate evaluator experiment before production. They are not generated
@@ -377,16 +384,26 @@ python scripts/workshop.py --language en cloud-evaluate --label baseline --busin
 python scripts/workshop.py --language en cloud-evaluate --label candidate --business-evaluator --reference baseline --timeout 300 --confirm-cost
 ```
 
+If either command stops with `Missing evaluator results … missing ['business_rubric']`, the service ran the
+evaluation without the custom evaluator. The attempt is saved as invalid and scores nothing. Add `--retry-failed`
+to that same command and run it once: the attempt moves to `native-attempts/` and the pinned catalog is reused.
+A retried baseline gets a new Foundry evaluation, so run the candidate command after it. A retried candidate stays in the
+baseline's evaluation as `candidate-retry-1`; compare that run, not the invalid `candidate` run. A completed low score cannot be retried.
+
+![September 24 English recording: Preview: candidate joins the same evaluation for Compare runs](../assets/g6sol-20260924-en/screenshots/E07-015-business-candidate-2.webp)
+
 **What to check:** each output shows `business_rubric_agreement` with `matched: 6`, `total: 6` and an empty
 `mismatched_cases`. A mismatch means the Foundry grader and the local rules disagree: review it, do not pick one.
 Open the second `report_url`, select **Back**, select both runs and then **Compare runs**, and set **Baseline** to `baseline`.
 
-![September 23 English portal capture: Compare runs for baseline and candidate with business_rubric](../assets/eval-portal-20260923/en-compare.png)
+![September 24 English recording: B step 5: Compare runs for baseline and candidate](../assets/g6sol-20260924-en/screenshots/EP07-301-compare-2.webp)
 
-**What to check:** one row each for groundedness, relevance and business_rubric. In a separate September 23, 2026
-verification with a new collection, both English runs scored 6/6 on all three (the recorded candidate above had relevance 5/6:
-judge scores vary between runs). The comparison showed mean relevance 4.33 → 4.83 with **Too few samples**, because six cases
-cannot show a significant difference. Custom evaluators were marked Preview on Microsoft Learn on September 23, 2026.
+**What to check:** one row each for groundedness, relevance and business_rubric. In the September 24, 2026 English recording,
+baseline scored groundedness 6/6, relevance 5/6 (D05's correct withholding) and business_rubric 6/6, and candidate scored 6/6 on
+all three; the cloud judge above had given the same candidate responses relevance 5/6, so judge scores vary between runs.
+The comparison showed mean relevance 3.83 → 4.83 with **Too few samples**, because six cases cannot show a significant difference.
+The recording's first baseline attempt came back without `business_rubric` and was retried once with `--retry-failed`.
+Custom evaluators were marked Preview on Microsoft Learn on September 23, 2026.
 The pinned versions and results are saved under `outputs/<label>/foundry-business-rubric/`.
 
 </details>
@@ -434,27 +451,27 @@ Holdout is never prompt-development or regression-harvesting material.
 </details>
 
 <details>
-<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
+<summary>More September 24 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
+These captures come from the September 24, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![September 23 English recording: Collect the dev baseline with v1 instructions](../assets/g6sol-20260923-en/screenshots/E07-001-baseline-2.webp)
+![September 24 English recording: Collect the dev baseline with v1 instructions](../assets/g6sol-20260924-en/screenshots/E07-001-baseline-2.webp)
 
 **What to check:** Six dev rows with v1 instructions and the same deployment. Every row keeps its response ID.
 
-![September 23 English recording: Use the frozen candidate once on holdout](../assets/g6sol-20260923-en/screenshots/E07-007-holdout-2.webp)
+![September 24 English recording: Use the frozen candidate once on holdout](../assets/g6sol-20260924-en/screenshots/E07-007-holdout-2.webp)
 
 **What to check:** The frozen candidate is used once on the four holdout rows; the manifest links the candidate run.
 
-![September 23 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-101-d01-2.webp)
+![September 24 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP07-101-d01-2.webp)
 
 **What to check:** Portal D01 on the saved agent version. Portal answers are captured screens; assess them in your own sheet.
 
-![September 23 English recording: D04 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-104-d04-2.webp)
+![September 24 English recording: D04 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP07-104-d04-2.webp)
 
 **What to check:** D04 asks about meals: KRW 30,000 per day from July 1, 2026 with `MEAL-01`, not the lodging limit.
 
-![September 23 English recording: D06 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-106-d06-2.webp)
+![September 24 English recording: D06 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP07-106-d06-2.webp)
 
 **What to check:** D06: a KRW 200,000 hotel exceeds the limit by KRW 50,000. The answer must not claim that approval was granted.
 
@@ -464,7 +481,7 @@ These captures come from the September 23, 2026 English recording with `gpt-6-so
 
 ## Completion
 
-The introductory path uses six dev/four holdout cases. The September 23 English run recorded business checks of
+The introductory path uses six dev/four holdout cases. The September 24 English recording recorded business checks of
 6/6 (baseline), 6/6 (candidate) and 4/4 (holdout) with `gpt-6-sol`; the four-model Hosted matrix was not re-run.
 See the [actual English run](../live-run.md) for its own scores, failures, and native findings.
 Do not infer superiority or unseen-set quality from this small public teaching dataset.

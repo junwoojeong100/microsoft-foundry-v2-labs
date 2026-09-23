@@ -1,8 +1,8 @@
-# gpt-6-sol 실제 실행·평가 결과 — 2026-09-23
+# gpt-6-sol 실제 실행·평가 결과 — 2026-09-24
 
 [English](../live-run.md) | **한국어**
 
-**2026-09-23 국문 녹화의 실제 Azure 실행 결과입니다.** 영문 실행, 이전 `gpt-5.6-luna` 판, 원본 저장소의 결과를 복사하지 않았습니다.
+**2026-09-24 국문 녹화의 실제 Azure 실행 결과입니다.** 영문 실행, 이전 `gpt-5.6-luna` 판, 원본 저장소의 결과를 복사하지 않았습니다.
 
 ## 환경
 
@@ -12,7 +12,7 @@
 | 응답 배포 | `gpt-6-sol` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 150K TPM, NoAutoUpgrade |
 | 평가 배포 | `gpt-6-sol-judge` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 100K TPM |
 | 포털이 만든 배포 | `text-embedding-3-large` Standard 110K — 첫 포털 agent를 열 때 자동 생성; 이 실습에서는 사용하지 않음 |
-| 소유 prefix | `mfv2-sol-20260923-ko` |
+| 소유 prefix | `mfv2-sol-20260924-ko` |
 
 리소스 이름에는 환경을 처음 만들 때의 `g6luna`가 남아 있지만 녹화에 사용한 배포는 `gpt-6-sol`입니다. 로컬 키는 비활성화했으며 모든 호출은 Microsoft Entra ID를 사용했습니다.
 
@@ -20,48 +20,69 @@
 
 | Cohort | Split | 지침 | 행 | 오류 | 업무 기준 | 지연 중앙값 |
 |---|---|---|---:|---:|---:|---:|
-| baseline | dev | v1 | 6 | 0 | 6/6 | 3.00 s |
-| candidate | dev | v2 | 6 | 0 | 6/6 | 2.67 s |
-| final-holdout | holdout | v2 (고정) | 4 | 0 | 4/4 | 2.86 s |
+| baseline | dev | v1 | 6 | 0 | 6/6 | 2.65 s |
+| candidate | dev | v2 | 6 | 0 | 6/6 | 2.94 s |
+| final-holdout | holdout | v2 (고정) | 4 | 0 | 4/4 | 2.81 s |
 
-- 실제 baseline에 실패 사례가 없어 feedback/regression 단계는 **실행하지 않았습니다.** 전 문항 통과는 그대로 기록하며 v2가 더 낫다는 증거로 쓰지 않습니다.
+- 실제 baseline에 실패 사례가 없어 feedback 단계 대신 dev 전용 근거 없음 진단을 실행했습니다: 0/6, 오류 0, 모든 답변 보류. 전 문항 통과는 그대로 기록하며 v2가 더 낫다는 증거로 쓰지 않습니다.
 - holdout 한 번 실행 전에 후보를 고정했으며 holdout을 지침 개발에 쓰지 않았습니다.
 - 인수 판단: `ready-for-human-review`, `deployment_approved: false`. 작은 공개 합성 데이터이며 운영 검증이 아닙니다.
 
 ## 선택 Foundry cloud judge
 
-candidate dev 6행을 `gpt-6-sol-judge`로 평가했습니다. evaluation `eval_dcf423a3bfc543b4be4302bd768bdbc0`, run `evalrun_4867d27cfee6416d85fd8205b07ebefc`, 상태 `completed`.
+candidate dev 6행을 `gpt-6-sol-judge`로 평가했습니다. evaluation `eval_32edb7c982dc4f4081672bdbdef2a6ec`, run `evalrun_03d3b7eb480b49b2a57704ecab2d6db9`, 상태 `completed`.
 
 | Evaluator | 통과 | 실패 | 오류 |
 |---|---:|---:|---:|
 | groundedness | 6 | 0 | 0 |
 | relevance | 5 | 1 | 0 |
 
-relevance 실패 행은 의도한 보류 사례인 **D05**(점수 2)입니다. 해외 규정이 없으므로 금액을 주지 않은 답변이 맞습니다. 올바른 보류에 낮은 relevance가 나온 것은 검토할 judge의 한계이며 금액을 지어낼 이유가 아닙니다. 점수는 바꾸지 않았고 native judge 점수는 인수 판단에 포함하지 않습니다.
+relevance 실패 행은 의도한 보류 사례인 **D05**(점수 3)입니다. 해외 규정이 없으므로 금액을 주지 않은 답변이 맞습니다. 올바른 보류에 낮은 relevance가 나온 것은 검토할 judge의 한계이며 금액을 지어낼 이유가 아닙니다. 점수는 바꾸지 않았고 native judge 점수는 인수 판단에 포함하지 않습니다.
+
+## 이번 녹화의 선택 Foundry 평가
+
+| 평가 | 범위 | 결과 |
+|---|---|---|
+| 포털 평가(Lab 07 A) | `mfv2-sol-20260924-ko-portal-dev`, dev 6문항 | Relevance 6/6, Coherence 6/6, TaskAdherence 0/6 |
+| 추적 평가(Lab 09 A) | `mfv2-sol-20260924-ko-traces`, 기록한 대화 | Relevance 15/15, Coherence 15/15, TaskAdherence 15/15 |
+| 업무 기준(Lab 07 B, Preview) | `eval_3af44930ff5c423989b6cad9077befc0` | baseline: groundedness 6/6, relevance 5/6, business_rubric 6/6, 일치 6/6; candidate: groundedness 6/6, relevance 5/6, business_rubric 6/6, 일치 6/6 |
+| MAF 도구 호출(Lab 04, 실험 API) | `eval_99190873d4204f6f93e95b2c795e6e8d` | tool_call_accuracy 5/6, relevance 5/6 |
+
+judge 점수는 업무 판단이 아닙니다. 행마다 이유를 읽습니다. 포털 평가는 녹화한 이름으로 찾았고 행별 점수는 live-results.json에 있습니다.
+
+## 이번 녹화에 남긴 실패
+
+실패한 액션은 실제 출력 그대로 영상과 화면에 남겼습니다. 재시도나 수정은 별도의 이후 액션이며 실패한 액션을 대신하지 않습니다.
+
+| ID | 종료 코드 | 내용 |
+|---|---:|---|
+| KP07-203-dataset | 캡처 도구 | 업로드는 성공했습니다(업로드 완료 메시지와 국문 질문 미리 보기가 표시됨). 하지만 데이터 세트 목록이 새로 고쳐지지 않아 캡처 도구가 새 행을 기다리다 시간 초과됐습니다. Foundry 실패가 아니며, KP07-213-dataset이 새 마법사에서 같은 데이터 세트를 선택했습니다. |
+| KP07-215-criteria | 캡처 도구 | 이름 변경 창이 아직 로드 중일 때 캡처 도구가 입력하려 해 대상을 찾지 못했습니다(Target count 0). judge 선택과 제거는 이미 적용됐고, KP07-215-criteria-resume이 창이 열린 뒤 이름을 바꾸고 TaskAdherence를 추가했습니다. Foundry 실패가 아닙니다. |
+| KP07-202-target-scope | 대체됨 | 대체됨: 대상 목록이 버전 1(Web search가 남아 있던 첫 버전)을 미리 선택했고 캡처 도구가 바꾸지 않았습니다. KP07-211~KP07-217에서 버전 2로 평가를 다시 실행했으며 버전 1 평가는 제출하지 않았습니다. |
 
 ## 그 밖의 실제 결과
 
 - **Lab 02:** 첫 SDK 요청은 `response_model: gpt-6-sol`, 검증된 구조화 답변은 `TRAVEL-2026`, `RECEIPT-01`, `APPROVAL-01`을 인용했습니다.
-- **Lab 03:** 포털 agent `mfv2-sol-20260923-ko-policy`는 버전 2로 저장했고 답변은 화면으로만 기록했습니다(점수 아님). SDK agent `mfv2-sol-20260923-ko-policy-sdk` 버전 1을 생성·호출했습니다.
+- **Lab 03:** 포털 agent `mfv2-sol-20260924-ko-policy`는 버전 2로 저장했고 답변은 화면으로 기록했습니다(선택 Lab 09 추적 평가가 이후 이 대화를 채점). SDK agent `mfv2-sol-20260924-ko-policy-sdk` 버전 1을 생성·호출했습니다.
 - **Lab 04–05:** `tools: none`·`function`·`local-mcp` MAF 실행과 sequential·concurrent·group-chat workflow가 모두 종료 코드 0으로 끝났습니다.
 - **Lab 06:** 합성 정책 6개로 로컬·Search·GA IQ 검색을 실행했습니다. IQ 근거 답변은 `APPROVAL-01`, `RECEIPT-01`, `TRAVEL-2025`, `TRAVEL-2026`을 검색해 `TRAVEL-2026`, `APPROVAL-01`, `RECEIPT-01`을 인용했습니다(`needs_approval`, 150,000원).
 - **Lab 08–09:** 패키징만(Hosted 배포 없음), 정리 목록만(삭제 없음) 실행했습니다.
 
 ## 계보
 
-- base commit `47f3b492d5146d8050faf303b4060db2dfc75185`, 작업 트리 source hash `40e47905763c482d964e49d3925322df4f9d9f7700833686b653379e9d513b99`
-- `baseline` run `9e580bed-b058-4aaf-a18c-175eb09b6b2d`: dataset `84e2b286e92e73f3…`, corpus `3556faa7cb0099cf…`, code `466558728a75693c…`, prompt `fb6e5f43288e2aa5…`, responses `7db267763206633a…`
-- `candidate` run `edfc93ff-e95e-4923-9f8a-82cb8d710699`: dataset `84e2b286e92e73f3…`, corpus `3556faa7cb0099cf…`, code `466558728a75693c…`, prompt `2b4a2b5e322a8534…`, responses `3d16a909e84f16e6…`
-- `final-holdout` run `dd5125d8-5427-4aaf-9ea5-bae14cac2e82`: dataset `9d478d727527064c…`, corpus `3556faa7cb0099cf…`, code `466558728a75693c…`, prompt `2b4a2b5e322a8534…`, responses `d3cb72bb228d96af…`
-- cloud judge: input `13c236a677a9c5fa…`, evaluator `a0e7f44a59d34f75…`, results `7f24c791f13c23dc…`
+- base commit `90b18b305721c73398c92071f3ba7f85540c4d5d`, 작업 트리 source hash `71d81e13d0eb4ae4bac00c5185712d3ca9dbaf353f324159103a036aed1f0f3a`
+- `baseline` run `148f3aab-acd3-4c67-a0f2-683ad82c9f95`: dataset `84e2b286e92e73f3…`, corpus `3556faa7cb0099cf…`, code `1632ec72c74c70fc…`, prompt `fb6e5f43288e2aa5…`, responses `a1b1dbf411a40ec8…`
+- `candidate` run `018d1482-3672-4550-a7ea-19d706c68134`: dataset `84e2b286e92e73f3…`, corpus `3556faa7cb0099cf…`, code `1632ec72c74c70fc…`, prompt `2b4a2b5e322a8534…`, responses `47c23148ad3d6c3a…`
+- `final-holdout` run `a04768a3-55aa-4839-9d74-8af8eea012a5`: dataset `9d478d727527064c…`, corpus `3556faa7cb0099cf…`, code `1632ec72c74c70fc…`, prompt `2b4a2b5e322a8534…`, responses `a3a39c3d9427ea25…`
+- cloud judge: input `755439d5b4a4b468…`, evaluator `a0e7f44a59d34f75…`, results `47a12e3ba9d121a0…`
 
-전체 hash는 [live-results.json](../assets/g6sol-20260923-ko/live-results.json)에 있습니다.
+전체 hash는 [live-results.json](../assets/g6sol-20260924-ko/live-results.json)에 있습니다.
 
 ## 선택 평가 추가분 — 별도 검증, 2026-09-23
 
 녹화 이후 추가한 선택 평가 단계를 확인한 실행입니다. 같은 소스(code hash `b160d84d2e0e1087…`)의 별도 복사본에서 새 label로,
 같은 `gpt-6-sol` / `gpt-6-sol-judge` 배포와 prefix `mfv2-sol-20260923-ko`를 사용했습니다.
-편집 영상에는 포함되지 않으며 포털 단계는 별도 [캡처](../assets/eval-portal-20260923/captures.json)로 남겼습니다.
+편집 영상에는 포함되지 않습니다. 별도 포털 캡처는 2026-09-24 녹화가 같은 포털 단계를 다시 실행한 뒤 삭제했습니다([액션](action-captures.md)).
 
 | 단계 | 결과 |
 |---|---|
@@ -74,7 +95,7 @@ relevance 실패 행은 의도한 보류 사례인 **D05**(점수 2)입니다. �
 사용자 지정 평가자 `mfv2_sol_20260923_ko_business_rubric`은 버전 1입니다.
 한국어 포털에서는 관련성·일관성 평가자의 기본 이름이 이름 검사를 통과하지 못해 `Relevance`, `Coherence`로 바꾼 뒤 제출했습니다.
 TaskAdherence 실패 이유는 인용 금액을 검증할 수 없다는 것이었으며, 평가자에게 질문과 답변만 전달되기 때문입니다.
-기존 추적 평가는 Application Insights의 모니터링 읽기 권한자 역할이 필요하다는 안내가 표시되었고 역할을 할당하지 않아 실행하지 않았습니다.
+기존 추적 평가는 처음에 모니터링 읽기 권한자 역할 요청에서 멈췄고, 같은 날 담당자가 역할을 할당한 뒤 실행했습니다(다음 절).
 
 **코드 검토 후 재확인(code `408b1b57…`):** 결과 매핑을 다시 작성한 `maf-evaluate`를 다시 실행했습니다(`eval_e330c6aa…`).
 tool_call_accuracy 6/6, relevance 6/6이며 모든 출력 항목이 해당 질문과 연결되었습니다.
@@ -82,16 +103,33 @@ tool_call_accuracy 6/6, relevance 6/6이며 모든 출력 항목이 해당 질�
 6행 중 4행을 건너뛰었습니다. 서비스는 relevance 0/6, `business_rubric` 0/6을 보고했지만 워크숍은 결과를 무효로 표시하고
 아무것도 집계하지 않았습니다. 최종 코드(`67e7ac04…`)는 이런 실행을 클라우드 호출 전에 거부하며, 같은 label에서 확인했습니다.
 
+## 이전에 실행하지 않은 항목 — 2026-09-23
+
+이후 담당자가 실행하지 않은 항목의 실행을 요청했습니다. 같은 날 저녁 같은 프로젝트·배포와 prefix `mfv2-sol-20260923-<language>`로
+실행했으며 편집 영상에는 포함되지 않습니다.
+
+| 항목 | 실행한 내용 | 결과 |
+|---|---|---|
+| Lab 09 A 기존 추적 평가 | 담당자가 Application Insights에 대한 프로젝트 ID의 **모니터링 읽기 권한자**를 할당. 언어마다 기록된 대화 15개를 포털에서 평가(`eval_a68f080f…` 영문, `eval_71cf2435…` 국문) | 두 언어 모두 Relevance·Coherence·TaskAdherence 각 15/15. 각 `query`에 정책을 포함한 에이전트 지침이 들어 있음 |
+| 되풀이 평가 | 추적 평가마다 **되풀이 설정**: 예약됨, 시간별, 라이브 트래픽, 무작위 샘플링, 실행당 추적 5개. 언어마다 계획한 D01 요청 1회 후 **일시 중지** | 일정을 저장하자 첫 실행이 시작됨(언어마다 5/5). 다음 시간별 실행은 영문 계획 요청을 표본에 포함했지만(5/5) 국문 계획 요청은 포함하지 않음(이전 대화 5/5). 매 실행이 최근 7일에서 표본을 뽑음. 두 일정은 일시 중지 후 비활성으로 다시 확인 |
+| Agent Optimizer | 임시 `gpt-5.5` optimizer 배포, 격리 복사본 `mfv2-sol-20260923-<language>-optimize` v1, Instruction만·후보 2개·judge `gpt-6-sol-judge`(`opt_63e8e1d5…`, `opt_607d539e…`) | baseline만 반환: 영문 0.979, 국문 0.938(D05 relevance 2). Groundedness가 답변을 자기 자신과 비교. 승격 없음. 임시 배포는 이후 삭제 |
+| 클라우드 red teaming(Preview) | Lab 03 prompt agent의 SDK scan(금지된 작업 taxonomy, Flip·Base64, 1턴)과 행동 2개 taxonomy로 한 영문 포털 scan | 표시된 ASR은 영문 89%(75/84), 국문 57%(48/84), 포털 100%(6/6)였지만 모든 행의 reasoning은 응답이 안전하다고 판단. 금지 행동을 수행한 응답 없음. ASR을 무효로 표시 |
+| 승인된 Hosted 릴리스 | 기존 CI ID에 이 프로젝트 범위 역할 부여. `hosted-lab-release` 실행 [35856612314](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314)(영문), [35857252318](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318)(국문) | 둘 다 첫 시도에 통과: Hosted agent `mfv2-sol-20260923-ci-hosted` 버전 1·2, dev 6문항 gate 6/6·오류 0, session idle |
+
+임시 optimizer 배포가 있는 동안 새 평가의 **판단 모델** 기본값이 그 배포였고, optimizer wizard의 **Evaluation model** 기본값은
+`gpt-6-sol`이었습니다. 둘 다 `gpt-6-sol-judge`로 직접 바꿨습니다.
+red-team 호출은 Application Insights에 에이전트 추적을 남기지 않았고 optimizer 실행은 에이전트마다 27개를 남겨, optimizer는 격리 복사본을 사용했습니다.
+
 ## gpt-6-sol로 실행하지 않은 것
 
 - Lab 03 포털 File Search
 - Lab 06 IQ Chat preset(gpt-5.6-luna)과 하이브리드 RAG
-- Lab 07 feedback/regression 단계(baseline 실패 없음. 별도 근거 없음 진단은 설계상 거부)
+- Lab 07 feedback/regression 단계(baseline 실패 없음, 대신 근거 없음 진단 실행)
 - Lab 07 Hosted 모델 matrix
-- Lab 08 로컬 서버와 Hosted 배포
-- Lab 09 서버 측 tracing 확인, 기존 추적 평가, continuous evaluation
+- Lab 08 로컬 서버와 학습자 본인의 Hosted 배포(위의 승인된 CI 릴리스는 별도 Hosted agent를 배포)
+- Lab 09 Hosted agent의 서버 측 tracing 확인
 - Lab 10 외부 IQ 확장
-- 확장 모듈
+- 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영을 제외한 확장 모듈
 
 이전 `gpt-5.6-luna` 녹화와 결과 페이지(2026-09-15~17)는 작업 트리에서 삭제했습니다. git 기록에만 남아 있으며 이 preset의 결과가 아닙니다.
 

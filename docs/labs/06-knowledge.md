@@ -92,7 +92,7 @@ If evidence is missing, record the limitation instead of hardcoding answers.
 Keep the selected English question unchanged within this experiment; `--language en` selects English documents.
 
 
-![September 23 English recording: Local keyword retrieval over the six synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-001-local-2.webp)
+![September 24 English recording: Local keyword retrieval over the six synthetic policies](../assets/g6sol-20260924-en/screenshots/E06-001-local-2.webp)
 
 **What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
 retrieval, not Search/IQ. Check the returned provider, not just configured endpoint names.
@@ -119,7 +119,7 @@ Do not delete the old ledger. Partial document upload
 failure is not overall success.
 
 
-![September 23 English recording: Create the owned Search index with the synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-002-seed-search-2.webp)
+![September 24 English recording: Create the owned Search index with the synthetic policies](../assets/g6sol-20260924-en/screenshots/E06-002-seed-search-2.webp)
 
 **What to check:** The seed result has `mode: live`, your `index`, `document_count: 6`,
 `hybrid: false`, and `knowledge_base: null`. It created ordinary Search objects, not IQ.
@@ -133,7 +133,7 @@ python scripts/workshop.py --language en retrieve --provider search \
   --output outputs/learner-notes-en/retrieve-search.json
 ```
 
-![September 23 English recording: Keyword retrieval from Azure AI Search](../assets/g6sol-20260923-en/screenshots/E06-003-search-2.webp)
+![September 24 English recording: Keyword retrieval from Azure AI Search](../assets/g6sol-20260924-en/screenshots/E06-003-search-2.webp)
 
 **What to check:** Read the result of `--provider search`; verify endpoint/index.
 Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
@@ -156,7 +156,7 @@ python scripts/workshop.py --language en retrieve --provider iq \
 ```
 
 
-![September 23 English recording: Create the owned GA IQ knowledge source and base](../assets/g6sol-20260923-en/screenshots/E06-004-seed-iq-2.webp)
+![September 24 English recording: Create the owned GA IQ knowledge source and base](../assets/g6sol-20260924-en/screenshots/E06-004-seed-iq-2.webp)
 
 **What to check:** The seed result now has a non-null `knowledge_base` and `document_count: 6`.
 The **retrieve** result reports the source/base configuration and `api_version: 2026-04-01`.
@@ -171,7 +171,7 @@ An IQ error stays an error; it never falls back to ordinary Search.
 
 
 
-![September 23 English recording: GA Foundry IQ retrieval with source references](../assets/g6sol-20260923-en/screenshots/E06-005-iq-2.webp)
+![September 24 English recording: GA Foundry IQ retrieval with source references](../assets/g6sol-20260924-en/screenshots/E06-005-iq-2.webp)
 
 **What to check:** Read `activity`, base, API version, `references` and `documents` together.
 Do not fill unreported latency or usage with invented values.
@@ -190,7 +190,7 @@ Retrieval and generation are separated to diagnose failures: a missing policy is
 different from misreading the effective date of a correctly retrieved policy.
 
 
-![September 23 English recording: Send IQ evidence to gpt-6-sol for a validated answer](../assets/g6sol-20260923-en/screenshots/E06-006-answer-iq-2.webp)
+![September 24 English recording: Send IQ evidence to gpt-6-sol for a validated answer](../assets/g6sol-20260924-en/screenshots/E06-006-answer-iq-2.webp)
 
 **What to check:** Verify the IQ base/API, `response_model`, `response_id`, and `usage`.
 Compare the amount, conditions, and citations in `answer` with the original documents.

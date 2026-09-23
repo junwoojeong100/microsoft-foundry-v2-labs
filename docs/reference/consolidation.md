@@ -67,7 +67,7 @@ Archiving does not remove code or existing URLs.
 On September 15, 2026 (earlier `gpt-5.6-luna` edition) the Korean follow-up verified actual workflow deployment,
 four-model 24/24/16 rows, native evaluation, calibration and 64 root traces; that matrix was not re-run with `gpt-6-sol`.
 That does not validate every optional external Work IQ/Fabric/Toolbox path.
-The September 23 [live results](../live-run.md) cover only the main A/B steps with `gpt-6-sol`.
+The September 24 [live results](../live-run.md) cover the main A/B steps and the optional evaluation steps with `gpt-6-sol`.
 
 ## Release sequence
 

@@ -13,8 +13,8 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSET_RUN = "g6sol-20260923-en"
-ASSET_RUNS = {"en": ASSET_RUN, "ko": "g6sol-20260923-ko"}
+ASSET_RUN = "g6sol-20260924-en"
+ASSET_RUNS = {"en": ASSET_RUN, "ko": "g6sol-20260924-ko"}
 DEFAULT_SERIES = "gpt-6-sol"
 SERIES = {DEFAULT_SERIES: ASSET_RUNS}
 

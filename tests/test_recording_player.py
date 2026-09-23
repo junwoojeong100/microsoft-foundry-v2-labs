@@ -20,7 +20,7 @@ class RecordingPlayerTests(unittest.TestCase):
             with self.subTest(edition=edition):
                 catalog, files = PLAYER.media_catalog(ROOT, edition)
                 self.assertEqual(catalog["edition"], edition)
-                self.assertEqual(catalog["recorded_on"], "2026-09-23")
+                self.assertEqual(catalog["recorded_on"], "2026-09-24")
                 self.assertEqual(catalog["series"], "gpt-6-sol")
                 self.assertIn(catalog["default_video"], files)
                 self.assertEqual(

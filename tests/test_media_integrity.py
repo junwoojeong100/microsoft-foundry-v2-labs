@@ -7,9 +7,10 @@ from itertools import pairwise
 from . import ROOT
 
 ASSETS = {
-    language: ROOT / "docs/assets" / f"g6sol-20260923-{language}" for language in ("ko", "en")
+    language: ROOT / "docs/assets" / f"g6sol-20260924-{language}" for language in ("ko", "en")
 }
-REMOVED_SERIES = ("refresh-20260915", "edition-20260916", "g6luna-20260923")
+REMOVED_SERIES = ("refresh-20260915", "edition-20260916", "g6luna-20260923", "g6sol-20260923")
+REMOVED_SUPPLEMENTS = ("eval-portal-20260923",)
 REMOVED_PAGES = (
     "edition-results.md",
     "edition-videos.md",
@@ -18,6 +19,11 @@ REMOVED_PAGES = (
     "gpt-6-luna-recordings.md",
 )
 HASH_FIELDS = ("dataset_hash", "corpus_hash", "code_hash", "prompt_hash", "responses_hash")
+# A kept failure must be followed by the recorded action that completed the same guide step.
+FOLLOW_UPS = {
+    "07-011-business-baseline": ("07-013-business-retry",),
+    "07-012-business-candidate": ("07-014-business-readback", "07-015-business-candidate"),
+}
 
 
 def read(path):
@@ -25,41 +31,15 @@ def read(path):
 
 
 class MediaIntegrityTests(unittest.TestCase):
-    """September 23 gpt-6-sol recordings of the main A/B steps (Labs 00-09 and 11)."""
+    """September 24 gpt-6-sol recordings of the main A/B steps (Labs 00-09 and 11) with the optional evaluations."""
 
     assets = ASSETS
-    recorded_on = "2026-09-23"
+    recorded_on = "2026-09-24"
     lab_ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11]
     unrecorded_guides = {"10-iq-extensions"}
     action_index = "action-captures.md"
     video_summary = "video-summary.md"
-    supplemental_assets = ("iq-chat-20260917", "eval-portal-20260923")
-
-    def test_evaluation_portal_captures_are_exact_and_used_once_in_their_language(self):
-        directory = ROOT / "docs/assets/eval-portal-20260923"
-        evidence = read(directory / "captures.json")
-        self.assertFalse(evidence["image_edited"])
-        self.assertFalse(evidence["page_dom_modified_for_capture"])
-        self.assertFalse(evidence["authentication_captured"])
-        self.assertEqual(evidence["portal_language_restored"], "en")
-        self.assertEqual(evidence["model_preset"]["judge_deployment"], "gpt-6-sol-judge")
-        files = {path.name for path in directory.glob("*.png")}
-        self.assertEqual(files, {item["file"] for item in evidence["images"]})
-        for item in evidence["images"]:
-            with self.subTest(file=item["file"]):
-                content = (directory / item["file"]).read_bytes()
-                self.assertEqual(len(content), item["bytes"])
-                self.assertEqual(hashlib.sha256(content).hexdigest(), item["sha256"])
-                self.assertTrue(item["file"].startswith(item["guide_language"] + "-"))
-                guide = (ROOT / item["guide"]).read_text()
-                self.assertEqual(guide.count(f"/eval-portal-20260923/{item['file']}"), 1)
-        for language, run in evidence["live_runs"].items():
-            portal = run["portal_evaluation"]
-            with self.subTest(language=language):
-                self.assertTrue(
-                    all(0 <= value <= portal["total"] for value in portal["passed"].values())
-                )
-                self.assertEqual(len(run["business_comparison"]["runs"]), 2)
+    supplemental_assets = ("iq-chat-20260917",)
 
     def test_language_editions_use_different_actual_source_and_output_videos(self):
         hashes = {}
@@ -71,7 +51,7 @@ class MediaIntegrityTests(unittest.TestCase):
             self.assertTrue(media["new_azure_execution"])
             self.assertTrue(media["all_failures_retained_in_private_source"])
             self.assertEqual(len(media["videos"]), 3)
-            self.assertEqual(media["edition_id"], "g6sol-20260923")
+            self.assertEqual(media["edition_id"], "g6sol-20260924")
             self.assertEqual(
                 media["model_preset"],
                 {
@@ -126,10 +106,33 @@ class MediaIntegrityTests(unittest.TestCase):
             self.assertEqual(len(actions), len({item["id"] for item in actions}))
             self.assertEqual({item["lab"] for item in actions}, set(self.lab_ids))
             self.assertEqual({item["channel"] for item in actions}, {"terminal", "portal"})
+            summary = read(directory / "live-results.json")["actions"]
+            expected_nonzero = set(summary["expected_nonzero_exit"])
+            retained = {item["id"]: item for item in summary["retained_failures"]}
+            identifiers = [item["id"] for item in actions]
+            for identifier, item in retained.items():
+                self.assertIn(identifier[1:], FOLLOW_UPS)
+                self.assertTrue(item["reason"])
+                for follow_up in FOLLOW_UPS[identifier[1:]]:
+                    self.assertIn(identifier[0] + follow_up, identifiers)
             for action in actions:
                 self.assertTrue(action["id"].startswith("K" if language == "ko" else "E"))
+                if action["id"] in retained:
+                    self.assertEqual(action["status"], "failed")
+                    self.assertEqual(action["exit_code"], retained[action["id"]]["exit_code"])
+                    self.assertNotEqual(action["exit_code"], 0)
+                    continue
                 self.assertEqual(action["status"], "recorded")
-                self.assertEqual(action["exit_code"], 0)
+                self.assertEqual(action["exit_code"], 1 if action["id"] in expected_nonzero else 0)
+                if action.get("capture_issue"):
+                    self.assertIn("Not a Foundry failure", action["capture_issue"])
+                    named = set(
+                        re.findall(
+                            r"\b[EK]P?\d\d-\d{3}-[a-z0-9-]*[a-z0-9]", action["capture_issue"]
+                        )
+                    )
+                    self.assertTrue(named - {action["id"]})
+                    self.assertTrue(named <= set(identifiers), named)
                 self.assertTrue(action["capture_status_is_not_execution_success"])
                 self.assertTrue(action["images"])
                 self.assertTrue(set(action["images"]) <= known)
@@ -266,7 +269,7 @@ class MediaIntegrityTests(unittest.TestCase):
                 actions = read(self.assets[language] / "actions.json")["actions"]
                 self.assertEqual(result["language"], language)
                 self.assertEqual(result["series"], "gpt-6-sol")
-                self.assertEqual(result["edition_id"], "g6sol-20260923")
+                self.assertEqual(result["edition_id"], "g6sol-20260924")
                 self.assertFalse(result["holdout_used_for_development"])
                 self.assertFalse(result["production_approval"])
                 self.assertRegex(result["source_hash"], "^[0-9a-f]{64}$")
@@ -287,9 +290,48 @@ class MediaIntegrityTests(unittest.TestCase):
                     [item["id"] for item in actions if item["status"] == "failed"],
                 )
                 self.assertEqual(
-                    [item["id"] for item in result["actions"]["skipped"]],
-                    [("K" if language == "ko" else "E") + "07-003-feedback"],
+                    result["actions"]["failed"],
+                    [item["id"] for item in result["actions"]["retained_failures"]],
                 )
+                self.assertEqual(result["actions"]["nonzero_exit"], [])
+                self.assertEqual(
+                    [item["id"] for item in result["actions"]["capture_issues"]],
+                    [item["id"] for item in actions if item.get("capture_issue")],
+                )
+                letter = "K" if language == "ko" else "E"
+                identifiers = {item["id"] for item in actions}
+                conditional = [
+                    letter + suffix
+                    for suffix in (
+                        "07-013-business-retry",
+                        "07-014-business-readback",
+                        "07-015-business-candidate",
+                    )
+                    if letter + suffix not in identifiers
+                ]
+                skipped = [item["id"] for item in result["actions"]["skipped"]]
+                if result["diagnostic_no_evidence"]:
+                    self.assertEqual(skipped, [f"{letter}07-003-feedback", *conditional])
+                    self.assertEqual(
+                        result["actions"]["expected_nonzero_exit"],
+                        [f"{letter}07-022-diagnostic-evaluate"],
+                    )
+                    self.assertEqual(result["diagnostic_no_evidence"]["business_passed"], 0)
+                    self.assertEqual(result["diagnostic_no_evidence"]["errors"], 0)
+                else:
+                    self.assertEqual(
+                        skipped,
+                        [
+                            f"{letter}07-021-diagnostic",
+                            f"{letter}07-022-diagnostic-evaluate",
+                            *conditional,
+                        ],
+                    )
+                for update in result["source_updates"]:
+                    self.assertIn(update["applies_from_action"], identifiers)
+                    self.assertRegex(update["source_hash_after"], "^[0-9a-f]{64}$")
+                    self.assertNotEqual(update["source_hash_before"], update["source_hash_after"])
+                    self.assertTrue(update["files"])
                 cohorts = result["cohorts"]
                 self.assertEqual(
                     [item["label"] for item in cohorts], ["baseline", "candidate", "final-holdout"]
@@ -323,7 +365,43 @@ class MediaIntegrityTests(unittest.TestCase):
                     self.assertEqual(counts["failed"], len(judge["failed_cases"].get(name, [])))
                 for key in ("input_hash", "dataset_hash", "evaluator_hash", "results_hash"):
                     self.assertRegex(judge[key], "^[0-9a-f]{64}$")
-                self.assertFalse(result["portal"]["portal_answers_evaluated"])
+                self.assertTrue(result["portal"]["portal_answers_evaluated"])
+                rubric = result["business_rubric"]
+                self.assertEqual(
+                    rubric["baseline"]["evaluation_id"], rubric["candidate"]["evaluation_id"]
+                )
+                for label in ("baseline", "candidate"):
+                    self.assertEqual(rubric[label]["validation_status"], "valid")
+                    self.assertEqual(rubric[label]["agreement"]["total"], 6)
+                    first = rubric[label].get("first_attempt")
+                    if first:
+                        self.assertEqual(first["validation_status"], "invalid")
+                        self.assertTrue(first["evaluator_hash_unchanged"])
+                        self.assertEqual(rubric[label]["retry_of"]["run_id"], first["run_id"])
+                tools = result["maf_tool_evaluation"]
+                self.assertTrue(tools["complete"])
+                self.assertEqual(tools["errors"], 0)
+                self.assertEqual(
+                    set(tools["native_pass_counts"]), {"tool_call_accuracy", "relevance"}
+                )
+                portal = result["portal_evaluations"]
+                superseded = {item["id"] for item in result["actions"]["superseded"]}
+                self.assertEqual(
+                    set(portal),
+                    {"portal_dataset", "portal_traces"}
+                    | (
+                        {"portal_dataset_superseded"}
+                        if f"{letter}P07-206-submit" in superseded
+                        else set()
+                    ),
+                )
+                for item in portal.values():
+                    self.assertTrue(item["name"].startswith(result["prefix"] + "-"))
+                    self.assertTrue(any(run["status"] == "completed" for run in item["runs"]))
+                for key in ("portal_dataset", "portal_traces"):
+                    self.assertEqual(
+                        {run["agent_version"] for run in portal[key]["runs"]}, {"2"}, key
+                    )
         for key in ("dataset_hash", "corpus_hash"):
             self.assertNotEqual(results["ko"]["cohorts"][0][key], results["en"]["cohorts"][0][key])
 
@@ -352,6 +430,8 @@ class MediaIntegrityTests(unittest.TestCase):
         for name in REMOVED_SERIES:
             for language in ("ko", "en"):
                 self.assertFalse((ROOT / "docs/assets" / f"{name}-{language}").exists())
+        for name in REMOVED_SUPPLEMENTS:
+            self.assertFalse((ROOT / "docs/assets" / name).exists())
         for name in REMOVED_PAGES:
             self.assertFalse((ROOT / "docs" / name).exists())
             self.assertFalse((ROOT / "docs/ko" / name).exists())
@@ -365,3 +445,5 @@ class MediaIntegrityTests(unittest.TestCase):
                     self.assertNotIn(f"{name}-ko", text)
                 for name in REMOVED_PAGES:
                     self.assertNotIn(name, text)
+                for name in REMOVED_SUPPLEMENTS:
+                    self.assertNotIn(f"{name}/", text)

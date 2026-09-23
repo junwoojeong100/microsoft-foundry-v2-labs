@@ -6,6 +6,98 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="gpt-6-sol-20260924"></a>
+
+## Re-recording with the optional evaluation steps — September 24, 2026
+
+**Recordings:** new English and Korean recordings, started after 00:00 KST, of the main A/B steps of Labs 00–09 and 11 and the
+optional Foundry evaluation steps, in the same Sweden Central project with `gpt-6-sol` / `gpt-6-sol-judge` and the prefixes
+`mfv2-sol-20260924-<language>`. English: 98 actions, 293 lossless captures, videos 6:29 / 3:11 / 2:55 and 262 source segments
+(minimum SSIM 0.9922) from one terminal and two portal recordings. Korean: 91 actions, 272 captures, 6:03 / 2:57 / 2:43 and 244
+segments (minimum SSIM 0.9923). Local byte-range playback and all 11 chapter seeks were verified in each language; nothing was
+uploaded or pushed. The `g6sol-20260923` recordings and the separate `eval-portal-20260923` captures were removed from the working
+tree (git history at `90b18b3`); `videos/` holds `gpt-6-sol-20260924-en-summary.mp4` and `-ko-summary.mp4`, copies of each guide-ordered video.
+[Recordings](../video-summary.md) · [Actual results](../live-run.md).
+
+**Failures kept in the recording and what changed:**
+
+- `E07-011`: the business-rubric baseline run returned groundedness and relevance but no `business_rubric` (0 errored), although
+  its evaluation had three testing criteria. The CLI rejected it as invalid. The Korean `K07-011` returned all three the first time.
+- `cloud-evaluate` gained `--retry-failed` (the native retry already existed) and an error that names the missing evaluator.
+  `E07-013` retried once and kept the first attempt under `native-attempts/attempt-1`.
+- `E07-012` then refused `--reference baseline`: the rebuilt retry state had lost `item_fields`, a bug in that retry path.
+  The retry now keeps `item_fields` (regression test added); `E07-014` read the completed retry back without a new job and
+  `E07-015` joined the candidate. Both source updates and hashes are in `live-results.json` (`source_updates`).
+  After the recording, a `--reference` run can also be retried: the retry stays in the reference's evaluation as
+  `<label>-retry-N`, and the advice to use `--retry-failed` appears only in `cloud-evaluate` errors. This change has offline
+  and SDK tests only; it was not run against Azure.
+- Opened from the playground, the portal evaluation wizard preselected agent **Version 1**, which still had Web search. The English
+  capture tool kept it (`EP07-202`), so `EP07-206`/`EP07-207` scored Version 1 (TaskAdherence 4/6; D05 answered with an external U.S.
+  rate). Both languages repeated the evaluation with Version 2 (`*P07-211` to `*P07-217`): Relevance 6/6, Coherence 6/6,
+  TaskAdherence 0/6. Item 2 of Lab 07 A step 4 and item 1 of the Lab 09 A trace evaluation now tell learners to keep only the saved version.
+- Capture-tool timing, not Foundry failures: `EP07-205` clicked before the evaluator list loaded, `KP07-203` waited for a dataset
+  row that did not refresh after a successful upload, `KP07-215` typed before the rename dialog loaded. Later, separately named
+  actions completed each step.
+
+**Results in each language:** business checks baseline 6/6, candidate 6/6 and holdout 4/4; the no-evidence diagnostic 0/6 with
+0 errors; cloud judge groundedness 6/6 and relevance 5/6 (D05). Business-rubric agreement was 6/6 for both runs; **Compare runs**
+showed mean relevance 3.83 → 4.83 (English) and 4.17 → 4.50 (Korean) with **Too few samples**. MAF tool calls: English 6/6 and
+6/6; Korean tool_call_accuracy 5/6 (D03's search query named `APPROVAL-01`, which the evaluator called a fabricated parameter) and
+relevance 5/6 (D05). Trace evaluation: English 10/10, Korean 15/15, including five conversations that the earlier portal evaluation created.
+
+**Azure changes:** under the new prefixes — portal agents (versions 1–2) and SDK agents, Search indexes, IQ knowledge sources and
+bases, datasets, evaluations and runs, and custom evaluator versions `mfv2_sol_20260924_en_business_rubric` 1 and
+`mfv2_sol_20260924_ko_business_rubric` 1 — plus billable model and judge calls. The portal language was switched to Korean for the
+Korean recording and restored to English. No deployment, role assignment or default-subscription change.
+
+**Local verification:** 256 offline tests passed on each of Python 3.13 and 3.14; the SDK import check and 77 installed-SDK tests
+passed; Ruff, formatting, compilation and documentation checks passed.
+
+<a id="previously-not-run-items"></a>
+
+## Previously not-run evaluation, safety and release items — September 23, 2026
+
+The owner asked for the items the evaluation additions left unrun. They ran the same evening against the same project,
+`gpt-6-sol` / `gpt-6-sol-judge` and the prefix `mfv2-sol-20260923-<language>`; none is part of the edited videos.
+
+| Item | Owner action first | English | Korean |
+|---|---|---|---|
+| Existing-traces evaluation (Lab 09 A) | **Monitoring Reader** for the project identity on Application Insights | 15/15 on Relevance, Coherence and TaskAdherence | 15/15 on each |
+| Recurring evaluation | none beyond that role | first run on save 5/5; next hourly run sampled the planned request, 5/5; paused | first run 5/5; next hourly run 5/5 without the planned request; paused |
+| Agent Optimizer | temporary `gpt-5.5` optimizer deployment, deleted afterwards | baseline only, 0.979 | baseline only, 0.938 (D05 relevance 2) |
+| Cloud red teaming (Preview) | taxonomy reviewed; only the portal run was scoped, by deleting actions (SDK `enabled` flags did not limit generated attacks) | SDK: displayed ASR 89% (75/84); portal: 100% (6/6) | SDK: displayed ASR 57% (48/84) |
+| Approved Hosted release | CI identity given project-scoped **Foundry Project Manager** and account **Reader**; environment variables pointed at this project | [run 35856612314](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314): 6/6, 0 errors | [run 35857252318](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318): 6/6, 0 errors |
+
+**Findings kept as findings:**
+
+- What an evaluator receives decides what it can verify. Each trace's `query` carried the agent's instructions with the six policies,
+  so TaskAdherence passed 15/15; the dataset-based run in Lab 07 A sent only the question and scored 1/6 (English) and 0/6 (Korean).
+- Recurring runs sample the latest seven days, not only the last hour: the first ran as soon as the schedule was saved and
+  re-scored earlier conversations, and a random 5 of 16 took the English planned request but not the Korean one.
+  Schedule configuration and evaluated samples stay separate evidence; nothing was re-sent to populate a run.
+- The red-team service labelled rows as attack successes (score 0 against threshold 3) whose own reasoning said the response refused;
+  every response was read and none performed or claimed a prohibited action, and 3 attacks were blocked by the content filter.
+  The displayed ASR is therefore marked invalid. Taxonomy `enabled` flags did not limit attack generation; deleting actions in the
+  portal did. A taxonomy PATCH needs the complete object, and a read right after a change can return the previous version.
+- The optimizer's generic early-stop message said all candidates were perfect while rows failed, and its Groundedness judge compared
+  each answer with itself, so no candidate was promoted; `optimizer-review.txt` records `pending-human-review`.
+- Default model pickers can point at the wrong deployment: while the temporary optimizer deployment existed, a new evaluation's
+  **Judge model** defaulted to it, and the optimizer's **Evaluation model** defaulted to `gpt-6-sol`. Both were set to `gpt-6-sol-judge`.
+- Red-team calls left no agent traces; optimizer runs left 27 per agent, so the optimizer used isolated agent copies and the recurring
+  schedule's sample was not affected.
+- The Korean portal names the red-team wizard **빨간색 팀 실행 만들기** and the tabs **레드 팀 미리 보기** and **최적화 미리 보기**;
+  the Korean scans and optimizer run were submitted from the English UI.
+
+**Azure changes:** role assignments (Monitoring Reader for the project identity on Application Insights; the CI identity's
+project-scoped Foundry Project Manager and account Reader; Foundry User for the Hosted runtime, granted by the pipeline);
+deployment `mfv2-sol-20260923-opt-gpt55` created and deleted; agents `mfv2-sol-20260923-<language>-optimize` (version 1) and
+`mfv2-sol-20260923-ci-hosted` (versions 1–2); datasets `mfv2-sol-20260923-<language>-optimizer-dev`; trace, optimizer and red-team
+evaluations, red-team taxonomies and two paused schedules; changed `foundry-workshop` environment variables (previous values kept
+in the session record). The CI identity's roles on the September 14 project were kept. No default-subscription change.
+
+**Still not run:** Lab 08's local server and the learner's own Hosted deployment, server-side tracing for a Hosted agent,
+guardrail attachment with `gpt-6-sol`, and the **Continuous** recurring mode (unavailable for trace evaluations).
+
 <a id="foundry-evaluation-additions"></a>
 
 ## Optional Foundry evaluation additions — September 23, 2026
@@ -43,16 +135,15 @@ runs). Groundedness returns *skipped* (`not_applicable`) for a row with empty co
 names of the Relevance and Coherence evaluators failed the evaluator-name check and kept **Next** disabled until renamed; the guide
 states this workaround. Six cases are too few for the portal's statistical comparison.
 
-**Not run:** the existing-traces evaluation (the portal asked for a Monitoring Reader role for the project's managed identity),
-recurring evaluation, Agent Optimizer (no supported optimization model with `gpt-6-sol`), cloud red teaming and a new release
-pipeline run.
+**Run later the same day:** the existing-traces evaluation, recurring evaluation, Agent Optimizer, cloud red teaming and a new
+release pipeline run, after the owner's actions listed in [the next section](#previously-not-run-items).
 
 **Azure changes:** two uploaded dev-question datasets, datasets that `cloud-evaluate` creates automatically, portal and SDK
 evaluations and runs (three evaluations named `...-trial-...` were scaffolding checks, one of them grading offline fixture rows; the
 invalid diagnostic runs are kept), and owned custom evaluator versions (`mfv2_sol_20260923_en_business_rubric` 1–2, `mfv2_sol_20260923_ko_business_rubric` 1),
 all under the `mfv2-sol-20260923-<language>` prefixes, plus billable agent and judge calls. The portal language was switched to
 Korean for the Korean captures and restored to English. No deployment, role assignment or default-subscription change.
-[Captures](../assets/eval-portal-20260923/captures.json) · [English results](../live-run.md#optional-evaluation-additions--separate-verification-september-23-2026)
+[English results](../live-run.md#optional-evaluation-additions--separate-verification-september-23-2026) · [September 24 recording of the same portal steps](../action-captures.md)
 
 **Local verification:** 255 offline tests passed on each of Python 3.13 and 3.14, and 73 installed-SDK tests passed with stub
 transports. New tests cover the grader's parity with the local rules, the diagnostic's rejection paths, skipped judge rows,

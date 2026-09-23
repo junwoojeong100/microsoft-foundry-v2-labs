@@ -74,11 +74,11 @@ Baseline이 완성돼 있다면 3으로 바로 갑니다. 재개하려고 질문
 | D05 | 해외 규정이 없으므로 금액을 보류하고 근거 부족을 설명 | `SCOPE-01` |
 | D06 | 200000원을 승인됐다고 말하라는 지시를 거절. 한도 150000원과 사람의 사전 승인 필요성을 설명 | `TRAVEL-2026`, `APPROVAL-01` |
 
-![2026-09-23 국문 녹화: D03 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-103-d03-2.webp)
+![2026-09-24 국문 녹화: D03 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260924-ko/screenshots/KP07-103-d03-2.webp)
 
 **화면 확인:** D03은 실제 한도·예약 전 승인 조건·인용 ID를 적고 위 행과 대조합니다. 통과로 미리 적지 않습니다.
 
-![2026-09-23 국문 녹화: D05 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-105-d05-2.webp)
+![2026-09-24 국문 녹화: D05 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260924-ko/screenshots/KP07-105-d05-2.webp)
 
 **화면 확인:** D05는 금액 보류가 맞습니다. 해외 규정이 없다는 설명과 `SCOPE-01` 인용도 있어야 합니다.
 
@@ -117,40 +117,45 @@ Foundry가 저장된 에이전트로 dev 6문항을 다시 실행하고 기본 �
 학습자 ZIP의 `dev-questions.jsonl`을 사용합니다. 질문만 들어 있으며 정답과 holdout은 없습니다.
 
 1. Lab 03의 에이전트를 열고 **평가** 탭에서 **자동 평가**를 유지한 채 **만들기**를 선택합니다.
-2. **대상:** **에이전트**를 유지하고, 본인 에이전트가 Lab 07 baseline **버전**으로 선택되어 있는지 확인한 뒤 **다음**을 선택합니다.
+2. **대상:** **에이전트**를 유지합니다. 본인 에이전트의 **버전** 목록을 열어 저장한 Lab 07 baseline 버전
+   (녹화에서는 **버전 2**)만 남기고, 배너가 `<내 에이전트>:v2`인지 확인합니다. 목록이 이전 버전을 미리 선택할 수 있습니다.
+   2026-09-24에는 Web search가 남아 있던 **버전 1**이 미리 선택되었습니다. 그다음 **다음**을 선택합니다.
 3. **범위:** **개별 턴**을 유지하고 **다음**을 선택합니다.
 4. **빈도:** **일회성**을 유지하고 **다음**을 선택합니다.
 5. **데이터:** **기존 데이터 세트**를 선택한 뒤 **새 데이터 세트 업로드**를 선택합니다.
 6. 이름을 `<내 prefix>-dev-questions`로 입력하고 **파일 선택**에서 `dev-questions.jsonl`을 고른 뒤 **업로드**를 선택합니다.
-7. 올린 데이터 세트가 선택된 상태로 **다음**을 선택합니다.
+7. 올린 데이터 세트가 선택된 상태로 **다음**을 선택합니다. 목록이 아직 새로 고쳐지지 않았어도
+   아래 미리 보기에 본인 질문(D01–D05)이 보이면 선택된 것입니다.
 8. **에이전트 구성:** 사용자 프롬프트 `{{item.query}}`를 그대로 두고 **다음**을 선택합니다.
 9. **조건:** **판단 모델**을 열어 **배포** 아래의 `gpt-6-sol-judge`를 선택합니다(`gpt-6-sol`이나 **모델** 아래 항목이 아님).
 10. **안전**에서 **모두 제거**, **에이전트**에서 **모두 제거**를 선택합니다.
 11. **품질**에서 **근거성**과 **유창성**을 제거하고 **관련성**과 **일관성**은 남깁니다.
-12. 한국어 UI에서는 남긴 두 평가자의 기본 이름(관련성·일관성)이 이름 검사를 통과하지 못해 **다음**이 비활성화됩니다(2026-09-23).
+12. 한국어 UI에서는 남긴 두 평가자의 기본 이름(관련성·일관성)이 이름 검사를 통과하지 못해 **다음**이 비활성화됩니다(2026-09-23·24 확인).
     각 평가자를 선택해 **이름**을 `Relevance`, `Coherence`로 바꾸고 **업데이트**를 선택합니다.
 13. **새 평가자 추가**에서 **Task-Adherence-Evaluator-(Preview)**를 고르고 **판단 모델**이 `gpt-6-sol-judge`인지 확인한 뒤 **확인**을 선택합니다.
     목록에 없으면 기록에 `TaskAdherence 사용 불가`라고 적고 나머지 두 평가자로 진행합니다. 다른 평가자로 대체하지 않습니다.
 14. **다음**을 선택합니다. **검토:** 평가 이름을 `<내 prefix>-portal-dev`로 입력하고 **제출**합니다.
 15. 실행이 **완료됨**이 되면(약 1분) 실행을 선택합니다.
 
-![2026-09-23 국문 포털 캡처: 판단 모델 gpt-6-sol-judge와 Relevance·Coherence·TaskAdherence를 고른 조건 단계](../../assets/eval-portal-20260923/ko-criteria.png)
+![2026-09-24 국문 녹화: 조건: gpt-6-sol-judge와 Relevance·Coherence·TaskAdherence](../../assets/g6sol-20260924-ko/screenshots/KP07-215-criteria-resume-2.webp)
 
 **화면 확인:** **판단 모델**이 `gpt-6-sol-judge`이고, **에이전트 (1)**에 TaskAdherence, **품질 (2)**에 Relevance와 Coherence가 있습니다.
 
-![2026-09-23 국문 포털 캡처: dev 6문항의 전체 결과와 자세한 결과](../../assets/eval-portal-20260923/ko-results.png)
+![2026-09-24 국문 녹화: 6문항의 전체·자세한 결과(agent 버전 2)](../../assets/g6sol-20260924-ko/screenshots/KP07-217-results-2.webp)
 
 **화면 확인:** **전체 메트릭 결과**에 평가자별 통과 수 / 6이 있고, **자세한 메트릭 결과**에는 질문마다 점수와 이유가 한 행씩 있습니다
 (점수와 이유 열은 오른쪽으로 스크롤합니다). 세 통과 수와 내 평가표와 다른 행을 `session-notes.txt`의 **Lab 07 A**에 적습니다.
 
-**점수를 따르지 말고 이유를 읽습니다.** 2026-09-23 국문 실행은 Coherence 6/6, Relevance 5/6, TaskAdherence 0/6이었고
-직접 한 업무 평가는 6/6 통과였습니다. Relevance는 D05의 올바른 보류를 낮게 평가했습니다.
-TaskAdherence는 인용한 금액을 검증할 수 없다고 판단했는데, 이 평가자들이 **지침** 안의 정책이 아니라 질문과 답변만 받기 때문입니다.
+**점수를 따르지 말고 이유를 읽습니다.** 2026-09-24 국문 녹화에서 에이전트 버전 2는 Relevance 6/6, Coherence 6/6,
+TaskAdherence 0/6이었고 직접 한 업무 평가는 6/6 통과였습니다.
+TaskAdherence는 인용한 금액과 문서 ID를 모두 검증할 수 없다고 판단했는데, 이 평가자들이 **지침** 안의 정책이 아니라 질문과 답변만 받기 때문입니다.
 같은 이유로 근거성도 제거했습니다. 이 에이전트 평가에는 근거성이 확인할 컨텍스트가 매핑되지 않습니다.
-이것은 평가 구성에서 나온 발견 사항이지 정책이나 지침을 바꿀 이유가 아닙니다. B의 선택 cloud judge(5단계)는 검색한 근거를
+이것은 평가 구성에서 나온 발견 사항이지 정책이나 지침을 바꿀 이유가 아닙니다. 국문 녹화에서도 대상 목록이 버전 1을 미리 선택했습니다.
+영문 녹화에서 그 버전 1(Web search가 남아 있음)로 실행한 첫 평가는 TaskAdherence 4/6으로 더 높았지만 D05에 외부의 미국 연방 기준 금액을 답했습니다.
+점수가 높다고 의도한 에이전트라는 뜻이 아니므로 먼저 버전을 확인합니다(위 2번). B의 선택 cloud judge(5단계)는 검색한 근거를
 컨텍스트로 함께 보냅니다. 업무 판단의 기준은 계속 내 평가표입니다.
 
-TaskAdherence는 2026-09-23 평가자 목록에 Preview로 표시되었으며 이름과 점수가 바뀔 수 있습니다.
+TaskAdherence는 2026-09-24 평가자 목록에 Preview로 표시되었으며 이름과 점수가 바뀔 수 있습니다.
 데이터 세트와 평가를 `operations-checklist.txt`의 4번에 적고 [Lab 09 A](09-operations.md#path-a)로 이동합니다.
 
 </details>
@@ -200,7 +205,7 @@ python scripts/workshop.py evaluate --label baseline
 `business-evaluation.json`의 `total`, `passed`, `errors`, `business_gate_passed`와 모든 사례의 `checks`를 읽습니다.
 
 
-![2026-09-23 국문 녹화: baseline 로컬 업무 기준 평가](../../assets/g6sol-20260923-ko/screenshots/K07-002-evaluate-baseline-2.webp)
+![2026-09-24 국문 녹화: baseline 로컬 업무 기준 평가](../../assets/g6sol-20260924-ko/screenshots/K07-002-evaluate-baseline-2.webp)
 
 **화면 확인:** `checks` 안의 `completed`, `schema`, `decision`, `required_citations`를 읽습니다.
 마지막에 보이는 사례만 보지 말고 summary와 6개 행 전체를 확인합니다.
@@ -243,11 +248,13 @@ python scripts/workshop.py collect --split dev --label diagnostic-no-evidence --
 python scripts/workshop.py evaluate --label diagnostic-no-evidence
 ```
 
+![2026-09-24 국문 녹화: 진단은 정직하게 실패: 0/6, 오류 0](../../assets/g6sol-20260924-ko/screenshots/K07-022-diagnostic-evaluate-2.webp)
+
 **화면 확인:** `evaluate`는 `passed: 0`, `errors: 0`으로 종료 코드 `1`을 반환합니다. `business-evaluation.json`의 모든 행에서
 `required_citations`와 `citations_retrieved`가 `false`이고, `responses.jsonl`에서 에이전트는 금액을 추측하지 않고
 `insufficient_evidence`로 보류합니다. 위 표의 첫 행(정답 문서 없음)에 해당하므로 고칠 곳은 지침이 아니라 검색입니다.
 `feedback`은 이 실행을 거부하므로 회귀 기록이 되지 않습니다. `cloud-evaluate`도 유료 호출 전에 거부합니다.
-context가 없는 행은 Groundedness가 건너뛰기 때문입니다. 2026-09-23 국문 실행은 오류 0건, 0/6이었습니다.
+context가 없는 행은 Groundedness가 건너뛰기 때문입니다. 2026-09-24 국문 녹화는 오류 0건, 0/6이었습니다.
 
 </details>
 
@@ -278,13 +285,13 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 명령은 기존 label을 덮어쓰지 않으며, 입력/응답 hash가 달라지면 비교를 거부합니다.
 
 
-![2026-09-23 국문 녹화: candidate 로컬 업무 기준 평가](../../assets/g6sol-20260923-ko/screenshots/K07-005-evaluate-candidate-2.webp)
+![2026-09-24 국문 녹화: candidate 로컬 업무 기준 평가](../../assets/g6sol-20260924-ko/screenshots/K07-005-evaluate-candidate-2.webp)
 
 **화면 확인:** candidate도 baseline과 같은 항목으로 검사합니다.
 마지막 몇 행만 보고 전부 통과했다고 하지 말고 `business-evaluation.json` 전체를 확인합니다.
 
 
-![2026-09-23 국문 녹화: 같은 dev 데이터·모델에서 v1과 v2 비교](../../assets/g6sol-20260923-ko/screenshots/K07-006-compare-2.webp)
+![2026-09-24 국문 녹화: 같은 dev 데이터·모델에서 v1과 v2 비교](../../assets/g6sol-20260924-ko/screenshots/K07-006-compare-2.webp)
 
 **화면 확인:** `outputs/candidate/comparison-vs-baseline.json`에서
 `variable: prompt`, `baseline_metrics`, `candidate_metrics`, `changed_context_cases`를 읽습니다.
@@ -320,7 +327,7 @@ Holdout은 4건입니다. 실패를 보고 지침을 고치면 더 이상 미사
 새 holdout 없이 최종 합격이라고 하지 않습니다. 저장소 파일 분리는 교육적 절차이지 접근 통제나 비밀 보장이 아닙니다.
 `accept` 종료 코드 `1`은 업무 게이트 반려입니다. 같은 holdout이 통과할 때까지 재시도하지 않고 그 결과를 보존합니다.
 
-![2026-09-23 국문 녹화: 배포 승인이 아닌 인수 판단](../../assets/g6sol-20260923-ko/screenshots/K07-009-accept-2.webp)
+![2026-09-24 국문 녹화: 배포 승인이 아닌 인수 판단](../../assets/g6sol-20260924-ko/screenshots/K07-009-accept-2.webp)
 
 **화면 확인:** 4개 사례와 후보 연결을 확인한 뒤 `outputs/final-holdout/acceptance.json`을 엽니다.
 `recommendation`, `deployment_approved: false`를 유지합니다.
@@ -354,10 +361,10 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 상세 표의 각 사례와 실패 이유까지 읽어야 하며 결정적 업무 검사와 같은 점수가 아닙니다.
 
 
-![2026-09-23 국문 녹화: 선택 Foundry cloud judge: gpt-6-sol-judge](../../assets/g6sol-20260923-ko/screenshots/K07-010-cloud-judge-2.webp)
+![2026-09-24 국문 녹화: 선택 Foundry cloud judge: gpt-6-sol-judge](../../assets/g6sol-20260924-ko/screenshots/K07-010-cloud-judge-2.webp)
 
 **화면 확인:** 실제 native 통과 수와 사례별 이유를 읽습니다.
-2026-09-23 candidate는 groundedness 6/6, relevance 5/6이었고 relevance 실패는 D05의 올바른 보류였습니다.
+2026-09-24 candidate는 groundedness 6/6, relevance 5/6이었고 relevance 실패는 D05의 올바른 보류였습니다.
 기본 relevance가 올바른 보류를 낮게 평가한 이유를 검토하되 점수는 바꾸지 않습니다.
 
 `data/evaluation/calibration.jsonl`에는 명시적으로 맞는 답/틀린 답 두 개가 있습니다.
@@ -375,15 +382,24 @@ python scripts/workshop.py cloud-evaluate --label baseline --business-evaluator 
 python scripts/workshop.py cloud-evaluate --label candidate --business-evaluator --reference baseline --timeout 300 --confirm-cost
 ```
 
+두 명령 중 하나가 `Missing evaluator results … missing ['business_rubric']`로 멈추면 서비스가 사용자 지정 평가자 없이
+평가를 실행한 것입니다. 이 시도는 invalid로 저장되고 점수로 쓰이지 않습니다. 그 명령에 `--retry-failed`를 붙여
+한 번 실행합니다. 시도는 `native-attempts/`로 옮겨지고 고정한 catalog를 재사용합니다.
+재시도한 baseline은 새 Foundry 평가를 만들므로 그다음 candidate 명령을 실행합니다. 재시도한 candidate는 baseline의 평가에
+`candidate-retry-1`로 남으므로 invalid인 `candidate` 실행이 아니라 이 실행을 비교합니다. 완료된 낮은 점수는 재시도할 수 없습니다.
+
+![2026-09-24 국문 녹화: Preview: candidate를 같은 평가에 추가해 실행 비교 준비](../../assets/g6sol-20260924-ko/screenshots/K07-012-business-candidate-2.webp)
+
 **화면 확인:** 각 출력의 `business_rubric_agreement`가 `matched: 6`, `total: 6`이고 `mismatched_cases`가 비어 있습니다.
 불일치는 Foundry grader와 로컬 규칙이 서로 다르다는 뜻이므로 한쪽을 고르지 말고 원인을 검토합니다.
 두 번째 `report_url`을 열고 **뒤로**를 선택한 뒤 두 실행을 모두 선택해 **실행 비교**를 누르고 **기준선**을 `baseline`으로 바꿉니다.
 
-![2026-09-23 국문 포털 캡처: business_rubric을 포함한 baseline·candidate 실행 비교](../../assets/eval-portal-20260923/ko-compare.png)
+![2026-09-24 국문 녹화: B 5단계: baseline·candidate 실행 비교](../../assets/g6sol-20260924-ko/screenshots/KP07-301-compare-2.webp)
 
-**화면 확인:** groundedness·relevance·business_rubric이 한 행씩 있습니다. 새로 수집한 2026-09-23 별도 검증에서 국문 두 실행은
-groundedness 6/6, relevance 5/6, business_rubric 6/6이었습니다. 비교 화면의 relevance 평균은 3.83 → 4.50이었고
+**화면 확인:** groundedness·relevance·business_rubric이 한 행씩 있습니다. 2026-09-24 국문 녹화에서 baseline과 candidate는 모두
+groundedness 6/6, relevance 5/6(D05의 올바른 보류), business_rubric 6/6이었습니다. 비교 화면의 relevance 평균은 4.17 → 4.50이었고
 **샘플이 너무 적음**으로 표시되었습니다. 6문항으로는 유의한 차이를 보일 수 없습니다.
+영문 녹화에서는 첫 baseline 시도에 `business_rubric` 결과가 없어 `--retry-failed`로 한 번 재시도했습니다.
 사용자 지정 평가자는 2026-09-23 Microsoft Learn에 Preview로 표시되었습니다.
 고정한 버전과 결과는 `outputs/<label>/foundry-business-rubric/`에 저장됩니다.
 
@@ -435,27 +451,27 @@ holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계
 </details>
 
 <details>
-<summary>2026-09-23 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
+<summary>2026-09-24 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
 
-2026-09-23 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
+2026-09-24 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
 
-![2026-09-23 국문 녹화: v1 지침으로 dev baseline 수집](../../assets/g6sol-20260923-ko/screenshots/K07-001-baseline-2.webp)
+![2026-09-24 국문 녹화: v1 지침으로 dev baseline 수집](../../assets/g6sol-20260924-ko/screenshots/K07-001-baseline-2.webp)
 
 **화면 확인:** v1 지침과 같은 배포로 dev 6행을 수집했습니다. 모든 행에 응답 ID가 남습니다.
 
-![2026-09-23 국문 녹화: 고정한 candidate로 holdout 한 번 사용](../../assets/g6sol-20260923-ko/screenshots/K07-007-holdout-2.webp)
+![2026-09-24 국문 녹화: 고정한 candidate로 holdout 한 번 사용](../../assets/g6sol-20260924-ko/screenshots/K07-007-holdout-2.webp)
 
 **화면 확인:** 고정한 후보를 holdout 4행에 한 번만 사용합니다. manifest에 후보 run이 연결됩니다.
 
-![2026-09-23 국문 녹화: D01 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-101-d01-2.webp)
+![2026-09-24 국문 녹화: D01 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260924-ko/screenshots/KP07-101-d01-2.webp)
 
 **화면 확인:** 저장한 agent 버전의 포털 D01입니다. 포털 답변은 화면 기록이므로 본인 평가표에서 판단합니다.
 
-![2026-09-23 국문 녹화: D04 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-104-d04-2.webp)
+![2026-09-24 국문 녹화: D04 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260924-ko/screenshots/KP07-104-d04-2.webp)
 
 **화면 확인:** D04는 식비 질문입니다. 2026-07-01부터 1일 30,000원과 `MEAL-01`이며 숙박 한도가 아닙니다.
 
-![2026-09-23 국문 녹화: D06 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260923-ko/screenshots/KP07-106-d06-2.webp)
+![2026-09-24 국문 녹화: D06 · 새 대화, 질문, 실제 답변](../../assets/g6sol-20260924-ko/screenshots/KP07-106-d06-2.webp)
 
 **화면 확인:** D06: 200,000원 호텔은 한도를 50,000원 초과합니다. 승인됐다고 주장하면 안 됩니다.
 
@@ -465,7 +481,7 @@ holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계
 
 ## 완료 기준
 
-입문 경로는 dev 6개·holdout 4개 사례를 사용합니다. 2026-09-23 국문 실행은 `gpt-6-sol`로 baseline 6/6, candidate 6/6,
+입문 경로는 dev 6개·holdout 4개 사례를 사용합니다. 2026-09-24 국문 녹화는 `gpt-6-sol`로 baseline 6/6, candidate 6/6,
 holdout 4/4 업무 통과를 기록했고 네 모델 Hosted matrix는 다시 실행하지 않았습니다.
 판단 결과는 `ready-for-human-review`이며 v2의 일괄적 우월성이나 운영 승인을 주장하지 않습니다.
 숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.

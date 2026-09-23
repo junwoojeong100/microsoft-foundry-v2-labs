@@ -64,7 +64,7 @@ that **exact generated directory** first. Compare hashes after source changes.
 For package-only completion, retain the manifest and continue to [Lab 09](09-operations.md).
 
 
-![September 23 English recording: Package the Hosted bundle only; no deployment](../assets/g6sol-20260923-en/screenshots/E08-001-package-2.webp)
+![September 24 English recording: Package the Hosted bundle only; no deployment](../assets/g6sol-20260924-en/screenshots/E08-001-package-2.webp)
 
 **What to check:** `package_hosted.py` returns `.build/hosted-en`. This is packaging, not
 Azure deployment. Check included/excluded files against the manifest.
@@ -237,8 +237,10 @@ a Hosted version; collect a separately version-pinned dev/holdout evaluation.
 
 
 Verify evaluation type, exact agent/version, evaluator, and the complete case denominator.
-The September 23 `gpt-6-sol` recording covers packaging only; the local server, remote deployment and the workflow
-extension below were not re-run. See [execution records](../live-run.md); do not transfer scores between these targets.
+The September 24 `gpt-6-sol` recording covers packaging only; the local server, your own remote deployment and the workflow
+extension below were not re-run. A separate approved CI release deployed the workflow profile with `gpt-6-sol` on September 23
+([release operations](extensions/release-operations.md#5-define-the-release-sequence)). See [execution records](../live-run.md);
+do not transfer scores between these targets.
 
 </details>
 

@@ -1,0 +1,184 @@
+{
+  "recorded_on": "2026-09-24",
+  "edition": "en",
+  "edition_id": "g6sol-20260924",
+  "default_video": "guide-ordered.mp4",
+  "recording_dates": [
+    "2026-09-24"
+  ],
+  "recording_timezone": "Asia/Seoul",
+  "videos": [
+    {
+      "filename": "cli-edited.mp4",
+      "bytes": 14684475,
+      "sha256": "f786979932cd23e217bb0b56adc7be1b4e644c1e13171e859ee319d28cec28bb",
+      "duration_seconds": 191.56,
+      "frames": 4789,
+      "guide_language": "en",
+      "scenario_language": "en",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true
+    },
+    {
+      "filename": "portal-edited.mp4",
+      "bytes": 10191862,
+      "sha256": "7a638074ba3700fa57de3e88dc07e27e8e88c07a745384df27a3326a2b36d510",
+      "duration_seconds": 175.68,
+      "frames": 4392,
+      "guide_language": "en",
+      "scenario_language": "en",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true
+    },
+    {
+      "filename": "guide-ordered.mp4",
+      "bytes": 25131038,
+      "sha256": "d3f360ecbe5ac23bb9e6f8d36a9c06713c1fed887f682eea3e1de40f52b682ba",
+      "duration_seconds": 389.24,
+      "frames": 9731,
+      "guide_language": "en",
+      "scenario_language": "en",
+      "edited": true,
+      "new_recording": true,
+      "full_decode_verified": true,
+      "waiting_time_removed": true,
+      "chapters": [
+        {
+          "id": "lab-00",
+          "lab": 0,
+          "title": "Lab 00 · Getting started",
+          "start_seconds": 0.0,
+          "end_seconds": 39.36
+        },
+        {
+          "id": "lab-01",
+          "lab": 1,
+          "title": "Lab 01 · Foundry and projects",
+          "start_seconds": 39.36,
+          "end_seconds": 44.48
+        },
+        {
+          "id": "lab-02",
+          "lab": 2,
+          "title": "Lab 02 · Models: Playground and SDK",
+          "start_seconds": 44.48,
+          "end_seconds": 84.44
+        },
+        {
+          "id": "lab-03",
+          "lab": 3,
+          "title": "Lab 03 · Your first agent",
+          "start_seconds": 84.44,
+          "end_seconds": 129.16
+        },
+        {
+          "id": "lab-04",
+          "lab": 4,
+          "title": "Lab 04 · MAF and tools",
+          "start_seconds": 129.16,
+          "end_seconds": 149.92
+        },
+        {
+          "id": "lab-05",
+          "lab": 5,
+          "title": "Lab 05 · MAF workflows",
+          "start_seconds": 149.92,
+          "end_seconds": 168.88
+        },
+        {
+          "id": "lab-06",
+          "lab": 6,
+          "title": "Lab 06 · RAG and Foundry IQ",
+          "start_seconds": 168.88,
+          "end_seconds": 194.04
+        },
+        {
+          "id": "lab-07",
+          "lab": 7,
+          "title": "Lab 07 · Evaluation and learning",
+          "start_seconds": 194.04,
+          "end_seconds": 346.84
+        },
+        {
+          "id": "lab-08",
+          "lab": 8,
+          "title": "Lab 08 · Hosted Agent: package",
+          "start_seconds": 346.84,
+          "end_seconds": 352.28
+        },
+        {
+          "id": "lab-09",
+          "lab": 9,
+          "title": "Lab 09 · Operations and cleanup",
+          "start_seconds": 352.28,
+          "end_seconds": 382.84
+        },
+        {
+          "id": "lab-11",
+          "lab": 11,
+          "title": "Lab 11 · Capstone handoff",
+          "start_seconds": 382.84,
+          "end_seconds": 389.24
+        }
+      ]
+    }
+  ],
+  "actions": 98,
+  "source_recordings": [
+    {
+      "id": "terminal",
+      "sha256": "fed4369ab3898654fe403c1ca680510be03816937a88182b4e767b6e2c1a8da1",
+      "bytes": 115126850,
+      "frames": 40342,
+      "duration_seconds": 1613.68,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "portal-part1",
+      "sha256": "dff38ac7717ebd5dd405a87baa27d37efa45b2b2cf36348b4d737a2d389083d9",
+      "bytes": 95076036,
+      "frames": 34983,
+      "duration_seconds": 1399.32,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "portal-part2",
+      "sha256": "cbb9a9fc57a05c9cc7596ad38918f8fccf82c3da5f1ab6b23bb1e9d0406956ee",
+      "bytes": 15282718,
+      "frames": 5876,
+      "duration_seconds": 235.04,
+      "fps": 25,
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "authentication_recorded": false,
+  "original_korean_assets_preserved": true,
+  "authentication_excluded_from_published_media": true,
+  "authentication_exclusions": [],
+  "translated_english_assets": false,
+  "independent_language_capture": true,
+  "new_azure_execution": true,
+  "all_failures_retained_in_private_source": true,
+  "includes_explicit_local_simulation": false,
+  "model_preset": {
+    "deployment": "gpt-6-sol",
+    "model": "gpt-6-sol",
+    "version": "2026-09-22",
+    "judge_deployment": "gpt-6-sol-judge"
+  },
+  "upstream_results_reused_as_this_edition": false,
+  "source_frame_verification": {
+    "segments": 262,
+    "minimum_ssim": 0.99224
+  },
+  "screenshot_count": 293
+}

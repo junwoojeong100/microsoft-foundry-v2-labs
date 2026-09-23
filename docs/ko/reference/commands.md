@@ -118,7 +118,7 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 | `iq-chat` | `gpt-5.6-luna`/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup.md#4-환경-담당자의-준비) |
 | `workflow-agent` / `runtime-contract` | 검증된 workflow 출력 / 로컬 고정 profile·hash | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | 버전 고정 Hosted smoke·matrix·평가·trace·인수 | [평가 워크북](evaluation-workbook.md) |
-| `cloud-evaluate` / `calibrate-judge` | 저장된 응답의 유료 native 평가(Preview `--business-evaluator`는 본인 소유 코드 기반 업무 기준 추가, `--reference`는 다른 label의 평가에 합쳐 **실행 비교**) / 별도 calibration fixture | [Lab 07](../labs/07-evaluation.md), [워크북](evaluation-workbook.md) |
+| `cloud-evaluate` / `calibrate-judge` | 저장된 응답의 유료 native 평가(Preview `--business-evaluator`는 본인 소유 코드 기반 업무 기준 추가, `--reference`는 다른 label의 평가에 합쳐 **실행 비교**, `--retry-failed`는 실패/invalid 시도만 보존하고 재시도) / 별도 calibration fixture | [Lab 07](../labs/07-evaluation.md), [워크북](evaluation-workbook.md) |
 | `maf-evaluate` | Preview: MAF 함수 도구 에이전트를 dev 6문항으로 실행하고 Foundry에서 도구 호출·relevance를 채점 | [Lab 04](../labs/04-agents-tools.md) |
 | `serve` | 로컬 host. 추론은 여전히 유료 | [Lab 08](../labs/08-hosted.md) |
 | `toolbox` | 본인 관리형 도구·버전·재조회·MAF 호출 | [Toolbox](../labs/extensions/toolbox.md) |

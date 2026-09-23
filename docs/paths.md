@@ -12,7 +12,7 @@ The tables below are schedules, not extra tasks. Each lab has a `path-a` / `path
 [C — Advanced modules](paths/c-advanced.md) are separate sessions after the core route.
 
 **How each lab works:** read the start card, do the action or command, then compare your result with **What to check**.
-Screenshots come from the September 23, 2026 recording; your names, IDs and answers will differ
+Screenshots come from the September 24, 2026 recording; your names, IDs and answers will differ
 ([how to read them](labs/00-start.md#how-to-read-this-guide)).
 English commands use `--language en`, which selects the English input files ([language rules](reference/languages.md)).
 

@@ -2,7 +2,7 @@
 
 **English** | [한국어](../../ko/labs/extensions/agent-optimizer.md)
 
-**Path C, optional Preview — September 16, 2026.**
+**Path C, optional Preview — September 16, 2026; re-run with `gpt-6-sol` on September 23, 2026.**
 This first pass uses the **Prompt Agent optimization wizard**. It is not fine-tuning and does not change model weights.
 Keep the existing Hosted matrix and manual v1/v2 experiments as separate targets and records.
 
@@ -42,9 +42,12 @@ The wizard does not offer arbitrary column mapping: verify its required columns 
 | Targets to optimize | **Instructions only** initially |
 
 If the prepared project has no supported optimizer model, record **not run** and stop.
-A working answer model is not automatically a supported optimizer model.
-On September 23, 2026 the training project's agent **Optimize** tab showed **No supported optimization model** with only
-`gpt-6-sol` deployed, so this module was not re-run with the `gpt-6-sol` preset; deploying another model is an owner decision.
+A working answer model is not automatically a supported optimizer model: with only `gpt-6-sol` deployed, the **Optimize** tab
+showed **No supported optimization model** on September 23, 2026. The
+[optimizer models listed on Microsoft Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-overview#models)
+that day were `gpt-5`, `gpt-5.1`, `gpt-5.2`, `gpt-5.4`, `gpt-5.5`, `DeepSeek-V4-Pro` and `DeepSeek-V-3.2`. For the September 23 runs
+the owner added a temporary `gpt-5.5` deployment (`<prefix>-opt-gpt55`, DataZoneStandard) and deleted it after both language runs.
+Those runs optimized an isolated copy, `<prefix>-optimize` version 1, with the same instructions as the Lab 03 agent.
 
 ## 2. Open the optimization wizard
 
@@ -52,6 +55,7 @@ On September 23, 2026 the training project's agent **Optimize** tab showed **No 
 2. On a first-use page, select **Optimize my agent**. If runs already exist, use **Create optimization run** instead.
 3. In **Target**, explicitly choose the baseline version rather than accepting an unknown latest default.
 4. Select the prepared optimizer/evaluator deployments and set the candidate limit to 2.
+   On September 23 **Evaluation model** defaulted to the answer deployment `gpt-6-sol`; change it to `gpt-6-sol-judge`.
 5. Choose **Choose targets**, select **Instruction**, and clear **Model**.
    The observed wizard preselected Model after switching to explicit targets, so check the actual boxes.
 
@@ -66,7 +70,8 @@ The first-use page can show a product/example benchmark. Those advertised scores
 3. Confirm that the selected dataset is your new version and has `case_id`, `query`, `context`, and `ground_truth`.
    The portal preview shows only the **top five rows**; verify all six in the source file and later in the actual evaluation outputs.
 4. In **Criteria**, clear **Custom only**. Select **Groundedness-Evaluator** and **Relevance-Evaluator**,
-   not the similarly named Service-Groundedness variant. Use threshold **4** for both.
+   not the similarly named Service-Groundedness variant. Each selection opens a **Configure** dialog:
+   set **Threshold** to **4** and select **Apply**.
 5. Record their actual versions and keep the same criteria, thresholds and reference data across the run.
 
 Do not weaken required citations, turn an approval refusal into an error, or omit a difficult case to improve the result.
@@ -77,7 +82,8 @@ do not silently rename columns or send evaluator labels to the target.
 
 In **Review**, verify the baseline, dataset, evaluator settings, deployments and maximum candidates.
 Expand the cost breakdown for running the agent, scoring responses and generating improvements.
-The displayed range is an **estimate**, not a spending cap.
+The displayed range is an **estimate**, not a spending cap. On September 23 it showed an estimated $0.27
+(range $0.00–$0.90) for about 35 agent calls, 70 scoring calls and 3 improvement calls.
 
 After approval, select **Submit** once. Save the run ID and inspect that same run until it finishes.
 Do not submit another job because the first one is waiting or because a screenshot is missing.
@@ -97,13 +103,16 @@ For every candidate, retain:
 The highest aggregate score is a **proposal**, not automatic acceptance.
 If all candidates are worse or indistinguishable on this small dataset, keep the baseline.
 Changing wording without a useful measured improvement is not a success claim.
-The September 16 English run (earlier `gpt-5.6-luna` edition; not re-run with `gpt-6-sol`) returned only the baseline.
-Its generic early-stop message said the samples were perfect, but detailed results included a failed D05 relevance score.
+The September 23, 2026 `gpt-6-sol` runs returned only the baseline in both languages, as the September 16 English run
+(earlier `gpt-5.6-luna` edition) did: English 0.979 and Korean 0.938, each in about 4.5 minutes.
+Each run evaluated four internal drafts on three-case minibatches without returning any as a candidate.
+Its generic early-stop message said all candidates achieved perfect scores, yet the Korean baseline failed D05 relevance (2)
+and English minibatches failed D01, D05 and D06 relevance.
 Read the individual rows rather than treating a successful job status or generic message as all-pass evidence.
 
 **Check the actual judge input, not only the uploaded columns.** Compare each evaluator's
-`sample.input` with the frozen dataset. The September 16 English baseline and all Korean candidates
-used the generated answer itself as the Groundedness `context`.
+`sample.input` with the frozen dataset. In the September 23 runs, as in the September 16 English baseline and Korean candidates,
+the Groundedness `context` was the generated answer itself.
 That self-comparison does not establish grounding in the original policies, even when the service reports 6/6.
 Keep the original scores and input hashes, mark the reference binding invalid, and **do not promote on that result**.
 Do not silently repair columns, relax thresholds or submit another run to produce a better-looking recording.

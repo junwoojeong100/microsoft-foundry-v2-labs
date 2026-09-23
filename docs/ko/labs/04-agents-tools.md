@@ -33,7 +33,7 @@ python scripts/workshop.py maf \
   --output outputs/learner-notes-ko/maf-none.json
 ```
 
-![2026-09-23 국문 녹화: 도구 없는 MAF agent](../../assets/g6sol-20260923-ko/screenshots/K04-001-maf-2.webp)
+![2026-09-24 국문 녹화: 도구 없는 MAF agent](../../assets/g6sol-20260924-ko/screenshots/K04-001-maf-2.webp)
 
 **화면 확인:** 마지막 출력의 `mode: live`, `orchestration: local`, `tools: none`을 읽습니다.
 로컬 Python이 실행을 소유해도 답변 모델 호출은 Azure에서 이루어집니다.
@@ -77,7 +77,7 @@ sequenceDiagram
 ```
 
 
-![2026-09-23 국문 녹화: 읽기 전용 함수 도구를 쓰는 MAF](../../assets/g6sol-20260923-ko/screenshots/K04-002-tools-2.webp)
+![2026-09-24 국문 녹화: 읽기 전용 함수 도구를 쓰는 MAF](../../assets/g6sol-20260924-ko/screenshots/K04-002-tools-2.webp)
 
 **화면 확인:** `tools: function`과 `answer` 안의 `decision`, `limit_krw`, `citations`를 확인합니다.
 사진의 `needs_approval`은 승인 완료가 아니라 사람의 사전 승인이 필요하다는 뜻입니다.
@@ -120,7 +120,7 @@ python scripts/workshop.py maf --mcp \
 `answer`의 문장뿐 아니라 `decision`, `limit_krw`, `citations`도 함께 확인합니다.
 형식이 잘못되면 응답을 임의로 고쳐 성공으로 처리하지 않습니다.
 
-![2026-09-23 국문 녹화: 로컬 MCP 정책 도구를 쓰는 MAF](../../assets/g6sol-20260923-ko/screenshots/K04-003-mcp-2.webp)
+![2026-09-24 국문 녹화: 로컬 MCP 정책 도구를 쓰는 MAF](../../assets/g6sol-20260924-ko/screenshots/K04-003-mcp-2.webp)
 
 **화면 확인:** `tools: local-mcp`를 확인하고 2026년 5월에 과거 한도와 `TRAVEL-2025`를 적용했는지 봅니다.
 함수 도구 결과로 MCP 실행을 대신한 것이 아닙니다.
@@ -177,17 +177,19 @@ judge가 없거나 답변 배포 `gpt-6-sol`과 같으면 명령이 멈춥니다
 python scripts/workshop.py maf-evaluate --confirm-cost --output outputs/learner-notes-ko/maf-tool-evaluation.json
 ```
 
+![2026-09-24 국문 녹화: 선택: Foundry 평가자로 MAF 도구 호출 채점](../../assets/g6sol-20260924-ko/screenshots/K04-004-maf-evaluate-2.webp)
+
 **화면 확인:** `complete: true`, `errors: 0`이고 각 행에 기록된 `tool_calls`(`lookup_policy` 호출 1회)와
 `tool_call_accuracy`·`relevance` 점수가 있습니다. 이유는 `report_url`에서 확인합니다. MAF가 `FoundryEvals`에 대한
-`ExperimentalWarning`을 한 번 출력하는 것은 정상입니다. 2026-09-23 국문 실행은 tool_call_accuracy 6/6, relevance 5/6이었고
-relevance 실패는 D05의 올바른 보류였습니다. 이 점수는 도구 사용을 판단할 뿐 업무 정답 여부가 아니므로 Lab 07의 업무 검사와 구분합니다.
+`ExperimentalWarning`을 한 번 출력하는 것은 정상입니다. 2026-09-24 국문 녹화는 tool_call_accuracy 5/6, relevance 5/6이었습니다.
+tool_call_accuracy는 D03 검색어에 대화에 없던 문서 ID `APPROVAL-01`을 넣은 것을 지어낸 인자로 보았고, relevance 실패는 D05의 올바른 보류였습니다. 이 점수는 도구 사용을 판단할 뿐 업무 정답 여부가 아니므로 Lab 07의 업무 검사와 구분합니다.
 MAF 평가 API는 실험 기능이었고 일부 에이전트 평가자는 2026-09-23에 Preview로 표시되었습니다.
 
 </details>
 
 ## 완료·문제 해결
 
-[실행 기록](../live-run.md)에는 2026-09-23의 함수 도구·MCP 호출을 남겼습니다. 선택 2001자 입력 거절은 다시 녹화하지 않았습니다.
+[실행 기록](../live-run.md)에는 2026-09-24의 함수 도구·MCP 호출을 남겼습니다. 선택 2001자 입력 거절은 다시 녹화하지 않았습니다.
 
 [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 

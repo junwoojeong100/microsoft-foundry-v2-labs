@@ -68,7 +68,11 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 | Prompt/Hosted agent·version | 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제 |
 | Search knowledge base/source/index | 의존 순서 base → source → index; ledger의 본인 이름만 |
 | 업로드 파일/벡터 저장소 | 내 File Search 자료와 공유 자료를 구분 |
-| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions` 데이터 세트, `<prefix>-...` 평가, `cloud-evaluate`가 만든 `eval-data-...` 데이터 세트, `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
+| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions`·`<prefix>-optimizer-dev` 데이터 세트, `<prefix>-...` 평가와 최적화 실행, `cloud-evaluate`가 만든 `eval-data-...` 데이터 세트, `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
+| 되풀이 평가 일정 | 본인의 `<agent>-scheduled-...` 일정: 평가 페이지에서 **Pause**를 누르고 일시 중지 상태를 다시 읽음. 일시 중지해도 이전 결과는 남음 |
+| Red-team taxonomy·red team | 본인의 `<prefix>-...redteam` taxonomy, red team과 실행. 모든 출력 항목과 검토 기록을 먼저 보존한 뒤 담당자가 삭제 |
+| 모니터링·CI용으로 추가한 역할 | 추가한 담당자만 제거. 예: Application Insights에 대한 프로젝트 ID의 **Monitoring Reader**, CI ID의 프로젝트 역할, Hosted 런타임의 **Foundry User** |
+| 임시 optimizer 배포 | 만든 담당자만, 그 배포를 쓴 optimizer 실행이 모두 끝나고 검토된 뒤 삭제. 답변·judge 배포가 남았는지 확인 |
 | 모델 배포 | 조별 전용인지 공유 배포인지 확인; 공유 모델 유지 |
 | Search 서비스 | index 삭제만으로 서비스의 고정 비용이 사라지지 않음 |
 | Application Insights/Log Analytics | 필요한 증거·보존 정책·공유 여부 확인 |
@@ -132,15 +136,15 @@ cleanup receipt는 별도 파일이므로 frozen candidate와 regression source 
 <summary>별도로 승인된 미디어 교체의 유지보수 담당자만 — 학습자는 저장소의 데이터·영상을 보존합니다</summary>
 
 **새 국문·영문 세트를 각각 검증한 뒤 기존 미디어를 교체합니다.**
-국문은 `docs/assets/g6sol-20260923-ko/media.json`,
-영문은 대응하는 `g6sol-20260923-en/media.json`의 실제 파일·해시를 기준으로 검수합니다.
+국문은 `docs/assets/g6sol-20260924-ko/media.json`,
+영문은 대응하는 `g6sol-20260924-en/media.json`의 실제 파일·해시를 기준으로 검수합니다.
 한쪽만 완성한 상태에서 다른 언어의 기존 파일을 먼저 삭제하지 않습니다.
 평가 입력·응답·실패·평가자·소유권 기록은 관련 실행 증거이므로 미디어와 별도로 보존합니다.
 
 | 위치 | 보존 기준 |
 |---|---|
-| `docs/assets/g6sol-20260923-ko/` | 별도 국문 캡처·영상·액션·source-frame 검증 |
-| `docs/assets/g6sol-20260923-en/` | 별도 영문 캡처·영상·액션·source-frame 검증 |
+| `docs/assets/g6sol-20260924-ko/` | 별도 국문 캡처·영상·액션·source-frame 검증 |
+| `docs/assets/g6sol-20260924-en/` | 별도 영문 캡처·영상·액션·source-frame 검증 |
 | `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
 | `outputs/benchmarks/<label>/` | 실제 matrix, 원시 오류, dataset/corpus/response/native/trace/cleanup 계보 |
 | `outputs/judge-calibration/` | target과 분리된 평가자 calibration |

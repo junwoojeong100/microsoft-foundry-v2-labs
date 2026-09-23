@@ -93,7 +93,7 @@ python scripts/workshop.py retrieve --provider local \
 검색 문서가 부족하면 정답을 코드에 넣지 말고 검색의 한계를 기록합니다.
 
 
-![2026-09-23 국문 녹화: 여섯 합성 정책의 로컬 키워드 검색](../../assets/g6sol-20260923-ko/screenshots/K06-001-local-2.webp)
+![2026-09-24 국문 녹화: 여섯 합성 정책의 로컬 키워드 검색](../../assets/g6sol-20260924-ko/screenshots/K06-001-local-2.webp)
 
 **화면 확인:** `source_ids`와 `context_hash`를 확인합니다. 이 단계는 합성 파일의 로컬 검색입니다.
 Search나 IQ를 호출했다고 표시하지 않습니다. 설정된 endpoint 이름만 보지 말고 반환된 provider를 확인합니다.
@@ -122,7 +122,7 @@ python scripts/workshop.py seed-search --confirm-create
 문서 업로드가 부분 실패하면 전체 성공으로 처리하지 않습니다.
 
 
-![2026-09-23 국문 녹화: 합성 정책으로 소유 Search index 생성](../../assets/g6sol-20260923-ko/screenshots/K06-002-seed-search-2.webp)
+![2026-09-24 국문 녹화: 합성 정책으로 소유 Search index 생성](../../assets/g6sol-20260924-ko/screenshots/K06-002-seed-search-2.webp)
 
 **화면 확인:** seed 결과의 `mode: live`, 본인의 `index`, `document_count: 6`,
 `hybrid: false`, `knowledge_base: null`을 확인합니다. IQ가 아니라 일반 Search 객체를 만든 단계입니다.
@@ -136,7 +136,7 @@ python scripts/workshop.py retrieve --provider search \
   --output outputs/learner-notes-ko/retrieve-search.json
 ```
 
-![2026-09-23 국문 녹화: Azure AI Search 키워드 검색](../../assets/g6sol-20260923-ko/screenshots/K06-003-search-2.webp)
+![2026-09-24 국문 녹화: Azure AI Search 키워드 검색](../../assets/g6sol-20260924-ko/screenshots/K06-003-search-2.webp)
 
 **화면 확인:** `--provider search` 명령의 결과를 읽고 endpoint/index가 본인 값인지 확인합니다.
 `references`·`activity`가 없는 일반 Search 결과를 IQ 결과로 바꾸어 적지 않습니다.
@@ -159,7 +159,7 @@ python scripts/workshop.py retrieve --provider iq \
 ```
 
 
-![2026-09-23 국문 녹화: 소유 GA IQ knowledge source·base 생성](../../assets/g6sol-20260923-ko/screenshots/K06-004-seed-iq-2.webp)
+![2026-09-24 국문 녹화: 소유 GA IQ knowledge source·base 생성](../../assets/g6sol-20260924-ko/screenshots/K06-004-seed-iq-2.webp)
 
 **화면 확인:** seed 결과의 `knowledge_base`가 이제 null이 아니며 `document_count: 6`입니다.
 Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확인합니다.
@@ -173,7 +173,7 @@ Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확
 IQ 오류는 오류로 남기며 일반 Search로 대체하지 않습니다.
 
 
-![2026-09-23 국문 녹화: 원문 참조가 있는 GA Foundry IQ 검색](../../assets/g6sol-20260923-ko/screenshots/K06-005-iq-2.webp)
+![2026-09-24 국문 녹화: 원문 참조가 있는 GA Foundry IQ 검색](../../assets/g6sol-20260924-ko/screenshots/K06-005-iq-2.webp)
 
 **화면 확인:** `activity`·base·API 버전·`references`·`documents`를 함께 읽습니다.
 보고되지 않은 지연이나 사용량은 임의로 채우지 않습니다.
@@ -191,7 +191,7 @@ python scripts/workshop.py answer --prompt v2 --retrieval iq \
 검색→응답을 따로 둔 이유는 실패를 구분하기 위해서입니다.
 검색에 현재 규정이 없는 것과, 올바른 규정을 받았는데 적용일을 잘못 해석한 것은 다른 문제입니다.
 
-![2026-09-23 국문 녹화: IQ 근거를 gpt-6-sol에 보내 검증된 답변 받기](../../assets/g6sol-20260923-ko/screenshots/K06-006-answer-iq-2.webp)
+![2026-09-24 국문 녹화: IQ 근거를 gpt-6-sol에 보내 검증된 답변 받기](../../assets/g6sol-20260924-ko/screenshots/K06-006-answer-iq-2.webp)
 
 **화면 확인:** `--retrieval iq` 명령 아래의 base/API 설정, `response_model`, `response_id`, `usage`를 확인합니다.
 `answer`의 금액·조건·인용을 원문과 대조합니다.

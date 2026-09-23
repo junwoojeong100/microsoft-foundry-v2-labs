@@ -254,6 +254,11 @@ def parser() -> argparse.ArgumentParser:
         "--reference",
         help="Add this run to the reference label's Foundry evaluation for Compare runs.",
     )
+    judge.add_argument(
+        "--retry-failed",
+        action="store_true",
+        help="Retry this label's failed/invalid attempt; the attempt stays in native-attempts/.",
+    )
     judge.add_argument("--confirm-cost", action="store_true")
     tool_judge = commands.add_parser(
         "maf-evaluate",
@@ -705,6 +710,7 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                 confirmed=args.confirm_cost,
                 business_evaluator=args.business_evaluator,
                 reference=args.reference,
+                retry_failed=args.retry_failed,
             )
         if args.command == "maf-evaluate":
             from .tool_evaluation import evaluate_tool_use

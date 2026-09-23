@@ -25,6 +25,7 @@ def evaluate_items(
     evaluation_level: str = "turn",
     custom_catalog: dict[str, dict[str, Any]] | None = None,
     reference_state: Path | None = None,
+    retry_advice: bool = False,
 ) -> dict[str, Any]:
     from azure.ai.projects.models import TestingCriterionAzureAIEvaluator
 
@@ -84,8 +85,8 @@ def evaluate_items(
         identity.update(input_format="messages", evaluation_level=evaluation_level)
     reference_run = None
     if reference_state is not None:
-        if messages_input or retry_failed:
-            raise ValueError("A shared reference evaluation applies to a new query-response run.")
+        if messages_input:
+            raise ValueError("A shared reference evaluation applies to a query-response run.")
         reference_run = read_json(reference_state)
         if (
             reference_run.get("status") != "completed"
@@ -104,6 +105,10 @@ def evaluate_items(
             raise ValueError("Compare a different run; do not reuse the reference's own responses.")
         identity["reference_run_id"] = reference_run["run_id"]
     state = read_json(state_path) if state_path.exists() else dict(identity)
+    if retry_failed and state.get("reference_run_id") != identity.get("reference_run_id"):
+        raise ValueError(
+            "Retry with the same reference as the failed attempt; the retry then joins that evaluation."
+        )
     if (
         state.get("input_format", "query-response")
         != ("messages" if messages_input else "query-response")
@@ -146,7 +151,8 @@ def evaluate_items(
         original_evaluator_hash = state["evaluator_hash"]
         attempts = directory / "native-attempts"
         attempts.mkdir(exist_ok=True)
-        attempt = attempts / f"attempt-{len(list(attempts.iterdir())) + 1}"
+        number = len(list(attempts.iterdir())) + 1
+        attempt = attempts / f"attempt-{number}"
         attempt.mkdir()
         for name in (
             "cloud-evaluation.json",
@@ -159,10 +165,12 @@ def evaluate_items(
         state = {
             **identity,
             "evaluator_names": list(evaluator_names),
+            **({} if messages_input else {"item_fields": sorted(items[0])}),
             "evaluator_hash": original_evaluator_hash,
             "retry_of": {
                 "evaluation_id": state.get("evaluation_id"),
                 "run_id": state.get("run_id"),
+                "attempt": number,
             },
         }
     with project_clients(settings, preview=True) as (project, client):
@@ -293,9 +301,13 @@ def evaluate_items(
             state["evaluation_id"] = evaluation.id
             write_json(state_path, state)
         if "run_id" not in state:
+            retry = state.get("retry_of") or {}
+            if "reference_evaluation" in state and "attempt" in retry:
+                # The invalid run stays in the shared evaluation; a distinct name keeps Compare runs clear.
+                state["run_name"] = f"{label}-retry-{retry['attempt']}"
             run = client.evals.runs.create(
                 eval_id=state["evaluation_id"],
-                name=label,
+                name=state.get("run_name", label),
                 data_source={
                     "type": "jsonl",
                     "source": {
@@ -324,7 +336,8 @@ def evaluate_items(
                 )
             time.sleep(5)
         if run.status != "completed":
-            raise ValueError(f"Native evaluation ended with {run.status}; the attempt is retained.")
+            message = f"Native evaluation ended with {run.status}; the attempt is retained."
+            raise ValueError(f"{message} {kept_attempt_advice(state)}" if retry_advice else message)
         raw_items = [
             item.model_dump(mode="json")
             for item in client.evals.runs.output_items.list(
@@ -334,9 +347,11 @@ def evaluate_items(
         write_json(directory / "cloud-evaluation-raw.json", raw_items)
         try:
             normalized = normalize_results(raw_items, ids, evaluator_names)
-        except ValueError:
+        except ValueError as error:
             state["validation_status"] = "invalid"
             write_json(state_path, state)
+            if retry_advice:
+                raise ValueError(f"{error} {kept_attempt_advice(state)}") from error
             raise
         state["validation_status"] = "valid"
         state["results_hash"] = digest(normalized)
@@ -355,6 +370,7 @@ def evaluate_items(
             if "reference_evaluation" in state
             else {}
         ),
+        **({"run_name": state["run_name"]} if "run_name" in state else {}),
         **(
             {"input_format": "messages", "evaluation_level": evaluation_level}
             if messages_input
@@ -374,6 +390,15 @@ def evaluate_items(
         },
         "note": "Native judge scores remain separate from business checks and target-agent execution.",
     }
+
+
+def kept_attempt_advice(state: dict[str, Any]) -> str:
+    if state.get("retry_of"):
+        return (
+            "This retry is not valid either; keep native-attempts/ and report it "
+            "instead of retrying again."
+        )
+    return "Rerun the same command once with --retry-failed; the attempt moves to native-attempts/."
 
 
 def verified_native(directory: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:

@@ -127,7 +127,7 @@ Every family's own `--help` and linked lab specify its required values and creat
 | `iq-chat` | Fixed `gpt-5.6-luna`/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup.md#4-environment-owner-checklist) |
 | `workflow-agent` / `runtime-contract` | Validated workflow output / local frozen profile and hashes | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | Version-pinned Hosted smoke, matrices, evaluation, traces and acceptance | [Evaluation workbook](evaluation-workbook.md) |
-| `cloud-evaluate` / `calibrate-judge` | Billable native judges on recorded responses (Preview `--business-evaluator` adds your owned code-based rubric; `--reference` joins another label's evaluation for **Compare runs**) / separate calibration fixtures | [Lab 07](../labs/07-evaluation.md), [workbook](evaluation-workbook.md) |
+| `cloud-evaluate` / `calibrate-judge` | Billable native judges on recorded responses (Preview `--business-evaluator` adds your owned code-based rubric; `--reference` joins another label's evaluation for **Compare runs**; `--retry-failed` retries only a failed/invalid attempt and keeps it) / separate calibration fixtures | [Lab 07](../labs/07-evaluation.md), [workbook](evaluation-workbook.md) |
 | `maf-evaluate` | Preview: runs the MAF function-tool agent on the six dev questions and scores tool calls and relevance in Foundry | [Lab 04](../labs/04-agents-tools.md) |
 | `serve` | Local host; inference is still billable | [Lab 08](../labs/08-hosted.md) |
 | `toolbox` | Owned managed tools, versions, readback and MAF calls | [Toolbox](../labs/extensions/toolbox.md) |

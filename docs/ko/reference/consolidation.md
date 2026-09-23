@@ -67,7 +67,7 @@ IQ/Evaluation을 한두 달 더 유지하려는 운영 계획과 별개로, IQ�
 **코드/문서 검사와 실제 Azure 인수는 별개입니다.**
 2026-09-15 국문 후속 실행(이전 `gpt-5.6-luna` 판)에서는 실제 workflow 배포, 네 모델의 24/24/16행, native 평가·calibration·64개 root trace를 확인했으며
 이 matrix는 `gpt-6-sol`로 다시 실행하지 않았습니다. 외부 Work IQ/Fabric/Toolbox 연결까지 자동으로 검증한 것은 아닙니다.
-2026-09-23 [실행 결과](../live-run.md)는 `gpt-6-sol`의 A/B 주요 단계만 다룹니다.
+2026-09-24 [실행 결과](../live-run.md)는 `gpt-6-sol`의 A/B 주요 단계와 선택 평가 단계를 다룹니다.
 
 ## 이후 작업 순서
 

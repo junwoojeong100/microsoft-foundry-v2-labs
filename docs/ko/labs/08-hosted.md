@@ -64,7 +64,7 @@ python scripts/package_hosted.py
 패키지만 선택했다면 manifest를 보관하고 [Lab 09](09-operations.md)로 이동합니다.
 
 
-![2026-09-23 국문 녹화: Hosted bundle 패키징만; 배포 없음](../../assets/g6sol-20260923-ko/screenshots/K08-001-package-2.webp)
+![2026-09-24 국문 녹화: Hosted bundle 패키징만; 배포 없음](../../assets/g6sol-20260924-ko/screenshots/K08-001-package-2.webp)
 
 **화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted` 위치를 반환하는지 확인합니다.
 파일을 묶은 단계일 뿐 Azure 배포 성공이 아닙니다. 위 표와 manifest로 포함·제외 파일을 대조하세요.
@@ -233,7 +233,8 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 
 
 앞의 기본 단일-agent 경로와 다음 workflow 경로는 서로 다른 target입니다.
-2026-09-23 `gpt-6-sol` 녹화는 패키징만 포함하며 로컬 서버·원격 배포·아래 workflow 경로는 다시 실행하지 않았습니다.
+2026-09-24 `gpt-6-sol` 녹화는 패키징만 포함하며 로컬 서버·본인의 원격 배포·아래 workflow 경로는 다시 실행하지 않았습니다.
+2026-09-23에 별도의 승인된 CI 릴리스가 workflow 프로필을 `gpt-6-sol`로 배포했습니다([릴리스 운영](extensions/release-operations.md#5-릴리스-순서)).
 정확한 결과와 한계는 [실행 기록](../live-run.md)을 확인합니다.
 
 </details>

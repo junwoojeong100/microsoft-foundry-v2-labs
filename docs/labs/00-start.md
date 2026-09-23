@@ -23,7 +23,7 @@
 <details>
 <summary>Optional screenshot help — execute the current text, not the recording</summary>
 
-Reference images come from the **September 23, 2026 English recording with `gpt-6-sol`**,
+Reference images come from the **September 24, 2026 English recording with `gpt-6-sol`**,
 made in a separate training project with the setup card and the ready learner files.
 [Recordings and scope](../video-summary.md) distinguish actual calls, fixtures, observations, and what was not recorded.
 Click to enlarge. Compare account, project, model, and prefix with your instructor's
@@ -59,7 +59,7 @@ prevent translated datasets from being presented as the same-input experiment.
 5. Fill the setup section of the ZIP's `session-notes.txt` using the rows below. Do not post whole screens or personal information in shared chat.
 
 
-![September 23 English recording: Open the intended training project](../assets/g6sol-20260923-en/screenshots/EP00-001-home-2.webp)
+![September 24 English recording: Open the intended training project](../assets/g6sol-20260924-en/screenshots/EP00-001-home-2.webp)
 
 **What to check:** The project name at the top must change. **Project endpoint** is the
 value for `.env`; it is not the browser's `ai.azure.com` address.
@@ -130,7 +130,7 @@ Expected fields include `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`,
 
 
 
-![September 23 English recording: Open the source folder and run the offline doctor](../assets/g6sol-20260923-en/screenshots/E00-001-folder-2.webp)
+![September 24 English recording: Open the source folder and run the offline doctor](../assets/g6sol-20260924-en/screenshots/E00-001-folder-2.webp)
 
 **What to check:** Read all three counts and `azure_tested: false`. This checks files
 and the local runtime, not a successful Azure call.
@@ -174,7 +174,7 @@ checker; v2 uses the original fixture. Their score difference is **not a measure
 prompt improvement**. Use fresh labels such as `rehearsal2-v1` to rerun.
 
 
-![September 23 English recording: Compare fixtures without claiming model quality](../assets/g6sol-20260923-en/screenshots/E00-005-fixture-compare-2.webp)
+![September 24 English recording: Compare fixtures without claiming model quality](../assets/g6sol-20260924-en/screenshots/E00-005-fixture-compare-2.webp)
 
 **What to check:** Read `OFFLINE FIXTURE` and the final warning. No model was called
 with two prompts to obtain this difference.
@@ -198,7 +198,7 @@ In each new terminal, return to the repository root and reactivate the venv.
 Do not paste Bash into a browser developer console or Python's `>>>` prompt.
 
 
-![September 23 English recording: Create the virtual environment and install the pinned SDKs](../assets/g6sol-20260923-en/screenshots/E00-006-install-2.webp)
+![September 24 English recording: Create the virtual environment and install the pinned SDKs](../assets/g6sol-20260924-en/screenshots/E00-006-install-2.webp)
 
 **What to check:** The command has ended and the shell prompt returned. Resolve any
 installation errors; matching the final screen is not sufficient. Installation is not Azure connectivity.
@@ -248,7 +248,7 @@ Preflight does not prove data-plane permissions or Structured Outputs support;
 [Lab 02](02-models.md) tests an actual request.
 
 
-![September 23 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260923-en/screenshots/E00-008-preflight-2.webp)
+![September 24 English recording: Read-only Azure preflight: gpt-6-sol 2026-09-22 Succeeded](../assets/g6sol-20260924-en/screenshots/E00-008-preflight-2.webp)
 
 **What to check:** Read `deployment.name`, `deployment.model.name`, `deployment.model.version`,
 `deployment.state: Succeeded`, `inference_tested: false`, and `note`.
@@ -258,23 +258,23 @@ Only an actual response verifies inference. If you came here to prepare Lab 05, 
 Continue to [Lab 02 B](02-models.md#path-b) for actual inference. Keep all later terminal commands at this repository root with `.venv` active.
 
 <details>
-<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
+<summary>More September 24 gpt-6-sol captures (reference; not steps to repeat)</summary>
 
-These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
+These captures come from the September 24, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![September 23 English recording: Prepare B's personal notes once](../assets/g6sol-20260923-en/screenshots/E00-002-notes-2.webp)
+![September 24 English recording: Prepare B's personal notes once](../assets/g6sol-20260924-en/screenshots/E00-002-notes-2.webp)
 
 **What to check:** B prepares the personal notes folder once; later commands save their JSON there. Nothing here calls Azure.
 
-![September 23 English recording: Offline fixture v1: not a model response](../assets/g6sol-20260923-en/screenshots/E00-003-fixture-v1-2.webp)
+![September 24 English recording: Offline fixture v1: not a model response](../assets/g6sol-20260924-en/screenshots/E00-003-fixture-v1-2.webp)
 
 **What to check:** `OFFLINE FIXTURE` v1 is a fixed sample file, not a model response. Its failed checks are part of the exercise.
 
-![September 23 English recording: Offline fixture v2 and its lineage](../assets/g6sol-20260923-en/screenshots/E00-004-fixture-v2-2.webp)
+![September 24 English recording: Offline fixture v2 and its lineage](../assets/g6sol-20260924-en/screenshots/E00-004-fixture-v2-2.webp)
 
 **What to check:** v2 changes only the fixture. Read its lineage fields; do not treat the result as model quality.
 
-![September 23 English recording: Copy .env.example and fill it from the setup card](../assets/g6sol-20260923-en/screenshots/E00-007-env-2.webp)
+![September 24 English recording: Copy .env.example and fill it from the setup card](../assets/g6sol-20260924-en/screenshots/E00-007-env-2.webp)
 
 **What to check:** The recording's `RUN_TOOLS/configure_env.py` helper wrote the setup-card values into `.env`; edit yours by hand. Compare the project endpoint, `gpt-6-sol`, the judge deployment and your prefix with your own card.
 

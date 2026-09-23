@@ -50,15 +50,17 @@ Follow the **[beginner or practitioner guide](docs/paths.md)**. Each lab places 
 images and a **What to check** explanation beside the relevant action or command.
 Read [how to use the screenshots](docs/labs/00-start.md#how-to-read-this-guide) first.
 
-**September 23 `gpt-6-sol` recordings:** [English videos](docs/video-summary.md) ·
+**September 24 `gpt-6-sol` recordings:** [English videos](docs/video-summary.md) ·
 [Action/capture index](docs/action-captures.md) · [Chapters](docs/video-chapters.md) ·
 [Actual results and limitations](docs/live-run.md)
 
-The English set contains **69 actions, 207 lossless captures, and three videos**: **4:36 in guide order**,
-2:30 CLI and 1:43 portal. It covers the main A (portal) and B (CLI) steps of Labs 00–09 and 11 with
-`gpt-6-sol` / `2026-09-22` in a new Sweden Central project ([model choice](docs/reference/model-choice.md)).
+The English set contains **98 actions, 293 lossless captures, and three videos**: **6:29 in guide order**,
+3:11 CLI and 2:55 portal. It covers the main A (portal) and B (CLI) steps of Labs 00–09 and 11 and the optional
+Foundry evaluation steps with `gpt-6-sol` / `2026-09-22` in the Sweden Central training project
+([model choice](docs/reference/model-choice.md)). Failed attempts stay in the recording next to their retries
+([what failed](docs/live-run.md#failures-kept-in-this-recording)).
 Local playback and chapter seeks are verified; the videos were not uploaded to GitHub.
-Play them with `python scripts/play_recordings.py --edition en`. Earlier `gpt-5.6-luna` recordings were removed.
+Play them with `python scripts/play_recordings.py --edition en`. Earlier recordings were removed.
 
 English uses **separate English instructions, synthetic policies, dev/calibration/holdout datasets, and fixtures**.
 Select them explicitly with `--language en`; original Korean files remain unchanged.

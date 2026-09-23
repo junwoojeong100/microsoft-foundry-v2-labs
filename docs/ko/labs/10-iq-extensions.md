@@ -128,6 +128,6 @@ Managed identity 지원 여부와 Preview 여부는 별개입니다.
 capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참조하는지 점검합니다.
 다른 조의 연결이나 조직 전체 consent를 임의로 삭제하지 않습니다.
 
-Lab 10은 선택 단원이며 2026-09-23 `gpt-6-sol` 녹화에 포함하지 않았습니다. [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
+Lab 10은 선택 단원이며 2026-09-24 `gpt-6-sol` 녹화에 포함하지 않았습니다. [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 다음: A: [Lab 11로 이동](11-capstone.md) · B: [Lab 11로 이동](11-capstone.md)
