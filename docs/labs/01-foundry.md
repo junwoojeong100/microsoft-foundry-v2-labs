@@ -51,6 +51,8 @@ flowchart TD
 3. On the same page, select **View deployments** and find the **`gpt-6-sol`** row. Close the list when you have seen it.
 4. Select **Build** in the top bar (not the **Start building** button). In the left menu, find **Agents**, **Models**, **Knowledge** and **Evaluations**:
    they all belong to this one project. Menu labels can differ by language or rollout; look for the same objects.
+   Continue when you see them under your project's name; if they are missing, check that you opened the training project,
+   not the Foundry account or another project.
 
 ![September 24 English recording: Distinguish the project endpoint from the account OpenAI endpoint](../assets/g6sol-20260924-en/screenshots/EP01-001-endpoints-2.webp)
 

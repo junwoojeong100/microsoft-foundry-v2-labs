@@ -2,12 +2,11 @@
 
 **English** | [한국어](ko/coverage.md)
 
-**English-first extension execution — September 16, 2026 (earlier `gpt-5.6-luna` preset).**
-The September 24, 2026 `gpt-6-sol` recording re-ran the main A/B steps of Labs 00–09 and 11 together with the optional
-Foundry evaluation steps (portal and trace evaluation, business rubric with **Compare runs**, MAF tool-call scoring); the earlier
-recordings were removed. On September 23, separate verifications ran the optional evaluation steps, the conversation
-evaluation module, the existing-traces and recurring evaluations, Agent Optimizer, cloud red teaming and the approved Hosted release
-with `gpt-6-sol`; the other extension evidence below was not re-run with `gpt-6-sol`.
+**Current state:** the September 24, 2026 `gpt-6-sol` recording covers the main A/B steps of Labs 00–09 and 11 and the
+optional Foundry evaluation steps (portal and trace evaluation, business rubric with **Compare runs**, MAF tool-call scoring).
+Separate September 23 `gpt-6-sol` checks cover the conversation evaluation module, the existing-traces and recurring
+evaluations, Agent Optimizer, cloud red teaming and the approved Hosted release. The other extension results below date from
+September 16, 2026 (earlier `gpt-5.6-luna` preset) and are not evidence for `gpt-6-sol`.
 This page is a coverage record, not a claim that every Foundry feature has been executed.
 The production order is English guide → English recording → English refinement → Korean guide →
 independent Korean recording → Korean refinement.
@@ -28,27 +27,27 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 
 ## Current course map
 
-| Capability | Path | Current workshop coverage | September 16 expansion |
+| Capability | Path | Current workshop coverage | Latest dated evidence |
 |---|---|---|---|
-| Models, Prompt Agents, synthetic source evidence | A/B | Existing Labs 00–03 | Preserve the fixed first-pass model and simplify navigation |
-| Functions, local MCP, MAF orchestration | B | Existing Labs 04–05 | Preserve the executable patterns and their limits |
-| Search/hybrid/GA IQ and separate MI chat preset | B/C | Existing Lab 06 and keyless preset | Keep GA and Preview planning/synthesis separate |
-| Business/native evaluation and frozen acceptance | A/B | Existing Lab 07, plus optional portal evaluation, no-evidence diagnostic, code-based business evaluator and **Compare runs** | September 24 `gpt-6-sol` recording and September 23 verification in both languages ([results](live-run.md)); custom evaluators and TaskAdherence are Preview |
-| Tool-call evaluation of the MAF agent | B | Optional `maf-evaluate` in Lab 04 | September 24 `gpt-6-sol` recording and September 23 verification in both languages; experimental MAF evaluation API |
-| Hosted workflow/matrix/calibration/regression/traces | C | Existing workbook | Preserve historical evidence; new code needs new run labels |
-| Managed Toolbox lifecycle | B | Executable owned/versioned path | English direct query, MAF, local/remote Hosted and downloaded evidence verified |
-| Tool Search, Skills and private skill catalog | C | Executable Tool Search/Skill path | English discovery, pinning, exact Skill readback and actual load verified; catalog infrastructure not provisioned |
-| Full-conversation evaluation and reusable datasets | C | Executable dev-only multi-turn path | Re-verified with `gpt-6-sol` on September 23 in both languages; both native levels ran |
-| Agent Optimizer | C | One bounded Prompt Agent wizard | Re-run with `gpt-6-sol` on September 23 in both languages with a temporary `gpt-5.5` optimizer model: baseline only; Groundedness compared each answer with itself, so no promotion |
-| Durable human approval, restart recovery and steering | C | Real local SDK demonstration | English restart/checkpoint proof with simulated decisions; not actual human authorization |
-| A2A 1.0 | C | Explicit card/configuration and delegation | English original paired call/output verified; wire packets not captured |
-| Memory and Routines | C | Owned lifecycle and bounded timer | Memory verified; routine delivery verified, answer retrieval unavailable |
-| Applied guardrails and controlled red teaming | C | Dedicated policy/target | English attachment and two unblocked cases recorded (earlier preset). Cloud red-team scans (Preview) ran with `gpt-6-sol` on September 23; the displayed ASR contradicted every row's reasoning, so no red-team result is claimed |
-| Continuous evaluation and deployment quality gates | C | Manual guarded workflow and OIDC setup | September 23 `gpt-6-sol`: English and Korean OIDC releases passed the six-case business gate; existing-traces evaluations scored 15/15 per evaluator in both languages; an hourly recurring schedule was verified and paused ([results](live-run.md#previously-not-run-items--september-23-2026)); production approval remains separate |
-| Model retirement/migration and Router tradeoffs | C | Fixed-model comparison and Router observation | Temporary supported optimizer model and frozen version recorded; no Router migration claim |
-| OpenAPI/Code Interpreter, Toolkit, governance/networking | B/C | Executable tools and explicit owner boundaries | English API/file results, tooling and scoped role checks recorded; private network not tested |
+| Models, Prompt Agents, synthetic source evidence | A/B | Existing Labs 00–03 | 2026-09-24 `gpt-6-sol` recording |
+| Functions, local MCP, MAF orchestration | B | Existing Labs 04–05 | 2026-09-24 `gpt-6-sol` recording |
+| Search/hybrid/GA IQ and separate MI chat preset | B/C | Existing Lab 06 and keyless preset | 2026-09-24 `gpt-6-sol` recording: local, Search and GA IQ retrieval. Hybrid RAG and the `gpt-5.6-luna` IQ Chat preset not re-run (configuration screen checked 2026-09-17) |
+| Business/native evaluation and frozen acceptance | A/B | Existing Lab 07, plus optional portal evaluation, no-evidence diagnostic, code-based business evaluator and **Compare runs** | 2026-09-24 `gpt-6-sol` recording and 2026-09-23 verification in both languages ([results](live-run.md)); custom evaluators and TaskAdherence are Preview |
+| Tool-call evaluation of the MAF agent | B | Optional `maf-evaluate` in Lab 04 | 2026-09-24 `gpt-6-sol` recording and 2026-09-23 verification in both languages; experimental MAF evaluation API |
+| [Hosted workflow/matrix/calibration/regression/traces](reference/evaluation-workbook.md) | C | Existing workbook | 2026-09-15 `gpt-5.6-luna` only (Korean four-model matrix); not re-run with `gpt-6-sol` |
+| [Managed Toolbox lifecycle](labs/extensions/toolbox.md) | B | Executable owned/versioned path | 2026-09-16 `gpt-5.6-luna`: English direct query, MAF, local/remote Hosted and downloaded evidence verified |
+| [Tool Search, Skills and private skill catalog](labs/extensions/tool-search-skills.md) | C | Executable Tool Search/Skill path | 2026-09-16 `gpt-5.6-luna`: English discovery, pinning, exact Skill readback and actual load verified; catalog infrastructure not provisioned |
+| [Full-conversation evaluation and reusable datasets](labs/extensions/conversation-evaluation.md) | C | Executable dev-only multi-turn path | 2026-09-23 `gpt-6-sol`: re-verified in both languages; both native levels ran |
+| [Agent Optimizer](labs/extensions/agent-optimizer.md) | C | One bounded Prompt Agent wizard | 2026-09-23 `gpt-6-sol`: re-run in both languages with a temporary `gpt-5.5` optimizer model; baseline only, and Groundedness compared each answer with itself, so nothing was promoted |
+| [Durable human approval, restart recovery and steering](labs/extensions/approval-recovery.md) | C | Real local SDK demonstration | 2026-09-16: English restart/checkpoint proof with simulated decisions; not actual human authorization |
+| [A2A 1.0](labs/extensions/a2a.md) | C | Explicit card/configuration and delegation | 2026-09-16 `gpt-5.6-luna`: English paired call and output verified; wire packets not captured |
+| [Memory](labs/extensions/memory.md) and [Routines](labs/extensions/routines.md) | C | Owned lifecycle and bounded timer | 2026-09-16 `gpt-5.6-luna`: memory verified; routine delivery verified, answer retrieval unavailable |
+| [Applied guardrails and controlled red teaming](labs/extensions/agent-safety.md) | C | Dedicated policy/target | 2026-09-16 `gpt-5.6-luna`: English attachment and two unblocked cases. 2026-09-23 `gpt-6-sol`: cloud red-team scans (Preview) ran, but the displayed ASR contradicted every row's reasoning, so no red-team result is claimed |
+| [Continuous evaluation and deployment quality gates](labs/extensions/release-operations.md) | C | Manual guarded workflow and OIDC setup | 2026-09-23 `gpt-6-sol`: English and Korean OIDC releases passed the six-case business gate; existing-traces evaluations scored 15/15 per evaluator in both languages; an hourly recurring schedule was verified and paused ([results](live-run.md#previously-not-run-items--september-23-2026)); production approval remains separate |
+| [Model retirement/migration and Router tradeoffs](labs/extensions/model-operations.md) | C | Fixed-model comparison and Router observation | 2026-09-16 `gpt-5.6-luna`: temporary supported model and frozen version recorded; no Router migration claim |
+| [OpenAPI/Code Interpreter](labs/extensions/additional-tools.md), [Toolkit](labs/extensions/developer-toolkit.md), [governance/networking](labs/extensions/governance-networking.md) | B/C | Executable tools and explicit owner boundaries | 2026-09-16 `gpt-5.6-luna`: English API/file results, tooling and scoped role checks recorded; private network not tested |
 | Actual company/Microsoft 365 access | Specialist | Excluded | Remains excluded |
-| Fine-tuning, voice/multimodal, browser/computer business actions | Specialist | Design/scope only | Separate specialist curriculum, not an implied implementation |
+| [Fine-tuning, voice/multimodal, browser/computer business actions](labs/extensions/specialist-scope.md) | Specialist | Design/scope only | Separate specialist curriculum, not an implied implementation |
 
 ## Evidence that already exists
 

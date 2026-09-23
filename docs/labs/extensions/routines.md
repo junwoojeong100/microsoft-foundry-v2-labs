@@ -6,6 +6,8 @@
 implement a durable approval service, or authorize company/Microsoft 365 access.
 The inspected azd extension labels its routine command surface Preview on September 16, 2026.
 
+**Evidence status:** English routine delivery ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset (answer retrieval was unavailable); not re-run with `gpt-6-sol`.
+
 **Need:** an approved existing Prompt or Hosted Responses agent, the actual project endpoint,
 azd routine commands, an owned routine name and cost approval.
 **Stop when:** one dispatch has an identifiable run result and the routine is disabled afterward.

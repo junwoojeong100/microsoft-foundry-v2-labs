@@ -35,5 +35,5 @@
 | GA/Preview | Generally available / availability with separate limits and possible change |
 | Session | Hosted persistent-state/compute unit with costs and cleanup requirements |
 
-You do not need to know every term before starting. [Path A](../paths.md) introduces
-concepts after you see actual browser results.
+You do not need to know every term before starting. Return to the lab or page that linked you here;
+if you are starting fresh, choose [A or B](../paths.md).

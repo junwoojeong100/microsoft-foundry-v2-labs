@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/specialist-scope.md)
 
 **Reference / owner planning, September 16, 2026.**
+
+**Evidence status:** design and scope only; nothing on this page was executed.
+
 These capabilities belong on the Foundry feature map, but require their own data, identities, infrastructure or runtime.
 They are not hidden prerequisites for A, B or the core C modules.
 

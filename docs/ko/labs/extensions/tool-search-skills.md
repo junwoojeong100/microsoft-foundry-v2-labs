@@ -5,6 +5,8 @@
 **C 선택 Preview · 2026-09-16 기준.** [기본 Toolbox](toolbox.md)의 실제 요청부터 성공시킵니다.
 그 Toolbox·원래 버전·소유 ledger를 유지합니다. 여전히 동봉 정책만 읽으며 공개 웹이나 skill script를 실행하지 않습니다.
 
+**근거 상태:** 영문 discovery·고정·Skill readback·load를 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(사설 catalog 인프라 없음). `gpt-6-sol`로 다시 실행하지 않았습니다.
+
 **준비:** 동작하는 내 Toolbox, 같은 `.env`, azd skill 명령, 새 버전·모델 호출 승인.
 **완료:** 발견/고정 설정과 실제 도구 목록이 일치하고, 고정된 skill을 실제 MAF 요청에서 불러옴.
 **중단:** 오류 뒤에 `toolbox_search_preview`나 다른 skill로 바꾸지 않습니다.

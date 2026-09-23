@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/tool-search-skills.md)
 
 **Path C, optional Preview — September 16, 2026.**
+
+**Evidence status:** English discovery, pinning, Skill readback and load ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset (no private catalog infrastructure); not re-run with `gpt-6-sol`.
+
 Complete the ordinary [Toolbox lab](toolbox.md) first. Keep that Toolbox, its original version and ownership ledger.
 This module still reads only the six bundled synthetic policies. It neither calls the public web nor executes skill scripts.
 

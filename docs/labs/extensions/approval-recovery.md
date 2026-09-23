@@ -11,7 +11,9 @@ not change Lab 05, the workshop CLI, deployment configuration, or canonical data
 inference, retrieval, evaluator, booking, payment, email, or real authorization.
 `synthetic-runtime-only` is a protocol label, **not an Azure model deployment**.
 The only scenario is the bundled English development question `D03`. Holdout is
-not used. An English stop/restart/continuation ran on September 16, 2026 in the earlier
+not used.
+
+**Evidence status:** an English stop/restart/continuation ran on September 16, 2026 in the earlier
 `gpt-5.6-luna` edition; it was not an Azure execution and was not re-run for the `gpt-6-sol` preset.
 
 **First pass:** the five steps under Recommended first pass, without a restart or crash.

@@ -6,6 +6,73 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+**Current state:** the `gpt-6-sol` / `gpt-6-sol-judge` edition is recorded in both languages as of
+[September 24, 2026](#gpt-6-sol-20260924). Separate September 23 checks cover the [previously not-run items](#previously-not-run-items)
+and the [optional evaluation additions](#foundry-evaluation-additions). What is still not run is listed in the
+[actual results](../live-run.md#not-run-with-gpt-6-sol). Entries below are newest first; the latest guide and document review is [v3](#straightforwardness-v3).
+
+<a id="straightforwardness-v3"></a>
+
+## Straightforwardness review v3: guides and documents — September 24, 2026
+
+**Conservative editorial scores: guides 100/100 and documents 100/100** (round 1: 87/100 and 78.5/100).
+Seven independent AI cold-read reviews covered the English A route, the English B route and the Korean guides with the
+[v2 guide rubric](#guide-straightforwardness-v2), now including the collapsed optional sections, and two English and two Korean
+document groups with a new document rubric. Each dimension takes the lowest reviewer score; D10 and R10 come from the Korean
+reviews. Three rounds scored 87, 99.5 and 100 for the guides and 78.5, 89 and 100 for the documents. This is an editorial
+assessment, not a human usability pilot, a learner-success rate or a measured completion time.
+
+| Dimension | Guides: what earns full points | Round 1 | Final |
+|---|---|---:|---:|
+| D1 | Entry and route choice: README → setup → paths reaches the first action of either route | 10 | 10 |
+| D2 | One linear core path; optional, owner and historical material is collapsed or marked | 9 | 10 |
+| D3 | Numbered, imperative steps with exact UI labels, file names and values | 8.5 | 10 |
+| D4 | A visible success or failure check after every action or command | 9 | 10 |
+| D5 | Commands run as written, in order, with named output files | 9 | 10 |
+| D6 | Plain, lean language without history or evidence commentary in the core path | 9 | 10 |
+| D7 | Concrete recovery, including exactly what to ask the owner for | 9.5 | 10 |
+| D8 | Explicit done criteria, correct A/B next links and a clear final handoff | 9.5 | 10 |
+| D9 | Current, consistent model, date, screenshot and link claims | 7 | 10 |
+| D10 | Korean pages mirror the English steps, commands, images and links and read naturally | 6.5 | 10 |
+
+| Dimension | Documents: what earns full points | Round 1 | Final |
+|---|---|---:|---:|
+| R1 | Purpose, audience and the current answer come first | 7 | 10 |
+| R2 | Headings, tables and anchors find a specific answer in seconds | 8 | 10 |
+| R3 | Procedures are numbered and exact, with who does them and a success check | 8 | 10 |
+| R4 | Numbers, flags, links and results agree with the guides, the CLI and the recorded evidence | 8 | 10 |
+| R5 | Each fact lives in one place; dated history stays compact | 9 | 10 |
+| R6 | Short sentences and explained terms | 9.5 | 10 |
+| R7 | Brief, consistent evidence boundaries, Preview status and dates | 7 | 10 |
+| R8 | Paid calls, cloud writes, roles and cleanup name who approves and who acts | 8 | 10 |
+| R9 | Every page gives a next step; no dead links or links to removed material | 9.5 | 10 |
+| R10 | Korean pages mirror the English facts, numbers, links and structure and read naturally | 4.5 | 10 |
+
+**Main changes:**
+
+- Conclusion first: coverage, versions, the evaluation workbook, IQ model identity and this page now open with the current state;
+  dated history moved into dated table cells or collapsed blocks.
+- Every extension module states its evidence status (date, preset, re-run or not with `gpt-6-sol`) under its opening line.
+- The action index starts with an at-a-glance list of not-run, failed-and-kept, capture-tool and superseded actions;
+  the results page keeps compact September 23 tables and points here for findings and Azure changes.
+- Guides: Python 3.13/3.14 scope and the `--language en` note (README, Lab 00), checks after `az login` and Lab 01 step 4,
+  the portal's dataset preview label and version choice (Lab 07 A), a no-traces stop in Lab 09's optional trace evaluation,
+  Lab 08's B-only completion, Lab 10's optional scope and the IQ Chat capture's date.
+- Korean parity: index, the paths C section, commands, versions, coverage, configuration, sources, instructor, migration,
+  consolidation, cleanup and the routines and A2A modules now mirror the English pages; the Korean portal label **추적 번호**
+  carries its meaning, and cleanup uses **일시 중지**.
+- A broken official link (`…/workflows/as-agent`, HTTP 404) now points to `…/workflows/as-agents`, and the reference table gained
+  six checked links used by the optional evaluation and Hosted steps.
+
+**Verification for this revision:** 257 offline tests passed on each of Python 3.13 and 3.14, and 77 installed-SDK tests
+passed with stub transports. Ruff, compilation, the CI offline commands in a clean copy and documentation checks
+(117 Markdown files, 58 language pairs, 340 CLI examples) passed, with no pending translations.
+A new test keeps both tables' rows and totals consistent.
+
+**Live Azure checks for this revision: not run.** No model request, provisioning, deployment, role or subscription change,
+or recording was performed. Portal labels were compared with the September 24 captures. Code, prompts, datasets, policies,
+fixtures and media files are unchanged; only documentation and one test changed.
+
 <a id="gpt-6-sol-20260924"></a>
 
 ## Re-recording with the optional evaluation steps — September 24, 2026
@@ -41,7 +108,7 @@ tree (git history at `90b18b3`); `videos/` holds `gpt-6-sol-20260924-en-summary.
 
 **Results in each language:** business checks baseline 6/6, candidate 6/6 and holdout 4/4; the no-evidence diagnostic 0/6 with
 0 errors; cloud judge groundedness 6/6 and relevance 5/6 (D05). Business-rubric agreement was 6/6 for both runs; **Compare runs**
-showed mean relevance 3.83 → 4.83 (English) and 4.17 → 4.50 (Korean) with **Too few samples**. MAF tool calls: English 6/6 and
+showed mean relevance 3.83 → 4.83 (English) and 4.17 → 4.50 (Korean) with **Too few samples** (captures `EP07-301`, `KP07-301`). MAF tool calls: English 6/6 and
 6/6; Korean tool_call_accuracy 5/6 (D03's search query named `APPROVAL-01`, which the evaluator called a fabricated parameter) and
 relevance 5/6 (D05). Trace evaluation: English 10/10, Korean 15/15, including five conversations that the earlier portal evaluation created.
 
@@ -123,8 +190,8 @@ the recorded videos are unchanged.
 | No-evidence diagnostic | 0/6, 0 errors, `feedback` rejected | 0/6, 0 errors, `feedback` rejected |
 | Cloud judges with `business_rubric` (groundedness / relevance / business, each run) | 6/6, 6/6, 6/6; agreement 6/6 | 6/6, 5/6, 6/6; agreement 6/6 |
 | Portal comparison of the two runs | relevance 4.33 → 4.83, too few samples | relevance 3.83 → 4.50, too few samples |
-| `maf-evaluate` (tool_call_accuracy / relevance) | 6/6, 6/6; re-run after review fixes 6/6, 6/6 | 6/6, 5/6; re-run after review fixes 6/6, 6/6 |
-| Cloud judges on the no-evidence diagnostic (before the refusal was added) | invalid: Groundedness skipped 3/6 rows; nothing counted | invalid: Groundedness skipped 4/6 rows; nothing counted |
+| `maf-evaluate` (tool_call_accuracy / relevance) | 6/6, 6/6; re-run after review fixes (code `408b1b57…`, `eval_fd079e29…`) 6/6, 6/6 | 6/6, 5/6; re-run after review fixes (`eval_e330c6aa…`) 6/6, 6/6 |
+| Cloud judges on the no-evidence diagnostic (before the refusal was added) | invalid (`evalrun_2b495a2e…` in `eval_f231e23c…`): Groundedness skipped 3/6 rows; nothing counted | invalid (`evalrun_1e0790d4…` in `eval_910a4729…`): Groundedness skipped 4/6 rows; nothing counted |
 | Conversation evaluation module (turn; conversation groundedness) | 6/6 and 6/6; 1/2 | 6/6 and 6/6; 2/2 |
 
 **Findings kept as findings:** TaskAdherence and Relevance disagreed with the business assessment because the evaluators receive

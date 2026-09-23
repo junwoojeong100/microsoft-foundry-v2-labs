@@ -150,7 +150,7 @@ Without approval, record **not executed**.
 Do not replace an error with synthetic output and label it a real Work IQ success.
 Older references to “synthetic fallback” are treated here only as a **separately labeled synthetic design exercise**.
 
-## 6. Hosted identity/OBO checklist
+## 6. Hosted identity and on-behalf-of (OBO) checklist
 
 | Check | Required evidence |
 |---|---|

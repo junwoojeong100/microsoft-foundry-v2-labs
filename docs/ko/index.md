@@ -6,11 +6,7 @@
 Python·API에 익숙하다면 대신 [B. 구현](paths/b-practitioner.md)을 선택합니다.
 각 경로는 자기 랩 구간으로 바로 연결됩니다. 다른 경로까지 계속 실행하지 말고 **A 완료 / B 완료** 링크로 이동합니다.
 
-> **현재 통합 개정:** `ko-integrated-20260915`.
-> 새 Hosted workflow·평가 matrix 경로는 [통합 인수 기준](reference/consolidation.md)에 정리했습니다.
-> 국문·영문 데이터와 실제 촬영본을 별도로 제공합니다. 다른 언어의 영상을 재사용하지 않습니다.
-
-이 자료는 2026-09-15 실제 workflow 배포·평가를 확인한 Pre-Ignite 2026 Edition입니다.
+이 자료는 언어별 자산과 녹화본을 따로 둔 Pre-Ignite 2026 Edition입니다.
 완전초보자는 포털과 준비된 MAF 실행 환경에서, 경험자는 Python 코드에서
 같은 **합성 출장 규정 상담 업무**를 해결합니다. 워크플로를 포털에서 작성하는 단계는 없습니다.
 
@@ -33,25 +29,27 @@ A는 복사한 `assessment.csv`도 작성합니다.
 |---|---|
 | 계정·고정 모델·입력 파일·혼자 준비하는 경로 | [한 번만 하는 준비](setup.md) |
 | 나에게 맞는 시작점과 시간표 | [학습 경로](paths.md) |
-| 고정 Hosted version의 다중 모델 평가 | [평가·학습 루프 워크북](reference/evaluation-workbook.md) |
-| IQ·Toolbox·Fabric·Work IQ의 선택 경계 | [IQ 확장 워크북](reference/iq-workbook.md) |
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
-| 2026-09-24 `gpt-6-sol` 녹화로 실제 조작 따라가기 | [대기 제거 편집본: 통합본 6분 3초 · CLI 2분 57초 · 포털 2분 43초](video-summary.md) |
-| 별도 영문 가이드·데이터·녹화 | [영문 영상](../video-summary.md) |
-| 국문 녹화의 액션별 화면 | [91개 액션·272개 캡처](action-captures.md) |
-| 가이드 순서대로 한 영상에서 보기 | [CLI·포털 통합본 6분 3초와 챕터](video-chapters.md) |
-| 실제 결과와 아직 확인하지 않은 것 | [실행·검증 기록](live-run.md) |
+| 2026-09-24 `gpt-6-sol` 국문 녹화 | [영상: 통합본 6분 3초 · CLI 2분 57초 · 포털 2분 43초](video-summary.md) |
+| 가이드 순서대로 한 영상에서 보기 | [Lab 챕터](video-chapters.md) |
+| 특정 화면이나 액션 | [91개 액션·272개 캡처](action-captures.md) |
+| 실제 결과와 한계 | [실행 기록](live-run.md) |
+| 별도 영문 녹화 | [영문 영상](../video-summary.md) |
+| Hosted matrix와 독립 게이트 | [평가 워크북](reference/evaluation-workbook.md) |
+| IQ·Toolbox·Fabric·Work IQ의 선택 경계 | [IQ 확장 워크북](reference/iq-workbook.md) |
 | 마지막에 확인할 결과물 | [캡스톤](labs/11-capstone.md) |
 | 현재 지원 상태와 버전 | [호환성 기준](reference/versions.md) |
 | 오류·권한·할당량 문제 | [문제 해결](reference/troubleshooting.md) |
 | 비용을 남기지 않고 마치기 | [정리](reference/cleanup.md) |
+| 영문·국문 범위와 샘플 번역 | [언어 계약](reference/languages.md) |
 
 </details>
 
 > **세 가지를 구분합니다.** `offline-fixture`는 고정 예제, 로컬 MAF는 내 PC에서
 > 실행하지만 모델은 Azure에 호출하는 코드, Hosted Agent는 내 코드를 클라우드에서
-> 실행하는 서비스입니다. 셋의 완료 조건은 같지 않습니다.
+> 실행하는 서비스입니다. 셋의 완료 조건은 같지 않습니다. 영문 실행은 별도로 고정한 영문 정책·지침·데이터를
+> 명시적으로 선택하며 국문 원본은 바뀌지 않습니다.
 
 ```mermaid
 flowchart TD

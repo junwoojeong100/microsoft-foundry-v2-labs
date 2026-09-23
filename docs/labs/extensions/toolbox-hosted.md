@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/toolbox-hosted.md)
 
 **B/C extension.** Complete the local [Toolbox](toolbox.md) request first.
+
+**Evidence status:** the English local and remote Hosted Toolbox runs date from September 16, 2026 (earlier `gpt-5.6-luna` preset); not re-run with `gpt-6-sol`.
+
 This module reuses the same MAF wrapper, tool/version validation and failure-preserving execution;
 it does not copy an earlier workflow's quality score onto a new target.
 

@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/agent-safety.md)
 
 **Path C, optional; agent/tool intervention controls include Preview features as of September 16, 2026.**
+
+**Evidence status:** the English guardrail attachment and two unblocked cases date from September 16, 2026 (earlier `gpt-5.6-luna` preset); step 6's cloud red-team scans ran with `gpt-6-sol` on September 23, 2026.
+
 Use only a dedicated lab agent and the bundled synthetic policy questions.
 Do not weaken a shared guardrail, access company data or create real booking/payment tools.
 

@@ -122,7 +122,8 @@ flowchart LR
 ## Shortest code-path start
 
 Run every command from **this repository's root**. Examples use Bash; use WSL on
-Windows. Python 3.13 is recommended. Browser-path learners do not need these commands.
+Windows. The commands call Python 3.13, which the full code route and Hosted work need (3.14 runs only the offline checks).
+Browser-path learners do not need these commands.
 
 ```bash
 # Try the checker without external packages or Azure.

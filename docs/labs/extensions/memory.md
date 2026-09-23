@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/memory.md)
 
 **Path C, optional Preview — September 16, 2026.**
+
+**Evidence status:** an English memory lifecycle ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset; not re-run with `gpt-6-sol`.
+
 This first pass uses the **managed Memory Store APIs**, then explicitly passes their results to a fresh model request.
 It does not enable automatic memory extraction in the core policy agent or share memory between evaluation cases.
 

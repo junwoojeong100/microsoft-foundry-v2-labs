@@ -2,9 +2,13 @@
 
 [English](../../reference/evaluation-workbook.md) | **한국어**
 
-**한국어 개정 기준 2026-09-15 · 경험자 심화 150–180분, 환경 준비·배포 대기 별도.**
-이 문서만으로 v2의 코드·지식·평가를 연결합니다. 다른 평가 저장소를 clone하지 않습니다.
-아래 숫자는 **실행할 행 수와 인수 기준**이지 이번 개정에서 실제 측정한 점수가 아닙니다.
+**호환성 확인 2026-09-15 · 경험자 심화 150–180분, 환경 준비·서비스 대기 별도.**
+**현재 근거:** 이 워크북은 `gpt-6-sol`로 다시 실행하지 않았습니다. 마지막 실제 결과(2026-09-15, 이전 `gpt-5.6-luna` 판)는
+끝에 요약했습니다. 이 preset의 Hosted matrix 결과를 주장하기 전에 직접 실행합니다.
+이 저장소의 코드·지식·데이터만 사용하며 별도 평가 저장소는 필요 없습니다.
+아래 숫자는 실험의 규모이지 모든 모델이 통과한다는 약속이 아닙니다.
+국문은 기본값인 국문 번들(지침·corpus·dev/calibration/holdout)을 사용합니다. 영문 번들은 따로 고정되어 있으므로
+두 언어 데이터 세트를 지침만 다른 실험처럼 비교하지 않습니다.
 
 **첫 회차:** 순차 workflow·GA IQ·account Chat Completions·Invocations·준비된 명시적 모델 목록입니다.
 2–10절을 한 번씩 진행하며 기본 명령은 검토된 회귀가 있다고 가정하지 않습니다.
@@ -162,7 +166,7 @@ readiness는 `{"status":"healthy"}`입니다. 실제 답·model/response ID·con
 오류 뒤의 임의 JSON을 성공 응답으로 추출하지 않습니다.
 
 터미널 A의 서버를 `Ctrl+C`로 종료하고 3절의 값이 남아 있는 그 터미널로 돌아옵니다.
-배포·비용 승인 후 독립 폴더의 명시된 서비스만 배포합니다.
+환경 담당자가 배포와 비용을 승인한 뒤 독립 폴더의 명시된 서비스만 배포합니다.
 
 ```bash
 azd deploy "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&

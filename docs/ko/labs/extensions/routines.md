@@ -2,12 +2,14 @@
 
 [English](../../../labs/extensions/routines.md) | **한국어**
 
-**C 선택 · 2026-09-16 기준.** 처음에는 전용 agent와 미래 timer 하나만 사용합니다.
-설정 생성, queue 접수, 전달 완료, 답변 확인, 예약 시각 실행은 다른 단계입니다.
+**C 선택.** Routine은 기존 agent를 트리거합니다. agent를 새로 만들거나 지속 승인 서비스를 구현하거나
+회사/Microsoft 365 접근을 승인하지 않습니다. 확인한 azd 확장은 2026-09-16에 routine 명령을 Preview로 표시했습니다.
 
-**준비:** 내 agent, 실제 프로젝트 endpoint, 예약·모델 비용·정리 승인.
-**완료:** 원래 dispatch의 전달 이력과 검증 한계를 기록하고 timer를 비활성화/정리함.
-**중단:** 실행 이력이 없다고 직접 agent를 호출한 뒤 Routine 결과로 바꾸지 않습니다.
+**근거 상태:** 영문 routine 전달을 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(답변 조회는 불가). `gpt-6-sol`로 다시 실행하지 않았습니다.
+
+**준비:** 승인된 기존 Prompt 또는 Hosted Responses agent, 실제 프로젝트 endpoint, azd routine 명령, 소유 routine 이름, 비용 승인.
+**완료:** dispatch 하나에서 식별 가능한 실행 결과를 얻고 이후 routine을 비활성화함.
+**막히면:** 조사하기 전에 소유 routine을 비활성화하고 dispatch ID·오류를 보존합니다.
 
 **첫 회차:** 1–5절에서 수동 전달 한 번과 최종 disabled 상태를 확인합니다.
 미래 예약 시각의 실행을 검증하는 것은 아닙니다. 같은 터미널과 실제 반환 dispatch ID를 사용합니다.
@@ -108,4 +110,5 @@ helper는 **전달**을 확인합니다. 답변 내용이나 미래 timer 발화
 비활성화로 취소된 미래 timer 시도는 성공한 예약 실행으로 집계하지 않습니다.
 수동 전달 성공과 반복 자동화 성공도 구분합니다.
 
-**다음:** [릴리스 운영](release-operations.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).
+**다음:** [C 모듈 선택](../../paths/c-advanced.md) 또는 [Lab 11 인계](../11-capstone.md).
+[공식 routine lifecycle](https://learn.microsoft.com/azure/foundry/agents/how-to/use-routines).

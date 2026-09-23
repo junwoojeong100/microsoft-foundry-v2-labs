@@ -10,7 +10,8 @@ Next: A/B → [Lab 11](11-capstone.md) · Optional prerequisite: [Lab 06](06-kno
 
 **This pass:** Optional extension only. A/B can finish at Lab 11 without this module.
 
-**Need:** Only the synthetic routing exercise is unconditional; external services require separate prepared assets and approval.
+**Need:** Nothing for the core A/B route. In this optional module, the synthetic routing exercise needs no access;
+external services need separately prepared assets and approval.
 
 **Continue when:** A design-only result is labeled design-only. No Work IQ/Fabric access is implied.
 
@@ -29,7 +30,7 @@ Next: A/B → [Lab 11](11-capstone.md) · Optional prerequisite: [Lab 06](06-kno
 Do not infer that similarly named products share a key, or that a Copilot license
 permits unrestricted app-only backend access.
 
-## 1. Synthetic design exercise for everyone
+## 1. Synthetic design exercise (no service access)
 
 Without signing into services, design this routing table:
 

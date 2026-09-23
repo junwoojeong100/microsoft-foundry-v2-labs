@@ -74,24 +74,20 @@ Hosted 서버/배포·실제 telemetry·유료 cloud judge는 선택 게이트�
 ## C. 통합 심화 — 150–180분 추가
 
 이것은 **선택 가능한 C 경로 하나**이지 [모든 C 모듈](paths/c-advanced.md)의 선행 조건이 아닙니다.
-B의 기본 모델·MAF·IQ 개념을 익힌 뒤 [평가 워크북](reference/evaluation-workbook.md)을 진행합니다.
-전체 주제를 하나의 6시간 수업에 억지로 압축하지 않습니다. B+C는 **8.5–9시간의 준비된 실습**이며
-리소스 준비·권한 전파·배포/평가 대기는 별도입니다.
+버전을 고정한 Hosted matrix는 [Hosted 평가 워크북](reference/evaluation-workbook.md)에서 이어 갑니다.
+실제 모델 배포, IQ/Search 역할, Hosted ID, judge, App Insights 접근을 먼저 준비합니다.
+환경 생성·권한·quota·인코딩 대기는 수업 시간 밖입니다.
 
-| 순서 | 직접 수행 | 남길 자산 |
-|---|---|---|
-| 1 | Lab 05의 배포용 workflow와 Lab 08 프로필 패키지 | 실제 MAF builder, runtime/profile/code hash |
-| 2 | 전용 Hosted Invocations version과 명시적 모델 목록 | query-only 계약·배포 허용 목록·smoke |
-| 3 | 완전한 dev model matrix와 native 평가 | 4모델이면 24행, 전체 오류·점수 |
-| 4 | 실제 trace 검토, dev regression 승인/소비 | 원래 정답·source response/trace·검토 기록 |
-| 5 | 새 version, 동일 dev/evaluator, calibration | 전후 비교·평가자 오탐/미탐 |
-| 6 | 후보 고정 후 holdout과 통합 인수 | 4모델이면 16행, 독립 gate·사람 판단 |
-| 7 | 본인 session 정리 및 잔여 비용 확인 | 해시가 유지된 실행 이력·cleanup receipt |
+| 순서 | 작업 | 시간 | 근거 |
+|---|---|---:|---|
+| 1 | [배포 가능한 MAF workflow](labs/05-workflows.md#c-경험자-심화--같은-워크플로를-배포-가능한-agent로) | 25분 | 실제 최종 답변과 모델 호출 계보 |
+| 2 | [Hosted Responses/Invocations](labs/08-hosted.md) | 30분 | 고정 프로필, 실제 로컬 응답, 정확한 원격 버전 |
+| 3 | 모델 matrix와 native 평가 | 40분 | 4모델 dev cohort 24행과 고정한 평가자 |
+| 4 | 검토한 regression·calibration | 25분 | 정당한 dev 검토·소비 또는 전 문항 통과 기록, 실제 judge calibration |
+| 5 | 고정 holdout·trace·인수 | 30분 | 4모델 최종 세트 16행, 실제 root trace, 사람 검토 근거 |
 
-질문 수 64개와 실제 모델 호출 수는 다릅니다.
-순차 workflow이면 논리 모델 호출만 최대 192회이고 검색·retry·judge는 추가입니다.
-`benchmark plan`으로 본인의 모델 목록과 예상량을 확인합니다.
-이 경로의 완료는 기존 single-agent 영상이나 upstream 성공 횟수로 대신할 수 없습니다.
+비교마다 corpus·정답·코드·API·모델 목록·검색 방식·평가자를 고정합니다.
+선택 [IQ 확장](reference/iq-workbook.md)에는 서비스별 별도 승인이 필요합니다.
 
 ## 독립 모듈로 다시 방문하기
 
@@ -102,7 +98,6 @@ B의 기본 모델·MAF·IQ 개념을 익힌 뒤 [평가 워크북](reference/ev
 | Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | [06 B](labs/06-knowledge.md#path-b) |
 | 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | [07 B](labs/07-evaluation.md#path-b). Fixture로 실제 인수를 열지 않음 |
 | Hosted 패키징 | 저장소·Python. 런타임 게이트는 별도 | [08 B](labs/08-hosted.md#path-b) |
-| Hosted workflow 평가 | 프로필·모델 목록·고정 Invocations version·IQ·judge·App Insights 준비 | C 워크북 |
 | IQ 확장 | IQ 기본 완료 + 서비스별 별도 승인 | [10](labs/10-iq-extensions.md) |
 
 **실습 경로를 바꾸지 않는 원칙:** 모델이 실패하면 다른 모델로 자동 교체하지 않습니다.

@@ -6,8 +6,8 @@
 
 **내 구간 바로 열기:** A: [Lab 09 A로 이동](09-operations.md#path-a) · [B — 패키징만](#path-b) · [학습 경로](../paths.md)
 
-> **서비스와 SDK를 구분하세요.** Hosted Agent 서비스는 현재 GA입니다.
-> 이 에디션의 `agent-framework-foundry-hosting` 패키지와 일부 azd 기능은 prerelease입니다.
+> **서비스와 SDK를 구분하세요.** 이 에디션의 날짜가 고정된 호환성 snapshot에서 Hosted Agent는 GA 서비스이고,
+> `agent-framework-foundry-hosting` 패키지와 일부 azd 기능은 prerelease입니다.
 > B의 필수는 로컬 패키징뿐입니다. 서버 실행·배포가 선택인 이유는 서비스 전체가 Preview라서가 아니라 권한·SDK·비용 조건 때문입니다.
 
 ## 시작 전
@@ -325,9 +325,9 @@ gold answer, evaluator 설정, corpus 파일 경로, 임의 endpoint/model 이�
 
 [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
-## 완료·정리
+## B 완료·정리
 
-패키지 생성 / 로컬 응답 / 원격 배포 / 원격 평가를 별도 칸으로 기록합니다.
+A는 Lab 08에서 기록할 것이 없습니다. B는 패키지 생성과, 실행했다면 로컬 응답·원격 배포·원격 평가를 각각 별도 칸으로 기록합니다.
 활성 session은 호출 사이에 재사용될 수 있고 session별 컴퓨트 비용이 쌓입니다.
 범위를 명시한 [Hosted 정리 순서](../reference/cleanup.md#hosted-sessions)로
 본인 session만 확인·중지합니다. `azd down`을 모든 환경에 무조건 실행하지 않습니다.

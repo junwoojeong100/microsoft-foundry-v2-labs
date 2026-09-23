@@ -50,7 +50,18 @@ Hosted 도우미가 검증된 값으로 별도 프로젝트를 생성하며, 로
 | `TOOLBOX_SEARCH_CONNECTION_NAME` | 선택 관리형 Toolbox | 담당자가 같은 프로젝트에 준비한 keyless CognitiveSearch 연결 |
 | `TOOLBOX_NAME` | 선택 관리형 Toolbox | 기본 `<prefix>-tools-<language>`. 기존의 소유하지 않은 이름은 거절 |
 | `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` | cloud judge | target와 구분해 명시 |
+| `WORKSHOP_MODEL_DEPLOYMENTS_JSON` | Hosted matrix | 명시적이고 서로 다른 key/배포 쌍 1–8개. 모델 대체 없음 |
+| `WORKSHOP_HOSTED_AGENT_NAME` | Hosted matrix | 승인된 정확한 agent 이름 |
+| `WORKSHOP_HOSTED_AGENT_VERSION` | Hosted matrix | 실제 고정 숫자 version. `latest` 금지 |
+| `WORKSHOP_HOSTED_AGENT_ENDPOINT` | Hosted matrix | 반환된 전체 Invocations endpoint(API version 포함) |
+| `AZURE_APPLICATION_INSIGHTS_APP_ID` | Matrix trace | 연결한 application ID. workspace ID나 instrumentation key가 아님 |
+| `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME` | Hybrid | 확인한 실제 embedding 배포 |
+| `WORKSHOP_EMBEDDING_DIMENSIONS` | Hybrid | 실제 반환 차원. 자르기·0 채우기 없음 |
+| `WORKSHOP_EMBEDDING_API` | Hybrid | `project`/`account`를 명시. 실패해도 바꾸지 않음 |
+| `WORKSHOP_IQ_RERANKER_THRESHOLD` | IQ 검색 | 선택적 0–4 유한값 필터. 빈 값은 서비스 기본값 유지. 평가자 threshold가 아님 |
 
+`AZURE_OPENAI_ENDPOINT`는 명시적으로 선택한 account Chat Completions·embedding·`iq-chat`에 필요하며
+프로젝트와 같은 Foundry 계정에 속해야 합니다.
 IQ Chat 모델과 Search의 호출 identity는 **knowledge base의 모델 연결**에서 설정합니다.
 Seed/retrieve 명령은 planner 환경변수 placeholder를 읽거나 그 모델 연결을 자동 설정하지 않습니다.
 `WORKSHOP_AUTH_MODE`/`AZURE_CLIENT_ID`는 Python 호출자를 선택하며 Search identity 설정이 아닙니다.
@@ -59,10 +70,14 @@ Seed/retrieve 명령은 planner 환경변수 placeholder를 읽거나 그 모델
 **2026-09-15 IQ Chat preset:** 배포/모델 `gpt-5.6-luna`, 실제 버전 `2026-07-09`,
 Search **system-assigned** identity, `2026-08-01-preview`, `low`, `answerSynthesis`입니다.
 응답 모델 환경변수를 바꿔도 이 preset은 바뀌지 않습니다. 2026-09-23 Search는 KB 연결에서 GPT-6 모델을 받지 않았습니다.
-`AZURE_OPENAI_ENDPOINT`에는 프로젝트와 같은 Foundry 계정의 OpenAI root가 필요합니다.
 `iq-chat check`가 실제 배포·source·명시된 역할을 검사하고 `setup`은 source/corpus가 맞는 로컬 소유권 기록을 요구합니다.
 기본 GA base는 변경하지 않으며 새 chat-base 이름은 본인 prefix로 시작해야 합니다.
 [준비 명령](../setup.md#4-환경-담당자의-준비)을 따릅니다.
+
+`runtime-profile.json`은 kind·pattern·retrieval·prompt·API·protocol·language를 고정합니다.
+기존 6필드 profile은 국문을 뜻하고 영문 profile에는 `language: en`이 명시됩니다.
+런타임 요청은 정확히 `question/model_key/case_id/run_id`이며 정답이나 임의 endpoint override를 거부합니다.
+로컬 `.env`와 azd env를 맞추고, client secret으로 managed identity를 우회하지 않습니다.
 
 <a id="workspace-scope"></a>
 
@@ -99,30 +114,6 @@ Label만 또는 `WORKSHOP_PREFIX`만 바꾸어 초기화할 수 없습니다. �
 여러 계정이 Azure CLI에 로그인되어 있어도 인증은 설정된 구독에 고정합니다.
 `--tenant`만 지정하면 다른 기본 계정이 선택될 수 있고, Azure CLI는
 `--tenant`와 `--subscription`을 동시에 받지 않으므로 구독의 tenant를 먼저 검증합니다.
-
-## 한국어 통합 개정의 명시적 설정
-
-| 이름 | 쓰는 곳 | 계약 |
-|---|---|---|
-| `WORKSHOP_MODEL_DEPLOYMENTS_JSON` | typed Hosted matrix | 1–8개 key→실제 배포 이름. key/배포 중복 금지, 기본 배포 포함 |
-| `AZURE_OPENAI_ENDPOINT` | `--api account-chat` | 같은 Foundry account의 root. 오류 후 자동 사용하지 않음 |
-| `WORKSHOP_HOSTED_AGENT_NAME` | benchmark | 실제 `mfv2-...` 이름 |
-| `WORKSHOP_HOSTED_AGENT_VERSION` | benchmark 원격 | 실제 숫자 version, `latest` 금지 |
-| `WORKSHOP_HOSTED_AGENT_ENDPOINT` | benchmark 원격 | `azd show`의 실제 Invocations endpoint; 프로젝트/name과 대조 |
-| `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME` | hybrid | 실제 기존 embedding 배포 |
-| `WORKSHOP_EMBEDDING_DIMENSIONS` | hybrid | 실제 embedding의 차원. 자동 자르기/0 채우기 없음 |
-| `WORKSHOP_EMBEDDING_API` | hybrid | `project` 또는 `account`를 명시. 현재 실제 실행은 같은 account API 사용, 자동 fallback 없음 |
-| `WORKSHOP_IQ_RERANKER_THRESHOLD` | IQ 검색 | 선택적 0–4 필터, 빈 값은 서비스 기본값. 평가자의 통과 threshold가 아님 |
-| `AZURE_APPLICATION_INSIGHTS_APP_ID` | trace 검증 | 연결한 Application Insights의 application ID UUID |
-
-프로필의 `kind/pattern/retrieval/prompt/api/protocol/language`는 `runtime-profile.json`으로 패키지에 고정합니다.
-기존 6필드 profile은 한국어로 읽으며 영어 profile은 `language: en`을 명시합니다.
-계정·endpoint·배포 이름은 해당 환경 설정에서 읽되 runtime contract로 실제 응답과 대조합니다.
-서버 요청은 `question/model_key/case_id/run_id`만 받으며 정답·임의 model/endpoint override를 거부합니다.
-
-로컬 `.env`와 azd env를 혼합하지 않습니다.
-원격 설정에서 client secret/API key로 managed identity 오류를 우회하지 않습니다.
-기본 protocol은 Responses이며, 평가 matrix의 명령은 Invocations를 명시적으로 사용합니다.
 
 ## 데이터·출력 계약
 

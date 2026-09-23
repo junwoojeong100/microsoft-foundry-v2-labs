@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/additional-tools.md)
 
 **Path B/C, optional.** Start with **Code Interpreter over the six bundled synthetic policy records**.
+
+**Evidence status:** the English Code Interpreter and OpenAPI results date from September 16, 2026 (earlier `gpt-5.6-luna` preset); not re-run with `gpt-6-sol`.
+
 OpenAPI is a separate integration branch. Neither requires real company data.
 
 **Need:** working project/model access, regional/model support for the selected tool,

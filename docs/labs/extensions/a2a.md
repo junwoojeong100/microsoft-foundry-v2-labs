@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/a2a.md)
 
 **Path C, A2A 1.0 GA contract checked September 16, 2026.**
+
+**Evidence status:** an English paired call and its output ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset (wire packets not captured); not re-run with `gpt-6-sol`.
+
 Two local MAF participants are not an A2A integration.
 This module creates an owned synthetic specialist endpoint and a separate relay agent that delegates through A2A.
 

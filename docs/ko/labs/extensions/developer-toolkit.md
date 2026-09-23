@@ -3,6 +3,9 @@
 [English](../../../labs/extensions/developer-toolkit.md) | **한국어**
 
 **B 준비.** 기준 경로는 저장소의 Python CLI입니다.
+
+**근거 상태:** 도구 확인은 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며 `gpt-6-sol`로 다시 실행하지 않았습니다.
+
 Foundry Toolkit은 선택 편집기 UI이며 다른 구현이나 모든 최신 SDK 설치의 이유가 아닙니다.
 
 **첫 회차:** 기본 B는 1절 후 자기 경로로 돌아갑니다. 아래 Hosted SDK·azd·편집기 확장은 별도로 선택한 모듈에만 필요합니다.

@@ -4,6 +4,16 @@
 
 2026-09-24 국문 녹화의 액션 91개를 가이드 순서로 정리했습니다. `recorded`는 영상에 담겼다는 뜻이며 실행 성공이나 평가 통과가 아닙니다. 시간은 로컬 통합본을 열고, 액션마다 무손실 화면 3장(전·중·결과)이 있습니다. 단 `KP07-215-criteria`는 중간 화면 전에 멈춰 2장입니다.
 
+**한눈에 보기**
+
+- **실행하지 않음:** `K07-003-feedback`, `K07-013-business-retry`, `K07-014-business-readback`, `K07-015-business-candidate` (실제 실행 결과에 따라 필요 없었던 단계)
+- **가이드대로 종료 코드 1:** `K07-022-diagnostic-evaluate`
+- **Foundry 결과가 아닌 캡처 도구 문제:** `KP07-203-dataset`, `KP07-215-criteria`
+- **대체됨:** `KP07-202-target-scope`
+- 나머지 액션은 모두 종료 코드 0입니다.
+
+예외마다 이유는 [이번 녹화에 남긴 실패](live-run.md#이번-녹화에-남긴-실패)에 있습니다.
+
 | ID | 액션 | 모드 | 상태 | 화면 | 재생 |
 |---|---|---|---|---|---|
 | K00-001-folder | 소스 폴더에서 오프라인 doctor 실행 | LOCAL CHECK | recorded | [1](../assets/g6sol-20260924-ko/screenshots/K00-001-folder-0.webp) · [2](../assets/g6sol-20260924-ko/screenshots/K00-001-folder-1.webp) · [3](../assets/g6sol-20260924-ko/screenshots/K00-001-folder-2.webp) | [00:02](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=2.00) |
@@ -97,7 +107,5 @@
 | KP09-104-traces-submit | 추적 평가 이름을 넣어 제출 | LIVE AZURE | recorded | [1](../assets/g6sol-20260924-ko/screenshots/KP09-104-traces-submit-0.webp) · [2](../assets/g6sol-20260924-ko/screenshots/KP09-104-traces-submit-1.webp) · [3](../assets/g6sol-20260924-ko/screenshots/KP09-104-traces-submit-2.webp) | [05:50](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=350.08) |
 | KP09-105-traces-results | 각 추적의 query에 에이전트 지침이 포함됨 | ACTUAL PORTAL | recorded | [1](../assets/g6sol-20260924-ko/screenshots/KP09-105-traces-results-0.webp) · [2](../assets/g6sol-20260924-ko/screenshots/KP09-105-traces-results-1.webp) · [3](../assets/g6sol-20260924-ko/screenshots/KP09-105-traces-results-2.webp) | [05:53](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=353.44) |
 | K11-001-handoff | 인계: 저장한 기록과 실제 인수 결과 | READ SAVED EVIDENCE | recorded | [1](../assets/g6sol-20260924-ko/screenshots/K11-001-handoff-0.webp) · [2](../assets/g6sol-20260924-ko/screenshots/K11-001-handoff-1.webp) · [3](../assets/g6sol-20260924-ko/screenshots/K11-001-handoff-2.webp) | [05:58](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=358.56) |
-
-실행하지 않음: `K07-003-feedback`; `K07-013-business-retry`; `K07-014-business-readback`; `K07-015-business-candidate` (실제 실행 결과에 따라 필요 없었던 단계). `K07-022-diagnostic-evaluate`는 가이드대로 종료 코드 1입니다. `KP07-203-dataset`는 Foundry 결과가 아닌 캡처 도구 문제입니다: 업로드는 성공했습니다(업로드 완료 메시지와 국문 질문 미리 보기가 표시됨). 하지만 데이터 세트 목록이 새로 고쳐지지 않아 캡처 도구가 새 행을 기다리다 시간 초과됐습니다. Foundry 실패가 아니며, KP07-213-dataset이 새 마법사에서 같은 데이터 세트를 선택했습니다. `KP07-215-criteria`는 Foundry 결과가 아닌 캡처 도구 문제입니다: 이름 변경 창이 아직 로드 중일 때 캡처 도구가 입력하려 해 대상을 찾지 못했습니다(Target count 0). judge 선택과 제거는 이미 적용됐고, KP07-215-criteria-resume이 창이 열린 뒤 이름을 바꾸고 TaskAdherence를 추가했습니다. Foundry 실패가 아닙니다. `KP07-202-target-scope` — 대체됨: 대상 목록이 버전 1(Web search가 남아 있던 첫 버전)을 미리 선택했고 캡처 도구가 바꾸지 않았습니다. KP07-211~KP07-217에서 버전 2로 평가를 다시 실행했으며 버전 1 평가는 제출하지 않았습니다. 나머지 계획한 액션은 모두 종료 코드 0입니다.
 
 [영상](video-summary.md) · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

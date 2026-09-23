@@ -34,7 +34,7 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 | `collect --label diagnostic-no-evidence --prompt v1 --retrieval none` | dev 전체 유료 호출 | 정책 근거 없이 실행하는 dev 전용 진단. `feedback`과 `cloud-evaluate`는 거부 |
 | `compare --baseline baseline --candidate candidate` | 없음 | 통제된 dev 비교 |
 | `feedback --label baseline --case D03 --reason "구체적인 검토 이유"` | 없음, 로컬 검토 기록 | 실제 dev만, 승인 대기 |
-| `collect --split holdout ... --candidate candidate --unlock-holdout` | 고정 후보의 실제 평가 요청 | 개발용 재사용 금지 |
+| `collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout` | 고정 후보의 실제 평가 요청 | 개발용 재사용 금지 |
 | `accept --candidate candidate --holdout final-holdout` | 없음 | 사람의 인수 자료, 자동 승인 아님 |
 | `cleanup-plan` | 없음 | 삭제 안 함. 선택 언어의 정리 가이드 반환 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
@@ -104,6 +104,13 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 | `memory recall` | `outputs/memory-runs/<label>/`. Store 소유권은 별도 |
 | Code Interpreter / OpenAPI / A2A | 각각 `outputs/code-interpreter/<label>/`, `outputs/openapi-runs/<label>/`, `outputs/a2a-runs/<label>/` |
 
+로컬 진단에는 하위 명령 앞에 `--debug`를 넣습니다. 스택·서비스 오류에는 환경 경로가 들어 있을 수 있으므로 원시 로그를 공개하지 않습니다.
+명령은 기존 실행 label을 덮어쓰지 않습니다. hash 검사를 통과시키려고 raw 응답이나 점수를 고치지 않습니다.
+
+영문은 별도로 고정한 정책·지침·데이터와 함께 `--language en`을 사용합니다.
+그 밖의 실행 옵션과 schema는 국문과 같습니다.
+승인된 자유 입력 질문 번역은 `data/guide-questions.json`에 명시되어 있습니다.
+
 ## 선택 명령군
 
 <details>
@@ -153,41 +160,28 @@ Hosted 준비는 로컬 azd 상태를 생성/재조회할 수 있지만 provisio
 <details>
 <summary>심화 matrix 옵션 — 워크북의 준비를 마친 뒤에만 사용합니다</summary>
 
-| 명령 | 부작용 | 목적 |
-|---|---|---|
-| `workflow-agent --pattern sequential --retrieval iq` | 실제 모델·검색 호출 | 배포용 MAF workflow와 검증된 최종 답 |
-| `runtime-contract --kind workflow --protocol invocations` | 로컬 설정/파일 읽기 | code/prompt/corpus/model/retrieval 계약. Azure 검증은 아님 |
-| `serve --kind workflow --protocol responses` | 로컬 서버, 요청 시 모델 호출 | 실제 Workflow.as_agent 호스팅 |
-| `serve --kind workflow --protocol invocations` | 위와 같음 | strict query-only 평가 endpoint |
-| `seed-search --hybrid --confirm-create --confirm-cost` | 본인 index + 실제 embedding | 6개 합성 원문으로 별도 hybrid index |
-| `retrieve --provider hybrid` | 실제 embedding·Search 조회 | text + vector query |
-| `benchmark plan ...` | 없음 | 명시적 모델 목록과 호출량 계획 |
-| `benchmark smoke ... --confirm-cost` | 실제 local/remote 모델 호출 | exact runtime contract와 응답 검사 |
-| `benchmark smoke --local --azd-directory ...` | 로컬 host + 유료 모델 | 폴더는 필수이며 소스 복사본에서 자동 선택하지 않음 |
-| `benchmark collect ... --confirm-cost` | 원격 session + 전체 matrix | 모델×case, 오류/원문/계보 보존 |
-| `benchmark evaluate --label LABEL --confirm-cost` | 실제 native judge | frozen responses의 평가 |
-| `benchmark evaluate ... --reference BASELINE` | 위와 같음 | 같은 evaluator/version/judge/threshold |
-| `benchmark evaluate ... --retry-failed` | 새 유료 시도 | 실패/invalid 시도만 재실행, 원본 보존 |
-| `benchmark regression ... --confirm-review` | 로컬 승인 기록 | 원본 dev만, 다음 dev의 `--regressions`로 소비 |
-| `calibrate-judge ... --confirm-cost` | 실제 judge | 고정 정답/오답 fixture의 오탐·미탐 |
-| `benchmark compare ...` / `benchmark report --label LABEL` | 로컬 보고서 | controlled dev 비교 / 모든 행의 HTML |
-| `benchmark trace-plan --label LABEL` | 로컬 KQL | 실제 조회 아님 |
-| `benchmark monitor --label LABEL` | App Insights 읽기 | agent·기간·모든 trace ID의 실제 대조 |
-| `benchmark verify ...` | 로컬 gate | native/trace/regression/calibration과 최종 후보 인수 |
-| `benchmark stop-session --label LABEL` | 기록한 session 중지 | 파일·공유 서비스 삭제 없음 |
+아래 줄인 명령 앞에 `python scripts/workshop.py`를 붙입니다.
 
-위 표의 `...`, `LABEL`은 설명용입니다.
-완전한 복사 명령은 [평가 워크북](evaluation-workbook.md)과 [Lab 08](../labs/08-hosted.md)에 있습니다.
-`benchmark`의 `stop-session`은 해당 label에서 생성한 session만 대상으로 하며 일반 Azure 정리 도구가 아닙니다.
+| 명령 | 계약 |
+|---|---|
+| `runtime-contract --kind workflow ...` | 로컬 profile, 언어, 모델 map, 데이터·지침·코드 hash |
+| `workflow-agent --pattern sequential` | case별로 분리한 실제 MAF pipeline과 검증된 답변 하나 |
+| `seed-search --hybrid --confirm-create --confirm-cost` | 실제 embedding과 별도로 소유한 vector index |
+| `retrieve --provider hybrid` | text·vector 결합 검색. 이름만 바꾼 키워드 조회가 아님 |
+| `benchmark plan` | 모델·case·비용 규모만 계산. Azure 호출 없음 |
+| `benchmark smoke --local --azd-directory ...` | 실제 로컬 host와 유료 모델. 폴더는 필수이며 소스 복사본에서 추론하지 않음 |
+| `benchmark smoke` | 정확한 원격 version·endpoint. 요청에 정답 label을 넣지 않음 |
+| `benchmark collect` | 명시한 모델×case matrix 전체. 오류 보존 |
+| `benchmark evaluate --reference ...` | 고정한 catalog·version·judge로 실제 native 점수 |
+| `benchmark compare` | 같은 dataset·corpus·코드·모델·API·검색·동시성. 언어 간 지름길 없음 |
+| `benchmark regression ... --confirm-review` | 명시적 dev 검토와 원본 계보 보존 |
+| `--regressions <reviewed-label>` | 다음 dev 수집이 검토한 reference를 실제로 사용 |
+| `calibrate-judge` | 미리 작성한 정답·오답으로 실제 judge 검사 |
+| `benchmark trace-plan` / `monitor` | 로컬 KQL / 범위를 지정한 실제 App Insights 확인 |
+| `benchmark verify` | 독립 인수 게이트. 운영 승인이 아님 |
+| `benchmark stop-session` | 기록한 session·version만 중지하거나 이미 idle인지 확인 |
 
-정확한 필수 인자는 `python scripts/workshop.py --help`와 각 하위 명령의 `--help`로 확인합니다.
-전체 실행 예는 해당 [실습 모듈](../paths.md)에 있습니다.
-
-로컬 진단에는 명령 앞에 `--debug`를 넣을 수 있습니다.
-추가 스택·서비스 오류에는 환경 경로가 포함될 수 있으므로 원시 로그를 공개하지 않습니다.
-
-실행 결과를 바꾸는 명령은 기존 label을 덮어쓰지 않습니다.
-점수나 raw 응답을 수정해 hash 검사를 통과시키려 하지 않습니다.
+완전한 명령과 승인 경계는 [평가 워크북](evaluation-workbook.md)에 있습니다.
 
 </details>
 

@@ -197,41 +197,28 @@ python -m pip freeze > outputs/instructor/environment.txt
 녹화나 강사 관찰은 좋은 보조자료지만 참가자의 직접 실행 증거는 아닙니다.
 원본 영상 링크를 사용하더라도 화면/버전 차이를 먼저 설명합니다.
 
-## 통합 심화 수업 준비
+## 고급 Hosted workflow·평가 준비
 
-**2026-09-15 신규 코드/문서에 대한 준비이며, 기존 영상 재생을 새 인수로 간주하지 않습니다.**
-[평가 워크북](reference/evaluation-workbook.md)은 별도 150–180분 세션으로 편성합니다.
-Source repository의 숫자나 이전 v2 실행을 이 환경의 성공으로 복사하지 않습니다.
+기본 리허설 뒤 [평가 워크북](reference/evaluation-workbook.md)을 사용합니다.
+나열한 모든 배포의 실제 API 지원, 별도 judge, 의도한 런타임 ID,
+전용 국문 정책 index·source·base, App Insights 조회 권한을 준비합니다.
+국문 corpus·지침·dev/calibration/holdout은 기본값으로 선택되는 별도 고정 자산입니다.
+영문 실행 결과를 재사용하거나 그 영상의 이름만 바꿔 쓰지 않습니다.
 
-1. 네 모델 비교가 목표라면 해당 구독에서 실제 배포 네 개와 API 지원을 먼저 확인합니다.
-   미승인 모델을 강제로 만들지 말고 명시적인 모델 목록과 실제 행 수를 조정합니다.
-2. 프로젝트/계정 endpoint와 `account-chat` token audience를 구분합니다.
-   모델 하나가 실패했다고 그 모델만 다른 endpoint로 보내면 동일 실험이 아닙니다.
-3. `benchmark plan`으로 논리 호출량을 계산합니다. 64행의 순차 workflow는 논리 모델 호출 192회,
-   native 2종이면 평가 항목 128개이며 retrieval/retry/내부 judge 호출은 추가입니다.
-4. 학습자·Hosted instance의 모델/Search 권한, App Insights 조회자의 권한을 각각 준비합니다.
-5. 실제 `azd ext list`의 Incompatible을 해결한 호환 조합으로 재확인합니다. [버전 게이트](reference/versions.md)를 따릅니다.
-6. 하나의 agent name을 유지해 v1/v2를 배포하고 서로 다른 실제 version을 기록합니다.
-   반복 init으로 새 `-2` agent를 만들지 않습니다.
-7. native catalog는 baseline에서 고정해 다음 평가에 재사용합니다.
-   calibration 예제는 target 응답 집계에 넣지 않습니다.
-8. 회귀는 실제 dev의 기존 질문/정답과 연결하고, 다음 candidate가 그 기록을 소비하는지 확인합니다.
-9. holdout은 후보를 고정한 마지막 단계에만 열고, 이미 공개된 교육용 세트라는 한계를 표시합니다.
+로컬 사용자와 Hosted ID는 서로 다릅니다. account 추론 권한과 Search 역할을 따로 확인합니다.
+준비 상태나 패키지 생성 성공만이 아니라 실제 로컬·원격 응답을 확인합니다.
+네 모델이면 target 24/24/16행과 workflow 내부·검색·retry·judge 호출을 예산에 넣습니다.
+모든 실패와 native 발견 사항을 보존하며, 전 문항 통과 baseline에 회귀를 지어낼 필요는 없습니다.
+holdout은 지침 개발에 쓰지 않습니다.
 
-강사는 다음을 서로 다른 체크박스로 남깁니다:
-패키지 생성, local SDK 계약, 실제 local 모델 응답, 실제 remote version, 전체 matrix,
-native 실행/품질, 실제 trace export, 사용자 검토, 세션/비용 정리.
+### 원본 언어와 미디어 순서
 
-### 촬영과 언어 갱신 순서
-
-과거의 국문 우선·영문 우선 체크리스트 대신 사용자의 현재 제작 순서와
+과거의 국문 우선·영문 우선 체크리스트가 아니라 사용자의 현재 제작 순서와
 [`docs/localization.json`](../localization.json)의 활성 `source_language`를 따릅니다.
-원본 언어의 가이드를 먼저 보완·검사하고 그 뒤 대응 번역을 갱신합니다.
-번역을 미룬다면 대상 페이지에 경고를 표시하고 양쪽 파일의 정확한 hash를 기록합니다.
+원본 언어의 가이드를 먼저 고치고 검사한 뒤 대응 번역을 갱신합니다.
+번역을 미룬다면 눈에 보이는 경고와 원본·대상의 정확한 hash가 필요합니다.
 새 녹화는 별도 승인된 실제 실행과 언어별 독립 근거가 필요합니다.
-가이드만 고치는 작업이 새 녹화를 요구하거나 검증한 것은 아닙니다.
-이전 미디어는 두 새 언어 세트가 모두 검증된 뒤에만 교체/삭제합니다.
-원본 평가·실패·데이터 계보와 최종 자료의 재현에 필요한 실행 코드는 유지합니다.
+가이드만 고치는 작업은 새 녹화를 요구하지도, 새 녹화를 주장하지도 않습니다.
 
 ## 7. 수업 종료 / Ignite 전 최종 동결
 

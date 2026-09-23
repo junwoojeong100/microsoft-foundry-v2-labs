@@ -158,7 +158,7 @@ client secret을 knowledge source나 `.env`에 저장하는 방식으로 우회�
 오류 후 synthetic 결과로 전환하거나, 합성 라우팅을 실제 Work IQ 성공으로 제출하지 않습니다.
 기존 자료에 `synthetic fallback` 표현이 있어도 v2에서는 **명시적으로 분리한 합성 설계 실습**으로만 다룹니다.
 
-## 6. Hosted OBO 확인표
+## 6. Hosted ID와 사용자 대리(OBO) 확인표
 
 | 확인 | 필요한 증거 |
 |---|---|

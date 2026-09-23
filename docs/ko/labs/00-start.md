@@ -79,8 +79,9 @@
 
 ## B. 코드 — 한 폴더, 한 환경
 
-지원: macOS/Linux 또는 Windows의 WSL, Bash/zsh, Python 3.13 권장.
-Python 3.14는 오프라인 코드에 사용할 수 있지만 hosted 런타임은 3.13으로 맞춥니다.
+지원: macOS/Linux 또는 Windows의 WSL, Bash/zsh, Python 3.13. 명령은 `python3.13`을 호출하며 Hosted 런타임도 3.13입니다.
+오프라인 리허설만 한다면 Python 3.14도 됩니다. 1–2단계의 `python3.13`을 `python3.14`로 바꿉니다.
+국문 가이드의 workshop 명령에는 `--language`가 없습니다. 기본값이 국문 번들이며, 영문 가이드만 같은 명령에 `--language en`을 붙입니다.
 전역 Python에 패키지를 설치하거나 시스템 기본 구독을 바꾸지 않습니다.
 
 활성화·설정이 끝난 터미널을 받았다면 **1·2·5**를 확인하고 SDK 재설치나 `.env` 교체는 하지 않습니다.
@@ -212,6 +213,9 @@ else
   cp .env.example .env
 fi
 ```
+
+**화면 확인:** `az login`이 본인 계정과 의도한 구독을 표시하며 끝나고, `.env`가 새로 생겼습니다
+(또는 블록이 `.env exists`를 출력했으므로 기존 파일을 편집합니다).
 
 VS Code에서 `.env`의 **1번 구간**에 준비 카드의 값을 입력하고 로컬 기본값은 유지합니다.
 **2번 구간의 Search endpoint는 Lab 06에서만** 추가하며, 해당 모듈을 선택하지 않았다면 심화 값은 건드리지 않습니다.

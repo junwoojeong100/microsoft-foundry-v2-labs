@@ -1,13 +1,14 @@
-# Versions and feature boundaries — September 15, 2026
+# Versions and feature boundaries
 
 **English** | [한국어](../ko/reference/versions.md)
 
+**Current preset:** `gpt-6-sol` / `2026-09-22` with a separate `gpt-6-sol-judge` (since September 23, 2026).
+The code edition `2026.9.15` and the dependency pins below were checked on September 15, 2026.
 **A compatibility check date is not a release date or a future support guarantee.**
 This edition does not predict Ignite announcements or universal tenant/region availability.
 
 ## Verified contracts
 
-The workshop code edition is `2026.9.15`.
 Direct Python dependency versions remain the known-compatible set below.
 Installed-SDK/transport-stub checks and actual Azure execution are separate evidence.
 

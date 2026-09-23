@@ -11,6 +11,9 @@ Lab 05, 핵심 배포 설정, 원본 데이터를 바꾸지 않습니다.
 `synthetic-runtime-only`는 protocol label이며 Azure 모델 배포가 아닙니다.
 국문 dev D03만 사용하고 holdout은 사용하지 않습니다.
 
+**근거 상태:** 영문 stop/restart/continuation을 2026-09-16 이전 `gpt-5.6-luna` 판에서 실행했습니다.
+Azure 실행이 아니었고 `gpt-6-sol` preset으로 다시 실행하지 않았습니다.
+
 **첫 회차:** 아래 권장 첫 실행의 1–5단계만 진행하며 재시작·crash는 하지 않습니다.
 로컬 완료 근거를 저장하고 본인 서버를 중지한 뒤 인계합니다. 아래 분기·유지보수 검사는 선택입니다.
 

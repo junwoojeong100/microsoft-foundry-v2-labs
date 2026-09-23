@@ -3,6 +3,8 @@
 **English** | [한국어](../ko/reference/evaluation-workbook.md)
 
 **Compatibility checked September 15, 2026. Advanced track: 150–180 minutes, excluding environment preparation and service waits.**
+**Current evidence:** this workbook was not re-run with `gpt-6-sol`. Its last actual results (September 15, 2026, earlier
+`gpt-5.6-luna` edition) are summarized at the end; run it yourself before claiming Hosted matrix results for this preset.
 Use this repository's code, knowledge, and datasets; no separate evaluation repository is required.
 Counts below define the experiment, not a promise that every model will pass.
 English uses the separately frozen English prompt/corpus/dev/calibration/holdout bundle.
@@ -165,7 +167,7 @@ The raw azd HTTP parser checks UTF-8 **byte lengths** and preserves only recogni
 It never extracts an arbitrary success-looking JSON object after an error.
 
 Stop terminal A with `Ctrl+C`, then return to that terminal with its step-3 values.
-After deployment/cost approval, deploy only the named service in the standalone directory:
+After the environment owner approves the deployment and its cost, deploy only the named service in the standalone directory:
 
 ```bash
 azd deploy "${HOSTED_AGENT_NAME:?Use the prepared agent service name}" --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" &&

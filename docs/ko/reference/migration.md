@@ -5,11 +5,6 @@
 **개념은 이어받고, 실행 계약과 학습 경로는 다시 구성했습니다.**
 원본 종합 랩의 마지막 확인 커밋은 2025-12-14입니다.
 
-**2026-09-15 통합 보강:** `workflow-agent`, 프로필별 Hosted 패키지,
-typed Invocations model matrix, native snapshot 재사용, 실제 dev regression 소비,
-judge calibration·trace 인수는 [통합 범위](consolidation.md)와 [평가 워크북](evaluation-workbook.md)을 따릅니다.
-원본 저장소를 추가 clone할 필요가 없으며 영어 번역/새 촬영은 한국어 인수 다음 단계입니다.
-
 | 기존 종합 랩 | v2에서 이어지는 위치 | 달라진 점 |
 |---|---|---|
 | 01 환경 설정 | 00–01 | 브라우저와 Python 분리, 학습자에게 구독 Owner를 요구하지 않음 |
@@ -43,5 +38,6 @@ judge calibration·trace 인수는 [통합 범위](consolidation.md)와 [평가 
 [공식 current Foundry 이동 가이드](https://learn.microsoft.com/azure/foundry/how-to/navigate-from-classic)를
 확인합니다. 현재 문서의 관련 종료·이행 일정은 과거 실습의 동작을 보장하지 않습니다.
 
-새 버전은 다른 리포를 clone해야 core가 실행되는 구조가 아닙니다.
-원본 링크는 깊은 확장과 계보 확인을 위한 참고이며, 핵심 문서·코드·데이터는 이 폴더에 있습니다.
+핵심 과정에는 다른 저장소를 추가로 clone할 필요가 없습니다. 원본 링크는 깊은 확장과 출처 확인을 위한 참고이며,
+실행 가능한 핵심·데이터·문서는 이 저장소에 있습니다.
+이제 영문이 기본 진입점이며, 같은 내용의 [국문 가이드](../../../README.ko.md)가 있습니다.

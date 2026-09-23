@@ -83,8 +83,9 @@ Continue to [Lab 01 A](01-foundry.md#path-a); the B installation instructions ar
 
 ## B. Code: one folder, one environment
 
-Use macOS/Linux or WSL on Windows, Bash/zsh, and preferably Python 3.13.
-Offline code also targets Python 3.14, but the hosted runtime uses 3.13.
+Use macOS/Linux or WSL on Windows, Bash/zsh, and Python 3.13: the commands call `python3.13`, and the Hosted runtime uses 3.13.
+For the offline rehearsal only, Python 3.14 also works; replace `python3.13` with `python3.14` in steps 1–2.
+Every workshop command in this guide passes `--language en`; without it, the CLI uses the Korean bundle.
 Do not install into global Python or change the system's default Azure subscription.
 
 If an activated, configured terminal was supplied, complete steps **1, 2 and 5**;
@@ -216,6 +217,9 @@ else
   cp .env.example .env
 fi
 ```
+
+**What to check:** `az login` ends by listing your account and the intended subscription, and `.env` now exists
+(or the block printed `.env exists`, so you edit the existing file).
 
 Open `.env` in VS Code and fill **section 1** with the setup-card values. Keep its local defaults;
 add **section 2's Search endpoint only for Lab 06**. Leave the advanced fields alone unless that module is selected.

@@ -44,28 +44,18 @@ MIT가 명시된 MAF Workshop/Agent Framework 원본의 저작권 표기는 루�
 | Hosted 시작 | [Quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent) | code deployment, 기존/새 프로젝트 정리 차이 |
 | Hosted 운영 | [Concepts](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) | 서비스 GA, 리전, session별 scaling/billing |
 | Trace | [Tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup) | App Insights 연결, 민감 데이터·권한 |
-| Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | delegated 사용자, usage billing, 행동 가능성 |
-
-패키지 버전은 각 프로젝트의 PyPI 공식 release metadata와 대조했습니다.
-
-## 이번 한국어 개정에서 다시 확인한 공식 계약
-
-| 주제 | 공식 문서 | 적용/주의 |
-|---|---|---|
-| Workflow → Agent | [Using workflows as agents](https://learn.microsoft.com/agent-framework/workflows/as-agents) | start executor는 `list[Message]`, 실제 `.as_agent()` |
-| Hosted adapter | [Foundry Hosted Agents](https://learn.microsoft.com/agent-framework/hosting/foundry-hosted-agent) | service GA와 Python prerelease 분리, Responses/Invocations |
-| Functional API | [Functional workflow](https://learn.microsoft.com/agent-framework/concepts/workflows/functional) | experimental; 기본 선행 조건으로 강제하지 않음 |
-| MAF evaluation | [Foundry evaluation integration](https://learn.microsoft.com/agent-framework/integrations/by-component/evaluation/microsoft-foundry) | existing-response와 agent-target 평가 구분 |
-| Agent-target 평가 | [Evaluate agents](https://learn.microsoft.com/azure/foundry/observability/how-to/evaluate-agent) | 서버가 target을 다시 호출하는 별도 경로 |
+| Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | delegated 사용자, 사용량 과금, user assertion, customer-owned app과 federated credential, 행동 가능성 |
+| Workflow를 agent로 | [Using workflows as agents](https://learn.microsoft.com/agent-framework/workflows/as-agents) | start executor는 `list[Message]`를 받음. 실제 `.as_agent()`를 쓰고 builder 동작 보존 |
+| Hosted adapter | [Foundry Hosted Agents](https://learn.microsoft.com/agent-framework/hosting/foundry-hosted-agent) | 서비스 GA와 prerelease Python 패키지를 구분, Responses와 Invocations |
+| Functional workflow | [Functional workflow API](https://learn.microsoft.com/agent-framework/concepts/workflows/functional) | 실험 기능. 필수 선행 조건이 아님 |
+| MAF 평가 | [Foundry evaluation integration](https://learn.microsoft.com/agent-framework/integrations/by-component/evaluation/microsoft-foundry) | 기존 응답 평가와 agent-target 평가를 구분 |
+| Agent-target 평가 | [Evaluate agents](https://learn.microsoft.com/azure/foundry/observability/how-to/evaluate-agent) | 서비스가 target을 다시 호출하는 별도 경로 |
 | Hybrid query | [Hybrid query](https://learn.microsoft.com/azure/search/hybrid-search-how-to-query) | text와 vector를 함께 전달 |
-| Toolbox | [FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | 실제 endpoint·credential·연결 lifecycle, prerelease |
-| Fabric IQ | [Fabric tools](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | 자산별 delegated/OBO와 Data Agent MCP의 app-only를 구분 |
-| Work IQ | [Work IQ source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | 사용량 과금·user assertion·customer-owned app·federated credential |
-| 운영/recurring evaluation | [Monitoring dashboard](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard) | batch, trace, recurring sampling은 별도 조건 |
+| Toolbox | [MAF FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | 관리형 MCP lifecycle과 준비된 연결 조건, prerelease |
+| Fabric IQ | [Tool guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | 자산별 delegated/OBO ID와 Data Agent MCP의 app-only ID 구분 |
+| 운영·되풀이 평가 | [Monitoring dashboard](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard) | batch·trace·되풀이 sampling의 조건이 각각 다름 |
 
-공식 문서의 오래된 `ChatAgent`/middleware 예제와 설치 SDK의 현재 signature가 다를 수 있습니다.
-실제 설치본의 `Agent`, `ChatContext`, `Workflow.as_agent`, host route를 SDK 계약 검사로 대조했습니다.
-확인일은 전 세계 모든 구독·리전의 기능 지원을 보장하지 않습니다.
-
-문서의 `Unreleased` 절을 설치 가능한 릴리스로 가정하지 않았습니다.
+패키지 버전은 PyPI 공식 release metadata와 대조했습니다. 문서의 `Unreleased` 절을 설치 가능한 릴리스로 보지 않았습니다.
+공식 문서의 오래된 `ChatAgent`/middleware 예제는 설치한 SDK와 다를 수 있으며, SDK 계약 검사는 설치본의 `Agent`, `ChatContext`,
+`Workflow.as_agent`와 host route를 대조합니다. 확인일은 모든 구독·지역의 지원을 보장하지 않습니다.
 본문 예시의 URL/ID/점수와 실제 실행 결과는 [검증 기록](validation.md)에서 구분합니다.

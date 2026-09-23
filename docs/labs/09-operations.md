@@ -60,8 +60,10 @@ This scores your recorded Lab 03 and Lab 07 conversations without new agent call
 
 1. Open your agent's **Evaluation** tab and select **Create**. Keep **Agent** with only your saved **Version** selected
    (as in item 2 of [Lab 07 A step 4](07-evaluation.md#path-a)), **Individual turns** and **One time**.
-2. In **Data**, select **Existing traces**. Keep **Number of traces** `15` and **Time range** **7D**; your conversations appear with
-   their trace and response IDs. Allow 3–5 minutes after your last question.
+2. In **Data**, select **Existing traces**. Keep **Number of traces** `15` (the maximum to include) and **Time range** **7D**;
+   your conversations appear with their trace and response IDs. Allow 3–5 minutes after your last question.
+   If none appear after 5 minutes, write `trace evaluation not run: no traces` in item 3 of `operations-checklist.txt`
+   and stop here; do not ask the agent new questions just to create traces.
 3. If a **Setup incomplete** banner asks you to give the project's managed identity the **Monitoring Reader** role on
    Application Insights, stop and ask the owner. Do not select **Resolve**: it changes a role assignment.
 4. Otherwise select **Next** and set **Criteria** as in Lab 07 A step 4: open **Judge model** and pick `gpt-6-sol-judge` under
@@ -72,12 +74,9 @@ This scores your recorded Lab 03 and Lab 07 conversations without new agent call
 ![September 24 English recording: Each trace's query carries the agent instructions](../assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-2.webp)
 
 **What to check:** **Overall metric results** shows passed / N for Relevance, Coherence and TaskAdherence, where N is your
-number of conversations (at most 15), and each row's
-`query` starts with your agent's **Instructions** (with the six policies) before the question.
-In the September 24, 2026 English recording (the owner had assigned that role on September 23), the trace evaluation scored
-10/10 on all three evaluators: the ten recorded conversations of agent Version 2. If the optional Lab 07 A evaluation ran first,
-its six agent runs are traces of the same version too; the Korean recording's 15 traces included five of them.
-The dataset-based run in Lab 07 A scored TaskAdherence 0/6 because it sent only the question: what the evaluator receives decides what it can verify.
+number of conversations (at most 15), and each row's `query` starts with your agent's **Instructions** (with the six
+policies) before the question. That is why TaskAdherence can pass here but not in the Lab 07 A dataset run, which sent only
+the question. The September 24, 2026 English recording scored 10/10 on all three evaluators over its ten conversations.
 
 **Make recurring** on the evaluation page (enabled after one successful trace run) offers **Scheduled** runs on **Live traffic**
 with an **Hourly** interval, **Random** or **Intelligent** sampling and a **Maximum traces to evaluate per run**.

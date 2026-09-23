@@ -38,6 +38,7 @@ Do not put credentials or your filled files in the repository's generated data d
 | Actual results and limits | [Execution evidence](live-run.md) |
 | Separate Korean recordings | [Korean videos](ko/video-summary.md) |
 | Hosted matrices and independent gates | [Evaluation workbook](reference/evaluation-workbook.md) |
+| Optional IQ, Toolbox, Fabric and Work IQ boundaries | [IQ extension workbook](reference/iq-workbook.md) |
 | Final deliverables | [Capstone](labs/11-capstone.md) |
 | Supported contracts and versions | [Compatibility snapshot](reference/versions.md) |
 | Errors, roles, or quota | [Troubleshooting](reference/troubleshooting.md) |

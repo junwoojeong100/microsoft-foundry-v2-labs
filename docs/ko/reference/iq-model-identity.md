@@ -2,19 +2,24 @@
 
 [English](../../reference/iq-model-identity.md) | **한국어**
 
-**2026-09-15 실측 확인: IQ의 Chat completion model은 managed identity로 정상 구성·호출할 수 있습니다.**
-인증 방식과 모델을 사용하는 검색 모드를 구분해야 합니다.
-실습은 모델 없는 GA 검색과 별도의 Preview 채팅 경로를 유지합니다.
-합성 Search-index source에서 GA API는 KB 내부 LLM 사용을 지원하지 않습니다. MI 인증 때문에 못 쓰는 것이 아닙니다.
+**선택 IQ Chat에는 이 preset을 사용합니다: 배포/모델 `gpt-5.6-luna`, 버전 `2026-07-09`, Search 서비스의 managed identity 인증.**
+2026-09-23 Search가 GPT-6 knowledge base 연결을 거절했으므로 `gpt-6-sol` 응답 preset과 따로 둡니다.
+이 선택 경로에만 해당 배포를 준비합니다([모델 선택](model-choice.md)).
 
-**2026-09-17 포털 확인:** 이미 준비된 국문 chat KB에서 **`gpt-5.6-luna` / 낮음 / 응답 합성**이
-모델 미선택 오류 없이 표시됐습니다. 과거 GA 캡처가 아니라 [이 정상 설정 화면](../labs/06-knowledge.md#iq-chat-model)을 엽니다.
-기존 Luna 배포도 모델 버전 **`2026-07-09`**, 상태 **`Succeeded`**로 읽기 확인했습니다.
-이번 확인에서는 KB 저장·역할 변경·모델 배포·추론 호출을 하지 않았습니다.
+Managed identity는 IQ Chat completion model을 구성하는 지원되는 정상 방법입니다. 이 인증을 모델 기반 검색 모드와 혼동하지 않습니다.
+실습은 모델 없는 GA 검색과 별도의 Preview 채팅 경로를 유지하며, 합성 Search-index source에서 GA API는 KB 내부 LLM을 지원하지 않습니다.
 
-**2026-09-23:** 워크숍 응답 preset은 `gpt-6-sol`로 바뀌었지만 이 IQ Chat preset은 **`gpt-5.6-luna`**를 유지합니다.
-Search가 GPT-6 연결을 `Unsupported model type in Knowledge Base Model Configuration`으로 거절했고 허용 목록의 마지막은 `gpt-5.6-luna`였습니다.
-이 선택 경로에만 별도 `gpt-5.6-luna` 배포를 준비합니다. [모델 선택](model-choice.md).
+<details>
+<summary>근거 기록, 2026-09-15–23</summary>
+
+- **2026-09-15:** managed identity가 IQ Chat completion model을 구성하는 지원되는 정상 방법임을 실측 확인했습니다.
+- **2026-09-17 포털 확인:** 이미 준비된 국문 chat KB에서 **`gpt-5.6-luna` / 낮음 / 응답 합성**이 모델 미선택 오류 없이 표시됐습니다
+  ([정상 설정 화면](../labs/06-knowledge.md#iq-chat-model), 과거 GA 캡처가 아님). Luna 배포는 모델 버전 **`2026-07-09`**,
+  상태 **`Succeeded`**로 읽혔습니다. 이 확인에서는 KB 저장·역할 변경·모델 배포·추론 호출을 하지 않았습니다.
+- **2026-09-23:** 응답 preset이 `gpt-6-sol`로 바뀌었고, Search는 GPT-6 연결을
+  `Unsupported model type in Knowledge Base Model Configuration`으로 거절했으며 허용 목록의 마지막은 `gpt-5.6-luna`였습니다.
+
+</details>
 
 ## 첫 실습: 고정된 실행 preset 사용
 

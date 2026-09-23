@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/governance-networking.md)
 
 **Path C, owner-assisted.** This first pass inspects the existing training environment.
+
+**Evidence status:** the scoped role checks date from September 16, 2026 (earlier `gpt-5.6-luna` preset); a private network was not tested, and nothing was re-run with `gpt-6-sol`.
+
 It does not create API Management, a virtual network or a new Foundry project,
 and it never disables a shared firewall to make a demonstration work.
 

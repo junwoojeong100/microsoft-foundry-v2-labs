@@ -80,9 +80,8 @@ judge 점수는 업무 판단이 아닙니다. 행마다 이유를 읽습니다.
 
 ## 선택 평가 추가분 — 별도 검증, 2026-09-23
 
-녹화 이후 추가한 선택 평가 단계를 확인한 실행입니다. 같은 소스(code hash `b160d84d2e0e1087…`)의 별도 복사본에서 새 label로,
-같은 `gpt-6-sol` / `gpt-6-sol-judge` 배포와 prefix `mfv2-sol-20260923-ko`를 사용했습니다.
-편집 영상에는 포함되지 않습니다. 별도 포털 캡처는 2026-09-24 녹화가 같은 포털 단계를 다시 실행한 뒤 삭제했습니다([액션](action-captures.md)).
+2026-09-24 녹화가 다시 실행하기 전에 선택 평가 단계를 확인한 실행입니다. 같은 소스(code hash `b160d84d2e0e1087…`)의 별도 복사본에서
+새 label로, 같은 `gpt-6-sol` / `gpt-6-sol-judge` 배포와 prefix `mfv2-sol-20260923-ko`를 사용했으며 편집 영상에는 포함되지 않습니다.
 
 | 단계 | 결과 |
 |---|---|
@@ -92,21 +91,11 @@ judge 점수는 업무 판단이 아닙니다. 행마다 이유를 읽습니다.
 | Lab 07 B 업무 기준을 포함한 cloud judge(`eval_910a4729…`, 실행 2개) | baseline·candidate 모두 groundedness 6/6, relevance 5/6, `business_rubric` 6/6. 로컬 검사와 일치 6/6. 포털 비교 relevance 3.83 → 4.50, **샘플이 너무 적음** |
 | Lab 04 선택 `maf-evaluate`(`eval_e3d8fa2f…`) | tool_call_accuracy 6/6, relevance 5/6(D05). 질문마다 `lookup_policy` 호출 1회 |
 
-사용자 지정 평가자 `mfv2_sol_20260923_ko_business_rubric`은 버전 1입니다.
-한국어 포털에서는 관련성·일관성 평가자의 기본 이름이 이름 검사를 통과하지 못해 `Relevance`, `Coherence`로 바꾼 뒤 제출했습니다.
-TaskAdherence 실패 이유는 인용 금액을 검증할 수 없다는 것이었으며, 평가자에게 질문과 답변만 전달되기 때문입니다.
-기존 추적 평가는 처음에 모니터링 읽기 권한자 역할 요청에서 멈췄고, 같은 날 담당자가 역할을 할당한 뒤 실행했습니다(다음 절).
-
-**코드 검토 후 재확인(code `408b1b57…`):** 결과 매핑을 다시 작성한 `maf-evaluate`를 다시 실행했습니다(`eval_e330c6aa…`).
-tool_call_accuracy 6/6, relevance 6/6이며 모든 출력 항목이 해당 질문과 연결되었습니다.
-근거 없음 진단의 cloud judge(`eval_910a4729…`의 실행 `evalrun_1e0790d4…`)는 완료되었지만, context가 비어 있어 Groundedness가
-6행 중 4행을 건너뛰었습니다. 서비스는 relevance 0/6, `business_rubric` 0/6을 보고했지만 워크숍은 결과를 무효로 표시하고
-아무것도 집계하지 않았습니다. 최종 코드(`67e7ac04…`)는 이런 실행을 클라우드 호출 전에 거부하며, 같은 label에서 확인했습니다.
+발견 사항, 코드 검토 후 재확인과 Azure 변경은 [검증 기록](reference/validation.md#foundry-evaluation-additions)에 있습니다.
 
 ## 이전에 실행하지 않은 항목 — 2026-09-23
 
-이후 담당자가 실행하지 않은 항목의 실행을 요청했습니다. 같은 날 저녁 같은 프로젝트·배포와 prefix `mfv2-sol-20260923-<language>`로
-실행했으며 편집 영상에는 포함되지 않습니다.
+같은 날 저녁 같은 프로젝트·배포와 prefix `mfv2-sol-20260923-<language>`로 실행했으며 편집 영상에는 포함되지 않습니다.
 
 | 항목 | 실행한 내용 | 결과 |
 |---|---|---|
@@ -116,9 +105,7 @@ tool_call_accuracy 6/6, relevance 6/6이며 모든 출력 항목이 해당 질�
 | 클라우드 red teaming(Preview) | Lab 03 prompt agent의 SDK scan(금지된 작업 taxonomy, Flip·Base64, 1턴)과 행동 2개 taxonomy로 한 영문 포털 scan | 표시된 ASR은 영문 89%(75/84), 국문 57%(48/84), 포털 100%(6/6)였지만 모든 행의 reasoning은 응답이 안전하다고 판단. 금지 행동을 수행한 응답 없음. ASR을 무효로 표시 |
 | 승인된 Hosted 릴리스 | 기존 CI ID에 이 프로젝트 범위 역할 부여. `hosted-lab-release` 실행 [35856612314](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314)(영문), [35857252318](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318)(국문) | 둘 다 첫 시도에 통과: Hosted agent `mfv2-sol-20260923-ci-hosted` 버전 1·2, dev 6문항 gate 6/6·오류 0, session idle |
 
-임시 optimizer 배포가 있는 동안 새 평가의 **판단 모델** 기본값이 그 배포였고, optimizer wizard의 **Evaluation model** 기본값은
-`gpt-6-sol`이었습니다. 둘 다 `gpt-6-sol-judge`로 직접 바꿨습니다.
-red-team 호출은 Application Insights에 에이전트 추적을 남기지 않았고 optimizer 실행은 에이전트마다 27개를 남겨, optimizer는 격리 복사본을 사용했습니다.
+발견 사항, 담당자 조치와 Azure 변경은 [검증 기록](reference/validation.md#previously-not-run-items)에 있습니다.
 
 ## gpt-6-sol로 실행하지 않은 것
 

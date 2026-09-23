@@ -253,6 +253,8 @@ Planning/synthesis for this Search-index source is **Preview as of September 15,
 There is no **Chat completions model is required** validation message. Required-field asterisks and the gray MI notice are normal:
 the notice says Search will use its identity, not that authentication failed or that the role was verified.
 This is a fresh, unedited view of an **already saved** chat KB; no Save, deployment or model request was performed for this capture.
+The screen dates from September 17, 2026: the September 24 recording did not re-run IQ Chat, and this preset has not changed since.
+Use it to recognize the fields, not as evidence of your own run.
 Use your own returned name, not the screenshot's name.
 
 **Do not clear the selected `gpt-5.6-luna` model or deploy a recommendation to match the picture.**

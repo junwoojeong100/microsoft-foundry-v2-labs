@@ -34,7 +34,7 @@ Follow [B's ordered route](../paths/b-practitioner.md), not this table from top 
 | `collect --label diagnostic-no-evidence --prompt v1 --retrieval none` | Paid calls for all dev cases | Dev-only diagnostic with no policy evidence; `feedback` and `cloud-evaluate` reject it |
 | `compare --baseline baseline --candidate candidate` | None | Controlled dev comparison |
 | `feedback --label baseline --case D03 --reason "specific review reason"` | Local review record | Real dev only; pending approval |
-| `collect --split holdout ... --candidate candidate --unlock-holdout` | Frozen candidate's actual final requests | No reuse for development |
+| `collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout` | Frozen candidate's actual final requests | No reuse for development |
 | `accept --candidate candidate --holdout final-holdout` | None | Human acceptance evidence, not automatic approval |
 | `cleanup-plan` | None | Deletes nothing; returns the cleanup guide for the selected language |
 | `python scripts/package_hosted.py --language en` | Local package | No deployment/installation |

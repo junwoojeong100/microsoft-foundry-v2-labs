@@ -3,6 +3,9 @@
 [English](../../../labs/extensions/additional-tools.md) | **한국어**
 
 **B/C 선택.** 먼저 동봉 정책 6개를 사용하는 **Code Interpreter**를 진행합니다.
+
+**근거 상태:** 영문 Code Interpreter·OpenAPI 결과는 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며 `gpt-6-sol`로 다시 실행하지 않았습니다.
+
 OpenAPI는 별도 분기이며 어느 쪽도 실제 회사 데이터가 필요하지 않습니다.
 
 **준비:** 프로젝트/모델, 도구의 지역·모델 지원, 전용 agent/파일 생성 권한, 모델과 sandbox 비용 승인.

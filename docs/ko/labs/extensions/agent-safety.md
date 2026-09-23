@@ -3,6 +3,9 @@
 [English](../../../labs/extensions/agent-safety.md) | **한국어**
 
 **C 선택 · agent/tool 개입 제어에는 2026-09-16 기준 Preview가 포함됩니다.**
+
+**근거 상태:** 영문 guardrail attachment와 차단되지 않은 두 사례는 2026-09-16(이전 `gpt-5.6-luna` preset) 기록입니다. 6절의 클라우드 red-team scan은 2026-09-23 `gpt-6-sol`로 실행했습니다.
+
 전용 실습 agent와 동봉 합성 질문만 사용합니다. 공유 guardrail을 약화하거나 회사 데이터,
 실제 예약·지급 도구를 만들지 않습니다.
 

@@ -3,6 +3,9 @@
 [English](../../../labs/extensions/a2a.md) | **한국어**
 
 **C 경로 · A2A 1.0 GA 계약 확인일 2026-09-16.**
+
+**근거 상태:** 영문 짝 호출과 그 출력을 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(wire packet은 캡처하지 않음). `gpt-6-sol`로 다시 실행하지 않았습니다.
+
 로컬 MAF 참여자 두 명은 A2A endpoint 통합이 아닙니다.
 내 합성 전문 agent endpoint와 별도 relay agent를 연결합니다.
 
@@ -32,6 +35,7 @@ python scripts/workshop.py --language ko a2a inspect
 ```
 
 새 Prompt Agent 버전 하나를 만들고 공식 card/endpoint patch를 적용합니다.
+Python 목록에 다른 로컬 agent를 추가하는 것만으로 incoming A2A가 구성되지 않습니다.
 실제 버전·base path·연결 이름·소유 기록을 보관합니다.
 
 card URL은 **`/agentCard/v1.0`**으로 끝납니다.
@@ -41,6 +45,7 @@ card URL은 **`/agentCard/v1.0`**으로 끝납니다.
 인증된 card 읽기는 모델 호출과 별도입니다.
 
 이 경로는 현재 text/non-streaming JSONRPC입니다.
+protocol을 지정하지 않으면 오래된 0.3 동작이 선택될 수 있으므로 이 모듈은 그 기본값에 의존하지 않습니다.
 target endpoint는 불변 버전 URL이 아니므로 실험 중 추가 target 버전을 거부합니다.
 
 ## 3. keyless 연결

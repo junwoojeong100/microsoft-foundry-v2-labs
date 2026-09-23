@@ -4,6 +4,17 @@
 
 All 98 actions of the September 24 English recording, in guide order. `recorded` means captured in footage, not a passed execution or evaluation. Times open the local guide-ordered video; each action has three lossless captures (before, during, result), except `EP07-205-criteria`, which stopped before the during capture and has two.
 
+**At a glance**
+
+- **Not run:** `E07-003-feedback` (steps the actual results made unnecessary)
+- **Exit 1 as the guide expects:** `E07-022-diagnostic-evaluate`
+- **Failed and kept:** `E07-011-business-baseline` → `E07-013-business-retry`; `E07-012-business-candidate` → `E07-014-business-readback`, `E07-015-business-candidate` (the later actions completed the step)
+- **Capture-tool issues, not Foundry results:** `EP07-205-criteria`
+- **Superseded:** `EP07-202-target-scope`, `EP07-206-submit`, `EP07-207-results`
+- Every other action exited with code 0.
+
+Why each exception happened: [failures kept in this recording](live-run.md#failures-kept-in-this-recording).
+
 | ID | Action | Mode | Status | Captures | Play |
 |---|---|---|---|---|---|
 | E00-001-folder | Open the source folder and run the offline doctor | LOCAL CHECK | recorded | [1](assets/g6sol-20260924-en/screenshots/E00-001-folder-0.webp) · [2](assets/g6sol-20260924-en/screenshots/E00-001-folder-1.webp) · [3](assets/g6sol-20260924-en/screenshots/E00-001-folder-2.webp) | [00:02](assets/g6sol-20260924-en/guide-ordered.mp4#t=2.00) |
@@ -104,7 +115,5 @@ All 98 actions of the September 24 English recording, in guide order. `recorded`
 | EP09-104-traces-submit | Name and submit the trace evaluation | LIVE AZURE | recorded | [1](assets/g6sol-20260924-en/screenshots/EP09-104-traces-submit-0.webp) · [2](assets/g6sol-20260924-en/screenshots/EP09-104-traces-submit-1.webp) · [3](assets/g6sol-20260924-en/screenshots/EP09-104-traces-submit-2.webp) | [06:16](assets/g6sol-20260924-en/guide-ordered.mp4#t=376.32) |
 | EP09-105-traces-results | Each trace's query carries the agent instructions | ACTUAL PORTAL | recorded | [1](assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-0.webp) · [2](assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-1.webp) · [3](assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-2.webp) | [06:19](assets/g6sol-20260924-en/guide-ordered.mp4#t=379.68) |
 | E11-001-handoff | Handoff: saved notes and the actual acceptance result | READ SAVED EVIDENCE | recorded | [1](assets/g6sol-20260924-en/screenshots/E11-001-handoff-0.webp) · [2](assets/g6sol-20260924-en/screenshots/E11-001-handoff-1.webp) · [3](assets/g6sol-20260924-en/screenshots/E11-001-handoff-2.webp) | [06:24](assets/g6sol-20260924-en/guide-ordered.mp4#t=384.84) |
-
-Not run: `E07-003-feedback` (The actual baseline had no failed case to harvest.). `E07-022-diagnostic-evaluate` exited 1 as the guide expects; `E07-011-business-baseline` failed with exit code 2 and is kept: Missing evaluator results: the Foundry evaluation had three testing criteria, but its run returned only groundedness and relevance (0 errored). The CLI kept the attempt as invalid and scored nothing; the next action retried it once with --retry-failed. `E07-012-business-candidate` failed with exit code 2 and is kept: Refused before any job: the retried baseline state had no item_fields, so it could not be a --reference. This was a workshop CLI bug in the new retry path, fixed in native.py during the recording (see Lineage); the completed retry was then read back without a new job and the candidate joined the evaluation. `EP07-205-criteria` is a capture-tool issue, not a Foundry result: The capture tool clicked TaskAdherence before the Add evaluators list had loaded (Target count 0). The judge and evaluator removals were already applied; EP07-205-criteria-resume added TaskAdherence after the list loaded. Not a Foundry failure. `EP07-202-target-scope` — Superseded: the Target list had preselected Version 1 (the first version, which still had Web search) and the capture tool did not change it. Guide step 2 requires the saved version; EP07-211 to EP07-217 repeat the evaluation with Version 2. `EP07-206-submit` — Superseded: this evaluation ran agent Version 1 with Web search, not the saved Version 2. `EP07-207-results` — Superseded: results for agent Version 1 with Web search; see EP07-217-results for Version 2. every other planned action exited with code 0.
 
 [Videos](video-summary.md) · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)

@@ -2,19 +2,26 @@
 
 **English** | [한국어](../ko/reference/iq-model-identity.md)
 
-**Verified September 15, 2026: managed identity is a supported, working way to configure the IQ Chat completion model.**
-Do not confuse authentication with the optional model-based retrieval mode.
-The workshop keeps a model-free GA retrieval path and a separate Preview chat path.
-For the synthetic Search-index source, the GA API does not support an LLM inside the KB; MI authentication is not the limitation.
+**Use this preset for the optional IQ Chat: deployment/model `gpt-5.6-luna`, version `2026-07-09`, authenticated with the
+Search service's managed identity.** It is separate from the `gpt-6-sol` answer preset because Search rejected a GPT-6
+knowledge-base binding on September 23, 2026. Prepare that deployment only for this optional branch ([model choice](model-choice.md)).
 
-**September 17 portal check:** the already prepared English chat KB displays **`gpt-5.6-luna` / Low / Answer synthesis**
-without the missing-model error. [Open that configured screen](../labs/06-knowledge.md#iq-chat-model), not the old GA screenshot.
-The existing Luna deployment was also read back as model version **`2026-07-09`**, state **`Succeeded`**.
-This new check did not save a KB, change roles, deploy a model or perform inference.
+Managed identity is a supported, working way to configure the IQ Chat completion model. Do not confuse this authentication
+with the optional model-based retrieval mode: the workshop keeps a model-free GA retrieval path and a separate Preview chat path,
+and for the synthetic Search-index source the GA API does not support an LLM inside the KB.
 
-**September 23, 2026:** the workshop's answer preset moved to `gpt-6-sol`, but this IQ Chat preset stays on **`gpt-5.6-luna`**.
-Search rejected a GPT-6 binding with `Unsupported model type in Knowledge Base Model Configuration`; its accepted list ended with `gpt-5.6-luna`.
-Prepare a separate `gpt-5.6-luna` deployment only for this optional branch. [Model choice](model-choice.md).
+<details>
+<summary>Evidence history, September 15–23, 2026</summary>
+
+- **September 15:** managed identity was verified as a supported, working way to configure the IQ Chat completion model.
+- **September 17 portal check:** the already prepared English chat KB displayed **`gpt-5.6-luna` / Low / Answer synthesis**
+  without the missing-model error ([configured screen](../labs/06-knowledge.md#iq-chat-model), not the old GA screenshot).
+  The Luna deployment read back as model version **`2026-07-09`**, state **`Succeeded`**. That check did not save a KB,
+  change roles, deploy a model or perform inference.
+- **September 23:** the answer preset moved to `gpt-6-sol`; Search rejected a GPT-6 binding with
+  `Unsupported model type in Knowledge Base Model Configuration`, and its accepted list ended with `gpt-5.6-luna`.
+
+</details>
 
 ## First pass: use the fixed executable preset
 

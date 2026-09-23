@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/model-operations.md)
 
 **Path C.** Model migration is more than changing a deployment name.
+
+**Evidence status:** last run September 16, 2026 with the earlier `gpt-5.6-luna` preset; not re-run with `gpt-6-sol`, and no Router migration is claimed.
+
 The first pass compares **two already approved deployments** with the same dev inputs;
 Router and retirement planning are separate extensions.
 

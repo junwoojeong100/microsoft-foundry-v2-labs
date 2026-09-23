@@ -277,6 +277,33 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertEqual(float(claimed[0]), sum(final))
                 self.assertEqual(float(claimed[1]), sum(first))
 
+    def test_straightforwardness_review_v3_totals_match_both_tables(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = (directory / "reference/validation.md").read_text()
+                anchor = '<a id="straightforwardness-v3"></a>'
+                self.assertIn(anchor, text)
+                section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
+                scores = {}
+                for prefix in ("D", "R"):
+                    rows = re.findall(
+                        rf"^\| {prefix}(\d{{1,2}}) \|[^\n]+\| (\d{{1,2}}(?:\.5)?) \| (\d{{1,2}}(?:\.5)?) \|$",
+                        section,
+                        re.MULTILINE,
+                    )
+                    self.assertEqual([int(row[0]) for row in rows], list(range(1, 11)), prefix)
+                    first = [float(row[1]) for row in rows]
+                    final = [float(row[2]) for row in rows]
+                    self.assertTrue(all(0 <= score <= 10 for score in first + final))
+                    scores[prefix] = (sum(first), sum(final))
+                claimed = [
+                    float(value) for value in re.findall(r"\b(\d{1,3}(?:\.5)?)/100\b", section)
+                ]
+                self.assertGreaterEqual(len(claimed), 4)
+                self.assertEqual(
+                    claimed[:4], [scores["D"][1], scores["R"][1], scores["D"][0], scores["R"][0]]
+                )
+
     def test_b_notes_copy_is_executable_and_never_overwrites_personal_records(self):
         names = (
             "session-notes.txt",

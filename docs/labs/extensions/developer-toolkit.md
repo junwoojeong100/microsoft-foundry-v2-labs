@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/developer-toolkit.md)
 
 **Path B preparation.** The canonical route uses the repository's Python CLI.
+
+**Evidence status:** the tooling checks date from September 16, 2026 (earlier `gpt-5.6-luna` preset); not re-run with `gpt-6-sol`.
+
 Foundry Toolkit is an optional editor interface, not a second implementation or a reason to install every new SDK.
 
 **First pass:** core B uses section 1 and returns to its route. Hosted SDKs, azd and the editor extension below are needed only by separately selected modules.

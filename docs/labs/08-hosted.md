@@ -325,9 +325,10 @@ The introductory `--kind runtime` and single-model CI `--kind workflow` contract
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
 
-## Completion and cleanup
+## B completion and cleanup
 
-Record packaging, local response, remote deployment, and remote evaluation separately.
+A has nothing to record in Lab 08. B records packaging, and any optional local response, remote deployment and remote
+evaluation, as separate outcomes.
 Sessions may be reused and accumulate compute cost. Use the explicitly scoped
 [Hosted cleanup steps](../reference/cleanup.md#hosted-sessions) for your own sessions.
 Do not apply `azd down` indiscriminately to every environment.

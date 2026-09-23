@@ -125,8 +125,8 @@ Use `dev-questions.jsonl` from the learner ZIP: questions only, no answers and n
 4. **Frequency:** keep **One time** and select **Next**.
 5. **Data:** select **Existing dataset**, then **Upload new dataset**.
 6. Enter the name `<your prefix>-dev-questions`, select **Choose file**, pick `dev-questions.jsonl` and select **Upload**.
-7. Keep the uploaded dataset selected and select **Next**. If the list has not refreshed yet, the preview below it
-   already shows your questions (D01–D05).
+7. Keep the uploaded dataset selected and select **Next**. If the list has not refreshed yet, **Dataset preview (Top 5 rows)**
+   below it already shows D01–D05 of your six questions.
 8. **Configure agents:** keep the user prompt `{{item.query}}` and select **Next**.
 9. **Criteria:** open **Judge model** and select `gpt-6-sol-judge` under **Deployments** (not `gpt-6-sol`, and not a model under **Models**).
 10. Under **Safety**, select **Remove all**; under **Agents**, select **Remove all**.
@@ -240,7 +240,7 @@ The model's answer is not promoted to ground truth. Missing traces remain `null`
 do not invent UUIDs as Azure trace IDs.
 
 <details>
-<summary>If all six passed: create one real failure to diagnose (six more paid model calls)</summary>
+<summary>Optional, not part of B completion: diagnose a deliberate no-evidence failure (six more paid model calls)</summary>
 
 Run the same v1 instructions once **without any policy evidence**. This is a dev-only diagnostic, never a candidate or holdout.
 

@@ -3,6 +3,9 @@
 [English](../../../labs/extensions/model-operations.md) | **한국어**
 
 **C 경로.** 모델 이전은 배포 이름만 바꾸는 작업이 아닙니다.
+
+**근거 상태:** 마지막 실행은 2026-09-16 이전 `gpt-5.6-luna` preset입니다. `gpt-6-sol`로 다시 실행하지 않았고 Router 이전은 주장하지 않습니다.
+
 처음에는 **이미 승인된 두 배포**를 같은 dev로 비교합니다. Router와 폐기는 별도입니다.
 
 **준비:** [Lab 07](../07-evaluation.md)의 실제 candidate, 승인된 두 번째 배포, API/구조화 응답 호환성, 비용과 새 label.

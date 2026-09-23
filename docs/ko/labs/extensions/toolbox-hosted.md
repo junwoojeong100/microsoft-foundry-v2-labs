@@ -5,6 +5,8 @@
 **B/C 확장.** [Toolbox 로컬 요청](toolbox.md)을 먼저 완료합니다.
 같은 MAF wrapper·버전 검증·오류 보존 코드를 사용합니다. 이전 workflow의 품질 점수를 새 대상에 옮기지 않습니다.
 
+**근거 상태:** 영문 로컬·원격 Hosted Toolbox 실행은 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며 `gpt-6-sol`로 다시 실행하지 않았습니다.
+
 **준비:** 실제 동작한 내 Toolbox 버전, 합성 seed ledger, Hosted SDK, 기존 프로젝트의 전체 ARM ID,
 새 agent 이름과 배포/모델/도구 권한 승인.
 **완료:** 새 원격 버전이 실제 도구·모델·근거 metadata를 반환함.

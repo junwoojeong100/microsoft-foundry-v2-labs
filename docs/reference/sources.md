@@ -45,11 +45,19 @@ Document display/edit dates are not necessarily feature-release dates.
 | Hosted start | [Quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent) | Code deployment, existing/new-project cleanup differences |
 | Hosted operations | [Concepts](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) | Service GA, regions, per-session scaling/billing |
 | Traces | [Tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup) | App Insights, sensitive data, permissions |
-| Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | Delegated users, usage billing, possible actions |
-| Workflow as agent | [MAF workflow agents](https://learn.microsoft.com/agent-framework/workflows/as-agent) | Preserve actual builder behavior when adapting a workflow |
-| Toolbox | [MAF FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | Managed MCP lifecycle and prepared connection requirements |
-| Fabric IQ | [Tool guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | Asset-specific user/app identity requirements |
+| Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | Delegated users, usage billing, user assertion, customer-owned app and federated credential; possible actions |
+| Workflow as agent | [Using workflows as agents](https://learn.microsoft.com/agent-framework/workflows/as-agents) | The start executor takes `list[Message]`; use the actual `.as_agent()` and preserve builder behavior |
+| Hosted adapter | [Foundry Hosted Agents](https://learn.microsoft.com/agent-framework/hosting/foundry-hosted-agent) | Service GA separate from the prerelease Python package; Responses vs. Invocations |
+| Functional workflows | [Functional workflow API](https://learn.microsoft.com/agent-framework/concepts/workflows/functional) | Experimental; not a required prerequisite |
+| MAF evaluation | [Foundry evaluation integration](https://learn.microsoft.com/agent-framework/integrations/by-component/evaluation/microsoft-foundry) | Existing-response and agent-target evaluation are separate |
+| Agent-target evaluation | [Evaluate agents](https://learn.microsoft.com/azure/foundry/observability/how-to/evaluate-agent) | The service calls the target again; a separate path |
+| Hybrid query | [Hybrid query](https://learn.microsoft.com/azure/search/hybrid-search-how-to-query) | Send text and vector together |
+| Toolbox | [MAF FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | Managed MCP lifecycle and prepared connection requirements; prerelease |
+| Fabric IQ | [Tool guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | Asset-specific delegated/OBO identity vs. Data Agent MCP app-only identity |
+| Operations and recurring evaluation | [Monitoring dashboard](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard) | Batch, trace and recurring sampling have separate conditions |
 
 Package versions were compared with official PyPI release metadata. An `Unreleased`
-section was not treated as an installable release. [Validation](validation.md)
+section was not treated as an installable release. Older official `ChatAgent`/middleware examples can differ
+from the installed SDK; the SDK contract checks compare the installed `Agent`, `ChatContext`, `Workflow.as_agent`
+and host routes. A check date does not guarantee support in every subscription or region. [Validation](validation.md)
 distinguishes illustrative URLs/IDs/scores from actual execution evidence.

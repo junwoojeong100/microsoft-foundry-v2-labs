@@ -69,7 +69,7 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 | Search knowledge base/source/index | 의존 순서 base → source → index; ledger의 본인 이름만 |
 | 업로드 파일/벡터 저장소 | 내 File Search 자료와 공유 자료를 구분 |
 | 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions`·`<prefix>-optimizer-dev` 데이터 세트, `<prefix>-...` 평가와 최적화 실행, `cloud-evaluate`가 만든 `eval-data-...` 데이터 세트, `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
-| 되풀이 평가 일정 | 본인의 `<agent>-scheduled-...` 일정: 평가 페이지에서 **Pause**를 누르고 일시 중지 상태를 다시 읽음. 일시 중지해도 이전 결과는 남음 |
+| 되풀이 평가 일정 | 본인의 `<agent>-scheduled-...` 일정: 평가 페이지에서 **일시 중지**를 선택하고 일시 중지 상태를 다시 읽음. 일시 중지해도 이전 결과는 남음 |
 | Red-team taxonomy·red team | 본인의 `<prefix>-...redteam` taxonomy, red team과 실행. 모든 출력 항목과 검토 기록을 먼저 보존한 뒤 담당자가 삭제 |
 | 모니터링·CI용으로 추가한 역할 | 추가한 담당자만 제거. 예: Application Insights에 대한 프로젝트 ID의 **Monitoring Reader**, CI ID의 프로젝트 역할, Hosted 런타임의 **Foundry User** |
 | 임시 optimizer 배포 | 만든 담당자만, 그 배포를 쓴 optimizer 실행이 모두 끝나고 검토된 뒤 삭제. 답변·judge 배포가 남았는지 확인 |
@@ -164,5 +164,6 @@ cleanup receipt는 별도 파일이므로 frozen candidate와 regression source 
 
 이 정리는 현재 파일과 가이드 참조에 대한 것입니다. Git 이력이나 GitHub의 별도 첨부 저장소까지
 삭제하는 작업과는 구분하며, 확인하지 않은 영구 삭제를 완료했다고 표시하지 않습니다.
+저장소 루트, 홈 디렉터리 또는 전체 세션 폴더를 재귀적으로 삭제하지 않습니다.
 
 </details>

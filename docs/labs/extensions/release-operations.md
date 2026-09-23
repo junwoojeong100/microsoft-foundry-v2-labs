@@ -3,6 +3,9 @@
 **English** | [한국어](../../ko/labs/extensions/release-operations.md)
 
 **Path C, optional.** The repository's existing CI checks local logic, SDK contracts and documentation.
+
+**Evidence status:** re-run with `gpt-6-sol` on September 23, 2026: both OIDC releases, the existing-traces evaluations and an hourly recurring schedule, which was then paused ([results](../../live-run.md#previously-not-run-items--september-23-2026)).
+
 That is not a deployed-agent quality gate or continuous evaluation.
 Do not enable recurring paid work or push a deployment without its own approval.
 

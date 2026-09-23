@@ -91,9 +91,9 @@ Full hashes are in [live-results.json](assets/g6sol-20260924-en/live-results.jso
 
 ## Optional evaluation additions — separate verification, September 23, 2026
 
-These runs verified the optional evaluation steps added after the recording. They used new labels in a separate copy of the
-same source (code hash `b160d84d2e0e1087…`), the same `gpt-6-sol` / `gpt-6-sol-judge` deployments and the prefix `mfv2-sol-20260923-en`.
-They are not part of the edited videos. Their separate portal captures were removed after the September 24 recording repeated these portal steps ([actions](action-captures.md)).
+These runs verified the optional evaluation steps before the September 24 recording repeated them. They used new labels in a
+separate copy of the same source (code hash `b160d84d2e0e1087…`), the same `gpt-6-sol` / `gpt-6-sol-judge` deployments and the
+prefix `mfv2-sol-20260923-en`; they are not in the edited videos.
 
 | Step | Result |
 |---|---|
@@ -103,20 +103,12 @@ They are not part of the edited videos. Their separate portal captures were remo
 | Lab 07 B cloud judges with the business rubric (`eval_f231e23c…`, two runs) | baseline and candidate: groundedness 6/6, relevance 6/6, `business_rubric` 6/6; agreement with local checks 6/6 each; portal comparison relevance 4.33 → 4.83, **Too few samples** |
 | Lab 04 optional `maf-evaluate` (`eval_34a0f785…`) | tool_call_accuracy 6/6, relevance 6/6; one `lookup_policy` call per question |
 
-The custom evaluator `mfv2_sol_20260923_en_business_rubric` is version 2; version 1 was an earlier trial with the same checks before formatting.
-The TaskAdherence failures state that the cited amounts cannot be verified, because only the question and the answer reach the evaluator.
-The existing-traces evaluation first stopped at the portal's Monitoring Reader request; it ran later the same day after the owner assigned that role (next section).
-
-**Re-check after the code review (code `408b1b57…`):** `maf-evaluate` ran again with the rewritten result mapping
-(`eval_fd079e29…`): tool_call_accuracy 6/6 and relevance 6/6, each output item joined to its question.
-Cloud judges on the no-evidence diagnostic (run `evalrun_2b495a2e…` in `eval_f231e23c…`) completed, but Groundedness skipped
-3 of 6 rows because their context was empty. The service reported relevance 1/6 and `business_rubric` 0/6; the workshop marked the
-result invalid and counted nothing. The final code (`67e7ac04…`) refuses such a run before any cloud call, checked on the same label.
+Findings, the re-check after the code review and Azure changes: [validation](reference/validation.md#foundry-evaluation-additions).
 
 ## Previously not-run items — September 23, 2026
 
-The owner then asked for the items listed as not run. They ran the same evening against the same project and deployments,
-under the prefix `mfv2-sol-20260923-<language>`. None of them is in the edited videos.
+These items ran the same evening against the same project and deployments, under the prefix `mfv2-sol-20260923-<language>`;
+none is in the edited videos.
 
 | Item | What ran | Result |
 |---|---|---|
@@ -126,9 +118,7 @@ under the prefix `mfv2-sol-20260923-<language>`. None of them is in the edited v
 | Cloud red teaming (Preview) | SDK scans of the Lab 03 prompt agents (Prohibited actions taxonomy, Flip and Base64, one turn) and one English portal scan with a two-action taxonomy | Displayed ASR 89% (75/84) English, 57% (48/84) Korean and 100% (6/6) portal, while every row's reasoning called the response safe; no response performed a prohibited action; ASR marked invalid |
 | Approved Hosted release | Existing CI identity given project-scoped roles on this project; `hosted-lab-release` runs [35856612314](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314) (English) and [35857252318](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318) (Korean) | Both passed on the first attempt: Hosted agent `mfv2-sol-20260923-ci-hosted` versions 1 and 2, six-case dev gate 6/6 with 0 errors, session idle |
 
-While the temporary optimizer deployment existed, a new evaluation's **Judge model** defaulted to it, and the optimizer wizard's
-**Evaluation model** defaulted to `gpt-6-sol`; both were set to `gpt-6-sol-judge` explicitly.
-Red-team calls left no agent traces in Application Insights; optimizer runs left 27 per agent, which is why they used isolated copies.
+Findings, owner actions and Azure changes: [validation](reference/validation.md#previously-not-run-items).
 
 ## Not run with gpt-6-sol
 
