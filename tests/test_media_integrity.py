@@ -33,7 +33,33 @@ class MediaIntegrityTests(unittest.TestCase):
     unrecorded_guides = {"10-iq-extensions"}
     action_index = "action-captures.md"
     video_summary = "video-summary.md"
-    supplemental_assets = ("iq-chat-20260917",)
+    supplemental_assets = ("iq-chat-20260917", "eval-portal-20260923")
+
+    def test_evaluation_portal_captures_are_exact_and_used_once_in_their_language(self):
+        directory = ROOT / "docs/assets/eval-portal-20260923"
+        evidence = read(directory / "captures.json")
+        self.assertFalse(evidence["image_edited"])
+        self.assertFalse(evidence["page_dom_modified_for_capture"])
+        self.assertFalse(evidence["authentication_captured"])
+        self.assertEqual(evidence["portal_language_restored"], "en")
+        self.assertEqual(evidence["model_preset"]["judge_deployment"], "gpt-6-sol-judge")
+        files = {path.name for path in directory.glob("*.png")}
+        self.assertEqual(files, {item["file"] for item in evidence["images"]})
+        for item in evidence["images"]:
+            with self.subTest(file=item["file"]):
+                content = (directory / item["file"]).read_bytes()
+                self.assertEqual(len(content), item["bytes"])
+                self.assertEqual(hashlib.sha256(content).hexdigest(), item["sha256"])
+                self.assertTrue(item["file"].startswith(item["guide_language"] + "-"))
+                guide = (ROOT / item["guide"]).read_text()
+                self.assertEqual(guide.count(f"/eval-portal-20260923/{item['file']}"), 1)
+        for language, run in evidence["live_runs"].items():
+            portal = run["portal_evaluation"]
+            with self.subTest(language=language):
+                self.assertTrue(
+                    all(0 <= value <= portal["total"] for value in portal["passed"].values())
+                )
+                self.assertEqual(len(run["business_comparison"]["runs"]), 2)
 
     def test_language_editions_use_different_actual_source_and_output_videos(self):
         hashes = {}

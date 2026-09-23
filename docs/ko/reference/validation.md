@@ -5,6 +5,55 @@
 **설치·offline 계약·실제 Azure 실행·모델 품질·미디어 검수는 서로 다른 검증입니다.**
 국문과 영문은 별도 label과 촬영 원본을 사용합니다. 이전 영상이나 upstream 성공을 새 결과로 재분류하지 않습니다.
 
+<a id="foundry-evaluation-additions"></a>
+
+## 선택 Foundry 평가 추가분 — 2026-09-23
+
+기존 A/B 경로에 선택 Foundry Evaluation 실습을 추가했습니다. 핵심 경로와 그 명령, 녹화 영상은 바뀌지 않았습니다.
+
+| 위치 | 추가 내용 | 상태 |
+|---|---|---|
+| Lab 07 A 4단계 | 저장한 에이전트를 새 `dev-questions.jsonl`(질문만)로 포털 평가(Relevance·Coherence·TaskAdherence)하고 직접 만든 평가표와 비교 | 선택. TaskAdherence는 Preview |
+| Lab 07 B 2단계 | baseline이 모두 통과하면 `collect --retrieval none`으로 진단할 실제 dev 실패를 만듦. `feedback`과 `cloud-evaluate`는 거부 | 선택 |
+| Lab 07 B 5단계 | `cloud-evaluate --business-evaluator`가 로컬 업무 규칙과 같은 본인 소유 코드 기반 평가자를 등록·재사용. `--reference`는 candidate를 baseline 평가에 추가해 **실행 비교** | 선택 Preview |
+| Lab 04 5절 | `maf-evaluate`가 MAF 함수 도구 에이전트의 호출을 `tool_call_accuracy`·`relevance`로 채점 | 선택. MAF API는 실험 기능 |
+| Lab 09 A | 담당자가 준비한 기존 추적 평가와 **되풀이** 옵션 | 안내만, 실행하지 않음 |
+
+**실제 Azure 확인(영문·국문 별도, `gpt-6-sol` / `gpt-6-sol-judge`):**
+
+| 확인 | 영문 | 국문 |
+|---|---|---|
+| 포털 평가(Relevance / Coherence / TaskAdherence) | 5/6, 6/6, 1/6 | 5/6, 6/6, 0/6 |
+| 같은 에이전트의 직접 업무 평가 | 6/6 | 6/6 |
+| 새 dev 수집의 업무 검사(baseline / candidate) | 6/6, 6/6 | 6/6, 6/6 |
+| 근거 없음 진단 | 0/6, 오류 0, `feedback` 거부 | 0/6, 오류 0, `feedback` 거부 |
+| `business_rubric`을 포함한 cloud judge(groundedness / relevance / 업무, 실행마다) | 6/6, 6/6, 6/6. 일치 6/6 | 6/6, 5/6, 6/6. 일치 6/6 |
+| 두 실행의 포털 비교 | relevance 4.33 → 4.83, 샘플 부족 | relevance 3.83 → 4.50, 샘플 부족 |
+| `maf-evaluate`(tool_call_accuracy / relevance) | 6/6, 6/6. 검토 수정 후 재실행 6/6, 6/6 | 6/6, 5/6. 검토 수정 후 재실행 6/6, 6/6 |
+| 근거 없음 진단의 cloud judge(거부 기능 추가 전) | 무효: Groundedness가 3/6행을 건너뜀, 집계하지 않음 | 무효: Groundedness가 4/6행을 건너뜀, 집계하지 않음 |
+| 대화 평가 모듈(턴, 대화 수준 groundedness) | 6/6·6/6, 1/2 | 6/6·6/6, 2/2 |
+
+**발견 사항은 그대로 남깁니다:** TaskAdherence와 Relevance는 업무 평가와 달랐습니다. 평가자에게 **지침** 안의 정책이 아니라
+질문과 답변만 전달되기 때문입니다. Relevance는 D05의 올바른 보류를 낮게 평가했고 실행마다 결과가 달랐습니다(녹화 5/6,
+영문 검증 6/6, 국문 `maf-evaluate` 두 번은 5/6 후 6/6). context가 빈 행에서 Groundedness는 *건너뜀*(`not_applicable`)을
+반환합니다. 워크숍은 건너뛴 행을 집계하지 않으며, 이제 `cloud-evaluate`가 근거 없음 실행을 제출 전에 거부합니다.
+한국어 포털에서는 Relevance·Coherence 평가자의 한국어 기본 이름이 평가자 이름 검사를 통과하지 못해 이름을 바꾸기 전까지
+**다음**이 비활성화되었습니다. 가이드에 우회 방법을 적었습니다. 6문항은 포털의 통계 비교에 너무 적습니다.
+
+**실행하지 않음:** 기존 추적 평가(프로젝트 관리 ID의 모니터링 읽기 권한자 역할 요구), 되풀이 평가, Agent Optimizer
+(`gpt-6-sol`에서 지원되는 최적화 모델 없음), cloud red teaming, 새 릴리스 파이프라인 실행.
+
+**Azure 변경:** 업로드한 dev 질문 데이터 세트 2개, `cloud-evaluate`가 자동으로 만든 데이터 세트, 포털·SDK 평가와 실행(`...-trial-...` 이름의 평가 3개는 사전 점검이며 그중 하나는 오프라인 fixture 행을 채점, 무효 처리된 진단 실행도 남겨 둠),
+본인 소유 사용자 지정 평가자 버전(`mfv2_sol_20260923_en_business_rubric` 1–2, `mfv2_sol_20260923_ko_business_rubric` 1).
+모두 `mfv2-sol-20260923-<language>` prefix 아래에 있으며 유료 에이전트·judge 호출이 발생했습니다. 국문 캡처를 위해 포털 언어를
+한국어로 바꾼 뒤 영어로 되돌렸습니다. 배포·역할 할당·기본 구독 변경은 없습니다.
+[캡처](../../assets/eval-portal-20260923/captures.json) · [국문 결과](../live-run.md#선택-평가-추가분--별도-검증-2026-09-23)
+
+**로컬 검증:** 오프라인 테스트 255개가 Python 3.13과 3.14에서 각각 통과했고, 설치 SDK 테스트 73개가 stub transport로
+통과했습니다. 새 테스트는 grader와 로컬 규칙의 일치, 진단 실행의 거부 경로, 건너뛴 judge 행, 사용자 지정 평가자 기준,
+공유 reference 실행, 도구 결과 매핑, 새 캡처를 확인합니다. Ruff 0.16.6, 컴파일, 두 학습자 묶음, 깨끗한 복사본의 CI 오프라인 명령,
+문서 검사(Markdown 117개, 언어 쌍 58개, CLI 예제 340개)가 통과했습니다. 최종 code hash: `67e7ac04…`.
+
 <a id="guide-straightforwardness-v2"></a>
 
 ## 가이드 straightforwardness 검토 v2 — 2026-09-23

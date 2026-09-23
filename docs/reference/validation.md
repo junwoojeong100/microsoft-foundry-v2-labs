@@ -6,6 +6,60 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="foundry-evaluation-additions"></a>
+
+## Optional Foundry evaluation additions — September 23, 2026
+
+This revision adds optional Foundry Evaluation practice to the existing A/B routes; the core routes, their commands and
+the recorded videos are unchanged.
+
+| Where | Addition | Status |
+|---|---|---|
+| Lab 07 A step 4 | Run the saved agent on `dev-questions.jsonl` (new, questions only) as a portal evaluation with Relevance, Coherence and TaskAdherence, then compare with the manual worksheet | Optional; TaskAdherence is Preview |
+| Lab 07 B step 2 | If the baseline passes, `collect --retrieval none` creates a real, dev-only failure to diagnose; `feedback` and `cloud-evaluate` reject it | Optional |
+| Lab 07 B step 5 | `cloud-evaluate --business-evaluator` registers or reuses an owned code-based evaluator with the local business rules; `--reference` adds candidate to baseline's evaluation for **Compare runs** | Optional Preview |
+| Lab 04 section 5 | `maf-evaluate` scores the MAF function-tool agent's calls with `tool_call_accuracy` and `relevance` | Optional; experimental MAF API |
+| Lab 09 A | Owner-prepared existing-traces evaluation and the **Recurring** option | Documented, not run |
+
+**Live Azure checks, English and Korean separately, with `gpt-6-sol` / `gpt-6-sol-judge`:**
+
+| Check | English | Korean |
+|---|---|---|
+| Portal evaluation (Relevance / Coherence / TaskAdherence) | 5/6, 6/6, 1/6 | 5/6, 6/6, 0/6 |
+| Manual business assessment of the same agent | 6/6 | 6/6 |
+| New dev collections, business checks (baseline / candidate) | 6/6, 6/6 | 6/6, 6/6 |
+| No-evidence diagnostic | 0/6, 0 errors, `feedback` rejected | 0/6, 0 errors, `feedback` rejected |
+| Cloud judges with `business_rubric` (groundedness / relevance / business, each run) | 6/6, 6/6, 6/6; agreement 6/6 | 6/6, 5/6, 6/6; agreement 6/6 |
+| Portal comparison of the two runs | relevance 4.33 → 4.83, too few samples | relevance 3.83 → 4.50, too few samples |
+| `maf-evaluate` (tool_call_accuracy / relevance) | 6/6, 6/6; re-run after review fixes 6/6, 6/6 | 6/6, 5/6; re-run after review fixes 6/6, 6/6 |
+| Cloud judges on the no-evidence diagnostic (before the refusal was added) | invalid: Groundedness skipped 3/6 rows; nothing counted | invalid: Groundedness skipped 4/6 rows; nothing counted |
+| Conversation evaluation module (turn; conversation groundedness) | 6/6 and 6/6; 1/2 | 6/6 and 6/6; 2/2 |
+
+**Findings kept as findings:** TaskAdherence and Relevance disagreed with the business assessment because the evaluators receive
+only the question and answer, not the policies inside **Instructions**. Relevance marked down D05's correct withholding, and its
+result varied between runs (5/6 in the recording, 6/6 in the English verification; 5/6, then 6/6 in the two Korean `maf-evaluate`
+runs). Groundedness returns *skipped* (`not_applicable`) for a row with empty context; the workshop never counts a skipped row, and
+`cloud-evaluate` now refuses a no-evidence run before submission. In the Korean portal, the localized default
+names of the Relevance and Coherence evaluators failed the evaluator-name check and kept **Next** disabled until renamed; the guide
+states this workaround. Six cases are too few for the portal's statistical comparison.
+
+**Not run:** the existing-traces evaluation (the portal asked for a Monitoring Reader role for the project's managed identity),
+recurring evaluation, Agent Optimizer (no supported optimization model with `gpt-6-sol`), cloud red teaming and a new release
+pipeline run.
+
+**Azure changes:** two uploaded dev-question datasets, datasets that `cloud-evaluate` creates automatically, portal and SDK
+evaluations and runs (three evaluations named `...-trial-...` were scaffolding checks, one of them grading offline fixture rows; the
+invalid diagnostic runs are kept), and owned custom evaluator versions (`mfv2_sol_20260923_en_business_rubric` 1–2, `mfv2_sol_20260923_ko_business_rubric` 1),
+all under the `mfv2-sol-20260923-<language>` prefixes, plus billable agent and judge calls. The portal language was switched to
+Korean for the Korean captures and restored to English. No deployment, role assignment or default-subscription change.
+[Captures](../assets/eval-portal-20260923/captures.json) · [English results](../live-run.md#optional-evaluation-additions--separate-verification-september-23-2026)
+
+**Local verification:** 255 offline tests passed on each of Python 3.13 and 3.14, and 73 installed-SDK tests passed with stub
+transports. New tests cover the grader's parity with the local rules, the diagnostic's rejection paths, skipped judge rows,
+custom-evaluator criteria, shared reference runs, tool-result mapping and the new captures. Ruff 0.16.6, compilation, both learner
+bundles, the CI offline commands in a clean copy and documentation checks (117 Markdown files, 58 language pairs, 340 CLI examples)
+passed. Final code hash: `67e7ac04…`.
+
 <a id="guide-straightforwardness-v2"></a>
 
 ## Guide straightforwardness review v2 — September 23, 2026

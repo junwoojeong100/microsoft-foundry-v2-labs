@@ -23,6 +23,8 @@ def evaluate_items(
     retry_failed: bool = False,
     messages_input: bool = False,
     evaluation_level: str = "turn",
+    custom_catalog: dict[str, dict[str, Any]] | None = None,
+    reference_state: Path | None = None,
 ) -> dict[str, Any]:
     from azure.ai.projects.models import TestingCriterionAzureAIEvaluator
 
@@ -80,6 +82,27 @@ def evaluate_items(
     }
     if messages_input:
         identity.update(input_format="messages", evaluation_level=evaluation_level)
+    reference_run = None
+    if reference_state is not None:
+        if messages_input or retry_failed:
+            raise ValueError("A shared reference evaluation applies to a new query-response run.")
+        reference_run = read_json(reference_state)
+        if (
+            reference_run.get("status") != "completed"
+            or reference_run.get("validation_status") != "valid"
+            or reference_run.get("evaluator_names") != list(evaluator_names)
+            or reference_run.get("item_fields") != sorted(items[0])
+            or reference_run.get("dataset_hash") != dataset_hash
+            or reference_run.get("judge_deployment") != judge
+            or reference_run.get("project_endpoint") != settings.project_endpoint
+        ):
+            raise ValueError(
+                "The reference must be a completed, validated run with the same evaluators, "
+                "fields, dataset, judge and project."
+            )
+        if reference_run.get("source_run_id") == source_run_id:
+            raise ValueError("Compare a different run; do not reuse the reference's own responses.")
+        identity["reference_run_id"] = reference_run["run_id"]
     state = read_json(state_path) if state_path.exists() else dict(identity)
     if (
         state.get("input_format", "query-response")
@@ -104,6 +127,8 @@ def evaluate_items(
             raise ValueError("A legacy evaluation can only resume its original two evaluators.")
         state["legacy_schema_checked"] = True
     state["evaluator_names"] = list(evaluator_names)
+    if not messages_input:
+        state["item_fields"] = sorted(items[0])
     if retry_failed:
         if (
             state.get("status") not in {"failed", "canceled", "cancelled"}
@@ -157,6 +182,17 @@ def evaluate_items(
         else:
             catalog = []
             for name in evaluator_names:
+                if custom_catalog and name in custom_catalog:
+                    custom = custom_catalog[name]
+                    catalog.append(
+                        {
+                            "name": name,
+                            "evaluator_name": custom["evaluator_name"],
+                            "definition": custom["definition"],
+                            "parameters": {"deployment_name": judge, "pass_threshold": 1.0},
+                        }
+                    )
+                    continue
                 definition = project.beta.evaluators.get_version(
                     f"builtin.{name}", "latest"
                 ).as_dict()
@@ -199,25 +235,38 @@ def evaluate_items(
             raise ValueError("The evaluator catalog changed after job creation.")
         write_json(catalog_path, catalog)
         state["evaluator_hash"] = digest(catalog)
+        if "evaluation_id" not in state and reference_run is not None:
+            state["evaluation_id"] = reference_run["evaluation_id"]
+            state["reference_evaluation"] = {
+                "evaluation_id": reference_run["evaluation_id"],
+                "run_id": reference_run["run_id"],
+            }
+            write_json(state_path, state)
         if "evaluation_id" not in state:
             criteria = [
                 TestingCriterionAzureAIEvaluator(
                     type="azure_ai_evaluator",
                     name=item["name"],
-                    evaluator_name=f"builtin.{item['name']}",
+                    evaluator_name=item.get("evaluator_name", f"builtin.{item['name']}"),
                     evaluator_version=item["definition"]["version"],
                     initialization_parameters=item["parameters"],
-                    data_mapping={"messages": "{{item.messages}}"}
-                    if messages_input
-                    else {
-                        "query": "{{item.query}}",
-                        "response": "{{item.response}}",
-                        **(
-                            {"context": "{{item.context}}"}
-                            if item["name"] == "groundedness"
-                            else {}
-                        ),
-                    },
+                    **(
+                        {}
+                        if "evaluator_name" in item
+                        else {
+                            "data_mapping": {"messages": "{{item.messages}}"}
+                            if messages_input
+                            else {
+                                "query": "{{item.query}}",
+                                "response": "{{item.response}}",
+                                **(
+                                    {"context": "{{item.context}}"}
+                                    if item["name"] == "groundedness"
+                                    else {}
+                                ),
+                            }
+                        }
+                    ),
                 )
                 for item in catalog
             ]
@@ -301,6 +350,11 @@ def evaluate_items(
         "report_url": state["report_url"],
         "rows": len(normalized),
         "evaluator_hash": state["evaluator_hash"],
+        **(
+            {"reference_run_id": state["reference_evaluation"]["run_id"]}
+            if "reference_evaluation" in state
+            else {}
+        ),
         **(
             {"input_format": "messages", "evaluation_level": evaluation_level}
             if messages_input

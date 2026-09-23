@@ -28,9 +28,9 @@
    Lab 07에서 평가한 버전과 대조합니다.
 2. **플레이그라운드** 탭의 **지침**·**도구**·**지식**에서 합성 원문 6개(또는 선택한 File Search/IQ 연결)를 확인합니다.
    승인하지 않은 웹 검색·회사 연결이 없어야 합니다.
-3. 본인의 6행 평가표와 `workflow-review.txt`를 열고 위치를 적습니다. 이 평가표는 수동 검토이며 Foundry 평가 실행이 아닙니다.
+3. 본인의 6행 평가표와 `workflow-review.txt`를 열고 위치를 적습니다. 이 평가표는 수동 검토이며, Lab 07의 선택 Foundry 평가는 별도 실행입니다.
    **추적** 탭을 열 수 있으면 저장한 요청 하나를 찾고, 없다면 “오류 없음”이 아니라 **trace 미확인**으로 적습니다.
-4. [정리 체크리스트](../reference/cleanup.md)로 본인 agent·선택 파일/chat base·session을 목록화합니다.
+4. [정리 체크리스트](../reference/cleanup.md)로 본인 agent·선택 파일/chat base·직접 만든 평가 데이터 세트와 평가·session을 목록화합니다.
    공유 서비스는 **담당자 관리**로 표시하고 잔여 비용과 승인된 자산별 중지/삭제 담당자를 확인합니다.
 
 학습자 ZIP의 빈 `operations-checklist.txt`에 네 결과를 채웁니다.
@@ -53,6 +53,24 @@
 기존 종합 랩의 Control Plane 관점을 이 표로 통합했습니다.
 Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습니다.
 전체 구독 권한을 추가하는 것이 학습의 목표가 아닙니다.
+
+<details>
+<summary>선택, 담당자 준비 필요: 에이전트가 이미 한 답변을 추적에서 평가하기</summary>
+
+Lab 03·07에서 기록된 대화를 새 에이전트 호출 없이 채점합니다. judge 호출 비용은 발생합니다.
+
+1. 에이전트의 **평가** 탭에서 **만들기**를 선택합니다. **에이전트**, **개별 턴**, **일회성**을 유지합니다.
+2. **데이터**에서 **기존 추적**을 선택합니다. 대화가 추적 ID·응답 ID와 함께 표시됩니다. 마지막 질문 뒤 3–5분 기다립니다.
+3. **설정이 완료되지 않음** 안내가 프로젝트 관리 ID에 Application Insights의 **모니터링 읽기 권한자** 역할을 요구하면
+   멈추고 담당자에게 요청합니다. **해결**을 선택하지 않습니다. 역할 할당을 바꾸는 동작입니다.
+4. 안내가 없다면 **다음**을 선택하고 Lab 07 A 4단계처럼 **조건**을 정합니다. 판단 모델 `gpt-6-sol-judge`, 안전·에이전트는 **모두 제거**,
+   Relevance와 Coherence 유지(한국어 UI에서는 이름을 이렇게 바꿈), TaskAdherence(Preview)는 목록에 있으면 추가한 뒤 **다음**, **제출**을 선택합니다.
+
+2026-09-23 실습 프로젝트에는 이 안내가 표시되어 이번 개정에서 추적 기반 평가는 **실행하지 않았습니다**.
+**빈도** 단계의 **되풀이**나 에이전트·추적 평가의 **되풀이 설정**은 continuous evaluation이 됩니다.
+데이터 세트 기반 실행은 되풀이할 수 없습니다. 되풀이 실행은 별도 비용 승인과 끌 담당자가 필요합니다.
+
+</details>
 
 <a id="path-b"></a>
 
@@ -212,7 +230,8 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 기본 batch/trace 검증과 다른 운영 기능입니다. 데이터 범위, sample 비율, 시간당 상한,
 평가자 버전, 지속 비용, 비활성화 책임자를 먼저 승인합니다.
 현재 [공식 recurring/continuous evaluation 안내](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard#set-up-continuous-evaluation)를
-확인하고 별도 rule을 구성합니다. 한 번의 요청이 sampling되지 않았다고 모델을 반복 호출해
+확인하고 별도 rule을 구성합니다. 포털에서는 평가의 **빈도** 단계에서 **되풀이**를 선택하면 에이전트·추적 평가에 이런 rule이 만들어집니다(2026-09-23).
+한 번의 요청이 sampling되지 않았다고 모델을 반복 호출해
 성공 화면을 만들지 않습니다. Rule enabled와 실제 평가 sample의 존재를 따로 기록합니다.
 이 개정은 continuous evaluation을 자동으로 켜지 않습니다.
 

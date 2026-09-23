@@ -57,14 +57,38 @@ The failed relevance row is **D05** (score 3), the intended abstention case: no 
 
 Full hashes are in [live-results.json](assets/g6sol-20260923-en/live-results.json).
 
+## Optional evaluation additions — separate verification, September 23, 2026
+
+These runs verified the optional evaluation steps added after the recording. They used new labels in a separate copy of the
+same source (code hash `b160d84d2e0e1087…`), the same `gpt-6-sol` / `gpt-6-sol-judge` deployments and the prefix `mfv2-sol-20260923-en`.
+They are not part of the edited videos; the portal steps have their own [captures](assets/eval-portal-20260923/captures.json).
+
+| Step | Result |
+|---|---|
+| Lab 07 A optional portal evaluation (`eval_3f85f529…`, 6 questions from `dev-questions.jsonl`) | Coherence 6/6, Relevance 5/6 (D05), TaskAdherence (Preview) 1/6; the manual business assessment of the same agent was 6/6 |
+| Lab 07 B dev collections (`baseline` `25dc8b88…`, `candidate` `c8d8e4b3…`) | Business 6/6 and 6/6, 0 errors |
+| Lab 07 B no-evidence diagnostic (`diagnostic-no-evidence` `b0b17e7c…`) | Business 0/6, 0 errors; every answer withheld (`insufficient_evidence`); `feedback` rejected the run |
+| Lab 07 B cloud judges with the business rubric (`eval_f231e23c…`, two runs) | baseline and candidate: groundedness 6/6, relevance 6/6, `business_rubric` 6/6; agreement with local checks 6/6 each; portal comparison relevance 4.33 → 4.83, **Too few samples** |
+| Lab 04 optional `maf-evaluate` (`eval_34a0f785…`) | tool_call_accuracy 6/6, relevance 6/6; one `lookup_policy` call per question |
+
+The custom evaluator `mfv2_sol_20260923_en_business_rubric` is version 2; version 1 was an earlier trial with the same checks before formatting.
+The TaskAdherence failures state that the cited amounts cannot be verified, because only the question and the answer reach the evaluator.
+The existing-traces evaluation was not run: the portal asked for a Monitoring Reader role on Application Insights, and no role was assigned.
+
+**Re-check after the code review (code `408b1b57…`):** `maf-evaluate` ran again with the rewritten result mapping
+(`eval_fd079e29…`): tool_call_accuracy 6/6 and relevance 6/6, each output item joined to its question.
+Cloud judges on the no-evidence diagnostic (run `evalrun_2b495a2e…` in `eval_f231e23c…`) completed, but Groundedness skipped
+3 of 6 rows because their context was empty. The service reported relevance 1/6 and `business_rubric` 0/6; the workshop marked the
+result invalid and counted nothing. The final code (`67e7ac04…`) refuses such a run before any cloud call, checked on the same label.
+
 ## Not run with gpt-6-sol
 
 - Lab 03 portal File Search
 - Lab 06 IQ Chat preset (gpt-5.6-luna) and hybrid RAG
-- Lab 07 feedback/regression step (no baseline failure)
+- Lab 07 feedback/regression step (no baseline failure; the separate no-evidence diagnostic is rejected by design)
 - Lab 07 Hosted model matrix
 - Lab 08 local server and Hosted deployment
-- Lab 09 server-side tracing checks and continuous evaluation
+- Lab 09 server-side tracing checks, the existing-traces evaluation and continuous evaluation
 - Lab 10 external IQ extensions
 - Extension modules
 

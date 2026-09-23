@@ -11,7 +11,7 @@ from typing import Any
 from .contracts import load_cases, load_documents, read_json, validate_question, write_json
 from .evaluation import acceptance_report, compare_runs, evaluate_run, record_feedback
 from .experiments import collect, offline_demo
-from .knowledge import local_retrieve
+from .knowledge import evidence, local_retrieve
 from .profiles import INFERENCE_APIS, PATTERNS, RETRIEVALS, RuntimeProfile
 
 DEFAULT_QUESTION = "2026년 9월 국내 출장 숙박비는 1박 얼마까지인가요?"
@@ -211,7 +211,12 @@ def parser() -> argparse.ArgumentParser:
     batch.add_argument("--label", required=True)
     batch.add_argument("--split", choices=("dev", "holdout"), default="dev")
     batch.add_argument("--prompt", choices=("v1", "v2"), default="v1")
-    batch.add_argument("--retrieval", choices=RETRIEVALS, default="local")
+    batch.add_argument(
+        "--retrieval",
+        choices=(*RETRIEVALS, "none"),
+        default="local",
+        help="none is a dev-only diagnostic that sends no policy evidence.",
+    )
     batch.add_argument("--unlock-holdout", action="store_true")
     batch.add_argument("--candidate", help="Frozen real dev label; required for holdout.")
     grade = commands.add_parser(
@@ -240,7 +245,23 @@ def parser() -> argparse.ArgumentParser:
     )
     judge.add_argument("--label", required=True)
     judge.add_argument("--timeout", type=int, default=300)
+    judge.add_argument(
+        "--business-evaluator",
+        action="store_true",
+        help="Preview: also register/reuse your owned code-based business-rubric evaluator.",
+    )
+    judge.add_argument(
+        "--reference",
+        help="Add this run to the reference label's Foundry evaluation for Compare runs.",
+    )
     judge.add_argument("--confirm-cost", action="store_true")
+    tool_judge = commands.add_parser(
+        "maf-evaluate",
+        help="LIVE Preview: run the MAF function-tool agent on dev and score tool calls in Foundry.",
+    )
+    tool_judge.add_argument("--timeout", type=int, default=300)
+    tool_judge.add_argument("--confirm-cost", action="store_true")
+    output_argument(tool_judge)
     seed = commands.add_parser(
         "seed-search", help="Create namespaced Search objects in an existing service."
     )
@@ -677,7 +698,19 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
             from .cloud_evaluation import evaluate_cloud
 
             return evaluate_cloud(
-                root, settings, args.label, timeout=args.timeout, confirmed=args.confirm_cost
+                root,
+                settings,
+                args.label,
+                timeout=args.timeout,
+                confirmed=args.confirm_cost,
+                business_evaluator=args.business_evaluator,
+                reference=args.reference,
+            )
+        if args.command == "maf-evaluate":
+            from .tool_evaluation import evaluate_tool_use
+
+            return asyncio.run(
+                evaluate_tool_use(settings, root, timeout=args.timeout, confirmed=args.confirm_cost)
             )
         if args.command in {"maf", "workflow", "serve"}:
             from .agents import run_agent, run_workflow, serve
@@ -714,7 +747,11 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                 from .profiles import retrieval_configuration
 
                 def answer_case(case: dict[str, Any]) -> dict[str, Any]:
-                    context = retrieve(root, settings, case["question"], args.retrieval)
+                    context = (
+                        evidence([], "none")
+                        if args.retrieval == "none"
+                        else retrieve(root, settings, case["question"], args.retrieval)
+                    )
                     return answer_with_context(
                         client, settings, root, case["question"], args.prompt, context
                     )
@@ -733,7 +770,9 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                         "project_endpoint": settings.project_endpoint,
                         "api": "project-responses",
                         "max_output_tokens": settings.max_output_tokens,
-                        "retrieval_configuration": retrieval_configuration(
+                        "retrieval_configuration": {"provider": "none", "max_documents": 0}
+                        if args.retrieval == "none"
+                        else retrieval_configuration(
                             RuntimeProfile(retrieval=args.retrieval, language=args.language)
                         ),
                     },
@@ -763,6 +802,14 @@ def main(root: Path, argv: list[str] | None = None) -> int:
     try:
         if hasattr(args, "question"):
             validate_question(args.question)
+        if (
+            args.command == "collect"
+            and args.retrieval == "none"
+            and (args.split != "dev" or args.candidate or args.unlock_holdout)
+        ):
+            raise ValueError(
+                "--retrieval none is a dev-only diagnostic, never a candidate or holdout."
+            )
         destination = output_path(root, args.output) if getattr(args, "output", None) else None
         if args.command == "doctor" and not args.cloud:
             result = doctor_offline(root, args.language)

@@ -28,9 +28,9 @@ Complete these four checks using **your own existing results**, without sending 
    with the version you assessed in Lab 07.
 2. On its **Playground** tab, check **Instructions**, **Tools** and **Knowledge**: the six synthetic sources (or your selected
    File Search/IQ connection) are there, with no unapproved Web search or company connection.
-3. Open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review, not a Foundry evaluation run.
+3. Open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
    If you can open the **Traces** tab, find one of your saved requests; otherwise write **trace unverified** (not “no errors”).
-4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, optional files/chat base, and any sessions.
+4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
 
 Fill the learner ZIP's blank `operations-checklist.txt` with those four outcomes.
@@ -52,6 +52,24 @@ The following table is an optional deeper review, limited to assets visible with
 
 This integrates the original Control Plane perspective. Missing Fleet/management
 menus can be normal for your role. Gaining subscription-wide permissions is not the objective.
+
+<details>
+<summary>Optional, owner-prepared: evaluate the answers your agent already gave, from its traces</summary>
+
+This scores your recorded Lab 03 and Lab 07 conversations without new agent calls; the judge calls still cost.
+
+1. Open your agent's **Evaluation** tab and select **Create**. Keep **Agent**, **Individual turns** and **One time**.
+2. In **Data**, select **Existing traces**. Your conversations appear with their trace and response IDs; allow 3–5 minutes after your last question.
+3. If a **Setup incomplete** banner asks you to give the project's managed identity the **Monitoring Reader** role on
+   Application Insights, stop and ask the owner. Do not select **Resolve**: it changes a role assignment.
+4. Otherwise select **Next** and set **Criteria** as in Lab 07 A step 4: judge model `gpt-6-sol-judge`; **Remove all** under Safety and Agents;
+   keep Relevance and Coherence; add TaskAdherence (Preview) if it is listed; then **Next** and **Submit**.
+
+On September 23, 2026 the training project showed this banner, so the trace-based evaluation was **not run** for this edition.
+**Recurring** in the **Frequency** step, or **Make recurring** on a trace or agent evaluation, turns it into continuous evaluation;
+dataset-based runs cannot be made recurring. Recurring runs need their own cost approval and an owner who turns them off.
+
+</details>
 
 <a id="path-b"></a>
 
@@ -201,6 +219,7 @@ Shared services, models, evaluation history, and persistent files remain.
 
 Approve data scope, sampling, hourly caps, evaluator versions, ongoing costs, and a disable/cleanup owner.
 Follow [current recurring-evaluation guidance](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard#set-up-continuous-evaluation).
+In the portal, **Recurring** in an evaluation's **Frequency** step (September 23, 2026) creates such a rule for an agent or trace evaluation.
 Do not repeatedly invoke just to manufacture a sampled screenshot.
 Rule configuration and actual evaluated samples are different evidence; nothing is enabled automatically.
 

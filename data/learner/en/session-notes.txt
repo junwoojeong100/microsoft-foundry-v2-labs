@@ -47,6 +47,9 @@ Candidate instructions-candidate.txt / assessment-candidate.csv paths, only if c
 Candidate passed / 6; request errors / not run, only if changed:
 Outcome (complete assessment / incomplete; not production approval):
 Missing steps / next permitted action / responsible owner:
+Optional Foundry evaluation name / dataset name, or not run:
+Relevance / Coherence / TaskAdherence passed / 6:
+Evaluator results that disagree with my assessment, and why:
 
 B - code evidence and incomplete handoff
 Personal notes directory:

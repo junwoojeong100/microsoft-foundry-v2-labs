@@ -106,20 +106,82 @@ class NativeEvaluationTests(unittest.TestCase):
         yield project, client
 
     def evaluate(self, path, **kwargs):
+        options = {
+            "label": "unit-eval",
+            "source_run_id": "unit-source",
+            "dataset_hash": "unit-dataset",
+            "forbidden_deployments": {"unit-deployment"},
+            "evaluator_names": self.evaluator_names,
+            "confirmed": True,
+            "timeout": 5,
+            **kwargs,
+        }
         with patch("foundry_workshop.native.project_clients", self.clients):
-            return evaluate_items(
-                settings(),
-                path,
-                self.items,
-                label="unit-eval",
-                source_run_id="unit-source",
-                dataset_hash="unit-dataset",
-                forbidden_deployments={"unit-deployment"},
-                evaluator_names=self.evaluator_names,
-                confirmed=True,
-                timeout=5,
-                **kwargs,
+            return evaluate_items(settings(), path, self.items, **options)
+
+    def test_custom_business_evaluator_uses_its_pinned_version_without_builtin_mapping(self):
+        self.evaluator_names = ("groundedness", "relevance", "business_rubric")
+        self.items[0].update(answer_json="{}", source_ids="[]")
+        custom = {
+            "business_rubric": {
+                "evaluator_name": "mfv2_unit_business_rubric",
+                "definition": {"name": "mfv2_unit_business_rubric", "version": "3"},
+            }
+        }
+        with tempfile.TemporaryDirectory() as folder:
+            result = self.evaluate(Path(folder), custom_catalog=custom)
+        business = self.create_calls[0]["testing_criteria"][2]
+        self.assertEqual(business["evaluator_name"], "mfv2_unit_business_rubric")
+        self.assertEqual(business["evaluator_version"], "3")
+        self.assertEqual(
+            business["initialization_parameters"],
+            {"deployment_name": "unit-judge", "pass_threshold": 1.0},
+        )
+        self.assertIsNone(business.get("data_mapping"))
+        self.assertEqual(len(self.catalog_calls), 2)
+        self.assertEqual(result["native_pass_counts"]["business_rubric"]["total"], 1)
+
+    def test_retrying_a_failed_run_with_a_reference_catalog_still_works(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base, target = Path(folder, "base"), Path(folder, "target")
+            self.evaluate(base)
+            options = {
+                "source_run_id": "unit-target",
+                "reference_catalog": base / "evaluator-catalog.json",
+            }
+            self.status = "failed"
+            with self.assertRaisesRegex(ValueError, "failed"):
+                self.evaluate(target, **options)
+            self.status = "completed"
+            result = self.evaluate(target, retry_failed=True, **options)
+            self.assertEqual(result["run_id"], "run-unit-3")
+            self.assertTrue(read_json(target / "cloud-evaluation.json")["retry_of"])
+
+    def test_reference_run_joins_the_same_evaluation_with_the_same_catalog(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base, candidate = Path(folder, "base"), Path(folder, "candidate")
+            self.evaluate(base)
+            self.items[0]["response"] = "Candidate synthetic answer"
+            reference = {
+                "reference_state": base / "cloud-evaluation.json",
+                "reference_catalog": base / "evaluator-catalog.json",
+            }
+            with self.assertRaisesRegex(ValueError, "different run"):
+                self.evaluate(candidate, **reference)
+            result = self.evaluate(candidate, source_run_id="unit-candidate", **reference)
+            self.assertEqual(len(self.create_calls), 1)
+            self.assertEqual([call["eval_id"] for call in self.run_calls], ["eval-unit-1"] * 2)
+            self.assertEqual(result["reference_run_id"], "run-unit-1")
+            self.assertEqual(len(self.catalog_calls), 2)
+            self.assertEqual(
+                read_json(candidate / "evaluator-catalog.json"),
+                read_json(base / "evaluator-catalog.json"),
             )
+            state = read_json(base / "cloud-evaluation.json")
+            state["status"] = "failed"
+            write_json(base / "cloud-evaluation.json", state)
+            with self.assertRaisesRegex(ValueError, "completed, validated"):
+                self.evaluate(Path(folder, "third"), source_run_id="unit-third", **reference)
 
     def test_catalog_is_pinned_and_resuming_does_not_submit_again_or_hide_low_scores(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -229,3 +291,203 @@ class NativeEvaluationTests(unittest.TestCase):
                 self.evaluate(Path(folder), messages_input=True, evaluation_level="conversation")
         self.assertEqual(self.create_calls, [])
         self.assertEqual(self.run_calls, [])
+
+
+class BusinessEvaluatorTests(unittest.TestCase):
+    def project(self, versions):
+        from azure.core.exceptions import ResourceNotFoundError
+
+        created = []
+
+        def list_versions(name):
+            if versions is None:
+                raise ResourceNotFoundError("missing")
+            return [SimpleNamespace(as_dict=lambda value=value: value) for value in versions]
+
+        def create_version(name, evaluator_version):
+            created.append((name, evaluator_version))
+            return SimpleNamespace(as_dict=lambda: {**evaluator_version, "version": "9"})
+
+        evaluators = SimpleNamespace(list_versions=list_versions, create_version=create_version)
+        return SimpleNamespace(beta=SimpleNamespace(evaluators=evaluators)), created
+
+    def test_identical_code_is_reused_and_changed_or_missing_code_creates_a_version(self):
+        from foundry_workshop.cloud_evaluation import GRADER_PATH, ensure_business_evaluator
+
+        code = GRADER_PATH.read_text()
+        project, created = self.project([{"version": "4", "definition": {"code_text": code}}])
+        result = ensure_business_evaluator(project, "mfv2-unit")
+        self.assertEqual(
+            (result["evaluator_name"], result["definition"]["version"]),
+            ("mfv2_unit_business_rubric", "4"),
+        )
+        self.assertEqual(created, [])
+        for versions in ([{"version": "4", "definition": {"code_text": "old"}}], None):
+            project, created = self.project(versions)
+            result = ensure_business_evaluator(project, "mfv2-unit")
+            self.assertEqual(len(created), 1)
+            self.assertEqual(created[0][1]["definition"]["code_text"], code)
+            self.assertEqual(result["definition"]["version"], "9")
+
+    def test_cloud_business_results_are_compared_with_local_checks(self):
+        from foundry_workshop.cloud_evaluation import evaluate_cloud
+        from foundry_workshop.contracts import load_documents
+        from foundry_workshop.experiments import collect
+        from foundry_workshop.knowledge import evidence
+        from tests import workspace
+
+        def answer(case):
+            return {
+                **evidence(load_documents(root, "en"), "unit-test"),
+                "answer": {
+                    "answer": "Unit-test response, not an LLM result.",
+                    "decision": case["expected_decision"],
+                    "limit_krw": case["expected_limit_krw"],
+                    "citations": case["required_citations"],
+                },
+                "response_id": "unit-" + case["case_id"],
+                "response_model": "unit-model",
+                "usage": None,
+            }
+
+        seen = {}
+
+        def fake_evaluate(_settings, directory, items, **kwargs):
+            seen.update(kwargs, items=items)
+            rows = [
+                {
+                    "case_id": item["case_id"],
+                    "results": [
+                        {
+                            "name": "business_rubric",
+                            "passed": item["case_id"] != "D02",
+                            "score": 1.0,
+                        }
+                    ],
+                }
+                for item in items
+            ]
+            directory.mkdir(parents=True, exist_ok=True)
+            write_json(directory / "cloud-evaluation-results.json", rows)
+            return {"mode": "live", "label": kwargs["label"]}
+
+        @contextmanager
+        def clients(*_args, **_kwargs):
+            yield BusinessEvaluatorTests.project(self, None)[0], None
+
+        with workspace() as root, patch.dict(os.environ, {"WORKSHOP_PREFIX": "mfv2-unit"}):
+            collect(
+                root,
+                label="candidate",
+                split="dev",
+                prompt_version="v2",
+                retrieval="local",
+                mode="live",
+                deployment="unit-deployment",
+                inference={"project_endpoint": "https://unit.invalid"},
+                answer_case=answer,
+                language="en",
+            )
+            with (
+                patch("foundry_workshop.native.evaluate_items", fake_evaluate),
+                patch("foundry_workshop.cloud.project_clients", clients),
+            ):
+                result = evaluate_cloud(
+                    root,
+                    settings(),
+                    "candidate",
+                    timeout=5,
+                    confirmed=True,
+                    business_evaluator=True,
+                )
+            self.assertEqual(result["business_rubric_agreement"]["mismatched_cases"], ["D02"])
+            self.assertEqual(result["business_rubric_agreement"]["matched"], 5)
+            self.assertEqual(
+                seen["evaluator_names"], ("groundedness", "relevance", "business_rubric")
+            )
+            self.assertIn("answer_json", seen["items"][0])
+            self.assertEqual(
+                seen["custom_catalog"]["business_rubric"]["evaluator_name"],
+                "mfv2_unit_business_rubric",
+            )
+            self.assertTrue(
+                (
+                    root
+                    / "outputs/candidate/foundry-business-rubric/business-rubric-agreement.json"
+                ).is_file()
+            )
+            with self.assertRaisesRegex(ValueError, "different"):
+                evaluate_cloud(
+                    root, settings(), "candidate", timeout=5, confirmed=True, reference="candidate"
+                )
+            collect(
+                root,
+                label="final",
+                split="holdout",
+                prompt_version="v2",
+                retrieval="local",
+                mode="live",
+                deployment="unit-deployment",
+                inference={"project_endpoint": "https://unit.invalid"},
+                answer_case=answer,
+                candidate="candidate",
+                language="en",
+            )
+            with self.assertRaisesRegex(ValueError, "dev runs only"):
+                evaluate_cloud(
+                    root, settings(), "final", timeout=5, confirmed=True, reference="candidate"
+                )
+
+    def test_no_evidence_diagnostic_is_refused_before_any_cloud_call(self):
+        from foundry_workshop.cloud_evaluation import evaluate_cloud
+        from foundry_workshop.experiments import collect
+        from foundry_workshop.knowledge import evidence
+        from tests import workspace
+
+        def withheld(case):
+            return {
+                **evidence([], "none"),
+                "answer": {
+                    "answer": "Unit-test response without evidence, not an LLM result.",
+                    "decision": "insufficient_evidence",
+                    "limit_krw": None,
+                    "citations": [],
+                },
+                "response_id": "unit-" + case["case_id"],
+                "response_model": "unit-model",
+                "usage": None,
+            }
+
+        def must_not_run(*_args, **_kwargs):
+            raise AssertionError("A cloud call was attempted.")
+
+        with workspace() as root:
+            collect(
+                root,
+                label="diagnostic",
+                split="dev",
+                prompt_version="v1",
+                retrieval="none",
+                mode="live",
+                deployment="unit-deployment",
+                inference={"provider": "none", "max_documents": 0},
+                answer_case=withheld,
+                language="en",
+            )
+            with (
+                patch("foundry_workshop.native.evaluate_items", must_not_run),
+                patch("foundry_workshop.cloud.project_clients", must_not_run),
+            ):
+                for business in (False, True):
+                    with self.subTest(business_evaluator=business):
+                        with self.assertRaisesRegex(ValueError, "stays local"):
+                            evaluate_cloud(
+                                root,
+                                settings(),
+                                "diagnostic",
+                                timeout=5,
+                                confirmed=True,
+                                business_evaluator=business,
+                            )
+            self.assertFalse((root / "outputs/diagnostic/foundry-business-rubric").exists())
+            self.assertFalse((root / "outputs/diagnostic/cloud-evaluation.json").exists())

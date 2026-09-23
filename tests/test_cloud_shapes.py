@@ -122,6 +122,18 @@ class CloudShapeTests(unittest.TestCase):
             with self.subTest(items=items), self.assertRaises(ValueError):
                 normalize_results(items, ["D01"])
 
+    def test_skipped_judge_row_is_named_and_never_passes(self):
+        item = self.result_item()
+        item["results"][0] = {
+            "name": "groundedness",
+            "score": None,
+            "passed": None,
+            "status": "skipped",
+            "label": "not_applicable",
+        }
+        with self.assertRaisesRegex(ValueError, "groundedness returned skipped for D01"):
+            normalize_results([item], ["D01"])
+
     def test_judge_index_mapping_is_bounded(self):
         item = self.result_item()
         item.pop("datasource_item")

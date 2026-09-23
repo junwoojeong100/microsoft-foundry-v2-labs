@@ -195,6 +195,55 @@ class EvaluationTests(unittest.TestCase):
                     root, "candidate", "D01", "Do not overwrite the earlier review record."
                 )
 
+    def test_no_evidence_diagnostic_fails_honestly_and_never_enters_review(self):
+        def withheld(case):
+            return {
+                **evidence([], "none"),
+                "answer": {
+                    "answer": "Unit-test response without evidence, not an LLM result.",
+                    "decision": "insufficient_evidence",
+                    "limit_krw": None,
+                    "citations": [],
+                },
+                "response_id": "unit-" + case["case_id"],
+                "response_model": "unit-model",
+                "usage": None,
+            }
+
+        with workspace() as root:
+            collect(
+                root,
+                label="diagnostic",
+                split="dev",
+                prompt_version="v1",
+                retrieval="none",
+                mode="live",
+                deployment="unit-deployment",
+                inference={"provider": "none", "max_documents": 0},
+                answer_case=withheld,
+            )
+            result = evaluate_run(root, "diagnostic")
+            self.assertEqual((result["passed"], result["errors"]), (0, 0))
+            self.assertFalse(result["business_gate_passed"])
+            self.assertTrue(
+                all(not item["checks"]["citations_retrieved"] for item in result["checks"])
+            )
+            with self.assertRaisesRegex(ValueError, "no-evidence"):
+                record_feedback(root, "diagnostic", "D01", "Evidence was removed on purpose here.")
+            with (
+                contextlib.redirect_stdout(io.StringIO()),
+                contextlib.redirect_stderr(io.StringIO()) as errors,
+            ):
+                for extra in (
+                    ["--split", "holdout", "--unlock-holdout", "--candidate", "diagnostic"],
+                    ["--candidate", "diagnostic"],
+                ):
+                    self.assertEqual(
+                        main(root, ["collect", "--label", "x", "--retrieval", "none", *extra]), 2
+                    )
+            self.assertIn("dev-only diagnostic", errors.getvalue())
+            self.assertFalse((root / "outputs/x").exists())
+
     def test_compare_rejects_changed_inference_configuration(self):
         with workspace() as root:
             self.live_test_run(root, "first")

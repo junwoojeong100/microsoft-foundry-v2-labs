@@ -126,7 +126,7 @@ for May 2026. A function-tool response cannot stand in for an MCP execution.
 **Save:** `maf-mcp.json` is written to the same notes directory on success. Keep the original error instead if this request failed.
 
 **B done:** retain the three actual outputs and explain no tool, function and local MCP.
-Continue to [Lab 05 B](05-workflows.md#path-b); the negative test below is optional.
+Continue to [Lab 05 B](05-workflows.md#path-b); sections 4 and 5 below are optional.
 
 ## 4. Optional: inspect tool boundaries and reject invalid input
 
@@ -155,6 +155,29 @@ This is expected input rejection before Azure, not a broken environment.
 Pasting a long string directly can hit terminal-input truncation. A model answer to
 that truncated input does not prove the application's length check failed.
 Do not create real messaging or payment tools just for this exercise.
+
+</details>
+
+## 5. Optional: score the tool calls with Foundry evaluators (Preview)
+
+<details>
+<summary>Expand only with the prepared <code>gpt-6-sol-judge</code> and cost approval; not required for B</summary>
+
+MAF's evaluation API runs the function-tool agent on the six dev questions (six paid agent runs) and sends each answer,
+its `lookup_policy` call and the tool definition to the Foundry `tool_call_accuracy` and `relevance` evaluators.
+Only the function tool is scored, not the MCP variant. The code is in `src/foundry_workshop/tool_evaluation.py`.
+First set `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME=gpt-6-sol-judge` in `.env` (the judge row of your setup card);
+the command stops if the judge is missing or is the answer deployment `gpt-6-sol`.
+
+```bash
+python scripts/workshop.py --language en maf-evaluate --confirm-cost --output outputs/learner-notes-en/maf-tool-evaluation.json
+```
+
+**What to check:** `complete: true` and `errors: 0`; each row lists its recorded `tool_calls` (one `lookup_policy` call)
+and a `tool_call_accuracy` and `relevance` score. Open `report_url` for the reasons. MAF prints one `ExperimentalWarning`
+for `FoundryEvals`; that is expected. On September 23, 2026 the English run scored tool_call_accuracy 6/6 and relevance 6/6.
+These scores judge tool use, not business correctness, so keep Lab 07's business checks separate.
+The MAF evaluation API was experimental and several agent evaluators were marked Preview on September 23, 2026.
 
 </details>
 

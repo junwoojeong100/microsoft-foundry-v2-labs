@@ -3,8 +3,9 @@
 **English** | [한국어](ko/coverage.md)
 
 **English-first extension execution — September 16, 2026 (earlier `gpt-5.6-luna` preset).**
-The September 23, 2026 `gpt-6-sol` recording re-ran only the main A/B steps of Labs 00–09 and 11; the extension
-evidence below was not re-run with `gpt-6-sol`, and the September 15–17 recordings were removed.
+The September 23, 2026 `gpt-6-sol` recording re-ran only the main A/B steps of Labs 00–09 and 11, and the September 15–17
+recordings were removed. The same day, a separate verification ran the optional Foundry evaluation steps and the conversation
+evaluation module with `gpt-6-sol`; the other extension evidence below was not re-run with `gpt-6-sol`.
 This page is a coverage record, not a claim that every Foundry feature has been executed.
 The production order is English guide → English recording → English refinement → Korean guide →
 independent Korean recording → Korean refinement.
@@ -30,17 +31,18 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 | Models, Prompt Agents, synthetic source evidence | A/B | Existing Labs 00–03 | Preserve the fixed first-pass model and simplify navigation |
 | Functions, local MCP, MAF orchestration | B | Existing Labs 04–05 | Preserve the executable patterns and their limits |
 | Search/hybrid/GA IQ and separate MI chat preset | B/C | Existing Lab 06 and keyless preset | Keep GA and Preview planning/synthesis separate |
-| Business/native evaluation and frozen acceptance | B | Existing Lab 07 | Retain every failure, input hash and evaluator version |
+| Business/native evaluation and frozen acceptance | A/B | Existing Lab 07, plus optional portal evaluation, no-evidence diagnostic, code-based business evaluator and **Compare runs** | September 23 `gpt-6-sol` verification in both languages ([results](live-run.md#optional-evaluation-additions--separate-verification-september-23-2026)); custom evaluators and TaskAdherence are Preview |
+| Tool-call evaluation of the MAF agent | B | Optional `maf-evaluate` in Lab 04 | September 23 `gpt-6-sol` verification in both languages; experimental MAF evaluation API |
 | Hosted workflow/matrix/calibration/regression/traces | C | Existing workbook | Preserve historical evidence; new code needs new run labels |
 | Managed Toolbox lifecycle | B | Executable owned/versioned path | English direct query, MAF, local/remote Hosted and downloaded evidence verified |
 | Tool Search, Skills and private skill catalog | C | Executable Tool Search/Skill path | English discovery, pinning, exact Skill readback and actual load verified; catalog infrastructure not provisioned |
-| Full-conversation evaluation and reusable datasets | C | Executable dev-only multi-turn path | English six-turn/two-conversation collection and both native levels verified |
-| Agent Optimizer | C | One bounded Prompt Agent wizard | English baseline-only run; no improvement/promotion; detailed D05 failure retained |
+| Full-conversation evaluation and reusable datasets | C | Executable dev-only multi-turn path | Re-verified with `gpt-6-sol` on September 23 in both languages; both native levels ran |
+| Agent Optimizer | C | One bounded Prompt Agent wizard | Not re-run: on September 23 the portal offered no supported optimization model with `gpt-6-sol`; September 16 English baseline-only result retained as history |
 | Durable human approval, restart recovery and steering | C | Real local SDK demonstration | English restart/checkpoint proof with simulated decisions; not actual human authorization |
 | A2A 1.0 | C | Explicit card/configuration and delegation | English original paired call/output verified; wire packets not captured |
 | Memory and Routines | C | Owned lifecycle and bounded timer | Memory verified; routine delivery verified, answer retrieval unavailable |
 | Applied guardrails and controlled red teaming | C | Dedicated policy/target | English attachment and two unblocked cases recorded; no intervention/red-team claim |
-| Continuous evaluation and deployment quality gates | C | Manual guarded workflow and OIDC setup | Post-publication Korean OIDC release: complete six-case business gate verified; continuous/native evaluation and production approval remain separate |
+| Continuous evaluation and deployment quality gates | C | Manual guarded workflow and OIDC setup | Post-publication Korean OIDC release: complete six-case business gate verified; continuous/native evaluation and production approval remain separate; the portal's **Recurring** option and existing-traces evaluation were not run |
 | Model retirement/migration and Router tradeoffs | C | Fixed-model comparison and Router observation | Temporary supported optimizer model and frozen version recorded; no Router migration claim |
 | OpenAPI/Code Interpreter, Toolkit, governance/networking | B/C | Executable tools and explicit owner boundaries | English API/file results, tooling and scoped role checks recorded; private network not tested |
 | Actual company/Microsoft 365 access | Specialist | Excluded | Remains excluded |

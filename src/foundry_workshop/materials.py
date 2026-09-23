@@ -67,7 +67,10 @@ WORKSHEETS = {
             "Candidate instructions-candidate.txt / assessment-candidate.csv paths, only if changed:\n"
             "Candidate passed / 6; request errors / not run, only if changed:\n"
             "Outcome (complete assessment / incomplete; not production approval):\n"
-            "Missing steps / next permitted action / responsible owner:\n\n"
+            "Missing steps / next permitted action / responsible owner:\n"
+            "Optional Foundry evaluation name / dataset name, or not run:\n"
+            "Relevance / Coherence / TaskAdherence passed / 6:\n"
+            "Evaluator results that disagree with my assessment, and why:\n\n"
             "B - code evidence and incomplete handoff\n"
             "Personal notes directory:\n"
             "Lab 02/04/05/06 complete JSON output filenames:\n"
@@ -99,7 +102,7 @@ WORKSHEETS = {
             "2. Instructions / tools / sources checked; unapproved connections, if any:\n"
             "3. Assessment or evaluation-run folders, and workflow review locations:\n"
             "Actual trace evidence, or unverified when unavailable:\n"
-            "4. Owned assets and separately approved cleanup actions:\n"
+            "4. Owned assets and separately approved cleanup actions (include any evaluation dataset or evaluation you created):\n"
             "Shared assets to retain and responsible owner:\n"
             "Actual cleanup outcomes or pending owner actions:\n"
             "Remaining costs and responsible owner:\n"
@@ -150,7 +153,10 @@ WORKSHEETS = {
             "Candidate instructions-candidate.txt / assessment-candidate.csv 경로(변경한 경우만):\n"
             "Candidate 통과 수 / 6, 요청 오류 / 미실행 수(변경한 경우만):\n"
             "결과(평가 완료 / 미완료이며 운영 사용 승인이 아님):\n"
-            "미완료 단계 / 다음 허용 작업 / 담당자:\n\n"
+            "미완료 단계 / 다음 허용 작업 / 담당자:\n"
+            "선택 Foundry 평가 이름 / 데이터 세트 이름 또는 미실행:\n"
+            "Relevance / Coherence / TaskAdherence 통과 수 / 6:\n"
+            "내 평가와 다른 evaluator 결과와 그 이유:\n\n"
             "B - 코드 근거와 미완료 인계\n"
             "개인 기록 폴더:\n"
             "Lab 02/04/05/06의 실제 JSON 출력 전체 파일명:\n"
@@ -182,7 +188,7 @@ WORKSHEETS = {
             "2. 확인한 지침 / 도구 / 원문과 승인되지 않은 연결(있다면):\n"
             "3. 평가표 또는 평가 실행 폴더와 workflow 검토 파일 위치:\n"
             "실제 trace 근거 또는 조회할 수 없을 때 미검증:\n"
-            "4. 소유 자산과 별도로 승인받은 정리 작업:\n"
+            "4. 소유 자산과 별도로 승인받은 정리 작업(직접 만든 평가 데이터 세트·평가 포함):\n"
             "보존할 공유 자산과 담당자:\n"
             "실제 정리 결과 또는 담당자 처리 대기:\n"
             "남은 비용과 담당자:\n"
@@ -228,6 +234,7 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
             "5. In Lab 05, fill workflow-review.txt with your complete actual command/output and review.\n"
             "6. In Lab 07, save assessment.csv as assessment-baseline.csv and assess all six rows on one saved version. Record versions, file paths and findings in Lab 07 A of session-notes.txt. No answer keys are included.\n"
             "Keep errors and unrun rows in the six-case denominator. A candidate is optional, only for a justified change; preserve the baseline.\n"
+            "Optional Lab 07 Foundry evaluation: upload dev-questions.jsonl (questions only) as the dataset; never add answers or holdout.\n"
             "7. In Lab 09, fill operations-checklist.txt; Lab 11 hands over these files without new Azure calls.\n"
             "Optional only: policies/ and instructions.txt are for a separately selected File Search agent.\n"
             "Use session-notes.txt to save your last completed step and next link before pausing.\n"
@@ -242,6 +249,7 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
             "5. Lab 05에서 실제 명령·출력 전체와 내 검토로 workflow-review.txt를 채웁니다.\n"
             "6. Lab 07에서 assessment.csv를 assessment-baseline.csv로 저장하고 저장 버전 하나로 6행 모두 평가합니다. session-notes.txt의 Lab 07 A에 버전·파일 경로·판단을 기록합니다. 정답표는 없습니다.\n"
             "오류·미실행도 6문항 분모에 남깁니다. Candidate는 정당한 변경이 있을 때만 선택하며 baseline을 보존합니다.\n"
+            "선택 Lab 07 Foundry 평가: dev-questions.jsonl(질문만)을 데이터 세트로 올립니다. 정답이나 holdout을 추가하지 않습니다.\n"
             "7. Lab 09에서 operations-checklist.txt를 채우고, Lab 11에서 새 Azure 호출 없이 이 파일들을 인계합니다.\n"
             "선택 전용: policies/와 instructions.txt는 별도로 선택한 File Search agent에만 사용합니다.\n"
             "중단하기 전 session-notes.txt에 마지막 완료 단계와 다음 링크를 적습니다.\n"
@@ -252,6 +260,11 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
             f"{case['case_id']}\n{case['question']}" for case in cases
         ).encode()
         + b"\n",
+        "dev-questions.jsonl": "".join(
+            json.dumps({"case_id": case["case_id"], "query": case["question"]}, ensure_ascii=False)
+            + "\n"
+            for case in cases
+        ).encode(),
     }
     files.update({name: text.encode() for name, text in WORKSHEETS[language].items()})
     assessment = io.StringIO(newline="")

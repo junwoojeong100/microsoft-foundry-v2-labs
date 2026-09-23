@@ -8,6 +8,7 @@
 5. Lab 05에서 실제 명령·출력 전체와 내 검토로 workflow-review.txt를 채웁니다.
 6. Lab 07에서 assessment.csv를 assessment-baseline.csv로 저장하고 저장 버전 하나로 6행 모두 평가합니다. session-notes.txt의 Lab 07 A에 버전·파일 경로·판단을 기록합니다. 정답표는 없습니다.
 오류·미실행도 6문항 분모에 남깁니다. Candidate는 정당한 변경이 있을 때만 선택하며 baseline을 보존합니다.
+선택 Lab 07 Foundry 평가: dev-questions.jsonl(질문만)을 데이터 세트로 올립니다. 정답이나 holdout을 추가하지 않습니다.
 7. Lab 09에서 operations-checklist.txt를 채우고, Lab 11에서 새 Azure 호출 없이 이 파일들을 인계합니다.
 선택 전용: policies/와 instructions.txt는 별도로 선택한 File Search agent에만 사용합니다.
 중단하기 전 session-notes.txt에 마지막 완료 단계와 다음 링크를 적습니다.

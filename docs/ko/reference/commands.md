@@ -31,6 +31,7 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 | `seed-search --iq --confirm-create` | 위 + GA source/base | 소유권 검사 |
 | `collect --label baseline --prompt v1` | dev 전체 유료 호출 | 오류 보존, 동시성 1 |
 | `evaluate --label baseline` | 없음 | 결정적 업무 검사 |
+| `collect --label diagnostic-no-evidence --prompt v1 --retrieval none` | dev 전체 유료 호출 | 정책 근거 없이 실행하는 dev 전용 진단. `feedback`과 `cloud-evaluate`는 거부 |
 | `compare --baseline baseline --candidate candidate` | 없음 | 통제된 dev 비교 |
 | `feedback --label baseline --case D03 --reason "구체적인 검토 이유"` | 없음, 로컬 검토 기록 | 실제 dev만, 승인 대기 |
 | `collect --split holdout ... --candidate candidate --unlock-holdout` | 고정 후보의 실제 평가 요청 | 개발용 재사용 금지 |
@@ -94,6 +95,7 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 |---|---|
 | `--output`을 지정한 대화형 명령 | 지정한 정확한 파일. 기본 B는 `outputs/learner-notes-ko/*.json` |
 | 입문 `demo` / `collect` | `outputs/<label>/` |
+| `cloud-evaluate` | `outputs/<label>/`. `--business-evaluator`를 쓰면 `outputs/<label>/foundry-business-rubric/` |
 | `benchmark smoke` | 로컬 azd가 다른 폴더여도 `outputs/smoke/<label>/` |
 | `benchmark collect` | `outputs/benchmarks/<label>/` |
 | `iq-chat ask` | `outputs/iq-chat/<label>/` |
@@ -116,7 +118,8 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 | `iq-chat` | `gpt-5.6-luna`/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup.md#4-환경-담당자의-준비) |
 | `workflow-agent` / `runtime-contract` | 검증된 workflow 출력 / 로컬 고정 profile·hash | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | 버전 고정 Hosted smoke·matrix·평가·trace·인수 | [평가 워크북](evaluation-workbook.md) |
-| `cloud-evaluate` / `calibrate-judge` | 저장된 응답의 유료 native 평가 / 별도 calibration fixture | [Lab 07](../labs/07-evaluation.md), [워크북](evaluation-workbook.md) |
+| `cloud-evaluate` / `calibrate-judge` | 저장된 응답의 유료 native 평가(Preview `--business-evaluator`는 본인 소유 코드 기반 업무 기준 추가, `--reference`는 다른 label의 평가에 합쳐 **실행 비교**) / 별도 calibration fixture | [Lab 07](../labs/07-evaluation.md), [워크북](evaluation-workbook.md) |
+| `maf-evaluate` | Preview: MAF 함수 도구 에이전트를 dev 6문항으로 실행하고 Foundry에서 도구 호출·relevance를 채점 | [Lab 04](../labs/04-agents-tools.md) |
 | `serve` | 로컬 host. 추론은 여전히 유료 | [Lab 08](../labs/08-hosted.md) |
 | `toolbox` | 본인 관리형 도구·버전·재조회·MAF 호출 | [Toolbox](../labs/extensions/toolbox.md) |
 | `prepare-extensions` | 동봉 dev/정책으로 로컬 심화 입력 생성. Holdout 사용 안 함 | [개발 도구](../labs/extensions/developer-toolkit.md) |

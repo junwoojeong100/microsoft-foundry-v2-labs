@@ -34,17 +34,18 @@ Never write passwords, keys or tokens in the card.
 | Search endpoint | B's Lab 06 | The prepared Search service: `https://<search>.search.windows.net` |
 
 <details>
-<summary>Optional rows — only if IQ Chat or Hosted serving was selected for you</summary>
+<summary>Optional rows — only if IQ Chat, Hosted serving or an optional evaluation was selected for you</summary>
 
 | Value | Needed for | Where to get it |
 |---|---|---|
 | Account OpenAI endpoint | Optional IQ Chat / advanced account API | `https://<your-account>.openai.azure.com`; same account as the project |
 | IQ chat base | Optional IQ Chat only | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
 | Hosted inputs | Optional local/remote hosting only | Project ARM ID and location code, owned agent name, an empty standalone local directory and approvals; **not needed to package** |
+| Judge deployment | Optional Foundry evaluations (Lab 07 A step 4, Lab 07 B step 5, Lab 04 section 5) | **`gpt-6-sol-judge`**, a separate deployment of the same model used only to score answers; each evaluation needs the owner's cost approval |
 
 </details>
 
-**Use exactly `gpt-6-sol`.** Do not pick `gpt-6-sol-judge`, another listed model or a router.
+**For answers, use exactly `gpt-6-sol`.** Do not pick `gpt-6-sol-judge` (it only scores answers in optional evaluations), another listed model or a router.
 If the deployment or its version is missing, stop and ask the owner to fix it; the code never switches models.
 [Why this model](reference/model-choice.md).
 
@@ -64,6 +65,7 @@ For private repositories, use a GitHub account with read access.
 | `instructions.txt` | Instructions without inline evidence, for the optional File Search path |
 | `policies/` | Exactly six synthetic TXT files to upload for File Search |
 | `dev-questions.txt` | Copy one question, not the case ID or an evaluation record, into each new chat |
+| `dev-questions.jsonl` | The same six questions as a dataset for the optional Lab 07 Foundry evaluation; no answers |
 | `assessment.csv` | Blank six-case worksheet; record your actual answers/citations/pass or fail |
 | `session-notes.txt` | Blank setup card, Lab 01–03/06 observations, Lab 07 A versions/results, last completed step and resume link |
 | `workflow-review.txt` | Blank Lab 05 command/output and human review record |

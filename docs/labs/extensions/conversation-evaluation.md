@@ -13,8 +13,10 @@ as two three-turn conversations, retaining each conversation's earlier answers.
 **First pass:** steps 1–6, in order. Keep the same collection label for both evaluation levels;
 a new target conversation needs a new label, but polling the saved judge job does not.
 
-**Evidence status, September 16, 2026 (earlier `gpt-5.6-luna` edition):** the English six-turn collection and both native
-evaluation levels ran; they were not re-run with the `gpt-6-sol` preset.
+**Evidence status, September 23, 2026 (`gpt-6-sol`, judge `gpt-6-sol-judge`):** the English collection passed every turn's
+business checks; turn level scored groundedness 6/6 and coherence 6/6, and conversation level groundedness 1/2 and coherence 2/2.
+The failed conversation, `scope-and-boundaries`, was scored 2 because its last answer treated the quoted hotel cost as a nightly rate.
+The Korean run is recorded separately; these scores are not a Korean result.
 Each execution freezes the real evaluator catalog it reads; catalog availability alone is not an evaluation result.
 
 ## 1. Read the plan before calling a model

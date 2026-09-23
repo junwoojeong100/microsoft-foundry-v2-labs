@@ -34,17 +34,18 @@ A는 학습자 ZIP(3절)에서, B는 Lab 00에서 소스 저장소의 양식을 
 | Search endpoint | B의 Lab 06 | 준비된 Search 서비스: `https://<search>.search.windows.net` |
 
 <details>
-<summary>선택 항목 — IQ Chat이나 Hosted 실행을 별도로 선택한 경우만</summary>
+<summary>선택 항목 — IQ Chat, Hosted 실행 또는 선택 평가를 별도로 선택한 경우만</summary>
 
 | 값 | 필요한 경로 | 어디서 확인 |
 |---|---|---|
 | 계정 OpenAI endpoint | 선택 IQ Chat / 심화 계정 API | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
 | IQ chat base | 선택 IQ Chat만 | `iq-chat setup`이 반환한 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
 | Hosted 값 | 선택 로컬·원격 호스팅만 | project ARM ID·location 코드·본인 agent 이름·빈 독립 로컬 폴더·필요한 승인. **패키징에는 불필요** |
+| Judge 배포 | 선택 Foundry 평가(Lab 07 A 4단계, Lab 07 B 5단계, Lab 04 5절) | 답변 채점에만 쓰는 같은 모델의 별도 배포 **`gpt-6-sol-judge`**. 평가마다 담당자의 비용 승인 필요 |
 
 </details>
 
-**`gpt-6-sol`만 사용합니다.** `gpt-6-sol-judge`·목록의 다른 모델·router를 고르지 않습니다.
+**답변에는 `gpt-6-sol`만 사용합니다.** `gpt-6-sol-judge`(선택 평가에서 답변 채점에만 사용)·목록의 다른 모델·router를 고르지 않습니다.
 배포나 버전이 없으면 멈추고 담당자에게 해결을 요청합니다. 코드는 다른 모델로 바꾸지 않습니다.
 [이 모델을 고른 이유](reference/model-choice.md).
 
@@ -64,6 +65,7 @@ A는 학습자 ZIP(3절)에서, B는 Lab 00에서 소스 저장소의 양식을 
 | `instructions.txt` | 인라인 근거 없는 지침. 선택 File Search 경로에서 사용 |
 | `policies/` | File Search에 올릴 합성 TXT 원문 정확히 6개 |
 | `dev-questions.txt` | 매번 새 대화에 질문 하나만 복사. ID나 평가 레코드 전체는 보내지 않음 |
+| `dev-questions.jsonl` | 선택 Lab 07 Foundry 평가에 올리는 같은 6문항 데이터 세트. 정답 없음 |
 | `assessment.csv` | 빈 6문항 평가표. 실제 응답·인용·통과/실패 기록 |
 | `session-notes.txt` | 빈 설정 카드·Lab 01–03/06 관찰·Lab 07 A 버전/평가 결과·마지막 완료 단계·재개 링크 |
 | `workflow-review.txt` | Lab 05의 실제 명령·출력·사람 검토용 빈 양식 |

@@ -8,7 +8,7 @@
 
 ## Before you start
 
-**This pass:** A uses the questions-only file and blank worksheet. B runs the six-case dev comparison; cloud judges/matrices are optional.
+**This pass:** A uses the questions-only file and blank worksheet. B runs the six-case dev comparison. A's portal evaluation, B's cloud judges and the matrices are optional.
 
 **Need:** A: your saved Lab 03 agent and learner ZIP. B: a working code environment and new output labels.
 
@@ -105,8 +105,54 @@ Keep genuine failures. A higher score is not guaranteed, and another attempt nee
 **A done:** retain the complete six-answer baseline, `instructions-baseline.txt` and its version/review;
 include `assessment-candidate.csv` and `instructions-candidate.txt` only if you ran the justified change.
 Completing the assessment is not the same as passing every case or approving production use.
-Continue to [Lab 09 A](09-operations.md#path-a). The commands below are a separate B experiment, not extra browser steps.
+Continue to [Lab 09 A](09-operations.md#path-a), or first try the optional Foundry evaluation below (15 minutes).
+The commands after it are a separate B experiment, not extra browser steps.
 
+### 4. Optional: the same six questions as a Foundry evaluation
+
+<details>
+<summary>15 minutes, only with owner cost approval and the prepared <code>gpt-6-sol-judge</code> deployment</summary>
+
+Foundry runs your saved agent on the six dev questions again and scores its answers with built-in evaluators.
+This makes about six agent calls plus judge calls and creates a dataset and an evaluation in the project.
+Use `dev-questions.jsonl` from the learner ZIP: questions only, no answers and no holdout.
+
+1. Open your Lab 03 agent, select the **Evaluation** tab, keep **Automatic Evaluation** and select **Create**.
+2. **Target:** keep **Agent**; check that your agent is selected with your Lab 07 baseline **Version**, then select **Next**.
+3. **Scope:** keep **Individual turns** and select **Next**.
+4. **Frequency:** keep **One time** and select **Next**.
+5. **Data:** select **Existing dataset**, then **Upload new dataset**.
+6. Enter the name `<your prefix>-dev-questions`, select **Choose file**, pick `dev-questions.jsonl` and select **Upload**.
+7. Keep the uploaded dataset selected and select **Next**.
+8. **Configure agents:** keep the user prompt `{{item.query}}` and select **Next**.
+9. **Criteria:** open **Judge model** and select `gpt-6-sol-judge` under **Deployments** (not `gpt-6-sol`, and not a model under **Models**).
+10. Under **Safety**, select **Remove all**; under **Agents**, select **Remove all**.
+11. Under **Quality**, remove **Groundedness** and **Fluency**; keep **Relevance** and **Coherence**.
+12. Select **Add new evaluator**, choose **Task-Adherence-Evaluator-(Preview)**, check that its **Judge model** is `gpt-6-sol-judge`
+    and select **Confirm**. If it is not listed, write `TaskAdherence not available` in your notes, keep the other two and do not add a substitute.
+13. Select **Next**. **Review:** name the evaluation `<your prefix>-portal-dev` and select **Submit**.
+14. When the run shows **Completed** (about a minute), select it.
+
+![September 23 English portal capture: Criteria with gpt-6-sol-judge, Relevance, Coherence and TaskAdherence](../assets/eval-portal-20260923/en-criteria.png)
+
+**What to check:** **Judge model** shows `gpt-6-sol-judge`; **Agents (1)** lists TaskAdherence and **Quality (2)** lists Relevance and Coherence.
+
+![September 23 English portal capture: Overall and detailed results for the six dev questions](../assets/eval-portal-20260923/en-results.png)
+
+**What to check:** **Overall metric results** shows passed / 6 for each evaluator, and **Detailed metrics result**
+has one row per question with a score and a reason (scroll right for each evaluator's columns). Copy the three counts, and every row that disagrees with your worksheet, into **Lab 07 A** of `session-notes.txt`.
+
+**Read the reasons; do not obey the scores.** On September 23, 2026 the English run scored Coherence 6/6, Relevance 5/6
+and TaskAdherence 1/6, while the manual business assessment passed 6/6. Relevance marked down D05's correct withholding.
+TaskAdherence called the cited amounts unverified, because these evaluators receive only the question and the answer,
+not the policies inside **Instructions**. Groundedness was removed for the same reason: its **Context** shows *Not available* here.
+That is an evaluation-setup finding, not a reason to change the policies or instructions. B's optional cloud judge (step 5)
+sends the retrieved evidence as context. Your worksheet remains the business decision.
+
+TaskAdherence was marked Preview in the evaluator list on September 23, 2026; names and scores can change.
+Add the dataset and the evaluation to item 4 of `operations-checklist.txt`, then continue to [Lab 09 A](09-operations.md#path-a).
+
+</details>
 
 <a id="path-b"></a>
 
@@ -188,6 +234,25 @@ It links the original dev expected answer and source run/response/request/trace 
 The model's answer is not promoted to ground truth. Missing traces remain `null`;
 do not invent UUIDs as Azure trace IDs.
 
+<details>
+<summary>If all six passed: create one real failure to diagnose (six more paid model calls)</summary>
+
+Run the same v1 instructions once **without any policy evidence**. This is a dev-only diagnostic, never a candidate or holdout.
+
+```bash
+python scripts/workshop.py --language en collect --split dev --label diagnostic-no-evidence --prompt v1 --retrieval none
+python scripts/workshop.py --language en evaluate --label diagnostic-no-evidence
+```
+
+**What to check:** `evaluate` exits `1` with `passed: 0` and `errors: 0`. In `business-evaluation.json`,
+`required_citations` and `citations_retrieved` are `false` in every row, and `responses.jsonl` shows the agent withholding
+amounts (`insufficient_evidence`) instead of guessing. Use the first row of the table above: the correct document is absent,
+so the fix is retrieval, not the instructions. `feedback` rejects this run, so it never becomes a regression record, and
+`cloud-evaluate` refuses it before any paid call because Groundedness skips rows that have no context.
+The September 23, 2026 English run returned 0/6 with 0 errors.
+
+</details>
+
 Holdout is only for the final check in step 4; never open it to look for failures to fix.
 
 ### 3. Run the prepared v2 instructions on the same dev set
@@ -267,7 +332,7 @@ This public teaching holdout has been seen before, so a pass is not a result on 
 **B done:** keep all three run folders, the comparison, review notes and the acceptance/rejection report.
 Continue to [Lab 08 B](08-hosted.md#path-b) for **packaging only**. An acceptance report is not deployment authorization.
 
-### 5. Optional: Foundry cloud judge
+### 5. Optional: Foundry cloud judges and a portal comparison
 
 <details>
 <summary>Expand only with a prepared judge and separate cost approval; not required for B completion</summary>
@@ -301,6 +366,28 @@ The September 23 candidate recorded groundedness 6/6 and relevance 5/6; the rele
 `data/evaluation/en/calibration.jsonl` contains two explicitly correct/incorrect examples.
 Use them in a separate evaluator experiment before production. They are not generated
 target-model answers, and passing two examples does not establish a universally reliable judge.
+
+**Optional Preview: add the business rubric and compare baseline with candidate in Foundry.**
+The first command registers, or reuses, your owned code-based custom evaluator (the same checks as `evaluate`)
+and scores baseline with groundedness, relevance and `business_rubric`. The second command adds candidate as a second run
+in the same Foundry evaluation, with the same pinned evaluator versions.
+
+```bash
+python scripts/workshop.py --language en cloud-evaluate --label baseline --business-evaluator --timeout 300 --confirm-cost
+python scripts/workshop.py --language en cloud-evaluate --label candidate --business-evaluator --reference baseline --timeout 300 --confirm-cost
+```
+
+**What to check:** each output shows `business_rubric_agreement` with `matched: 6`, `total: 6` and an empty
+`mismatched_cases`. A mismatch means the Foundry grader and the local rules disagree: review it, do not pick one.
+Open the second `report_url`, select **Back**, select both runs and then **Compare runs**, and set **Baseline** to `baseline`.
+
+![September 23 English portal capture: Compare runs for baseline and candidate with business_rubric](../assets/eval-portal-20260923/en-compare.png)
+
+**What to check:** one row each for groundedness, relevance and business_rubric. In a separate September 23, 2026
+verification with a new collection, both English runs scored 6/6 on all three (the recorded candidate above had relevance 5/6:
+judge scores vary between runs). The comparison showed mean relevance 4.33 → 4.83 with **Too few samples**, because six cases
+cannot show a significant difference. Custom evaluators were marked Preview on Microsoft Learn on September 23, 2026.
+The pinned versions and results are saved under `outputs/<label>/foundry-business-rubric/`.
 
 </details>
 

@@ -210,6 +210,10 @@ def record_feedback(root: Path, label: str, case_id: str, reason: str) -> Path:
     manifest, rows, cases = load_run(root, label)
     if manifest["split"] != "dev" or manifest["mode"] != "live":
         raise ValueError("Only real dev responses can enter the trace-to-regression review queue.")
+    if manifest.get("retrieval") == "none":
+        raise ValueError(
+            "A no-evidence diagnostic fails because evidence was removed; do not queue it as a regression."
+        )
     if len(reason.strip()) < 15:
         raise ValueError("Write a specific review reason of at least 15 characters.")
     selected = next((row for row in rows if row["case_id"] == case_id), None)

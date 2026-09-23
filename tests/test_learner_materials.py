@@ -1,5 +1,6 @@
 import csv
 import io
+import json
 import unittest
 import zipfile
 from unittest.mock import patch
@@ -28,6 +29,16 @@ class LearnerMaterialTests(unittest.TestCase):
             for field in ("expected_decision", "expected_limit_krw", "required_citations", "H01"):
                 self.assertNotIn(field, questions)
                 self.assertNotIn(field, files["instructions-with-policies.txt"].decode())
+            dataset = [
+                json.loads(line) for line in files["dev-questions.jsonl"].decode().splitlines()
+            ]
+            self.assertEqual(
+                dataset,
+                [
+                    {"case_id": case["case_id"], "query": case["question"]}
+                    for case in load_cases(ROOT, "dev", language)
+                ],
+            )
             rows = list(csv.DictReader(io.StringIO(files["assessment.csv"].decode("utf-8-sig"))))
             self.assertEqual(len(rows), 6)
             for row in rows:

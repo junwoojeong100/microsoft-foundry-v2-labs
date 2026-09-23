@@ -128,7 +128,7 @@ python scripts/workshop.py maf --mcp \
 **저장:** `maf-mcp.json`은 성공 시 같은 기록 폴더에 작성됩니다. 요청이 실패했다면 성공 파일 대신 실제 오류를 보관합니다.
 
 **B 완료:** 실제 출력 세 개를 보관하고 도구 없음·함수·로컬 MCP의 차이를 설명합니다.
-[Lab 05 B](05-workflows.md#path-b)로 이동합니다. 아래 실패 검사는 선택입니다.
+[Lab 05 B](05-workflows.md#path-b)로 이동합니다. 아래 4·5절은 선택입니다.
 
 ## 4. 선택 — 도구 경계와 잘못된 입력 거절 확인
 
@@ -159,6 +159,29 @@ Azure 호출 전 입력 거절이며 환경이 망가졌다는 뜻이 아닙니�
 그 상태에서 모델이 답했다고 해서 애플리케이션의 2000자 검사가 실패한 것은 아닙니다.
 
 실습을 위해 실제 전송/결제 도구를 새로 만들 필요는 없습니다.
+
+</details>
+
+## 5. 선택 — Foundry 평가자로 도구 호출 채점(Preview)
+
+<details>
+<summary>준비된 <code>gpt-6-sol-judge</code>와 비용 승인이 있을 때만 펼칩니다. B의 필수 단계가 아닙니다</summary>
+
+MAF의 평가 API가 함수 도구 에이전트를 dev 6문항으로 실행하고(유료 에이전트 실행 6회), 각 답변과 `lookup_policy` 호출,
+도구 정의를 Foundry의 `tool_call_accuracy`·`relevance` 평가자에 보냅니다.
+함수 도구만 채점하며 MCP 방식은 포함하지 않습니다. 코드는 `src/foundry_workshop/tool_evaluation.py`에 있습니다.
+먼저 `.env`에 `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME=gpt-6-sol-judge`(준비 카드의 judge 행)를 설정합니다.
+judge가 없거나 답변 배포 `gpt-6-sol`과 같으면 명령이 멈춥니다.
+
+```bash
+python scripts/workshop.py maf-evaluate --confirm-cost --output outputs/learner-notes-ko/maf-tool-evaluation.json
+```
+
+**화면 확인:** `complete: true`, `errors: 0`이고 각 행에 기록된 `tool_calls`(`lookup_policy` 호출 1회)와
+`tool_call_accuracy`·`relevance` 점수가 있습니다. 이유는 `report_url`에서 확인합니다. MAF가 `FoundryEvals`에 대한
+`ExperimentalWarning`을 한 번 출력하는 것은 정상입니다. 2026-09-23 국문 실행은 tool_call_accuracy 6/6, relevance 5/6이었고
+relevance 실패는 D05의 올바른 보류였습니다. 이 점수는 도구 사용을 판단할 뿐 업무 정답 여부가 아니므로 Lab 07의 업무 검사와 구분합니다.
+MAF 평가 API는 실험 기능이었고 일부 에이전트 평가자는 2026-09-23에 Preview로 표시되었습니다.
 
 </details>
 

@@ -4,8 +4,8 @@
 
 **2026-09-16 확장(이전 `gpt-5.6-luna` preset).** 모든 Foundry 기능을 실행했다는 주장이 아니라 범위 기록입니다.
 영문 작성 → 영문 촬영 → 영문 보완 → 국문 작성 → 별도 국문 촬영 → 국문 보완 순서로 제작합니다.
-2026-09-23 `gpt-6-sol` 녹화는 Lab 00–09·11의 A/B 주요 단계만 다시 실행했습니다. 아래 확장 근거는 `gpt-6-sol`로
-다시 실행하지 않았으며 2026-09-15~17 녹화는 삭제했습니다.
+2026-09-23 `gpt-6-sol` 녹화는 Lab 00–09·11의 A/B 주요 단계만 다시 실행했고 2026-09-15~17 녹화는 삭제했습니다.
+같은 날 별도 검증으로 선택 Foundry 평가 단계와 대화 평가 모듈을 `gpt-6-sol`로 실행했습니다. 그 밖의 확장 근거는 다시 실행하지 않았습니다.
 
 ## 상태 읽기
 
@@ -28,18 +28,19 @@ prerelease SDK가 전체 서비스를 Preview로 만들거나 GA가 모든 mode�
 | 모델·Prompt Agent·원문 | A/B | 기존 Lab 00–03의 고정 첫 모델과 학습자 입력 유지 |
 | 함수·로컬 MCP·MAF | B | 기존 Lab 04–05의 실제 패턴과 한계 유지 |
 | Search·hybrid·GA IQ·별도 MI chat | B/C | GA 검색과 Preview planning/synthesis 구분 |
-| 업무/native 평가·최종 인수 | B | 모든 오류와 dataset/evaluator 이력 유지 |
+| 업무/native 평가·최종 인수 | A/B | 모든 오류와 dataset/evaluator 이력 유지. 선택 포털 평가·근거 없음 진단·코드 기반 업무 평가자·**실행 비교**는 2026-09-23 두 언어로 [검증](live-run.md#선택-평가-추가분--별도-검증-2026-09-23). 사용자 지정 평가자와 TaskAdherence는 Preview |
+| MAF 에이전트 도구 호출 평가 | B | Lab 04 선택 `maf-evaluate`. 2026-09-23 두 언어로 검증, MAF 평가 API는 실험 기능 |
 | Hosted matrix/calibration/trace | C | 기존 워크북의 역사적 결과 유지, 새 코드는 새 label |
 | [Toolbox](labs/extensions/toolbox.md) | B | 실제 discovery·query·MAF·고정 버전 확인 |
 | [Tool Search/Skills](labs/extensions/tool-search-skills.md) | C | 실제 목록·고정·bytes readback·load, catalog 인프라는 별도 |
-| [대화 평가](labs/extensions/conversation-evaluation.md) | C | dev 6턴/2대화와 별도 수준의 평가 |
-| [Optimizer](labs/extensions/agent-optimizer.md) | C | 두 후보 모두 보존, 개선 없음·Groundedness 참조 결함·승격 없음 |
+| [대화 평가](labs/extensions/conversation-evaluation.md) | C | dev 6턴/2대화와 별도 수준의 평가. 2026-09-23 `gpt-6-sol`로 두 언어 재검증 |
+| [Optimizer](labs/extensions/agent-optimizer.md) | C | 2026-09-23 `gpt-6-sol`에서 지원되는 최적화 모델이 없어 재실행하지 않음. 2026-09-16 결과(두 후보 보존·개선 없음·승격 없음)는 이력 |
 | [승인 게이트/복구](labs/extensions/approval-recovery.md) | C | 실제 로컬 SDK와 모의 결정, 실제 사람 승인/Hosted crash 아님 |
 | [A2A](labs/extensions/a2a.md) | C | 명시적 1.0 설정/card와 원래 call/output, packet capture 아님 |
 | [Memory](labs/extensions/memory.md) | C | API 기반 lifecycle/scope/회상, 사용자 인가 증거 아님 |
 | [Routines](labs/extensions/routines.md) | C | 제한된 수동 전달과 정리, 원래 답변 조회는 별도 |
 | [안전 제어](labs/extensions/agent-safety.md) | C | 실제 policy/attachment, D01 완료·D06 도구 발견 실패; platform 차단 주장 없음 |
-| [릴리스](labs/extensions/release-operations.md) | C | 게시 후 실제 OIDC 배포·국문 dev 6/6·세션 idle 확인; 영상·native 평가·운영 인수와 구분 |
+| [릴리스](labs/extensions/release-operations.md) | C | 게시 후 실제 OIDC 배포·국문 dev 6/6·세션 idle 확인; 영상·native 평가·운영 인수와 구분. 포털의 **되풀이**와 기존 추적 평가는 실행하지 않음 |
 | [모델 운영](labs/extensions/model-operations.md) | C | 기존 배포의 통제 비교, Router/이전은 별도 승인 |
 | [추가 도구](labs/extensions/additional-tools.md) | B/C | OpenAPI와 실제 Code Interpreter 파일 검증 |
 | [거버넌스](labs/extensions/governance-networking.md) | C | 실제 ID·권한 범위, 사설망 미구성이면 설계만 |

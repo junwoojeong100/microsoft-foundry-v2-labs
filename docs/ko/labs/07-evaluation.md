@@ -8,7 +8,7 @@
 
 ## 시작 전
 
-**이번 순서:** A는 질문 전용 파일·빈 평가표, B는 6문항 dev 비교를 사용합니다. cloud judge/matrix는 선택입니다.
+**이번 순서:** A는 질문 전용 파일·빈 평가표, B는 6문항 dev 비교를 사용합니다. A의 포털 평가, B의 cloud judge, matrix는 선택입니다.
 
 **준비물:** A: Lab 03에서 저장한 agent와 학습자 ZIP. B: 동작하는 코드 환경과 새 label.
 
@@ -104,7 +104,56 @@ D01–D06 행을 모두 유지합니다. **통과 수 / 6**과 요청 오류·�
 **A 완료:** 실제 응답 6개를 평가한 baseline·`instructions-baseline.txt`·해당 버전/검토를 보관합니다.
 정당한 변경을 실행한 경우에만 `assessment-candidate.csv`·`instructions-candidate.txt`를 함께 보관합니다.
 평가를 마쳤다는 뜻이지 전 문항 통과나 운영 사용 승인이라는 뜻은 아닙니다.
-[Lab 09 A](09-operations.md#path-a)로 이동합니다. 아래 명령은 별도 B 실험이지 브라우저 경로의 추가 단계가 아닙니다.
+[Lab 09 A](09-operations.md#path-a)로 이동하거나, 먼저 아래 선택 Foundry 평가(15분)를 해 봅니다.
+그 다음의 명령은 별도 B 실험이지 브라우저 경로의 추가 단계가 아닙니다.
+
+### 4. 선택: 같은 6문항을 Foundry 평가로 실행
+
+<details>
+<summary>15분. 담당자의 비용 승인과 준비된 <code>gpt-6-sol-judge</code> 배포가 있을 때만</summary>
+
+Foundry가 저장된 에이전트로 dev 6문항을 다시 실행하고 기본 제공 평가자로 답변을 채점합니다.
+에이전트 호출 약 6회와 judge 호출이 발생하며, 프로젝트에 데이터 세트와 평가가 하나씩 만들어집니다.
+학습자 ZIP의 `dev-questions.jsonl`을 사용합니다. 질문만 들어 있으며 정답과 holdout은 없습니다.
+
+1. Lab 03의 에이전트를 열고 **평가** 탭에서 **자동 평가**를 유지한 채 **만들기**를 선택합니다.
+2. **대상:** **에이전트**를 유지하고, 본인 에이전트가 Lab 07 baseline **버전**으로 선택되어 있는지 확인한 뒤 **다음**을 선택합니다.
+3. **범위:** **개별 턴**을 유지하고 **다음**을 선택합니다.
+4. **빈도:** **일회성**을 유지하고 **다음**을 선택합니다.
+5. **데이터:** **기존 데이터 세트**를 선택한 뒤 **새 데이터 세트 업로드**를 선택합니다.
+6. 이름을 `<내 prefix>-dev-questions`로 입력하고 **파일 선택**에서 `dev-questions.jsonl`을 고른 뒤 **업로드**를 선택합니다.
+7. 올린 데이터 세트가 선택된 상태로 **다음**을 선택합니다.
+8. **에이전트 구성:** 사용자 프롬프트 `{{item.query}}`를 그대로 두고 **다음**을 선택합니다.
+9. **조건:** **판단 모델**을 열어 **배포** 아래의 `gpt-6-sol-judge`를 선택합니다(`gpt-6-sol`이나 **모델** 아래 항목이 아님).
+10. **안전**에서 **모두 제거**, **에이전트**에서 **모두 제거**를 선택합니다.
+11. **품질**에서 **근거성**과 **유창성**을 제거하고 **관련성**과 **일관성**은 남깁니다.
+12. 한국어 UI에서는 남긴 두 평가자의 기본 이름(관련성·일관성)이 이름 검사를 통과하지 못해 **다음**이 비활성화됩니다(2026-09-23).
+    각 평가자를 선택해 **이름**을 `Relevance`, `Coherence`로 바꾸고 **업데이트**를 선택합니다.
+13. **새 평가자 추가**에서 **Task-Adherence-Evaluator-(Preview)**를 고르고 **판단 모델**이 `gpt-6-sol-judge`인지 확인한 뒤 **확인**을 선택합니다.
+    목록에 없으면 기록에 `TaskAdherence 사용 불가`라고 적고 나머지 두 평가자로 진행합니다. 다른 평가자로 대체하지 않습니다.
+14. **다음**을 선택합니다. **검토:** 평가 이름을 `<내 prefix>-portal-dev`로 입력하고 **제출**합니다.
+15. 실행이 **완료됨**이 되면(약 1분) 실행을 선택합니다.
+
+![2026-09-23 국문 포털 캡처: 판단 모델 gpt-6-sol-judge와 Relevance·Coherence·TaskAdherence를 고른 조건 단계](../../assets/eval-portal-20260923/ko-criteria.png)
+
+**화면 확인:** **판단 모델**이 `gpt-6-sol-judge`이고, **에이전트 (1)**에 TaskAdherence, **품질 (2)**에 Relevance와 Coherence가 있습니다.
+
+![2026-09-23 국문 포털 캡처: dev 6문항의 전체 결과와 자세한 결과](../../assets/eval-portal-20260923/ko-results.png)
+
+**화면 확인:** **전체 메트릭 결과**에 평가자별 통과 수 / 6이 있고, **자세한 메트릭 결과**에는 질문마다 점수와 이유가 한 행씩 있습니다
+(점수와 이유 열은 오른쪽으로 스크롤합니다). 세 통과 수와 내 평가표와 다른 행을 `session-notes.txt`의 **Lab 07 A**에 적습니다.
+
+**점수를 따르지 말고 이유를 읽습니다.** 2026-09-23 국문 실행은 Coherence 6/6, Relevance 5/6, TaskAdherence 0/6이었고
+직접 한 업무 평가는 6/6 통과였습니다. Relevance는 D05의 올바른 보류를 낮게 평가했습니다.
+TaskAdherence는 인용한 금액을 검증할 수 없다고 판단했는데, 이 평가자들이 **지침** 안의 정책이 아니라 질문과 답변만 받기 때문입니다.
+같은 이유로 근거성도 제거했습니다. 이 에이전트 평가에는 근거성이 확인할 컨텍스트가 매핑되지 않습니다.
+이것은 평가 구성에서 나온 발견 사항이지 정책이나 지침을 바꿀 이유가 아닙니다. B의 선택 cloud judge(5단계)는 검색한 근거를
+컨텍스트로 함께 보냅니다. 업무 판단의 기준은 계속 내 평가표입니다.
+
+TaskAdherence는 2026-09-23 평가자 목록에 Preview로 표시되었으며 이름과 점수가 바뀔 수 있습니다.
+데이터 세트와 평가를 `operations-checklist.txt`의 4번에 적고 [Lab 09 A](09-operations.md#path-a)로 이동합니다.
+
+</details>
 
 <a id="path-b"></a>
 
@@ -184,6 +233,24 @@ python scripts/workshop.py feedback --label baseline --case "$FAILED_CASE" --rea
 모델의 답변 자체를 정답으로 승격하지 않습니다.
 실제 trace가 아직 없으면 `null`로 남습니다. 임의 UUID를 Azure trace ID처럼 쓰지 않습니다.
 
+<details>
+<summary>6개가 모두 통과했다면: 진단할 실제 실패 하나 만들기(유료 모델 호출 6회 추가)</summary>
+
+같은 v1 지침을 **정책 근거 없이** 한 번 실행합니다. dev 전용 진단이며 candidate나 holdout이 아닙니다.
+
+```bash
+python scripts/workshop.py collect --split dev --label diagnostic-no-evidence --prompt v1 --retrieval none
+python scripts/workshop.py evaluate --label diagnostic-no-evidence
+```
+
+**화면 확인:** `evaluate`는 `passed: 0`, `errors: 0`으로 종료 코드 `1`을 반환합니다. `business-evaluation.json`의 모든 행에서
+`required_citations`와 `citations_retrieved`가 `false`이고, `responses.jsonl`에서 에이전트는 금액을 추측하지 않고
+`insufficient_evidence`로 보류합니다. 위 표의 첫 행(정답 문서 없음)에 해당하므로 고칠 곳은 지침이 아니라 검색입니다.
+`feedback`은 이 실행을 거부하므로 회귀 기록이 되지 않습니다. `cloud-evaluate`도 유료 호출 전에 거부합니다.
+context가 없는 행은 Groundedness가 건너뛰기 때문입니다. 2026-09-23 국문 실행은 오류 0건, 0/6이었습니다.
+
+</details>
+
 holdout은 4단계의 최종 확인에만 사용합니다. 고칠 실패를 찾으려고 holdout을 열지 않습니다.
 
 ### 3. 같은 dev에 준비된 v2 지침 실행
@@ -262,7 +329,7 @@ Holdout은 4건입니다. 실패를 보고 지침을 고치면 더 이상 미사
 **B 완료:** 실행 폴더 세 개·비교·검토 기록·인수/반려 보고서를 보관합니다.
 [Lab 08 B](08-hosted.md#path-b)에서 **패키징만** 진행합니다. 인수 보고서는 배포 승인이 아닙니다.
 
-### 5. 선택: Foundry cloud judge
+### 5. 선택: Foundry cloud judge와 포털 비교
 
 <details>
 <summary>Judge 준비·별도 비용 승인이 있을 때만 펼칩니다. B 완료에 필수는 아닙니다</summary>
@@ -283,7 +350,7 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 - evaluator 오류/누락/중복은 좋은 점수로 바꾸지 않습니다.
 
 
-**화면 확인:** **Run details**와 **Overall metric results**에서 어떤 run과 evaluator를 보고 있는지 확인합니다.
+**화면 확인:** **실행 세부 정보**와 **전체 메트릭 결과**에서 어떤 run과 evaluator를 보고 있는지 확인합니다.
 상세 표의 각 사례와 실패 이유까지 읽어야 하며 결정적 업무 검사와 같은 점수가 아닙니다.
 
 
@@ -297,6 +364,28 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 실제 운영 전에 이런 예를 포털 또는 별도 evaluator 실험으로 평가해 judge의 판별 능력을
 확인합니다. 이 두 고정 예제를 target 모델이 생성한 응답으로 집계하지 않습니다.
 두 예만 통과해도 judge 전체가 신뢰할 만하다는 뜻은 아닙니다.
+
+**선택 Preview: 업무 기준을 추가하고 Foundry에서 baseline과 candidate 비교하기.**
+첫 명령은 본인 소유의 코드 기반 사용자 지정 평가자(`evaluate`와 같은 검사)를 등록하거나 재사용하고,
+baseline을 groundedness·relevance·`business_rubric`으로 채점합니다. 두 번째 명령은 같은 고정 평가자 버전으로
+candidate를 같은 Foundry 평가의 두 번째 실행으로 추가합니다.
+
+```bash
+python scripts/workshop.py cloud-evaluate --label baseline --business-evaluator --timeout 300 --confirm-cost
+python scripts/workshop.py cloud-evaluate --label candidate --business-evaluator --reference baseline --timeout 300 --confirm-cost
+```
+
+**화면 확인:** 각 출력의 `business_rubric_agreement`가 `matched: 6`, `total: 6`이고 `mismatched_cases`가 비어 있습니다.
+불일치는 Foundry grader와 로컬 규칙이 서로 다르다는 뜻이므로 한쪽을 고르지 말고 원인을 검토합니다.
+두 번째 `report_url`을 열고 **뒤로**를 선택한 뒤 두 실행을 모두 선택해 **실행 비교**를 누르고 **기준선**을 `baseline`으로 바꿉니다.
+
+![2026-09-23 국문 포털 캡처: business_rubric을 포함한 baseline·candidate 실행 비교](../../assets/eval-portal-20260923/ko-compare.png)
+
+**화면 확인:** groundedness·relevance·business_rubric이 한 행씩 있습니다. 새로 수집한 2026-09-23 별도 검증에서 국문 두 실행은
+groundedness 6/6, relevance 5/6, business_rubric 6/6이었습니다. 비교 화면의 relevance 평균은 3.83 → 4.50이었고
+**샘플이 너무 적음**으로 표시되었습니다. 6문항으로는 유의한 차이를 보일 수 없습니다.
+사용자 지정 평가자는 2026-09-23 Microsoft Learn에 Preview로 표시되었습니다.
+고정한 버전과 결과는 `outputs/<label>/foundry-business-rubric/`에 저장됩니다.
 
 </details>
 

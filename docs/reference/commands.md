@@ -31,6 +31,7 @@ Follow [B's ordered route](../paths/b-practitioner.md), not this table from top 
 | `seed-search --iq --confirm-create` | Above plus GA source/base | Ownership checks |
 | `collect --label baseline --prompt v1` | Paid calls for all dev cases | Preserves errors; concurrency one |
 | `evaluate --label baseline` | None | Deterministic business checks |
+| `collect --label diagnostic-no-evidence --prompt v1 --retrieval none` | Paid calls for all dev cases | Dev-only diagnostic with no policy evidence; `feedback` and `cloud-evaluate` reject it |
 | `compare --baseline baseline --candidate candidate` | None | Controlled dev comparison |
 | `feedback --label baseline --case D03 --reason "specific review reason"` | Local review record | Real dev only; pending approval |
 | `collect --split holdout ... --candidate candidate --unlock-holdout` | Frozen candidate's actual final requests | No reuse for development |
@@ -94,6 +95,7 @@ Keep an existing run and all failures; a new target request needs a new label.
 |---|---|
 | Interactive commands with `--output` | The exact file you selected; core B uses `outputs/learner-notes-en/*.json` |
 | Introductory `demo` / `collect` | `outputs/<label>/` |
+| `cloud-evaluate` | `outputs/<label>/`; with `--business-evaluator`, `outputs/<label>/foundry-business-rubric/` |
 | `benchmark smoke` | `outputs/smoke/<label>/` even when local azd uses another directory |
 | `benchmark collect` | `outputs/benchmarks/<label>/` |
 | `iq-chat ask` | `outputs/iq-chat/<label>/` |
@@ -125,7 +127,8 @@ Every family's own `--help` and linked lab specify its required values and creat
 | `iq-chat` | Fixed `gpt-5.6-luna`/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup.md#4-environment-owner-checklist) |
 | `workflow-agent` / `runtime-contract` | Validated workflow output / local frozen profile and hashes | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | Version-pinned Hosted smoke, matrices, evaluation, traces and acceptance | [Evaluation workbook](evaluation-workbook.md) |
-| `cloud-evaluate` / `calibrate-judge` | Billable native judges on recorded responses / separate calibration fixtures | [Lab 07](../labs/07-evaluation.md), [workbook](evaluation-workbook.md) |
+| `cloud-evaluate` / `calibrate-judge` | Billable native judges on recorded responses (Preview `--business-evaluator` adds your owned code-based rubric; `--reference` joins another label's evaluation for **Compare runs**) / separate calibration fixtures | [Lab 07](../labs/07-evaluation.md), [workbook](evaluation-workbook.md) |
+| `maf-evaluate` | Preview: runs the MAF function-tool agent on the six dev questions and scores tool calls and relevance in Foundry | [Lab 04](../labs/04-agents-tools.md) |
 | `serve` | Local host; inference is still billable | [Lab 08](../labs/08-hosted.md) |
 | `toolbox` | Owned managed tools, versions, readback and MAF calls | [Toolbox](../labs/extensions/toolbox.md) |
 | `prepare-extensions` | Local advanced inputs from bundled dev/policies only; never holdout | [Developer tools](../labs/extensions/developer-toolkit.md) |

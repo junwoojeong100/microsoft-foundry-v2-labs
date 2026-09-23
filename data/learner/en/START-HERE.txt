@@ -8,6 +8,7 @@ Keep this extracted personal copy outside the repository; never commit filled no
 5. In Lab 05, fill workflow-review.txt with your complete actual command/output and review.
 6. In Lab 07, save assessment.csv as assessment-baseline.csv and assess all six rows on one saved version. Record versions, file paths and findings in Lab 07 A of session-notes.txt. No answer keys are included.
 Keep errors and unrun rows in the six-case denominator. A candidate is optional, only for a justified change; preserve the baseline.
+Optional Lab 07 Foundry evaluation: upload dev-questions.jsonl (questions only) as the dataset; never add answers or holdout.
 7. In Lab 09, fill operations-checklist.txt; Lab 11 hands over these files without new Azure calls.
 Optional only: policies/ and instructions.txt are for a separately selected File Search agent.
 Use session-notes.txt to save your last completed step and next link before pausing.

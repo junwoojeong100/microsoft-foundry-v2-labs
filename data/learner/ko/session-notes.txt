@@ -47,6 +47,9 @@ Candidate instructions-candidate.txt / assessment-candidate.csv 경로(변경한
 Candidate 통과 수 / 6, 요청 오류 / 미실행 수(변경한 경우만):
 결과(평가 완료 / 미완료이며 운영 사용 승인이 아님):
 미완료 단계 / 다음 허용 작업 / 담당자:
+선택 Foundry 평가 이름 / 데이터 세트 이름 또는 미실행:
+Relevance / Coherence / TaskAdherence 통과 수 / 6:
+내 평가와 다른 evaluator 결과와 그 이유:
 
 B - 코드 근거와 미완료 인계
 개인 기록 폴더:

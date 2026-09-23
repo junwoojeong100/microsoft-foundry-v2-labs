@@ -43,6 +43,8 @@ The wizard does not offer arbitrary column mapping: verify its required columns 
 
 If the prepared project has no supported optimizer model, record **not run** and stop.
 A working answer model is not automatically a supported optimizer model.
+On September 23, 2026 the training project's agent **Optimize** tab showed **No supported optimization model** with only
+`gpt-6-sol` deployed, so this module was not re-run with the `gpt-6-sol` preset; deploying another model is an owner decision.
 
 ## 2. Open the optimization wizard
 
