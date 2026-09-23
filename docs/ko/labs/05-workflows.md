@@ -10,11 +10,11 @@
 
 **이번 순서:** A는 준비된 터미널에서 순차 명령 하나, B는 세 패턴을 비교합니다. 배포용 wrapper는 심화입니다.
 
-**준비물:** A도 Lab 00 B의 활성 환경이 필요합니다. 제공받지 않았다면 그 설치를 한 번 완료한 뒤 돌아옵니다.
+**준비물:** A도 저장소 루트에서 활성화된 준비 터미널이 필요합니다. 제공받지 않았다면 Lab 00 B와 Lab 02 B를 한 번 완료한 뒤 돌아옵니다.
 
 **다음으로 갈 기준:** 실제 MAF 출력과 사람의 검토 기록이 남았습니다. pending-human-review는 승인이 아닙니다.
 
-**막히면:** 포털 Workflow Designer나 답변 수동 복사로 명령 실행을 대신하지 않습니다.
+**막히면:** 담당자에게 터미널이 저장소 루트이고 `.venv` 활성·`.env` 입력·본인 Azure 로그인이 되어 있는지, 그 터미널에서 Lab 02 B 모델 호출이 되는지 확인을 요청합니다. 포털 Workflow Designer나 답변 붙여 넣기로 대신하지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
@@ -49,19 +49,22 @@ flowchart LR
 명령은 JSON을 출력하고 끝납니다. 그 결과를 사람이 직접 검토하며,
 그림 뒤에 자동 반려·재실행 반복이나 승인 동작이 숨어 있는 것은 아닙니다.
 
-### 1. 명령 하나로 순차 워크플로 실행
+### 1. 준비된 순차 워크플로 실행
 
-준비된 터미널이 저장소 루트인지 확인한 뒤 다음 명령을 복사합니다.
-이 명령은 실제 Azure 모델을 호출하므로 강사의 호출 예산 안에서 실행합니다.
+준비된 터미널이 저장소 루트인지 확인합니다. 이 명령은 실제 Azure 모델을 호출하므로 강사의 호출 예산 안에서 실행합니다.
+아래 블록을 그대로 실행합니다. 필요하면 `outputs/`를 만들고, 결과를 출력하며 `outputs/workflow-a-sequential.json`에도 저장합니다.
 
 ```bash
-python scripts/workshop.py workflow --pattern sequential --question "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요."
+mkdir -p outputs
+python scripts/workshop.py workflow --pattern sequential --question "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요." --output outputs/workflow-a-sequential.json
 ```
+
+그 파일이 이미 있으면 엽니다. 이 질문으로 본인이 실행한 결과일 때만 사용하고, 아니면 `--output`의 파일 이름을 바꿔 다시 실행합니다.
 
 ![2026-09-23 국문 녹화: A의 준비된 순차 workflow 명령 하나](../../assets/g6sol-20260923-ko/screenshots/K05-001-prepared-2.webp)
 
-**화면 확인:** 마지막 명령의 `pattern: sequential`과 `outputs`를 읽습니다.
-터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다.
+**화면 확인:** 출력에 `mode: live`, `pattern: sequential`, `outputs`가 있습니다.
+터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다. 녹화는 같은 명령을 `--output` 없이 실행했습니다.
 
 ### 2. 실제 결과 읽기
 
@@ -72,14 +75,14 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 | `approval_status: pending-human-review` | 모델 검토를 실제 사람 승인으로 오해하지 않았는가 |
 | `external_actions_performed: false` | 실제 예약·지급을 수행하지 않았는가 |
 
-JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합니다.
-학습자 ZIP의 빈 `workflow-review.txt`에 명령·실제 출력·인용 정책 ID와
-맞는 부분/수정할 부분/이유를 저장합니다. 안내문 검토이지 업무 승인이 아닙니다.
-과거 날짜로 한 번 더 실행하는 것은 선택이며 A는 순차 실행 한 번과 검토로 완료합니다.
+편집기에서 `outputs/workflow-a-sequential.json`을 열어 원문 ID를 학습자 ZIP의 정책과 대조합니다.
+명령과 파일 전체를 학습자 ZIP의 빈 `workflow-review.txt`에 복사하고 맞는 부분·수정할 부분·이유를 적습니다.
+안내문 검토이지 업무 승인이 아닙니다. 순차 실행 한 번과 검토로 A를 완료합니다.
 
 
-**화면 확인:** 170000원 요청에 적용 규정의 사전 승인이 필요한지 읽습니다.
-저장하는 출력에 `approval_status: pending-human-review`, `external_actions_performed: false`를 그대로 남깁니다.
+**화면 확인:** 저장한 출력이 170000원 호텔은 한도 150000원을 넘으므로 예약 전 승인이 필요하다고 설명하고
+`TRAVEL-2026`과 `APPROVAL-01`을 인용합니다(빠진 ID는 검토에 적을 발견 사항입니다).
+`approval_status: pending-human-review`, `external_actions_performed: false`가 그대로 있습니다.
 
 ### 3. 완료 판정
 
@@ -100,8 +103,6 @@ JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합�
 이 명령은 포털 workflow 리소스를 생성하지 않습니다.
 각 명령의 JSON 전체는 `--output`으로 저장하며, 사람의 검토는 별도로 직접 작성합니다.
 
-### 포털 중심 개념을 MAF 코드로 옮기기
-
 | 옮길 개념 | 이 실습에서 사용하는 MAF 구현 |
 |---|---|
 | 에이전트 노드 | `Agent` + `FoundryChatClient`, 역할별 지침 |
@@ -113,7 +114,7 @@ JSON 출력 전체를 읽고 원문 ID를 학습자 ZIP의 정책과 대조합�
 조건 분기·상태 저장·durable 승인까지 자동으로 마이그레이션되는 것은 아닙니다.
 필요한 업무 상태와 오류/재시도 정책을 코드에서 명시적으로 설계해야 합니다.
 
-### 1. 순차: 앞 단계 결과가 다음 단계의 입력
+### 1. 순차 패턴 실행: 앞 단계 결과가 다음 단계의 입력
 
 ```bash
 python scripts/workshop.py workflow --pattern sequential \
@@ -131,7 +132,7 @@ python scripts/workshop.py workflow --pattern sequential \
 
 **저장:** `workflow-sequential.json`이 Lab 00 기록 폴더에 작성됩니다. 파일을 연 뒤 다음 패턴으로 갑니다.
 
-### 2. 병렬: 같은 입력을 독립적으로 검토
+### 2. 병렬 패턴 실행: 같은 입력을 독립적으로 검토
 
 ```bash
 python scripts/workshop.py workflow --pattern concurrent \
@@ -151,7 +152,7 @@ python scripts/workshop.py workflow --pattern concurrent \
 
 **저장:** `workflow-concurrent.json`이 같은 기록 폴더에 작성됩니다. 참여자 출력을 비교합니다.
 
-### 3. Group Chat: 공유 대화와 종료 조건
+### 3. Group Chat 패턴 실행: 공유 대화와 종료 조건
 
 ```bash
 python scripts/workshop.py workflow --pattern group-chat \

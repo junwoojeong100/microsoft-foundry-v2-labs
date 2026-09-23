@@ -14,7 +14,7 @@
 
 **Continue when:** A: the right project is open and the values are recorded. B: offline checks and cloud preflight are understood.
 
-**If blocked:** Missing account/permission/quota means preparation is incomplete, not permission to choose another resource.
+**If blocked:** Stop and ask the owner to confirm the tenant, the project name, your **Foundry User** role on the project and access to `gpt-6-sol`. Do not pick another resource.
 
 [One-time setup and learner files](../setup.md).
 
@@ -50,6 +50,8 @@ prevent translated datasets from being presented as the same-input experiment.
 2. Sign in with the instructor-specified **Microsoft Entra account and directory (tenant)**.
    Personal Microsoft, GitHub, and Azure work-account sign-ins are different.
 3. Select the training project, not a similarly named production project.
+   If the project picker is hard to use, choose **View all resources**, search for the project name,
+   and check its name, parent resource and region before opening it.
 4. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip).
    Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
    In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal;
@@ -57,26 +59,22 @@ prevent translated datasets from being presented as the same-input experiment.
 5. Fill the setup section of the ZIP's `session-notes.txt` using the rows below. Do not post whole screens or personal information in shared chat.
 
 
-**What to check:** If the project picker is hard to use, choose **View all resources**,
-enter the training project name, and verify the result's name, parent resource, and region before opening it.
-
-
 ![September 23 English recording: Open the intended training project](../assets/g6sol-20260923-en/screenshots/EP00-001-home-2.webp)
 
 **What to check:** The project name at the top must change. **Project endpoint** is the
-value for `.env`; it is not the browser's `ai.azure.com` address. Authentication/PIN screens were not recorded.
+value for `.env`; it is not the browser's `ai.azure.com` address.
 
 | Item | Your value |
 |---|---|
 | Training tenant/subscription | Supplied by the instructor |
 | Foundry resource/project | Supplied by the instructor |
 | Model **deployment name** | Distinct from its catalog name |
-| Personal/team agent prefix | Example: `mfv2-team01-0915` |
+| Personal/team agent prefix | Example: `mfv2-team01-en` |
 | Path | A / B |
 | Execution status | Personally run / instructor observation / not run |
 
-If the project is missing, **do not create another resource with a random account**.
-Use the tenant/RBAC section of [Troubleshooting](../reference/troubleshooting.md).
+If the project is missing, check that you signed in to the intended tenant, then ask the owner to confirm the project name
+and your **Foundry User** role. Do not create another resource. See [Troubleshooting](../reference/troubleshooting.md) for tenant and role errors.
 
 **A done:** your intended project is open and `session-notes.txt` contains your setup values.
 Continue to [Lab 01 A](01-foundry.md#path-a); the B installation instructions are not an extra A exercise.
@@ -119,7 +117,6 @@ Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-la
 then **Code → Download ZIP**, extract it and open the extracted folder in VS Code.
 This is the **source repository ZIP**, not the small learner-materials ZIP.
 Open **Terminal → New Terminal**; its directory must contain `README.md`, `pyproject.toml`, and `scripts/`.
-For Hosted, use a standalone directory outside other azd projects.
 If Python is missing, install [Python 3.13](https://www.python.org/downloads/) first; do not continue past a `command not found` error.
 
 ```bash
@@ -238,7 +235,7 @@ variables in a terminal can therefore take precedence. Check again in a fresh te
 Do not store API keys, passwords, or access tokens in this file.
 No Microsoft 365 account or real customer document is needed.
 
-### 5. Read-only Azure preflight
+### 5. Run the read-only Azure preflight
 
 ```bash
 python scripts/workshop.py --language en doctor --cloud
@@ -246,7 +243,7 @@ python scripts/workshop.py --language en doctor --cloud
 
 Verify subscription, tenant, underlying model/version, and deployment state `Succeeded`.
 This command creates no resources and does not change the default subscription.
-Ask the instructor if you cannot read ARM.
+If it reports an authorization error, ask the owner for **Reader** on the training Foundry account; the preflight reads the deployment through Azure Resource Manager.
 Preflight does not prove data-plane permissions or Structured Outputs support;
 [Lab 02](02-models.md) tests an actual request.
 

@@ -21,6 +21,7 @@ python scripts/workshop.py --language en cleanup-plan
 
 This prints an inventory/guide, not a deletion command.
 Record the subscription, project, prefix, agent/version/session IDs, model deployments, Search objects, and logging/storage ownership.
+`outputs/azure-objects.json` records only the Search index/source/base objects this copy created; it is not a full Azure inventory or proof of deletion rights.
 Unknown ownership is a reason to stop, not to widen the deletion scope.
 
 <a id="hosted-sessions"></a>
@@ -60,32 +61,46 @@ Never treat an unverified stop request as a confirmed stopped state.
 
 </details>
 
-## 3. Search, models, and other Azure resources
+## 3. Clean up only objects you created
 
-`outputs/azure-objects.json` is ownership evidence for index/source/base operations.
-It is not permission to delete an entire Search service.
+| Asset | Check and cleanup |
+|---|---|
+| Prompt/Hosted agent and version | Confirm the exact project, name, version and owner; the owner deletes it |
+| Search knowledge base/source/index | Dependency order base → source → index; only your names in the ledger |
+| Uploaded files/vector stores | Separate your File Search material from shared material |
+| Model deployments | Check whether it is team-only or shared; keep shared models |
+| Search service | Deleting an index does not remove the service's fixed cost |
+| Application Insights/Log Analytics | Check required evidence, retention and sharing |
+| Fabric/Work IQ | Check dedicated capacity, billing and connections separately; never revoke organizational consent |
+| Resource group | Only its owner deletes it, and only if it is training-only and every asset is checked |
+
 The optional `iq-chat setup` adds a **separate chat base** to that ledger with API `2026-08-01-preview`.
 After deletion approval, remove every owned base that references a source **before** its source/index.
 If retaining the GA base, retain its shared source/index too; deleting only the chat base must not break the GA evaluation.
 Do not revoke the Search identity's shared model role merely because this one chat base is removed.
-Models, Search capacity, evaluation, telemetry retention, and persistent storage have separate costs.
-Stopping a Hosted session does not stop every one of them.
-Do not use `azd down`, subscription changes, or resource-group deletion as a shortcut in a shared environment.
+Do not use `azd down`, subscription changes, or resource-group deletion as a shortcut in a shared environment: with an existing project
+`azd down` can leave lab assets behind, and with an azd-created project it can delete the whole resource group
+([official guidance](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent)).
 
-Optional Fabric/Work IQ connections require their own approved restoration plan.
-Do not revoke organizational consent or remove another team's capacity.
+## 4. Final check
 
-## 4. Preserve evaluation lineage
+- [ ] Only the local servers you ran are stopped; unused ones are recorded as **not run**.
+- [ ] Each Hosted session you used has a recorded final state or a pending authorized owner.
+- [ ] Your agents, files and Search objects have a verified outcome.
+- [ ] Shared resources and other people's data are kept.
+- [ ] The owner has confirmed residual costs for services, models, logs, storage and capacity.
+- [ ] Results to keep are separated from sensitive data to remove.
+- [ ] Evaluation lineage is kept: questions, reference answers, prompts, corpus, model/agent versions, evaluator definitions,
+  all responses/errors, trace-query receipts and review records. Failed rows are never deleted to improve a score,
+  and holdout stays final-acceptance material, not a regression source.
 
-Keep original questions, reference answers, prompts, corpus, model/agent versions, evaluator definitions,
-all responses/errors, trace-query receipts, and review records.
-Do not delete failed rows to improve a score.
-Holdout remains final-acceptance material, not a regression source.
+Cost views can lag; record when you last checked and who owns the remaining cost. Budget alerts do not stop resources.
 
 **Learner cleanup handoff is ready when** `operations-checklist.txt` identifies each used asset,
 its verified state or pending authorized owner, preserved evidence and residual costs.
 Mark unused local/Hosted services **not run**, not “deleted.”
-Return to [Lab 11](../labs/11-capstone.md); maintainer media work below is not part of learner completion.
+If you came from Lab 11 and the handoff is done, **you have finished the course**. Otherwise return to [Lab 11](../labs/11-capstone.md).
+The maintainer media work below is not part of learner completion.
 
 ## Hosted matrix sessions
 

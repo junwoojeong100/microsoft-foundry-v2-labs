@@ -14,7 +14,7 @@
 
 **다음으로 갈 기준:** A: 정확한 프로젝트와 값 기록. B: offline 검사와 cloud 사전 검사의 의미 확인.
 
-**막히면:** 계정·권한·quota가 없으면 준비 미완료입니다. 다른 리소스를 임의로 선택하지 않습니다.
+**막히면:** 멈추고 담당자에게 tenant, 프로젝트 이름, 프로젝트의 **Foundry User** 역할, `gpt-6-sol` 접근 권한을 확인해 달라고 요청합니다. 다른 리소스를 고르지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
@@ -34,6 +34,9 @@
 촬영 보조 도구이므로 이미지에서 복사하지 않고 `.env`를 직접 편집합니다. **실행할 명령은 본문의 코드 블록**입니다.
 더 많은 전·후 화면은 [액션 인덱스](../action-captures.md)에 있습니다.
 
+국문 명령은 기본값으로 별도 고정된 국문 정책·지침·dev/holdout/calibration 데이터·fixture를 사용합니다.
+[언어별 hash와 label](../reference/languages.md)은 번역한 데이터셋을 같은 입력의 실험으로 표시하지 않도록 구분합니다.
+
 </details>
 
 <a id="path-a"></a>
@@ -44,32 +47,30 @@
 2. 강사가 지정한 **Microsoft Entra 계정과 디렉터리(tenant)**로 로그인합니다.
    개인 Microsoft 계정·GitHub 로그인과 Azure 업무 계정은 같은 개념이 아닙니다.
 3. 강사가 알려 준 프로젝트를 선택합니다. 이름이 비슷한 운영 프로젝트를 선택하지 않습니다.
+   프로젝트 선택 메뉴에서 찾기 어렵다면 메뉴 아래의 전체 리소스 보기 링크(영문 UI **View all resources**)에서
+   프로젝트 이름을 검색하고, 이름·부모 리소스·리전을 확인한 뒤 엽니다.
 4. 준비 단계에서 받지 않았다면 [학습자 ZIP](../../../data/learner/ko/learner-materials.zip)을 내려받아 풉니다.
    `START-HERE.txt`를 열어 둡니다. 혼자 학습하면 [준비 카드](../setup.md)에서 환경 준비를 먼저 확인합니다.
    [Lab 05](05-workflows.md)에서는 준비된 MAF 터미널에서 명령을 복사해 실행합니다.
    Python 코드를 직접 작성하거나 포털에서 workflow를 만들지는 않습니다.
 5. 아래 표로 ZIP의 `session-notes.txt` 설정 카드를 채웁니다. 화면 전체나 개인 정보를 공유 채팅에 올리지 않습니다.
 
-
-**화면 확인:** 프로젝트 선택 메뉴에서 찾기 어렵다면 **View all resources**로 이동하고 검색칸에
-실습 프로젝트 이름을 입력합니다. 결과 행의 이름·부모 리소스·리전을 확인한 뒤 프로젝트 링크를 누르세요.
-
 ![2026-09-23 국문 녹화: 지정한 실습 프로젝트 열기](../../assets/g6sol-20260923-ko/screenshots/KP00-001-home-2.webp)
 
-**화면 확인:** 상단의 프로젝트 이름이 바뀌었는지 확인합니다. **Project endpoint**는 뒤의 `.env`에 넣을 값이며,
-현재 브라우저 주소 `ai.azure.com`과 다릅니다. 로그인·PIN 화면은 촬영하지 않았습니다.
+**화면 확인:** 상단의 프로젝트 이름이 바뀌었는지 확인합니다. **프로젝트 엔드포인트**는 뒤의 `.env`에 넣을 값이며,
+현재 브라우저 주소 `ai.azure.com`과 다릅니다.
 
 | 확인 항목 | 내가 확인한 값 |
 |---|---|
 | 실습용 tenant / 구독 | 강사가 지정한 값 |
 | Foundry 리소스 / 프로젝트 | 강사가 지정한 값 |
 | 사용할 모델의 **배포 이름** | 카탈로그 모델 이름과 구분 |
-| 개인/조별 에이전트 접두사 | 예: `mfv2-team01-0915` |
+| 개인/조별 에이전트 접두사 | 예: `mfv2-team01-ko` |
 | 경로 | A / B |
 | 실행 상태 | 직접 실행 / 강사 관찰 / 미실행 |
 
-프로젝트가 보이지 않으면 **다른 계정으로 무작정 새 리소스를 만들지 않습니다.**
-[문제 해결](../reference/troubleshooting.md)의 tenant/RBAC 항목으로 이동합니다.
+프로젝트가 보이지 않으면 지정한 tenant로 로그인했는지 확인한 뒤 담당자에게 프로젝트 이름과 본인의 **Foundry User** 역할을
+확인해 달라고 요청합니다. 새 리소스를 만들지 않습니다. tenant·역할 오류는 [문제 해결](../reference/troubleshooting.md)을 참고합니다.
 
 **A 완료:** 정확한 프로젝트가 열렸고 `session-notes.txt`에 본인 설정값이 있습니다.
 [Lab 01 A](01-foundry.md#path-a)로 이동합니다. 아래 B 설치는 A의 추가 실습이 아닙니다.
@@ -111,8 +112,7 @@ Python 3.14는 오프라인 코드에 사용할 수 있지만 hosted 런타임�
 접근 권한이 있는 GitHub 계정으로 [이 저장소](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)를 열고
 **Code → Download ZIP**을 선택합니다. 압축을 풀고 그 폴더를 VS Code로 엽니다.
 작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
-**Terminal → New Terminal**을 열면 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
-Hosted까지 확인하려면 다른 azd 프로젝트의 하위 폴더가 아닌 독립된 실습 폴더를 사용합니다.
+**Terminal → New Terminal**(한국어 VS Code: **터미널 → 새 터미널**)을 열면 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
 Python이 없다면 [Python 3.13](https://www.python.org/downloads/)을 먼저 설치합니다. `command not found`를 무시하고 넘어가지 않습니다.
 
 ```bash
@@ -231,7 +231,7 @@ endpoint가 다른 터미널에 남아 있으면 새 터미널에서 다시 확�
 API key, 비밀번호, access token은 이 파일에 넣지 않습니다.
 Microsoft 365 계정이나 실제 고객 문서도 필요하지 않습니다.
 
-### 5. 읽기 전용 Azure 검사
+### 5. 읽기 전용 Azure 검사 실행
 
 ```bash
 python scripts/workshop.py doctor --cloud
@@ -239,7 +239,7 @@ python scripts/workshop.py doctor --cloud
 
 실습 구독, tenant, 배포의 실제 모델·버전과 `Succeeded` 상태를 확인합니다.
 이 명령은 리소스를 만들거나 기본 구독을 바꾸지 않습니다.
-ARM을 읽을 권한이 없는 참가자는 강사에게 확인을 요청합니다.
+권한 오류가 나오면 담당자에게 실습 Foundry 계정의 **Reader** 역할을 요청합니다. 이 검사는 Azure Resource Manager로 배포 정보를 읽습니다.
 검사 통과만으로 모델의 데이터 평면 권한/Structured Outputs 지원이 증명되지는 않습니다.
 그 확인은 [Lab 02](02-models.md)의 실제 호출에서 합니다.
 
@@ -252,6 +252,32 @@ Lab 05 환경 준비 때문에 왔다면 Lab 02 B의 실제 응답 확인까지 
 
 **B 완료:** 로컬 검사를 통과했고 의도한 배포의 읽기 전용 사전 확인도 완료했습니다.
 [Lab 02 B](02-models.md#path-b)에서 실제 추론을 확인합니다. 이후 명령도 저장소 루트·활성 `.venv`에서 실행합니다.
+
+<details>
+<summary>2026-09-23 gpt-6-sol 녹화 화면 더 보기 (참고; 그대로 재실행할 단계가 아님)</summary>
+
+2026-09-23 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
+
+![2026-09-23 국문 녹화: B의 개인 기록 폴더를 한 번 준비](../../assets/g6sol-20260923-ko/screenshots/K00-002-notes-2.webp)
+
+**화면 확인:** B는 개인 기록 폴더를 한 번만 준비하고, 이후 명령은 JSON을 그 폴더에 저장합니다. 여기서는 Azure를 호출하지 않습니다.
+
+![2026-09-23 국문 녹화: 오프라인 fixture v1: 모델 응답이 아님](../../assets/g6sol-20260923-ko/screenshots/K00-003-fixture-v1-2.webp)
+
+**화면 확인:** `OFFLINE FIXTURE` v1은 고정된 예시 파일이지 모델 응답이 아닙니다. 실패한 검사도 실습의 일부입니다.
+
+![2026-09-23 국문 녹화: 오프라인 fixture v2와 lineage](../../assets/g6sol-20260923-ko/screenshots/K00-004-fixture-v2-2.webp)
+
+**화면 확인:** v2는 fixture만 바꿉니다. lineage 필드를 읽고, 결과를 모델 품질로 해석하지 않습니다.
+
+![2026-09-23 국문 녹화: .env.example을 복사하고 설정 카드 값 채우기](../../assets/g6sol-20260923-ko/screenshots/K00-007-env-2.webp)
+
+**화면 확인:** 녹화에서는 `RUN_TOOLS/configure_env.py` 도우미가 설정 카드 값을 `.env`에 넣었습니다. 본인은 직접 편집합니다.
+프로젝트 엔드포인트, `gpt-6-sol`, judge 배포, 본인 prefix를 본인 설정 카드와 대조합니다.
+
+[전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
+
+</details>
 
 ## 이 랩의 완료 기준
 

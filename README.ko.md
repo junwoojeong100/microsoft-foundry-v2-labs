@@ -4,21 +4,19 @@
 
 ## 여기에서 시작하세요
 
-**처음 방문: [준비 카드](docs/ko/setup.md)를 완료한 뒤 [A. 입문](docs/ko/paths/a-beginner.md)을 따라갑니다.**
+**1. [준비 카드](docs/ko/setup.md)를 완료합니다. 2. 아래에서 경로 하나를 고릅니다. 3. 그 경로 페이지를 따라 Lab 00부터 진행합니다.**
 동봉한 합성 데이터만으로 출장 규정 안내 도우미 하나를 만듭니다.
-배경 설명을 읽거나 영상을 보거나 고급 모듈을 먼저 고를 필요는 없습니다.
+배경 설명·영상·고급 모듈은 선택입니다.
 
-| 경로 하나만 선택 | 할 일 | 끝나면 남는 것 |
-|---|---|---|
-| **A — Azure·agent가 처음** | 브라우저 조작과 준비된 MAF 터미널의 명령 한 번. Python 작성 없음 | 내 agent·6문항 평가표·workflow 검토·정리 인계 |
-| **[B — Python·API에 익숙함](docs/ko/paths/b-practitioner.md)** | SDK·도구·workflow·GA Search/IQ·통제된 평가·로컬 패키징 | 재현 가능한 실제 실행 기록. 원격 호스팅·cloud judge는 선택 |
+| 경로 | 이런 분께 | 하는 일 | 끝나면 남는 것 |
+|---|---|---|---|
+| **[A — 입문](docs/ko/paths/a-beginner.md)** | Azure나 agent가 처음인 분 | 브라우저 조작과 준비된 터미널의 명령 한 번. Python 작성 없음 | 내 agent·6문항 평가표·workflow 검토·정리 인계 |
+| **[B — 구현](docs/ko/paths/b-practitioner.md)** | Python·API에 익숙한 분 | SDK 호출·도구·workflow·Search/IQ·통제된 평가·로컬 패키징 | 저장된 실행 기록과 인수 보고서 |
 
-**A:** 준비 카드에서 작은 **학습자 ZIP**과 빈 기록 양식을 받습니다.
-**B:** **소스 저장소 ZIP**을 사용합니다. Lab 00에서 포함된 기록 양식을 복사하므로 ZIP을 추가로 받을 필요가 없습니다.
-학습자 ZIP에는 코드 환경이 들어 있지 않습니다.
-A의 Lab 05 터미널을 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)를 완료합니다.
-**준비 완료 후 A 4시간 / B 6시간**이며 계정·설치·권한·quota 대기는 별도입니다.
-Azure 권한이 없으면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 진행하고 cloud는 **미실행**으로 기록합니다.
+**시간:** 환경 준비 후 A 4시간, B 6시간입니다.
+**파일:** A는 준비 카드의 작은 학습자 ZIP을, B는 소스 저장소 ZIP을 사용합니다. ZIP을 추가로 받을 필요는 없습니다.
+**A의 Lab 05에는 준비된 터미널이 필요합니다.** 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
+**아직 Azure 권한이 없나요?** [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 진행하고 cloud 실습은 **미실행**으로 기록합니다.
 
 기본 과정을 마쳤다면 [C. 고급 모듈](docs/ko/paths/c-advanced.md), 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),
 구버전에서 돌아왔다면 [변경 지도](docs/ko/reference/migration.md)를 사용합니다.
@@ -65,7 +63,11 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 `python scripts/play_recordings.py --edition ko`로 재생합니다. 이전 `gpt-5.6-luna` 녹화는 삭제했습니다.
 국문과 영문은 별도 실행·별도 화면·별도 녹화본입니다.
 
-각 랩 본문에는 새 국문 캡처와 화면 확인 포인트를 배치했습니다.
+국문과 영문은 **각자 고정된 지침·합성 정책·dev/calibration/holdout 데이터·fixture**를 사용합니다.
+국문은 기본값이고 영문만 `--language en`으로 선택합니다. [언어 계약](docs/ko/reference/languages.md)과
+[버전별 데이터 묶음](data/README.ko.md)이 언어별 계보를 따로 보존합니다.
+
+각 랩 본문에는 2026-09-23 국문 캡처와 화면 확인 포인트를 배치했습니다.
 먼저 [화면 읽는 법](docs/ko/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
 
 에이전트·워크플로·지식·평가·운영을 **하나의 환경과 업무 시나리오**로 구성했습니다.
@@ -100,20 +102,20 @@ flowchart LR
     V --> H["사람의 실패 검토"]
     H --> P["개선 지침 + 회귀 자산"]
     P --> A
-    E --> O["Trace / Monitor / 비용"]
+    E --> O["추적 / 모니터링 / 비용"]
 ```
 
 | 모듈 | 내용 |
 |---|---|
 | [00. 시작과 환경](docs/ko/labs/00-start.md) | 학습 경로, 브라우저/코드 준비, offline/cloud 구분 |
 | [01. Foundry와 프로젝트](docs/ko/labs/01-foundry.md) | 플랫폼·SDK 구분, 리소스·프로젝트·권한 |
-| [02. 모델](docs/ko/labs/02-models.md) | 배포 이름, Playground, SDK, 모델 비교·Router |
+| [02. 모델](docs/ko/labs/02-models.md) | 배포 이름, 플레이그라운드, SDK, 모델 비교·Router |
 | [03. 첫 에이전트](docs/ko/labs/03-prompt-agent.md) | 지침, 합성 문서, 인용, 도구와 권한 경계 |
 | [04. MAF와 도구](docs/ko/labs/04-agents-tools.md) | 단일 에이전트, 함수, 로컬 MCP |
-| [05. MAF 워크플로](docs/ko/labs/05-workflows.md) | 순차·병렬·Group Chat → Workflow.as_agent, 최종 검토와 실제 호출 계보 |
-| [06. RAG와 Foundry IQ](docs/ko/labs/06-knowledge.md) | 텍스트·실제 하이브리드·GA IQ, 원문/embedding/검색 계보 |
-| [07. 평가와 학습 루프](docs/ko/labs/07-evaluation.md) | 기본 평가 + Hosted 모델 matrix·native·회귀·calibration·holdout |
-| [08. Hosted Agent](docs/ko/labs/08-hosted.md) | 프로필 고정 패키지, workflow Responses/Invocations, 로컬/원격 인수 |
+| [05. MAF 워크플로](docs/ko/labs/05-workflows.md) | 준비된 예제, 순차·병렬·Group Chat 코드, 사람의 검토 |
+| [06. RAG와 Foundry IQ](docs/ko/labs/06-knowledge.md) | Search와 IQ 구분, GA API, 원문 인용 |
+| [07. 평가와 학습 루프](docs/ko/labs/07-evaluation.md) | dev, 실패 분석, 지침 개선, holdout |
+| [08. Hosted Agent](docs/ko/labs/08-hosted.md) | 안전한 패키징, 로컬 서버, 코드 배포 |
 | [09. 관측·운영·정리](docs/ko/labs/09-operations.md) | trace, 운영 게이트, 비용과 소유권 기반 정리 |
 | [10. IQ 확장](docs/ko/labs/10-iq-extensions.md) | Fabric·Work IQ·Toolbox·Preview 승인 경계 |
 | [11. 캡스톤](docs/ko/labs/11-capstone.md) | 지식·모델·평가·운영을 묶은 최종 인수 |

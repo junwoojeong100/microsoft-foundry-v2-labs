@@ -256,6 +256,27 @@ class LearnerJourneyTests(unittest.TestCase):
                     )
                 self.assertEqual(int(claimed[1]), sum(awarded))
 
+    def test_straightforwardness_review_v2_totals_match_its_dimension_rows(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = (directory / "reference/validation.md").read_text()
+                anchor = '<a id="guide-straightforwardness-v2"></a>'
+                self.assertIn(anchor, text)
+                section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
+                rows = re.findall(
+                    r"^\| D(\d{1,2}) \|[^\n]+\| (\d{1,2}(?:\.5)?) \| (\d{1,2}(?:\.5)?) \|$",
+                    section,
+                    re.MULTILINE,
+                )
+                self.assertEqual([int(number) for number, _, _ in rows], list(range(1, 11)))
+                first = [float(row[1]) for row in rows]
+                final = [float(row[2]) for row in rows]
+                self.assertTrue(all(0 <= score <= 10 for score in first + final))
+                claimed = re.findall(r"\b(\d{1,3}(?:\.5)?)/100\b", section)
+                self.assertGreaterEqual(len(claimed), 2)
+                self.assertEqual(float(claimed[0]), sum(final))
+                self.assertEqual(float(claimed[1]), sum(first))
+
     def test_b_notes_copy_is_executable_and_never_overwrites_personal_records(self):
         names = (
             "session-notes.txt",

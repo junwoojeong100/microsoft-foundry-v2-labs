@@ -2,46 +2,51 @@
 
 [English](../setup.md) | **한국어**
 
-**Lab 00 전에 한 번만 준비합니다.** 가이드는 실습 절차를 설명하지만 Azure 구독·권한·모델 quota·과금 승인을 대신 제공하지는 않습니다.
-아래 준비가 끝났다면 강사가 대신 조작하지 않아도 본인이 가이드 순서대로 실행할 수 있습니다.
+**Lab 00 전에 한 번만 준비합니다.** 실습 절차는 가이드가 모두 설명하지만 구독·권한·모델 quota·과금 승인은
+Azure 담당자만 제공할 수 있습니다.
 
 ## 1. 지금 내 시작점 선택
 
 | 현재 상황 | 할 일 |
 |---|---|
-| 실습 환경을 이미 받음 | 이 페이지의 **1 → 2 → 3 → 4**만 진행. 담당자 준비는 펼치지 않음 |
+| 실습 환경을 이미 받음 | 이 페이지의 **1 → 2 → 3 → 4**절을 진행 |
 | 본인 Azure 구독은 있지만 환경이 없음 | [담당자 준비](#4-환경-담당자의-준비)를 완료한 뒤 2절로 복귀 |
-| Azure 권한·quota를 기다리는 중 | [Lab 00 오프라인 체험](labs/00-start.md#offline-rehearsal)만 진행하고 cloud는 미실행으로 기록 |
+| 아직 Azure 권한·quota가 없음 | [Lab 00 오프라인 체험](labs/00-start.md#offline-rehearsal)만 진행하고 cloud 실습은 **미실행**으로 기록 |
 
-A·B·C를 동시에 따라가지 않습니다. **처음이면 [학습 경로](paths.md)의 A를 선택합니다.**
-A는 Lab 05의 준비된 MAF 단계 전까지 브라우저 중심이고 B/C가 코드·선택 배포·평가를 추가합니다.
-한 회차는 같은 언어로 진행합니다. 언어를 바꾸면 입력 번들이 달라지므로 새 label을 쓰고 다른 언어의 점수를 재사용하지 않습니다.
-Search 객체를 seed한 뒤라면 새 소스 복사본과 소유 prefix도 필요합니다. 새 label만으로 기존 소유권 범위를 바꿀 수 없습니다.
+**한 회차 동안 경로 하나를 사용합니다.** Azure나 agent가 처음이면 **A**(브라우저 조작과 Lab 05의 준비된 명령 한 번),
+Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
+한 회차는 같은 언어로 진행합니다. 국문과 영문은 입력 파일이 다르므로 언어를 바꾸면 새 실행 label이 필요합니다.
 
 ## 2. 환경 카드 채우기
 
-담당자가 제공한 실제 값을 `session-notes.txt`에 저장합니다.
-A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 복사합니다.
-녹화의 이름을 복사하지 않으며 비밀번호·key·token은 적지 않습니다.
-선택한 경로에 필요한 행만 채웁니다. 선택 기능의 값이 없어도 첫 회차는 시작할 수 있습니다.
+강사나 환경 담당자가 아래 값을 알려 줍니다. `session-notes.txt`에 적습니다.
+A는 학습자 ZIP(3절)에서, B는 Lab 00에서 소스 저장소의 양식을 복사해 사용합니다.
+비밀번호·key·token은 카드에 적지 않습니다.
 
-| 값 | 필요한 경로 | 어디서 확인 / 이번 기본값 |
+| 값 | 필요한 경로 | 어디서 확인 |
 |---|---|---|
-| Azure tenant·subscription ID | A/B | Azure 포털 → 구독·디렉터리 |
-| Foundry 계정·프로젝트·리소스 그룹 | A/B | 실습 프로젝트의 리소스 상세 |
-| 전체 project endpoint | A의 준비 터미널 / B | Foundry 프로젝트 홈. `/api/projects/<project>`를 유지 |
-| **응답 모델 배포** | A/B | **`gpt-6-sol`**, 실제 모델도 같은 이름, 이 날짜의 preset은 **`2026-09-22`** 버전(2026-09-23) |
-| Prefix | A/B | 반드시 **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈 하나씩 사용하며 끝 하이픈 금지. 전체 최대 32자. 예: `mfv2-team01-ko-0917` |
-| 코드 환경 | A Lab 05 / B 전체 코드 | 저장소 폴더·Python 3.13·활성화된 `.venv`·학습자 본인 Azure 로그인 |
-| Search endpoint | B Lab 06 / 선택 IQ Chat | 기존 실습 Search 서비스. A의 인라인 원문 확인에는 불필요 |
-| 계정 OpenAI endpoint | 선택 IQ Chat / 심화 계정 API | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
-| IQ chat base | 선택 IQ Chat만 | `iq-chat setup`의 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
-| Hosted 값 | 선택 로컬·원격 호스팅만 | 실제 project ARM ID·location 코드·본인 agent 이름·빈 독립 로컬 폴더·필요한 승인. **패키징에는 불필요** |
+| Azure tenant·subscription ID | A·B | Azure 포털 → 구독·디렉터리 |
+| Foundry 계정·프로젝트·리소스 그룹 | A·B | 실습 프로젝트의 리소스 상세 |
+| 전체 project endpoint | A의 Lab 05 터미널·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
+| **응답 모델 배포** | A·B | **`gpt-6-sol`**, 모델 버전 **`2026-09-22`** |
+| 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 최대 32자. 예: `mfv2-team01-ko` |
+| 코드 환경 | A의 Lab 05(준비해 줌)·B | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
+| Search endpoint | B의 Lab 06 | 준비된 Search 서비스: `https://<search>.search.windows.net` |
 
-**첫 실습에서 모델 선택 실험은 하지 않습니다.** `gpt-6-sol`을 사용하고 `-judge` 배포·목록의 다른 모델·router를 고르지 않습니다.
-해당 배포/버전이 없으면 환경 담당자가 가용성을 해결하거나 다른 에디션을 명시적으로 재검증해야 합니다.
-코드는 다른 모델을 자동 선택하지 않습니다. 모델 고정은 흔한 불일치를 예방하지만 서비스 가동·quota까지 보장하지는 않습니다.
-[`gpt-6-sol`을 고른 이유](reference/model-choice.md): 2026-09-23 확인한 agent 경로와 녹화한 A/B 주요 단계를 통과했고 `gpt-6-luna`는 agent 경로에서 실패했습니다.
+<details>
+<summary>선택 항목 — IQ Chat이나 Hosted 실행을 별도로 선택한 경우만</summary>
+
+| 값 | 필요한 경로 | 어디서 확인 |
+|---|---|---|
+| 계정 OpenAI endpoint | 선택 IQ Chat / 심화 계정 API | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
+| IQ chat base | 선택 IQ Chat만 | `iq-chat setup`이 반환한 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
+| Hosted 값 | 선택 로컬·원격 호스팅만 | project ARM ID·location 코드·본인 agent 이름·빈 독립 로컬 폴더·필요한 승인. **패키징에는 불필요** |
+
+</details>
+
+**`gpt-6-sol`만 사용합니다.** `gpt-6-sol-judge`·목록의 다른 모델·router를 고르지 않습니다.
+배포나 버전이 없으면 멈추고 담당자에게 해결을 요청합니다. 코드는 다른 모델로 바꾸지 않습니다.
+[이 모델을 고른 이유](reference/model-choice.md).
 
 ## 3. 바로 쓰는 학습자 자료 내려받기
 
@@ -55,7 +60,7 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
 | 파일 | 용도 |
 |---|---|
 | `START-HERE.txt` | 파일별 사용 순서 |
-| `instructions-with-policies.txt` | 전체를 새 Prompt Agent의 **Instructions(지침)**에 복사하고 저장 |
+| `instructions-with-policies.txt` | 전체를 새 Prompt Agent의 **지침**에 복사하고 저장 |
 | `instructions.txt` | 인라인 근거 없는 지침. 선택 File Search 경로에서 사용 |
 | `policies/` | File Search에 올릴 합성 TXT 원문 정확히 6개 |
 | `dev-questions.txt` | 매번 새 대화에 질문 하나만 복사. ID나 평가 레코드 전체는 보내지 않음 |
@@ -79,12 +84,12 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
 
 - [ ] 본인 계정으로 정확한 프로젝트를 열 수 있습니다.
 - [ ] 실제 `gpt-6-sol` 배포와 버전 `2026-09-22`가 준비되었습니다.
-- [ ] A: 학습자 ZIP을 받았고 Instructions와 대화창에 넣을 파일을 구분합니다. B: Lab 00의 소스 복사본·기록 준비 순서를 확인했습니다.
+- [ ] A: 학습자 ZIP을 받았고 **지침**과 대화창에 넣을 파일을 구분합니다. B: Lab 00의 소스 복사본·기록 준비 순서를 확인했습니다.
 - [ ] Lab 05 터미널이 준비됐습니다. 아니라면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
 - [ ] B라면 Search 접근·본인 객체 작성 비용이 승인됐습니다. A의 IQ Chat은 별도 준비하지 않았다면 **미선택**입니다.
 - [ ] 비용·권한 담당자를 알고 있으며 승인 없이 리소스 생성·역할 부여를 하지 않습니다.
 
-필수 항목이 준비되지 않았다면 해당 준비 단계에서 멈춥니다. Fixture를 실제 응답으로 대신하지 않습니다.
+체크하지 못한 필수 항목이 있으면 멈추고 그 준비부터 마칩니다. 오프라인 fixture는 실제 응답을 대신하지 않습니다.
 **준비 완료: [A → Lab 00 브라우저](labs/00-start.md#path-a) · [B → Lab 00 코드](labs/00-start.md#path-b).**
 아래 담당자 참고 자료는 학습자의 다음 단계가 아닙니다.
 
@@ -113,7 +118,7 @@ A는 학습자 ZIP에서 받고 B는 Lab 00에서 소스 저장소의 양식을 
    모델의 Foundry 계정에서 **Search identity**에 `Cognitive Services User`를 부여합니다.
    사용자나 Hosted agent에 준 역할이 Search에 생기는 것은 아닙니다.
 6. 아래 담당자 명령 전에 `.env`를 포함한 [Lab 00 B 설치](labs/00-start.md#b-코드--한-폴더-한-환경)를 완료합니다.
-   Lab 05용 터미널을 받지 못한 학습자도 이 경로로 직접 준비한 뒤 돌아옵니다.
+   Lab 05용 터미널을 받지 못한 학습자는 이 설치와 [Lab 02 B](labs/02-models.md#path-b)를 마친 뒤 돌아옵니다.
 
 IQ Chat 학습자는 서비스/객체 정의를 읽는 **Search의 Reader**와 검색하는 **Search Index Data Reader**가 필요합니다.
 위 모델 계정 Reader와는 다른 범위이며 `check`는 모델 계정의 역할 할당도 읽습니다.

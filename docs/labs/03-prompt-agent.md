@@ -14,7 +14,7 @@
 
 **Continue when:** The saved agent name/version and your own answers to the four checks are recorded.
 
-**If blocked:** Paste into Instructions, not chat; never copy a recording's agent name or assume version 1.
+**If blocked:** If answers ignore the policies, check that the whole file is in **Instructions** (not the chat box) and saved. Use your own agent name and the version the portal returns.
 
 [One-time setup and learner files](../setup.md).
 
@@ -29,7 +29,7 @@ Keep `session-notes.txt` open for the returned version and actual answers; no de
 
 #### Creation menu and name
 
-In the training project, choose **Agents → New agent → Build an agent**.
+Select **Build** in the top bar and **Agents** in the left menu, then **New agent** → **Build an agent**.
 
 
 ![September 23 English recording: New agent → Build an agent](../assets/g6sol-20260923-en/screenshots/EP03-002-build-agent-2.webp)
@@ -37,7 +37,7 @@ In the training project, choose **Agents → New agent → Build an agent**.
 **What to check:** This is a Prompt Agent with editable instructions. Do not select
 **Code an agent** or an external-agent connection.
 
-Use your own prefix, for example `mfv2-team01-0915-policy`.
+In **Agent name**, replace the generated name with one that starts with your prefix, for example `mfv2-team01-en-policy`.
 Select **Create and open playground** and wait for completion.
 
 
@@ -45,20 +45,20 @@ Select **Create and open playground** and wait for completion.
 
 **What to check:** Use your own **Agent name**, not the recording's `mfv2-sol-20260923-en-policy`
 name. If the button is disabled while creating, wait rather than submitting twice.
-On September 23, 2026 opening the first agent also created a `text-embedding-3-large` deployment in the account; list it as an owned asset in Lab 09.
+Opening the first agent can also create a `text-embedding-3-large` deployment; note it for the Lab 09 cleanup inventory.
 
 #### Model and tools
 
-Choose the deployment that returned an actual response in [Lab 02](02-models.md).
+Open the **Model** list at the top left and select **`gpt-6-sol`** under **Deployments** (the deployment that answered in [Lab 02](02-models.md)).
 
 
 ![September 23 English recording: Select the gpt-6-sol answer deployment under Deployments](../assets/g6sol-20260923-en/screenshots/EP03-004-model-2.webp)
 
 **What to check:** Select your answer deployment under **Deployments**.
-The recorded `-judge` deployment is for evaluation; do not accidentally select it or another catalog model.
+`gpt-6-sol-judge` is for evaluation; do not select it or another catalog model.
 
-If **Web search** is present, use **Actions for Web search → Remove**.
-Removing it in Lab 02 does not guarantee it is absent from a new agent.
+In **Tools**, if **Web search** is listed, open its **⋮** menu and select **Remove**.
+Removing it in Lab 02 does not remove it from a new agent.
 
 
 ![September 23 English recording: Remove Web search from the new agent](../assets/g6sol-20260923-en/screenshots/EP03-005-remove-web-2.webp)
@@ -68,69 +68,49 @@ Do not connect company data or tools that modify external systems.
 
 #### Instructions and saving
 
-Open **`instructions-with-policies.txt` from the [learner ZIP](../setup.md#3-download-the-ready-learner-materials)** in a text editor.
-Select all its text, copy it into **Instructions**, then **Save**.
-It already includes v2 rules, all six synthetic policies, and the browser-only English prose override.
-Do not assemble JSON files, append another prompt, or paste the ZIP itself.
+1. Open **`instructions-with-policies.txt`** from the [learner ZIP](../setup.md#3-download-the-ready-learner-materials) in a text editor.
+2. Select all of its text and copy it.
+3. Paste it into **Instructions** on the left, not into the chat box on the right.
+4. Select **Save** at the top right and write the **Version** shown next to it in `session-notes.txt`.
 
-This generated browser format is separate from the strict JSON contract of the executable evaluation pipeline.
-[The language reference](../reference/languages.md) describes the independent English bundle.
+The file already contains the instructions and all six synthetic policies; do not add other text.
 
 
 ![September 23 English recording: Paste instructions-with-policies.txt into Instructions](../assets/g6sol-20260923-en/screenshots/EP03-006-instructions-2.webp)
 
-**What to check:** Paste into **Instructions** on the left, not chat on the right.
-Check the end of long text, select **Save**, and record the returned version.
-**Publish** is a separate external-channel action and is not needed here.
+**What to check:** the pasted text is in **Instructions** and ends with the file's last paragraph, **Browser output format: …**.
+After **Save**, a version number appears at the top. **Publish** is not needed in this lab.
 
 ### 2. Verify the supplied policies
 
-The file you just pasted contains `TRAVEL-2025`, `TRAVEL-2026`, `APPROVAL-01`,
-`RECEIPT-01`, `MEAL-01`, and `SCOPE-01`. Compare their IDs, content and effective periods with the ZIP's `policies/` files.
-Document text is evidence, not instructions. This is **direct context for small documents**, not File Search or Foundry IQ.
-No second paste/save is required unless you found an omission.
+The pasted file puts six synthetic policies directly into the agent's context (not File Search or Foundry IQ).
 
+1. In **Instructions**, find the six IDs: `TRAVEL-2025`, `TRAVEL-2026`, `APPROVAL-01`, `RECEIPT-01`, `MEAL-01` and `SCOPE-01`.
+2. Open the same six files in the ZIP's `policies/` folder and compare each amount and effective period.
+3. If one is missing or different, paste the whole file again and select **Save**; otherwise change nothing.
 
 ![September 23 English recording: Save and read the returned agent version](../assets/g6sol-20260923-en/screenshots/EP03-007-save-2.webp)
 
-**What to check:** Inspect **Version** and the disabled **Save** button. The September 23
-recording saved version 2, but use your own returned version. Include all six
-documents and effective periods, not just the end visible in the image.
+**What to check:** all six IDs, amounts and effective periods match `policies/`. **Save** is greyed out after saving,
+and **Version** shows your returned number (the recording shows version 2; yours may differ).
 
 <details>
 <summary>Optional: retrieve the same synthetic files with File Search</summary>
 
 Proceed only if File Search is available and the instructor has approved storage/retrieval costs.
+This optional branch was not re-recorded with `gpt-6-sol` on September 23, 2026, so it has no screenshots.
 
 1. Create a **separate** agent using your prefix plus `-files`; keep the inline agent unchanged for Lab 07.
-2. Paste the ZIP's **`instructions.txt`** into its Instructions, select `gpt-6-sol`, remove Web Search, and Save.
-3. Upload only the six **`.txt` files inside `policies/`**, not the ZIP, CSV, or inline instruction file. No Python/export step is needed.
-4. Wait for every file's indexing status to be **Completed**.
-5. Ask one question, then compare the cited filename/content with the supplied original. Do not combine inline policies and File Search in this comparison.
+2. Paste the ZIP's **`instructions.txt`** into its **Instructions**, select `gpt-6-sol`, remove **Web search**, and select **Save**.
+3. In **Tools**, select **Upload files → Attach files**, choose **Create a new index** with your unique name, then use
+   **browse for files** to select only the six **`.txt` files inside `policies/`** (not the ZIP, CSV or inline instruction file).
+4. Check that all six names show **Success**, then select **Attach**. Upload success does not mean indexing has finished.
+5. Open the store and wait for **1–6 of 6** and **Completed** on every file. Resolve missing or failed files first.
+6. Ask one question, then compare the cited filename and content with the supplied original.
+   Do not combine inline policies and File Search in this comparison.
 
-
-**What to check:** In **Upload files → Attach files**, check **Create a new index** and
-your unique name. Use **browse for files** to select only the six supplied synthetic files.
-
-
-**What to check:** Verify all six names and **Success**, then **Attach**.
-Upload success is not proof that indexing has finished.
-
-
-**What to check:** Open the store and verify **1–6 of 6** and **Completed** for every file.
-Resolve missing or failed files before asking questions.
-
-
-**What to check:** Inspect the **File search** tool, filenames, and citation numbers.
-One response is not a full-dev evaluation score.
-
-The upload uses **Upload files → Attach files** to select files and a new vector index.
-That index is a File Search store, not Lab 06's Azure AI Search index.
-After upload `Success`, check that all six stored files show `Completed`.
-
-Do not assume citation chips/numbers open the source: compare the cited filename with the
-supplied original. Do not substitute another response or retrieval provider.
-This optional branch was not re-recorded with `gpt-6-sol` on September 23, 2026.
+**What to check:** the **File search** tool is listed and the answer cites policy filenames. One response is not a full-dev score.
+The new index is a File Search store, not Lab 06's Azure AI Search index. Do not assume citation chips open the source.
 
 If the menu is unavailable, leave this optional branch unselected. If an attempted upload/retrieval fails,
 retain that failure and stop the branch; do not relabel the inline response as File Search.
@@ -139,8 +119,8 @@ retain that failure and stop the branch; do not relabel the inline response as F
 
 ### 3. Check four questions
 
-For each row below, copy **only its question** from the ZIP's `dev-questions.txt`.
-These are D01, D02, D03 and D05; do not send the expected-criteria column.
+Ask D01, D02, D03 and D05 one at a time. Copy **only the question** from the ZIP's `dev-questions.txt`;
+do not send the criteria column below.
 
 | Case | Topic | Expected business criteria |
 |---|---|---|
@@ -149,18 +129,41 @@ These are D01, D02, D03 and D05; do not send the expected-criteria column.
 | D03 | Over-limit booking | KRW 150000 limit; approval **before booking**; `TRAVEL-2026` + `APPROVAL-01`; the agent cannot approve |
 | D05 | International travel | Withhold the amount; explain insufficient evidence and cite `SCOPE-01` |
 
-These amounts are **synthetic ground-truth criteria**, not proof of a correct model
-response. Start a new conversation for each question so earlier answers do not leak into later checks.
+These amounts are **synthetic ground-truth criteria** (the same ones Lab 07 uses), not proof that your agent already passes.
 
+For each of the four questions:
 
-**Check and save each response before the next question.** Select **New chat**, confirm the old response
-is gone, and replace any remaining draft. Compare the actual amount, applicable date, source IDs and
-approval conditions with the row above; save the answer and your finding in `session-notes.txt`.
-Withholding the international amount is correct, but a missing `SCOPE-01` citation is still a finding.
-These are the same criteria used in Lab 07, not a promise that your agent already passes them.
+1. Select **New chat** (+ icon) and check that the previous answer is gone, so earlier answers do not leak into later checks.
+2. Paste the question into **Message the agent...** and send it.
+3. Copy the full answer into that case's line in the **Lab 03** section of `session-notes.txt`.
+4. Compare its amount, applicable date, cited IDs and approval conditions with that case's row in the table above, and write your finding.
+   For D05, withholding the amount is correct, but a missing `SCOPE-01` citation is still a finding.
 
-**Save:** copy the complete **Instructions text from your saved agent version** into `instructions-baseline.txt`
-in your personal evidence folder. Record that filename and version in `session-notes.txt`.
+<details>
+<summary>September 23 English recording — not the results of your own four questions</summary>
+
+![September 23 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-101-d01-2.webp)
+
+**What to check:** D01: KRW 150,000 per night from July 1, 2026 with `TRAVEL-2026`. Compare the receipt and approval conditions too.
+
+![September 23 English recording: D02 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-102-d02-2.webp)
+
+**What to check:** D02: May 2026 uses the historical KRW 120,000 and `TRAVEL-2025`, not the current policy.
+
+![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-103-d03-2.webp)
+
+**What to check:** D03: KRW 170,000 exceeds the limit, so approval is needed before booking. The agent must not claim approval.
+
+![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-105-d05-2.webp)
+
+**What to check:** D05: no international policy exists, so the amount is withheld. Check whether `SCOPE-01` is cited.
+
+These four images are recording examples. Record your own actual answers and failures separately.
+
+</details>
+
+**Save:** in your saved agent's **Instructions**, select all text (Ctrl+A or Cmd+A), copy it and save it as
+`instructions-baseline.txt` in your personal evidence folder. Record that filename and version in `session-notes.txt`.
 The downloaded instruction file alone does not establish what was actually saved. Do not overwrite an earlier pass's snapshot.
 
 **A done:** keep `instructions-baseline.txt`, its agent version and four checks in your evidence folder.
@@ -197,6 +200,11 @@ python scripts/workshop.py --language en prompt-agent invoke --name "$AGENT_NAME
 ```
 
 Use the actual returned version in the same terminal. Do not type `1` from a recording or invoke "latest."
+
+![September 23 English recording: Invoke the returned SDK agent version](../assets/g6sol-20260923-en/screenshots/E03-002-sdk-invoke-2.webp)
+
+**What to check:** The SDK call names the exact returned version (`1` in this recording), not "latest".
+
 [Versions](../reference/versions.md) documents the SDK's explicit binding.
 
 </details>
@@ -208,35 +216,6 @@ Use the actual returned version in the same terminal. Do not type `1` from a rec
 - The core lab connects no company APIs, email, payments, Graph, or Microsoft 365 permissions.
 - Content Safety/guardrails and instructions do not replace authorization checks.
 - Limit Web Search/Toolbox to approved domains in the [optional extension](10-iq-extensions.md).
-
-<details>
-<summary>More September 23 gpt-6-sol captures (reference; not steps to repeat)</summary>
-
-These captures come from the September 23, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
-
-![September 23 English recording: D01 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-101-d01-2.webp)
-
-**What to check:** D01: KRW 150,000 per night from July 1, 2026 with `TRAVEL-2026`. Compare the receipt and approval conditions too.
-
-![September 23 English recording: D02 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-102-d02-2.webp)
-
-**What to check:** D02: May 2026 uses the historical KRW 120,000 and `TRAVEL-2025`, not the current policy.
-
-![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-103-d03-2.webp)
-
-**What to check:** D03: KRW 170,000 exceeds the limit, so approval is needed before booking. The agent must not claim approval.
-
-![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP03-105-d05-2.webp)
-
-**What to check:** D05: no international policy exists, so the amount is withheld. Check whether `SCOPE-01` is cited.
-
-![September 23 English recording: Invoke the returned SDK agent version](../assets/g6sol-20260923-en/screenshots/E03-002-sdk-invoke-2.webp)
-
-**What to check:** The SDK call names the exact returned version (`:1` in this recording), not "latest".
-
-[Full action index](../action-captures.md) · [Recordings](../video-summary.md)
-
-</details>
 
 ## Completion
 

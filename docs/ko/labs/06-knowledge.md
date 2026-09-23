@@ -6,24 +6,48 @@
 
 **내 구간 바로 열기:** [A — 기존 원문 확인](#path-a) · [B — GA Search/IQ](#path-b) · [학습 경로](../paths.md)
 
-**IQ Chat은 Search의 관리 ID로 채팅 모델을 사용할 수 있습니다.** 이 선택 실습에서는 모델 없는 GA KB가 아니라
-**`gpt-5.6-luna` / 낮음 / 응답 합성이 설정된 chat KB**를 엽니다.
-`gpt-6-sol` 응답 모델과 별도 배포입니다. 2026-09-23 Search는 KB 연결에서 GPT-6 모델을 받지 않았습니다([상세](../reference/model-choice.md)).
-[정상 설정 화면과 확인 순서](#iq-chat-model)를 참고하세요. A의 기본 원문 확인에는 IQ Chat이 필요 없습니다.
-
 ## 시작 전
 
-**이번 순서:** A는 agent의 원문을 확인하고 고정 모델 IQ chat base는 준비된 경우 선택합니다. B는 번호 순서의 GA 검색 경로, hybrid는 선택입니다.
+**이번 순서:** A는 Lab 03 답변 세 개의 원문을 확인합니다. B는 번호 순서대로 Search와 GA IQ를 실행합니다. IQ Chat과 hybrid 검색은 선택입니다.
 
 **준비물:** A: Lab 03 응답·학습자 파일. B: .env·준비된 Search 서비스·작성 권한·새 소유 prefix 또는 대응하는 소유권 ledger.
 
-**다음으로 갈 기준:** A는 정책 ID·날짜 대조, B는 Search·GA IQ 출력을 저장합니다. `gpt-5.6-luna` 계획·합성은 별도로 선택한 IQ Chat에서만 필요합니다.
+**다음으로 갈 기준:** A: 답변 세 개의 정책 ID·날짜를 대조했습니다. B: 검색·답변 파일 네 개를 저장했습니다.
 
-**막히면:** 선택한 경로의 원본·권한 문제를 해결하고 provider를 바꾸지 않습니다. 기본 A의 원문 확인에는 IQ Chat 모델이 필요 없습니다.
+**막히면:** A: 빠진 질문만 다시 보냅니다(1단계). B: Search 401/403이면 담당자에게 Search 서비스의 **Search Index Data Contributor**와 **Search Service Contributor**를 요청합니다. 다른 provider로 바꾸지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
-## 네 검색 경로는 같은 기능이 아닙니다
+<a id="path-a"></a>
+
+## A. 브라우저 — 인용이 보이면 끝인가?
+
+[Lab 03](03-prompt-agent.md#path-a)에서 저장한 D01·D02·D03 답변을 사용합니다.
+
+1. 빠진 답변이 있으면 agent에서 **새 채팅**을 열고 `dev-questions.txt`의 해당 질문만 보냅니다.
+2. 답변마다 인용한 정책 ID를 적습니다.
+3. 학습자 ZIP의 `policies/` 폴더에서 해당 파일을 열어 금액과 적용 기간을 대조합니다.
+4. `session-notes.txt`의 Lab 06 구간에 행마다 **맞음** 또는 **틀림**을 적습니다.
+
+| 답변 | 올바른 근거와 금액 | 확인할 점 |
+|---|---|---|
+| D01 · 2026년 9월 숙박 | `TRAVEL-2026`(2026-07-01부터), 150000원 | 현행 규정을 적용했는가 |
+| D02 · 2026년 5월 숙박 | `TRAVEL-2025`(2026-06-30까지), 120000원 | 여기서 `TRAVEL-2026`을 인용하면 잘못된 근거 선택 |
+| D03 · 한도 초과 예약 | `TRAVEL-2026`과 `APPROVAL-01` | **예약 전** 승인 절차도 설명하는가 |
+
+**화면 확인:** 인용한 ID가 모두 `policies/`에 있고 그 적용 기간이 질문의 출장 월을 포함합니다.
+그럴듯해 보여도 다른 기간의 규정을 가리키면 틀린 것이므로 기록합니다.
+포털에서 인용 원문이 열리지 않으면 보이는 ID와 문장을 `policies/` 파일과 대조합니다.
+
+**A 완료:** `session-notes.txt`의 Lab 06 구간에 세 확인 결과와 **IQ Chat: 미선택**이 있습니다
+(IQ Chat을 준비해 준 경우 먼저 [선택 IQ Chat](#iq-chat-model)을 진행합니다). [Lab 07 A](07-evaluation.md#path-a)로 이동합니다.
+
+
+<a id="path-b"></a>
+
+## B. 코드 — 공통 환경에 Search만 추가
+
+**네 검색 경로는 같은 기능이 아닙니다:**
 
 | 방식 | 이 저장소의 실행 | 무엇을 확인하나요? |
 |---|---|---|
@@ -36,94 +60,16 @@
 **벡터·하이브리드 검색**이라고 표시하지 않습니다.
 아래 선택 절에서 실제 embedding·차원·벡터 필드를 구성한 경우에만 하이브리드라고 표시합니다.
 
-<a id="path-a"></a>
-
-## A. 브라우저 — 인용이 보이면 끝인가?
-
-1. [Lab 03](03-prompt-agent.md)의 현행·과거·한도 초과 실제 응답을 엽니다. 없다면 `dev-questions.txt`의 해당 질문만 새 대화에 보냅니다.
-2. 인용/근거의 문서 이름과 본문을 엽니다. 직접 컨텍스트 방식이면 해당 문서 ID를 원본 파일과 대조합니다.
-3. `TRAVEL-2025`와 `TRAVEL-2026`의 적용 기간을 비교합니다.
-4. 2026년 5월 질문에 현행 문서를 인용하면 잘못된 근거 선택으로 기록합니다.
-5. “숙박 한도를 초과했다”는 질문에서 승인 규정이 함께 설명되는지 확인합니다.
-
-**A 완료:** `session-notes.txt`의 Lab 06에 대조한 정책 ID·날짜·확인 결과를 적습니다.
-기본 경로는 새 검색 요청 없이 **IQ Chat 미선택**으로 기록하고 [Lab 07 A](07-evaluation.md#path-a)로 이동합니다.
-실행 전에 별도로 선택·준비한 경우에만 아래 경로를 펼칩니다.
-
-<a id="iq-chat-model"></a>
-
-### 선택 IQ Chat — 준비된 gpt-5.6-luna chat KB 열기
-
-<details>
-<summary>선택 Preview IQ Chat — 준비된 chat base·별도 비용 승인이 필요합니다</summary>
-
-담당자가 [IQ 준비](../setup.md#4-환경-담당자의-준비)를 마친 경우에만 선택합니다.
-아니라면 **IQ Chat 미선택**으로 기록하고 위 원문 확인을 마친 뒤 Lab 07로 이동합니다.
-이 Search-index source의 계획·합성은 **2026-09-15 기준 Preview**이며 MI 자체는 정상 지원됩니다.
-
-1. Foundry에서 **Knowledge → Knowledge bases**를 열고 담당자의 **`iq-chat setup`이 반환한 `knowledge_base` 이름**을 선택합니다.
-   준비 카드에 적은 이름이며 기본값은 `<prefix>-chat-ko-kb`입니다. 채팅 설정을 보려고 기존 `<prefix>-kb`를 열지 않습니다.
-2. 아래 **선택값 세 개가 채워져 있는지**와 국문 합성 source가 맞는지 확인합니다.
-   모델이나 모드가 비어 있으면 **저장 전에 멈추고** 목록으로 돌아가 chat-base 이름부터 확인합니다.
-   준비된 chat base가 없다면 담당자가 [check → 승인된 setup](../reference/iq-model-identity.md)을 완료합니다.
-   모델 없는 GA base의 설정을 바꾸어 해결하지 않습니다.
-3. Lab 05에서 사용한 준비된 터미널에서 아래 `check`를 실행합니다. `configured: true`여야 합니다.
-   `ready_for_setup: true`만으로는 저장된 chat base가 있다는 뜻이 아닙니다.
-4. 비용 승인 후 `ask`를 **한 번** 실행합니다. API·요청 필드·실제 activity를 보존하기 위해 이 검사는 CLI로 합니다.
-   포털에서 같은 채팅을 추가 전송하지 않습니다.
-5. `answer`, `source_ids`, `references`, 두 모델 activity를 합성 원문과 비교합니다. 실패는 그대로 기록합니다.
-
-| 설정 | 첫 실습의 정확한 선택 |
-|---|---|
-| Chat 배포 / 실제 모델 | **`gpt-5.6-luna` / `gpt-5.6-luna`**, 모델 버전 **`2026-07-09`** |
-| 인증 | **Search**의 **System assigned identity**. 학습자/Hosted agent identity가 아님 |
-| 모델 계정 역할 | Foundry 계정 범위에서 Search identity에 **`Cognitive Services User`** |
-| Reasoning / 출력 | **`low` / `answerSynthesis`** — 국문 화면에서는 **낮음 / 응답 합성** |
-| API | **`2026-08-01-preview`**, API key 없음 |
-
-![2026-09-17 새 국문 캡처: gpt-5.6-luna·낮음·응답 합성이 저장된 IQ Chat KB](../../assets/iq-chat-20260917/ko-configured-kb.png)
-
-**화면 확인:** `gpt-5.6-luna`, **낮음**, **응답 합성**, 국문 source와 **활성** 상태가 보입니다.
-**Chat completions model is required** 같은 모델 미선택 오류가 없습니다. 필수 표시 별표와 회색 MI 안내는 정상입니다.
-MI 안내는 Search의 ID를 사용한다는 뜻이지 인증 실패나 역할 확인 완료라는 뜻이 아닙니다.
-**이미 저장된** chat KB를 새로 캡처한 원본 화면이며, 이번 캡처를 위해 저장·배포·모델 호출을 하지는 않았습니다.
-화면의 이름을 복사하지 말고 본인에게 반환된 이름을 사용합니다.
-
-**화면을 맞추려고 선택된 `gpt-5.6-luna`를 지우거나 추천 모델을 배포하지 않습니다.**
-2026-09-17 확인 당시 빠른 모델 목록과 **Browse more models**는 기존 배포 목록이 아니라 배포용 카탈로그를 열었습니다.
-그 카탈로그에 없어도 이미 저장된 `gpt-5.6-luna` 연결은 정상 표시됐습니다.
-기존 선택을 유지하고, 최초 구성은 담당자의 고정 CLI preset으로 합니다. 다른 모델 선택이나 API key 활성화로 우회하지 않습니다.
-
-```bash
-python scripts/workshop.py iq-chat check
-```
-
-위 검사를 통과하고 요청 비용이 승인된 경우에만 실행합니다.
-
-```bash
-python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
-```
-
-결과의 `model_planning_verified: true`, `model_synthesis_verified: true`와
-`gpt-5.6-luna`의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
-요청·응답·원문 근거·실패는 `outputs/iq-chat/iq-chat-lab06/`에 남습니다. 새 요청은 새 label을 사용합니다.
-`check`는 Azure를 변경하지 않고 `ask`는 모델/provider를 자동 대체하지 않습니다.
-`configured: false`, 권한 누락, 다른 모델 버전, 403/429이면 멈추고 [고정 preset 복구 안내](../reference/iq-model-identity.md)를 따릅니다.
-모델 고정은 흔한 설정 불일치를 없애지만 quota와 서비스 가동까지 보장하지는 않습니다.
-
-</details>
-
-<a id="path-b"></a>
-
-## B. 코드 — 공통 환경에 Search만 추가
-
 ### 1. 강사 사전 준비 확인
 
-- 기존 Azure AI Search 서비스, 필요한 tier·리전·인증 설정.
-- 읽기 사용자: `Search Index Data Reader`.
-- 색인/소스 작성자: 해당 서비스의 `Search Service Contributor` 및 `Search Index Data Contributor`.
-- GA knowledge retrieval과 semantic ranker의 사용/과금 설정을 관리자가 별도로 확인.
-- `.env`의 `AZURE_SEARCH_ENDPOINT`와 고유 `WORKSHOP_PREFIX`.
+준비된 Search 서비스가 필요합니다. 본인 계정에는 그 서비스의 **Search Service Contributor**와
+**Search Index Data Contributor**가 필요합니다(읽기만 한다면 **Search Index Data Reader**).
+Search 사용·과금은 담당자가 승인합니다.
+
+seed 전에 `.env`에서 두 값을 확인합니다.
+
+- `AZURE_SEARCH_ENDPOINT=https://<search>.search.windows.net` — 설정 카드의 값.
+- `WORKSHOP_PREFIX` — 아직 seed한 적 없는 본인 prefix.
 
 구독 Owner만으로 Search 데이터 접근이 된다고 가정하지 않습니다.
 기본 실습 스크립트는 Search 서비스나 역할을 생성하지 않고 **준비된 서비스 안의
@@ -132,7 +78,7 @@ python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 **Seed 전에 소유권 상황을 정합니다.** 새 학습자 복사본은 아직 seed하지 않은 새 `mfv2-...` prefix와 작성 권한이 필요합니다.
 강사의 준비 복사본에는 대응하는 `outputs/azure-objects.json`이 있어야 합니다.
 원격 index는 있는데 로컬 ledger가 비어 있다면 생성/갱신 실습의 준비 완료가 아닙니다. 덮어쓰지 않습니다.
-`--language en`은 Search 이름에 `-en`을 붙이지 않습니다. [작업 폴더·언어 변경 규칙](../reference/configuration.md#workspace-scope)을 확인합니다.
+언어 옵션은 Search 객체 이름에 언어 접미사를 붙이지 않습니다. [작업 폴더·언어 변경 규칙](../reference/configuration.md#workspace-scope)을 확인합니다.
 
 ### 2. 작은 지식 원본 확인
 
@@ -180,6 +126,7 @@ python scripts/workshop.py seed-search --confirm-create
 
 **화면 확인:** seed 결과의 `mode: live`, 본인의 `index`, `document_count: 6`,
 `hybrid: false`, `knowledge_base: null`을 확인합니다. IQ가 아니라 일반 Search 객체를 만든 단계입니다.
+소유권 기록 `outputs/azure-objects.json`이 이 명령의 저장된 증거이며 다른 파일은 필요 없습니다.
 
 Seed 성공을 확인한 뒤에만 해당 index를 조회합니다.
 
@@ -218,25 +165,12 @@ python scripts/workshop.py retrieve --provider iq \
 Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확인합니다.
 `ledger`에 표시된 `outputs/azure-objects.json` 소유권 기록을 유지합니다.
 
-기본 IQ 코드는 **REST `2026-04-01` GA의 직접 intents·extractive 검색**을 사용합니다.
-이 non-web Search-index source에서는 해당 API가 **KB 내부의 LLM 사용을 지원하지 않습니다**.
-따라서 `seed-search --iq`는 **KB의 `models`를 설정하지 않습니다**. API/source의 지원 범위이지 API key 인증이 필요하다는 뜻이 아닙니다.
-조회에는 명시적 semantic `intents`를 보내며 최종 답변은 다음 단계의 별도 모델 호출에서 생성합니다.
-이는 Search→Chat 모델의 managed identity 인증을 검증한 경로가 아닙니다.
-서비스 내부 처리가 없다는 보장은 아니며 실제 activity에 보고된 reasoning 항목도 확인합니다.
-검색 응답의 `maxOutputSizeInTokens`는 6000으로 제한합니다. 실제 GA 호출에서 5000 초과가
-필요함을 확인했으며, 이는 답변 모델의 `WORKSHOP_MAX_OUTPUT_TOKENS`와 다른 설정입니다.
+이 GA IQ(REST `2026-04-01`)는 knowledge base 안의 모델 없이 문서를 검색하고,
+5단계가 그 문서를 별도 호출로 `gpt-6-sol`에 보냅니다([모델 기반 IQ](../reference/iq-model-identity.md)는 선택).
 
-확인:
-
-1. `provider`가 `foundry-iq`인가.
-2. 실제 knowledge base 이름과 API 버전이 기록되었는가.
-3. `references`, `activity`, 원문 `documents`가 있는가.
-4. 참조 번호와 문서의 안정적인 `id`를 혼동하지 않았는가.
-5. activity에 오류가 있으면 부분 성공으로 넘어가지 않았는가.
-
-**빈 결과는 0건 검색입니다.** 이 경우에도 정상 답변처럼 금액을 채우지 않습니다.
-실패 시 Search로 자동 대체하지 않습니다.
+`provider: foundry-iq`, base 이름·API 버전, `references`, `activity`, 원문 `documents`를 확인합니다.
+참조 번호는 문서 ID가 아닙니다. **빈 결과는 검색된 문서가 0건이라는 뜻입니다.** 기록하고 금액을 지어내지 않습니다.
+IQ 오류는 오류로 남기며 일반 Search로 대체하지 않습니다.
 
 
 ![2026-09-23 국문 녹화: 원문 참조가 있는 GA Foundry IQ 검색](../../assets/g6sol-20260923-ko/screenshots/K06-005-iq-2.webp)
@@ -280,6 +214,72 @@ flowchart LR
 원문 ID·`references`·`activity`·`context_hash`·소유권 ledger를 포함합니다.
 원래 `outputs/azure-objects.json`은 그대로 둡니다. 복사한 출력 파일이 객체 소유권을 만들어 주지 않습니다.
 [Lab 07 B](07-evaluation.md#path-b)는 **명시적인 로컬 검색 실험**으로 시작하며 이 IQ 답변을 평가 결과로 재사용하지 않습니다.
+
+<a id="iq-chat-model"></a>
+
+## 선택 IQ Chat — 준비된 gpt-5.6-luna chat KB 열기
+
+담당자가 IQ Chat을 준비해 준 경우에만 진행합니다(A·B 공통). Search knowledge base가 2026-09-23 GPT-6 모델을 받지 않아
+별도 `gpt-5.6-luna` 배포를 사용합니다([상세](../reference/model-choice.md)).
+
+<details>
+<summary>선택 Preview IQ Chat — 준비된 chat base·별도 비용 승인이 필요합니다</summary>
+
+담당자가 [IQ 준비](../setup.md#4-환경-담당자의-준비)를 마친 경우에만 선택합니다.
+아니라면 **IQ Chat 미선택**으로 기록하고 위 원문 확인을 마친 뒤 Lab 07로 이동합니다.
+이 Search-index source의 계획·합성은 **2026-09-15 기준 Preview**이며 MI 자체는 정상 지원됩니다.
+
+1. Foundry에서 **Knowledge → Knowledge bases**를 열고 담당자의 **`iq-chat setup`이 반환한 `knowledge_base` 이름**을 선택합니다.
+   준비 카드에 적은 이름이며 기본값은 `<prefix>-chat-ko-kb`입니다. 채팅 설정을 보려고 기존 `<prefix>-kb`를 열지 않습니다.
+2. 아래 **선택값 세 개가 채워져 있는지**와 국문 합성 source가 맞는지 확인합니다.
+   모델이나 모드가 비어 있으면 **저장 전에 멈추고** 목록으로 돌아가 chat-base 이름부터 확인합니다.
+   준비된 chat base가 없다면 담당자가 [check → 승인된 setup](../reference/iq-model-identity.md)을 완료합니다.
+   모델 없는 GA base의 설정을 바꾸어 해결하지 않습니다.
+3. Lab 05에서 사용한 준비된 터미널에서 아래 `check`를 실행합니다. `configured: true`여야 합니다.
+   `ready_for_setup: true`만으로는 저장된 chat base가 있다는 뜻이 아닙니다.
+4. 비용 승인 후 `ask`를 **한 번** 실행합니다. API·요청 필드·실제 activity를 보존하기 위해 이 검사는 CLI로 합니다.
+   포털에서 같은 채팅을 추가 전송하지 않습니다.
+5. `answer`, `source_ids`, `references`, 두 모델 activity를 합성 원문과 비교합니다. 실패는 그대로 기록합니다.
+
+| 설정 | 첫 실습의 정확한 선택 |
+|---|---|
+| Chat 배포 / 실제 모델 | **`gpt-5.6-luna` / `gpt-5.6-luna`**, 모델 버전 **`2026-07-09`** |
+| 인증 | **Search**의 **System assigned identity**. 학습자/Hosted agent identity가 아님 |
+| 모델 계정 역할 | Foundry 계정 범위에서 Search identity에 **`Cognitive Services User`** |
+| Reasoning / 출력 | **`low` / `answerSynthesis`** — 국문 화면에서는 **낮음 / 응답 합성** |
+| API | **`2026-08-01-preview`**, API key 없음 |
+
+![2026-09-17 국문 IQ Chat 설정 캡처: gpt-5.6-luna·낮음·응답 합성이 저장된 KB](../../assets/iq-chat-20260917/ko-configured-kb.png)
+
+**화면 확인:** `gpt-5.6-luna`, **낮음**, **응답 합성**, 국문 source와 **활성** 상태가 보입니다.
+**Chat completions model is required** 같은 모델 미선택 오류가 없습니다. 필수 표시 별표와 회색 MI 안내는 정상입니다.
+MI 안내는 Search의 ID를 사용한다는 뜻이지 인증 실패나 역할 확인 완료라는 뜻이 아닙니다.
+**이미 저장된** chat KB를 새로 캡처한 원본 화면이며, 이번 캡처를 위해 저장·배포·모델 호출을 하지는 않았습니다.
+화면의 이름을 복사하지 말고 본인에게 반환된 이름을 사용합니다.
+
+**화면을 맞추려고 선택된 `gpt-5.6-luna`를 지우거나 추천 모델을 배포하지 않습니다.**
+2026-09-17 확인 당시 빠른 모델 목록과 **Browse more models**는 기존 배포 목록이 아니라 배포용 카탈로그를 열었습니다.
+그 카탈로그에 없어도 이미 저장된 `gpt-5.6-luna` 연결은 정상 표시됐습니다.
+기존 선택을 유지하고, 최초 구성은 담당자의 고정 CLI preset으로 합니다. 다른 모델 선택이나 API key 활성화로 우회하지 않습니다.
+
+```bash
+python scripts/workshop.py iq-chat check
+```
+
+위 검사를 통과하고 요청 비용이 승인된 경우에만 실행합니다.
+
+```bash
+python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
+```
+
+결과의 `model_planning_verified: true`, `model_synthesis_verified: true`와
+`gpt-5.6-luna`의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
+요청·응답·원문 근거·실패는 `outputs/iq-chat/iq-chat-lab06/`에 남습니다. 새 요청은 새 label을 사용합니다.
+`check`는 Azure를 변경하지 않고 `ask`는 모델/provider를 자동 대체하지 않습니다.
+`configured: false`, 권한 누락, 다른 모델 버전, 403/429이면 멈추고 [고정 preset 복구 안내](../reference/iq-model-identity.md)를 따릅니다.
+모델 고정은 흔한 설정 불일치를 없애지만 quota와 서비스 가동까지 보장하지는 않습니다.
+
+</details>
 
 ## C. 선택 — 실제 하이브리드 RAG
 

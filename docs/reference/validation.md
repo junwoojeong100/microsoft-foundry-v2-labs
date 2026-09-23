@@ -6,6 +6,54 @@
 Each language uses independent execution labels and recording sources.
 Earlier videos and upstream results are not relabeled as new evidence.
 
+<a id="guide-straightforwardness-v2"></a>
+
+## Guide straightforwardness review v2 — September 23, 2026
+
+**Conservative editorial score: 98.5/100** (round 1, before these edits: 71.5/100).
+Ten dimensions are scored from 0 to 10 in 0.5 steps. Each starts at 10 and loses 3, 2, 1 or 0.5 points per critical, major,
+moderate or minor finding. Three independent AI cold-read reviews covered the English A route, the English B route and
+Korean parity; each dimension takes the lowest of the three scores, and D10 comes from the Korean review.
+Four review rounds scored 71.5, 83, 92.5 and 98.5. This is an editorial assessment of the prepared A/B guides,
+not a human usability pilot, a learner-success rate or a measured completion time.
+
+| Dimension | What earns full points | Round 1 | Final |
+|---|---|---:|---:|
+| D1 | Entry and route choice: README → setup → paths reaches the first action of either route | 7 | 10 |
+| D2 | One linear core path; optional, owner and historical material is collapsed or marked | 8 | 10 |
+| D3 | Numbered, imperative steps with exact UI labels, file names and values | 7 | 9.5 |
+| D4 | A visible success or failure check after every action or command | 8 | 10 |
+| D5 | Commands run as written, in order, with named output files | 7 | 10 |
+| D6 | Plain, lean language without history or evidence commentary in the core path | 6 | 9.5 |
+| D7 | Concrete recovery, including exactly what to ask the owner for | 8 | 10 |
+| D8 | Explicit done criteria, correct A/B next links and a clear final handoff | 8.5 | 10 |
+| D9 | Current, consistent model, date, screenshot and link claims | 6 | 10 |
+| D10 | Korean pages mirror the English steps, commands, images and links and read naturally | 6 | 9.5 |
+
+The final round's only finding, two English UI labels on the Korean setup card, was corrected afterward and not re-scored.
+
+**Main changes:**
+
+- One neutral start: README, the setup card and the path page give the same three steps and an A/B choice; Lab 05's
+  prerequisite is Lab 00 B + Lab 02 B everywhere, and optional setup rows are collapsed.
+- Portal steps use the exact paths and labels visible in the September 23 English and Korean captures; multi-action steps
+  are numbered and each has a check.
+- Blocked states name the owner request (Foundry User, Reader, `gpt-6-sol` quota, Search roles) instead of "resolve access".
+- Lab 05 A saves `outputs/workflow-a-sequential.json` and names the evidence to expect; Labs 01 and 03 say which
+  `session-notes.txt` lines to fill.
+- Optional IQ Chat, B-only concepts and dated history moved below the core steps or into collapsed blocks.
+- The [cleanup reference](cleanup.md) ends the course explicitly, with the same asset table and final checklist in both languages.
+
+**Verification for this revision:** 245 offline tests passed on each of Python 3.13 and 3.14, and 67 installed-SDK tests
+passed with stub transports. Ruff 0.16.6 lint/format, compilation, the CI offline commands in a clean copy and both learner
+bundles passed. Documentation checks cover 117 Markdown files, 58 language pairs and 330 CLI examples, with no pending
+translations. A new test keeps this table's rows and both totals consistent.
+
+**Live Azure checks for this revision: not run.** No model request, provisioning, deployment, role/subscription change or
+recording was performed. Portal labels were compared with the existing September 23 captures and recording action
+definitions, not a new portal session. Canonical prompts, datasets, policies, fixtures and media files are unchanged;
+only guide text, image placement and alt text, and one documentation test changed.
+
 <a id="gpt-6-sol-20260923"></a>
 
 ## gpt-6-sol environment, recordings and removal of earlier media — September 23, 2026

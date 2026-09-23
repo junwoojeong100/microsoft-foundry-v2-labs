@@ -20,7 +20,7 @@
 
 <a id="path-b"></a>
 
-## 1. 도구 없는 에이전트
+## 1. 도구 없는 에이전트 실행
 
 저장소 루트·활성 `.venv`에서 실행합니다. 세 명령 모두 유료 모델 호출입니다.
 각 명령이 성공하면 `--output`이 실제 JSON 전체를 Lab 00 기록 폴더의
@@ -46,11 +46,10 @@ python scripts/workshop.py maf \
 2. `Agent`: 이름·지침·도구·실행 옵션을 묶는다.
 3. `agent.run()`: 실제 모델 호출을 시작한다.
 
-`Agent` 객체를 만들었다고 Foundry 포털에 관리형 에이전트가 자동 등록되는 것은 아닙니다.
-이 에이전트는 지금 내 Python 프로세스가 소유합니다.
-[Lab 03](03-prompt-agent.md)의 `project.agents.create_version()`과 비교해 보세요.
+`Agent` 객체를 만들어도 Foundry 포털에 관리형 에이전트가 등록되지 않습니다. 이 에이전트는 내 Python 프로세스의 것입니다.
+(선택: 관리형 방식인 `project.agents.create_version()`은 Lab 03의 [SDK 경로](03-prompt-agent.md#b-선택-sdk-경로--관리형-prompt-agent와-로컬-maf-구분)에 있습니다.)
 
-## 2. 읽기 전용 함수 도구
+## 2. 읽기 전용 함수 도구 추가
 
 ```bash
 python scripts/workshop.py maf --tools \

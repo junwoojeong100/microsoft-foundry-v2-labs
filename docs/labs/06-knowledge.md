@@ -6,24 +6,48 @@
 
 **Open your section:** [A — check existing sources](#path-a) · [B — GA Search/IQ](#path-b) · [Paths](../paths.md)
 
-**IQ Chat can use a chat model with Search managed identity.** For that optional exercise, open the
-**prepared chat KB** with **`gpt-5.6-luna` / Low / Answer synthesis**, not the model-free GA KB.
-This is a separate deployment from the `gpt-6-sol` answer model: Search accepted no GPT-6 model for KB binding on September 23, 2026 ([details](../reference/model-choice.md)).
-[The configured screen and exact checks](#iq-chat-model) are below. A's default source check does not require IQ Chat.
-
 ## Before you start
 
-**This pass:** A checks its agent's sources, then optionally the prepared fixed-model IQ chat base. B follows the numbered GA retrieval path; hybrid is optional.
+**This pass:** A checks the sources in three Lab 03 answers. B runs the numbered Search and GA IQ steps. IQ Chat and hybrid search are optional.
 
 **Need:** A: Lab 03 responses and learner files. B: .env, a prepared Search service, writer permissions and a fresh owned prefix or matching ownership ledger.
 
-**Continue when:** A: policy IDs and dates are checked. B: Search and GA IQ outputs are saved. `gpt-5.6-luna` planning/synthesis is required only for the separately selected IQ Chat branch.
+**Continue when:** A: the policy IDs and dates in three answers are checked. B: the four retrieval and answer files are saved.
 
-**If blocked:** Resolve the selected path's source/access error without changing providers. A's default source check needs no IQ chat model.
+**If blocked:** A: ask only the missing question again (step 1). B: for a Search 401/403, ask the owner for **Search Index Data Contributor** and **Search Service Contributor** on the Search service. Never switch to another provider.
 
 [One-time setup and learner files](../setup.md).
 
-## Four different retrieval paths
+<a id="path-a"></a>
+
+## A. Browser: a visible citation is not enough
+
+Use the D01, D02 and D03 answers you saved in [Lab 03](03-prompt-agent.md#path-a).
+
+1. If one of them is missing, open your agent, select **New chat** and ask only that question from `dev-questions.txt`.
+2. For each answer, note the policy IDs it cites.
+3. Open the matching files in the learner ZIP's `policies/` folder and compare the amount and the effective dates.
+4. Write **correct** or **incorrect** for each row in the Lab 06 section of `session-notes.txt`.
+
+| Answer | Correct source and amount | What to look for |
+|---|---|---|
+| D01 · September 2026 lodging | `TRAVEL-2026` (from 2026-07-01), KRW 150000 | The current policy is applied |
+| D02 · May 2026 lodging | `TRAVEL-2025` (until 2026-06-30), KRW 120000 | Citing `TRAVEL-2026` here is an incorrect evidence choice |
+| D03 · Over-limit booking | `TRAVEL-2026` and `APPROVAL-01` | The answer also explains approval **before booking** |
+
+**What to check:** every cited ID exists in `policies/`, and its dates cover the question's travel month.
+A citation that looks right but points to the wrong period is still incorrect; record it.
+If the portal cannot open a cited source, compare the visible ID and text with the `policies/` file instead.
+
+**A done:** the Lab 06 section of `session-notes.txt` has the three checks and **IQ Chat: not selected**
+(if IQ Chat was prepared for you, do [Optional IQ Chat](#iq-chat-model) first). Continue to [Lab 07 A](07-evaluation.md#path-a).
+
+
+<a id="path-b"></a>
+
+## B. Code: add Search to the shared configuration
+
+**Four different retrieval paths:**
 
 | Method | Command | What it verifies |
 |---|---|---|
@@ -36,23 +60,167 @@ The default local/keyword/minimal-IQ paths do not use client-generated embedding
 Only the optional hybrid path below uses an explicitly configured embedding model, dimensions, and vector fields.
 Never rename ordinary text search as hybrid retrieval.
 
-<a id="path-a"></a>
+### 1. Check instructor preparation
 
-## A. Browser: a visible citation is not enough
+You need the prepared Search service. Your account needs **Search Service Contributor** and
+**Search Index Data Contributor** on it (reading alone needs only **Search Index Data Reader**).
+The owner approves Search usage and billing.
 
-1. Open your current/historical/over-limit responses from [Lab 03](03-prompt-agent.md). If a response is missing, copy that question from `dev-questions.txt` into a new chat.
-2. Open the cited name/content where supported; for direct context, compare the document ID with the original file.
-3. Compare the effective periods of `TRAVEL-2025` and `TRAVEL-2026`.
-4. Record a current-policy citation for May 2026 as incorrect evidence selection.
-5. Check that an over-limit question also explains the approval policy.
+Open `.env` and check two values before seeding:
 
-**A done:** fill Lab 06 in `session-notes.txt` with the compared policy IDs, dates and your findings.
-The default route makes no new retrieval request: mark **IQ Chat not selected** and continue to [Lab 07 A](07-evaluation.md#path-a).
-Only expand the branch below if it was separately selected and prepared before execution.
+- `AZURE_SEARCH_ENDPOINT=https://<search>.search.windows.net`, from your setup card.
+- `WORKSHOP_PREFIX` is your own prefix and has not been seeded before.
+
+Subscription Owner alone does not imply Search data access. Scripts do not create a
+Search service or roles; they create **your prefixed objects inside a prepared service**.
+
+**Choose the ownership situation before seeding.** A new learner copy needs a new, unseeded `mfv2-...` prefix and writer permissions.
+An instructor-prepared copy must already contain the matching `outputs/azure-objects.json`.
+An existing remote index plus an empty local ledger is not ready for a create/update exercise; do not overwrite it.
+`--language en` does not append `-en` to Search names. See [workspace/language changes](../reference/configuration.md#workspace-scope).
+
+### 2. Inspect the small source corpus
+
+```bash
+python scripts/workshop.py --language en retrieve --provider local \
+  --question "What is the domestic business-trip lodging limit for September 2026?" \
+  --output outputs/learner-notes-en/retrieve-local.json
+```
+
+Inspect `documents`, `source_ids`, and `context_hash`. This educational keyword search is not a production semantic search engine.
+If evidence is missing, record the limitation instead of hardcoding answers.
+Keep the selected English question unchanged within this experiment; `--language en` selects English documents.
+
+
+![September 23 English recording: Local keyword retrieval over the six synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-001-local-2.webp)
+
+**What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
+retrieval, not Search/IQ. Check the returned provider, not just configured endpoint names.
+
+**Save:** `retrieve-local.json` is written to your Lab 00 notes directory. Open it and check the original evidence.
+
+### 3. Create an ordinary Search index
+
+**This writes to the cloud.** Verify the prepared service, prefix, and permissions first.
+
+```bash
+python scripts/workshop.py --language en seed-search --confirm-create
+```
+
+| Optional setting | Default object name |
+|---|---|
+| `AZURE_SEARCH_INDEX_NAME` | `<WORKSHOP_PREFIX>-policies` |
+| `AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME` | `<WORKSHOP_PREFIX>-source` |
+| `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | `<WORKSHOP_PREFIX>-kb` |
+
+Existing objects without your local ownership record are not overwritten.
+If changing prefix after any seeding, use a fresh source copy as well, or ask the instructor to recover the original working copy.
+Do not delete the old ledger. Partial document upload
+failure is not overall success.
+
+
+![September 23 English recording: Create the owned Search index with the synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-002-seed-search-2.webp)
+
+**What to check:** The seed result has `mode: live`, your `index`, `document_count: 6`,
+`hybrid: false`, and `knowledge_base: null`. It created ordinary Search objects, not IQ.
+The ownership record `outputs/azure-objects.json` is this command's saved evidence; no other file is needed.
+
+Only after successful seeding, query that index:
+
+```bash
+python scripts/workshop.py --language en retrieve --provider search \
+  --question "What is the domestic business-trip lodging limit for September 2026?" \
+  --output outputs/learner-notes-en/retrieve-search.json
+```
+
+![September 23 English recording: Keyword retrieval from Azure AI Search](../assets/g6sol-20260923-en/screenshots/E06-003-search-2.webp)
+
+**What to check:** Read the result of `--provider search`; verify endpoint/index.
+Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
+
+**Save:** `retrieve-search.json` is written to the same notes directory. Review it before creating the IQ source/base.
+
+### 4. Create a GA IQ knowledge source/base
+
+```bash
+python scripts/workshop.py --language en seed-search --iq --confirm-create
+```
+
+Continue only after the seed output has `document_count: 6` and the intended non-null `knowledge_base`.
+Keep `outputs/azure-objects.json`; do not delete the ownership ledger when pausing.
+
+```bash
+python scripts/workshop.py --language en retrieve --provider iq \
+  --question "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" \
+  --output outputs/learner-notes-en/retrieve-iq.json
+```
+
+
+![September 23 English recording: Create the owned GA IQ knowledge source and base](../assets/g6sol-20260923-en/screenshots/E06-004-seed-iq-2.webp)
+
+**What to check:** The seed result now has a non-null `knowledge_base` and `document_count: 6`.
+The **retrieve** result reports the source/base configuration and `api_version: 2026-04-01`.
+Keep the `ledger` file, `outputs/azure-objects.json`, which records ownership.
+
+GA IQ here (REST `2026-04-01`) retrieves the documents without a model inside the knowledge base;
+step 5 sends them to `gpt-6-sol` in a separate call ([model-based IQ](../reference/iq-model-identity.md) is optional).
+
+Verify `provider: foundry-iq`, the base and API version, `references`, `activity` and the original `documents`.
+Reference numbers are not document IDs. **An empty result means no documents were retrieved:** record it; do not invent an amount.
+An IQ error stays an error; it never falls back to ordinary Search.
+
+
+
+![September 23 English recording: GA Foundry IQ retrieval with source references](../assets/g6sol-20260923-en/screenshots/E06-005-iq-2.webp)
+
+**What to check:** Read `activity`, base, API version, `references` and `documents` together.
+Do not fill unreported latency or usage with invented values.
+
+**Save:** `retrieve-iq.json` is written to the same notes directory, including the original documents and activity. Inspect them before answering.
+
+### 5. Send evidence to the real model
+
+```bash
+python scripts/workshop.py --language en answer --prompt v2 --retrieval iq \
+  --question "What procedure is required to book a KRW 170000 hotel for a domestic business trip in September 2026?" \
+  --output outputs/learner-notes-en/answer-iq.json
+```
+
+Retrieval and generation are separated to diagnose failures: a missing policy is
+different from misreading the effective date of a correctly retrieved policy.
+
+
+![September 23 English recording: Send IQ evidence to gpt-6-sol for a validated answer](../assets/g6sol-20260923-en/screenshots/E06-006-answer-iq-2.webp)
+
+**What to check:** Verify the IQ base/API, `response_model`, `response_id`, and `usage`.
+Compare the amount, conditions, and citations in `answer` with the original documents.
+
+**Save:** `answer-iq.json` is written to the same notes directory. Check its complete response and retrieval metadata.
+
+```mermaid
+flowchart LR
+    D["Policies and effective periods"] --> I["Search index"]
+    I --> S["Knowledge source"]
+    S --> K["Knowledge base / GA intents"]
+    K --> E["Document IDs / references / activity"]
+    E --> M["Foundry model + fixed instructions"]
+    M --> A["Structured answer"]
+    E --> V["Evidence hashes and evaluation lineage"]
+    A --> V
+```
+
+**B done:** save the complete outputs as `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`
+and `answer-iq.json` in your Lab 00 notes directory,
+including original IDs, `references`, `activity`, `context_hash` and the ownership ledger.
+Keep the original `outputs/azure-objects.json` in place; a copied output file does not establish object ownership.
+Continue to [Lab 07 B](07-evaluation.md#path-b). That lesson starts a **declared local-retrieval experiment**; it does not reuse this IQ answer as an evaluation result.
 
 <a id="iq-chat-model"></a>
 
-### Optional IQ Chat: open the prepared gpt-5.6-luna chat KB
+## Optional IQ Chat: open the prepared gpt-5.6-luna chat KB
+
+Only if the owner prepared IQ Chat for you (A or B). It uses a separate `gpt-5.6-luna` deployment because Search
+knowledge bases accepted no GPT-6 model on September 23, 2026 ([details](../reference/model-choice.md)).
 
 <details>
 <summary>Optional Preview IQ Chat — requires a prepared chat base and separate cost approval</summary>
@@ -110,173 +278,6 @@ For `configured: false`, missing permissions, a wrong version, 403 or 429, stop 
 A fixed model removes a common configuration mismatch; it cannot guarantee quota or service availability.
 
 </details>
-
-<a id="path-b"></a>
-
-## B. Code: add Search to the shared configuration
-
-### 1. Check instructor preparation
-
-You need an existing Search service with the required tier, region, and authentication;
-`Search Index Data Reader` for readers; and `Search Service Contributor` plus
-`Search Index Data Contributor` for schema/document writers.
-An administrator separately verifies GA retrieval and semantic-ranker usage/billing.
-Set `AZURE_SEARCH_ENDPOINT` and a unique `WORKSHOP_PREFIX`.
-
-Subscription Owner alone does not imply Search data access. Scripts do not create a
-Search service or roles; they create **your prefixed objects inside a prepared service**.
-
-**Choose the ownership situation before seeding.** A new learner copy needs a new, unseeded `mfv2-...` prefix and writer permissions.
-An instructor-prepared copy must already contain the matching `outputs/azure-objects.json`.
-An existing remote index plus an empty local ledger is not ready for a create/update exercise; do not overwrite it.
-`--language en` does not append `-en` to Search names. See [workspace/language changes](../reference/configuration.md#workspace-scope).
-
-### 2. Inspect the small source corpus
-
-```bash
-python scripts/workshop.py --language en retrieve --provider local \
-  --question "What is the domestic business-trip lodging limit for September 2026?" \
-  --output outputs/learner-notes-en/retrieve-local.json
-```
-
-Inspect `documents`, `source_ids`, and `context_hash`. This educational keyword search is not a production semantic search engine.
-If evidence is missing, record the limitation instead of hardcoding answers.
-Keep the selected English question unchanged within this experiment; `--language en` selects English documents.
-
-
-![September 23 English recording: Local keyword retrieval over the six synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-001-local-2.webp)
-
-**What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
-retrieval, not Search/IQ. Check the returned provider, not just configured endpoint names.
-
-**Save:** `retrieve-local.json` is written to your Lab 00 notes directory. Open it and check the original evidence.
-
-### 3. Create an ordinary Search index
-
-**This writes to the cloud.** Verify the prepared service, prefix, and permissions first.
-
-```bash
-python scripts/workshop.py --language en seed-search --confirm-create
-```
-
-| Optional setting | Default object name |
-|---|---|
-| `AZURE_SEARCH_INDEX_NAME` | `<WORKSHOP_PREFIX>-policies` |
-| `AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME` | `<WORKSHOP_PREFIX>-source` |
-| `AZURE_SEARCH_KNOWLEDGE_BASE_NAME` | `<WORKSHOP_PREFIX>-kb` |
-
-Existing objects without your local ownership record are not overwritten.
-If changing prefix after any seeding, use a fresh source copy as well, or ask the instructor to recover the original working copy.
-Do not delete the old ledger. Partial document upload
-failure is not overall success.
-
-
-![September 23 English recording: Create the owned Search index with the synthetic policies](../assets/g6sol-20260923-en/screenshots/E06-002-seed-search-2.webp)
-
-**What to check:** The seed result has `mode: live`, your `index`, `document_count: 6`,
-`hybrid: false`, and `knowledge_base: null`. It created ordinary Search objects, not IQ.
-
-Only after successful seeding, query that index:
-
-```bash
-python scripts/workshop.py --language en retrieve --provider search \
-  --question "What is the domestic business-trip lodging limit for September 2026?" \
-  --output outputs/learner-notes-en/retrieve-search.json
-```
-
-![September 23 English recording: Keyword retrieval from Azure AI Search](../assets/g6sol-20260923-en/screenshots/E06-003-search-2.webp)
-
-**What to check:** Read the result of `--provider search`; verify endpoint/index.
-Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
-
-**Save:** `retrieve-search.json` is written to the same notes directory. Review it before creating the IQ source/base.
-
-### 4. Create a GA IQ knowledge source/base
-
-```bash
-python scripts/workshop.py --language en seed-search --iq --confirm-create
-```
-
-Continue only after the seed output has `document_count: 6` and the intended non-null `knowledge_base`.
-Keep `outputs/azure-objects.json`; do not delete the ownership ledger when pausing.
-
-```bash
-python scripts/workshop.py --language en retrieve --provider iq \
-  --question "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" \
-  --output outputs/learner-notes-en/retrieve-iq.json
-```
-
-Meaning: advance-approval conditions for a KRW 170000 domestic hotel in September 2026.
-
-
-![September 23 English recording: Create the owned GA IQ knowledge source and base](../assets/g6sol-20260923-en/screenshots/E06-004-seed-iq-2.webp)
-
-**What to check:** The seed result now has a non-null `knowledge_base` and `document_count: 6`.
-The **retrieve** result reports the source/base configuration and `api_version: 2026-04-01`.
-Keep the `ledger` file, `outputs/azure-objects.json`, which records ownership.
-
-Default IQ uses **REST `2026-04-01` GA direct intents and extractive retrieval**.
-For this non-web Search-index source, that API does **not support using an LLM inside the KB**.
-The seed command therefore **does not configure a KB model**. This is an API/source boundary, not an API-key authentication requirement.
-The next step generates the answer through a separate model call; that is not a test of Search-to-model MI authentication.
-This does not promise no internal service
-reasoning; read any reasoning activity actually reported.
-
-Retrieval `maxOutputSizeInTokens` is 6000: the recorded GA call required a value above
-5000. This is separate from the answer model's `WORKSHOP_MAX_OUTPUT_TOKENS`.
-
-Verify `provider: foundry-iq`, the actual base/API version, `references`, `activity`,
-and original `documents`. Reference numbers are not stable document IDs.
-Activity errors must not be silently accepted as partial success.
-**An empty result means zero retrieved documents**, not permission to invent an amount.
-IQ failure never automatically becomes Search.
-
-
-
-![September 23 English recording: GA Foundry IQ retrieval with source references](../assets/g6sol-20260923-en/screenshots/E06-005-iq-2.webp)
-
-**What to check:** Read `activity`, base, API version, `references` and `documents` together.
-Do not fill unreported latency or usage with invented values.
-
-**Save:** `retrieve-iq.json` is written to the same notes directory, including the original documents and activity. Inspect them before answering.
-
-### 5. Send evidence to the real model
-
-```bash
-python scripts/workshop.py --language en answer --prompt v2 --retrieval iq \
-  --question "What procedure is required to book a KRW 170000 hotel for a domestic business trip in September 2026?" \
-  --output outputs/learner-notes-en/answer-iq.json
-```
-
-Meaning: steps required before booking that over-limit hotel.
-Retrieval and generation are separated to diagnose failures: a missing policy is
-different from misreading the effective date of a correctly retrieved policy.
-
-
-![September 23 English recording: Send IQ evidence to gpt-6-sol for a validated answer](../assets/g6sol-20260923-en/screenshots/E06-006-answer-iq-2.webp)
-
-**What to check:** Verify the IQ base/API, `response_model`, `response_id`, and `usage`.
-Compare the amount, conditions, and citations in `answer` with the original documents.
-
-**Save:** `answer-iq.json` is written to the same notes directory. Check its complete response and retrieval metadata.
-
-```mermaid
-flowchart LR
-    D["Policies and effective periods"] --> I["Search index"]
-    I --> S["Knowledge source"]
-    S --> K["Knowledge base / GA intents"]
-    K --> E["Document IDs / references / activity"]
-    E --> M["Foundry model + fixed instructions"]
-    M --> A["Structured answer"]
-    E --> V["Evidence hashes and evaluation lineage"]
-    A --> V
-```
-
-**B done:** save the complete outputs as `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`
-and `answer-iq.json` in your Lab 00 notes directory,
-including original IDs, `references`, `activity`, `context_hash` and the ownership ledger.
-Keep the original `outputs/azure-objects.json` in place; a copied output file does not establish object ownership.
-Continue to [Lab 07 B](07-evaluation.md#path-b). That lesson starts a **declared local-retrieval experiment**; it does not reuse this IQ answer as an evaluation result.
 
 ## C. Optional real hybrid RAG
 

@@ -14,7 +14,7 @@
 
 **Continue when:** You can distinguish account, project, deployment and agent, and identify your own endpoint.
 
-**If blocked:** Stop if the project is missing; resolve tenant/RBAC rather than following a similarly named project.
+**If blocked:** Stop and ask the owner to confirm the tenant, project name, your **Foundry User** role and `gpt-6-sol` access. Do not open a similarly named project.
 
 [One-time setup and learner files](../setup.md).
 
@@ -46,20 +46,20 @@ flowchart TD
 
 ## 1. Check the prepared environment
 
-1. Open the current Foundry experience and training project at `https://ai.azure.com`.
-2. Record project name, resource name, and connected model deployment.
-3. Locate agents, models, and evaluation/observability within the same project.
-4. Menu labels vary by language and rollout. Navigate by the **object to verify**,
-   such as "the project's model deployments," rather than memorizing screen coordinates.
-5. If you encounter a classic Hub project or threads/runs code, use the
-   [migration map](../reference/migration.md). Do not combine incompatible APIs.
-
-
+1. Open `https://ai.azure.com` and select your training project. Its name appears at the top, next to **Microsoft Foundry**.
+2. On **Home**, find **Project endpoint** and select its copy icon. Paste it into the `Full project endpoint:` line of `session-notes.txt`.
+3. On the same page, select **View deployments** and find the **`gpt-6-sol`** row. Close the list when you have seen it.
+4. Select **Build** in the top bar (not the **Start building** button). In the left menu, find **Agents**, **Models**, **Knowledge** and **Evaluations**:
+   they all belong to this one project. Menu labels can differ by language or rollout; look for the same objects.
 
 ![September 23 English recording: Distinguish the project endpoint from the account OpenAI endpoint](../assets/g6sol-20260923-en/screenshots/EP01-001-endpoints-2.webp)
 
-**What to check:** **View deployments** opens model deployments; **Start building**
-starts agent creation. They are distinct assets even inside the same project.
+**What to check:** the **Project endpoint** ends with `/api/projects/<project>`; the **Azure OpenAI endpoint** beside it
+ends with `.openai.azure.com` and is a different endpoint. **View deployments** opens model deployments and
+**Start building** creates an agent: they are different assets in the same project.
+The `gpt-6-sol` row shows version **`2026-09-22`** and **Succeeded**; `gpt-6-sol-judge` is the separate evaluation deployment.
+
+If you see a classic Hub project or threads/runs code instead, stop and use the [migration map](../reference/migration.md).
 
 <a id="4-do-not-confuse-endpoints"></a>
 
@@ -76,9 +76,15 @@ Keep `/api/projects/<project>` in the project endpoint. The project SDK handles
 authentication and endpoints for default inference. Do not silently redirect to
 another endpoint or guess a different token audience.
 
-**A done:** add the four-object sketch and your actual project endpoint to `session-notes.txt`.
-Explain which knowledge/instructions must be rechecked when replacing a model, then continue to [Lab 02 A](02-models.md#path-a).
-You do not create resources or assign roles in this prepared-project exercise.
+## Write your sketch and explanation
+
+In the **Lab 01** section of `session-notes.txt`, write:
+
+1. The chain with your own names: `Foundry resource <account> → project <project> → deployment gpt-6-sol → agent (Lab 03)`.
+2. This sentence: `Replacing the model means rechecking the agent's instructions, knowledge, evaluation and permissions.`
+
+**A done:** the **Lab 01** section has your chain and sentence, and the `Full project endpoint:` line is filled in.
+Continue to [Lab 02 A](02-models.md#path-a). You do not create resources or assign roles in this prepared-project exercise.
 
 <details>
 <summary>Owner reference only — resource creation and role assignments are not learner steps</summary>

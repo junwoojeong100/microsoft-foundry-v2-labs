@@ -2,46 +2,51 @@
 
 **English** | [한국어](ko/setup.md)
 
-**Do this once before Lab 00.** The guide can explain every lab step, but it cannot grant an Azure subscription,
-permissions, model quota or billing approval. If you already have the checked items below, no instructor needs to operate the labs for you.
+**Do this once before Lab 00.** The labs explain every step, but only an Azure owner can grant the subscription,
+permissions, model quota and billing approval.
 
 ## 1. Choose your starting point
 
 | Your situation | Do this |
 |---|---|
-| A training environment is ready | Follow **1 → 2 → 3 → 4** on this page; do not open owner preparation |
+| A training environment is ready | Follow sections **1 → 2 → 3 → 4** on this page |
 | You own an Azure subscription but have no environment | Complete [owner preparation](#4-environment-owner-checklist), then return to section 2 |
-| You have no Azure permission/quota yet | Use only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal). Record cloud labs as not run |
+| You have no Azure permission or quota yet | Run only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run** |
 
-Do not follow A, B and C simultaneously. **First-time users choose A** in [Learning paths](paths.md).
-A uses the browser until the prepared MAF step in Lab 05; B/C add code and optional deployment/evaluation.
-Keep one language for the whole pass. Switching languages changes the input bundle and requires new run labels, not reuse of the other language's scores.
-After Search objects have been seeded, also use a new source copy and owned prefix; a new label alone cannot change the existing ownership scope.
+**Choose one route for the whole pass:** **A** if you are new to Azure or agents (browser steps and one prepared
+command in Lab 05), or **B** if you are comfortable with Python and APIs. [Compare the routes](paths.md).
+Keep one language for the pass: English and Korean use different input files, so switching needs new run labels.
 
 ## 2. Fill this environment card
 
-The owner supplies actual values, not values copied from a recording. Save them in
-`session-notes.txt`: A gets it from the learner ZIP; B copies it from the source repository in Lab 00.
-No passwords, keys or tokens belong in this card.
-Fill only the rows required for your selected route; optional fields do not block the first pass.
+Your instructor or environment owner gives you these values. Write them in `session-notes.txt`:
+A finds that file in the learner ZIP (section 3); B copies it from the source repository in Lab 00.
+Never write passwords, keys or tokens in the card.
 
-| Value | Needed for | Where to get it / required choice |
+| Value | Needed for | Where to get it |
 |---|---|---|
-| Azure tenant and subscription IDs | A/B | Azure portal → Subscriptions / directory |
-| Foundry account, project and resource group | A/B | Your training project's resource details |
-| Full project endpoint | A's prepared terminal / B | Foundry project home; retain `/api/projects/<project>` |
-| **Answer deployment** | A/B | **`gpt-6-sol`**, underlying model of the same name, version **`2026-09-22`** for this dated workshop preset (September 23, 2026) |
-| Prefix | A/B | Must start with **`mfv2-`**; use lowercase letters/digits and single hyphens, no trailing hyphen, maximum 32 characters total. Example: `mfv2-team01-en-0917` |
-| Code environment | A Lab 05 / all B code | Repository folder, Python 3.13, activated `.venv`, learner's own Azure sign-in |
-| Search endpoint | B Lab 06 / optional IQ Chat | Existing training Search service; not required for A's inline source checks |
+| Azure tenant and subscription IDs | A and B | Azure portal → Subscriptions / directory |
+| Foundry account, project and resource group | A and B | Your training project's resource details |
+| Full project endpoint | A's Lab 05 terminal and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
+| **Answer deployment** | A and B | **`gpt-6-sol`**, model version **`2026-09-22`** |
+| Prefix for your objects | A and B | Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters. Example: `mfv2-team01-en` |
+| Code environment | A's Lab 05 (prepared for you) and B | Repository folder, Python 3.13, activated `.venv`, your own Azure sign-in |
+| Search endpoint | B's Lab 06 | The prepared Search service: `https://<search>.search.windows.net` |
+
+<details>
+<summary>Optional rows — only if IQ Chat or Hosted serving was selected for you</summary>
+
+| Value | Needed for | Where to get it |
+|---|---|---|
 | Account OpenAI endpoint | Optional IQ Chat / advanced account API | `https://<your-account>.openai.azure.com`; same account as the project |
 | IQ chat base | Optional IQ Chat only | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
-| Hosted inputs | Optional local/remote hosting only | Actual project ARM ID and location code, owned agent name, an empty standalone local directory and required approvals; **not needed to package** |
+| Hosted inputs | Optional local/remote hosting only | Project ARM ID and location code, owned agent name, an empty standalone local directory and approvals; **not needed to package** |
 
-**Model choice is not a learner experiment on the first pass.** Use `gpt-6-sol`, not its `-judge` deployment, another listed model or a router.
-If this exact deployment/version is unavailable, the owner must resolve availability or explicitly revalidate another edition.
-The code never silently selects a replacement. A fixed model prevents a common mismatch; it cannot guarantee service uptime or quota.
-[Why `gpt-6-sol`](reference/model-choice.md): on September 23, 2026 it passed the checked agent paths and the recorded main A/B steps; `gpt-6-luna` failed on the agent path.
+</details>
+
+**Use exactly `gpt-6-sol`.** Do not pick `gpt-6-sol-judge`, another listed model or a router.
+If the deployment or its version is missing, stop and ask the owner to fix it; the code never switches models.
+[Why this model](reference/model-choice.md).
 
 ## 3. Download the ready learner materials
 
@@ -84,7 +89,7 @@ Empty templates are not completed evidence. Nothing in this ZIP installs a code 
 - [ ] For B, Search access and owned-object creation costs are approved. For A, IQ Chat is **not selected** unless separately prepared.
 - [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
 
-If a required box is not ready, stop at that preparation step; do not substitute a fixture for a live result.
+If a required box is not ticked, stop and finish that preparation first. An offline fixture never replaces a live result.
 **Ready: [A → Lab 00 browser](labs/00-start.md#path-a) · [B → Lab 00 code](labs/00-start.md#path-b).**
 The owner reference below is not another learner step.
 
@@ -113,7 +118,7 @@ If you are learning alone, you are also the environment owner. These are prepara
    On the model's Foundry account, give **the Search identity** `Cognitive Services User`.
    A role assigned to the user or Hosted agent does not grant it to Search.
 6. Complete [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment), including `.env`, before running the owner commands below.
-   That same setup is the self-service route if no prepared MAF terminal is available for Lab 05.
+   The same setup, followed by [Lab 02 B](labs/02-models.md#path-b), is the self-service route if no prepared terminal is available for Lab 05.
 
 For an IQ Chat learner, **Reader on Search** allows inspection of service/object definitions,
 and **Search Index Data Reader** allows retrieval; these are separate from the model-account Reader above.

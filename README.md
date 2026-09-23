@@ -4,21 +4,19 @@
 
 ## Start here
 
-**First visit: [complete the setup card](docs/setup.md), then follow [A. Beginner](docs/paths/a-beginner.md).**
-Build one travel-policy assistant using only the supplied synthetic data.
-You do not need to read the background, watch a video, or choose an advanced module first.
+**1. Complete [the setup card](docs/setup.md). 2. Choose one route below. 3. Follow that route page from Lab 00.**
+You build one travel-policy assistant with the supplied synthetic data only.
+Background reading, videos and advanced modules are optional.
 
-| Choose one route | What to do | Finish with |
-|---|---|---|
-| **A — first time with Azure or agents** | Browser steps plus one command in a prepared MAF terminal; no Python authoring | Your agent, six-question assessment, workflow review and cleanup handoff |
-| **[B — comfortable with Python and APIs](docs/paths/b-practitioner.md)** | SDK, tools, workflows, GA Search/IQ, controlled evaluation and local packaging | Reproducible real run records; remote hosting and cloud judges remain optional |
+| Route | Choose it if | You do | You finish with |
+|---|---|---|---|
+| **[A — Beginner](docs/paths/a-beginner.md)** | You are new to Azure or agents | Browser steps and one command in a prepared terminal; no Python writing | Your agent, a six-question assessment, a workflow review and a cleanup handoff |
+| **[B — Implementation](docs/paths/b-practitioner.md)** | You are comfortable with Python and APIs | SDK calls, tools, workflows, Search/IQ, a controlled evaluation and local packaging | Saved run records and an acceptance report |
 
-**A:** setup includes the small **learner ZIP** and ready-to-fill evidence files.
-**B:** use the **source repository ZIP**; Lab 00 copies its included note templates, so no second ZIP is needed.
-The learner ZIP does not contain a code environment.
-If no terminal was supplied for A's Lab 05, complete [Lab 00 B](docs/labs/00-start.md#path-b) before class.
-Allow **4 hours for A / 6 hours for B after preparation**; account, installation, permissions and quota waits are extra.
-Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and record cloud work as **not run**.
+**Time:** 4 hours for A and 6 hours for B, after the environment is prepared.
+**Files:** A uses the small learner ZIP from the setup card. B uses the source repository ZIP; no second ZIP is needed.
+**A's Lab 05 needs a prepared terminal.** If none was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
+**No Azure access yet?** Run only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run**.
 
 Already completed the core route: [C. Advanced modules](docs/paths/c-advanced.md).
 Preparing a class: [Instructor guide](docs/instructor.md). Returning from the old edition: [Migration map](docs/reference/migration.md).

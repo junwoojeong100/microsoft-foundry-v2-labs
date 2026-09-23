@@ -10,11 +10,11 @@
 
 **This pass:** A runs one sequential command in a prepared terminal; B compares three patterns. The deployable wrapper is advanced.
 
-**Need:** An activated Lab 00 B environment, even for A. If none was supplied, complete that setup once and return here.
+**Need:** A prepared, activated terminal at the repository root, even for A. If none was supplied, complete Lab 00 B and Lab 02 B once, then return here.
 
 **Continue when:** Actual MAF outputs and a human review note exist; pending-human-review is not approval.
 
-**If blocked:** Do not substitute portal Workflow Designer or manually pasted agent answers for the command.
+**If blocked:** Ask the owner to check that the terminal is at the repository root with `.venv` active, `.env` filled and your own Azure sign-in, and that Lab 02 B's model request works there. Do not substitute portal Workflow Designer or pasted agent answers.
 
 [One-time setup and learner files](../setup.md).
 
@@ -49,23 +49,23 @@ flowchart LR
 The command stops at the JSON output. You review that output yourself; there is no automatic
 reject-and-rerun loop or approval action hidden behind the diagram.
 
-### 1. Run one sequential command
+### 1. Run the prepared sequential workflow
 
 Confirm the prepared terminal is at the repository root. This command makes real,
-billable Azure model calls within the instructor's budget.
+billable Azure model calls within the instructor's budget. Run this block: it creates `outputs/` if needed, then prints the result and saves it to `outputs/workflow-a-sequential.json`.
 
 ```bash
-python scripts/workshop.py --language en workflow --pattern sequential --question "My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking."
+mkdir -p outputs
+python scripts/workshop.py --language en workflow --pattern sequential --question "My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking." --output outputs/workflow-a-sequential.json
 ```
 
-Meaning: a domestic hotel costs KRW 170000 in September 2026; explain the applicable
-limit and the steps required before booking.
+If that file already exists, open it: use it only if it is your own run with this question; otherwise change the file name in `--output` and run again.
 
 
 ![September 23 English recording: A's one prepared sequential workflow command](../assets/g6sol-20260923-en/screenshots/E05-001-prepared-2.webp)
 
-**What to check:** Read the last command's `pattern: sequential` and `outputs`.
-This is a terminal-executed MAF result, not portal Workflow Designer activity.
+**What to check:** the output shows `mode: live`, `pattern: sequential` and `outputs`.
+This is a MAF run in the terminal, not portal Workflow Designer activity. The recording ran the same command without `--output`.
 
 ### 2. Read the actual output
 
@@ -76,14 +76,15 @@ This is a terminal-executed MAF result, not portal Workflow Designer activity.
 | `approval_status: pending-human-review` | Model review has not become human approval |
 | `external_actions_performed: false` | No actual booking/payment |
 
-Read the complete JSON output and compare its source IDs with the learner ZIP's policies.
-In the learner ZIP's blank `workflow-review.txt`, save the command, actual output, cited policy IDs,
-and your review: what is correct, what needs correction, and why. This is review of guidance, not business approval.
-A historical-date rerun is optional; one reviewed sequential run completes A.
+Open `outputs/workflow-a-sequential.json` in the editor and compare its source IDs with the learner ZIP's policies.
+Copy the command and the whole file into the learner ZIP's blank `workflow-review.txt`, then write your review:
+what is correct, what needs correction, and why. This reviews guidance; it is not business approval.
+One reviewed sequential run completes A.
 
 
-**What to check:** The KRW 170000 request needs prior approval under the applicable policy.
-Keep `approval_status: pending-human-review` and `external_actions_performed: false` in the saved output.
+**What to check:** the saved output says the KRW 170000 hotel exceeds the KRW 150000 limit and needs approval before booking,
+and cites `TRAVEL-2026` and `APPROVAL-01` (a missing ID is a finding for your review).
+It keeps `approval_status: pending-human-review` and `external_actions_performed: false`.
 
 ### 3. Determine completion
 
@@ -114,7 +115,7 @@ Each command saves its full JSON through `--output`; you still write the separat
 Branches, persisted state, and durable approval are not automatically migrated.
 Explicitly design business state, errors, and retries in code.
 
-### 1. Sequential: each stage feeds the next
+### 1. Run the sequential pattern: each stage feeds the next
 
 ```bash
 python scripts/workshop.py --language en workflow --pattern sequential \
@@ -132,7 +133,7 @@ automatically remove an earlier evidence error.
 
 **Save:** `workflow-sequential.json` is written to your Lab 00 notes directory. Open it before changing patterns.
 
-### 2. Concurrent: independent views of the same input
+### 2. Run the concurrent pattern: independent views of the same input
 
 ```bash
 python scripts/workshop.py --language en workflow --pattern concurrent \
@@ -153,7 +154,7 @@ Compare them rather than treating them as an agreed answer.
 
 **Save:** `workflow-concurrent.json` is written to the same notes directory. Compare the participant outputs.
 
-### 3. Group Chat: shared discussion with a stopping rule
+### 3. Run the Group Chat pattern: shared discussion with a stopping rule
 
 ```bash
 python scripts/workshop.py --language en workflow --pattern group-chat \

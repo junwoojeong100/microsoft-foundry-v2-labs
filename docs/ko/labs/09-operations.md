@@ -10,7 +10,7 @@
 
 **이번 순서:** A는 브라우저 네 확인과 정리 목록을 완료합니다. B는 본인 이력을 대조하고 matrix 명령은 심화 워크북 이후에만 씁니다.
 
-**준비물:** 본인 agent/version과 output label. 실제 trace 접근은 추가 선행 조건이며 자동으로 주어지지 않습니다.
+**준비물:** A: 본인 에이전트와 버전, 증거 파일. B: 본인 output label. 추적 접근은 선택입니다.
 
 **다음으로 갈 기준:** 사용 버전·근거·비용·본인 정리 대상을 구분하며 공유 리소스를 삭제하지 않습니다.
 
@@ -24,15 +24,19 @@
 
 모델을 다시 호출하지 말고 **본인의 기존 결과**로 다음 네 항목을 확인합니다.
 
-1. **Agents → Lab 03의 본인 agent**에서 이름·버전·모델을 평가표와 대조합니다. 녹화의 버전을 고르지 않습니다.
-2. **Instructions / Tools / Knowledge**에서 합성 원문 6개 또는 선택한 File Search/IQ 연결을 확인합니다.
-   승인하지 않은 Web Search·회사 연결이 없어야 합니다.
-3. 본인의 **6행 평가표**와 `workflow-review.txt`를 엽니다. 수동 평가와 실제 native 실행을 구분합니다.
-   Trace를 볼 수 있으면 기존 요청과 대조하고, 없다면 오류 0개가 아니라 **trace 미확인**으로 적습니다.
+1. 왼쪽 메뉴의 **에이전트**에서 Lab 03의 본인 에이전트를 엽니다. **세부 정보** 탭에서 이름·버전·모델을
+   Lab 07에서 평가한 버전과 대조합니다.
+2. **플레이그라운드** 탭의 **지침**·**도구**·**지식**에서 합성 원문 6개(또는 선택한 File Search/IQ 연결)를 확인합니다.
+   승인하지 않은 웹 검색·회사 연결이 없어야 합니다.
+3. 본인의 6행 평가표와 `workflow-review.txt`를 열고 위치를 적습니다. 이 평가표는 수동 검토이며 Foundry 평가 실행이 아닙니다.
+   **추적** 탭을 열 수 있으면 저장한 요청 하나를 찾고, 없다면 “오류 없음”이 아니라 **trace 미확인**으로 적습니다.
 4. [정리 체크리스트](../reference/cleanup.md)로 본인 agent·선택 파일/chat base·session을 목록화합니다.
    공유 서비스는 **담당자 관리**로 표시하고 잔여 비용과 승인된 자산별 중지/삭제 담당자를 확인합니다.
 
 학습자 ZIP의 빈 `operations-checklist.txt`에 네 결과를 채웁니다.
+
+**화면 확인:** `operations-checklist.txt`의 1–4번에 본인 agent와 버전, 결과 위치, 본인이 소유한 자산,
+**담당자 관리**로 표시한 공유 서비스, 남는 비용의 담당자가 적혀 있습니다.
 **A 완료:** [Lab 11 A](11-capstone.md#path-a)로 이동합니다. 새 모델·trace·matrix 명령은 필요 없습니다.
 아래 표는 본인 권한으로 보이는 자산에 한한 선택적인 추가 검토입니다.
 
@@ -42,7 +46,7 @@
 | 모델 배포·quota | 모델 이름, 실제 배포, 용량 제한을 구분했는가? |
 | 도구·지식 연결 | 어느 데이터와 외부 시스템에 접근하는가? |
 | 평가 결과 | 어떤 데이터와 evaluator로 측정했는가? |
-| Trace/Monitor | 실패한 요청의 처리 흐름을 찾을 수 있는가? |
+| 추적/모니터링 | 실패한 요청의 처리 흐름을 찾을 수 있는가? |
 | 비용·사용량 | 모델뿐 아니라 Search·session·로그 비용도 있는가? |
 | 보안/거버넌스 설정 | 누가 호출·변경·배포·승인할 수 있는가? |
 
@@ -64,13 +68,17 @@ Fleet/관리 메뉴가 보이지 않으면 역할 범위상 정상일 수 있습
 - 검색: provider, 문서 ID, IQ references/activity.
 - 결과: 정상/오류, token usage, latency.
 
-여기 있는 request/response ID는 **자동으로 Azure Monitor trace가 되지 않습니다.**
-`trace_id: null`, `trace_export: not-configured`이면 그렇게 보고해야 합니다.
+사용한 실행 label과 ID를 `outputs/learner-notes-ko/operations-checklist.txt`의 3번에 적습니다.
+
+**화면 확인:** 성공한 모든 응답 행에 `response_id`가 있고, 오류 행은 오류 필드를 유지한 채 그대로 집계됩니다.
+Tracing을 설정하지 않았다면 `trace_id`는 `null`, `trace_export`는 `not-configured`로 남습니다.
+response ID가 저절로 Azure Monitor trace가 되지는 않습니다.
 
 ### 2. 실제 실패 또는 전체 통과 결과 설명
 
 기존 dev 응답을 사용합니다. 모델/요청 오류·도구 오류·근거 누락·잘못된 규정 적용을 구분합니다.
-어떤 identity가 어느 서비스에 접근했는지와 실제 request/response ID를 적습니다.
+`operations-checklist.txt`의 3번에 서비스마다 한 줄씩 적습니다. 예:
+`모델: 내 Azure CLI 사용자, response resp_…` · `Search: 내 Azure CLI 사용자, prefix mfv2-…` · `Hosted: 미실행`.
 모두 통과했다면 그 사실과 남은 한계를 기록하며 실패를 만들지 않습니다.
 변경은 [Lab 07](07-evaluation.md#path-b)의 dev로만 검토하고 노출된 holdout은 사용하지 않습니다.
 
@@ -81,7 +89,10 @@ python scripts/workshop.py cleanup-plan
 ```
 
 이 명령은 **목록과 절차만 출력하며 삭제하지 않습니다**.
-`operations-checklist.txt`에 본인 객체·공유 서비스·승인된 담당자 작업·남은 비용을 구분해 적습니다.
+`operations-checklist.txt`의 4번에 본인 객체·공유 서비스·승인된 담당자 작업·남은 비용을 구분해 적습니다.
+
+**화면 확인:** 출력에 `deletes_resources: false`와 본인 prefix의 Search 객체 목록이 있습니다.
+나머지 항목은 agent·배포·Search·로그를 직접 점검하는 목록입니다.
 별도로 승인된 작업은 [정리](../reference/cleanup.md)를 따릅니다.
 
 **B 완료:** 본인 이력·실패/전체 통과 검토·정리 목록을 저장했습니다.
@@ -105,13 +116,13 @@ python scripts/workshop.py cleanup-plan
 5. 보존 정책과 권한을 확인하고, 필요 이상의 원문을 export하지 않습니다.
 
 
-![2026-09-23 국문 녹화: 기록된 agent 요청의 추적](../../assets/g6sol-20260923-ko/screenshots/KP09-002-traces-2.webp)
+![2026-09-23 국문 녹화: 기록된 에이전트 요청의 추적](../../assets/g6sol-20260923-ko/screenshots/KP09-002-traces-2.webp)
 
-**화면 확인:** 본인 에이전트의 **Traces → Trace view**에서 날짜 범위와 agent version을 먼저 확인합니다.
+**화면 확인:** 본인 에이전트의 **추적** 탭 → **추적 보기**에서 **날짜 범위**와 에이전트 버전을 먼저 확인합니다.
 최신 행이라는 이유만으로 방금 보낸 요청이라고 판단하지 않습니다.
 
 
-**화면 확인:** 검색칸에 실제 Trace ID를 넣고 정확히 같은 ID의 행을 엽니다.
+**화면 확인:** 검색칸(**추적 ID, 대화 ID 또는 응답 ID로 검색**)에 실제 추적 ID를 넣고 정확히 같은 ID의 행을 엽니다.
 `response_id`, conversation ID, Trace ID는 서로 다른 값입니다.
 
 
@@ -136,8 +147,6 @@ python scripts/workshop.py cleanup-plan
 자동 trace-to-dataset 기능은 Preview이므로 이 기본 경로의 필수 조건이 아닙니다.
 
 
-이번 실행에서는 CLI 인자 충돌, API query 누락 가능성, embedding API 404,
-App Insights 인증 오류, idle 세션 stop 충돌을 구분해 보존하고 수정했습니다.
 서비스 실행 오류와 native 평가자의 낮은 점수를 같은 실패로 합치지 않습니다.
 
 </details>
@@ -214,7 +223,7 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 
 2026-09-23 `gpt-6-sol` / `2026-09-22` 국문 녹화 화면입니다. 본인의 리소스 이름·버전·결과를 사용합니다.
 
-![2026-09-23 국문 녹화: Agent 세부 정보: 이름·저장 버전·모델](../../assets/g6sol-20260923-ko/screenshots/KP09-001-details-2.webp)
+![2026-09-23 국문 녹화: 에이전트 세부 정보: 이름·저장 버전·모델](../../assets/g6sol-20260923-ko/screenshots/KP09-001-details-2.webp)
 
 **화면 확인:** 세부 정보에서 agent 이름·저장 버전·`gpt-6-sol`을 평가표와 대조합니다.
 

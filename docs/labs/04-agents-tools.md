@@ -20,7 +20,7 @@
 
 <a id="path-b"></a>
 
-## 1. Agent without tools
+## 1. Run an agent without tools
 
 Run from the repository root with `.venv` active. All three commands make billable model calls.
 Each successful command saves its complete JSON as `maf-none.json`, `maf-function.json` or `maf-mcp.json`
@@ -48,11 +48,10 @@ Open `src/foundry_workshop/agents.py` and locate:
 2. `Agent`: the name, instructions, tools, and execution options.
 3. `agent.run()`: the actual model request.
 
-Creating an `Agent` object does not automatically register a managed portal agent.
-This one belongs to your Python process. Compare it with
-`project.agents.create_version()` in [Lab 03](03-prompt-agent.md).
+Creating an `Agent` object does not register a managed portal agent; this one belongs to your Python process.
+(Optional: Lab 03's [SDK branch](03-prompt-agent.md#b-optional-sdk-branch-managed-prompt-agent-versus-local-maf) shows the managed alternative, `project.agents.create_version()`.)
 
-## 2. Read-only function tool
+## 2. Add a read-only function tool
 
 ```bash
 python scripts/workshop.py --language en maf --tools \
@@ -60,8 +59,7 @@ python scripts/workshop.py --language en maf --tools \
   --output outputs/learner-notes-en/maf-function.json
 ```
 
-Meaning: may I book a KRW 170000 domestic hotel in September 2026; what limit and
-procedure apply? `lookup_policy` reads only bundled synthetic JSON, not the Internet
+`lookup_policy` reads only bundled synthetic JSON, not the Internet
 or a company API. Its `@tool` name, docstring, and types describe usage to the model.
 The program validates model-supplied arguments again.
 
@@ -102,7 +100,6 @@ python scripts/workshop.py --language en maf --mcp \
   --output outputs/learner-notes-en/maf-mcp.json
 ```
 
-Meaning: what is the per-night domestic lodging limit in May 2026?
 The client starts `examples/mcp_server.py` using **the same venv's Python**.
 No separate server terminal, public URL, or API key is needed. Transport is stdio;
 the context manager cleans up the connection. Extra stdout logging can break MCP JSON-RPC.

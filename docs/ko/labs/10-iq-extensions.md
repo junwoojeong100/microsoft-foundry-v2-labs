@@ -6,10 +6,6 @@
 
 다음: A/B → [Lab 11](11-capstone.md) · 선택 선행: [Lab 06](06-knowledge.md) · [학습 경로](../paths.md)
 
-**2026-09-15 보강:** 단계별 준비·Toolbox 결합·Fabric 자산별 인증·Work IQ federated app·
-Hosted OBO 확인은 [이 저장소의 IQ 확장 워크북](../reference/iq-workbook.md)에서 진행합니다.
-외부 원본 저장소의 clone은 필요하지 않으며 실제 회사/M365 연결은 이번 기본 경로에서 수행하지 않습니다.
-
 ## 시작 전
 
 **이번 순서:** 선택 확장입니다. A/B는 이 모듈 없이 Lab 11에서 끝낼 수 있습니다.
@@ -47,7 +43,7 @@ app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습�
 기본 실습에는 번들 정책 원본만 있으며 분기별 분석·회의 dataset은 제공하지 않습니다.
 Fabric과 Work IQ는 **설계만 / 미실행**으로 표시하고 응답 JSON이나 회사 데이터를 만들어 넣지 않습니다.
 
-**확인:** 이 과제의 결과는 본인의 설계 기록입니다. 연결 상태 flag를 출력하거나 실제 연결을 입증하는 명령은 없습니다.
+**화면 확인:** 이 과제의 결과는 본인의 설계 기록입니다. 연결 상태 flag를 출력하거나 실제 연결을 입증하는 명령은 없습니다.
 선택한 범위가 설계뿐이면 여기서 멈추고 [Lab 11](11-capstone.md)로 이동합니다.
 
 <details>
@@ -105,6 +101,8 @@ M365 Copilot 보유 여부만으로 위 조건을 충족했다고 판단하지 �
 
 Web IQ와 일반 Web Search를 같은 기능으로 표시하지 않습니다.
 도구가 등록되었다는 것과 실제 권한으로 올바른 결과를 받았다는 것도 구분합니다.
+`FoundryToolbox`는 prerelease hosting 패키지에 속하며 upstream 프로젝트 연결을 만들지 않습니다.
+실제 수명 주기·자격 증명·Fabric·Work IQ 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)을 확인합니다.
 
 ## 5. Richer IQ Preview — GA 코드와 분리
 

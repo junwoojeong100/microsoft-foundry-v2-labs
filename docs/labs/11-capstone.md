@@ -10,11 +10,11 @@
 
 **This pass:** A submits the learner worksheet plus agent/workflow/source/cleanup evidence. B/C use only the acceptance command for the path actually run.
 
-**Need:** Your own completed earlier outputs, not copied scores or recordings.
+**Need:** The files you saved in the earlier labs.
 
 **Continue when:** Another learner can identify what ran, with which inputs, and what remains unverified.
 
-**If blocked:** Do not run an acceptance command for absent labels or treat a model review as human approval.
+**If blocked:** Record a missing file or stage as **incomplete** in `session-notes.txt` and still hand over the cleanup owner. Do not send new Azure requests to fill gaps.
 
 [One-time setup and learner files](../setup.md).
 
@@ -55,8 +55,16 @@ A complete assessment may contain business failures. Missing answers, request er
 record that outcome in **Lab 07 A** of `session-notes.txt`, preserve the existing files and still hand over cleanup ownership.
 Do not invent responses or repeat paid calls just to fill the folder.
 A does **not** run the B/C acceptance commands below or open holdout.
-**A done:** complete the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
-No optional module or new Azure request is needed to submit these files.
+Before you hand over, tick these five checks:
+
+- [ ] Each file in the table opens and meets its completion check.
+- [ ] `assessment-baseline.csv` has all six rows, including failures.
+- [ ] `workflow-review.txt` has the complete output and your review.
+- [ ] `operations-checklist.txt` names who stops or deletes each asset you own.
+- [ ] The folder contains no `.env`, password, key or token.
+
+**A done:** hand the folder over through the agreed class channel (for self-study, keep it),
+then follow [Cleanup](../reference/cleanup.md) for the assets you own.
 
 <a id="path-b"></a>
 
@@ -112,7 +120,7 @@ Do not transfer local project Responses quality scores to a different Hosted pat
 **What to check:** Read `candidate_grade`, `holdout_grade`, `business_gate_passed`,
 and `recommendation` (`ready-for-human-review` or `reject`).
 `deployment_approved: false` and `cloud_judge_results_included: false` are explicit limits, not missing approvals to bypass.
-The recorded holdout was already exposed teaching data, not a fresh unseen test.
+This holdout is public teaching data that learners have already seen, not a fresh unseen test.
 
 <a id="incomplete-handoff"></a>
 

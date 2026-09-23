@@ -71,7 +71,8 @@ python scripts/package_hosted.py
 
 **B 완료:** `cloud_deployed: false`인 `.build/hosted/package-manifest.json`을 보관합니다.
 로컬 호출·원격 배포는 **미실행**으로 적고 [Lab 09 B](09-operations.md#path-b)로 이동합니다.
-패키지가 이미 있다면 manifest부터 확인합니다. 재빌드가 필요하면 그 정확한 생성 폴더를 다른 이름으로 보관하고 소스·outputs·azd 상태는 삭제하지 않습니다.
+패키지가 이미 있다면 manifest부터 확인합니다. 다시 만들려면 먼저 그 폴더 이름만 바꿉니다. 예:
+`mv .build/hosted .build/hosted-previous` 후 패키지 명령을 다시 실행합니다. 소스·outputs·azd 상태는 삭제하지 않습니다.
 
 <details>
 <summary>선택 로컬/원격 단일 agent 실행 — 해당 시작 게이트를 충족할 때만 펼칩니다</summary>

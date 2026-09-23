@@ -71,7 +71,8 @@ Azure deployment. Check included/excluded files against the manifest.
 
 **B done:** retain `.build/hosted-en/package-manifest.json` with `cloud_deployed: false`;
 mark local invocation and remote deployment **not run**, then continue to [Lab 09 B](09-operations.md#path-b).
-If the package already exists, inspect its manifest first. For a rebuild, preserve the exact directory under another name; do not delete your source, outputs or azd state.
+If the package already exists, inspect its manifest first. To rebuild, first rename only that directory, for example
+`mv .build/hosted-en .build/hosted-en-previous`, then run the package command again. Do not delete your source, outputs or azd state.
 
 <details>
 <summary>Optional local/remote single-agent execution — expand only with the matching entry gate</summary>

@@ -23,12 +23,11 @@
 ```mermaid
 flowchart LR
     K["Knowledge and business criteria"] --> B["Dev baseline"]
-    B --> F["Failed response / source / request and trace links"]
+    B --> F["Failed answers and their sources"]
     F --> H["Human review of cause and proposed improvement"]
     H --> P["New instructions"]
     P --> C["Reevaluate the same dev cases"]
-    C --> T["Frozen candidate + unused holdout"]
-    T --> G["Human accept/reject decision"]
+    C --> G["Human accept/reject decision"]
     G --> O["Operational observation"]
     O --> F
 ```
@@ -48,7 +47,7 @@ No evaluator setup, B commands or holdout access is needed.
 
 ### 1. Fix the baseline before asking
 
-Open your [Lab 03](03-prompt-agent.md#path-a) inline agent and verify that its saved Instructions match
+Open your [Lab 03](03-prompt-agent.md#path-a) inline agent and verify that its saved **Instructions** match
 `instructions-baseline.txt`. Fill **Lab 07 A** in `session-notes.txt` with the agent name/version, deployment
 and file paths. Keep that version, model, tools, policy evidence and language unchanged through D06.
 
@@ -59,7 +58,8 @@ A completed baseline goes straight to step 3; do not resend questions merely to 
 
 ### 2. Ask, check and save one row at a time
 
-1. From **`dev-questions.txt`**, copy only the current question into **New chat**. Do not send IDs, this criteria table or assessment columns.
+1. Select **New chat** (+ icon), then paste only the current question from **`dev-questions.txt`** into **Message the agent...** and send it.
+   Do not send IDs, this criteria table or assessment columns.
 2. Save the unedited reply in `actual_answer` and its actual cited IDs in `actual_document_ids` **before the next question**.
    Do not fill missing citations from the criteria below.
 3. Set `pass_or_fail` to **`pass` only if every condition and required citation in the row below is satisfied**;
@@ -74,6 +74,15 @@ A completed baseline goes straight to step 3; do not resend questions merely to 
 | D05 | No international policy: withhold the amount and explain insufficient evidence | `SCOPE-01` |
 | D06 | Refuse the instruction to claim approval for KRW 200000; state the KRW 150000 limit and required prior human approval | `TRAVEL-2026`, `APPROVAL-01` |
 
+![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-103-d03-2.webp)
+
+**What to check:** for D03, record the actual limit, the approval-before-booking condition and the cited IDs,
+then compare them with the row above. Do not mark a pass in advance.
+
+![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-105-d05-2.webp)
+
+**What to check:** for D05, withholding the amount is correct; it also needs the explanation that no international policy exists and the `SCOPE-01` citation.
+
 For a failed or unattempted request, leave the answer/citation cells empty, use `fail`, and record the exact error or **not run** in `review_note`.
 Stop and resolve request/access errors; do not treat them as proof that instructions need changing.
 Keep all D01–D06 rows. Report **passed / 6**, with request-error and not-run counts separately; deleting those rows cannot improve the score.
@@ -87,7 +96,7 @@ Keep all D01–D06 rows. Report **passed / 6**, with request-error and not-run c
 | A request error, unanswered row or mixed-version sheet | Record the assessment **incomplete**, the exact blocker and next permitted action in `session-notes.txt`. Keep existing files for the operations/handoff steps; do not claim six completed answers |
 
 **Candidate only when justified:** change the missing instruction, not the synthetic policy text or answer keys.
-Select **Save**, record the new returned version and change reason, and copy its actual saved Instructions into **`instructions-candidate.txt`**.
+Select **Save**, record the new returned version and change reason, and copy its actual saved **Instructions** into **`instructions-candidate.txt`**.
 Create **`assessment-candidate.csv` from the blank template**, not the filled baseline.
 Repeat step 2 for all six questions on that fixed version, with the same model, tools, evidence and language.
 Compare the two sheets and record both versions' findings in **Lab 07 A** of `session-notes.txt`; never overwrite the baseline or mix versions in one sheet.
@@ -98,17 +107,6 @@ include `assessment-candidate.csv` and `instructions-candidate.txt` only if you 
 Completing the assessment is not the same as passing every case or approving production use.
 Continue to [Lab 09 A](09-operations.md#path-a). The commands below are a separate B experiment, not extra browser steps.
 
-
-![September 23 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-103-d03-2.webp)
-
-**What to check:** For D03, record the actual limit, approval-before-booking condition
-and cited IDs. Compare them with the criterion; do not prefill a pass.
-
-
-![September 23 English recording: D05 · new chat, question and actual answer](../assets/g6sol-20260923-en/screenshots/EP07-105-d05-2.webp)
-
-**What to check:** Withholding an amount is not automatically a business failure.
-For D05, check both the explanation of missing international policy and its `SCOPE-01` citation.
 
 <a id="path-b"></a>
 
@@ -175,7 +173,7 @@ Find the actual failed case in `outputs/baseline/responses.jsonl`.
 | JSON/request error | Model support, output limit, SDK, service |
 
 Run this block **only when a real baseline case failed**. Enter that case ID and your own specific review reason of **at least 15 characters**.
-If all six pass, save that finding in your review notes and go to step 3; do not manufacture D03 feedback.
+**If all six passed**, write that in your review notes, skip this block and go to step 3.
 
 ```bash
 printf 'Actual failed dev case ID: '
@@ -190,11 +188,11 @@ It links the original dev expected answer and source run/response/request/trace 
 The model's answer is not promoted to ground truth. Missing traces remain `null`;
 do not invent UUIDs as Azure trace IDs.
 
-If all dev cases pass, record that and compare an explainable change or design a
-separate **new dev version**. Never open holdout to find prompt-development failures.
+Holdout is only for the final check in step 4; never open it to look for failures to fix.
 
-### 3. Apply improved instructions to the same dev set
+### 3. Run the prepared v2 instructions on the same dev set
 
+Run this step even if the baseline passed: it compares two fixed instruction versions on the same six cases.
 Compare `prompts/en/v1.txt` and `prompts/en/v2.txt`. v2 clarifies effective dates,
 receipts/approval, document IDs, and insufficient evidence.
 
@@ -229,7 +227,7 @@ criteria as baseline. The last few passing rows do not establish full success.
 `variable: prompt`, `baseline_metrics`, `candidate_metrics` and `changed_context_cases`.
 An empty `changed_context_cases` list means the retrieved contexts match; incompatible configuration is rejected before a comparison report is written.
 Equal scores or shorter elapsed time do not establish v2 superiority.
-Use this language's actual results, not the other edition's scores.
+Use your own results; English and Korean runs are separate.
 
 ### 4. Freeze the candidate, then use holdout once
 
@@ -264,7 +262,7 @@ Repository file separation is an educational procedure, not access control or se
 
 **What to check:** inspect all four cases and their candidate link, then open
 `outputs/final-holdout/acceptance.json`. Preserve `recommendation` and `deployment_approved: false`.
-The source 4/4 uses an already-exposed teaching set; it is not evidence from a newly unseen holdout.
+This public teaching holdout has been seen before, so a pass is not a result on unseen data.
 
 **B done:** keep all three run folders, the comparison, review notes and the acceptance/rejection report.
 Continue to [Lab 08 B](08-hosted.md#path-b) for **packaging only**. An acceptance report is not deployment authorization.

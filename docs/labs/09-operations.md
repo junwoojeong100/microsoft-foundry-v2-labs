@@ -10,7 +10,7 @@
 
 **This pass:** A completes the four browser checks and cleanup inventory. B correlates its own records; matrix commands require the advanced workbook.
 
-**Need:** Your agent/version and output labels; actual trace access is an additional prerequisite, not assumed.
+**Need:** A: your agent, its version and your evidence files. B: your output labels. Trace access is optional.
 
 **Continue when:** You can identify the used version, evidence, costs and owned cleanup targets without deleting shared resources.
 
@@ -24,14 +24,19 @@
 
 Complete these four checks using **your own existing results**, without sending another model request:
 
-1. **Agents → your Lab 03 agent**: compare name/version/model with the worksheet. Do not select a recording's version.
-2. **Instructions / Tools / Knowledge**: verify the six synthetic sources or the selected File Search/IQ connection; no unapproved Web Search or company connection.
-3. Open your **six-row assessment** and `workflow-review.txt`. Record manual assessment versus actual native evaluation separately.
-   If traces are available, match an existing recorded request; otherwise write **trace unverified**, not “no errors.”
+1. In the left menu, select **Agents** and open your Lab 03 agent. On its **Details** tab, compare the name, version and model
+   with the version you assessed in Lab 07.
+2. On its **Playground** tab, check **Instructions**, **Tools** and **Knowledge**: the six synthetic sources (or your selected
+   File Search/IQ connection) are there, with no unapproved Web search or company connection.
+3. Open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review, not a Foundry evaluation run.
+   If you can open the **Traces** tab, find one of your saved requests; otherwise write **trace unverified** (not “no errors”).
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, optional files/chat base, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
 
 Fill the learner ZIP's blank `operations-checklist.txt` with those four outcomes.
+
+**What to check:** items 1–4 of `operations-checklist.txt` name your agent and version, where your results are,
+the assets you own, the shared services marked **owner-managed**, and who pays for what remains.
 **A done:** continue to [Lab 11 A](11-capstone.md#path-a); no new model, trace or matrix command is required.
 The following table is an optional deeper review, limited to assets visible with your permissions.
 
@@ -59,13 +64,17 @@ In `outputs/<label>/manifest.json` and `responses.jsonl`, locate run/question ID
 actual response model, retrieval provider/document IDs/IQ activity, success/errors,
 token usage, and latency.
 
-Request/response IDs **do not automatically become Azure Monitor traces**.
-Report `trace_id: null` and `trace_export: not-configured` when that is what you have.
+Write the run labels and the IDs you used in item 3 of `outputs/learner-notes-en/operations-checklist.txt`.
+
+**What to check:** every successful response row has a `response_id`; error rows keep their error fields and still count.
+`trace_id` stays `null` and `trace_export` is `not-configured` unless tracing was set up for you;
+response IDs do not become Azure Monitor traces by themselves.
 
 ### 2. Explain one failure or an all-pass result
 
 Use an existing dev response. Distinguish a model/request error, tool error, missing evidence and wrong policy application.
-Record which identity accessed which service and the actual request/response ID.
+Write one line per service in item 3 of `operations-checklist.txt`, for example:
+`Model: my Azure CLI user, response resp_…` · `Search: my Azure CLI user, prefix mfv2-…` · `Hosted: not run`.
 If all cases passed, retain that finding and the remaining limitations; do not invent a failure.
 Review changes only on dev in [Lab 07](07-evaluation.md#path-b), not the exposed holdout.
 
@@ -75,8 +84,11 @@ Review changes only on dev in [Lab 07](07-evaluation.md#path-b), not the exposed
 python scripts/workshop.py --language en cleanup-plan
 ```
 
-This **prints a list and procedure; it deletes nothing**. Add the inventory to your
+This **prints a list and procedure; it deletes nothing**. Add the inventory to item 4 of your
 `operations-checklist.txt`, separating owned objects, shared services, authorized owner actions and residual costs.
+
+**What to check:** the output shows `deletes_resources: false` and lists the Search objects under your prefix;
+the other entries are a manual checklist for agents, deployments, Search and logs.
 Use [Cleanup](../reference/cleanup.md) for any separately approved action.
 
 **B done:** your own lineage, failure/all-pass review and cleanup inventory are saved.

@@ -14,7 +14,7 @@
 
 **Continue when:** A real response and the actual deployment are recorded. B also has a validated structured answer.
 
-**If blocked:** A missing model, 403 or 429 is a setup/access/capacity issue. Do not switch models silently.
+**If blocked:** Stop and tell the owner the error. For 401/403, ask them to check your **Foundry User** role on the project; for 429, ask them to check the deployment's quota (TPM). For a missing deployment, ask them to prepare `gpt-6-sol`. Do not switch models.
 
 [One-time setup and learner files](../setup.md).
 
@@ -26,27 +26,27 @@ These requests call the real model and use the approved training budget. Save bo
 
 ### 1. Identify the deployment
 
-Open the training project's model/deployment list. Select **`gpt-6-sol`**
-and verify model **`gpt-6-sol`**, version **`2026-09-22`**.
-Record catalog model, version, and deployment name separately even though the two names match here.
+On the project **Home** page, select **View deployments**, then select the **`gpt-6-sol`** row.
+Check model **`gpt-6-sol`** and version **`2026-09-22`**, and write the deployment name, model and version in `session-notes.txt`
+(here the deployment and model names match, but they are different things).
 
 
 ![September 23 English recording: Select gpt-6-sol and read version 2026-09-22](../assets/g6sol-20260923-en/screenshots/EP02-002-select-sol-2.webp)
 
-**What to check:** **Name** is the invocation name; **Model / Version** identifies the
+**What to check:** **Name** is the invocation name; **Model** and **Version** identify the
 underlying model. The September 23 environment deploys `gpt-6-sol` for answers and
-`gpt-6-sol-judge` for evaluation. Send questions to the instructor-selected answer deployment.
+`gpt-6-sol-judge` for evaluation. Even if the right panel's sample code shows the judge, send questions in the `gpt-6-sol` Playground.
 
 ### 2. Disable external web tools
 
-Open that model's Playground. If Tools includes Web Search by default, use
-**Actions → Remove**. The core workshop does not query the external web.
+Select the **`gpt-6-sol`** name link to open its Playground. In **Tools**, find **Web search**,
+open its **⋮** menu and select **Remove**. The core workshop does not query the external web.
 
 
 ![September 23 English recording: Open the default Web search tool actions](../assets/g6sol-20260923-en/screenshots/EP02-006-web-menu-2.webp)
 
-**What to check:** Open the Web search row's Actions menu and select **Remove**.
-**Dismiss** only closes a banner; it does not remove the tool.
+**What to check:** the **⋮** menu of the **Web search** row shows **Remove**.
+The **X** on the notice above it only closes the notice; it does not remove the tool.
 
 
 ![September 23 English recording: Remove external web search before any question](../assets/g6sol-20260923-en/screenshots/EP02-007-remove-web-2.webp)
@@ -62,7 +62,7 @@ Recheck tools whenever you switch Playgrounds or create an agent.
 
 ![September 23 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260923-en/screenshots/EP02-008-question-1.webp)
 
-**What to check:** Enter the question in **Chat with the model...** at the lower right.
+**What to check:** Enter the question in **Chat with the model...** at the lower right and select the send arrow.
 **Instructions** on the left is a system-instruction field, not the chat input.
 
 
@@ -73,7 +73,7 @@ answer. The recording is a separate run, not your own response.
 
 ### 4. Compare a question without evidence
 
-Start **New chat**, then ask the canonical question:
+Select **New chat** (the + icon at the top right of the chat), then ask the canonical question:
 `What is Hanbit Technology's lodging limit for September 2026?`
 
 **No synthetic policies have been supplied yet, so the model should not pretend to
@@ -86,9 +86,8 @@ know an amount.** This is not a test of knowledge about an actual company.
 amount is an ungrounded response, not a success.
 
 A model alone does not supply company policy, effective dates, or approval rules.
-Leaving the model tab after removing a tool can display
-**Leave without saving?** Choose **Leave without saving** only if you do not need the
-temporary Playground settings. Those settings do not automatically apply to new agents.
+When you select the back arrow (←) or another menu, **Leave without saving?** can appear.
+Choose **Leave without saving**: these temporary Playground settings are not needed and do not apply to new agents.
 
 
 ![September 23 English recording: Leave the temporary Playground settings unsaved](../assets/g6sol-20260923-en/screenshots/EP02-010-leave-2.webp)
@@ -98,11 +97,8 @@ Discard only the temporary settings you intended to leave unsaved.
 
 ### If no deployment exists
 
-Stop and complete [the setup card](../setup.md) with the authorized environment owner.
-This dated first-pass route uses **`gpt-6-sol`**, whose text, tools and Structured Outputs were verified on September 23, 2026
-([model choice](../reference/model-choice.md)); the optional IQ Chat branch uses its own `gpt-5.6-luna` deployment.
-Do not select `-judge`, a router, or another available model to get past a missing deployment.
-Another model is an explicitly revalidated variant, not the same preset. Review quota/SKU/region/pricing before any authorized creation.
+Stop and ask the owner to prepare **`gpt-6-sol`** (version `2026-09-22`) as described on [the setup card](../setup.md).
+Do not select `gpt-6-sol-judge`, a router or another model to get past it ([why this model](../reference/model-choice.md)).
 
 **A done:** you have the actual deployment/version, one concept response and one observation without policy evidence.
 Continue to [Lab 03 A](03-prompt-agent.md#path-a). Do not run B's SDK calls unless preparing your own Lab 05 terminal.
@@ -224,8 +220,8 @@ These captures come from the September 23, 2026 English recording with `gpt-6-so
 [Execution records](../live-run.md) separate models, deployments, and evaluation scope.
 
 - Complete: an actual model response, its deployment name, and an explanation of unsupported policy questions.
-- 401/403: check [authentication and roles](../reference/troubleshooting.md), not blanket Owner access.
-- 404: check the full project endpoint and **deployment name** first.
-- 429: stop concurrent calls and inspect quota/TPM; no endless retries.
+- 401/403: run `az login` again; if it persists, ask the owner for **Foundry User** on the project ([roles](../reference/troubleshooting.md)), not Owner.
+- 404: check the full project endpoint and the **deployment name** `gpt-6-sol`.
+- 429: stop repeated calls and ask the owner to check the `gpt-6-sol` quota (TPM); do not retry in a loop.
 
 Next: A → [Lab 03](03-prompt-agent.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)

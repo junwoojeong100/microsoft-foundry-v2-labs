@@ -2,26 +2,19 @@
 
 **English** | [한국어](ko/paths.md)
 
-**Path A runs prepared examples without writing code. Path B works directly with code and execution records.**
-Both use equivalent language-specific synthetic Hanbit Technology policies. Complete A first and extend
-to B later, or follow the relevant A/B section in each lab. A is portal-first, but
-its workflow exercise runs in a prepared MAF environment.
+**Path A runs prepared examples in the browser, without writing code. Path B works directly with code and saved run records.**
+Both use the same Hanbit Technology scenario with language-specific synthetic policies.
 
-**Route pages:** [A — Beginner](paths/a-beginner.md) · [B — Implementation](paths/b-practitioner.md) ·
-[C — Advanced modules](paths/c-advanced.md) · [Coverage and evidence](coverage.md).
-**First visit: choose A.** Use its route page as the checklist; the tables below are schedules, not additional tasks.
-Each lab has a direct `path-a` / `path-b` entry and an **A done / B done** exit.
-The original times below describe the existing prepared core routes.
-New capability modules add separate sessions; they are not silently squeezed into the same four/six-hour promise.
+**Choose A** if you are new to Azure or agents, and **B** if you are comfortable with Python and APIs.
+Complete [the setup card](setup.md), then use your route page as the checklist:
+[A — Beginner](paths/a-beginner.md) · [B — Implementation](paths/b-practitioner.md).
+The tables below are schedules, not extra tasks. Each lab has a `path-a` / `path-b` entry and an **A done / B done** exit.
+[C — Advanced modules](paths/c-advanced.md) are separate sessions after the core route.
 
-**Start with [the setup card](setup.md), then follow only your path's next link.**
-A downloads the learner ZIP; B uses the source copy and its included note templates.
-Read the start card, perform the action/command, and check its completion criterion.
-Images and collapsed recording galleries are optional references, not your own results.
-Use [the screenshot guide](labs/00-start.md#how-to-read-this-guide),
-[September 23 `gpt-6-sol` English recordings](video-summary.md), and [action index](action-captures.md).
-English commands select their own frozen English policy/prompt/evaluation bundle with `--language en`.
-[Language and lineage rules](reference/languages.md) distinguish translation from an unchanged-dataset comparison.
+**How each lab works:** read the start card, do the action or command, then compare your result with **What to check**.
+Screenshots come from the September 23, 2026 recording; your names, IDs and answers will differ
+([how to read them](labs/00-start.md#how-to-read-this-guide)).
+English commands use `--language en`, which selects the English input files ([language rules](reference/languages.md)).
 
 ## A. Complete beginner: four hours in a prepared environment
 
@@ -29,8 +22,8 @@ You need a browser, an Entra account, and an instructor-prepared Foundry project
 **`gpt-6-sol` deployment**. Lab 05 also needs a **prepared MAF environment** with SDKs installed
 and the learner signed in. Copy commands and read their results; Python authoring,
 installation, and subscription billing setup are preparation, not class exercises.
-For self-study, complete [the environment-owner checklist](setup.md#4-environment-owner-checklist)
-and [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment) first.
+For self-study, complete [the environment-owner checklist](setup.md#4-environment-owner-checklist),
+[Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) and [Lab 02 B](labs/02-models.md#path-b) first.
 
 | Order | Lab | Time | Your evidence |
 |---|---|---:|---|
@@ -49,10 +42,8 @@ and [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment) first.
 sequential run, source checks, a dev assessment, and a Lab 11 cleanup/evidence handoff. Writing Python
 or deploying a server is not required.
 
-Distinguish observing MAF from running it yourself. Portal workflow authoring is not
-a substitute. The Preview IQ Chat segment is optional: select it only when prepared,
-otherwise label it **not run** and complete the source checks with the already-created agent.
-This is a declared scope choice before execution, never fallback after an IQ error.
+Run the Lab 05 command yourself; watching another person's run does not count.
+IQ Chat is optional: if it was not prepared for you, mark it **not run** before you start (a scope choice, not a fallback after an error).
 
 ## B. Practitioner: six hours in a prepared environment
 
