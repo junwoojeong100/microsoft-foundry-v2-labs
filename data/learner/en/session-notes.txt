@@ -1,6 +1,6 @@
 BLANK WORKSHEET - fill with your own results; this is not execution evidence.
 Use a personal untracked copy, not data/learner/. B may use its outputs/learner-notes-en/ folder.
-No passwords, keys, tokens or .env. In B, skip browser-only Labs 01/03 and Lab 07 A notes.
+No passwords, keys, tokens or .env. A skips the B section; B skips browser-only Labs 01/03 and Lab 07 A notes.
 
 Lab 00 - setup card
 Language / path:
@@ -13,7 +13,7 @@ Cost and permission owner:
 Prepared MAF terminal location:
 Optional IQ Chat selected or not selected:
 
-Lab 01 - sketch account -> project / deployment -> agent
+Lab 01 - account contains project and deployment; agent calls deployment
 My sketch and explanation:
 
 Lab 02 - actual Playground observations
@@ -35,7 +35,7 @@ Lab 06 - compare citations with the original policies
 Current-policy ID / effective dates / finding:
 Historical-policy ID / effective dates / finding:
 Over-limit approval source / finding:
-Optional IQ Chat outcome or not run:
+Optional IQ Chat outcome, or not selected:
 
 Lab 07 A - one saved version per six-question assessment
 Baseline agent / version / deployment:
@@ -54,6 +54,7 @@ Evaluator results that disagree with my assessment, and why:
 B - code evidence and incomplete handoff
 Personal notes directory:
 Lab 02/04/05/06 complete JSON output filenames:
+Lab 06 retrieval comparison (file / provider / source_ids / context_hash):
 Baseline / candidate / holdout labels actually collected:
 Outcome (complete evidence / rejected / incomplete; not deployment approval):
 Missing or blocked steps and exact reason:

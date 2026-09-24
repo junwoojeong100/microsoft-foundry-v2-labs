@@ -1,10 +1,14 @@
 빈 기록 양식 - 강사 녹화가 아닌 본인이 실행한 Lab 05 workflow 기록입니다.
 A는 순차 실행 한 번을 기록합니다. B는 sequential·concurrent·group-chat마다 아래 항목을 반복합니다.
+A는 아래에 JSON 전체를 붙여 넣습니다. B는 각 --output 파일 경로만 적고 JSON을 다시 붙여 넣지 않습니다.
+B의 원본 JSON 세 파일은 이 검토와 함께 인계합니다. 실제 출력은 모두 검토합니다.
 
 실행 날짜 / 언어 / 배포:
 정확한 명령:
-mode, pattern, outputs, approval_status, external_actions_performed를 포함한 실제 JSON 출력 전체:
+저장된 JSON 파일 경로(B 전용):
+실제 JSON 출력 전체(A 전용):
 
+확인한 mode / pattern / approval_status / external_actions_performed:
 실제 인용 정책 ID와 적용일:
 올바른 부분과 이유:
 수정할 부분과 이유 또는 근거 있는 전체 통과 관찰:

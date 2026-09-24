@@ -30,7 +30,8 @@ Complete these four checks using **your own existing results**, without sending 
    File Search/IQ connection) are there, with no unapproved Web search or company connection.
 3. Open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
    If you can open the **Traces** tab, find one of your saved requests; otherwise write **trace unverified** (not “no errors”).
-4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
+4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
+   `text-embedding-3-large`), optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
 
 Fill the learner ZIP's blank `operations-checklist.txt` with those four outcomes.

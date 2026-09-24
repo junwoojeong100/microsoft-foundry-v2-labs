@@ -8,7 +8,7 @@
 
 ## Before you start
 
-**This pass:** A verifies the prepared project; environment owners use section 2 only if it is not prepared.
+**This pass:** A verifies the prepared project in sections 1–3. Environment owners use the collapsed owner reference only if it is not prepared.
 
 **Need:** The setup card's tenant, project, account and gpt-6-sol deployment.
 
@@ -41,8 +41,11 @@ flowchart TD
     P --> A["Agents and versions"]
     P --> C["Knowledge and tool connections"]
     P --> E["Evaluation and observability"]
-    D --> A
+    A -. "Calls" .-> D
 ```
+
+Solid arrows show where assets belong; the dotted arrow shows a call.
+The project and model deployment are both under the Foundry resource. The agent belongs to the project and calls the deployment.
 
 ## 1. Check the prepared environment
 
@@ -50,7 +53,8 @@ flowchart TD
 2. On **Home**, find **Project endpoint** and select its copy icon. Paste it into the `Full project endpoint:` line of `session-notes.txt`.
 3. On the same page, select **View deployments** and find the **`gpt-6-sol`** row. Close the list when you have seen it.
 4. Select **Build** in the top bar (not the **Start building** button). In the left menu, find **Agents**, **Models**, **Knowledge** and **Evaluations**:
-   they all belong to this one project. Menu labels can differ by language or rollout; look for the same objects.
+   these are entry points in the project's view, not an ownership hierarchy. Model deployments belong to the parent Foundry resource.
+   Menu labels can differ by language or rollout; look for the same objects.
    Continue when you see them under your project's name; if they are missing, check that you opened the training project,
    not the Foundry account or another project.
 
@@ -58,14 +62,16 @@ flowchart TD
 
 **What to check:** the **Project endpoint** ends with `/api/projects/<project>`; the **Azure OpenAI endpoint** beside it
 ends with `.openai.azure.com` and is a different endpoint. **View deployments** opens model deployments and
-**Start building** creates an agent: they are different assets in the same project.
+**Start building** creates an agent in the project. The deployments belong to the parent Foundry resource.
 The `gpt-6-sol` row shows version **`2026-09-22`** and **Succeeded**; `gpt-6-sol-judge` is the separate evaluation deployment.
 
 If you see a classic Hub project or threads/runs code instead, stop and use the [migration map](../reference/migration.md).
 
 <a id="4-do-not-confuse-endpoints"></a>
 
-## Check the endpoint on your setup card
+## 2. Check the endpoint on your setup card
+
+Compare the `Full project endpoint:` line in `session-notes.txt` with the first row below.
 
 | Purpose | Shape |
 |---|---|
@@ -74,11 +80,9 @@ If you see a classic Hub project or threads/runs code instead, stop and use the 
 | Azure AI Search | `https://<search>.search.windows.net` |
 | Browser portal | `https://ai.azure.com` — **not an SDK endpoint** |
 
-Keep `/api/projects/<project>` in the project endpoint. The project SDK handles
-authentication and endpoints for default inference. Do not silently redirect to
-another endpoint or guess a different token audience.
+It must keep the `/api/projects/<project>` ending. If it has another shape, copy **Project endpoint** from **Home** again.
 
-## Write your sketch and explanation
+## 3. Write your sketch and explanation
 
 In the **Lab 01** section of `session-notes.txt`, write:
 
@@ -93,7 +97,7 @@ Continue to [Lab 02 A](02-models.md#path-a). You do not create resources or assi
 <details>
 <summary>Owner reference only — resource creation and role assignments are not learner steps</summary>
 
-## 2. No environment yet: instructor/administrator preparation
+## Owner: no environment yet
 
 These steps are outside participant class time and require separate authorization.
 
@@ -116,7 +120,7 @@ Resource-creation permission does not imply model-invocation permission.
 The September 24 recording used a training project prepared before recording; the recording did not create it.
 Use [the environment-owner checklist](../setup.md#4-environment-owner-checklist) for preparation, not commands transcribed from a recording.
 
-## 3. Starting points for least privilege
+## Owner: least-privilege starting points
 
 | Actor | Starting role | Scope |
 |---|---|---|

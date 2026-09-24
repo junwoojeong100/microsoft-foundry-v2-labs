@@ -16,7 +16,7 @@ Screenshots come from the September 24, 2026 recording; your names, IDs and answ
 ([how to read them](labs/00-start.md#how-to-read-this-guide)).
 English commands use `--language en`, which selects the English input files ([language rules](reference/languages.md)).
 
-## A. Complete beginner: four hours in a prepared environment
+## A. Beginner: four hours in a prepared environment
 
 You need a browser, an Entra account, and an instructor-prepared Foundry project and
 **`gpt-6-sol` deployment**. Lab 05 also needs a **prepared MAF environment** with SDKs installed
@@ -43,9 +43,9 @@ sequential run, source checks, a dev assessment, and a Lab 11 cleanup/evidence h
 or deploying a server is not required.
 
 Run the Lab 05 command yourself; watching another person's run does not count.
-IQ Chat is optional: if it was not prepared for you, mark it **not run** before you start (a scope choice, not a fallback after an error).
+IQ Chat is optional: if it was not prepared for you, mark it **not selected** before you start (a scope choice, not a fallback after an error).
 
-## B. Practitioner: six hours in a prepared environment
+## B. Implementation: six hours in a prepared environment
 
 You should understand basic Python, JSON, a terminal, and `async/await`.
 Region/model/permission approvals, SDK downloads, and Search service creation happen first.

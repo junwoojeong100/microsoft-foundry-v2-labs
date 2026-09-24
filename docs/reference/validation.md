@@ -9,8 +9,71 @@ Earlier videos and upstream results are not relabeled as new evidence.
 **Current state:** the `gpt-6-sol` / `gpt-6-sol-judge` edition is recorded in both languages as of
 [September 24, 2026](#gpt-6-sol-20260924). Separate September 23 checks cover the [previously not-run items](#previously-not-run-items)
 and the [optional evaluation additions](#foundry-evaluation-additions). What is still not run is listed in the
-[actual results](../live-run.md#not-run-with-gpt-6-sol). The latest documentation-only change is the
-[route and scope review](#straightforwardness-route-checks). Earlier editorial scores below are historical, not a new usability measurement.
+[actual results](../live-run.md#not-run-with-gpt-6-sol). The latest guide and worksheet changes are the
+[cold-read corrections](#straightforwardness-cold-read), after the [follow-through corrections](#straightforwardness-follow-through).
+Earlier editorial scores below are historical, not a new usability measurement.
+
+<a id="straightforwardness-cold-read"></a>
+
+## Straightforwardness: cold-read corrections — September 24, 2026
+
+**Three independent cold reads (English A, English B, Korean) found checks that did not match actual output, and names that varied.**
+Corrections were made English-first, then in Korean, in 14 page pairs and the generated learner worksheets.
+Foundry request logic, prompts, synthetic policies, evaluation datasets, fixtures and recordings are unchanged.
+
+| Friction found | Correction |
+|---|---|
+| Lab 05 B asked learners to map the sequential output to three roles, but MAF's sequential builder returns only the last participant's reply. The concurrent and Group Chat checks did not name their extra entries | Lab 05 names the one `EvidenceReviewer` entry, the concurrent aggregator's joined copy and the Group Chat round-limit notice, as `build_orchestration`, the pinned `agent-framework-orchestrations` 1.1.1 defaults and the September 24 captures show |
+| Lab 07 B said to find a failed case in `responses.jsonl`, which has no pass/fail field | Find `passed: false` under `checks` in `business-evaluation.json`, then read that case's response |
+| Lab 00 A's setup table had different rows from the worksheet's setup card. Lab 02 A named no worksheet lines and gave the chat-box location only in a screenshot caption | The table lists the worksheet's nine lines in order. Lab 02 names each line to fill and puts the input location in the step |
+| Lab 06 B showed the IQ seed capture and check after the IQ query, and opened with a four-sentence recording caveat | Seed → capture and check → query → capture and check. A two-sentence screenshot note now sits at the first capture |
+| Lab 05 A buried its command under a repeated prerequisite paragraph and diagram | Step 1 opens the prepared terminal with a visible check; the diagram explains the output in step 2 |
+| Names and statuses varied: Lab 01's only numbered learner step was 1; B was "Practitioner" in schedules; IQ Chat was "not run" or "not selected"; Lab 09 omitted the automatically created `text-embedding-3-large` deployment | Lab 01 has steps 1–3; the routes are **A — Beginner** / **B — Implementation** (Korean **입문** / **구현**) everywhere; IQ Chat is **not selected**; deployments are in the Lab 09 inventory and worksheet |
+
+Smaller changes: the worksheet header tells A to skip the B section; Lab 00 B asks B to fill its setup card;
+Lab 07 A gives the exact owner request for 401/403/429 and gates its optional evaluation behind cost approval;
+setup no longer names a `dev.jsonl` file that A does not have. Korean-only fixes clarify the prefix hyphen rule,
+use **추적 미확인** for missing trace evidence, replace translated phrasing in Labs 00 and 07 and correct a
+"start card" mistranslation of *setup card* in Labs 00 and 01.
+
+**Verification:** 278 offline tests passed on each of Python 3.13 and 3.14. Seven new tests cover the corrections; six failed
+on the Korean pages before their update, and the seventh keeps every worksheet line cited by a guide real.
+Ruff 0.16.6 lint/format, Python compilation and documentation checks passed.
+The documentation check covers 117 Markdown files, 58 language pairs and 328 CLI examples. Learner bundles were regenerated
+and checked byte-for-byte; changed pairs have exact completion hashes in `docs/localization.json`, with no deferred translations.
+
+**Not established:** no Azure call, recording or re-capture was made for this revision; the output-shape descriptions rest on the
+pinned library source and the existing September 24 captures. No provisioning, deployment, role or default-subscription change,
+publishing or push was performed. There was no human learner pilot, timing measurement or new editorial score.
+
+<a id="straightforwardness-follow-through"></a>
+
+## Straightforwardness: return paths, evidence and worksheets — September 24, 2026
+
+**Four remaining contradictions were corrected English-first, then in Korean.**
+Seven page pairs and the generated learner worksheets were updated. Foundry request logic, prompts, synthetic policies,
+evaluation datasets, fixtures and recordings are unchanged.
+
+| Friction found | Correction |
+|---|---|
+| A's terminal-preparation detour always returned to Lab 05, even before the learner had created an agent | [Lab 02's return table](../labs/02-models.md#a-terminal-ready) distinguishes starting A at Lab 00 from resuming Lab 05 |
+| Lab 01's sketch, arrow and portal captions implied different resource hierarchies | Project and deployment are siblings under the Foundry resource; a separate dotted arrow shows the agent calling the deployment |
+| Lab 06 changed the question across providers and implied that `answer` consumed the preceding retrieval file | Use one question in all four commands; [compare actual evidence](../labs/06-knowledge.md#retrieval-comparison) and state that `answer` performs another IQ retrieval |
+| B saved workflow JSON automatically but the worksheet asked learners to copy it again | B records each saved file path and its human review; A still pastes its complete output. The original JSON files remain part of the handoff |
+
+**ZIP review:** retain the two generated learner ZIPs. Each is approximately 20 KB and contains 16 files identical to the
+uncompressed learner files. They provide one small download for browser-only A; B already has the files and needs no second ZIP.
+The [setup card](../setup.md#learner-files) states this purpose. They are distribution artifacts, not separately maintained originals.
+
+**Verification:** 271 offline tests passed on each of Python 3.13 and 3.14. Three new tests and the strengthened diagram test
+cover the four corrections; both languages failed those checks before the changes. The local retrieval check finds
+`TRAVEL-2026` and `APPROVAL-01` for the fixed question. Ruff 0.16.6 lint/format, Python compilation and documentation checks passed.
+The documentation check covers 117 Markdown files, 58 language pairs and 328 CLI examples. Learner bundles were regenerated
+and checked byte-for-byte; changed page pairs have exact completion hashes in `docs/localization.json`, with no deferred translations.
+
+**Not established:** the revised same-question Search/IQ sequence has not been run against Azure or re-recorded.
+Its existing captures are explicitly reference-only for that change. No Azure model/retrieval calls, provisioning, deployment, role/default-subscription
+changes, publishing or push were performed. There was no human learner pilot, timing measurement or new editorial score.
 
 <a id="straightforwardness-route-checks"></a>
 

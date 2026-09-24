@@ -11,7 +11,7 @@ Parent: [Learning paths](paths.md) · Evidence: [Validation record](reference/va
 | Class | Prepare | Optional exclusions |
 |---|---|---|
 | A. Beginner | Browser accounts, project, model, synthetic documents, assessment sheet, prepared MAF environment | Python authoring, Hosted, actual M365/Fabric |
-| B. Practitioner | Python/SDKs, code environment, model access, Search service and scoped read/write permissions for Lab 06 | Paid judge, local/remote Hosted execution and actual telemetry are separate gates |
+| B. Implementation | Python/SDKs, code environment, model access, Search service and scoped read/write permissions for Lab 06 | Paid judge, local/remote Hosted execution and actual telemetry are separate gates |
 | IQ advanced | Search, authentication, semantic/knowledge retrieval settings | Planner, embeddings, richer Preview are unnecessary for basic GA |
 | Hosted advanced | Python 3.13 runtime, actual ARM ID, deployment/identity permissions | Local Docker is unnecessary for code deployment |
 

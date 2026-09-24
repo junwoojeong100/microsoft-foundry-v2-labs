@@ -45,17 +45,18 @@ If the portal cannot open a cited source, compare the visible ID and text with t
 
 <a id="path-b"></a>
 
-## B. Code: add Search to the shared configuration
+## B. Code: local evidence, Search, then GA IQ
 
 **Follow steps 1–5 in order: local evidence → Search → GA IQ → a grounded answer.**
-The provider choices are fixed for this lesson; this is not a menu of interchangeable commands.
+Keep the **same September 2026, KRW 170000 hotel question** in all four query commands below.
+This lets you compare evidence without changing the question too. The provider choices are fixed, not interchangeable fallbacks.
 
 | Stage | What you verify | Azure use |
 |---|---|---|
 | Local keyword retrieval | Synthetic documents, source IDs and context hash | None |
 | Ordinary Search | Results from your owned index | Object writes and possible Search charges |
 | GA Foundry IQ | Knowledge-base references, activity and original documents | Object writes and possible retrieval charges; no model inside this base |
-| Answer with IQ evidence | Model response, policy conditions and citations | A real, billable `gpt-6-sol` request |
+| Answer with IQ evidence | Newly retrieved evidence, policy conditions and citations | Another IQ retrieval plus a real, billable `gpt-6-sol` request |
 
 No core step needs an embedding deployment. Hybrid search and model-based IQ Chat are separate optional branches.
 An error does not permit switching providers.
@@ -83,13 +84,16 @@ An existing remote index plus an empty local ledger is not ready for a create/up
 
 ```bash
 python scripts/workshop.py --language en retrieve --provider local \
-  --question "What is the domestic business-trip lodging limit for September 2026?" \
+  --question "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure." \
   --output outputs/learner-notes-en/retrieve-local.json
 ```
 
 Inspect `documents`, `source_ids`, and `context_hash`. This educational keyword search is not a production semantic search engine.
 If evidence is missing, record the limitation instead of hardcoding answers.
 Keep the selected English question unchanged within this experiment; `--language en` selects English documents.
+
+**Screenshots in steps 2–5** come from a September 24, 2026 run that asked a different question for each provider.
+Use them to find output fields, not as results of this same-question comparison; do not repeat paid calls to match them.
 
 
 ![September 24 English recording: Local keyword retrieval over the six synthetic policies](../assets/g6sol-20260924-en/screenshots/E06-001-local-2.webp)
@@ -129,7 +133,7 @@ Only after successful seeding, query that index:
 
 ```bash
 python scripts/workshop.py --language en retrieve --provider search \
-  --question "What is the domestic business-trip lodging limit for September 2026?" \
+  --question "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure." \
   --output outputs/learner-notes-en/retrieve-search.json
 ```
 
@@ -146,54 +150,57 @@ Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
 python scripts/workshop.py --language en seed-search --iq --confirm-create
 ```
 
-Continue only after the seed output has `document_count: 6` and the intended non-null `knowledge_base`.
-Keep `outputs/azure-objects.json`; do not delete the ownership ledger when pausing.
-
-```bash
-python scripts/workshop.py --language en retrieve --provider iq \
-  --question "What are the advance-approval requirements for a KRW 170000 hotel on a domestic business trip in September 2026?" \
-  --output outputs/learner-notes-en/retrieve-iq.json
-```
-
 
 ![September 24 English recording: Create the owned GA IQ knowledge source and base](../assets/g6sol-20260924-en/screenshots/E06-004-seed-iq-2.webp)
 
-**What to check:** The seed result now has a non-null `knowledge_base` and `document_count: 6`.
-The **retrieve** result reports the source/base configuration and `api_version: 2026-04-01`.
-Keep the `ledger` file, `outputs/azure-objects.json`, which records ownership.
+**What to check:** the seed result now has a non-null `knowledge_base`, `document_count: 6` and a `ledger` path ending in `outputs/azure-objects.json`.
+Continue only after all three appear. Keep that ownership ledger; do not delete it when pausing.
 
 GA IQ here (REST `2026-04-01`) retrieves the documents without a model inside the knowledge base;
 step 5 sends them to `gpt-6-sol` in a separate call ([model-based IQ](../reference/iq-model-identity.md) is optional).
 
-Verify `provider: foundry-iq`, the base and API version, `references`, `activity` and the original `documents`.
-Reference numbers are not document IDs. **An empty result means no documents were retrieved:** record it; do not invent an amount.
-An IQ error stays an error; it never falls back to ordinary Search.
-
+```bash
+python scripts/workshop.py --language en retrieve --provider iq \
+  --question "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure." \
+  --output outputs/learner-notes-en/retrieve-iq.json
+```
 
 
 ![September 24 English recording: GA Foundry IQ retrieval with source references](../assets/g6sol-20260924-en/screenshots/E06-005-iq-2.webp)
 
-**What to check:** Read `activity`, base, API version, `references` and `documents` together.
-Do not fill unreported latency or usage with invented values.
+**What to check:** `provider: foundry-iq`, your `knowledge_base`, `api_version: 2026-04-01`, `references`, `activity` and the original `documents`.
+Reference numbers are not document IDs. **An empty result means no documents were retrieved:** record it; do not invent an amount.
+An IQ error stays an error; it never falls back to ordinary Search. Do not fill unreported latency or usage with invented values.
 
 **Save:** `retrieve-iq.json` is written to the same notes directory, including the original documents and activity. Inspect them before answering.
 
-### 5. Send evidence to the real model
+<a id="retrieval-comparison"></a>
+
+**Compare before answering:** open `retrieve-local.json`, `retrieve-search.json` and `retrieve-iq.json` together.
+In `session-notes.txt`, record each file's `provider`, `source_ids` and `context_hash`.
+Check the original documents for `TRAVEL-2026` (KRW 150000) and `APPROVAL-01` (approval before booking).
+Different providers need not return identical documents or hashes. If IQ lacks the required evidence, preserve the result and
+diagnose retrieval before step 5; another provider's evidence is not a substitute.
+
+### 5. Retrieve again, then ask the real model
 
 ```bash
 python scripts/workshop.py --language en answer --prompt v2 --retrieval iq \
-  --question "What procedure is required to book a KRW 170000 hotel for a domestic business trip in September 2026?" \
+  --question "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure." \
   --output outputs/learner-notes-en/answer-iq.json
 ```
 
-Retrieval and generation are separated to diagnose failures: a missing policy is
-different from misreading the effective date of a correctly retrieved policy.
+**This command retrieves from IQ again; it does not read `retrieve-iq.json`.**
+The new evidence and model answer are saved together in `answer-iq.json`.
+Compare its `source_ids` and `context_hash` with `retrieve-iq.json`; if they differ, record that change and review
+the documents actually used for the answer. A missing policy is different from misreading a correctly retrieved policy.
 
 
 ![September 24 English recording: Send IQ evidence to gpt-6-sol for a validated answer](../assets/g6sol-20260924-en/screenshots/E06-006-answer-iq-2.webp)
 
 **What to check:** Verify the IQ base/API, `response_model`, `response_id`, and `usage`.
-Compare the amount, conditions, and citations in `answer` with the original documents.
+In `answer`, check `decision: needs_approval`, `limit_krw: 150000`, approval **before booking** and citations to
+`TRAVEL-2026` and `APPROVAL-01`. Compare them with this response's original documents; record a mismatch rather than fixing the saved answer.
 
 **Save:** `answer-iq.json` is written to the same notes directory. Check its complete response and retrieval metadata.
 

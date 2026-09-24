@@ -27,15 +27,15 @@ These requests call the real model and use the approved training budget. Save bo
 ### 1. Identify the deployment
 
 On the project **Home** page, select **View deployments**, then select the **`gpt-6-sol`** row.
-Check model **`gpt-6-sol`** and version **`2026-09-22`**, and write the deployment name, model and version in `session-notes.txt`
+Check model **`gpt-6-sol`** and version **`2026-09-22`** against the `Answer deployment / model version:` line of `session-notes.txt`
 (here the deployment and model names match, but they are different things).
 
 
 ![September 24 English recording: Select gpt-6-sol and read version 2026-09-22](../assets/g6sol-20260924-en/screenshots/EP02-002-select-sol-2.webp)
 
 **What to check:** **Name** is the invocation name; **Model** and **Version** identify the
-underlying model. The September 23 environment deploys `gpt-6-sol` for answers and
-`gpt-6-sol-judge` for evaluation. Even if the right panel's sample code shows the judge, send questions in the `gpt-6-sol` Playground.
+underlying model. The list also has `gpt-6-sol-judge`, which only scores optional evaluations.
+Even if the right panel's sample code shows the judge, send questions in the `gpt-6-sol` Playground.
 
 ### 2. Disable external web tools
 
@@ -56,20 +56,22 @@ Recheck tools whenever you switch Playgrounds or create an agent.
 
 ### 3. Enter a question and inspect the response
 
+Select **Chat with the model...** at the lower right (not **Instructions** on the left), paste this question and select the send arrow:
+
 > Explain the difference between a Foundry resource, a project, a model deployment,
 > and an agent to a beginner in four sentences.
 
 
 ![September 24 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260924-en/screenshots/EP02-008-question-1.webp)
 
-**What to check:** Enter the question in **Chat with the model...** at the lower right and select the send arrow.
-**Instructions** on the left is a system-instruction field, not the chat input.
+**What to check:** the question is in the chat box at the lower right.
+**Instructions** on the left is a system-instruction field; leave it unchanged.
 
 
 ![September 24 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260924-en/screenshots/EP02-008-question-2.webp)
 
-**What to check:** Record the model name, time, and token information as well as the
-answer. The recording is a separate run, not your own response.
+**What to check:** in the **Lab 02** section of `session-notes.txt`, fill `Deployment / time / usage:` and
+paste the full answer on `Actual concept-explanation response:`. The recording is a separate run, not your own response.
 
 ### 4. Compare a question without evidence
 
@@ -83,7 +85,8 @@ know an amount.** This is not a test of knowledge about an actual company.
 ![September 24 English recording: New chat: ask without any policy evidence](../assets/g6sol-20260924-en/screenshots/EP02-009-new-chat-2.webp)
 
 **What to check:** Does it request evidence or clarification? A plausible invented
-amount is an ungrounded response, not a success.
+amount is an ungrounded response, not a success. Paste the answer on
+`Actual response to the question without policy evidence:` and write your conclusion on `My finding:`.
 
 A model alone does not supply company policy, effective dates, or approval rules.
 When you select the back arrow (←) or another menu, **Leave without saving?** can appear.
@@ -163,9 +166,19 @@ Stop if the model rejects `json_schema`. The code does not silently switch to pl
 text or repair invalid JSON. Explicitly configure an instructor-verified deployment
 and record a new run after resolving support.
 
+<a id="a-terminal-ready"></a>
+
+**Preparing A's terminal rather than taking B?** The terminal is now ready; the browser labs are not completed by these SDK calls.
+Choose your return point and stop the B route here:
+
+| Your place in A | Go next |
+|---|---|
+| Preparing before starting A | [Lab 00 A](00-start.md#path-a), then follow A's checklist; do not skip the Lab 03 agent |
+| Paused at Lab 05 A to prepare its terminal | [Lab 05 A](05-workflows.md#path-a), keeping your existing agent and notes |
+
 **B done:** save the complete outputs as `model.json` and `answer-local.json` in your Lab 00 notes directory,
 including response IDs, usage and source IDs.
-Continue to [Lab 04 B](04-agents-tools.md#path-b). If you came only to prepare A's terminal, return to [Lab 05 A](05-workflows.md#path-a).
+Continue to [Lab 04 B](04-agents-tools.md#path-b).
 
 <details>
 <summary>How the SDK call works — optional code reading, not another command</summary>

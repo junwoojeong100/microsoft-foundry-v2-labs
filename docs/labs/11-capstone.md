@@ -24,7 +24,7 @@ Complete the Hanbit Technology assistant's guidance flow. Rather than attaching 
 new services, make the following artifacts understandable and reproducible by another
 learner. Add neither company data nor automatic payments.
 
-| Deliverable | A. Beginner | B. Practitioner |
+| Deliverable | A. Beginner | B. Implementation |
 |---|---|---|
 | Architecture | Project/model/evidence/agent diagram | Include actual code, provider, identity |
 | Knowledge | Six synthetic documents and effective periods | Corpus hash, retrieval provider, IDs |

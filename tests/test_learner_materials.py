@@ -105,6 +105,20 @@ class LearnerMaterialTests(unittest.TestCase):
                 self.assertIn("approval_status", files["workflow-review.txt"].decode())
                 self.assertIn("external_actions_performed", files["workflow-review.txt"].decode())
 
+    def test_workflow_review_uses_saved_paths_for_b_without_requiring_a_second_json_copy(self):
+        for language, fields in (
+            ("en", ("Saved JSON file path (B only):", "Complete actual JSON output (A only):")),
+            ("ko", ("저장된 JSON 파일 경로(B 전용):", "실제 JSON 출력 전체(A 전용):")),
+        ):
+            with self.subTest(language=language):
+                files = learner_files(ROOT, language)
+                review = files["workflow-review.txt"].decode()
+                self.assertIn("--output", review)
+                for field in fields:
+                    self.assertIn(field + "\n", review)
+                for pattern in ("sequential", "concurrent", "group-chat"):
+                    self.assertIn(pattern, review)
+
     def test_unexpected_files_stop_both_language_writes_without_deleting_them(self):
         with workspace() as root:
             BUILDER.write(root)

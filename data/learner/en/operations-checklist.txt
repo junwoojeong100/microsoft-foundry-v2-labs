@@ -4,7 +4,7 @@ BLANK WORKSHEET - inspect existing evidence; do not call Azure merely to fill a 
 2. Instructions / tools / sources checked; unapproved connections, if any:
 3. Assessment or evaluation-run folders, and workflow review locations:
 Actual trace evidence, or unverified when unavailable:
-4. Owned assets and separately approved cleanup actions (include any evaluation dataset or evaluation you created):
+4. Owned assets and separately approved cleanup actions (include any model deployment, evaluation dataset or evaluation you created):
 Shared assets to retain and responsible owner:
 Actual cleanup outcomes or pending owner actions:
 Remaining costs and responsible owner:

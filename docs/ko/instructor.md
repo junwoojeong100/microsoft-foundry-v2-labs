@@ -10,8 +10,8 @@
 
 | 수업 | 기본 준비 | 미리 빼도 되는 것 |
 |---|---|---|
-| A. 완전초보자 | 브라우저 계정, 프로젝트, 모델, 합성 문서, 평가표, 준비된 MAF 실행 환경 | Python 코드 작성, Hosted, 실제 M365/Fabric |
-| B. 경험자 | Python/SDK·코드 환경·모델 접근·Search 서비스와 Lab 06의 범위 제한 읽기/쓰기 권한 | 유료 judge·로컬/원격 Hosted 실행·실제 telemetry는 별도 게이트 |
+| A. 입문 | 브라우저 계정, 프로젝트, 모델, 합성 문서, 평가표, 준비된 MAF 실행 환경 | Python 코드 작성, Hosted, 실제 M365/Fabric |
+| B. 구현 | Python/SDK·코드 환경·모델 접근·Search 서비스와 Lab 06의 범위 제한 읽기/쓰기 권한 | 유료 judge·로컬/원격 Hosted 실행·실제 telemetry는 별도 게이트 |
 | IQ 심화 | 준비된 Search, 인증·semantic/knowledge retrieval 설정 | planner·임베딩·richer Preview는 기본 GA에 불필요 |
 | Hosted 심화 | 3.13 런타임, 실제 ARM ID, 배포/identity 권한 | 로컬 Docker는 code deployment에 불필요 |
 

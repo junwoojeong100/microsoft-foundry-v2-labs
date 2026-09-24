@@ -16,7 +16,7 @@ Azure 접근·권한·모델 quota·과금 승인은 환경 담당자가 제공�
 
 **한 회차 동안 경로 하나를 사용합니다.** Azure나 agent가 처음이면 **A**(브라우저 조작과 Lab 05의 준비된 명령 한 번),
 Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
-한 회차는 같은 언어로 진행합니다. 국문과 영문은 입력 파일이 다르므로 언어를 바꾸면 새 실행 label이 필요합니다.
+한 회차 전체를 같은 언어로 진행합니다. 국문과 영문은 입력 파일이 다릅니다(B는 언어를 바꾸면 새 실행 label도 필요합니다).
 
 <a id="learner-files"></a>
 <a id="3-바로-쓰는-학습자-자료-내려받기"></a>
@@ -31,7 +31,8 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 ### A의 학습자 ZIP
 
 [국문 learner-materials.zip](../../data/learner/ko/learner-materials.zip)을 열고 **Download raw file**로 내려받아 압축을 풉니다.
-작은 ZIP이므로 Python이 필요 없고, 영상·holdout·정답 기준 필드는 포함하지 않습니다.
+약 20KB인 이 ZIP은 Python·Git·전체 소스 저장소 없이 학습자 파일 16개를 한 번에 받기 위한 배포본입니다.
+원본에서 생성하므로 별도 원본을 관리하는 것이 아닙니다. 영상·holdout·정답 기준 필드는 없으며, B는 이미 파일이 있어 받지 않습니다.
 비공개 저장소에서는 읽기 권한이 있는 GitHub 계정을 사용합니다.
 
 | 파일 | 용도 |
@@ -50,7 +51,7 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 
 [완성된 인라인 지침](../../data/learner/ko/instructions-with-policies.txt)이나
 [질문 전용 파일](../../data/learner/ko/dev-questions.txt)을 직접 열어도 됩니다.
-`dev.jsonl`의 정답 열을 agent에 붙여 넣지 않습니다.
+`dev-questions.txt`와 `dev-questions.jsonl`에는 질문만 있습니다. 채팅에는 질문 문장만 붙여 넣습니다.
 
 압축을 푼 폴더를 **저장소 밖의 개인 증거 폴더**로 사용합니다.
 진행하면서 기록 양식을 채우고 Lab 07에서는 `assessment.csv`를 `assessment-baseline.csv`로 저장합니다.
@@ -72,7 +73,7 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 | Foundry 계정·프로젝트·리소스 그룹 | A·B | 실습 프로젝트의 리소스 상세 |
 | 전체 project endpoint | A의 Lab 05 터미널·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
 | **응답 모델 배포** | A·B | **`gpt-6-sol`**, 모델 버전 **`2026-09-22`** |
-| 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 최대 32자. 예: `mfv2-team01-ko` |
+| 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈만 사용하고 하이픈을 연달아 쓰거나 끝에 두지 않음, 최대 32자. 예: `mfv2-team01-ko` |
 | 코드 환경 | A의 Lab 05(준비해 줌)·B | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
 | Search endpoint | B의 Lab 06 | 준비된 Search 서비스: `https://<search>.search.windows.net` |
 

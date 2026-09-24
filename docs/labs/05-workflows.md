@@ -29,13 +29,33 @@ Using the Agent Playground is different from authoring a workflow in the portal.
 
 ## A. Beginner: run the prepared example yourself
 
-No code authoring is required. The instructor provides the repository, Python/SDKs,
-learner-authorized Azure sign-in, `.env`, and an activated venv in a **prepared MAF
-environment**. Use its browser IDE or VS Code terminal; never share an administrator account.
-If you were not given that environment, complete [Lab 00 B](00-start.md#b-code-one-folder-one-environment)
-and Lab 02 B once, then return here. Do not stop at merely installing Python.
+You copy one command into the terminal of the **prepared MAF environment** on your setup card; no code authoring is required.
+It makes real, billable Azure model calls within the owner's budget. Never share an administrator account.
 
-Three roles process the same travel question:
+### 1. Run the prepared sequential workflow
+
+1. Open the prepared terminal in its browser IDE or VS Code. Its file list shows `README.md` and `scripts/`,
+   and the prompt usually starts with `(.venv)`. If not, stop and ask the owner; do not install anything in class.
+   Learning alone? Prepare it once with [Lab 00 B](00-start.md#b-code-one-folder-one-environment) and Lab 02 B, then return here.
+2. Run this block. It creates `outputs/` if needed, then prints the result and saves it to `outputs/workflow-a-sequential.json`.
+
+```bash
+mkdir -p outputs
+python scripts/workshop.py --language en workflow --pattern sequential --question "My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking." --output outputs/workflow-a-sequential.json
+```
+
+If it stops because that file `already exists`, open the file: keep it only if it is your own run with this question;
+otherwise change the file name in `--output` and run again.
+
+
+![September 24 English recording: A's one prepared sequential workflow command](../assets/g6sol-20260924-en/screenshots/E05-001-prepared-2.webp)
+
+**What to check:** the output shows `mode: live`, `pattern: sequential` and `outputs`.
+This is a MAF run in the terminal, not portal Workflow Designer activity. The recording ran the same command without `--output`.
+
+### 2. Read the actual output
+
+Three MAF roles handled the question in order; `outputs` shows only the last role's final text.
 
 ```mermaid
 flowchart LR
@@ -46,49 +66,25 @@ flowchart LR
     O -. "Outside the workflow" .-> H["Your review note\nNo booking / approval / payment"]
 ```
 
-The command stops at the JSON output. You review that output yourself; there is no automatic
-reject-and-rerun loop or approval action hidden behind the diagram.
-
-### 1. Run the prepared sequential workflow
-
-Confirm the prepared terminal is at the repository root. This command makes real,
-billable Azure model calls within the instructor's budget. Run this block: it creates `outputs/` if needed, then prints the result and saves it to `outputs/workflow-a-sequential.json`.
-
-```bash
-mkdir -p outputs
-python scripts/workshop.py --language en workflow --pattern sequential --question "My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking." --output outputs/workflow-a-sequential.json
-```
-
-If that file already exists, open it: use it only if it is your own run with this question; otherwise change the file name in `--output` and run again.
-
-
-![September 24 English recording: A's one prepared sequential workflow command](../assets/g6sol-20260924-en/screenshots/E05-001-prepared-2.webp)
-
-**What to check:** the output shows `mode: live`, `pattern: sequential` and `outputs`.
-This is a MAF run in the terminal, not portal Workflow Designer activity. The recording ran the same command without `--output`.
-
-### 2. Read the actual output
-
 | Field | What it establishes |
 |---|---|
 | `mode: live`, `pattern: sequential` | Execution of the prepared MAF code |
-| `outputs` | Current limit and advance-approval conditions supported by evidence |
+| `outputs` | One final text from `EvidenceReviewer`: the current limit and advance-approval conditions supported by evidence |
 | `approval_status: pending-human-review` | Model review has not become human approval |
 | `external_actions_performed: false` | No actual booking/payment |
 
-Open `outputs/workflow-a-sequential.json` in the editor and compare its source IDs with the learner ZIP's policies.
-Copy the command and the whole file into the learner ZIP's blank `workflow-review.txt`, then write your review:
-what is correct, what needs correction, and why. This reviews guidance; it is not business approval.
-One reviewed sequential run completes A.
-
+1. Open `outputs/workflow-a-sequential.json` in the editor and compare its cited policy IDs with the learner ZIP's `policies/`.
+2. Paste the exact command and the whole file into the learner ZIP's blank `workflow-review.txt`.
+3. Write your review there: what is correct, what needs correction, and why. This reviews guidance; it is not business approval.
 
 **What to check:** the saved output says the KRW 170000 hotel exceeds the KRW 150000 limit and needs approval before booking,
 and cites `TRAVEL-2026` and `APPROVAL-01` (a missing ID is a finding for your review).
 It keeps `approval_status: pending-human-review` and `external_actions_performed: false`.
+The workflow stops at this JSON; no automatic reject-and-rerun loop or approval action runs behind it.
 
 ### 3. Determine completion
 
-You need an **actual MAF run and human review record**.
+One reviewed sequential run completes A: you need an **actual MAF run and human review record**.
 Manually copying answers between portal conversations is not MAF execution.
 If you only watched an instructor, record **MAF observed; personal execution incomplete**.
 Local MAF does not create a managed workflow resource or Hosted Agent.
@@ -99,10 +95,8 @@ Continue to [Lab 06 A](06-knowledge.md#path-a); do not run the three B commands 
 
 ## B. Code: compare three orchestration patterns
 
-All commands call a real Azure model. Inspect `run_workflow` in
-`src/foundry_workshop/agents.py`. Keep data, model, and instructions fixed while
-examining builders and execution order. No command creates a portal workflow resource.
-Each command saves its full JSON through `--output`; you still write the separate human review.
+All three commands call a real Azure model and save their full JSON through `--output`; none creates a portal workflow resource.
+Open `run_workflow` in `src/foundry_workshop/agents.py` first: the data, model and three role instructions stay fixed; only the builder changes.
 
 | Concept | MAF implementation in this lab |
 |---|---|
@@ -112,8 +106,9 @@ Each command saves its full JSON through `--output`; you still write the separat
 | Short shared discussion | `GroupChatBuilder`, speaker selector, maximum rounds |
 | Business approval boundary | Human review after output; production approval design is separate |
 
-Branches, persisted state, and durable approval are not automatically migrated.
-Explicitly design business state, errors, and retries in code.
+**Review file:** in `workflow-review.txt`, repeat the review fields for each pattern and fill **Saved JSON file path (B only)**
+with that command's exact `--output` path. **Do not paste the JSON again.** Keep the three JSON files beside the review for handoff;
+a path without its file is not evidence.
 
 ### 1. Run the sequential pattern: each stage feeds the next
 
@@ -122,14 +117,15 @@ python scripts/workshop.py --language en workflow --pattern sequential \
   --output outputs/learner-notes-en/workflow-sequential.json
 ```
 
-Compare `PolicyAnalyst → AnswerWriter → EvidenceReviewer` with the builder's participants
-and actual outputs. An incorrect source interpretation can propagate to the draft.
+The builder passes the conversation through `PolicyAnalyst → AnswerWriter → EvidenceReviewer` in that order
+and returns only the last participant's reply by default, so `outputs` holds **one** entry: the final `EvidenceReviewer` text.
+An incorrect source interpretation early in the chain can still reach that text.
 
 
 ![September 24 English recording: Sequential MAF workflow](../assets/g6sol-20260924-en/screenshots/E05-002-sequential-2.webp)
 
-**What to check:** Map the output to the three roles. Fluent review does not
-automatically remove an earlier evidence error.
+**What to check:** `pattern: sequential` and one `outputs` entry. Check its amount, dates and cited IDs against the policies;
+a fluent review does not automatically remove an earlier evidence error.
 
 **Save:** `workflow-sequential.json` is written to your Lab 00 notes directory. Open it before changing patterns.
 
@@ -140,17 +136,17 @@ python scripts/workshop.py --language en workflow --pattern concurrent \
   --output outputs/learner-notes-en/workflow-concurrent.json
 ```
 
-`ConcurrentBuilder` sends the same question/evidence to three roles.
-It returns three perspectives, **not automatic consensus or one final answer**.
-Read and combine them yourself or design a separately validated aggregation step.
+`ConcurrentBuilder` sends the same question/evidence to all three roles at once.
+`outputs` lists their three replies, not labeled by role, followed by the default aggregator's joined copy of them.
+That last entry is **not a consensus or one final answer**. Compare the replies yourself or design a separately validated aggregation step.
 Lower wall-clock time does not necessarily mean fewer calls or lower costs.
 
 
 
 ![September 24 English recording: Concurrent MAF workflow](../assets/g6sol-20260924-en/screenshots/E05-003-concurrent-2.webp)
 
-**What to check:** Verify `pattern: concurrent` and multiple participant outputs.
-Compare them rather than treating them as an agreed answer.
+**What to check:** `pattern: concurrent` and four `outputs` entries: three participant replies, then their joined copy.
+Compare the three replies rather than treating any entry as an agreed answer.
 
 **Save:** `workflow-concurrent.json` is written to the same notes directory. Compare the participant outputs.
 
@@ -161,18 +157,19 @@ python scripts/workshop.py --language en workflow --pattern group-chat \
   --output outputs/learner-notes-en/workflow-group-chat.json
 ```
 
-The example uses a fixed speaker order and at most **three rounds**.
-`output_from=participants` retains real participant responses; a termination notice
-alone is not a business answer. The entire workflow also has a 240-second timeout.
-Calculate call/token budgets before increasing either bound.
+The example uses a fixed speaker order and at most **three rounds**; the whole workflow also has a 240-second timeout.
+`outputs` lists each participant's reply in speaking order, then the orchestrator's round-limit notice.
+The notice alone is not a business answer. Calculate call/token budgets before increasing either bound.
 
 
 ![September 24 English recording: Bounded Group Chat workflow](../assets/g6sol-20260924-en/screenshots/E05-004-group-chat-2.webp)
 
-**What to check:** Read `pattern: group-chat`, participant responses, and pending
-human review. Reaching the round limit is not model consensus or business approval.
+**What to check:** `pattern: group-chat`, the participant replies and `approval_status: pending-human-review`.
+The terminal can also print `GroupChatOrchestrator reached max_rounds=3; forcing completion.` before the JSON; this is the stopping rule,
+not an error. Reaching the round limit is not model consensus or business approval.
 
-**Save:** `workflow-group-chat.json` is written to the same notes directory. Compare all three saved outputs in `workflow-review.txt`.
+**Save:** `workflow-group-chat.json` is written to the same notes directory. In `workflow-review.txt`, record each saved file's path,
+its actual cited policy IDs, what is correct and what needs correction. Review all three outputs; saving them alone is not human review.
 
 | Pattern | Appropriate use | Main caution |
 |---|---|---|

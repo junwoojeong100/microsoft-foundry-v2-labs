@@ -13,6 +13,8 @@ from unittest.mock import patch
 
 from foundry_workshop.cli import main, parser
 from foundry_workshop.contracts import load_documents, read_json, read_jsonl
+from foundry_workshop.evaluation import grade
+from foundry_workshop.knowledge import local_retrieve
 from foundry_workshop.profiles import RuntimeProfile
 
 from . import ROOT, workspace
@@ -386,11 +388,56 @@ class LearnerJourneyTests(unittest.TestCase):
                 core = self.core_section(language, labs[1], "A")
                 self.assertIn('F --> D["', core)
                 self.assertIn('F --> P["', core)
+                call_label = "Calls" if language == "en" else "호출"
+                self.assertIn(f'A -. "{call_label}" .-> D', core)
+                self.assertNotIn("D --> A", core)
                 self.assertNotRegex(core, r"→ (?:deployment|배포) gpt-6-sol →")
                 relation = (
                     "agent → calls → deployment" if language == "en" else "에이전트 → 호출 → 배포"
                 )
                 self.assertIn(relation, core)
+
+    def test_a_terminal_preparation_distinguishes_before_class_from_mid_route_resume(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                setup = self.core_section(language, labs[0], "B")
+                self.assertIn("(02-models.md#a-terminal-ready)", setup)
+                model = self.core_section(language, labs[2], "B")
+                anchor = '<a id="a-terminal-ready"></a>'
+                self.assertIn(anchor, model)
+                return_choices = model.split(anchor, 1)[1]
+                self.assertIn("(00-start.md#path-a)", return_choices)
+                self.assertIn("(05-workflows.md#path-a)", return_choices)
+                self.assertIn("(04-agents-tools.md#path-b)", return_choices)
+                self.assertEqual(DOCS.workshop_commands(return_choices), [])
+
+    def test_retrieval_comparison_keeps_one_question_with_retrievable_policy_evidence(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[6], "B")
+                commands = [
+                    parser().parse_args(arguments) for _, arguments in DOCS.workshop_commands(core)
+                ]
+                queries = [
+                    command for command in commands if command.command in {"retrieve", "answer"}
+                ]
+                self.assertEqual(len(queries), 4)
+                self.assertEqual(
+                    [command.provider for command in queries if command.command == "retrieve"],
+                    ["local", "search", "iq"],
+                )
+                self.assertEqual(queries[-1].retrieval, "iq")
+                question = queries[0].question
+                self.assertTrue(question)
+                self.assertEqual([command.question for command in queries], [question] * 4)
+                retrieved = local_retrieve(ROOT, question, language=language)
+                self.assertEqual(retrieved["provider"], "local-keyword")
+                self.assertTrue({"TRAVEL-2026", "APPROVAL-01"}.issubset(retrieved["source_ids"]))
+                self.assertIn('<a id="retrieval-comparison"></a>', core)
+                self.assertIn("context_hash", core)
+                notes = (ROOT / "data/learner" / language / "session-notes.txt").read_text()
+                for field in ("provider", "source_ids", "context_hash"):
+                    self.assertIn(field, notes)
 
     def test_portal_evaluation_uses_the_recorded_baseline_not_a_fixed_version(self):
         for language, _, labs in self.language_labs():
@@ -424,6 +471,99 @@ class LearnerJourneyTests(unittest.TestCase):
                 for name in ("paths/b-practitioner.md", "reference/troubleshooting.md"):
                     text = (directory / name).read_text()
                     self.assertIn("(../labs/07-evaluation.md#resume-evaluation)", text)
+
+    def worksheet_lines(self, language):
+        return {
+            name: [
+                line
+                for line in (ROOT / "data/learner" / language / name).read_text().splitlines()
+                if line.endswith(":")
+            ]
+            for name in ("session-notes.txt", "workflow-review.txt", "operations-checklist.txt")
+        }
+
+    def test_core_steps_cite_only_existing_worksheet_lines(self):
+        for language, _, labs in self.language_labs():
+            lines = {line for values in self.worksheet_lines(language).values() for line in values}
+            for route, sequence in ROUTES.items():
+                for number in sequence:
+                    with self.subTest(language=language, route=route, lab=number):
+                        core = self.core_section(language, labs[number], route)
+                        for cited in re.findall(r"`([^`\n]*:)`", core):
+                            self.assertIn(cited, lines)
+
+    def test_lab00_setup_table_mirrors_the_worksheet_setup_card(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                notes = (ROOT / "data/learner" / language / "session-notes.txt").read_text()
+                card = notes.split("\nLab 00", 1)[1].split("\n\n", 1)[0].splitlines()[1:]
+                core = self.core_section(language, labs[0], "A")
+                rows = re.findall(r"^\| `([^`]+:)` \|", core, re.MULTILINE)
+                self.assertEqual(rows, card)
+
+    def test_lab01_numbers_only_the_learner_steps(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                text = labs[1].read_text()
+                core = self.core_section(language, labs[1], "A")
+                self.assertEqual(re.findall(r"^## (\d+)\.", core, re.MULTILINE), ["1", "2", "3"])
+                self.assertEqual(re.findall(r"^## (\d+)\.", text, re.MULTILINE), ["1", "2", "3"])
+
+    def test_workflow_checks_match_the_builders_output_shapes(self):
+        orchestration = (ROOT / "src/foundry_workshop/agents.py").read_text()
+        orchestration = orchestration.split("def build_orchestration", 1)[1]
+        self.assertIn("SequentialBuilder(participants=participants).build()", orchestration)
+        self.assertEqual(orchestration.count("output_from=participants"), 2)
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                self.assertIn("`EvidenceReviewer`", self.core_section(language, labs[5], "A"))
+                steps = self.core_section(language, labs[5], "B").split("### 1.", 1)[1]
+                sequential, rest = steps.split("### 2.", 1)
+                concurrent, group_chat = rest.split("### 3.", 1)
+                self.assertIn("`EvidenceReviewer`", sequential.split("```", 2)[2])
+                self.assertIn("aggregator", concurrent.split("```", 2)[2])
+                self.assertIn("max_rounds=3", group_chat.split("```", 2)[2])
+
+    def test_failed_case_comes_from_the_business_evaluation_before_feedback(self):
+        failed = grade({"status": "error"}, {"case_id": "D01"})
+        self.assertEqual(set(failed), {"case_id", "passed", "checks"})
+        self.assertIs(failed["passed"], False)
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[7], "B")
+                review = core.split('<a id="dev-review"></a>', 1)[1].split("```bash", 1)[0]
+                self.assertIn("`outputs/baseline/business-evaluation.json`", review)
+                self.assertIn("`passed`", review)
+                self.assertLess(
+                    review.index("business-evaluation.json"), review.index("responses.jsonl")
+                )
+
+    def test_iq_seed_capture_and_check_precede_the_iq_query(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                step = self.core_section(language, labs[6], "B").split("### 4.", 1)[1]
+                step = step.split("### 5.", 1)[0]
+                seed = re.search(r"[EK]06-004-seed-iq-2\.webp", step).start()
+                query = step.index("--provider iq")
+                self.assertLess(step.index("seed-search --iq"), seed)
+                self.assertLess(seed, query)
+                self.assertLess(query, re.search(r"[EK]06-005-iq-2\.webp", step).start())
+
+    def test_route_names_match_across_entry_pages_schedules_and_handoff(self):
+        names = {"en": ("A. Beginner", "B. Implementation"), "ko": ("A. 입문", "B. 구현")}
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                beginner, implementation = names[language]
+                schedule = (directory / "paths.md").read_text()
+                self.assertRegex(schedule, rf"(?m)^## {re.escape(beginner)}\b")
+                self.assertRegex(schedule, rf"(?m)^## {re.escape(implementation)}\b")
+                for route, name in (("a-beginner", beginner), ("b-practitioner", implementation)):
+                    title = (directory / "paths" / f"{route}.md").read_text().splitlines()[0]
+                    self.assertTrue(title.startswith(f"# {name}:"), title)
+                self.assertIn(f"| {beginner} | {implementation} |", labs[11].read_text())
+                instructor = (directory / "instructor.md").read_text()
+                for name in (beginner, implementation):
+                    self.assertIn(f"\n| {name} |", instructor)
 
     def test_editorial_rubric_is_consistent_without_forcing_a_particular_score(self):
         for language, directory, _ in self.language_labs():

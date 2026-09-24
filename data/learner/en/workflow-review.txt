@@ -1,10 +1,14 @@
 BLANK WORKSHEET - personally executed Lab 05 workflows, not an instructor recording.
 A records one sequential run. B repeats the fields below for sequential, concurrent and group-chat.
+A pastes the full JSON below. B records each --output file path; do not paste its JSON again.
+Keep B's three original JSON files beside this review for handoff. Review every actual output.
 
 Execution date / language / deployment:
 Exact command:
-Complete actual JSON output, including mode, pattern, outputs, approval_status and external_actions_performed:
+Saved JSON file path (B only):
+Complete actual JSON output (A only):
 
+Observed mode / pattern / approval_status / external_actions_performed:
 Actual cited policy IDs and applicable dates:
 What is correct and why:
 What needs correction and why, or an explained all-pass finding:

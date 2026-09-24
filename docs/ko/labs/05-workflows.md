@@ -29,13 +29,32 @@ Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측�
 
 ## A. 초보자 — 준비된 MAF 예제를 직접 실행
 
-코드를 직접 작성하지 않아도 됩니다. 강사가 **준비된 MAF 실행 환경**을 제공합니다:
-이 저장소, Python/SDK, 학습자 권한의 Azure 로그인, `.env`, 활성화된 가상환경입니다.
-브라우저 IDE나 VS Code의 준비된 터미널을 사용하며, 관리자 계정을 참가자에게 공유하지 않습니다.
-제공받은 환경이 없다면 [Lab 00 B](00-start.md#b-코드--한-폴더-한-환경)와
-Lab 02 B를 한 번 완료한 뒤 돌아옵니다. Python 설치만 마치고 넘어오지 않습니다.
+설정 카드에 적은 **준비된 MAF 실행 환경**의 터미널에 명령 하나를 복사해 실행합니다. 코드를 직접 작성하지 않습니다.
+이 명령은 담당자의 예산 안에서 실제 유료 Azure 모델을 호출합니다. 관리자 계정을 공유하지 않습니다.
 
-같은 출장 질문을 다음 세 역할이 처리합니다.
+### 1. 준비된 순차 워크플로 실행
+
+1. 브라우저 IDE나 VS Code에서 준비된 터미널을 엽니다. 파일 목록에 `README.md`와 `scripts/`가 보이고,
+   프롬프트는 보통 `(.venv)`로 시작합니다. 그렇지 않으면 멈추고 담당자에게 요청합니다. 수업 중에 직접 설치하지 않습니다.
+   혼자 학습한다면 [Lab 00 B](00-start.md#b-코드--한-폴더-한-환경)와 Lab 02 B로 한 번 준비한 뒤 돌아옵니다.
+2. 아래 블록을 그대로 실행합니다. 필요하면 `outputs/`를 만들고, 결과를 출력하며 `outputs/workflow-a-sequential.json`에도 저장합니다.
+
+```bash
+mkdir -p outputs
+python scripts/workshop.py workflow --pattern sequential --question "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요." --output outputs/workflow-a-sequential.json
+```
+
+그 파일이 `already exists`로 멈추면 파일을 엽니다. 이 질문으로 본인이 실행한 결과일 때만 그대로 두고,
+아니면 `--output`의 파일 이름을 바꿔 다시 실행합니다.
+
+![2026-09-24 국문 녹화: A의 준비된 순차 workflow 명령 하나](../../assets/g6sol-20260924-ko/screenshots/K05-001-prepared-2.webp)
+
+**화면 확인:** 출력에 `mode: live`, `pattern: sequential`, `outputs`가 있습니다.
+터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다. 녹화는 같은 명령을 `--output` 없이 실행했습니다.
+
+### 2. 실제 결과 읽기
+
+세 MAF 역할이 차례로 질문을 처리했고, `outputs`에는 마지막 역할의 최종 답변만 나옵니다.
 
 ```mermaid
 flowchart LR
@@ -46,47 +65,25 @@ flowchart LR
     O -. "워크플로 밖에서" .-> H["내 검토 기록\n예약·승인·지급 없음"]
 ```
 
-명령은 JSON을 출력하고 끝납니다. 그 결과를 사람이 직접 검토하며,
-그림 뒤에 자동 반려·재실행 반복이나 승인 동작이 숨어 있는 것은 아닙니다.
-
-### 1. 준비된 순차 워크플로 실행
-
-준비된 터미널이 저장소 루트인지 확인합니다. 이 명령은 실제 Azure 모델을 호출하므로 강사의 호출 예산 안에서 실행합니다.
-아래 블록을 그대로 실행합니다. 필요하면 `outputs/`를 만들고, 결과를 출력하며 `outputs/workflow-a-sequential.json`에도 저장합니다.
-
-```bash
-mkdir -p outputs
-python scripts/workshop.py workflow --pattern sequential --question "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요." --output outputs/workflow-a-sequential.json
-```
-
-그 파일이 이미 있으면 엽니다. 이 질문으로 본인이 실행한 결과일 때만 사용하고, 아니면 `--output`의 파일 이름을 바꿔 다시 실행합니다.
-
-![2026-09-24 국문 녹화: A의 준비된 순차 workflow 명령 하나](../../assets/g6sol-20260924-ko/screenshots/K05-001-prepared-2.webp)
-
-**화면 확인:** 출력에 `mode: live`, `pattern: sequential`, `outputs`가 있습니다.
-터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다. 녹화는 같은 명령을 `--output` 없이 실행했습니다.
-
-### 2. 실제 결과 읽기
-
 | 출력 | 초보자가 확인할 내용 |
 |---|---|
 | `mode: live`, `pattern: sequential` | 준비된 MAF 코드가 실행한 결과인가 |
-| `outputs` | 현행 한도와 사전 승인 조건을 근거와 함께 설명하는가 |
+| `outputs` | `EvidenceReviewer`의 최종 답변 하나가 현행 한도와 사전 승인 조건을 근거와 함께 설명하는가 |
 | `approval_status: pending-human-review` | 모델 검토를 실제 사람 승인으로 오해하지 않았는가 |
 | `external_actions_performed: false` | 실제 예약·지급을 수행하지 않았는가 |
 
-편집기에서 `outputs/workflow-a-sequential.json`을 열어 원문 ID를 학습자 ZIP의 정책과 대조합니다.
-명령과 파일 전체를 학습자 ZIP의 빈 `workflow-review.txt`에 복사하고 맞는 부분·수정할 부분·이유를 적습니다.
-안내문 검토이지 업무 승인이 아닙니다. 순차 실행 한 번과 검토로 A를 완료합니다.
-
+1. 편집기에서 `outputs/workflow-a-sequential.json`을 열어 인용한 정책 ID를 학습자 ZIP의 `policies/`와 대조합니다.
+2. 정확한 명령과 파일 전체를 학습자 ZIP의 빈 `workflow-review.txt`에 붙여 넣습니다.
+3. 같은 파일에 맞는 부분·수정할 부분·이유를 적습니다. 안내문 검토이지 업무 승인이 아닙니다.
 
 **화면 확인:** 저장한 출력이 170000원 호텔은 한도 150000원을 넘으므로 예약 전 승인이 필요하다고 설명하고
 `TRAVEL-2026`과 `APPROVAL-01`을 인용합니다(빠진 ID는 검토에 적을 발견 사항입니다).
 `approval_status: pending-human-review`, `external_actions_performed: false`가 그대로 있습니다.
+워크플로는 이 JSON에서 끝나며, 뒤에서 자동 반려·재실행이나 승인 동작이 돌지 않습니다.
 
 ### 3. 완료 판정
 
-**실제 MAF 실행 결과와 사람의 검토 기록**이 있어야 이 단계가 완료됩니다.
+순차 실행 한 번과 검토로 A를 완료합니다. **실제 MAF 실행 결과와 사람의 검토 기록**이 있어야 합니다.
 여러 포털 대화의 답변을 사람이 복사해 이어 붙이는 것을 MAF 실행으로 기록하지 않습니다.
 환경이 준비되지 않아 강사 실행만 봤다면 `MAF 관찰 / 직접 실행 미완료`로 구분합니다.
 이 단계는 로컬 MAF 실행이며 관리형 workflow 리소스나 Hosted Agent를 만든 것이 아닙니다.
@@ -97,11 +94,8 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 
 ## B. 코드 — 세 가지 오케스트레이션 비교
 
-모든 명령은 실제 Azure 모델을 호출합니다.
-워크플로를 정의하는 코드는 `src/foundry_workshop/agents.py`의 `run_workflow`입니다.
-같은 데이터·모델·지침을 유지한 채 MAF builder와 실행 순서의 차이를 확인합니다.
-이 명령은 포털 workflow 리소스를 생성하지 않습니다.
-각 명령의 JSON 전체는 `--output`으로 저장하며, 사람의 검토는 별도로 직접 작성합니다.
+세 명령 모두 실제 Azure 모델을 호출하고 JSON 전체를 `--output`으로 저장하며, 포털 workflow 리소스는 만들지 않습니다.
+먼저 `src/foundry_workshop/agents.py`의 `run_workflow`를 엽니다. 데이터·모델·세 역할의 지침은 그대로이고 builder만 바뀝니다.
 
 | 옮길 개념 | 이 실습에서 사용하는 MAF 구현 |
 |---|---|
@@ -111,8 +105,9 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 | 여러 역할의 짧은 토론 | `GroupChatBuilder` + 발화자 선택 함수 + 최대 라운드 |
 | 업무 승인 경계 | 출력 이후 사람의 검토; 아래의 운영용 승인 설계를 별도 구현 |
 
-조건 분기·상태 저장·durable 승인까지 자동으로 마이그레이션되는 것은 아닙니다.
-필요한 업무 상태와 오류/재시도 정책을 코드에서 명시적으로 설계해야 합니다.
+**검토 파일:** `workflow-review.txt`의 검토 항목을 패턴마다 반복하고 **저장된 JSON 파일 경로(B 전용)** 칸에
+해당 명령의 정확한 `--output` 경로를 적습니다. **JSON을 다시 붙여 넣지 않습니다.** 인계할 때 JSON 세 파일을 검토 기록과 함께 보관합니다.
+실제 파일 없이 경로만 적은 것은 근거가 아닙니다.
 
 ### 1. 순차 패턴 실행: 앞 단계 결과가 다음 단계의 입력
 
@@ -121,14 +116,14 @@ python scripts/workshop.py workflow --pattern sequential \
   --output outputs/learner-notes-ko/workflow-sequential.json
 ```
 
-`PolicyAnalyst → AnswerWriter → EvidenceReviewer`를 사용합니다.
-`SequentialBuilder`의 participants 순서와 실제 출력의 흐름을 비교합니다.
-원문 오류를 초안이 그대로 이어받을 수 있다는 점도 관찰합니다.
+builder는 대화를 `PolicyAnalyst → AnswerWriter → EvidenceReviewer` 순서로 넘기고, 기본값으로 마지막 참여자의 답변만 돌려줍니다.
+그래서 `outputs`에는 **하나**의 항목, 즉 `EvidenceReviewer`의 최종 답변만 있습니다.
+앞 단계의 잘못된 원문 해석이 이 최종 답변까지 이어질 수 있습니다.
 
 ![2026-09-24 국문 녹화: 순차 MAF workflow](../../assets/g6sol-20260924-ko/screenshots/K05-002-sequential-2.webp)
 
-**화면 확인:** 순차 실행의 응답 내용을 위의 세 역할과 연결해 읽습니다.
-후속 검토자가 자연스럽게 설명해도 앞 단계의 잘못된 근거가 사라졌다고 가정하지 않습니다.
+**화면 확인:** `pattern: sequential`과 `outputs` 항목 하나를 확인합니다. 금액·적용일·인용 ID를 정책과 대조합니다.
+검토자가 자연스럽게 설명해도 앞 단계의 잘못된 근거가 사라졌다고 가정하지 않습니다.
 
 **저장:** `workflow-sequential.json`이 Lab 00 기록 폴더에 작성됩니다. 파일을 연 뒤 다음 패턴으로 갑니다.
 
@@ -139,16 +134,16 @@ python scripts/workshop.py workflow --pattern concurrent \
   --output outputs/learner-notes-ko/workflow-concurrent.json
 ```
 
-`ConcurrentBuilder`가 같은 질문·합성 근거를 세 역할에 보냅니다.
-이 출력은 세 관점의 결과이며, **자동 합의·최종 답안 하나**가 아닙니다.
-사용자가 읽어 통합하거나 별도의 검증된 집계 단계를 설계해야 합니다.
+`ConcurrentBuilder`가 같은 질문·합성 근거를 세 역할에 동시에 보냅니다.
+`outputs`에는 역할 이름 없이 세 답변이 나오고, 마지막에 기본 aggregator가 세 답변을 이어 붙인 사본이 나옵니다.
+이 마지막 항목은 **자동 합의나 최종 답안 하나가 아닙니다**. 직접 비교하거나 별도의 검증된 집계 단계를 설계합니다.
 벽시계 시간이 줄어도 총 모델 호출 수나 비용이 줄었다고 단정하지 않습니다.
 
 
 ![2026-09-24 국문 녹화: 병렬 MAF workflow](../../assets/g6sol-20260924-ko/screenshots/K05-003-concurrent-2.webp)
 
-**화면 확인:** `pattern: concurrent`와 여러 참여자의 출력을 확인합니다.
-여러 응답이 나왔다는 사실을 하나의 합의된 최종 답안으로 해석하지 말고 직접 비교·통합합니다.
+**화면 확인:** `pattern: concurrent`와 `outputs` 항목 네 개(참여자 답변 세 개와 이어 붙인 사본)를 확인합니다.
+어느 항목도 합의된 답안으로 해석하지 말고 세 답변을 직접 비교합니다.
 
 **저장:** `workflow-concurrent.json`이 같은 기록 폴더에 작성됩니다. 참여자 출력을 비교합니다.
 
@@ -159,19 +154,18 @@ python scripts/workshop.py workflow --pattern group-chat \
   --output outputs/learner-notes-ko/workflow-group-chat.json
 ```
 
-이 예제는 정해진 순서로 최대 **3라운드**만 진행합니다.
-`output_from=participants`로 실제 참여자 응답을 수집합니다.
-종료 안내 문구만 나온 것을 업무 답변으로 취급하지 않습니다.
-무한 토론이나 모델 스스로 끝날 때까지 기다리는 구조가 아닙니다.
-전체 workflow timeout도 240초로 제한합니다.
-큰 수로 늘리기 전에 호출량과 token budget을 먼저 계산합니다.
+이 예제는 정해진 순서로 최대 **3라운드**만 진행하며, 전체 workflow timeout도 240초입니다.
+`outputs`에는 발화 순서대로 각 참여자의 답변이 나오고, 마지막에 라운드 상한 안내가 나옵니다.
+이 안내만으로는 업무 답변이 아닙니다. 상한을 늘리기 전에 호출량과 token budget을 먼저 계산합니다.
 
 ![2026-09-24 국문 녹화: 제한된 Group Chat workflow](../../assets/g6sol-20260924-ko/screenshots/K05-004-group-chat-2.webp)
 
-**화면 확인:** `pattern: group-chat`, 참여자 응답과 사람 검토 대기 상태를 확인합니다.
+**화면 확인:** `pattern: group-chat`, 참여자 답변, `approval_status: pending-human-review`를 확인합니다.
+JSON 앞에 `GroupChatOrchestrator reached max_rounds=3; forcing completion.`이 출력될 수 있는데, 오류가 아니라 종료 조건입니다.
 3라운드 상한으로 끝난 것이므로 모델 스스로 합의하거나 실제 승인을 마쳤다는 뜻은 아닙니다.
 
-**저장:** `workflow-group-chat.json`이 같은 기록 폴더에 작성됩니다. 저장된 세 결과를 `workflow-review.txt`에서 비교합니다.
+**저장:** `workflow-group-chat.json`이 같은 기록 폴더에 작성됩니다. `workflow-review.txt`에 각 파일의 경로,
+실제 인용 정책 ID, 올바른 부분과 수정할 부분을 적습니다. 세 출력 모두 검토합니다. 저장만으로 사람의 검토가 완료되지는 않습니다.
 
 | 패턴 | 적합한 업무 | 주의할 점 |
 |---|---|---|

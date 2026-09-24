@@ -83,7 +83,8 @@ Baseline이 완성돼 있다면 3으로 바로 갑니다. 재개하려고 질문
 **화면 확인:** D05는 금액 보류가 맞습니다. 해외 규정이 없다는 설명과 `SCOPE-01` 인용도 있어야 합니다.
 
 요청 오류나 미시도 문항은 응답/인용 칸을 비우고 `fail`로 적으며, `review_note`에 실제 오류 또는 **미실행**을 남깁니다.
-요청·권한 오류는 멈추고 원인을 해결합니다. 지침을 바꿔야 한다는 근거로 해석하지 않습니다.
+요청·권한 오류가 나면 멈추고 정확한 오류 문구와 시각을 담당자에게 보냅니다. 401/403이면 본인의 **Foundry User** 역할을,
+429이면 `gpt-6-sol` quota를 확인해 달라고 요청합니다. 이런 오류는 지침을 바꿔야 한다는 근거가 아닙니다.
 D01–D06 행을 모두 유지합니다. **통과 수 / 6**과 요청 오류·미실행 수를 각각 기록하며, 행을 지워 점수를 높이지 않습니다.
 
 ### 3. 실제 결과에 맞는 다음 행동 선택
@@ -104,7 +105,7 @@ D01–D06 행을 모두 유지합니다. **통과 수 / 6**과 요청 오류·�
 **A 완료:** 실제 응답 6개를 평가한 baseline·`instructions-baseline.txt`·해당 버전/검토를 보관합니다.
 정당한 변경을 실행한 경우에만 `assessment-candidate.csv`·`instructions-candidate.txt`를 함께 보관합니다.
 평가를 마쳤다는 뜻이지 전 문항 통과나 운영 사용 승인이라는 뜻은 아닙니다.
-[Lab 09 A](09-operations.md#path-a)로 이동하거나, 먼저 아래 선택 Foundry 평가(15분)를 해 봅니다.
+[Lab 09 A](09-operations.md#path-a)로 이동합니다. 아래 4단계는 선택이며, 담당자의 비용 승인과 준비된 `gpt-6-sol-judge`가 있을 때만 먼저 진행합니다.
 그 다음의 명령은 별도 B 실험이지 브라우저 경로의 추가 단계가 아닙니다.
 
 <a id="portal-evaluation"></a>
@@ -200,13 +201,12 @@ Lab 06 이후 시작하는 별도 실험이지 Search/IQ 실패를 대신하는 
 Holdout은 이름을 바꾸거나 재수집해도 다시 미사용 검증셋이 되지 않습니다.
 
 **블록 하나 실행 → 결과 확인 → 다음 블록** 순서입니다. `collect`는 Azure 호출,
-`evaluate`·`compare`·`feedback`·`accept`는 모델 호출 없는 로컬 근거 조회/작성입니다.
+`evaluate`·`compare`·`feedback`·`accept`는 모델을 호출하지 않고 저장된 로컬 근거를 읽거나 보고서를 작성합니다.
 수집 오류는 파일을 보존하고 다음 수집 전에 원인을 해결합니다. 저장된 오류 확인을 위한 `evaluate`는 실행해도 됩니다.
 업무 검사 실패와 요청 실패는 다릅니다.
 
-프로그램은 프로젝트·출력 한도·Search endpoint/index/source/base 설정도 고정해 비교합니다.
-`corpus_hash`는 로컬 합성 원본의 hash이지 원격 index의 불변성을 증명하는 값은 아닙니다.
-실험 중 원격 자료를 수정하지 말고, 실제 반환된 근거와 `context_hash`도 함께 확인합니다.
+`compare`는 프로젝트·출력 한도·검색 설정·합성 파일·코드가 같을 때만 두 실행을 비교합니다.
+그러므로 수집 사이에 `.env`, `data/`, `src/`를 수정하지 않습니다. 실제 반환된 근거와 각 `context_hash`를 보존합니다.
 
 <a id="dev-baseline"></a>
 
@@ -237,7 +237,8 @@ python scripts/workshop.py evaluate --label baseline
 
 ### 2. 실패를 한 건 골라 원인 분리
 
-`outputs/baseline/responses.jsonl`에서 실패 case를 찾습니다.
+`outputs/baseline/business-evaluation.json`을 엽니다. `checks`에서 `passed`가 `false`인 case를 찾고, 그 case에서 `false`인 검사를 적습니다.
+그다음 `outputs/baseline/responses.jsonl`에서 같은 `case_id`의 응답을 읽습니다.
 
 | 현상 | 먼저 확인할 것 |
 |---|---|

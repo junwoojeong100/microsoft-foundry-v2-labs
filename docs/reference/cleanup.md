@@ -17,9 +17,10 @@ An owner-managed or pending authorized cleanup must name its owner and remaining
 python scripts/workshop.py --language en cleanup-plan
 ```
 
+This prints an inventory/guide, not a deletion command.
+
 </details>
 
-This prints an inventory/guide, not a deletion command.
 Record the subscription, project, prefix, agent/version/session IDs, model deployments, Search objects, and logging/storage ownership.
 `outputs/azure-objects.json` records only the Search index/source/base objects this copy created; it is not a full Azure inventory or proof of deletion rights.
 Unknown ownership is a reason to stop, not to widen the deletion scope.

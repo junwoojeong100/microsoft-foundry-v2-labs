@@ -32,8 +32,6 @@ python scripts/workshop.py --language en maf \
   --output outputs/learner-notes-en/maf-none.json
 ```
 
-The question asks for a three-sentence explanation of Foundry versus Agent Framework.
-
 
 ![September 24 English recording: MAF agent without tools](../assets/g6sol-20260924-en/screenshots/E04-001-maf-2.webp)
 

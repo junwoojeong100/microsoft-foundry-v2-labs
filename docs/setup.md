@@ -16,7 +16,7 @@ This page does not ask learners to create resources.
 
 **Choose one route for the whole pass:** **A** if you are new to Azure or agents (browser steps and one prepared
 command in Lab 05), or **B** if you are comfortable with Python and APIs. [Compare the routes](paths.md).
-Keep one language for the pass: English and Korean use different input files, so switching needs new run labels.
+Keep one language for the whole pass: English and Korean use different input files (in B, a switch also needs new run labels).
 
 <a id="learner-files"></a>
 <a id="3-download-the-ready-learner-materials"></a>
@@ -31,7 +31,8 @@ Keep the owner's values from section 3 ready; record them in the personal notes 
 ### A's learner ZIP
 
 Open [English learner-materials.zip](../data/learner/en/learner-materials.zip), choose **Download raw file**, and extract it.
-This small ZIP requires no Python and does not include videos, holdout or reference-answer fields.
+This approximately 20 KB ZIP delivers all 16 learner files in one download, without Python, Git or the full source repository.
+It is a generated handout, not another source of truth. It contains no videos, holdout or reference-answer fields; B already has the files and skips it.
 For private repositories, use a GitHub account with read access.
 
 | File | Use |
@@ -50,7 +51,7 @@ For private repositories, use a GitHub account with read access.
 
 You can also open [the complete inline instructions](../data/learner/en/instructions-with-policies.txt) or
 [questions-only file](../data/learner/en/dev-questions.txt) directly.
-Do not paste `dev.jsonl` reference-answer columns into an agent.
+`dev-questions.txt` and `dev-questions.jsonl` contain questions only; paste only the question text into a chat.
 
 Keep the extracted folder as your **personal evidence folder outside the repository**.
 Fill the note templates as you go; in Lab 07, save `assessment.csv` as `assessment-baseline.csv`.

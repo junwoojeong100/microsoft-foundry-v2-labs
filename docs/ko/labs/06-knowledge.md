@@ -45,17 +45,18 @@
 
 <a id="path-b"></a>
 
-## B. 코드 — 공통 환경에 Search만 추가
+## B. 코드 — 로컬 근거, Search, GA IQ 순서로
 
 **1–5단계를 순서대로 진행합니다: 로컬 근거 → Search → GA IQ → 근거 있는 답변.**
-이번 실습의 검색 방식은 정해져 있습니다. 서로 바꿔 써도 되는 명령 목록이 아닙니다.
+아래 조회·답변 명령 네 개에서 **2026년 9월의 170000원 호텔 질문을 동일하게** 유지합니다.
+질문까지 바꾸지 않아야 검색된 근거를 비교할 수 있습니다. 검색 방식은 정해져 있으며 오류 시 서로 대체하지 않습니다.
 
 | 단계 | 확인할 것 | Azure 사용 |
 |---|---|---|
 | 로컬 키워드 검색 | 합성 문서·원문 ID·context hash | 없음 |
 | 일반 Search | 본인 index에서 검색한 결과 | 객체 작성·Search 비용 발생 가능 |
 | GA Foundry IQ | Knowledge base의 references·activity·원문 | 객체 작성·검색 비용 발생 가능. 이 base 내부의 모델은 없음 |
-| IQ 근거로 답변 | 모델 응답·정책 조건·인용 | 실제 `gpt-6-sol` 유료 요청 |
+| IQ 근거로 답변 | 새로 검색한 근거·정책 조건·인용 | IQ 재검색과 실제 `gpt-6-sol` 유료 요청 |
 
 기본 단계에는 embedding 배포가 필요 없습니다. Hybrid 검색과 모델 기반 IQ Chat은 별도 선택입니다.
 오류가 나도 검색 방식을 바꾸지 않습니다.
@@ -84,13 +85,16 @@ seed 전에 `.env`에서 두 값을 확인합니다.
 
 ```bash
 python scripts/workshop.py retrieve --provider local \
-  --question "2026년 9월 국내 출장 숙박비 한도는?" \
+  --question "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요." \
   --output outputs/learner-notes-ko/retrieve-local.json
 ```
 
 `documents`, `source_ids`, `context_hash`를 확인합니다.
 학습용 로컬 검색은 한국어 형태소 검색이나 의미 검색의 대체물이 아닙니다.
 검색 문서가 부족하면 정답을 코드에 넣지 말고 검색의 한계를 기록합니다.
+
+**2–5단계의 화면**은 검색 방식마다 다른 질문을 사용한 2026-09-24 실행에서 가져왔습니다.
+출력 필드를 찾는 데만 사용하고 이번 동일 질문 비교의 결과로 보지 않습니다. 화면을 맞추려고 유료 호출을 반복하지 않습니다.
 
 
 ![2026-09-24 국문 녹화: 여섯 합성 정책의 로컬 키워드 검색](../../assets/g6sol-20260924-ko/screenshots/K06-001-local-2.webp)
@@ -132,7 +136,7 @@ Seed 성공을 확인한 뒤에만 해당 index를 조회합니다.
 
 ```bash
 python scripts/workshop.py retrieve --provider search \
-  --question "2026년 9월 국내 출장 숙박비 한도는?" \
+  --question "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요." \
   --output outputs/learner-notes-ko/retrieve-search.json
 ```
 
@@ -149,52 +153,56 @@ python scripts/workshop.py retrieve --provider search \
 python scripts/workshop.py seed-search --iq --confirm-create
 ```
 
-Seed 결과의 `document_count: 6`과 의도한 `knowledge_base`가 null이 아님을 확인한 뒤 계속합니다.
-`outputs/azure-objects.json`을 보관하며, 중단할 때도 이 소유권 기록을 삭제하지 않습니다.
-
-```bash
-python scripts/workshop.py retrieve --provider iq \
-  --question "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?" \
-  --output outputs/learner-notes-ko/retrieve-iq.json
-```
-
 
 ![2026-09-24 국문 녹화: 소유 GA IQ knowledge source·base 생성](../../assets/g6sol-20260924-ko/screenshots/K06-004-seed-iq-2.webp)
 
-**화면 확인:** seed 결과의 `knowledge_base`가 이제 null이 아니며 `document_count: 6`입니다.
-Source/base 구성과 `api_version: 2026-04-01`은 **retrieve 결과**에서 확인합니다.
-`ledger`에 표시된 `outputs/azure-objects.json` 소유권 기록을 유지합니다.
+**화면 확인:** seed 결과의 `knowledge_base`가 이제 null이 아니고, `document_count: 6`이며, `ledger` 경로가 `outputs/azure-objects.json`으로 끝납니다.
+세 가지가 모두 보인 뒤 계속합니다. 이 소유권 기록은 보관하며 중단할 때도 삭제하지 않습니다.
 
 이 GA IQ(REST `2026-04-01`)는 knowledge base 안의 모델 없이 문서를 검색하고,
 5단계가 그 문서를 별도 호출로 `gpt-6-sol`에 보냅니다([모델 기반 IQ](../reference/iq-model-identity.md)는 선택).
 
-`provider: foundry-iq`, base 이름·API 버전, `references`, `activity`, 원문 `documents`를 확인합니다.
-참조 번호는 문서 ID가 아닙니다. **빈 결과는 검색된 문서가 0건이라는 뜻입니다.** 기록하고 금액을 지어내지 않습니다.
-IQ 오류는 오류로 남기며 일반 Search로 대체하지 않습니다.
+```bash
+python scripts/workshop.py retrieve --provider iq \
+  --question "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요." \
+  --output outputs/learner-notes-ko/retrieve-iq.json
+```
 
 
 ![2026-09-24 국문 녹화: 원문 참조가 있는 GA Foundry IQ 검색](../../assets/g6sol-20260924-ko/screenshots/K06-005-iq-2.webp)
 
-**화면 확인:** `activity`·base·API 버전·`references`·`documents`를 함께 읽습니다.
-보고되지 않은 지연이나 사용량은 임의로 채우지 않습니다.
+**화면 확인:** `provider: foundry-iq`, 본인의 `knowledge_base`, `api_version: 2026-04-01`, `references`, `activity`, 원문 `documents`를 확인합니다.
+참조 번호는 문서 ID가 아닙니다. **빈 결과는 검색된 문서가 0건이라는 뜻입니다.** 기록하고 금액을 지어내지 않습니다.
+IQ 오류는 오류로 남기며 일반 Search로 대체하지 않습니다. 보고되지 않은 지연이나 사용량은 임의로 채우지 않습니다.
 
 **저장:** `retrieve-iq.json`이 원문·activity와 함께 같은 기록 폴더에 작성됩니다. 답변 요청 전에 확인합니다.
 
-### 5. 같은 질문을 근거와 함께 실제 모델에 전달
+<a id="retrieval-comparison"></a>
+
+**답변 요청 전 비교:** `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`을 함께 엽니다.
+`session-notes.txt`에 각 파일의 `provider`, `source_ids`, `context_hash`를 기록합니다.
+원문에 `TRAVEL-2026`(150000원)과 `APPROVAL-01`(예약 전 승인)이 있는지 확인합니다.
+검색 방식이 다르면 문서나 hash도 다를 수 있습니다. IQ에 필요한 근거가 없다면 결과를 보존하고 5단계 전에 검색 원인을 확인합니다.
+다른 방식으로 찾은 근거로 대신하지 않습니다.
+
+### 5. 다시 검색한 뒤 실제 모델에 질문
 
 ```bash
 python scripts/workshop.py answer --prompt v2 --retrieval iq \
-  --question "2026년 9월 국내 출장에서 170000원 호텔을 예약하려면 어떤 절차가 필요한가요?" \
+  --question "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요." \
   --output outputs/learner-notes-ko/answer-iq.json
 ```
 
-검색→응답을 따로 둔 이유는 실패를 구분하기 위해서입니다.
-검색에 현재 규정이 없는 것과, 올바른 규정을 받았는데 적용일을 잘못 해석한 것은 다른 문제입니다.
+**이 명령은 IQ를 다시 검색하며 `retrieve-iq.json`을 읽지 않습니다.**
+새 근거와 모델 답변은 `answer-iq.json`에 함께 저장합니다.
+그 파일의 `source_ids`·`context_hash`를 `retrieve-iq.json`과 대조합니다. 다르면 변경 사실을 적고
+실제 답변에 사용한 원문을 검토합니다. 정책이 검색되지 않은 것과 올바른 정책을 잘못 해석한 것은 다른 문제입니다.
 
 ![2026-09-24 국문 녹화: IQ 근거를 gpt-6-sol에 보내 검증된 답변 받기](../../assets/g6sol-20260924-ko/screenshots/K06-006-answer-iq-2.webp)
 
 **화면 확인:** `--retrieval iq` 명령 아래의 base/API 설정, `response_model`, `response_id`, `usage`를 확인합니다.
-`answer`의 금액·조건·인용을 원문과 대조합니다.
+`answer`의 `decision: needs_approval`, `limit_krw: 150000`, **예약 전 승인** 조건과
+`TRAVEL-2026`·`APPROVAL-01` 인용을 이번 응답의 원문과 대조합니다. 불일치는 기록하며 저장된 답변을 고치지 않습니다.
 
 **저장:** `answer-iq.json`이 같은 기록 폴더에 작성됩니다. 응답과 검색 metadata 전체를 확인합니다.
 

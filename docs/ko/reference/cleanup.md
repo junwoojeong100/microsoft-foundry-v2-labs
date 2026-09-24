@@ -17,9 +17,10 @@
 python scripts/workshop.py cleanup-plan
 ```
 
+이 명령은 목록과 안내를 출력할 뿐 삭제하지 않습니다.
+
 </details>
 
-이 명령은 목록과 안내를 출력할 뿐 삭제하지 않습니다.
 구독·프로젝트·prefix·agent/version/session ID·모델 배포·Search 객체·로그/저장소 소유자를 기록합니다.
 `outputs/azure-objects.json`은 이 복사본이 만든 Search index/source/base만 기록하며 전체 Azure 목록이나 삭제 권한의 증명이 아닙니다.
 소유자를 모르면 멈춥니다. 삭제 범위를 넓히는 이유가 아닙니다.

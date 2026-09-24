@@ -45,7 +45,7 @@ English and Korean use separate frozen prompts, policies and evaluation datasets
 These are billable agent calls and a manual assessment, not a Foundry Evaluation portal run.
 No evaluator setup, B commands or holdout access is needed.
 
-### 1. Fix the baseline before asking
+### 1. Freeze the baseline before asking
 
 Open your [Lab 03](03-prompt-agent.md#path-a) inline agent and verify that its saved **Instructions** match
 `instructions-baseline.txt`. Fill **Lab 07 A** in `session-notes.txt` with the agent name/version, deployment
@@ -84,7 +84,8 @@ then compare them with the row above. Do not mark a pass in advance.
 **What to check:** for D05, withholding the amount is correct; it also needs the explanation that no international policy exists and the `SCOPE-01` citation.
 
 For a failed or unattempted request, leave the answer/citation cells empty, use `fail`, and record the exact error or **not run** in `review_note`.
-Stop and resolve request/access errors; do not treat them as proof that instructions need changing.
+For a request or access error, stop and send the owner the exact error text and time; ask them to check your **Foundry User** role
+for 401/403 or the `gpt-6-sol` quota for 429. Such an error is not evidence that the instructions need changing.
 Keep all D01–D06 rows. Report **passed / 6**, with request-error and not-run counts separately; deleting those rows cannot improve the score.
 
 ### 3. Choose the next action from your actual result
@@ -105,7 +106,7 @@ Keep genuine failures. A higher score is not guaranteed, and another attempt nee
 **A done:** retain the complete six-answer baseline, `instructions-baseline.txt` and its version/review;
 include `assessment-candidate.csv` and `instructions-candidate.txt` only if you ran the justified change.
 Completing the assessment is not the same as passing every case or approving production use.
-Continue to [Lab 09 A](09-operations.md#path-a), or first try the optional Foundry evaluation below (15 minutes).
+Continue to [Lab 09 A](09-operations.md#path-a). Step 4 below is optional: do it first only with the owner's cost approval and the prepared `gpt-6-sol-judge`.
 The commands after it are a separate B experiment, not extra browser steps.
 
 <a id="portal-evaluation"></a>
@@ -203,10 +204,8 @@ Renaming or recollecting holdout does not make it an unseen test again.
 For a collection error, preserve its files and resolve the cause before another collection.
 You may still run `evaluate` to inspect saved errors. A business-check failure is different from a request failure.
 
-Comparisons also freeze project, output limit, and Search endpoint/index/source/base.
-`corpus_hash` hashes the local synthetic corpus; it does not prove an immutable remote
-index. Do not modify remote documents during the experiment. Preserve actual returned
-evidence and each `context_hash`.
+`compare` accepts two runs only if the project, output limit, retrieval settings, synthetic files and code are unchanged,
+so do not edit `.env`, `data/` or `src/` between collections. Preserve the actual returned evidence and each `context_hash`.
 
 <a id="dev-baseline"></a>
 
@@ -239,7 +238,8 @@ inside each case's `checks`. Inspect the summary and all six rows, not just the 
 
 ### 2. Separate the cause of one failure
 
-Find the actual failed case in `outputs/baseline/responses.jsonl`.
+Open `outputs/baseline/business-evaluation.json`. Under `checks`, find a case whose `passed` is `false` and note which of its checks is `false`.
+Then read the same `case_id` in `outputs/baseline/responses.jsonl`.
 
 | Symptom | Check first |
 |---|---|

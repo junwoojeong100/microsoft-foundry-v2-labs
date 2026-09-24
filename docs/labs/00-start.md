@@ -56,22 +56,25 @@ prevent translated datasets from being presented as the same-input experiment.
    Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
    In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal;
    you will not write Python or build a portal workflow.
-5. Fill the setup section of the ZIP's `session-notes.txt` using the rows below. Do not post whole screens or personal information in shared chat.
+5. Open the ZIP's `session-notes.txt`. In its **Lab 00 - setup card** section, check each line you filled during setup and complete any blank one.
+   Do not post whole screens or personal information in shared chat.
 
+| Line in `session-notes.txt` | What to write |
+|---|---|
+| `Language / path:` | `English / A` |
+| `Tenant / subscription:` | The owner's values; they match the directory you signed in to |
+| `Resource group / Foundry account / project:` | The owner's values; the project matches the one you opened |
+| `Full project endpoint:` | The owner's value; Lab 01 checks it on **Home** |
+| `Answer deployment / model version:` | `gpt-6-sol` / `2026-09-22` |
+| `Personal prefix:` | Your own, for example `mfv2-team01-en` |
+| `Cost and permission owner:` | The person who approves costs and roles |
+| `Prepared MAF terminal location:` | Where to open the terminal prepared for Lab 05 |
+| `Optional IQ Chat selected or not selected:` | `not selected`, unless the owner prepared it for you |
 
 ![September 24 English recording: Open the intended training project](../assets/g6sol-20260924-en/screenshots/EP00-001-home-2.webp)
 
-**What to check:** The project name at the top must change. **Project endpoint** is the
-value for `.env`; it is not the browser's `ai.azure.com` address.
-
-| Item | Your value |
-|---|---|
-| Training tenant/subscription | Supplied by the instructor |
-| Foundry resource/project | Supplied by the instructor |
-| Model **deployment name** | Distinct from its catalog name |
-| Personal/team agent prefix | Example: `mfv2-team01-en` |
-| Path | A / B |
-| Execution status | Personally run / instructor observation / not run |
+**What to check:** The project name at the top is your training project. The **Project endpoint** on **Home**
+belongs on the `Full project endpoint:` line; it is not the browser's `ai.azure.com` address.
 
 If the project is missing, check that you signed in to the intended tenant, then ask the owner to confirm the project name
 and your **Foundry User** role. Do not create another resource. See [Troubleshooting](../reference/troubleshooting.md) for tenant and role errors.
@@ -157,7 +160,7 @@ cp data/learner/en/{session-notes.txt,workflow-review.txt,operations-checklist.t
 
 If this folder already belongs to your current pass, keep it and resume without running the copy block.
 For a new pass, choose a new notes-directory name and use it consistently. Never fill files under `data/learner/`.
-Keep `session-notes.txt` open; skip its browser-only fields in B.
+Open the copied `session-notes.txt` and fill its **Lab 00 - setup card** with the owner's values (path: `English / B`); skip its browser-only fields.
 
 The B commands in Labs 02/04/05/06 include **`--output`**, which saves the complete JSON to this notes directory
 and still prints it. **No terminal-to-editor copying is needed.** Open the saved file at each **Save** checkpoint.
@@ -262,7 +265,8 @@ Preflight does not prove data-plane permissions or Structured Outputs support;
 
 **What to check:** Read `deployment.name`, `deployment.model.name`, `deployment.model.version`,
 `deployment.state: Succeeded`, `inference_tested: false`, and `note`.
-Only an actual response verifies inference. If you came here to prepare Lab 05, complete Lab 02 B's actual response check and then return to Lab 05.
+Only an actual response verifies inference. If preparing A's terminal, complete Lab 02 B's actual response checks,
+then use [its A return choices](02-models.md#a-terminal-ready): start A from Lab 00, or resume Lab 05 only if you paused there.
 
 **B done:** the local checks pass and the intended deployment passes read-only preflight.
 Continue to [Lab 02 B](02-models.md#path-b) for actual inference. Keep all later terminal commands at this repository root with `.venv` active.
