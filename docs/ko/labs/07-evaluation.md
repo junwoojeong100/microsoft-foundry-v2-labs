@@ -165,20 +165,22 @@ TaskAdherence는 2026-09-24 평가자 목록에 Preview로 표시되었으며 �
 
 <a id="path-b"></a>
 
-## B. 코드 — 재현 가능한 실행 단위
+## B. 코드 — 지침 두 개를 비교하고 최종 확인은 한 번
 
-여기부터는 실제 Azure 모델 호출입니다. 기본 예시는 Search를 만들지 않은 사람도
-완료할 수 있도록 `--retrieval local`을 사용합니다.
-IQ를 평가하려면 **세 실행 모두** `--retrieval iq`로 바꿉니다.
-서로 다른 검색 방식을 같은 단일변수 실험으로 비교하지 않습니다.
-새 실험은 `local`을 유지하고 **1 → 2 → 3 → 4**로 진행합니다. 재개라면 아래 표부터 확인합니다.
-5–6은 기본 결과 이후의 선택 확장입니다. 기본 target 요청은 **6 + 6 + 4 = 16개**이며 서비스/도구/재시도는 추가입니다.
+**이 실험 전체에서 로컬 검색 + 실제 Azure 모델을 사용합니다.**
+Lab 06 이후 시작하는 별도 실험이지 Search/IQ 실패를 대신하는 단계가 아닙니다.
+모델·언어·정책·검색은 고정하고 dev에서 지침만 바꿉니다.
 
-| 실행 | 저장소 루트 아래 저장 위치 | 기대 사례 수 |
-|---|---|---:|
-| Baseline / v1 | `outputs/baseline/` | dev 6 |
-| Candidate / v2 | `outputs/candidate/` | dev 6 |
-| Final / 고정 v2 | `outputs/final-holdout/` | 후보 통과 후에만 holdout 4 |
+| 단계 | 할 일 | 보관할 것 | 대상 모델 요청 |
+|---|---|---|---:|
+| [1. Baseline](#dev-baseline) | v1으로 dev 수집·평가 | `outputs/baseline/` | 6 |
+| [2. 검토](#dev-review) | 실제 실패 원인 또는 전체 통과 기록 | 본인 검토 기록. `feedback`은 실제 실패 사례에만 사용 | 0 |
+| [3. Candidate](#dev-candidate) | v2 수집·평가 후 비교 | `outputs/candidate/`와 비교 보고서 | 6 |
+| [4. 최종 확인](#final-acceptance) | 통과한 후보 고정 후 holdout 한 번 | `outputs/final-holdout/`와 인수/반려 보고서 | 게이트 통과 후에만 4 |
+
+새 실험은 **1 → 2 → 3 → 4**, 재개는 다음 표부터 확인합니다.
+최종 게이트가 열리면 **사례 요청 16개**가 필요하며 서비스·도구·재시도는 추가입니다.
+5–6단계와 IQ 기반 비교는 별도 선택 실험입니다.
 
 <a id="resume-evaluation"></a>
 
@@ -206,6 +208,8 @@ Holdout은 이름을 바꾸거나 재수집해도 다시 미사용 검증셋이 
 `corpus_hash`는 로컬 합성 원본의 hash이지 원격 index의 불변성을 증명하는 값은 아닙니다.
 실험 중 원격 자료를 수정하지 말고, 실제 반환된 근거와 `context_hash`도 함께 확인합니다.
 
+<a id="dev-baseline"></a>
+
 ### 1. dev baseline 수집
 
 ```bash
@@ -228,6 +232,8 @@ python scripts/workshop.py evaluate --label baseline
 
 **화면 확인:** `checks` 안의 `completed`, `schema`, `decision`, `required_citations`를 읽습니다.
 마지막에 보이는 사례만 보지 말고 summary와 6개 행 전체를 확인합니다.
+
+<a id="dev-review"></a>
 
 ### 2. 실패를 한 건 골라 원인 분리
 
@@ -257,6 +263,8 @@ python scripts/workshop.py feedback --label baseline --case "$FAILED_CASE" --rea
 모델의 답변 자체를 정답으로 승격하지 않습니다.
 실제 trace가 아직 없으면 `null`로 남습니다. 임의 UUID를 Azure trace ID처럼 쓰지 않습니다.
 
+<a id="diagnostic-no-evidence"></a>
+
 <details>
 <summary>선택, B 완료에 필요 없음: 근거 없이 일부러 만든 실패 진단하기(유료 모델 호출 6회 추가)</summary>
 
@@ -279,6 +287,8 @@ context가 없는 행은 Groundedness가 건너뛰기 때문입니다. 2026-09-2
 
 holdout은 4단계의 최종 확인에만 사용합니다. 고칠 실패를 찾으려고 holdout을 열지 않습니다.
 
+<a id="dev-candidate"></a>
+
 ### 3. 같은 dev에 준비된 v2 지침 실행
 
 baseline이 모두 통과했더라도 이 단계를 실행합니다. 같은 6문항에서 고정된 두 지침 버전을 비교하는 단계입니다.
@@ -298,6 +308,12 @@ python scripts/workshop.py collect --split dev --label candidate --prompt v2 --r
 
 ```bash
 python scripts/workshop.py evaluate --label candidate
+```
+
+먼저 6개 결과를 모두 읽습니다. 업무 기준 실패는 보존할 발견 사항이며 설정·hash 오류는 해결해야 합니다.
+그다음 저장된 dev 실행을 비교합니다. 비교 성공만으로 holdout이 승인되지는 않습니다.
+
+```bash
 python scripts/workshop.py compare --baseline baseline --candidate candidate --variable prompt
 ```
 
@@ -319,6 +335,8 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 `changed_context_cases`가 빈 목록이면 검색 근거가 같습니다. 비교 조건이 다르면 보고서를 쓰기 전에 거부합니다.
 입문 B는 실행당 6문항입니다. 심화 경로의 점수를 옮겨 쓰거나
 같은 점수·짧은 실행 시간만으로 v2의 우월성을 주장하지 않습니다.
+
+<a id="final-acceptance"></a>
 
 ### 4. 후보를 고정한 뒤 holdout 한 번
 
@@ -343,6 +361,12 @@ python scripts/workshop.py collect --split holdout --label final-holdout --promp
 
 ```bash
 python scripts/workshop.py evaluate --label final-holdout
+```
+
+4행 전체를 확인합니다. 업무 기준 실패로 `1`이 반환돼도 아래 반려 보고서는 보존합니다.
+입력·hash·선행 조건 오류(`2`)라면 멈추고 [복구](../reference/troubleshooting.md#resume-safely)를 따릅니다.
+
+```bash
 python scripts/workshop.py accept --candidate candidate --holdout final-holdout
 ```
 

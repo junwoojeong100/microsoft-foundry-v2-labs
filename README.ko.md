@@ -4,22 +4,26 @@
 
 ## 여기에서 시작하세요
 
-**1. [준비 카드](docs/ko/setup.md)를 완료합니다. 2. 아래에서 경로 하나를 고릅니다. 3. 그 경로 페이지를 따라 Lab 00부터 진행합니다.**
-동봉한 합성 데이터만으로 출장 규정 안내 도우미 하나를 만듭니다.
-배경 설명·영상·고급 모듈은 선택입니다.
+**출장 규정 안내 도우미 하나를 만들고, 검토한 답변과 자원 정리 기록을 남깁니다.**
+동봉한 합성 데이터만 사용합니다.
+
+1. 아래에서 **A** 또는 **B**를 고릅니다.
+2. **고른 경로에 맞춰** [준비 카드](docs/ko/setup.md)를 완료합니다.
+3. 경로의 체크리스트를 따라 Lab 00부터 진행합니다. 페이지의 다음 절이 아니라 **A 완료 / B 완료** 링크로 이동합니다.
 
 | 경로 | 이런 분께 | 하는 일 | 끝나면 남는 것 |
 |---|---|---|---|
 | **[A — 입문](docs/ko/paths/a-beginner.md)** | Azure나 agent가 처음인 분 | 브라우저 조작과 준비된 터미널의 명령 한 번. Python 작성 없음 | 내 agent·6문항 평가표·workflow 검토·정리 인계 |
 | **[B — 구현](docs/ko/paths/b-practitioner.md)** | Python·API에 익숙한 분 | SDK 호출·도구·workflow·Search/IQ·통제된 평가·로컬 패키징 | 저장된 실행 기록과 인수 보고서 |
 
-**시간:** 환경 준비 후 A 4시간, B 6시간입니다.
-**파일:** A는 준비 카드의 작은 학습자 ZIP을, B는 소스 저장소 ZIP을 사용합니다. ZIP을 추가로 받을 필요는 없습니다.
-**A의 Lab 05에는 준비된 터미널이 필요합니다.** 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
-**아직 Azure 권한이 없나요?** [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 진행하고 cloud 실습은 **미실행**으로 기록합니다.
+**준비 후 소요 시간:** A 4시간, B 6시간. **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
+두 경로 모두 준비된 Azure 환경이 필요합니다. A도 Lab 05에서는 준비된 터미널을 사용합니다.
+제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
+Azure 권한이 없다면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 하고 cloud 실습은 **미실행**으로 기록합니다.
 
 기본 과정을 마쳤다면 [C. 고급 모듈](docs/ko/paths/c-advanced.md), 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),
 구버전에서 돌아왔다면 [변경 지도](docs/ko/reference/migration.md)를 사용합니다.
+아래 배경 설명과 녹화는 선택 참고 자료이며 선행 조건이 아닙니다.
 
 <details>
 <summary>배경과 이전 녹화 — 선택 참고 자료이며 선행 조건이 아닙니다</summary>
@@ -122,9 +126,9 @@ flowchart LR
 
 ## 코드 경로의 가장 짧은 시작
 
-모든 명령은 **이 폴더의 루트**에서 실행합니다. Bash 기준이며 Windows 코드는 WSL을
-사용합니다. 명령은 Python 3.13을 호출하며, 전체 코드 경로와 Hosted 작업에는 3.13이 필요합니다(3.14는 오프라인 검사만 가능).
-브라우저 경로에서는 아래 명령이 필요 없습니다.
+**선택 오프라인 체험이며 B의 Azure 설정은 아닙니다.** **저장소 루트**의 Bash에서 실행합니다
+(Windows는 WSL). 전체 코드 경로에는 Python 3.13을 사용하며 3.14는 오프라인 검사만 지원합니다.
+A 학습자는 이 절을 건너뛰어도 됩니다.
 
 ```bash
 # 외부 패키지나 Azure 없이 가능한 검사기 체험
@@ -133,9 +137,11 @@ python3.13 scripts/workshop.py demo --label first-offline --prompt v2
 python3.13 scripts/workshop.py evaluate --label first-offline
 ```
 
-`offline-fixture` 결과는 **미리 작성한 예제**입니다. 모델 품질·Foundry 성능·Azure 연결을
-검증한 결과가 아닙니다. 실제 SDK 설치·인증·호출은 [Lab 00](docs/ko/labs/00-start.md)에서
-진행합니다. 반복 실행 시 새 label을 사용합니다. 기존 실행을 덮어쓰지 않습니다.
+**확인:** `doctor`는 `result: PASS`, `azure_tested: false`를 반환합니다.
+`outputs/first-offline/business-evaluation.json`을 열면 동봉한 v2 fixture의 결과는
+`total: 6`, `passed: 6`, `errors: 0`이어야 합니다. **검사기를 확인한 것이며 모델 품질·Azure 연결의 증거가 아닙니다.**
+다시 실행하려면 `demo`와 `evaluate`에 같은 새 label을 씁니다. 기존 실행은 덮어쓰지 않습니다.
+SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)에서 진행합니다.
 
 ## 이 버전의 범위
 

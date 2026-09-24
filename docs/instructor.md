@@ -35,8 +35,8 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
    Check quota, SKU and region; do not let first-time learners guess a replacement.
    Recheck [the model choice](reference/model-choice.md) and its published price before class.
 3. Assign the required project roles, such as `Foundry User`, to participants.
-4. Prepare separate Search data read/write roles.
-5. Prepare the roles the remote agent identity needs for models and tools.
+4. **For B or a selected IQ module**, prepare separate Search data read/write roles. They are not required for default A.
+5. **Only for selected remote hosting**, prepare the runtime identity's model/tool roles. B's package-only step does not need them.
 6. Send a first request using an **actual participant account**, not an administrator.
 7. Set budget alerts and log retention. Budget alerts are not an automatic spending cap.
 8. Review optional-feature approvals, cross-region processing, and tenant policies.
@@ -58,7 +58,8 @@ Distribute **values only**, separately, in `.env.example` format. Never distribu
 - Full project endpoint, including `/api/projects/...`.
 - Exact `gpt-6-sol` answer deployment and verified model version `2026-09-22`.
 - Unique `WORKSHOP_PREFIX`: `mfv2-` followed by lowercase letters/digits and single hyphens, at most 32 characters total.
-- Optional Search endpoint, account OpenAI root, and the **chat-base name printed by `iq-chat setup`**, distinct from the GA base.
+- **For B:** the Search endpoint, writer access and an approved, unseeded learner prefix (or the matching prepared working copy).
+- **Only for optional IQ Chat:** account OpenAI root and the **chat-base name printed by `iq-chat setup`**, distinct from the GA base.
 - Optional judge deployment and underlying model.
 - Actual project ARM ID, location code, unique agent name and an empty standalone directory if Hosted is selected.
 
@@ -66,6 +67,9 @@ Also hand over the repository location and an activated, participant-signed-in M
 For self-study, [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) is the full setup route, not an assumed instructor action.
 
 ## 3. Prepare Search/IQ
+
+**Default A: skip this section. B: prepare the service and learner permissions; Lab 06 creates the learner's owned objects.**
+Model-based IQ Chat is an additional opt-in, not part of B's GA preparation.
 
 The default is a text index and **GA `2026-04-01` minimal/extractive retrieval**.
 Check these separately:
@@ -109,15 +113,19 @@ Complete Lab 00 B's `.env`, venv and participant sign-in first.
 Reuse that venv; do not recreate it after setup. Run each block only with the approved training values.
 
 ```bash
-source .venv/bin/activate
-python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]"
-python -m pip check
-python scripts/check_sdk.py
-python -m unittest discover -s tests -t . -v
-python -m unittest discover -s tests_sdk -t . -v
-python scripts/check_docs.py
+source .venv/bin/activate &&
+python -m pip install -e ".[cloud,agents,dev]" &&
+python -m pip check &&
+python -m ruff check . &&
+python -m ruff format --check . &&
+python -m compileall -q src scripts examples tests tests_sdk &&
+python -m unittest discover -s tests -t . -v &&
+python scripts/check_docs.py &&
 python scripts/workshop.py --language en doctor
 ```
+
+The chain stops on the first failed check. Resolve it before continuing. No command in this block calls Azure.
+The Hosted SDK is not needed for core A/B; its full SDK checks are optional below.
 
 Only after all local checks pass, run the read-only cloud preflight:
 
@@ -129,7 +137,17 @@ After preflight and inference-cost approval, run each request and inspect it bef
 
 ```bash
 python scripts/workshop.py --language en model --question "This is a synthetic workshop connectivity check. Reply briefly in English."
+```
+
+Check the actual `text`, deployment/model and response ID. Then verify structured output:
+
+```bash
 python scripts/workshop.py --language en answer --prompt v2 --retrieval local
+```
+
+Check the answer fields, source IDs and real response metadata. Then test the prepared MAF workflow:
+
+```bash
 python scripts/workshop.py --language en workflow --pattern sequential
 ```
 
@@ -142,21 +160,35 @@ passed. Resolve roles, quota, and tool/Structured Outputs support before proceed
 **What to check:** Review project, Search, and logging resources together. One successful
 resource creation is not a ready environment. The participant's first model call is a separate gate.
 
-Check only the additional modules selected:
+<a id="rehearse-route"></a>
+
+### Rehearse the route you will teach
+
+**Those three requests check connectivity, not course completion.** Use the selected route's complete commands and save checkpoints:
+
+| Selected class | Required rehearsal | Not required |
+|---|---|---|
+| [A. Beginner](paths/a-beginner.md) | Portal agent, learner files, the participant's sequential MAF run, six-question manual assessment, source checks and handoff | Search service, cloud judges or hosting |
+| [B. Implementation](paths/b-practitioner.md) | All core B steps, including function/MCP calls, all three workflows, Search **and** GA IQ, gated evaluation, package and handoff | Local/remote Hosted execution, cloud judges or C modules |
+| [A selected C module](paths/c-advanced.md) | Only that module's stated prerequisites, calls and evidence | Every other C module |
+
+Use a participant account, approved costs and unique prefixes. For fresh B copies, let Lab 06 create owned objects and preserve its ledger.
+The learner ZIP already contains the six policy files; exporting them is optional regeneration, not another A prerequisite.
+
+<details>
+<summary>Optional full SDK rehearsal — only for selected Hosted/Toolbox modules or SDK maintenance</summary>
+
+In the same dedicated venv, install the full lock and run SDK checks with stub transports.
+These checks do not send Azure requests and do not prove a deployment:
 
 ```bash
-python scripts/export_policy_docs.py --language en
-python scripts/workshop.py --language en maf --tools
-python scripts/workshop.py --language en maf --mcp
-python scripts/workshop.py --language en workflow --pattern concurrent
-python scripts/workshop.py --language en workflow --pattern group-chat
-python scripts/workshop.py --language en seed-search --iq --confirm-create
-python scripts/workshop.py --language en retrieve --provider iq
+python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]" &&
+python -m pip check &&
+python scripts/check_sdk.py &&
+python -m unittest discover -s tests_sdk -t . -v
 ```
 
-The ready learner ZIP already contains those same exported policies; an export is optional regeneration, not a missing A prerequisite.
-Export and seed operations check ownership/name collisions. Do not hide rerun failures
-with `--force`. Use dedicated prefixes and ownership records instead of shared objects.
+</details>
 
 ### Record the actual environment
 

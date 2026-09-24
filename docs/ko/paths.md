@@ -2,7 +2,7 @@
 
 [English](../paths.md) | **한국어**
 
-**A는 코드를 작성하지 않고 브라우저에서 준비된 예제를 실행하며, B는 코드와 저장된 실행 기록을 직접 다룹니다.**
+**A는 Python 작성 없이 브라우저와 준비된 터미널 명령 한 번을 사용하며, B는 코드와 저장된 실행 기록을 다룹니다.**
 둘 다 같은 한빛기술 시나리오를 언어별로 동등하게 고정된 합성 규정으로 진행합니다.
 
 Azure나 agent가 처음이면 **A**, Python·API에 익숙하면 **B**를 선택합니다.
@@ -73,6 +73,9 @@ Hosted 서버/배포·실제 telemetry·유료 cloud judge는 선택 게이트�
 
 ## C. 통합 심화 — 150–180분 추가
 
+<details>
+<summary>선택 Hosted 통합 시간표 — A/B의 추가 필수 단계가 아닙니다</summary>
+
 이것은 **선택 가능한 C 경로 하나**이지 [모든 C 모듈](paths/c-advanced.md)의 선행 조건이 아닙니다.
 버전을 고정한 Hosted matrix는 [Hosted 평가 워크북](reference/evaluation-workbook.md)에서 이어 갑니다.
 실제 모델 배포, IQ/Search 역할, Hosted ID, judge, App Insights 접근을 먼저 준비합니다.
@@ -89,6 +92,8 @@ Hosted 서버/배포·실제 telemetry·유료 cloud judge는 선택 게이트�
 비교마다 corpus·정답·코드·API·모델 목록·검색 방식·평가자를 고정합니다.
 선택 [IQ 확장](reference/iq-workbook.md)에는 서비스별 별도 승인이 필요합니다.
 
+</details>
+
 ## 독립 모듈로 다시 방문하기
 
 | 필요한 모듈 | 최소 선행 결과 | 재시작 지점 |
@@ -96,7 +101,7 @@ Hosted 서버/배포·실제 telemetry·유료 cloud judge는 선택 게이트�
 | 모델/프롬프트 | 프로젝트·배포·Foundry User 권한 | [02 B](labs/02-models.md#path-b) |
 | MAF·MCP·워크플로 | SDK 설치, `doctor --cloud`, `model` 성공 | [04 B](labs/04-agents-tools.md#path-b) |
 | Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | [06 B](labs/06-knowledge.md#path-b) |
-| 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | [07 B](labs/07-evaluation.md#path-b). Fixture로 실제 인수를 열지 않음 |
+| 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | [07 B: 저장된 근거부터 재개](labs/07-evaluation.md#resume-evaluation). Fixture로 실제 인수를 열지 않음 |
 | Hosted 패키징 | 저장소·Python. 런타임 게이트는 별도 | [08 B](labs/08-hosted.md#path-b) |
 | IQ 확장 | IQ 기본 완료 + 서비스별 별도 승인 | [10](labs/10-iq-extensions.md) |
 

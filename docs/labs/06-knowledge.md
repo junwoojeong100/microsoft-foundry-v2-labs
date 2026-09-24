@@ -47,18 +47,18 @@ If the portal cannot open a cited source, compare the visible ID and text with t
 
 ## B. Code: add Search to the shared configuration
 
-**Four different retrieval paths:**
+**Follow steps 1–5 in order: local evidence → Search → GA IQ → a grounded answer.**
+The provider choices are fixed for this lesson; this is not a menu of interchangeable commands.
 
-| Method | Command | What it verifies |
+| Stage | What you verify | Azure use |
 |---|---|---|
-| Local keyword search | `retrieve --provider local` | Educational string matching over synthetic files |
-| Azure AI Search | `retrieve --provider search` | Text search on a real Search index |
-| Hybrid Search | `retrieve --provider hybrid` | Explicit embeddings with combined text/vector search |
-| Foundry IQ | `retrieve --provider iq` | Actual knowledge-base retrieval, references, and activity |
+| Local keyword retrieval | Synthetic documents, source IDs and context hash | None |
+| Ordinary Search | Results from your owned index | Object writes and possible Search charges |
+| GA Foundry IQ | Knowledge-base references, activity and original documents | Object writes and possible retrieval charges; no model inside this base |
+| Answer with IQ evidence | Model response, policy conditions and citations | A real, billable `gpt-6-sol` request |
 
-The default local/keyword/minimal-IQ paths do not use client-generated embeddings.
-Only the optional hybrid path below uses an explicitly configured embedding model, dimensions, and vector fields.
-Never rename ordinary text search as hybrid retrieval.
+No core step needs an embedding deployment. Hybrid search and model-based IQ Chat are separate optional branches.
+An error does not permit switching providers.
 
 ### 1. Check instructor preparation
 

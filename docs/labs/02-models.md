@@ -8,7 +8,7 @@
 
 ## Before you start
 
-**This pass:** A runs the Playground steps; B runs the two CLI checks and Structured Outputs. Skip model comparison on the first pass.
+**This pass:** A uses the Playground; B checks the deployment and saves two real responses. Model comparison is optional.
 
 **Need:** The prepared gpt-6-sol deployment; B needs Lab 00's activated environment and .env.
 
@@ -109,11 +109,15 @@ Continue to [Lab 03 A](03-prompt-agent.md#path-a). Do not run B's SDK calls unle
 
 Use the repository root and activated `.venv`. The preflight is read-only; the model and structured-answer requests are billable.
 
+### 1. Check the deployment
+
 ```bash
 python scripts/workshop.py --language en doctor --cloud
 ```
 
-Continue only after preflight identifies the intended deployment in `Succeeded` state. Then make one actual request:
+Continue only after preflight identifies the intended deployment in `Succeeded` state. This does not test inference.
+
+### 2. Save one actual model response
 
 ```bash
 python scripts/workshop.py --language en model \
@@ -121,22 +125,6 @@ python scripts/workshop.py --language en model \
   --output outputs/learner-notes-en/model.json
 ```
 
-The question requests three English sentences. Model-only questions may be translated freely;
-keep the selected language's canonical policy/evaluation questions unchanged during a comparison.
-
-Read `project_clients` and `call_model` in `src/foundry_workshop/cloud.py`.
-
-```python
-with AIProjectClient(endpoint=project_endpoint, credential=credential) as project:
-    with project.get_openai_client() as client:
-        response = client.responses.create(
-            model=deployment_name,
-            input="Explain the difference between Foundry and MAF.",
-            store=False,
-        )
-```
-
-This block explains the flow. Execute the CLI using your actual `.env` values.
 Results retain `response_id`, actual `response_model`, and token usage.
 `trace_id: null` means no Application Insights trace has been collected;
 do not relabel a response ID as a trace ID.
@@ -149,7 +137,9 @@ the last command. `gpt-6-sol` reports reasoning tokens in `usage` even for a sho
 
 **Save:** `model.json` is written to your Lab 00 notes directory by `--output`. Open the complete saved response before the next request.
 
-### Verify Structured Outputs
+<a id="verify-structured-outputs"></a>
+
+### 3. Save a validated structured answer
 
 ```bash
 python scripts/workshop.py --language en answer --prompt v2 --retrieval local \
@@ -176,6 +166,26 @@ and record a new run after resolving support.
 **B done:** save the complete outputs as `model.json` and `answer-local.json` in your Lab 00 notes directory,
 including response IDs, usage and source IDs.
 Continue to [Lab 04 B](04-agents-tools.md#path-b). If you came only to prepare A's terminal, return to [Lab 05 A](05-workflows.md#path-a).
+
+<details>
+<summary>How the SDK call works — optional code reading, not another command</summary>
+
+Read `project_clients` and `call_model` in `src/foundry_workshop/cloud.py`.
+The CLI above supplies your actual `.env` values to this flow:
+
+```python
+with AIProjectClient(endpoint=project_endpoint, credential=credential) as project:
+    with project.get_openai_client() as client:
+        response = client.responses.create(
+            model=deployment_name,
+            input="Explain the difference between Foundry and MAF.",
+            store=False,
+        )
+```
+
+Model-only questions may be translated freely. Keep canonical policy/evaluation questions unchanged during a comparison.
+
+</details>
 
 ## Practitioner extension: compare models correctly
 

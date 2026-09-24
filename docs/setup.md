@@ -2,57 +2,33 @@
 
 **English** | [한국어](ko/setup.md)
 
-**Do this once before Lab 00.** The labs explain every step, but only an Azure owner can grant the subscription,
-permissions, model quota and billing approval.
+**Finish with the files and verified values for your chosen route. Then start Lab 00.**
+The environment owner supplies Azure access, permissions, model quota and billing approval.
+This page does not ask learners to create resources.
 
 ## 1. Choose your starting point
 
 | Your situation | Do this |
 |---|---|
 | A training environment is ready | Follow sections **1 → 2 → 3 → 4** on this page |
-| You own an Azure subscription but have no environment | Complete [owner preparation](#4-environment-owner-checklist), then return to section 2 |
+| You own an Azure subscription but have no environment | Complete [owner preparation](#4-environment-owner-checklist), then follow sections 2–4 |
 | You have no Azure permission or quota yet | Run only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run** |
 
 **Choose one route for the whole pass:** **A** if you are new to Azure or agents (browser steps and one prepared
 command in Lab 05), or **B** if you are comfortable with Python and APIs. [Compare the routes](paths.md).
 Keep one language for the pass: English and Korean use different input files, so switching needs new run labels.
 
-## 2. Fill this environment card
+<a id="learner-files"></a>
+<a id="3-download-the-ready-learner-materials"></a>
 
-Your instructor or environment owner gives you these values. Write them in `session-notes.txt`:
-A finds that file in the learner ZIP (section 3); B copies it from the source repository in Lab 00.
-Never write passwords, keys or tokens in the card.
+## 2. Get the files for your route
 
-| Value | Needed for | Where to get it |
-|---|---|---|
-| Azure tenant and subscription IDs | A and B | Azure portal → Subscriptions / directory |
-| Foundry account, project and resource group | A and B | Your training project's resource details |
-| Full project endpoint | A's Lab 05 terminal and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
-| **Answer deployment** | A and B | **`gpt-6-sol`**, model version **`2026-09-22`** |
-| Prefix for your objects | A and B | Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters. Example: `mfv2-team01-en` |
-| Code environment | A's Lab 05 (prepared for you) and B | Repository folder, Python 3.13, activated `.venv`, your own Azure sign-in |
-| Search endpoint | B's Lab 06 | The prepared Search service: `https://<search>.search.windows.net` |
+**A: download the learner ZIP below before filling the card in section 3.**
+**B: skip this download.** Keep a supplied source copy; otherwise [Lab 00 B](labs/00-start.md#source-folder)
+walks through downloading it. It already contains the blank note templates.
+Keep the owner's values from section 3 ready; record them in the personal notes that Lab 00 prepares after opening the source folder.
 
-<details>
-<summary>Optional rows — only if IQ Chat, Hosted serving or an optional evaluation was selected for you</summary>
-
-| Value | Needed for | Where to get it |
-|---|---|---|
-| Account OpenAI endpoint | Optional IQ Chat / advanced account API | `https://<your-account>.openai.azure.com`; same account as the project |
-| IQ chat base | Optional IQ Chat only | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
-| Hosted inputs | Optional local/remote hosting only | Project ARM ID and location code, owned agent name, an empty standalone local directory and approvals; **not needed to package** |
-| Judge deployment | Optional Foundry evaluations (Lab 07 A step 4, Lab 07 B step 5, Lab 04 section 5) | **`gpt-6-sol-judge`**, a separate deployment of the same model used only to score answers; each evaluation needs the owner's cost approval |
-
-</details>
-
-**For answers, use exactly `gpt-6-sol`.** Do not pick `gpt-6-sol-judge` (it only scores answers in optional evaluations), another listed model or a router.
-If the deployment or its version is missing, stop and ask the owner to fix it; the code never switches models.
-[Why this model](reference/model-choice.md).
-
-## 3. Download the ready learner materials
-
-**A: follow this section. B: use [Lab 00's source download and notes preparation](labs/00-start.md#path-b);
-you do not need this additional ZIP.** The source repository already contains the same blank note templates.
+### A's learner ZIP
 
 Open [English learner-materials.zip](../data/learner/en/learner-materials.zip), choose **Download raw file**, and extract it.
 This small ZIP requires no Python and does not include videos, holdout or reference-answer fields.
@@ -79,6 +55,42 @@ Do not paste `dev.jsonl` reference-answer columns into an agent.
 Keep the extracted folder as your **personal evidence folder outside the repository**.
 Fill the note templates as you go; in Lab 07, save `assessment.csv` as `assessment-baseline.csv`.
 Empty templates are not completed evidence. Nothing in this ZIP installs a code environment.
+
+<a id="environment-card"></a>
+<a id="2-fill-this-environment-card"></a>
+
+## 3. Collect the environment values
+
+Get these values from your instructor or environment owner.
+**A:** fill `session-notes.txt` from the ZIP you just extracted.
+**B:** keep the owner's values; copy them into `outputs/learner-notes-en/session-notes.txt` when Lab 00 prepares that file.
+You do not need to install anything just to collect the values. Never record passwords, keys or tokens.
+
+| Value | Needed for | Where to get it |
+|---|---|---|
+| Azure tenant and subscription IDs | A and B | Azure portal → Subscriptions / directory |
+| Foundry account, project and resource group | A and B | Your training project's resource details |
+| Full project endpoint | A's Lab 05 terminal and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
+| **Answer deployment** | A and B | **`gpt-6-sol`**, model version **`2026-09-22`** |
+| Prefix for your objects | A and B | Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters. Example: `mfv2-team01-en` |
+| Code environment | A's Lab 05 (prepared for you) and B | Repository folder, Python 3.13, activated `.venv`, your own Azure sign-in |
+| Search endpoint | B's Lab 06 | The prepared Search service: `https://<search>.search.windows.net` |
+
+**For answers, use exactly `gpt-6-sol`.** Do not pick `gpt-6-sol-judge` (it only scores answers in optional evaluations), another listed model or a router.
+If the deployment or its version is missing, stop and ask the owner to fix it; the code never switches models.
+[Why this model](reference/model-choice.md).
+
+<details>
+<summary>Optional values — only for separately selected IQ Chat, hosting or cloud evaluation</summary>
+
+| Value | Needed for | Where to get it |
+|---|---|---|
+| Account OpenAI endpoint | Optional IQ Chat / advanced account API | `https://<your-account>.openai.azure.com`; same account as the project |
+| IQ chat base | Optional IQ Chat only | The `knowledge_base` returned by `iq-chat setup`, normally `<prefix>-chat-en-kb` |
+| Hosted inputs | Optional local/remote hosting only | Project ARM ID and location code, owned agent name, an empty standalone local directory and approvals; **not needed to package** |
+| Judge deployment | Optional Foundry evaluations (Lab 07 A step 4, Lab 07 B step 5, Lab 04 section 5) | **`gpt-6-sol-judge`**, a separate deployment of the same model used only to score answers; each evaluation needs the owner's cost approval |
+
+</details>
 
 <a id="5-ready-to-start"></a>
 

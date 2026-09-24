@@ -2,7 +2,7 @@
 
 **English** | [한국어](ko/paths.md)
 
-**Path A runs prepared examples in the browser, without writing code. Path B works directly with code and saved run records.**
+**Path A uses the browser and one prepared terminal command, without writing Python. Path B works with code and saved run records.**
 Both use the same Hanbit Technology scenario with language-specific synthetic policies.
 
 **Choose A** if you are new to Azure or agents, and **B** if you are comfortable with Python and APIs.
@@ -76,6 +76,9 @@ session. Approval, licensing, and capacity preparation are additional.
 
 ## C. Advanced integration — additional 150–180 minutes
 
+<details>
+<summary>Optional Hosted integration schedule — not another requirement for A or B</summary>
+
 This is **one optional C route**, not the prerequisite for every [C module](paths/c-advanced.md).
 For a version-pinned Hosted matrix, continue in the [Hosted evaluation workbook](reference/evaluation-workbook.md).
 Prepare actual model deployments, IQ/Search roles, a Hosted identity, a judge, and App Insights access first.
@@ -92,6 +95,8 @@ Environment creation, permissions, quotas, and encoding waits are outside class 
 The corpus, reference answers, code, API, model list, retrieval, and evaluator stay frozen for each comparison.
 Optional [IQ extensions](reference/iq-workbook.md) need separate service-specific approval.
 
+</details>
+
 ## Return to an independent module
 
 | Module | Minimum prerequisite | Restart at |
@@ -99,7 +104,7 @@ Optional [IQ extensions](reference/iq-workbook.md) need separate service-specifi
 | Model/prompt | Project, deployment, Foundry User permission | [02 B](labs/02-models.md#path-b) |
 | MAF/MCP/workflow | SDKs, successful `doctor --cloud` and `model` | [04 B](labs/04-agents-tools.md#path-b) |
 | Foundry IQ | Above plus prepared Search, retrieval configuration, and roles | [06 B](labs/06-knowledge.md#path-b) |
-| Evaluation | A complete real run or an explicitly labeled fixture in `outputs/<label>` | [07 B](labs/07-evaluation.md#path-b); fixtures do not unlock real acceptance |
+| Evaluation | A complete real run or an explicitly labeled fixture in `outputs/<label>` | [07 B: resume from saved evidence](labs/07-evaluation.md#resume-evaluation); fixtures do not unlock real acceptance |
 | Hosted packaging | Repository and Python; runtime gates are separate | [08 B](labs/08-hosted.md#path-b) |
 | IQ extensions | IQ basics and separate service approvals | [10](labs/10-iq-extensions.md) |
 

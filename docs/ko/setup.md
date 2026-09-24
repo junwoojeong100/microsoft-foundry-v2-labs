@@ -2,57 +2,33 @@
 
 [English](../setup.md) | **한국어**
 
-**Lab 00 전에 한 번만 준비합니다.** 실습 절차는 가이드가 모두 설명하지만 구독·권한·모델 quota·과금 승인은
-Azure 담당자만 제공할 수 있습니다.
+**고른 경로의 파일과 검증된 설정값을 준비한 뒤 Lab 00으로 갑니다.**
+Azure 접근·권한·모델 quota·과금 승인은 환경 담당자가 제공합니다.
+이 페이지에서 학습자에게 리소스 생성을 요구하지 않습니다.
 
 ## 1. 지금 내 시작점 선택
 
 | 현재 상황 | 할 일 |
 |---|---|
 | 실습 환경을 이미 받음 | 이 페이지의 **1 → 2 → 3 → 4**절을 진행 |
-| 본인 Azure 구독은 있지만 환경이 없음 | [담당자 준비](#4-환경-담당자의-준비)를 완료한 뒤 2절로 복귀 |
+| 본인 Azure 구독은 있지만 환경이 없음 | [담당자 준비](#4-환경-담당자의-준비) 후 2–4절 진행 |
 | 아직 Azure 권한·quota가 없음 | [Lab 00 오프라인 체험](labs/00-start.md#offline-rehearsal)만 진행하고 cloud 실습은 **미실행**으로 기록 |
 
 **한 회차 동안 경로 하나를 사용합니다.** Azure나 agent가 처음이면 **A**(브라우저 조작과 Lab 05의 준비된 명령 한 번),
 Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 한 회차는 같은 언어로 진행합니다. 국문과 영문은 입력 파일이 다르므로 언어를 바꾸면 새 실행 label이 필요합니다.
 
-## 2. 환경 카드 채우기
+<a id="learner-files"></a>
+<a id="3-바로-쓰는-학습자-자료-내려받기"></a>
 
-강사나 환경 담당자가 아래 값을 알려 줍니다. `session-notes.txt`에 적습니다.
-A는 학습자 ZIP(3절)에서, B는 Lab 00에서 소스 저장소의 양식을 복사해 사용합니다.
-비밀번호·key·token은 카드에 적지 않습니다.
+## 2. 경로에 맞는 파일 준비
 
-| 값 | 필요한 경로 | 어디서 확인 |
-|---|---|---|
-| Azure tenant·subscription ID | A·B | Azure 포털 → 구독·디렉터리 |
-| Foundry 계정·프로젝트·리소스 그룹 | A·B | 실습 프로젝트의 리소스 상세 |
-| 전체 project endpoint | A의 Lab 05 터미널·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
-| **응답 모델 배포** | A·B | **`gpt-6-sol`**, 모델 버전 **`2026-09-22`** |
-| 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 최대 32자. 예: `mfv2-team01-ko` |
-| 코드 환경 | A의 Lab 05(준비해 줌)·B | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
-| Search endpoint | B의 Lab 06 | 준비된 Search 서비스: `https://<search>.search.windows.net` |
+**A는 아래 학습자 ZIP부터 받은 뒤 3절의 카드를 채웁니다.**
+**B는 이 ZIP을 받지 않습니다.** 제공받은 소스 복사본을 유지합니다. 없다면 [Lab 00 B](labs/00-start.md#source-folder)에서
+내려받는 방법을 안내합니다. 빈 기록 양식도 그 소스에 있습니다.
+3절에서 받은 담당자의 설정값을 보관했다가 Lab 00에서 준비하는 개인 기록에 옮깁니다.
 
-<details>
-<summary>선택 항목 — IQ Chat, Hosted 실행 또는 선택 평가를 별도로 선택한 경우만</summary>
-
-| 값 | 필요한 경로 | 어디서 확인 |
-|---|---|---|
-| 계정 OpenAI endpoint | 선택 IQ Chat / 심화 계정 API | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
-| IQ chat base | 선택 IQ Chat만 | `iq-chat setup`이 반환한 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
-| Hosted 값 | 선택 로컬·원격 호스팅만 | project ARM ID·location 코드·본인 agent 이름·빈 독립 로컬 폴더·필요한 승인. **패키징에는 불필요** |
-| Judge 배포 | 선택 Foundry 평가(Lab 07 A 4단계, Lab 07 B 5단계, Lab 04 5절) | 답변 채점에만 쓰는 같은 모델의 별도 배포 **`gpt-6-sol-judge`**. 평가마다 담당자의 비용 승인 필요 |
-
-</details>
-
-**답변에는 `gpt-6-sol`만 사용합니다.** `gpt-6-sol-judge`(선택 평가에서 답변 채점에만 사용)·목록의 다른 모델·router를 고르지 않습니다.
-배포나 버전이 없으면 멈추고 담당자에게 해결을 요청합니다. 코드는 다른 모델로 바꾸지 않습니다.
-[이 모델을 고른 이유](reference/model-choice.md).
-
-## 3. 바로 쓰는 학습자 자료 내려받기
-
-**A는 이 절을 따릅니다. B는 [Lab 00의 소스 다운로드·기록 준비](labs/00-start.md#path-b)를 사용하며
-이 ZIP을 추가로 받을 필요가 없습니다.** 같은 빈 기록 양식이 소스 저장소에도 있습니다.
+### A의 학습자 ZIP
 
 [국문 learner-materials.zip](../../data/learner/ko/learner-materials.zip)을 열고 **Download raw file**로 내려받아 압축을 풉니다.
 작은 ZIP이므로 Python이 필요 없고, 영상·holdout·정답 기준 필드는 포함하지 않습니다.
@@ -79,6 +55,42 @@ A는 학습자 ZIP(3절)에서, B는 Lab 00에서 소스 저장소의 양식을 
 압축을 푼 폴더를 **저장소 밖의 개인 증거 폴더**로 사용합니다.
 진행하면서 기록 양식을 채우고 Lab 07에서는 `assessment.csv`를 `assessment-baseline.csv`로 저장합니다.
 빈 양식은 완료된 증거가 아니며, 이 ZIP으로 코드 환경이 설치되는 것도 아닙니다.
+
+<a id="environment-card"></a>
+<a id="2-환경-카드-채우기"></a>
+
+## 3. 환경 설정값 받기
+
+강사나 환경 담당자에게 다음 값을 받습니다.
+**A:** 방금 압축을 푼 ZIP의 `session-notes.txt`에 적습니다.
+**B:** 받은 값을 보관했다가 Lab 00에서 `outputs/learner-notes-ko/session-notes.txt`를 만들면 옮깁니다.
+값을 받기 위해 설치부터 할 필요는 없습니다. 비밀번호·key·token은 기록하지 않습니다.
+
+| 값 | 필요한 경로 | 어디서 확인 |
+|---|---|---|
+| Azure tenant·subscription ID | A·B | Azure 포털 → 구독·디렉터리 |
+| Foundry 계정·프로젝트·리소스 그룹 | A·B | 실습 프로젝트의 리소스 상세 |
+| 전체 project endpoint | A의 Lab 05 터미널·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
+| **응답 모델 배포** | A·B | **`gpt-6-sol`**, 모델 버전 **`2026-09-22`** |
+| 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 최대 32자. 예: `mfv2-team01-ko` |
+| 코드 환경 | A의 Lab 05(준비해 줌)·B | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
+| Search endpoint | B의 Lab 06 | 준비된 Search 서비스: `https://<search>.search.windows.net` |
+
+**답변에는 `gpt-6-sol`만 사용합니다.** `gpt-6-sol-judge`(선택 평가에서 답변 채점에만 사용)·목록의 다른 모델·router를 고르지 않습니다.
+배포나 버전이 없으면 멈추고 담당자에게 해결을 요청합니다. 코드는 다른 모델로 바꾸지 않습니다.
+[이 모델을 고른 이유](reference/model-choice.md).
+
+<details>
+<summary>선택 설정값 — IQ Chat·호스팅·클라우드 평가를 별도로 선택한 경우만</summary>
+
+| 값 | 필요한 경로 | 어디서 확인 |
+|---|---|---|
+| 계정 OpenAI endpoint | 선택 IQ Chat / 심화 계정 API | `https://<your-account>.openai.azure.com`, 프로젝트와 같은 계정 |
+| IQ chat base | 선택 IQ Chat만 | `iq-chat setup`이 반환한 `knowledge_base`. 기본은 `<prefix>-chat-ko-kb` |
+| Hosted 값 | 선택 로컬·원격 호스팅만 | project ARM ID·location 코드·본인 agent 이름·빈 독립 로컬 폴더·필요한 승인. **패키징에는 불필요** |
+| Judge 배포 | 선택 Foundry 평가(Lab 07 A 4단계, Lab 07 B 5단계, Lab 04 5절) | 답변 채점에만 쓰는 같은 모델의 별도 배포 **`gpt-6-sol-judge`**. 평가마다 담당자의 비용 승인 필요 |
+
+</details>
 
 <a id="5-시작-가능-여부"></a>
 

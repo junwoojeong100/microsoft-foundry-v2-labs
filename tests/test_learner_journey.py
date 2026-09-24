@@ -237,6 +237,131 @@ class LearnerJourneyTests(unittest.TestCase):
                 ):
                     self.assertIn(name, setup)
 
+    def test_entry_points_choose_route_then_setup_then_first_lab(self):
+        for language, directory, _ in self.language_labs():
+            readme = ROOT / ("README.md" if language == "en" else "README.ko.md")
+            for path in (readme, directory / "index.md"):
+                with self.subTest(language=language, page=path):
+                    opening = expanded_markdown(path.read_text())
+                    steps = re.findall(
+                        r"^([123])\. (.*?)(?=^\d+\. |\n\n|\Z)",
+                        opening,
+                        re.MULTILINE | re.DOTALL,
+                    )[:3]
+                    self.assertEqual([number for number, _ in steps], ["1", "2", "3"])
+                    self.assertRegex(steps[0][1], r"(?:\*\*A\*\*|A\. Beginner|A\. 입문)")
+                    self.assertRegex(steps[0][1], r"(?:\*\*B\*\*|B\. Implementation|B\. 구현)")
+                    self.assertIn("setup.md)", steps[1][1])
+                    self.assertIn("Lab 00", steps[2][1])
+                    self.assertIn(
+                        "A done / B done" if language == "en" else "A 완료 / B 완료", steps[2][1]
+                    )
+
+    def test_setup_provides_learner_files_before_the_environment_card(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = expanded_markdown((directory / "setup.md").read_text())
+                self.assertEqual(
+                    re.findall(r"^## (\d+)\.", text, re.MULTILINE), ["1", "2", "3", "4"]
+                )
+                files = text.index('<a id="learner-files"></a>')
+                card = text.index('<a id="environment-card"></a>')
+                self.assertLess(files, card)
+                self.assertIn("learner-materials.zip)", text[files:card])
+                self.assertIn("`session-notes.txt`", text[files:card])
+                self.assertIn("(labs/00-start.md#source-folder)", text[files:card])
+                self.assertIn(f"`outputs/learner-notes-{language}/session-notes.txt`", text[card:])
+                self.assertEqual(DOCS.workshop_commands(text), [])
+
+    def test_core_model_and_hosting_steps_exclude_optional_reading_and_runtime_gates(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                model = self.core_section(language, labs[2], "B")
+                self.assertEqual(re.findall(r"^### (\d+)\.", model, re.MULTILINE), ["1", "2", "3"])
+                self.assertNotIn("```python", model)
+                self.assertIn("```python", labs[2].read_text())
+                hosted = self.core_section(language, labs[8], "B")
+                self.assertNotIn("PROJECT_ARM_ID", hosted)
+                self.assertNotIn("HOSTED_DIRECTORY", hosted)
+                self.assertNotIn("`maf --tools`", hosted)
+                self.assertIn('<a id="hosting-gates"></a>', labs[8].read_text())
+                self.assertNotIn(
+                    '<a id="hosting-gates"></a>', expanded_markdown(labs[8].read_text())
+                )
+                self.assertNotIn(
+                    "| 1 | [Deployable MAF workflow]",
+                    expanded_markdown((directory / "paths.md").read_text()),
+                )
+                self.assertNotIn(
+                    "| 1 | [배포 가능한 MAF workflow]",
+                    expanded_markdown((directory / "paths.md").read_text()),
+                )
+
+    def test_evaluation_overview_links_to_steps_and_keeps_each_verdict_visible(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[7], "B")
+                anchors = ("dev-baseline", "dev-review", "dev-candidate", "final-acceptance")
+                for number, anchor in enumerate(anchors, 1):
+                    self.assertIn(f"](#{anchor})", core.split("### 1.", 1)[0])
+                    self.assertRegex(core, rf'<a id="{anchor}"></a>\s+### {number}\.')
+                blocks = re.findall(r"```bash\n(.*?)```", core, re.DOTALL)
+                for block in blocks:
+                    commands = [
+                        parser().parse_args(arguments)
+                        for _, arguments in DOCS.workshop_commands(block)
+                    ]
+                    self.assertEqual(
+                        len(commands), 1, "Inspect each verdict before the next action."
+                    )
+                self.assertIn("business_gate_passed: true", core)
+                self.assertNotIn("--retrieval iq", core)
+
+    def test_instructor_rehearsal_requires_core_b_but_keeps_hosted_sdk_optional(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = (directory / "instructor.md").read_text()
+                visible = expanded_markdown(text)
+                self.assertIn('".[cloud,agents,dev]"', visible)
+                self.assertNotIn('".[cloud,agents,hosted,dev]"', visible)
+                self.assertNotIn("python scripts/check_sdk.py", visible)
+                self.assertIn("python scripts/check_sdk.py", text)
+                commands = [
+                    parser().parse_args(arguments)
+                    for _, arguments in DOCS.workshop_commands(visible)
+                ]
+                self.assertEqual(
+                    [command.command for command in commands],
+                    ["doctor", "doctor", "model", "answer", "workflow"],
+                )
+                route = visible.split('<a id="rehearse-route"></a>', 1)[1]
+                required = next(
+                    line for line in route.splitlines() if "(paths/b-practitioner.md)" in line
+                )
+                self.assertIn("Search", required)
+                self.assertIn("GA IQ", required)
+                self.assertIn("MCP", required)
+                for check in (
+                    "python -m ruff check .",
+                    "python -m ruff format --check .",
+                    "python -m compileall -q",
+                    "python -m unittest discover -s tests -t . -v",
+                    "python scripts/check_docs.py",
+                ):
+                    self.assertIn(check, visible)
+
+    def test_command_lookup_keeps_no_evidence_diagnostic_out_of_the_core(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = (directory / "reference/commands.md").read_text()
+                self.assertNotIn("`collect --retrieval none`", expanded_markdown(text))
+                self.assertIn("`collect --retrieval none`", text)
+                self.assertIn("(../labs/07-evaluation.md#diagnostic-no-evidence)", text)
+                self.assertIn(
+                    "`collect --split dev --label baseline --prompt v1 --retrieval local`",
+                    expanded_markdown(text),
+                )
+
     def test_prepared_source_folder_is_kept_before_offering_a_download(self):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):
@@ -1214,6 +1339,23 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertEqual(comparison, results[-1])
                 self.assertEqual(comparison["changed_context_cases"], [])
                 self.assertIn("OFFLINE FIXTURES ONLY", comparison["note"])
+                readme = ROOT / ("README.md" if language == "en" else "README.ko.md")
+                preview = DOCS.workshop_commands(expanded_markdown(readme.read_text()))
+                self.assertEqual(
+                    [parser().parse_args(arguments).command for _, arguments in preview],
+                    ["doctor", "demo", "evaluate"],
+                )
+                for _, arguments in preview:
+                    process = run(root, arguments)
+                    self.assertEqual(process.returncode, 0, process.stderr)
+                preview_manifest = read_json(root / "outputs/first-offline/manifest.json")
+                preview_grade = read_json(root / "outputs/first-offline/business-evaluation.json")
+                self.assertEqual(preview_manifest["language"], language)
+                self.assertEqual(preview_manifest["mode"], "offline-fixture")
+                self.assertEqual(
+                    (preview_grade["total"], preview_grade["passed"], preview_grade["errors"]),
+                    (6, 6, 0),
+                )
                 failed_gate = run(root, ["evaluate", "--label", "rehearsal-v1"])
                 self.assertEqual(failed_gate.returncode, 1)
                 self.assertFalse(json.loads(failed_gate.stdout)["business_gate_passed"])

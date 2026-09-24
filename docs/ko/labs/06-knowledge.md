@@ -47,18 +47,18 @@
 
 ## B. 코드 — 공통 환경에 Search만 추가
 
-**네 검색 경로는 같은 기능이 아닙니다:**
+**1–5단계를 순서대로 진행합니다: 로컬 근거 → Search → GA IQ → 근거 있는 답변.**
+이번 실습의 검색 방식은 정해져 있습니다. 서로 바꿔 써도 되는 명령 목록이 아닙니다.
 
-| 방식 | 이 저장소의 실행 | 무엇을 확인하나요? |
+| 단계 | 확인할 것 | Azure 사용 |
 |---|---|---|
-| 로컬 키워드 검색 | `retrieve --provider local` | 합성 파일에 대한 학습용 문자열 검색 |
-| Azure AI Search | `retrieve --provider search` | 실제 Search index의 텍스트 검색 |
-| 하이브리드 Search | `retrieve --provider hybrid` | 명시적 embedding + text/vector 검색을 함께 수행 |
-| Foundry IQ | `retrieve --provider iq` | 실제 knowledge base의 retrieve, references·activity |
+| 로컬 키워드 검색 | 합성 문서·원문 ID·context hash | 없음 |
+| 일반 Search | 본인 index에서 검색한 결과 | 객체 작성·Search 비용 발생 가능 |
+| GA Foundry IQ | Knowledge base의 references·activity·원문 | 객체 작성·검색 비용 발생 가능. 이 base 내부의 모델은 없음 |
+| IQ 근거로 답변 | 모델 응답·정책 조건·인용 | 실제 `gpt-6-sol` 유료 요청 |
 
-기본 local/Search/IQ 경로는 임베딩을 쓰지 않는 작은 텍스트/semantic 실습입니다. 일반 Search 경로를
-**벡터·하이브리드 검색**이라고 표시하지 않습니다.
-아래 선택 절에서 실제 embedding·차원·벡터 필드를 구성한 경우에만 하이브리드라고 표시합니다.
+기본 단계에는 embedding 배포가 필요 없습니다. Hybrid 검색과 모델 기반 IQ Chat은 별도 선택입니다.
+오류가 나도 검색 방식을 바꾸지 않습니다.
 
 ### 1. 강사 사전 준비 확인
 

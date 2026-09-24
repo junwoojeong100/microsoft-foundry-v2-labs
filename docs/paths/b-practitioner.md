@@ -2,29 +2,29 @@
 
 **English** | [한국어](../ko/paths/b-practitioner.md)
 
-**Use one repository, one language and one set of verified values.**
-B builds the executable system. C adds independent advanced capabilities; it is not the mandatory next command after every B lab.
+**Finish with 12 saved response files, a dev/holdout evaluation, a local package and a cleanup handoff.**
+The six-hour core route uses one repository and language. Deployment and C modules are not required.
 
 ## Before the first command
 
-Start at [Lab 00 B](../labs/00-start.md#path-b), including participant sign-in,
-`.env`, the activated environment and read-only preflight. A successful token is not a successful model request:
-finish Lab 02's actual Responses and structured-answer checks.
+1. Complete [setup](../setup.md), then [Lab 00 B](../labs/00-start.md#path-b): source folder, personal notes, `.venv`, `.env`, sign-in and preflight.
+2. Run each block from the repository root with `.venv` active and `--language en` intact. Never shell-`source` `.env`.
+3. At each **Save** checkpoint, open the JSON before the next request and write your human review. `--output` saves the full response for you.
 
-Run code blocks from the repository root. Never shell-`source` `.env`.
-Preserve the explicit English `--language en` flag and use a fresh label for each new collection.
-Lab 00 creates **`outputs/learner-notes-en/`** from the source copy's blank worksheets.
-Use it for terminal-output files and review notes; no browser agent or separate learner ZIP is required for B.
-Generated evaluation folders remain at `outputs/<label>/`, not inside the notes directory.
-Use [the code-block rules](../labs/00-start.md#reading-code-blocks) if a block asks for values.
-The core commands save all **12 response JSON files** through `--output`; no terminal-output copying is required.
-Open each file at its **Save** checkpoint before the next request, and write your human review separately;
-[Lab 11's file inventory](../labs/11-capstone.md#b-evidence) lists everything needed at handoff.
+**Where files go:** Lab 00 prepares `outputs/learner-notes-en/` for the 12 JSON files and your notes.
+Generated evaluation runs stay in `outputs/<label>/`. B needs no browser agent or second learner ZIP.
+[File inventory](../labs/11-capstone.md#b-evidence) · [Code-block rules](../labs/00-start.md#reading-code-blocks).
 
-**First-pass choices are already made:** `gpt-6-sol`; all three introductory MAF patterns;
-GA Search/IQ in Lab 06; **local retrieval + a real Azure model** for Lab 07; **package only** in Lab 08.
-Changing from Lab 06's retrieval lesson to Lab 07's declared local experiment is deliberate, not an IQ-error fallback.
-File Search, hybrid/Preview IQ, cloud judges, local Hosted serving and remote deployment are not core steps.
+| First-pass decision | Use |
+|---|---|
+| Answer model | Prepared `gpt-6-sol`; Lab 02 verifies actual Responses and Structured Outputs, not just a token |
+| Lab 05 workflows | Sequential, concurrent and Group Chat |
+| Lab 06 retrieval lesson | Ordinary Search, then GA IQ |
+| Lab 07 prompt comparison | Local retrieval + a real Azure model, held fixed for all three collections |
+| Lab 08 hosting | Package only; local serving and remote deployment **not run** |
+
+Lab 07 deliberately starts a local-retrieval experiment; it is not a fallback for a Lab 06 error.
+File Search, hybrid/Preview IQ and cloud judges are optional.
 
 **Cost/write boundary:** Labs 02/04/05/07 call the real model. Lab 06 also writes owned
 Search objects and may incur retrieval costs; obtain that scope's approval before starting it.

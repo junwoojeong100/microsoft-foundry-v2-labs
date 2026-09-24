@@ -4,22 +4,26 @@
 
 ## Start here
 
-**1. Complete [the setup card](docs/setup.md). 2. Choose one route below. 3. Follow that route page from Lab 00.**
-You build one travel-policy assistant with the supplied synthetic data only.
-Background reading, videos and advanced modules are optional.
+**Build one travel-policy assistant, then hand over its reviewed answers and cleanup record.**
+Use only the supplied synthetic data.
+
+1. Choose **A** or **B** below.
+2. Complete [the setup card](docs/setup.md) **for that route**.
+3. Follow your route's checklist from Lab 00. Leave each lab through **A done / B done**, not the next section on the page.
 
 | Route | Choose it if | You do | You finish with |
 |---|---|---|---|
 | **[A — Beginner](docs/paths/a-beginner.md)** | You are new to Azure or agents | Browser steps and one command in a prepared terminal; no Python writing | Your agent, a six-question assessment, a workflow review and a cleanup handoff |
 | **[B — Implementation](docs/paths/b-practitioner.md)** | You are comfortable with Python and APIs | SDK calls, tools, workflows, Search/IQ, a controlled evaluation and local packaging | Saved run records and an acceptance report |
 
-**Time:** 4 hours for A and 6 hours for B, after the environment is prepared.
-**Files:** A uses the small learner ZIP from the setup card. B uses the source repository ZIP; no second ZIP is needed.
-**A's Lab 05 needs a prepared terminal.** If none was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
-**No Azure access yet?** Run only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run**.
+**Time after setup:** A 4 hours; B 6 hours. **Files:** A uses the small learner ZIP; B uses the source repository, with no second ZIP.
+Both need a prepared Azure environment. A also needs a prepared terminal for Lab 05;
+if none was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
+Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark cloud labs **not run**.
 
 Already completed the core route: [C. Advanced modules](docs/paths/c-advanced.md).
 Preparing a class: [Instructor guide](docs/instructor.md). Returning from the old edition: [Migration map](docs/reference/migration.md).
+Background reading and recordings below are optional, not prerequisites.
 
 <details>
 <summary>Background and previous recordings — optional context, not prerequisites</summary>
@@ -121,9 +125,9 @@ flowchart LR
 
 ## Shortest code-path start
 
-Run every command from **this repository's root**. Examples use Bash; use WSL on
-Windows. The commands call Python 3.13, which the full code route and Hosted work need (3.14 runs only the offline checks).
-Browser-path learners do not need these commands.
+**Optional offline preview, not B's Azure setup.** Run from **this repository's root** in Bash
+(WSL on Windows). Use Python 3.13 for the full code route; 3.14 supports only offline checks.
+A learners can skip this section.
 
 ```bash
 # Try the checker without external packages or Azure.
@@ -132,10 +136,11 @@ python3.13 scripts/workshop.py --language en demo --label first-offline --prompt
 python3.13 scripts/workshop.py --language en evaluate --label first-offline
 ```
 
-`offline-fixture` results are **prewritten examples**, not evidence of model quality,
-Foundry performance, or Azure connectivity. Continue with [Lab 00](docs/labs/00-start.md)
-for SDK installation, authentication, and real calls. Use a new label for every run;
-existing runs are not overwritten.
+**Check:** `doctor` reports `result: PASS` and `azure_tested: false`.
+Open `outputs/first-offline/business-evaluation.json`: the bundled v2 fixture should give
+`total: 6`, `passed: 6`, `errors: 0`. This verifies the checker, **not model quality or Azure connectivity**.
+For another run, use a fresh label in both `demo` and `evaluate`; existing runs are not overwritten.
+Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authentication and real calls.
 
 ## Scope of this edition
 

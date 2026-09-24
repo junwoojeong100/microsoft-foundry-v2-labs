@@ -11,12 +11,17 @@
 언어를 유지하고 마지막 단계·정확한 label을 `session-notes.txt`에 기록하며 자동 결과 폴더는 원래 위치에 둡니다.
 미선택 기능은 **미실행**, 시도한 오류는 **실패/차단**입니다. 다른 결과로 성공을 대신하지 않습니다.
 
-## 기존 통합 경로
+## 목표로 고르기
 
-B의 실제 모델·MAF·IQ 결과를 준비한 뒤 [Hosted 평가 워크북](../reference/evaluation-workbook.md)을 진행합니다.
-실제 Hosted 버전과 protocol을 고정하고 모든 모델×문항 행과 오류, judge calibration,
-검토된 regression 이력, 실제 root trace를 보존합니다.
-패키징·로컬 호출·원격 배포·native 평가·사람의 승인은 서로 다른 결과입니다.
+| 하고 싶은 일 | 시작할 곳 | 나중에 할 일 |
+|---|---|---|
+| 여러 agent에서 도구 하나 재사용 | [관리형 Toolbox](../labs/extensions/toolbox.md) | Tool Search/Skills 또는 Hosted Toolbox |
+| 답변 하나가 아닌 대화 평가 | [대화 평가](../labs/extensions/conversation-evaluation.md) | Optimizer 또는 반복 평가 |
+| 모델 호출 없이 중단·재개 이해 | [로컬 승인/복구 시뮬레이션](../labs/extensions/approval-recovery.md) | 실제 인가나 Hosted crash 검증 |
+| 리소스 변경 없이 접근·구조 검토 | [거버넌스·네트워크](../labs/extensions/governance-networking.md) 또는 [전문 범위](../labs/extensions/specialist-scope.md) | 부족한 인프라 생성 |
+| 고정 버전의 Hosted 시스템 인수 | B의 모델·MAF·IQ 결과 이후 [Hosted 평가 워크북](../reference/evaluation-workbook.md) | 운영 릴리스 승인 |
+
+독립적인 시작점이지 차례로 마쳐야 할 다섯 단계가 아닙니다. 아래 전체 목록에서 모듈별 준비 조건을 확인합니다.
 
 ## 추가 모듈
 
@@ -41,16 +46,13 @@ B의 실제 모델·MAF·IQ 결과를 준비한 뒤 [Hosted 평가 워크북](..
 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며(예: 후보가 없는 최적화, 답변이 아닌 전달만 확인된 Routine)
 `gpt-6-sol`로는 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 2026-09-23에 다시 실행했습니다. 각 모듈은 직접 확인합니다.
 
-## 선택 순서
-
-재사용 도구가 목표라면 Toolbox 이후 Tool Search/Skills **또는** Hosted Toolbox를 선택합니다.
-학습·개선 루프는 대화 평가부터 시작하며 Optimizer·반복 평가는 각각 나중의 별도 선택입니다.
-모델 호출 없이 SDK를 익히려면 로컬 승인 게이트/복구를 선택합니다. A2A·Memory·예약·릴리스의 선행 조건은 아닙니다.
-읽기·설계만 하려면 거버넌스·네트워크 또는 전문 범위를 선택하고, 빈 워크시트를 채우려고 자원을 만들지 않습니다.
+## 실험 조건 유지
 
 독립 평가 사례끼리 Memory나 대화 상태를 공유하지 않습니다.
 사람이 검토하고 고정하기 전의 optimizer 후보를 holdout 평가에 넣지 않습니다.
 모두 통과하거나 개선이 없는 baseline도 유효한 결과입니다. 실패나 개선을 만들지 않습니다.
+Hosted 워크북은 버전·protocol을 고정하고 모델×문항 행과 오류, judge calibration, 검토한 regression과 실제 root trace를 보존합니다.
+패키징·로컬 호출·배포·평가·승인은 각각 별도 결과입니다.
 
 ## 별도 전문 영역
 

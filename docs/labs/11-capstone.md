@@ -68,7 +68,12 @@ then follow [Cleanup](../reference/cleanup.md) for the assets you own.
 
 <a id="path-b"></a>
 
-## Practitioner acceptance command
+<a id="practitioner-acceptance-command"></a>
+
+## B. Review saved evidence and record the outcome
+
+**No new Azure calls.** Check the files first, then record **ready for human review**, **rejected** or **incomplete**.
+If Lab 07 already produced `acceptance.json`, read it instead of rerunning the command.
 
 <a id="b-evidence"></a>
 

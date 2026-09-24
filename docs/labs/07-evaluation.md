@@ -164,19 +164,22 @@ Add the dataset and the evaluation to item 4 of `operations-checklist.txt`, then
 
 <a id="path-b"></a>
 
-## B. Code: reproducible run units
+## B. Code: compare two prompts, then make one final check
 
-The following collection commands call Azure. Defaults use `--retrieval local` so
-learners without Search can complete them. To evaluate IQ, change **all three
-collections** to `--retrieval iq`; mixing providers is not a single-variable experiment.
-For a new experiment, keep `local` and follow **1 → 2 → 3 → 4**. If resuming, use the table below first.
-Steps 5–6 are optional extensions after the core result. Plan **6 + 6 + 4 = 16** target-case requests, plus service/tool/retry work.
+**Use local retrieval + a real Azure model for this entire experiment.**
+This is a declared new experiment after Lab 06, not a substitute for a failed Search/IQ lab.
+Keep the model, language, policies and retrieval fixed; only the prompt changes on dev.
 
-| Run | Saved under the repository root | Expected cases |
-|---|---|---:|
-| Baseline / v1 | `outputs/baseline/` | 6 dev |
-| Candidate / v2 | `outputs/candidate/` | 6 dev |
-| Final / frozen v2 | `outputs/final-holdout/` | 4 holdout, only after the candidate passes |
+| Step | Do | Keep | Target-model requests |
+|---|---|---|---:|
+| [1. Baseline](#dev-baseline) | Collect and grade v1 on dev | `outputs/baseline/` | 6 |
+| [2. Review](#dev-review) | Explain a real failure or record all-pass | Your review notes; `feedback` only for a genuine failed case | 0 |
+| [3. Candidate](#dev-candidate) | Collect and grade v2, then compare | `outputs/candidate/` and its comparison report | 6 |
+| [4. Final check](#final-acceptance) | Freeze a passing candidate; use holdout once | `outputs/final-holdout/` and its acceptance/rejection report | 4, only after the gate |
+
+For a new experiment, follow **1 → 2 → 3 → 4**. For a resumed one, use the next table first.
+Budget **16 target-case requests** if the final gate opens, plus service/tool/retry work.
+Steps 5–6 and IQ-based comparisons are separate optional experiments.
 
 <a id="resume-evaluation"></a>
 
@@ -205,6 +208,8 @@ Comparisons also freeze project, output limit, and Search endpoint/index/source/
 index. Do not modify remote documents during the experiment. Preserve actual returned
 evidence and each `context_hash`.
 
+<a id="dev-baseline"></a>
+
 ### 1. Collect the dev baseline
 
 ```bash
@@ -229,6 +234,8 @@ Read `total`, `passed`, `errors`, `business_gate_passed` and every case's `check
 
 **What to check:** Read `completed`, `schema`, `decision`, and `required_citations`
 inside each case's `checks`. Inspect the summary and all six rows, not just the last visible case.
+
+<a id="dev-review"></a>
 
 ### 2. Separate the cause of one failure
 
@@ -258,6 +265,8 @@ It links the original dev expected answer and source run/response/request/trace 
 The model's answer is not promoted to ground truth. Missing traces remain `null`;
 do not invent UUIDs as Azure trace IDs.
 
+<a id="diagnostic-no-evidence"></a>
+
 <details>
 <summary>Optional, not part of B completion: diagnose a deliberate no-evidence failure (six more paid model calls)</summary>
 
@@ -281,6 +290,8 @@ The September 24, 2026 English recording returned 0/6 with 0 errors.
 
 Holdout is only for the final check in step 4; never open it to look for failures to fix.
 
+<a id="dev-candidate"></a>
+
 ### 3. Run the prepared v2 instructions on the same dev set
 
 Run this step even if the baseline passed: it compares two fixed instruction versions on the same six cases.
@@ -301,6 +312,12 @@ Inspect all six candidate rows, then run the local checks:
 
 ```bash
 python scripts/workshop.py --language en evaluate --label candidate
+```
+
+Read all six results first. A business failure is a finding to retain; a configuration or hash error must be resolved.
+Then compare the saved dev runs. Comparison does not itself approve holdout:
+
+```bash
 python scripts/workshop.py --language en compare --baseline baseline --candidate candidate --variable prompt
 ```
 
@@ -321,6 +338,8 @@ criteria as baseline. The last few passing rows do not establish full success.
 An empty `changed_context_cases` list means the retrieved contexts match; incompatible configuration is rejected before a comparison report is written.
 Equal scores or shorter elapsed time do not establish v2 superiority.
 Use your own results; English and Korean runs are separate.
+
+<a id="final-acceptance"></a>
 
 ### 4. Freeze the candidate, then use holdout once
 
@@ -345,6 +364,12 @@ Keep all four actual rows, including failures. Grade and produce the human-revie
 
 ```bash
 python scripts/workshop.py --language en evaluate --label final-holdout
+```
+
+Inspect all four rows. If grading returns `1` for a failed business gate, still preserve the rejection report below.
+For an input/hash/precondition error (`2`), stop and use [recovery](../reference/troubleshooting.md#resume-safely).
+
+```bash
 python scripts/workshop.py --language en accept --candidate candidate --holdout final-holdout
 ```
 

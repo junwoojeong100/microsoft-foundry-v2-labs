@@ -114,6 +114,13 @@ class DocumentationTests(unittest.TestCase):
         self.assertGreaterEqual(counts["cli_examples"], 108)
         self.assertGreater(counts["local_anchors"], 0)
 
+    def test_english_cli_examples_explicitly_select_the_english_bundle(self):
+        for english, _ in DOCS.translation_pairs(ROOT):
+            for line, arguments in DOCS.workshop_commands(english.read_text()):
+                with self.subTest(page=english.relative_to(ROOT), command=line):
+                    self.assertIn("--language", arguments)
+                    self.assertEqual(arguments[arguments.index("--language") + 1], "en")
+
     def test_completed_pairs_in_the_active_revision_retain_exact_file_hashes(self):
         state = json.loads((ROOT / "docs/localization.json").read_text())
         pairs = {

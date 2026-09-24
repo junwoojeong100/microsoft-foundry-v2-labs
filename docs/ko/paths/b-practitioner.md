@@ -2,29 +2,29 @@
 
 [English](../../paths/b-practitioner.md) | **한국어**
 
-**저장소 하나, 언어 하나, 검증된 설정값 한 세트를 사용합니다.**
-B는 실행 가능한 시스템을 만드는 경로입니다. C는 독립적인 확장 모듈이며 B의 모든 실습 뒤에 필수로 붙지 않습니다.
+**응답 파일 12개·dev/holdout 평가·로컬 패키지·정리 인계를 남깁니다.**
+6시간 기본 과정은 저장소 하나와 언어 하나로 진행합니다. 배포와 C 모듈은 필수가 아닙니다.
 
 ## 첫 명령 전
 
-[Lab 00 B](../labs/00-start.md#path-b)부터 로그인, `.env`,
-가상환경 활성화, 읽기 전용 사전 확인을 마칩니다. 토큰 발급은 모델 실행 성공이 아닙니다.
-Lab 02에서 실제 Responses 요청과 구조화된 답변까지 확인합니다.
+1. [준비](../setup.md) 후 [Lab 00 B](../labs/00-start.md#path-b)에서 소스 폴더·개인 기록·`.venv`·`.env`·로그인·사전 확인을 마칩니다.
+2. `.venv`가 활성화된 저장소 루트에서 블록별로 실행합니다. 국문은 기본값이며 `--language ko`로 명시할 수도 있습니다. `.env`는 셸 `source`로 읽지 않습니다.
+3. 각 **저장** 지점에서 JSON을 연 뒤 다음 요청으로 갑니다. 응답 전체는 `--output`이 저장하며 사람의 검토는 별도로 적습니다.
 
-명령은 저장소 루트에서 실행합니다. `.env`를 셸 `source`로 읽지 않습니다.
-국문 명령은 기본으로 한국어 데이터 묶음을 사용하며 `--language ko`로 명시할 수도 있습니다. 새 수집에는 새 label을 사용합니다.
-Lab 00에서 소스 복사본의 빈 양식으로 **`outputs/learner-notes-ko/`**를 만듭니다.
-터미널 출력 파일과 검토 기록은 여기에 저장합니다. B에는 브라우저 agent나 별도 학습자 ZIP이 필요 없습니다.
-자동 생성된 평가 폴더는 기록 폴더 안이 아니라 `outputs/<label>/`에 그대로 둡니다.
-값을 입력하라는 블록이 나오면 [코드 블록 읽는 법](../labs/00-start.md#reading-code-blocks)을 확인합니다.
-핵심 명령이 **응답 JSON 12개 전체**를 `--output`으로 저장하므로 터미널 출력을 직접 복사하지 않습니다.
-다음 요청 전에 각 **저장** 지점에서 파일을 열고, 사람의 검토는 별도로 작성합니다.
-[Lab 11의 파일 목록](../labs/11-capstone.md#b-evidence)에 인계할 전체 항목이 있습니다.
+**파일 위치:** Lab 00이 JSON 12개와 개인 기록을 위한 `outputs/learner-notes-ko/`를 만듭니다.
+자동 생성된 평가 실행은 `outputs/<label>/`에 그대로 둡니다. B에는 브라우저 agent나 두 번째 학습자 ZIP이 필요 없습니다.
+[파일 목록](../labs/11-capstone.md#b-evidence) · [코드 블록 읽는 법](../labs/00-start.md#reading-code-blocks).
 
-**첫 회차의 선택은 정해져 있습니다:** `gpt-6-sol`, 입문 MAF 세 패턴, Lab 06의 GA Search/IQ,
-Lab 07의 **로컬 검색 + 실제 Azure 모델**, Lab 08의 **패키징만**입니다.
-Lab 06의 검색 학습 뒤 Lab 07의 명시된 로컬 실험으로 이동하는 것이며 IQ 오류 뒤의 자동 대체가 아닙니다.
-File Search·hybrid/Preview IQ·cloud judge·로컬 Hosted 서버·원격 배포는 기본 단계가 아닙니다.
+| 첫 회차의 선택 | 사용할 것 |
+|---|---|
+| 응답 모델 | 준비된 `gpt-6-sol`. Lab 02에서 토큰뿐 아니라 실제 Responses·Structured Outputs 확인 |
+| Lab 05 workflow | 순차·병렬·Group Chat |
+| Lab 06 검색 학습 | 일반 Search 다음 GA IQ |
+| Lab 07 지침 비교 | 로컬 검색 + 실제 Azure 모델. 세 수집에서 동일하게 유지 |
+| Lab 08 호스팅 | 패키징만. 로컬 서버·원격 배포는 **미실행** |
+
+Lab 07은 의도적으로 별도의 로컬 검색 실험을 시작하며 Lab 06 오류의 대체 경로가 아닙니다.
+File Search·hybrid/Preview IQ·cloud judge는 선택입니다.
 
 **비용·쓰기 경계:** Lab 02/04/05/07은 실제 모델을 호출합니다.
 Lab 06은 본인 Search 객체 작성과 검색 비용도 발생하므로 시작 전에 해당 범위의 승인을 받습니다.

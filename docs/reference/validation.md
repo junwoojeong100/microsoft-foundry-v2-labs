@@ -9,11 +9,45 @@ Earlier videos and upstream results are not relabeled as new evidence.
 **Current state:** the `gpt-6-sol` / `gpt-6-sol-judge` edition is recorded in both languages as of
 [September 24, 2026](#gpt-6-sol-20260924). Separate September 23 checks cover the [previously not-run items](#previously-not-run-items)
 and the [optional evaluation additions](#foundry-evaluation-additions). What is still not run is listed in the
-[actual results](../live-run.md#not-run-with-gpt-6-sol). Entries below are newest first; the latest guide and document review is [v3](#straightforwardness-v3).
+[actual results](../live-run.md#not-run-with-gpt-6-sol). The latest documentation-only change is the
+[route and scope review](#straightforwardness-route-checks). Earlier editorial scores below are historical, not a new usability measurement.
+
+<a id="straightforwardness-route-checks"></a>
+
+## Straightforwardness: route and scope checks — September 24, 2026
+
+**The default route now leads with what to do, what to save and where to stop.**
+Fifteen English/Korean page pairs, including this record, were updated English-first.
+No application code, prompts, datasets, policies, fixtures or media changed.
+
+| Friction found | Change | Evidence |
+|---|---|---|
+| Entry pages asked for setup before the route choice; setup asked for notes before downloading them | Choose A/B → get the right files → collect values → Lab 00 | Regression tests check both entry sequences and file-before-card ordering |
+| SDK explanation and optional hosting prerequisites interrupted core commands | Lab 02 has three numbered actions; Lab 08 packages first and keeps execution gates collapsed | Core-route tests still require exactly the existing commands and output files |
+| The evaluation route mixed an action sequence with provider choices | A linked four-step map fixes local retrieval, names outputs and separates grading from the next decision | Tests verify every link, one core command per block and the pre-holdout gate |
+| Instructor guidance called core B Search/MCP/workflows optional, but required the Hosted SDK | Rehearse the selected route; require Search for B and reserve Hosted SDK checks for selected modules | Instructor-scope regression test; no new cloud execution |
+| A paid no-evidence diagnostic appeared in the core command lookup | Move it to optional commands; state which local checks write reports | Lookup regression test and bilingual CLI parity |
+
+**Measured edit, not a reading-time claim:** the visible Markdown from Lab 08's B entry anchor to its first Bash block
+fell from **1,118 to 298 characters in English** and **661 to 186 in Korean**. Counts include Markdown syntax and whitespace,
+exclude collapsed sections, and compare this revision with the preceding worktree baseline. The command and package checks are unchanged.
+
+**Verification:** 268 offline tests passed on **each of Python 3.13 and 3.14**. Seven new tests cover the route/scope rules;
+the existing isolated journey test now also executes the README's `doctor`, `demo` and `evaluate` blocks in both languages,
+confirming fixture `total: 6`, `passed: 6`, `errors: 0` without Azure. Ruff 0.16.6 lint/format checks and Python compilation passed.
+The documentation check covers **117 Markdown files, 58 language pairs and 328 CLI examples**, plus local links/anchors.
+Changed pairs have exact completion hashes in `docs/localization.json`; **no translation is deferred**.
+
+**Not verified by this revision:** live Azure behavior, the installed-SDK suite, a human learner pilot or completion time.
+No provisioning, deployment, role/default-subscription change, publishing, push or recording was performed.
+The four-/six-hour schedules remain planned timings, not new measurements. No new editorial percentage is claimed.
 
 <a id="straightforwardness-v3"></a>
 
 ## Straightforwardness review v3: guides and documents — September 24, 2026
+
+<details>
+<summary>Earlier AI editorial assessment — historical scores and evidence, not the result of the route review above</summary>
 
 **Conservative editorial scores: guides 100/100 and documents 100/100** (round 1: 87/100 and 78.5/100).
 Seven independent AI cold-read reviews covered the English A route, the English B route and the Korean guides with the
@@ -72,6 +106,8 @@ A new test keeps both tables' rows and totals consistent.
 **Live Azure checks for this revision: not run.** No model request, provisioning, deployment, role or subscription change,
 or recording was performed. Portal labels were compared with the September 24 captures. Code, prompts, datasets, policies,
 fixtures and media files are unchanged; only documentation and one test changed.
+
+</details>
 
 <a id="gpt-6-sol-20260924"></a>
 

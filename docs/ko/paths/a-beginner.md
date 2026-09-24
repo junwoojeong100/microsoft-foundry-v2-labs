@@ -2,17 +2,16 @@
 
 [English](../../paths/a-beginner.md) | **한국어**
 
-**아래 표의 A 구간만 순서대로 진행합니다.** 고급 평가 워크북을 축약한 과정이 아닙니다.
-구독·권한·설치가 끝난 준비 환경을 사용하며, 환경 준비 시간은 수업 시간에 포함하지 않습니다.
+**본인 agent·6문항 평가표·workflow 검토 한 건·정리 인계를 남깁니다.**
+아래 표의 A 구간만 따라갑니다. 4시간 과정은 환경·권한·설치가 이미 준비된 상태를 기준으로 합니다.
 
 ## 먼저 준비하기
 
-[설정 카드](../setup.md)를 채우고 국문 학습자 ZIP의 `START-HERE.txt`를 엽니다.
-준비된 **gpt-6-sol** 배포와 `instructions-with-policies.txt`, `dev-questions.txt`,
-복사한 `assessment.csv`를 사용합니다. ZIP의 빈 `session-notes.txt`, `workflow-review.txt`,
-`operations-checklist.txt`를 쓰므로 보고서 형식을 따로 만들 필요가 없습니다.
+[준비](../setup.md)에서 국문 학습자 ZIP을 받은 뒤 담당자의 값을 기록합니다.
+`START-HERE.txt`를 엽니다. 준비된 **gpt-6-sol** 배포와 ZIP의 완성 지침·질문·빈 기록 양식을 사용합니다.
+입력 파일이나 보고서 형식을 따로 만들지 않습니다.
 MAF 실습 한 번에는 학습자 계정으로 로그인된 준비 터미널이 필요합니다.
-없다면 시간표를 시작하기 전에 [Lab 00 B](../labs/00-start.md#path-b)와 Lab 02 B를 완료합니다.
+없다면 시간표를 시작하기 전에 [Lab 00 B](../labs/00-start.md#path-b)와 [Lab 02 B](../labs/02-models.md#path-b)를 완료합니다.
 
 **첫 회차의 선택은 정해져 있습니다:** 인라인 정책, 순차 MAF 한 번, 수동 dev 평가입니다.
 File Search·IQ Chat·Hosted·cloud judge·C 모듈은 별도로 선택하지 않는 한 **미선택**입니다.

@@ -2,18 +2,16 @@
 
 **English** | [한국어](../ko/paths/a-beginner.md)
 
-**Follow the rows below, not every section in every lab.** This is the existing beginner course,
-not a reduced version of the advanced evaluation workbook. A prepared environment is required;
-subscription setup, permissions and installations happen before the class.
+**Finish with your own agent, a six-question assessment, one workflow review and a cleanup handoff.**
+Follow only the A rows below. The four-hour course assumes setup, permissions and installations are already complete.
 
 ## Start here
 
-Complete [the setup card](../setup.md), download the English learner ZIP, and open `START-HERE.txt`.
-Use the prepared **gpt-6-sol** deployment. Keep `instructions-with-policies.txt`,
-`dev-questions.txt` and a working copy of `assessment.csv` ready. Use the ZIP's blank
-`session-notes.txt`, `workflow-review.txt` and `operations-checklist.txt`; you do not need to invent a report format.
+Complete [setup](../setup.md): get the English learner ZIP, then record the owner's values.
+Open `START-HERE.txt`. Use the prepared **gpt-6-sol** deployment and the ZIP's ready instructions, questions
+and blank worksheets; do not assemble your own inputs or report format.
 For the single MAF exercise, the owner supplies an activated, learner-signed-in terminal;
-otherwise complete [Lab 00 B setup](../labs/00-start.md#path-b) and Lab 02 B before this timed route.
+otherwise complete [Lab 00 B setup](../labs/00-start.md#path-b) and [Lab 02 B](../labs/02-models.md#path-b) before this timed route.
 
 **First-pass choices are already made:** inline policies, one sequential MAF run, manual dev assessment.
 File Search, IQ Chat, Hosted, cloud judges and C modules are **not selected** unless you opt in separately.

@@ -2,22 +2,24 @@
 
 [English](../index.md) | **한국어**
 
-**[준비 카드·학습자 ZIP](setup.md)에서 시작한 뒤 [A. 입문](paths/a-beginner.md)을 따라갑니다.**
-Python·API에 익숙하다면 대신 [B. 구현](paths/b-practitioner.md)을 선택합니다.
-각 경로는 자기 랩 구간으로 바로 연결됩니다. 다른 경로까지 계속 실행하지 말고 **A 완료 / B 완료** 링크로 이동합니다.
+**출장 규정 안내 도우미 하나를 만들고 다른 학습자가 검토할 수 있는 실행 근거를 남깁니다.**
 
-이 자료는 언어별 자산과 녹화본을 따로 둔 Pre-Ignite 2026 Edition입니다.
-완전초보자는 포털과 준비된 MAF 실행 환경에서, 경험자는 Python 코드에서
-같은 **합성 출장 규정 상담 업무**를 해결합니다. 워크플로를 포털에서 작성하는 단계는 없습니다.
+1. 브라우저 조작과 준비된 터미널 명령 한 번이면 [A. 입문](paths/a-beginner.md),
+   Python·API를 다루려면 [B. 구현](paths/b-practitioner.md)을 고릅니다.
+2. 고른 경로의 [준비](setup.md)를 마칩니다. A는 학습자 ZIP, B는 소스 저장소를 사용합니다.
+3. 경로의 체크리스트를 따라 Lab 00부터 진행합니다. 다른 경로까지 이어서 실행하지 말고 **A 완료 / B 완료**로 나옵니다.
 
-JSON 문서를 직접 조립하거나 정답 레코드를 복사하지 말고 준비된 파일을 사용합니다.
-심화 절과 녹화본은 선택 참고 자료이지 랩 사이에 추가로 수행해야 할 단계가 아닙니다.
+**Azure 권한이 없다면:** [오프라인 체험](labs/00-start.md#offline-rehearsal)까지만 합니다.
+**이미 시작했다면:** 재설치하지 말고 [복구·재개](reference/troubleshooting.md#resume-safely)를 확인합니다.
+
+이 Pre-Ignite 2026 Edition은 **합성 데이터만** 쓰며 영어·한국어 입력과 녹화를 구분합니다.
+어느 경로도 포털에서 workflow를 작성하지 않습니다. 심화 절과 녹화는 선택입니다.
 
 A는 압축을 푼 학습자 ZIP을 개인 증거 폴더로 사용합니다.
 B는 추가 ZIP 없이 [소스 복사본의 기록 폴더](labs/00-start.md#prepare-notes)를 사용합니다.
 `session-notes.txt`, `workflow-review.txt`, `operations-checklist.txt`를 진행하면서 채우고,
 A는 복사한 `assessment.csv`도 작성합니다.
-인증정보나 작성한 파일을 저장소의 생성 데이터 폴더에 넣지 않습니다.
+정답 레코드 대신 준비된 파일을 사용합니다. 인증정보나 작성한 양식을 `data/learner/`에 넣지 않습니다.
 
 <details>
 <summary>참고 문서 목록 — 필요한 항목만 펼쳐 보세요</summary>

@@ -8,7 +8,7 @@
 
 ## 시작 전
 
-**이번 순서:** A는 Playground, B는 CLI 확인과 구조화 출력을 실행합니다. 첫 회차에는 모델 비교를 건너뜁니다.
+**이번 순서:** A는 Playground를 사용하고 B는 배포 확인 후 실제 응답 두 개를 저장합니다. 모델 비교는 선택입니다.
 
 **준비물:** 준비된 gpt-6-sol 배포. B는 Lab 00의 활성 환경과 .env.
 
@@ -101,11 +101,15 @@
 
 저장소 루트·활성 `.venv`에서 실행합니다. 사전 검사는 읽기 전용이며 모델·구조화 답변 요청은 유료입니다.
 
+### 1. 배포 확인
+
 ```bash
 python scripts/workshop.py doctor --cloud
 ```
 
-의도한 배포가 `Succeeded`인지 사전 확인한 뒤에만 실제 요청을 보냅니다.
+의도한 배포가 `Succeeded`인지 확인한 뒤에만 계속합니다. 추론까지 검증한 것은 아닙니다.
+
+### 2. 실제 모델 응답 하나 저장
 
 ```bash
 python scripts/workshop.py model \
@@ -113,19 +117,6 @@ python scripts/workshop.py model \
   --output outputs/learner-notes-ko/model.json
 ```
 
-핵심 코드는 `src/foundry_workshop/cloud.py`의 `project_clients`, `call_model`입니다.
-
-```python
-with AIProjectClient(endpoint=project_endpoint, credential=credential) as project:
-    with project.get_openai_client() as client:
-        response = client.responses.create(
-            model=deployment_name,
-            input="Foundry와 MAF의 차이를 설명해 주세요.",
-            store=False,
-        )
-```
-
-위 블록은 흐름 설명용입니다. 실행에는 위 CLI와 `.env`의 실제 값을 사용합니다.
 `response_id`, 실제 `response_model`, 토큰 사용량이 결과에 기록됩니다.
 `trace_id: null`은 아직 Application Insights trace를 수집한 것이 아니라는 뜻입니다.
 `response_id`를 임의의 trace ID로 바꿔 적지 않습니다.
@@ -137,7 +128,9 @@ with AIProjectClient(endpoint=project_endpoint, credential=credential) as projec
 
 **저장:** `model.json`은 `--output`이 Lab 00 기록 폴더에 작성합니다. 저장된 응답 전체를 연 뒤 다음 요청으로 갑니다.
 
-### 구조화 출력까지 확인
+<a id="구조화-출력까지-확인"></a>
+
+### 3. 검증된 구조화 답변 저장
 
 ```bash
 python scripts/workshop.py answer --prompt v2 --retrieval local \
@@ -163,6 +156,26 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 **B 완료:** Lab 00 기록 폴더에 `model.json`, `answer-local.json`으로 출력 전체를 저장합니다.
 Response ID·사용량·원문 ID도 포함합니다.
 [Lab 04 B](04-agents-tools.md#path-b)로 이동합니다. A 터미널 준비 때문에 왔다면 [Lab 05 A](05-workflows.md#path-a)로 돌아갑니다.
+
+<details>
+<summary>SDK 호출 원리 — 선택 코드 읽기이며 추가 실행 명령이 아닙니다</summary>
+
+`src/foundry_workshop/cloud.py`의 `project_clients`, `call_model`을 읽습니다.
+위 CLI가 `.env`의 실제 값을 다음 흐름에 전달합니다.
+
+```python
+with AIProjectClient(endpoint=project_endpoint, credential=credential) as project:
+    with project.get_openai_client() as client:
+        response = client.responses.create(
+            model=deployment_name,
+            input="Foundry와 MAF의 차이를 설명해 주세요.",
+            store=False,
+        )
+```
+
+모델만 호출하는 개념 질문은 자유롭게 번역해도 됩니다. 비교 실험의 정해진 정책·평가 질문은 그대로 유지합니다.
+
+</details>
 
 ## 경험자 확장: 모델을 어떻게 비교할까?
 

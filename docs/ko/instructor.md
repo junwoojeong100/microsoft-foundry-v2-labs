@@ -35,8 +35,8 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
    Quota/SKU/리전을 점검하며 초보자에게 대체 모델을 추측하게 하지 않습니다.
    수업 전에 [모델 선택](reference/model-choice.md)과 공개 가격을 다시 확인합니다.
 3. 참가자에게 프로젝트의 `Foundry User` 등 필요한 역할을 부여합니다.
-4. Search에는 데이터 읽기/작성 역할을 따로 준비합니다.
-5. 원격 agent identity가 모델/도구에 접근할 때 필요한 역할을 별도로 준비합니다.
+4. **B 또는 선택한 IQ 모듈에만** Search 데이터 읽기·작성 역할을 준비합니다. 기본 A에는 필요 없습니다.
+5. **원격 호스팅을 선택한 경우에만** 런타임 ID의 모델·도구 역할을 준비합니다. 패키징만 하는 B에는 필요 없습니다.
 6. 관리자 아닌 **실제 참가자 계정**으로 첫 요청을 보내 봅니다.
 7. 예산 알림과 로그 보존 기간을 정합니다. 예산 알림은 사용을 자동 차단하는 hard cap이 아닙니다.
 8. 선택 기능의 승인, 지역 간 처리, 테넌트 정책을 확인합니다.
@@ -57,7 +57,8 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 - `/api/projects/...`까지 포함한 프로젝트 endpoint.
 - 응답용 배포 `gpt-6-sol`과 확인한 실제 모델 버전 `2026-09-22`.
 - 조별 `WORKSHOP_PREFIX`: `mfv2-` 뒤에 소문자 영문·숫자·하이픈 하나씩 사용하며 전체 최대 32자.
-- 선택 Search endpoint·계정 OpenAI root·**`iq-chat setup`이 출력한 chat-base 이름**. GA base와 구분.
+- **B 필수:** Search endpoint·작성 권한·승인된 미사용 learner prefix 또는 그에 대응하는 준비 작업 폴더.
+- **선택 IQ Chat만:** 계정 OpenAI root·**`iq-chat setup`이 출력한 chat-base 이름**. GA base와 구분.
 - 선택 judge 배포와 실제 underlying model.
 - Hosted를 선택한 경우 실제 프로젝트 ARM ID·location 코드·고유 agent 이름·빈 독립 폴더.
 
@@ -65,6 +66,9 @@ Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화
 혼자 학습하면 [Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)가 전체 준비 경로이며 강사의 숨은 조작을 전제로 하지 않습니다.
 
 ## 3. Search/IQ 준비
+
+**기본 A는 이 절을 건너뜁니다. B는 서비스·학습자 권한을 준비하고 Lab 06에서 본인 객체를 만듭니다.**
+모델 기반 IQ Chat은 추가 선택이며 B의 GA 준비에 포함되지 않습니다.
 
 기본은 텍스트 index와 **GA `2026-04-01` minimal/extractive retrieval**입니다.
 다음은 별개의 준비 항목입니다.
@@ -108,15 +112,19 @@ Hosted 초기화는 상위 `azure.yaml`을 찾을 수 있으므로 기존 azd �
 준비한 가상환경을 다시 만들지 않고 사용하며 승인된 실습 값으로 블록 하나씩 실행합니다.
 
 ```bash
-source .venv/bin/activate
-python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]"
-python -m pip check
-python scripts/check_sdk.py
-python -m unittest discover -s tests -t . -v
-python -m unittest discover -s tests_sdk -t . -v
-python scripts/check_docs.py
+source .venv/bin/activate &&
+python -m pip install -e ".[cloud,agents,dev]" &&
+python -m pip check &&
+python -m ruff check . &&
+python -m ruff format --check . &&
+python -m compileall -q src scripts examples tests tests_sdk &&
+python -m unittest discover -s tests -t . -v &&
+python scripts/check_docs.py &&
 python scripts/workshop.py doctor
 ```
+
+첫 검사 실패에서 실행이 멈춥니다. 해결한 뒤 계속합니다. 이 블록은 Azure를 호출하지 않습니다.
+기본 A/B에 Hosted SDK는 필요 없습니다. 전체 SDK 검사는 아래 선택 절에 있습니다.
 
 로컬 검사가 모두 통과한 뒤 읽기 전용 cloud 사전 확인을 실행합니다.
 
@@ -128,7 +136,17 @@ python scripts/workshop.py doctor --cloud
 
 ```bash
 python scripts/workshop.py model --question "이 응답은 합성 워크숍 연결 확인입니다. 한국어로 짧게 답하세요."
+```
+
+실제 `text`·배포/모델·response ID를 확인한 뒤 구조화 출력을 검증합니다.
+
+```bash
 python scripts/workshop.py answer --prompt v2 --retrieval local
+```
+
+답변 필드·원문 ID·실제 응답 정보를 확인한 뒤 준비된 MAF workflow를 실행합니다.
+
+```bash
 python scripts/workshop.py workflow --pattern sequential
 ```
 
@@ -140,21 +158,35 @@ python scripts/workshop.py workflow --pattern sequential
 **화면 확인:** 2026-09-24 녹화는 녹화 전에 준비한 실습 환경을 사용했으며 리소스를 생성한 결과가 아닙니다.
 한 리소스의 생성 성공만으로 전체 환경이 준비됐다고 판단하지 않습니다. 실제 참가자 계정의 첫 모델 호출은 별도 게이트입니다.
 
-추가 모듈은 실제 선택한 것만 확인합니다.
+<a id="rehearse-route"></a>
+
+### 가르칠 경로 그대로 리허설하기
+
+**위 세 요청은 연결 확인이지 과정 완료가 아닙니다.** 고른 경로의 완전한 명령과 저장 지점을 따릅니다.
+
+| 수업 | 필수 리허설 | 필요하지 않은 것 |
+|---|---|---|
+| [A. 입문](paths/a-beginner.md) | 포털 agent·학습자 파일·본인의 순차 MAF 실행·6문항 수동 평가·원문 확인·인계 | Search 서비스·cloud judge·호스팅 |
+| [B. 구현](paths/b-practitioner.md) | 함수/MCP 호출·workflow 세 패턴·Search와 GA IQ·조건을 충족한 평가·패키지·인계를 포함한 기본 B 전체 | 로컬/원격 Hosted 실행·cloud judge·C 모듈 |
+| [선택한 C 모듈](paths/c-advanced.md) | 그 모듈의 준비 조건·호출·근거만 | 나머지 C 모듈 전체 |
+
+참가자 계정·승인된 비용·고유 prefix를 사용합니다. 새 B 복사본은 Lab 06에서 본인 객체를 만들고 ledger를 보존합니다.
+학습자 ZIP에는 정책 원문 6개가 이미 있습니다. Export는 선택 재생성이며 A의 추가 필수 단계가 아닙니다.
+
+<details>
+<summary>선택 전체 SDK 리허설 — Hosted/Toolbox 모듈을 선택했거나 SDK를 유지보수할 때만</summary>
+
+같은 전용 가상환경에 전체 lock을 설치하고 stub 전송으로 SDK 검사를 실행합니다.
+Azure 요청을 보내지 않으며 배포를 검증하는 것도 아닙니다.
 
 ```bash
-python scripts/export_policy_docs.py
-python scripts/workshop.py maf --tools
-python scripts/workshop.py maf --mcp
-python scripts/workshop.py workflow --pattern concurrent
-python scripts/workshop.py workflow --pattern group-chat
-python scripts/workshop.py seed-search --iq --confirm-create
-python scripts/workshop.py retrieve --provider iq
+python -m pip install -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]" &&
+python -m pip check &&
+python scripts/check_sdk.py &&
+python -m unittest discover -s tests_sdk -t . -v
 ```
 
-완성 학습자 ZIP에는 동일한 TXT 원문이 이미 있습니다. Export는 선택적인 재생성이지 A의 숨은 필수 단계가 아닙니다.
-첫 export와 seed는 소유권/이름 충돌을 확인합니다. 재실행 실패를 `--force`로 숨기지 않습니다.
-공유 리소스 대신 조별 전용 접두사와 소유권 기록을 사용합니다.
+</details>
 
 ### 실제 실행 기록
 

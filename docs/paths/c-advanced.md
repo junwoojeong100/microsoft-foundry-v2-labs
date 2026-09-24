@@ -11,12 +11,17 @@ Use the [developer setup](../labs/extensions/developer-toolkit.md) only for that
 Keep the same language, record the last step and exact labels in `session-notes.txt`, and leave generated outputs in their original directories.
 An unselected feature is **not run**; an attempted failure stays **failed/blocked**, not a successful substitute.
 
-## Existing integration route
+## Choose by outcome
 
-After B's real model, MAF and IQ results, follow the [Hosted evaluation workbook](../reference/evaluation-workbook.md).
-It pins the actual Hosted version and protocol, keeps every model-by-case row and error,
-calibrates the judge, preserves reviewed regression lineage, and checks real root traces.
-Packaging, local invocation, remote deployment, native evaluation and human approval remain different outcomes.
+| I want to… | Start with | Leave for later |
+|---|---|---|
+| Reuse one tool across agents | [Managed Toolbox](../labs/extensions/toolbox.md) | Tool Search/Skills or Hosted Toolbox |
+| Evaluate a conversation, not just one answer | [Conversation evaluation](../labs/extensions/conversation-evaluation.md) | Optimizer or recurring evaluation |
+| Understand pause/resume without model calls | [Local approval/recovery simulation](../labs/extensions/approval-recovery.md) | Real authorization or Hosted crash claims |
+| Review access and architecture without changing resources | [Governance/networking](../labs/extensions/governance-networking.md) or [specialist scope](../labs/extensions/specialist-scope.md) | Creating missing infrastructure |
+| Accept a version-pinned Hosted system | [Hosted evaluation workbook](../reference/evaluation-workbook.md), after B's model/MAF/IQ results | Production release approval |
+
+These are independent starting points, not five steps to complete. The full catalog below lists each module's prerequisites.
 
 ## Additional capability modules
 
@@ -44,16 +49,13 @@ The modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna`
 optimization and delivery-only routine verification). With `gpt-6-sol`, conversation evaluation, Agent Optimizer, the red-team
 step of agent safety and release operations were re-run on September 23; the others were not. Verify each module yourself.
 
-## Pick a sensible next module
-
-For reusable tooling: Toolbox first, then Tool Search/Skills **or** Hosted Toolbox.
-For the learning loop: conversation evaluation first; Optimizer and recurring evaluation are separate later choices.
-For local SDK mechanics without model calls: approval/recovery. A2A, memory, schedules and releases do not depend on completing that simulation.
-For read-only/design work: governance/networking or specialist scope; do not create missing resources to fill their worksheets.
+## Keep the experiment valid
 
 Do not share memory or conversation state between independent evaluation cases.
 Do not let optimizer-generated changes enter a held-out evaluation until a person has reviewed and frozen the candidate.
 An all-pass baseline is a valid outcome; no regression or improvement is manufactured.
+The Hosted workbook pins the version/protocol, retains every model-by-case row and error, calibrates the judge,
+preserves reviewed regressions and verifies root traces. Packaging, local invocation, deployment, evaluation and approval remain separate outcomes.
 
 ## Specialist scope
 

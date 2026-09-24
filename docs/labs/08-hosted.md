@@ -1,46 +1,30 @@
-# Lab 08. From local code to a Hosted Agent
+# Lab 08. Package an agent without deploying it
 
 **English** | [한국어](../ko/labs/08-hosted.md)
 
-**Goal:** Package the same read-only MAF agent and deploy it only when prerequisites and approvals are in place.
+**Goal:** Build and inspect a safe local bundle of the read-only MAF agent. Deployment is a separate optional exercise.
 
 **Open your section:** A: [skip to Lab 09 A](09-operations.md#path-a) · [B — package only](#path-b) · [Paths](../paths.md)
-
-> **Separate service and SDK status.** In this edition's dated compatibility snapshot,
-> Hosted Agent is a GA service, while `agent-framework-foundry-hosting` and some azd
-> capabilities are prerelease. B requires only local packaging. Serving and deployment
-> are optional because of permissions, SDKs and costs, not because the entire service is Preview.
 
 ## Before you start
 
 **This pass:** A skips to Lab 09. B packages the single agent and stops; local/remote execution, workflow and Invocations sections are optional.
 
-**Need:** Packaging: repository and Python. Local invocation: Hosted SDK, Lab 04 response, azd and actual project ARM ID. Remote work also requires explicit deployment approval.
+**Need:** Repository and Python. No Hosted SDK, azd, project ARM ID or Azure write approval is needed for packaging.
 
-**Continue when:** Record package/local/remote as separate outcomes; only a real version-pinned remote response proves deployment.
+**Continue when:** The package manifest is reviewed and `cloud_deployed: false` is retained. Local and remote execution are marked **not run**.
 
-**If blocked:** Without ARM ID, role or cost approval, stop at packaging. Do not rerun init inside another azd project.
+**If blocked:** If the package exists, inspect it before rebuilding. Do not delete source, run outputs or azd state.
 
 [One-time setup and learner files](../setup.md).
 
 <a id="path-b"></a>
 
-## Entry gates
-
-**Default B: package only, then Lab 09.** You do not need azd, a project ARM ID or the Hosted SDK for that stopping point.
-Choose a different stopping point only with its prerequisites already met; local and remote execution are additional outcomes.
-
-| Stopping point | Prerequisites | Follow |
-|---|---|---|
-| Package only | Repository and Python; no Azure writes or Hosted SDK needed | Section 1, then Lab 09 |
-| Package + local response | Lab 04 `maf --tools` success, Python 3.13, Hosted SDK, compatible azd/extension, actual project ARM ID/location, inference cost approval | Sections 1–3 and 5 |
-| Remote single agent | Above plus Hosted region/capacity, deployment/runtime-identity permission, session-cost approval | Sections 1–5 |
-| Advanced workflow/matrix | Lab 05 C and a separate prepared workspace | Section 6 or the section 7 workbook, not both by default |
-
-Do not run later sections to discover whether you have permission. Without their prerequisites, record them **not run**.
-Local Docker/ACR installation is not required for code deployment.
-
 ## 1. Build a safe bundle without Azure
+
+**Default B: run this one command, inspect its manifest, then go to Lab 09.**
+If `.build/hosted-en/` already exists, inspect its manifest first. A rebuild needs the old package
+preserved under a new, unused directory name; the command will not overwrite it.
 
 ```bash
 python scripts/package_hosted.py --language en
@@ -59,9 +43,7 @@ Output: `.build/hosted-en/`.
 `.agentignore` also excludes later `.foundry/` evaluation data/results and `eval*.yaml`
 so evaluation answers do not enter a redeployment package.
 Inspect `package-manifest.json` and `requirements.txt`.
-Rebuilding does not delete an existing folder automatically. Preserve or clean up only
-that **exact generated directory** first. Compare hashes after source changes.
-For package-only completion, retain the manifest and continue to [Lab 09](09-operations.md).
+Compare hashes after source changes; a saved package is not automatically updated with your source.
 
 
 ![September 24 English recording: Package the Hosted bundle only; no deployment](../assets/g6sol-20260924-en/screenshots/E08-001-package-2.webp)
@@ -71,11 +53,27 @@ Azure deployment. Check included/excluded files against the manifest.
 
 **B done:** retain `.build/hosted-en/package-manifest.json` with `cloud_deployed: false`;
 mark local invocation and remote deployment **not run**, then continue to [Lab 09 B](09-operations.md#path-b).
-If the package already exists, inspect its manifest first. To rebuild, first rename only that directory, for example
-`mv .build/hosted-en .build/hosted-en-previous`, then run the package command again. Do not delete your source, outputs or azd state.
 
 <details>
 <summary>Optional local/remote single-agent execution — expand only with the matching entry gate</summary>
+
+<a id="hosting-gates"></a>
+<a id="entry-gates"></a>
+
+## Optional execution gates
+
+Choose a different stopping point only after meeting its prerequisites. Do not run deployment to discover whether you have permission.
+
+| Stopping point | Prerequisites | Follow |
+|---|---|---|
+| Package + local response | Lab 04 `maf --tools` success, Python 3.13, Hosted SDK, compatible azd/extension, actual project ARM ID/location, inference cost approval | Sections 1–3 and 5 |
+| Remote single agent | Above plus Hosted region/capacity, deployment/runtime-identity permission, session-cost approval | Sections 1–5 |
+| Advanced workflow/matrix | Lab 05 C and a separate prepared workspace | Section 6 or the section 7 workbook, not both by default |
+
+**Service and SDK status are separate:** the [dated compatibility snapshot](../reference/versions.md) lists Hosted Agent
+as a GA service, while `agent-framework-foundry-hosting` and some azd capabilities are prerelease.
+Serving and deployment are optional because of permissions, SDKs and costs.
+Local Docker/ACR installation is not required for code deployment.
 
 ## 2. Connect azd to an existing project
 

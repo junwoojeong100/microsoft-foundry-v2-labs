@@ -1,45 +1,30 @@
-# Lab 08. 로컬 코드를 Hosted Agent로
+# Lab 08. 배포하지 않고 agent 패키지 만들기
 
 [English](../../labs/08-hosted.md) | **한국어**
 
-**완료 목표:** 같은 읽기 전용 MAF 에이전트를 패키징하고, 조건이 준비되면 Foundry에 배포합니다.
+**완료 목표:** 읽기 전용 MAF agent의 안전한 로컬 패키지를 만들고 확인합니다. 배포는 별도 선택 실습입니다.
 
 **내 구간 바로 열기:** A: [Lab 09 A로 이동](09-operations.md#path-a) · [B — 패키징만](#path-b) · [학습 경로](../paths.md)
-
-> **서비스와 SDK를 구분하세요.** 이 에디션의 날짜가 고정된 호환성 snapshot에서 Hosted Agent는 GA 서비스이고,
-> `agent-framework-foundry-hosting` 패키지와 일부 azd 기능은 prerelease입니다.
-> B의 필수는 로컬 패키징뿐입니다. 서버 실행·배포가 선택인 이유는 서비스 전체가 Preview라서가 아니라 권한·SDK·비용 조건 때문입니다.
 
 ## 시작 전
 
 **이번 순서:** A는 Lab 09로 이동합니다. B는 단일 agent를 패키징하고 멈춥니다. 로컬/원격 실행·workflow·Invocations는 선택입니다.
 
-**준비물:** 패키징은 저장소·Python. 로컬 호출은 Hosted SDK·Lab 04 응답·azd·실제 project ARM ID. 원격은 별도 배포 승인도 필요합니다.
+**준비물:** 저장소·Python. 패키징에는 Hosted SDK·azd·project ARM ID·Azure 쓰기 승인이 필요 없습니다.
 
-**다음으로 갈 기준:** 패키지·로컬·원격 결과를 구분합니다. 고정 버전의 실제 원격 응답만 배포 증거입니다.
+**다음으로 갈 기준:** 패키지 manifest를 검토하고 `cloud_deployed: false`를 유지합니다. 로컬·원격 실행은 **미실행**으로 적습니다.
 
-**막히면:** ARM ID·역할·비용 승인이 없으면 패키징에서 멈춥니다. 다른 azd 프로젝트 안에서 init을 반복하지 않습니다.
+**막히면:** 패키지가 이미 있으면 다시 만들기 전에 확인합니다. 소스·실행 결과·azd 상태는 삭제하지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
 <a id="path-b"></a>
 
-## 시작 전 게이트
-
-**기본 B는 패키징 후 Lab 09로 이동합니다.** 이 중단점에는 azd·project ARM ID·Hosted SDK가 필요 없습니다.
-다른 중단점은 선행 조건이 준비된 경우만 선택합니다. 로컬·원격 실행은 추가 결과입니다.
-
-| 멈출 지점 | 선행 조건 | 진행 |
-|---|---|---|
-| 패키지만 | 저장소·Python. Azure 쓰기·Hosted SDK 불필요 | 1절 후 Lab 09 |
-| 패키지 + 로컬 응답 | Lab 04 `maf --tools` 성공·Python 3.13·Hosted SDK·호환 azd/확장·실제 project ARM ID/location·추론 비용 승인 | 1–3절과 5절 |
-| 원격 단일 agent | 위 + Hosted 리전/capacity·배포/런타임 identity 권한·session 비용 승인 | 1–5절 |
-| 심화 workflow/matrix | Lab 05 C·별도 준비된 작업 폴더 | 6절 또는 7절 워크북. 모두 기본 실행하지 않음 |
-
-권한 유무를 알아보기 위해 뒷단계를 실행하지 않습니다. 선행 조건이 없으면 그 결과를 **미실행**으로 남깁니다.
-Docker/ACR 로컬 설치는 code deployment의 필수 조건이 아닙니다.
-
 ## 1. Azure 없이 안전한 패키지 만들기
+
+**기본 B는 명령 하나 실행 → manifest 확인 → Lab 09 이동입니다.**
+`.build/hosted/`가 이미 있으면 manifest부터 확인합니다. 다시 만들려면 이전 패키지를
+아직 쓰지 않은 새 폴더 이름으로 보존해야 합니다. 명령은 기존 폴더를 덮어쓰지 않습니다.
 
 ```bash
 python scripts/package_hosted.py
@@ -59,9 +44,7 @@ python scripts/package_hosted.py
 `.agentignore`로 제외합니다. 재배포할 때 평가 정답이 에이전트 코드에 섞이지 않게 합니다.
 
 `package-manifest.json`과 `requirements.txt`를 확인합니다.
-재빌드 시 기존 폴더를 자동 삭제하지 않습니다. 그 **정확한 생성 폴더만** 보관/정리한 뒤 다시 실행합니다.
-소스 변경 후 과거 패키지를 재배포하지 않도록 hash를 비교합니다.
-패키지만 선택했다면 manifest를 보관하고 [Lab 09](09-operations.md)로 이동합니다.
+소스를 바꿨다면 hash를 비교합니다. 저장된 패키지는 소스 변경을 자동으로 반영하지 않습니다.
 
 
 ![2026-09-24 국문 녹화: Hosted bundle 패키징만; 배포 없음](../../assets/g6sol-20260924-ko/screenshots/K08-001-package-2.webp)
@@ -71,11 +54,27 @@ python scripts/package_hosted.py
 
 **B 완료:** `cloud_deployed: false`인 `.build/hosted/package-manifest.json`을 보관합니다.
 로컬 호출·원격 배포는 **미실행**으로 적고 [Lab 09 B](09-operations.md#path-b)로 이동합니다.
-패키지가 이미 있다면 manifest부터 확인합니다. 다시 만들려면 먼저 그 폴더 이름만 바꿉니다. 예:
-`mv .build/hosted .build/hosted-previous` 후 패키지 명령을 다시 실행합니다. 소스·outputs·azd 상태는 삭제하지 않습니다.
 
 <details>
 <summary>선택 로컬/원격 단일 agent 실행 — 해당 시작 게이트를 충족할 때만 펼칩니다</summary>
+
+<a id="hosting-gates"></a>
+<a id="시작-전-게이트"></a>
+
+## 선택 실행의 준비 조건
+
+선행 조건을 충족한 뒤에만 다른 중단점을 선택합니다. 권한이 있는지 알아보려고 배포부터 실행하지 않습니다.
+
+| 멈출 지점 | 선행 조건 | 진행 |
+|---|---|---|
+| 패키지 + 로컬 응답 | Lab 04 `maf --tools` 성공·Python 3.13·Hosted SDK·호환 azd/확장·실제 project ARM ID/location·추론 비용 승인 | 1–3절과 5절 |
+| 원격 단일 agent | 위 + Hosted 리전/capacity·배포/런타임 identity 권한·session 비용 승인 | 1–5절 |
+| 심화 workflow/matrix | Lab 05 C·별도 준비된 작업 폴더 | 6절 또는 7절 워크북. 모두 기본 실행하지 않음 |
+
+**서비스와 SDK 상태는 다릅니다.** [날짜가 명시된 호환성 기록](../reference/versions.md)에서 Hosted Agent는 GA 서비스,
+`agent-framework-foundry-hosting`과 일부 azd 기능은 prerelease입니다.
+서버 실행·배포가 선택인 이유는 권한·SDK·비용 조건 때문입니다.
+Docker/ACR 로컬 설치는 code deployment의 필수 조건이 아닙니다.
 
 ## 2. azd로 기존 프로젝트에 연결
 

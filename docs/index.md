@@ -2,23 +2,24 @@
 
 **English** | [한국어](ko/index.md)
 
-**Start with [the setup card and learner ZIP](setup.md), then follow [A. Beginner](paths/a-beginner.md).**
-Already comfortable with Python/APIs: choose [B. Implementation](paths/b-practitioner.md) instead.
-Each route links directly to its own lab section. Stop at the **A done / B done** link rather than continuing into another path.
+**Build one travel-policy assistant and finish with evidence another learner can review.**
 
-This is the Pre-Ignite 2026 Edition, with separate language assets and recording sets.
-Beginners use the portal and
-a prepared MAF environment; practitioners use Python. Both solve the same
-**synthetic travel-policy scenario**. Neither path authors workflows in the portal.
+1. Choose [A. Beginner](paths/a-beginner.md) for browser steps plus one prepared terminal command, or
+   [B. Implementation](paths/b-practitioner.md) for Python and APIs.
+2. Complete [setup](setup.md) for that route. A uses the learner ZIP; B uses the source repository.
+3. Follow the route's checklist from Lab 00. Use **A done / B done** to leave each lab; do not continue into the other path.
 
-Use the ready files rather than assembling JSON documents or copying reference-answer records.
-Advanced sections and recordings are optional reading, not extra steps required between labs.
+**No Azure access yet:** stop after the [offline rehearsal](labs/00-start.md#offline-rehearsal).
+**Already started:** use [recovery and resume](reference/troubleshooting.md#resume-safely), not a fresh installation.
+
+This Pre-Ignite 2026 Edition uses **synthetic data only**, with separate English/Korean inputs and recordings.
+Neither route authors workflows in the portal. Advanced sections and recordings are optional.
 
 A keeps the extracted learner ZIP as a personal evidence folder. B uses
 [the source copy's notes directory](labs/00-start.md#prepare-notes), without a second ZIP.
 Fill `session-notes.txt`, `workflow-review.txt` and `operations-checklist.txt` as you go;
 A also fills a copy of `assessment.csv`.
-Do not put credentials or your filled files in the repository's generated data directory.
+Use the ready files, not reference-answer records. Keep credentials and filled worksheets out of `data/learner/`.
 
 <details>
 <summary>Reference directory — open only for the item you need</summary>

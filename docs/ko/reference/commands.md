@@ -29,13 +29,12 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 | `workflow --pattern sequential` | 유료 모델 호출 | 대안: concurrent, group-chat |
 | `seed-search --confirm-create` | 본인 Search 객체 생성/업로드 | 기존 서비스만 사용 |
 | `seed-search --iq --confirm-create` | 위 + GA source/base | 소유권 검사 |
-| `collect --label baseline --prompt v1` | dev 전체 유료 호출 | 오류 보존, 동시성 1 |
-| `evaluate --label baseline` | 없음 | 결정적 업무 검사 |
-| `collect --label diagnostic-no-evidence --prompt v1 --retrieval none` | dev 전체 유료 호출 | 정책 근거 없이 실행하는 dev 전용 진단. `feedback`과 `cloud-evaluate`는 거부 |
-| `compare --baseline baseline --candidate candidate` | 없음 | 통제된 dev 비교 |
+| `collect --split dev --label baseline --prompt v1 --retrieval local` | dev 전체 유료 호출 | 오류 보존, 동시성 1 |
+| `evaluate --label baseline` | 로컬 평가 보고서 작성. Azure 호출 없음 | 결정적 업무 검사 |
+| `compare --baseline baseline --candidate candidate` | 로컬 비교 보고서 작성. Azure 호출 없음 | 통제된 dev 비교 |
 | `feedback --label baseline --case D03 --reason "구체적인 검토 이유"` | 없음, 로컬 검토 기록 | 실제 dev만, 승인 대기 |
 | `collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout` | 고정 후보의 실제 평가 요청 | 개발용 재사용 금지 |
-| `accept --candidate candidate --holdout final-holdout` | 없음 | 사람의 인수 자료, 자동 승인 아님 |
+| `accept --candidate candidate --holdout final-holdout` | 로컬 인수/반려 보고서 작성. Azure 호출 없음 | 사람의 인수 자료, 자동 승인 아님 |
 | `cleanup-plan` | 없음 | 삭제 안 함. 선택 언어의 정리 가이드 반환 |
 | `python scripts/package_hosted.py` | 없음, 패키지 생성 | 배포/설치 실행 안 함 |
 
@@ -122,6 +121,7 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 | 명령군 | 목적·경계 | 전체 가이드 |
 |---|---|---|
 | `prompt-agent` | 별도 버전의 관리형 agent 생성/호출. 로컬 MAF와 구분 | [Lab 03 SDK](../labs/03-prompt-agent.md) |
+| `collect --retrieval none` | 선택 dev 진단 6회. 정책 근거가 없으며 baseline/candidate 경로가 아님. `feedback`·`cloud-evaluate`는 거부 | [Lab 07 진단](../labs/07-evaluation.md#diagnostic-no-evidence) |
 | `iq-chat` | `gpt-5.6-luna`/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup.md#4-환경-담당자의-준비) |
 | `workflow-agent` / `runtime-contract` | 검증된 workflow 출력 / 로컬 고정 profile·hash | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | 버전 고정 Hosted smoke·matrix·평가·trace·인수 | [평가 워크북](evaluation-workbook.md) |
