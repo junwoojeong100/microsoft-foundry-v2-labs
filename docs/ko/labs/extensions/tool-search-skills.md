@@ -4,7 +4,7 @@
 
 **C 선택 Preview · 2026-09-16 기준.**
 
-**근거 상태:** 영문 discovery·고정·Skill readback·load를 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(사설 catalog 인프라 없음). `gpt-6-sol`로 다시 실행하지 않았습니다.
+**근거 상태:** 영문 discovery·고정·Skill readback·load를 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(사설 catalog 인프라 없음). `gpt-6-sol`로 다시 실행하지 않았습니다. 2026-09-25에도 Toolbox의 Search 접근 문제로 막혀 있었습니다.
 
 먼저 일반 [Toolbox 실습](toolbox.md)을 완료합니다. 그 Toolbox·원래 버전·소유 ledger를 유지합니다.
 이 모듈도 동봉 합성 정책 6개만 읽습니다. 공개 웹을 호출하거나 skill script를 실행하지 않습니다.

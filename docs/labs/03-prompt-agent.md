@@ -173,7 +173,7 @@ Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the B SDK path are no
 
 ## B. Code — create a managed Prompt Agent with the SDK and call its exact version
 
-**Live-verified on 2026-09-24 in English and Korean with the refreshed SDK pins (no recording).** This core B step creates a project-managed Prompt Agent and one immutable version.
+**Live-verified on 2026-09-24 in English and Korean with the refreshed SDK pins; screenshots and [short clips](../video-summary.md#review-refresh-supplement) recorded on 2026-09-25.** This core B step creates a project-managed Prompt Agent and one immutable version.
 Use a new name starting with your `.env` `WORKSHOP_PREFIX`; do not reuse A's browser agent or any recording name.
 Record findings in `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json findings:` in `session-notes.txt`.
 
@@ -188,6 +188,10 @@ python scripts/workshop.py --language en prompt-agent create --name "$AGENT_NAME
 **Save:** `prompt-agent-create.json`
 
 Open the saved JSON before invoking. Record the returned agent name and version; this command creates an actual managed project asset.
+
+![September 25 English recording: the pasted block, the typed agent name, the returned version and the saved JSON](../assets/review-refresh-20260925/E03-201-sdk-create.webp)
+
+**What to check:** the name you typed at the prompt, `agent_version` (`1` for a new name) and the `Saved JSON` line pointing into your notes folder.
 
 ### 2. Invoke the exact returned version
 
@@ -204,9 +208,19 @@ The saved `text` is itself a JSON answer (`answer`, `decision`, `limit_krw`, `ci
 In the 2026-09-24 check the first version was `1` and the answer cited `TRAVEL-2026` with KRW 150,000; your IDs and wording will differ.
 Keep the `response_id` from `prompt-agent-invoke.json`; Lab 09 uses it for trace lookup.
 
+![September 25 English recording: the typed version, the JSON answer, response_id and usage](../assets/review-refresh-20260925/E03-202-sdk-invoke.webp)
+
+**What to check:** `agent_version` equals what you typed, `text` holds the JSON answer and `response_id` is present.
+`trace_id: null` and `trace_export: not-configured` describe local export only; Lab 09 finds the server-side trace by `response_id`.
+
 ### 3. Check the portal without sending another message
 
 In Foundry, open **Build → Agents → your SDK agent**. Verify the same version and instructions are visible.
+
+![September 25 English recording: Playground shows Version 1 and the SDK instructions; no message sent](../assets/review-refresh-20260925/EP03-201-playground.webp)
+
+**What to check:** **Version: 1** in the header and your SDK instructions under **Instructions**; the chat box stays empty.
+In the recording the portal instructions matched the CLI definition exactly.
 Do not send a new Playground message for this check. This SDK agent is a managed project asset, unlike the local MAF agent you create in Lab 04.
 The reverse also works: the step 2 `prompt-agent invoke` command can call a portal-created agent by its name and saved version (for example, the Lab 03 A agent if you made one). It is optional and billable; record it separately if you run it.
 
@@ -214,8 +228,13 @@ The reverse also works: the step 2 `prompt-agent invoke` command can call a port
 
 Every Foundry agent has a stable endpoint; the active version receives traffic.
 Versions are immutable, so this workshop always pins the exact returned version.
+
+![September 25 English recording: Details shows the active version and the Responses protocol endpoint](../assets/review-refresh-20260925/EP03-202-details.webp)
+
+**What to check:** **Details** shows **Active version** `Latest (Version 1)` and the agent endpoint under **Responses protocol**. The CLI call still names version `1` explicitly.
 Publishing or sharing through Agent Applications, Microsoft 365 Copilot or Teams exists, but it needs a Microsoft 365 tenant and is out of scope here.
 Facts checked 2026-09-24: [configure an agent](https://learn.microsoft.com/azure/foundry/agents/how-to/configure-agent) and [publish to Copilot](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-copilot).
+[Versions](../reference/versions.md) documents the SDK's explicit binding.
 
 **B done:** retain `prompt-agent-create.json`, `prompt-agent-invoke.json`, the exact agent version and the invoke `response_id`.
 Continue to [Lab 04 B](04-agents-tools.md#path-b).
@@ -241,24 +260,6 @@ client.responses.create(
 It still requires `--confirm-create` in this workshop and a `WORKSHOP_PREFIX-` name.
 
 **Write it yourself:** add one read-only instruction sentence, create a new version, and invoke that exact version without changing the question.
-
-</details>
-
-<details>
-<summary>Earlier recording: September 24, 2026 optional SDK branch — not evidence for this edition's <code>--output</code> files</summary>
-
-The screenshots below recorded the earlier optional branch. Use them only to recognize fields; they are not evidence for `prompt-agent-create.json` or `prompt-agent-invoke.json`.
-
-![September 24 English recording: Optional SDK Prompt Agent: create an owned version](../assets/g6sol-20260924-en/screenshots/E03-001-sdk-create-2.webp)
-
-**What to check:** Use the returned `agent_name` and `agent_version` for invocation.
-The recorded SDK agent (version 1) and browser agent (version 2) are different agents.
-
-![September 24 English recording: Invoke the returned SDK agent version](../assets/g6sol-20260924-en/screenshots/E03-002-sdk-invoke-2.webp)
-
-**What to check:** The SDK call names the exact returned version (`1` in this recording), not "latest".
-
-[Versions](../reference/versions.md) documents the SDK's explicit binding.
 
 </details>
 

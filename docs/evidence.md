@@ -41,9 +41,12 @@ Use the [capability/evidence record](coverage.md) to distinguish existing labs, 
 The extension modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset, and those recordings were removed.
 On September 23, conversation evaluation, Agent Optimizer, the red-team step of agent safety and release operations were re-run with `gpt-6-sol`, without recording; the other modules were not.
 
-## Review refresh live verification — 2026-09-24 (no recording)
+## Review refresh live verification — 2026-09-24
 
 The refreshed SDK pins, the core B route with Lab 03 B, the Lab 09 trace lookup, the SDK recipes, A2A with typed requests and one Insights scan
 were run against Azure on the evening of 2026-09-24 in the same training project; see [live results](live-run.md#review-refresh-live-verification).
-There are no new screenshots or videos: the recordings above predate these additions and are not evidence for them.
-Still not run: a remote deployment for the browser Lab 05 option, a cross-provider model comparison and the Dev Pack.
+The September 24 recordings above predate these additions and are not evidence for them.
+
+**Supplement recorded 2026-09-25:** Lab 03 B create/invoke with `--output`, the Lab 03 B portal check and the Lab 09 B trace search by `response_id`, in English and Korean.
+Twelve lossless screenshots and four short clips: [summary](video-summary.md#review-refresh-supplement) · [captures](action-captures.md#review-refresh-supplement) · [captures.json](assets/review-refresh-20260925/captures.json).
+The other additions have no new recording. Still not run: a remote deployment for the browser Lab 05 option, a cross-provider model comparison and the Dev Pack; see [what can run next](live-run.md#not-run-feasibility).

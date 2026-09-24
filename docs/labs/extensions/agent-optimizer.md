@@ -48,6 +48,7 @@ showed **No supported optimization model** on September 23, 2026. The
 that day were `gpt-5`, `gpt-5.1`, `gpt-5.2`, `gpt-5.4`, `gpt-5.5`, `DeepSeek-V4-Pro` and `DeepSeek-V-3.2`. For the September 23 runs
 the owner added a temporary `gpt-5.5` deployment (`<prefix>-opt-gpt55`, DataZoneStandard) and deleted it after both language runs.
 Those runs optimized an isolated copy, `<prefix>-optimize` version 1, with the same instructions as the Lab 03 agent.
+On September 25, 2026 the project again had no supported optimizer deployment; a read-only check showed unused `gpt-5.5` quota, so a rerun needs only the owner's approval.
 
 ## 2. Open the optimization wizard
 

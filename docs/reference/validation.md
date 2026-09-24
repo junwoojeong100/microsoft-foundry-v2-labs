@@ -8,17 +8,18 @@ Earlier videos and upstream results are not relabeled as new evidence.
 
 <a id="current-answer"></a>
 
-## Current answer — September 24, 2026
+## Current answer — September 25, 2026
 
 | Question | Answer | Details |
 |---|---|---|
 | What is recorded? | The main A/B steps of Labs 00–09 and 11 and the optional Foundry evaluation steps, in English and Korean, with `gpt-6-sol` / `gpt-6-sol-judge` (`2026-09-22`) in the Sweden Central training project | [Re-recording](#gpt-6-sol-20260924) · [videos](../video-summary.md) |
 | What did the live runs return? | In each language: business checks baseline 6/6, candidate 6/6 and holdout 4/4; acceptance `ready-for-human-review` with `deployment_approved: false`. Judge scores are kept separately and do not decide acceptance | [Actual results](../live-run.md) |
 | What else ran with `gpt-6-sol`, unrecorded? | September 23: verification runs of the optional evaluation steps (recorded again on September 24), the conversation evaluation module, existing-traces and recurring evaluations, Agent Optimizer (baseline only), cloud red teaming (displayed ASR invalid) and the approved Hosted CI release | [Additions](#foundry-evaluation-additions) · [previously not-run items](#previously-not-run-items) |
-| What has not run with `gpt-6-sol`? | Lab 03 portal File Search; Lab 06 IQ Chat and hybrid RAG; Lab 07 feedback/regression and the Hosted matrix; Lab 08's local server and the learner's own Hosted deployment; Hosted server-side tracing; Lab 10; the other extension modules | [Not-run list](../live-run.md#not-run-with-gpt-6-sol) |
+| What has not run with `gpt-6-sol`? | Lab 03 portal File Search; Lab 06 IQ Chat and hybrid RAG; Lab 07 feedback/regression and the Hosted matrix; Lab 08's local server and the learner's own Hosted deployment; Hosted server-side tracing; Lab 10; the other extension modules (memory, a routine and Toolbox discovery ran on September 25) | [Not-run list](../live-run.md#not-run-with-gpt-6-sol) |
 | How do I check a working copy? | Run the offline tests, Ruff, compilation, documentation and learner-bundle checks below. Each dated record states what passed for its revision | [Local checks](#local-checks-to-run) |
 | What is outside this evidence? | Company/Microsoft 365 data, external Work IQ/Fabric connections, SLAs, statistical superiority, automatic retraining, production approval and other users' resources | [Not established](#not-established) |
-| What changed in the September 24 review refresh? | Refreshed SDK pins, Lab 03 B managed agent in the B core, a core trace check, a browser option for A Lab 05, the Insights module, standalone SDK recipes and new CI checks. That evening the core B route ran live in both languages with the new pins, plus the trace lookup, recipes, A2A and one Insights scan; four guide or recipe defects were fixed. No recording | [Review refresh](#review-refresh-20260924) · [live check](#review-refresh-live-20260924) |
+| What changed in the September 24 review refresh? | Refreshed SDK pins, Lab 03 B managed agent in the B core, a core trace check, a browser option for A Lab 05, the Insights module, standalone SDK recipes and new CI checks. That evening the core B route ran live in both languages with the new pins, plus the trace lookup, recipes, A2A and one Insights scan; four guide or recipe defects were fixed | [Review refresh](#review-refresh-20260924) · [live check](#review-refresh-live-20260924) |
+| What was added on September 25? | Screenshots and short clips of Lab 03 B and the Lab 09 B trace search in both languages; English runs of conversation evaluation, memory, a routine and the Toolbox up to discovery; the remaining items need owner approval | [Supplement and not-run review](#review-refresh-supplement-20260925) |
 | How straightforward are the guides and documents? | AI editorial review, September 24: guides 100/100 and documents 98.5/100 in round 5 (the round-4 reviewers after fixes); new reviewers in rounds 1–4 scored 86.5–97.5. Not a learner pilot or timing measurement | [Latest review](#straightforwardness-95) |
 
 <a id="review-refresh-20260924"></a>
@@ -57,6 +58,20 @@ project and `gpt-6-sol` / `gpt-6-sol-judge`. The lab subscription was pinned; th
   Memory, Routines, conversation evaluation, Agent Optimizer, red teaming and the route A portal steps.
 
 [Details, IDs and owned objects](../live-run.md#review-refresh-live-verification).
+
+<a id="review-refresh-supplement-20260925"></a>
+
+## Supplement recording and not-run review — September 25, 2026
+
+- **Recorded, English and Korean:** Lab 03 B create and invoke with `--output` (real zsh terminal; guide blocks pasted verbatim, `read` prompts answered by typing), the Lab 03 B portal check and the Lab 09 B trace search.
+  Twelve lossless WebP screenshots decode pixel-identical to their PNG captures and four H.264 clips at 1× decode fully. The portal instructions equaled the CLI definition, and each trace ID equaled the Application Insights `operation_Id`.
+- **Discarded:** one English attempt whose terminal printed a local home-directory path; it was re-recorded from a neutral working directory.
+- **Ran, English:** conversation evaluation with the refreshed pins, the memory lifecycle, one routine dispatch, the Toolbox up to MCP discovery and a read-only route A trace check. Search denied the Toolbox direct query because the project identity has only Search Index Data Reader.
+- **Needs owner approval:** a remote Hosted deployment with runtime roles; one non-OpenAI deployment for the cross-provider comparison; a supported optimizer deployment; the Search role for Toolbox, Tool Search and Skills. Installing the Dev Pack changes a workstation's global tools.
+
+- **Offline checks:** 305 offline tests on Python 3.13 and 3.14, 87 SDK tests with the pinned libraries, Ruff check and format, compilation, `check_docs.py` (127 Markdown files, 2,608 local links, 552 anchors), learner bundles and the CI offline doctor, demo, evaluate and package steps passed.
+
+[IDs, results and owned objects](../live-run.md#review-refresh-supplement).
 
 <a id="gpt-6-sol-20260924"></a>
 

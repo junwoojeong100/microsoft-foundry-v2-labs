@@ -30,6 +30,7 @@ Complete these four checks using **your own existing results**, without sending 
    inline synthetic policies and **Knowledge** stays empty; if you separately selected File Search or IQ, note that connection instead.
    There must be no unapproved Web search or company connection.
 3. Open your agent's **Traces** tab. The environment owner should have connected Application Insights before class. Find one saved request from your own Lab 03 or Lab 07 work and open it: look for `invoke_agent <agent>:<version>` with a child `chat` span. An `execute_tool web.run` span means that request ran with the Web search tool (for example, a version before you removed it). If tracing or permissions are unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:`. Do not send a new message for this check.
+   The list opens on **Last Day**; choose **7D** for an older request. Checked 2026-09-25 with a September 24 browser agent: each opened trace showed `invoke_agent <agent>:2` with a child `chat` span.
    Then open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
    `text-embedding-3-large`), optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
@@ -114,9 +115,14 @@ response IDs do not become Azure Monitor traces by themselves.
 
 Open the portal **Traces** search and paste the `response_id` from `outputs/learner-notes-en/prompt-agent-invoke.json`. If Application Insights was connected and you have access, record the matching trace evidence. If unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:` in `operations-checklist.txt`.
 
+![September 25 English recording: Traces search by the Lab 03 B response_id returns one trace](../assets/review-refresh-20260925/EP09-201-trace-search.webp)
+
+![September 25 English recording: the trace opens as invoke_agent with a child chat span](../assets/review-refresh-20260925/EP09-202-trace-detail.webp)
+
 **What to check:** one `invoke_agent <your agent>:<version>` span with a child `chat gpt-6-sol-2026-09-22` span.
 The child's input/output tokens equal `usage` in `prompt-agent-invoke.json`. Record the trace or operation ID, not the response ID, as trace evidence.
 In the 2026-09-24 check (English and Korean) each managed agent call appeared within about three minutes, although the invoke used `store: false`.
+The 2026-09-25 recording found exactly one row per language; its token columns matched `usage` and its trace ID matched the Application Insights `operation_Id`.
 If nothing appears after five minutes, record **trace unverified** instead of sending more requests.
 
 Local MAF runs from Labs 04 and 05 run in your Python process and do not create Foundry server-side agent traces. Client-side tracing is a separate optional setup.
@@ -320,7 +326,7 @@ These captures come from the September 24, 2026 English recording with `gpt-6-so
 If you selected the Hosted matrix, verify its exact root traces and owned session states.
 A and core B do not need that optional telemetry to finish their cleanup handoff.
 Completed overall does not mean every child span is exported or error-free.
-The September 24 `gpt-6-sol` recording covers the agent Details/Traces/Monitor tabs, the optional trace evaluation and the cleanup inventory only.
+The September 24 `gpt-6-sol` recording covers the agent Details/Traces/Monitor tabs, the optional trace evaluation and the cleanup inventory; the September 25 supplement adds the B trace search by `response_id`.
 [Execution records](../live-run.md) list actual outcomes and retained assets.
 
 A uses the checklist and owner handoff above. B has already printed the local inventory in step 3.

@@ -19,6 +19,9 @@ The failed conversation, `scope-and-boundaries`, was scored 2 because its last a
 The Korean run is recorded separately; these scores are not a Korean result.
 Each execution freezes the real evaluator catalog it reads; catalog availability alone is not an evaluation result.
 
+**English re-run, September 25, 2026 (refreshed SDK pins):** business checks 6/6; turn level groundedness 6/6 and coherence 6/6;
+conversation level groundedness 2/2 and coherence 2/2. Judge scores can differ between runs of the same questions; keep each run's label and record.
+
 ## 1. Read the plan before calling a model
 
 ```bash

@@ -4,7 +4,7 @@
 
 **Path C, optional Preview — September 16, 2026.**
 
-**Evidence status:** English discovery, pinning, Skill readback and load ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset (no private catalog infrastructure); not re-run with `gpt-6-sol`.
+**Evidence status:** English discovery, pinning, Skill readback and load ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset (no private catalog infrastructure); not re-run with `gpt-6-sol`. On September 25, 2026 it stayed blocked by the Toolbox's Search access.
 
 Complete the ordinary [Toolbox lab](toolbox.md) first. Keep that Toolbox, its original version and ownership ledger.
 This module still reads only the six bundled synthetic policies. It neither calls the public web nor executes skill scripts.

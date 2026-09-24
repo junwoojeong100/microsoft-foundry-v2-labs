@@ -7,17 +7,18 @@
 
 <a id="current-answer"></a>
 
-## 현재 답 — 2026-09-24
+## 현재 답 — 2026-09-25
 
 | 질문 | 답 | 자세히 |
 |---|---|---|
 | 무엇을 녹화했나요? | Lab 00–09·11의 A/B 주요 단계와 선택 Foundry 평가 단계를 영문·국문으로 녹화. Sweden Central 실습 프로젝트의 `gpt-6-sol` / `gpt-6-sol-judge`(`2026-09-22`) 사용 | [재녹화](#gpt-6-sol-20260924) · [영상](../video-summary.md) |
 | 실제 실행 결과는? | 두 언어 모두 업무 검사 baseline 6/6, candidate 6/6, holdout 4/4. 인수 판단은 `ready-for-human-review`, `deployment_approved: false`. Judge 점수는 따로 보관하며 인수를 결정하지 않음 | [실제 결과](../live-run.md) |
 | 녹화 없이 `gpt-6-sol`로 더 실행한 것은? | 2026-09-23: 선택 평가 단계의 검증 실행(9월 24일 녹화에서 다시 실행), 대화 평가 모듈, 기존 추적·되풀이 평가, Agent Optimizer(baseline만), 클라우드 red teaming(표시된 ASR 무효), 승인된 Hosted CI 릴리스 | [추가분](#foundry-evaluation-additions) · [이전에 실행하지 않은 항목](#previously-not-run-items) |
-| `gpt-6-sol`로 실행하지 않은 것은? | Lab 03 포털 File Search, Lab 06 IQ Chat·hybrid RAG, Lab 07 feedback/회귀·Hosted matrix, Lab 08 로컬 server·학습자 본인의 Hosted 배포, Hosted server-side tracing, Lab 10, 나머지 확장 모듈 | [미실행 목록](../live-run.md#gpt-6-sol로-실행하지-않은-것) |
+| `gpt-6-sol`로 실행하지 않은 것은? | Lab 03 포털 File Search, Lab 06 IQ Chat·hybrid RAG, Lab 07 feedback/회귀·Hosted matrix, Lab 08 로컬 server·학습자 본인의 Hosted 배포, Hosted server-side tracing, Lab 10, 나머지 확장 모듈(Memory, routine 1회, Toolbox 탐색은 2026-09-25에 실행) | [미실행 목록](../live-run.md#gpt-6-sol로-실행하지-않은-것) |
 | 작업 폴더는 어떻게 확인하나요? | 아래 offline 테스트·Ruff·compilation·문서·학습자 번들 검사를 실행합니다. 날짜별 기록마다 해당 revision에서 통과한 검사를 적습니다 | [로컬 검사](#재실행할-로컬-검사) |
 | 이 근거 밖에 있는 것은? | 회사/Microsoft 365 데이터, 외부 Work IQ/Fabric 연결, SLA, 통계적 우월성, 자동 재학습, 운영 승인, 다른 사용자의 자산 | [확인하지 않은 것](#확인하지-않은-것) |
-| 9월 24일 검토 반영에서 바뀐 것은? | SDK 고정 버전 갱신, B 핵심에 Lab 03 B 관리형 agent 추가, trace 확인 필수화, A Lab 05 브라우저 선택지, Insights 모듈, 독립 SDK 예제, 새 CI 검사. 그날 저녁 새 고정 버전으로 핵심 B 경로를 두 언어에서 실제 실행했고 추적 조회, 예제, A2A, Insights scan 1회를 함께 확인했으며 가이드·예제 결함 4개를 수정. 녹화 없음 | [검토 반영](#review-refresh-20260924) · [live 확인](#review-refresh-live-20260924) |
+| 9월 24일 검토 반영에서 바뀐 것은? | SDK 고정 버전 갱신, B 핵심에 Lab 03 B 관리형 agent 추가, trace 확인 필수화, A Lab 05 브라우저 선택지, Insights 모듈, 독립 SDK 예제, 새 CI 검사. 그날 저녁 새 고정 버전으로 핵심 B 경로를 두 언어에서 실제 실행했고 추적 조회, 예제, A2A, Insights scan 1회를 함께 확인했으며 가이드·예제 결함 4개를 수정 | [검토 반영](#review-refresh-20260924) · [live 확인](#review-refresh-live-20260924) |
+| 9월 25일에 더한 것은? | Lab 03 B와 Lab 09 B 추적 검색의 화면·짧은 영상(두 언어), 대화 평가·Memory·routine·Toolbox 탐색까지의 영문 실행. 나머지 항목은 담당자 승인이 필요 | [보충 녹화와 미실행 검토](#review-refresh-supplement-20260925) |
 | 가이드·문서는 얼마나 straightforward한가요? | 2026-09-24 AI 편집 검토 5차(4차 검토자가 수정 뒤 재검토): 가이드 100/100, 문서 98.5/100. 1–4차의 새 검토자는 86.5–97.5점을 주었습니다. 학습자 시범 운영이나 시간 측정이 아님 | [최신 검토](#straightforwardness-95) |
 
 <a id="review-refresh-20260924"></a>
@@ -55,6 +56,20 @@ A Lab 05 브라우저 선택지, [Insights 모듈](../labs/extensions/agent-insi
   Memory, Routines, 대화 평가, Agent Optimizer, red teaming, A 경로의 포털 단계.
 
 [세부 정보·ID·소유 객체](../live-run.md#review-refresh-live-verification).
+
+<a id="review-refresh-supplement-20260925"></a>
+
+## 보충 녹화와 미실행 항목 검토 — 2026-09-25
+
+- **영문·국문 녹화:** Lab 03 B의 `--output` 생성·호출(실제 zsh 터미널, 가이드 블록을 그대로 붙여 넣고 `read` 프롬프트에 직접 입력), Lab 03 B 포털 확인, Lab 09 B 추적 검색.
+  무손실 WebP 화면 12장은 원본 PNG와 픽셀 단위로 같게 디코딩되고, 1배속 H.264 영상 4개는 끝까지 디코딩됩니다. 포털 지침은 CLI 정의와 같았고, 각 trace ID는 Application Insights `operation_Id`와 같았습니다.
+- **폐기:** 터미널에 로컬 홈 디렉터리 경로가 출력된 영문 시도 1개. 중립 작업 폴더에서 다시 녹화했습니다.
+- **영문 실행:** 갱신한 고정 버전의 대화 평가, Memory 수명 주기, routine dispatch 1회, MCP 탐색까지의 Toolbox, 읽기 전용 A 경로 추적 확인. Toolbox 직접 query는 프로젝트 ID에 Search Index Data Reader만 있어 Search가 거부했습니다.
+- **담당자 승인 필요:** 런타임 역할을 포함한 원격 Hosted 배포, 타사 모델 비교용 OpenAI 외 배포 1개, 지원 optimizer 배포, Toolbox·Tool Search·Skills용 Search 역할. Dev Pack 설치는 작업 PC의 전역 도구를 바꿉니다.
+
+- **오프라인 검사:** Python 3.13·3.14의 오프라인 테스트 305개, 고정 라이브러리의 SDK 테스트 87개, Ruff check·format, compilation, `check_docs.py`(Markdown 127개, 로컬 링크 2,608개, anchor 552개), 학습자 번들, CI 오프라인 doctor·demo·evaluate·package 단계가 통과했습니다.
+
+[ID·결과·소유 객체](../live-run.md#review-refresh-supplement).
 
 <a id="gpt-6-sol-20260924"></a>
 

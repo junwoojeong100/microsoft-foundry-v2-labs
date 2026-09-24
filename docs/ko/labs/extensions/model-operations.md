@@ -9,6 +9,7 @@
 처음에는 **이미 승인된 두 배포**를 같은 dev로 비교합니다. Router와 폐기는 별도입니다.
 학습 목표가 provider 다양성이라면 두 번째 승인 배포는 non-OpenAI Foundry Model로 두는 것을 권장합니다.
 예: Azure 문서가 Responses API 지원을 명시한 Grok 모델(2026-09-24 확인).
+2026-09-25 실습 계정 카탈로그에는 `grok-4-1-fast-reasoning`(GlobalStandard)과 `Mistral-Large-3`(DataZoneStandard)가 남은 할당량과 함께 있었습니다. 어느 쪽이든 배포하려면 담당자 승인이 필요합니다.
 
 **준비:** [Lab 07](../07-evaluation.md)의 실제 candidate, 승인된 두 번째 배포, API/구조화 응답 호환성, 비용과 새 label.
 **완료:** 실제 모델 ID·모든 행/오류를 포함한 비교와 이전 결정을 기록함.

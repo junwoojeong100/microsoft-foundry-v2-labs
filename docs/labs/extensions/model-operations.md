@@ -10,6 +10,7 @@ The first pass compares **two already approved deployments** with the same dev i
 Router and retirement planning are separate extensions.
 When the learning goal is provider diversity, prefer making the second approved deployment a non-OpenAI Foundry Model,
 for example a Grok model whose Azure documentation lists Responses API support (checked 2026-09-24).
+On 2026-09-25 the training account's catalog listed `grok-4-1-fast-reasoning` (GlobalStandard) and `Mistral-Large-3` (DataZoneStandard) with unused quota; deploying either needs owner approval.
 
 **Need:** the real [Lab 07](../07-evaluation.md) candidate, a second approved deployment,
 matching API/Structured Outputs support, cost approval and new labels.

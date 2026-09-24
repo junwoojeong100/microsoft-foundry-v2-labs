@@ -41,9 +41,12 @@ Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) �
 확장 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며 해당 녹화는 삭제했습니다.
 9월 23일에는 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 `gpt-6-sol`로 다시 실행했고 녹화는 없었습니다. 나머지 모듈은 다시 실행하지 않았습니다.
 
-## 검토 반영 실제 검증 — 2026-09-24(녹화 없음)
+## 검토 반영 실제 검증 — 2026-09-24
 
 갱신한 SDK 고정 버전, Lab 03 B를 포함한 핵심 B 경로, Lab 09 추적 조회, SDK 예제, 형식이 있는 요청을 쓴 A2A, Insights scan 1회를
 2026-09-24 저녁 같은 실습 프로젝트에서 Azure로 실행했습니다. [실제 결과](live-run.md#review-refresh-live-verification)를 확인하세요.
-새 스크린샷이나 영상은 없습니다. 위 녹화는 이 추가 사항보다 앞선 것이며 그 증거로 사용하지 않습니다.
-아직 실행하지 않은 것: A Lab 05 브라우저 선택지를 위한 원격 배포, 타사 모델 비교, Dev Pack.
+위 2026-09-24 녹화는 이 추가 사항보다 앞선 것이며 그 증거로 사용하지 않습니다.
+
+**2026-09-25 보충 녹화:** Lab 03 B의 `--output` 생성·호출, Lab 03 B 포털 확인, Lab 09 B `response_id` 추적 검색을 영문·국문으로 녹화했습니다.
+무손실 화면 12장과 짧은 영상 4개: [요약](video-summary.md#review-refresh-supplement) · [화면](action-captures.md#review-refresh-supplement) · [captures.json](../assets/review-refresh-20260925/captures.json).
+나머지 추가 사항은 새 녹화가 없습니다. 아직 실행하지 않은 것: A Lab 05 브라우저 선택지를 위한 원격 배포, 타사 모델 비교, Dev Pack. [다음에 실행하려면 필요한 것](live-run.md#not-run-feasibility)을 확인하세요.

@@ -109,12 +109,12 @@ judge 점수는 업무 판단이 아닙니다. 행마다 이유를 읽습니다.
 
 <a id="review-refresh-live-verification"></a>
 
-## 검토 반영 실제 검증 — 2026년 9월 24일(저녁, 녹화 없음)
+## 검토 반영 실제 검증 — 2026년 9월 24일(저녁)
 
 위와 같은 프로젝트와 배포를 사용했습니다. commit `a9c3990`의 새 복사본 두 개에서 prefix `mfv2-rr-20260924-en`·`mfv2-rr-20260924-ko`와
 갱신한 고정 버전(`azure-ai-projects` 2.6.1, `openai` 3.16.1, MAF core 1.18.0, `agent-framework-foundry` 1.13.0,
 hosting 1.0.0b260910, `mcp` 1.30.0)을 사용했습니다. 모든 호출은 실습 구독을 고정한 Microsoft Entra ID로 했고,
-Azure CLI 기본 구독은 바꾸지 않았습니다. 이 검증은 녹화하지 않았습니다.
+Azure CLI 기본 구독은 바꾸지 않았습니다. 이 검증은 녹화하지 않았고, [2026-09-25 보충 녹화](#review-refresh-supplement)에서 Lab 03 B와 Lab 09 B 추적 검색을 녹화했습니다.
 
 | B 핵심 단계 | 영문 | 국문 |
 |---|---|---|
@@ -151,12 +151,53 @@ Responses API를 직접 호출한 명령(`model`, `answer`, `maf`, `workflow`, `
 4. 기본 계정에 묶인 도구로 Application Insights를 조회하면 `InvalidTokenError`가 났습니다. 가이드는 실습 tenant용 token을 쓰도록 안내합니다.
 
 **미실행:** A Lab 05 브라우저 선택지를 위한 원격 Hosted 배포(별도 승인 필요), 타사 모델 비교(프로젝트에 OpenAI 외 배포 없음),
-Toolbox·Tool Search·Skills(이 프로젝트에 keyless Search 연결 없음), Memory·Routines·대화 평가·Agent Optimizer·red teaming(코드 변경 없음, 재실행 안 함),
+Toolbox·Tool Search·Skills(그날 저녁에는 시도하지 않음. 2026-09-25 확인에서 keyless 연결은 있었지만 Search가 프로젝트 ID를 거부함, [아래](#not-run-feasibility)), Memory·Routines·대화 평가·Agent Optimizer·red teaming(코드 변경 없음, 재실행 안 함),
 A 경로의 포털 단계.
 
 **생성한 소유 객체:** agent `mfv2-rr-20260924-en-policy-sdk`, `-ko-policy-sdk`, `-en-recipe-sdk`, `-en-a2a-target-en`, `-en-a2a-caller-en`(각 버전 1),
 연결 `mfv2-rr-20260924-en-a2a-link-en`, prefix별 Search index·knowledge source·knowledge base, `maf-evaluate`와 `cloud-evaluate`가 만든 Foundry 평가.
 Insights monitor 외에는 삭제하지 않았습니다. 정리는 담당자가 [정리](reference/cleanup.md)에 따라 진행합니다.
+
+<a id="review-refresh-supplement"></a>
+
+## 보충 녹화와 미실행 항목 검토 — 2026년 9월 25일
+
+**영문·국문 녹화.** commit `f990af3`의 중립 작업 복사본, prefix `mfv2-sup-20260925-<language>`, 같은 프로젝트와 배포를 사용했습니다.
+가이드 블록을 실제 zsh 터미널에 그대로 붙여 넣고 `read` 프롬프트에는 직접 입력했습니다.
+
+| 단계 | 영문 | 국문 |
+|---|---|---|
+| Lab 03 B 생성(`--output`) | `mfv2-sup-20260925-en-policy-sdk` 버전 1 | `mfv2-sup-20260925-ko-policy-sdk` 버전 1 |
+| Lab 03 B 호출(`--output`) | `resp_0ba4d3d0…`, 1,124 / 145 token; `TRAVEL-2026`을 인용한 150,000원 | `resp_01227453…`, 1,290 / 160 token; `TRAVEL-2026`, `RECEIPT-01`, `APPROVAL-01`을 인용한 150,000원 |
+| Lab 03 B 포털 확인 | 플레이그라운드: 버전 1, 지침이 CLI 정의와 같음; 세부 정보: `Latest (Version 1)`; 메시지 보내지 않음 | 같음; 세부 정보는 `최신(Version 1)` |
+| Lab 09 B 추적 검색 | 한 행; trace `0ef25bf8…`가 Application Insights `operation_Id`와 같음; `invoke_agent …:1`과 `chat gpt-6-sol-2026-09-22` | 한 행; trace `71804741…`; 같은 span |
+
+화면과 영상: [요약](video-summary.md#review-refresh-supplement) · [captures.json](../assets/review-refresh-20260925/captures.json).
+영문 첫 시도(`mfv2-cap-20260925-en-policy-sdk`, 호출 1회)는 터미널에 로컬 홈 디렉터리 경로가 보여 폐기했습니다.
+
+<a id="not-run-feasibility"></a>
+
+### 미실행 항목에 필요한 것
+
+영문만, prefix `mfv2-nr-20260925-en`, 같은 프로젝트, 실습 구독 고정.
+
+| 항목 | 결과 또는 막힌 이유 |
+|---|---|
+| 대화 평가, 갱신한 고정 버전 | 6개 턴, 업무 검사 6/6; 턴 수준 groundedness 6/6·coherence 6/6(`eval_e07e2e35…`); 대화 수준 groundedness 2/2·coherence 2/2(`eval_e82b6f87…`) |
+| Memory, `gpt-6-sol` + `text-embedding-3-large` | store 생성; alpha 항목 저장 후 새 요청에서 recall; beta recall은 비어 있음; update·forget·store 삭제 후 부재 확인 |
+| Routines, azd `azure.ai.routines` 1.0.0-beta.6 | 비활성 일회성 timer; 수동 dispatch 1회 `Finished`; 비활성화 후 삭제. SDK helper는 여전히 응답을 가져오지 못했지만, 그 `response_id`로 추적을 검색하니 `invoke_agent …:1`과 `chat` span이 나왔습니다 |
+| Toolbox | 소유 index를 만들고 Toolbox 버전 1 생성; MCP 탐색에서 `policy_search` 확인. 직접 query는 Search에서 **Access denied**: keyless `workshop-search` 연결은 있지만 프로젝트 ID에는 Search Index Data Reader만 있습니다. Toolbox는 삭제했고 역할은 바꾸지 않았습니다 |
+| Tool Search와 Skills | 같은 Search 접근 문제로 막힘 |
+| A 경로 Lab 09 추적 확인 | 읽기 전용: **7일** 범위에서 2026-09-24 브라우저 agent의 추적 16개가 보였고, 연 12개 모두 `invoke_agent <agent>:2`와 자식 `chat` span이 있었습니다 |
+| 원격 Hosted 배포(A Lab 05 브라우저 선택지) | 배포와 런타임 역할 할당이 필요하므로 담당자 승인 필요 |
+| 타사 모델 비교 | OpenAI 외 배포 1개가 필요합니다. 읽기 전용 확인: 계정 카탈로그에 예를 들어 `grok-4-1-fast-reasoning`(GlobalStandard), `Mistral-Large-3`(DataZoneStandard)가 있고 할당량이 남아 있습니다. 담당자 승인 필요 |
+| Agent Optimizer | `gpt-5.5` 같은 지원 optimizer 배포가 필요합니다(할당량 있음). 담당자 승인 필요 |
+| 클라우드 red teaming | 워크숍 코드 경로가 바뀌지 않았으므로 2026-09-23 결과를 유지하고 재실행하지 않음 |
+| Foundry Dev Pack | 작업 PC의 전역 `az`/`azd` 도구를 설치·업그레이드하므로 깨끗한 PC에서 실행; 실행하지 않음 |
+
+**2026-09-25에 만든 소유 객체:** agent `mfv2-cap-20260925-en-policy-sdk`, `mfv2-sup-20260925-en-policy-sdk`, `mfv2-sup-20260925-ko-policy-sdk`,
+`mfv2-nr-20260925-en-policy-sdk`(각 버전 1), Search index `mfv2-nr-20260925-en-policies`, 대화 평가 2개.
+Memory store, Toolbox, routine은 각 모듈 명령으로 삭제했습니다. 나머지는 담당자가 [정리](reference/cleanup.md)에 따라 정리합니다.
 
 ## gpt-6-sol로 실행하지 않은 것
 
@@ -167,7 +208,7 @@ Insights monitor 외에는 삭제하지 않았습니다. 정리는 담당자가 
 - 학습자 본인의 Hosted 배포(위의 승인된 CI 릴리스는 별도 Hosted agent를 배포했고, 검토 반영 확인에서 로컬 workflow 서버가 한 번 답변)
 - Lab 09 Hosted agent의 서버 측 tracing 확인
 - Lab 10 외부 IQ 확장
-- 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영, 검토 반영의 A2A와 Insights 확인을 제외한 확장 모듈
+- 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영, 검토 반영의 A2A와 Insights 확인, 2026-09-25의 Memory·routine·Toolbox 탐색 확인을 제외한 확장 모듈
 
 이전 `gpt-5.6-luna` 녹화와 결과 페이지(2026-09-15~17)는 작업 트리에서 삭제했습니다. git 기록에만 남아 있으며 이 preset의 결과가 아닙니다.
 

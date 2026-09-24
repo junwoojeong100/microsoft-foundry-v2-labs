@@ -122,12 +122,12 @@ Findings, owner actions and Azure changes: [validation](reference/validation.md#
 
 <a id="review-refresh-live-verification"></a>
 
-## Review refresh live verification — September 24, 2026 (evening, no recording)
+## Review refresh live verification — September 24, 2026 (evening)
 
 Same project and deployments as above. Two fresh copies of commit `a9c3990` used the prefixes `mfv2-rr-20260924-en` and
 `mfv2-rr-20260924-ko` and the refreshed pins (`azure-ai-projects` 2.6.1, `openai` 3.16.1, MAF core 1.18.0,
 `agent-framework-foundry` 1.13.0, hosting 1.0.0b260910, `mcp` 1.30.0). Calls used Microsoft Entra ID with the lab subscription
-pinned; the Azure CLI default subscription was not changed. Nothing here was recorded.
+pinned; the Azure CLI default subscription was not changed. Nothing here was recorded; the [September 25 supplement](#review-refresh-supplement) recorded Lab 03 B and the Lab 09 B trace search.
 
 | Core B step | English | Korean |
 |---|---|---|
@@ -164,13 +164,55 @@ spans for every managed agent call, with token counts equal to the saved `usage`
 4. An Application Insights query through a tool bound to the default account failed with `InvalidTokenError`; the guide now asks for a lab-tenant token.
 
 **Not run:** a remote Hosted deployment for the browser Lab 05 option (needs separate approval); a cross-provider comparison
-(the project has no non-OpenAI deployment); Toolbox, Tool Search and Skills (no keyless Search connection in this project);
+(the project has no non-OpenAI deployment); Toolbox, Tool Search and Skills (not attempted that evening; on September 25 the keyless
+connection existed but Search denied the project identity, [below](#not-run-feasibility));
 Memory, Routines, conversation evaluation, Agent Optimizer and red teaming (code unchanged, not re-run); the portal steps of route A.
 
 **Owned objects created:** agents `mfv2-rr-20260924-en-policy-sdk`, `-ko-policy-sdk`, `-en-recipe-sdk`, `-en-a2a-target-en`, `-en-a2a-caller-en`
 (version 1 each); connection `mfv2-rr-20260924-en-a2a-link-en`; Search index, knowledge source and knowledge base for each prefix;
 the Foundry evaluations created by `maf-evaluate` and `cloud-evaluate`. Nothing was deleted except the Insights monitor.
 The owner cleans up with [Cleanup](reference/cleanup.md).
+
+<a id="review-refresh-supplement"></a>
+
+## Supplement recording and not-run review — September 25, 2026
+
+**Recording, English and Korean.** Neutral working copies of commit `f990af3`, prefixes `mfv2-sup-20260925-<language>`,
+same project and deployments. The guide blocks were pasted verbatim into a real zsh terminal and the `read` prompts answered by typing.
+
+| Step | English | Korean |
+|---|---|---|
+| Lab 03 B create (`--output`) | `mfv2-sup-20260925-en-policy-sdk` version 1 | `mfv2-sup-20260925-ko-policy-sdk` version 1 |
+| Lab 03 B invoke (`--output`) | `resp_0ba4d3d0…`, 1,124 / 145 tokens; KRW 150,000 citing `TRAVEL-2026` | `resp_01227453…`, 1,290 / 160 tokens; KRW 150,000 citing `TRAVEL-2026`, `RECEIPT-01`, `APPROVAL-01` |
+| Lab 03 B portal check | Playground: Version 1, instructions equal to the CLI definition; Details: `Latest (Version 1)`; no message sent | Same; Details shows `최신(Version 1)` |
+| Lab 09 B trace search | One row; trace `0ef25bf8…` equals the Application Insights `operation_Id`; `invoke_agent …:1` and `chat gpt-6-sol-2026-09-22` | One row; trace `71804741…`; same spans |
+
+Screens and clips: [summary](video-summary.md#review-refresh-supplement) · [captures.json](assets/review-refresh-20260925/captures.json).
+An earlier English attempt (`mfv2-cap-20260925-en-policy-sdk`, one call) was discarded because its terminal showed a local home-directory path.
+
+<a id="not-run-feasibility"></a>
+
+### What the not-run items need
+
+English only, prefix `mfv2-nr-20260925-en`, same project, lab subscription pinned.
+
+| Item | Result or blocker |
+|---|---|
+| Conversation evaluation, refreshed pins | Six turns, business checks 6/6; turn level groundedness 6/6 and coherence 6/6 (`eval_e07e2e35…`); conversation level groundedness 2/2 and coherence 2/2 (`eval_e82b6f87…`) |
+| Memory, `gpt-6-sol` + `text-embedding-3-large` | Store created; alpha item stored and recalled in a fresh request; beta recall empty; update, forget and store deletion verified absent |
+| Routines, azd `azure.ai.routines` 1.0.0-beta.6 | Disabled one-shot timer; one manual dispatch `Finished`; disabled, then deleted. The SDK helper still could not retrieve the response, but a Traces search by its `response_id` found `invoke_agent …:1` and `chat` spans |
+| Toolbox | Owned index seeded; Toolbox version 1 created; MCP discovery listed `policy_search`. The direct query returned **Access denied** from Search: the keyless `workshop-search` connection exists, but the project identity has only Search Index Data Reader. Toolbox deleted; no role changed |
+| Tool Search and Skills | Blocked by the same Search access |
+| Route A Lab 09 trace check | Read-only: under **7D** the September 24 browser agent listed 16 traces; the 12 opened each showed `invoke_agent <agent>:2` with a child `chat` span |
+| Remote Hosted deployment (A Lab 05 browser option) | Needs a deployment and runtime role assignments; owner approval required |
+| Cross-provider comparison | Needs one non-OpenAI deployment. Read-only check: the account catalog offers, for example, `grok-4-1-fast-reasoning` (GlobalStandard) and `Mistral-Large-3` (DataZoneStandard) with unused quota; owner approval required |
+| Agent Optimizer | Needs a supported optimizer deployment such as `gpt-5.5` (quota available); owner approval required |
+| Cloud red teaming | No workshop code path changed; the September 23 run stands; not re-run |
+| Foundry Dev Pack | Installs or upgrades global `az`/`azd` tooling on the workstation; use a clean machine; not run |
+
+**Owned objects created on September 25:** agents `mfv2-cap-20260925-en-policy-sdk`, `mfv2-sup-20260925-en-policy-sdk`, `mfv2-sup-20260925-ko-policy-sdk`
+and `mfv2-nr-20260925-en-policy-sdk` (version 1 each); Search index `mfv2-nr-20260925-en-policies`; the two conversation evaluations.
+The memory store, Toolbox and routine were deleted by their own module commands. The owner cleans up the rest with [Cleanup](reference/cleanup.md).
 
 ## Not run with gpt-6-sol
 
@@ -181,7 +223,7 @@ The owner cleans up with [Cleanup](reference/cleanup.md).
 - The learner's own Hosted deployment (the approved CI release deployed a separate Hosted agent; the local workflow server answered once in the review refresh check)
 - Lab 09 server-side tracing checks for a Hosted agent
 - Lab 10 external IQ extensions
-- Extension modules other than conversation evaluation, Agent Optimizer, the red-team step of agent safety, release operations, and the A2A and Insights checks of the review refresh
+- Extension modules other than conversation evaluation, Agent Optimizer, the red-team step of agent safety, release operations, the A2A and Insights checks of the review refresh, and the September 25 memory, routine and Toolbox discovery checks
 
 Earlier `gpt-5.6-luna` recordings and result pages (September 15–17, 2026) were removed from the working tree; they remain only in git history and are not results for this preset.
 

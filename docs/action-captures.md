@@ -118,4 +118,19 @@ Why each exception happened: [failures kept in this recording](live-run.md#failu
 | EP09-105-traces-results | Each trace's query carries the agent instructions | ACTUAL PORTAL | recorded | [1](assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-0.webp) · [2](assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-1.webp) · [3](assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-2.webp) | [06:19](assets/g6sol-20260924-en/guide-ordered.mp4#t=379.68) |
 | E11-001-handoff | <a id="lab-11"></a>Handoff: saved notes and the actual acceptance result | READ SAVED EVIDENCE | recorded | [1](assets/g6sol-20260924-en/screenshots/E11-001-handoff-0.webp) · [2](assets/g6sol-20260924-en/screenshots/E11-001-handoff-1.webp) · [3](assets/g6sol-20260924-en/screenshots/E11-001-handoff-2.webp) | [06:24](assets/g6sol-20260924-en/guide-ordered.mp4#t=384.84) |
 
+<a id="review-refresh-supplement"></a>
+
+## September 25 review-refresh supplement
+
+Separate from the 98 actions above: the core steps added by the review refresh, one lossless result capture each. Times open the short [supplement clips](video-summary.md#review-refresh-supplement); the terminal clip starts with the Lab 00 notes preparation.
+
+| ID | Action | Mode | Status | Capture | Play |
+|---|---|---|---|---|---|
+| E03-201-sdk-create | Lab 03 B: create a managed Prompt Agent and save the JSON | LIVE AZURE | recorded | [1](assets/review-refresh-20260925/E03-201-sdk-create.webp) | [00:13](assets/review-refresh-20260925/en-terminal.mp4#t=13.00) |
+| E03-202-sdk-invoke | Lab 03 B: invoke the exact returned version and save the JSON | LIVE AZURE | recorded | [1](assets/review-refresh-20260925/E03-202-sdk-invoke.webp) | [00:45](assets/review-refresh-20260925/en-terminal.mp4#t=45.59) |
+| EP03-201-playground | Lab 03 B: Playground shows the version and instructions; no message sent | READ-ONLY PORTAL | recorded | [1](assets/review-refresh-20260925/EP03-201-playground.webp) | [00:00](assets/review-refresh-20260925/en-portal.mp4#t=0.00) |
+| EP03-202-details | Lab 03 B: Details shows the active version and endpoint | READ-ONLY PORTAL | recorded | [1](assets/review-refresh-20260925/EP03-202-details.webp) | [00:15](assets/review-refresh-20260925/en-portal.mp4#t=15.61) |
+| EP09-201-trace-search | Lab 09 B: Traces search by the Lab 03 B response_id | READ-ONLY PORTAL | recorded | [1](assets/review-refresh-20260925/EP09-201-trace-search.webp) | [00:22](assets/review-refresh-20260925/en-portal.mp4#t=22.99) |
+| EP09-202-trace-detail | Lab 09 B: invoke_agent span with its child chat span | READ-ONLY PORTAL | recorded | [1](assets/review-refresh-20260925/EP09-202-trace-detail.webp) | [01:00](assets/review-refresh-20260925/en-portal.mp4#t=60.31) |
+
 [Videos](video-summary.md) · **Actions and captures** · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)

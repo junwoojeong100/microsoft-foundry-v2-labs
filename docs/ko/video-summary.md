@@ -29,8 +29,22 @@ python scripts/play_recordings.py --edition ko
 
 ## 이번 녹화에 포함하지 않은 것
 
-Lab 10, 선택 IQ Chat preset(`gpt-5.6-luna`; Search가 GPT-6 모델을 받지 않음), Lab 03 포털 File Search, Lab 06 하이브리드 RAG, Lab 08 로컬·원격 Hosted 실행, Lab 09 서버 측 tracing·되풀이 평가, 심화 C 경로와 확장 모듈은 **이번 녹화에 포함하지 않았습니다.** 대화 평가 모듈, 되풀이 평가, Agent Optimizer, 클라우드 red teaming, CI 릴리스는 2026-09-23에 별도로 실행했습니다([결과](live-run.md#이전에-실행하지-않은-항목--2026-09-23), 대화 평가: [검증 기록](reference/validation.md#foundry-evaluation-additions)). 이전 녹화는 삭제했으며 이번 판의 근거로 쓰지 않습니다.
+Lab 10, 선택 IQ Chat preset(`gpt-5.6-luna`; Search가 GPT-6 모델을 받지 않음), Lab 03 포털 File Search, Lab 06 하이브리드 RAG, Lab 08 로컬·원격 Hosted 실행, Lab 09 되풀이 평가, 심화 C 경로와 확장 모듈은 **이번 녹화에 포함하지 않았습니다.** Lab 09 B 서버 측 추적 검색은 [2026-09-25 보충 녹화](#review-refresh-supplement)에 있습니다. 대화 평가 모듈, 되풀이 평가, Agent Optimizer, 클라우드 red teaming, CI 릴리스는 2026-09-23에 별도로 실행했습니다([결과](live-run.md#이전에-실행하지-않은-항목--2026-09-23), 대화 평가: [검증 기록](reference/validation.md#foundry-evaluation-additions)). 이전 녹화는 삭제했으며 이번 판의 근거로 쓰지 않습니다.
 
 인증·암호·MFA 입력은 녹화하지 않았습니다. 기록된 종료 코드는 품질 점수가 아니며 어떤 결과도 운영 승인이 아닙니다. 본인의 리소스 이름·버전·결과를 사용합니다.
+
+<a id="review-refresh-supplement"></a>
+
+## 검토 반영 보충 녹화 — 2026-09-25
+
+**2026-09-24 검토에서 핵심으로 추가한 단계의 짧은 국문 영상 2개입니다.** 같은 프로젝트, `gpt-6-sol` / `2026-09-22`, 소스 commit `f990af3`에서 새 agent 버전 1개와 모델 호출 1회를 사용했습니다. 바뀌지 않은 단계는 2026-09-24 영상을 그대로 참고합니다.
+
+| 영상 | 길이 | 파일 |
+|---|---:|---|
+| B · Lab 03 `--output` 생성과 호출(실제 zsh 터미널) | 00:57 | [ko-terminal.mp4](../assets/review-refresh-20260925/ko-terminal.mp4) |
+| Lab 03 B 포털 확인 · Lab 09 B `response_id` 추적 검색 | 01:07 | [ko-portal.mp4](../assets/review-refresh-20260925/ko-portal.mp4) |
+
+두 영상 모두 1배속입니다. 터미널 영상은 동작 앞뒤의 대기 시간만 잘랐고 포털 영상은 자르지 않았습니다. 무손실 화면 6장은 [Lab 03 B](labs/03-prompt-agent.md#path-b)와 [Lab 09 B](labs/09-operations.md#path-b)에 있습니다.
+[captures.json](../assets/review-refresh-20260925/captures.json)에 hash, ID, 확인 결과를 기록했습니다. 영문 첫 시도 하나는 터미널에 로컬 홈 디렉터리 경로가 보여 폐기했고, 그 시도의 결과물은 공개하지 않았으며 해당 agent는 정리 목록에 넣었습니다.
 
 **영상** · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

@@ -110,4 +110,19 @@
 | KP09-105-traces-results | 각 추적의 query에 에이전트 지침이 포함됨 | ACTUAL PORTAL | recorded | [1](../assets/g6sol-20260924-ko/screenshots/KP09-105-traces-results-0.webp) · [2](../assets/g6sol-20260924-ko/screenshots/KP09-105-traces-results-1.webp) · [3](../assets/g6sol-20260924-ko/screenshots/KP09-105-traces-results-2.webp) | [05:53](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=353.44) |
 | K11-001-handoff | <a id="lab-11"></a>인계: 저장한 기록과 실제 인수 결과 | READ SAVED EVIDENCE | recorded | [1](../assets/g6sol-20260924-ko/screenshots/K11-001-handoff-0.webp) · [2](../assets/g6sol-20260924-ko/screenshots/K11-001-handoff-1.webp) · [3](../assets/g6sol-20260924-ko/screenshots/K11-001-handoff-2.webp) | [05:58](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=358.56) |
 
+<a id="review-refresh-supplement"></a>
+
+## 2026-09-25 검토 반영 보충
+
+위 91개 액션과 별개입니다. 검토 반영으로 추가한 핵심 단계를 액션마다 무손실 결과 화면 1장으로 남겼습니다. 시간은 짧은 [보충 영상](video-summary.md#review-refresh-supplement)을 엽니다. 터미널 영상은 Lab 00 기록 폴더 준비로 시작합니다.
+
+| ID | 액션 | 방식 | 상태 | 화면 | 재생 |
+|---|---|---|---|---|---|
+| K03-201-sdk-create | Lab 03 B: 관리형 Prompt Agent 만들고 JSON 저장 | LIVE AZURE | recorded | [1](../assets/review-refresh-20260925/K03-201-sdk-create.webp) | [00:05](../assets/review-refresh-20260925/ko-terminal.mp4#t=5.42) |
+| K03-202-sdk-invoke | Lab 03 B: 반환된 정확한 버전 호출과 JSON 저장 | LIVE AZURE | recorded | [1](../assets/review-refresh-20260925/K03-202-sdk-invoke.webp) | [00:37](../assets/review-refresh-20260925/ko-terminal.mp4#t=37.68) |
+| KP03-201-playground | Lab 03 B: 플레이그라운드의 버전과 지침 확인, 메시지 보내지 않음 | READ-ONLY PORTAL | recorded | [1](../assets/review-refresh-20260925/KP03-201-playground.webp) | [00:00](../assets/review-refresh-20260925/ko-portal.mp4#t=0.00) |
+| KP03-202-details | Lab 03 B: 세부 정보의 활성 버전과 endpoint | READ-ONLY PORTAL | recorded | [1](../assets/review-refresh-20260925/KP03-202-details.webp) | [00:12](../assets/review-refresh-20260925/ko-portal.mp4#t=12.89) |
+| KP09-201-trace-search | Lab 09 B: Lab 03 B response_id로 추적 검색 | READ-ONLY PORTAL | recorded | [1](../assets/review-refresh-20260925/KP09-201-trace-search.webp) | [00:19](../assets/review-refresh-20260925/ko-portal.mp4#t=19.97) |
+| KP09-202-trace-detail | Lab 09 B: invoke_agent span과 자식 chat span | READ-ONLY PORTAL | recorded | [1](../assets/review-refresh-20260925/KP09-202-trace-detail.webp) | [00:54](../assets/review-refresh-20260925/ko-portal.mp4#t=54.91) |
+
 [영상](video-summary.md) · **액션과 화면** · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

@@ -167,7 +167,7 @@ D01, D02, D03, D05를 하나씩 질문합니다. ZIP의 `dev-questions.txt`에�
 
 ## B. 코드 — SDK로 관리형 Prompt Agent를 만들고 정확한 버전 호출
 
-**2026-09-24에 갱신한 SDK 고정 버전으로 영문·국문 실제 검증(녹화 없음).** 이 핵심 B 단계는 프로젝트 관리형 Prompt Agent와 변경 불가능한 버전 하나를 만듭니다.
+**2026-09-24에 갱신한 SDK 고정 버전으로 영문·국문 실제 검증, 2026-09-25에 화면과 [짧은 영상](../video-summary.md#review-refresh-supplement) 녹화.** 이 핵심 B 단계는 프로젝트 관리형 Prompt Agent와 변경 불가능한 버전 하나를 만듭니다.
 `.env`의 `WORKSHOP_PREFIX`로 시작하는 새 이름을 사용합니다. A의 브라우저 agent나 녹화 속 이름을 재사용하지 않습니다.
 `session-notes.txt`의 `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json 검토:`에 확인 결과를 기록합니다.
 
@@ -182,6 +182,10 @@ python scripts/workshop.py prompt-agent create --name "$AGENT_NAME" --confirm-cr
 **저장:** `prompt-agent-create.json`
 
 호출 전에 저장된 JSON을 엽니다. 반환된 agent 이름과 버전을 기록합니다. 이 명령은 실제 관리형 프로젝트 자산을 만듭니다.
+
+![2026-09-25 국문 녹화: 붙여 넣은 명령 블록, 입력한 agent 이름, 반환된 버전과 저장된 JSON](../../assets/review-refresh-20260925/K03-201-sdk-create.webp)
+
+**화면 확인:** 프롬프트에 입력한 이름, `agent_version`(새 이름이면 `1`), 본인 기록 폴더를 가리키는 `Saved JSON` 줄을 확인합니다.
 
 ### 2. 반환된 정확한 버전 호출
 
@@ -198,9 +202,20 @@ python scripts/workshop.py prompt-agent invoke --name "$AGENT_NAME" --version "$
 저장된 `text` 자체가 JSON 답변(`answer`, `decision`, `limit_krw`, `citations`)입니다. 이 SDK agent 지침에 해당 schema가 들어 있기 때문입니다.
 2026-09-24 확인에서 첫 버전은 `1`이었고 답변은 `TRAVEL-2026`과 150,000원을 인용했습니다. 본인의 ID와 문구는 다를 수 있습니다.
 
+![2026-09-25 국문 녹화: 입력한 버전, JSON 답변, response_id와 usage](../../assets/review-refresh-20260925/K03-202-sdk-invoke.webp)
+
+**화면 확인:** `agent_version`이 입력한 값과 같고, `text`에 JSON 답변이, `response_id`가 있는지 봅니다.
+`trace_id: null`과 `trace_export: not-configured`는 로컬 내보내기만 뜻합니다. 서버 측 trace는 Lab 09에서 `response_id`로 찾습니다.
+
 ### 3. 새 메시지를 보내지 않고 포털 확인
 
 Foundry 상단 **빌드** → 왼쪽 **에이전트**에서 본인 SDK agent를 엽니다. 같은 버전과 지침이 보이는지 확인합니다.
+
+![2026-09-25 국문 녹화: 플레이그라운드에 버전 1과 SDK 지침이 보이고 메시지는 보내지 않음](../../assets/review-refresh-20260925/KP03-201-playground.webp)
+
+**화면 확인:** 상단 **버전: 1**과 **지침**의 SDK 지침을 확인하고, 채팅 입력란은 비워 둡니다.
+녹화에서 포털 지침은 CLI 정의와 글자 하나까지 같았습니다.
+
 이 확인을 위해 Playground 메시지를 새로 보내지 않습니다. 이 SDK agent는 Lab 04의 로컬 MAF agent와 달리 관리형 프로젝트 자산입니다.
 반대 방향도 가능합니다. 2단계의 `prompt-agent invoke` 명령은 포털에서 만든 agent도 이름과 저장 버전으로 호출할 수 있습니다(예: Lab 03 A에서 만든 agent가 있는 경우). 선택 사항이며 유료 요청이므로 실행했다면 따로 기록합니다.
 
@@ -208,8 +223,14 @@ Foundry 상단 **빌드** → 왼쪽 **에이전트**에서 본인 SDK agent를 
 
 모든 Foundry agent에는 안정적인 endpoint가 있고 활성 버전이 traffic을 받습니다.
 버전은 변경할 수 없으므로 이 워크숍은 항상 반환된 정확한 버전을 고정합니다.
+
+![2026-09-25 국문 녹화: 세부 정보에 활성 버전과 응답 프로토콜 endpoint 표시](../../assets/review-refresh-20260925/KP03-202-details.webp)
+
+**화면 확인:** **세부 정보**의 **활성 버전**이 `최신(Version 1)`이고 **응답 프로토콜** 아래에 agent endpoint가 보입니다. CLI 호출은 여전히 버전 `1`을 명시합니다.
+
 Agent Applications, Microsoft 365 Copilot 또는 Teams로 게시/공유하는 기능은 있지만 Microsoft 365 tenant가 필요하므로 범위 밖입니다.
 2026-09-24 확인: [agent 구성](https://learn.microsoft.com/azure/foundry/agents/how-to/configure-agent), [Copilot 게시](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-copilot).
+SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기록합니다.
 
 **B 완료:** `prompt-agent-create.json`, `prompt-agent-invoke.json`, 정확한 agent 버전, 호출 `response_id`를 보관합니다.
 [Lab 04 B](04-agents-tools.md#path-b)로 이동합니다.
@@ -235,24 +256,6 @@ client.responses.create(
 이 워크숍에서는 여전히 `--confirm-create`와 `WORKSHOP_PREFIX-` 이름이 필요합니다.
 
 **직접 작성:** 읽기 전용 지침 문장 하나를 추가해 새 버전을 만들고, 질문은 바꾸지 않은 채 정확한 버전을 호출합니다.
-
-</details>
-
-<details>
-<summary>이전 녹화: 2026-09-24 선택 SDK 경로 — 이번 판의 <code>--output</code> 파일 근거가 아닙니다</summary>
-
-아래 화면은 이전 선택 경로의 녹화입니다. 필드를 알아보는 데만 사용하고 `prompt-agent-create.json` 또는 `prompt-agent-invoke.json`의 근거로 쓰지 않습니다.
-
-![2026-09-24 국문 녹화: 선택 SDK Prompt Agent로 본인 버전 만들기](../../assets/g6sol-20260924-ko/screenshots/K03-001-sdk-create-2.webp)
-
-**화면 확인:** 반환된 `agent_name`과 `agent_version`을 호출에 사용합니다.
-녹화의 SDK agent(버전 1)와 브라우저 agent(버전 2)는 별도 에이전트이므로 버전을 혼용하지 않습니다.
-
-![2026-09-24 국문 녹화: 반환된 SDK agent 버전 호출](../../assets/g6sol-20260924-ko/screenshots/K03-002-sdk-invoke-2.webp)
-
-**화면 확인:** SDK 호출은 "latest"가 아니라 반환된 정확한 버전(이 녹화에서는 `1`)을 지정합니다.
-
-SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기록합니다.
 
 </details>
 

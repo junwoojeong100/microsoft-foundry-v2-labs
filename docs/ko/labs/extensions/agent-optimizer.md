@@ -46,6 +46,7 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 `gpt-5`, `gpt-5.1`, `gpt-5.2`, `gpt-5.4`, `gpt-5.5`, `DeepSeek-V4-Pro`, `DeepSeek-V-3.2`였습니다. 9월 23일 실행에서는 담당자가
 임시 `gpt-5.5` 배포(`<prefix>-opt-gpt55`, DataZoneStandard)를 추가했고 두 언어 실행이 끝난 뒤 삭제했습니다.
 최적화 대상은 Lab 03 에이전트와 지침이 같은 격리 복사본 `<prefix>-optimize` 버전 1이었습니다.
+2026-09-25에도 프로젝트에는 지원 optimizer 배포가 없었습니다. 읽기 전용 확인에서 `gpt-5.5` 할당량이 남아 있었으므로 재실행에는 담당자 승인만 필요합니다.
 
 ## 2. 최적화 마법사 열기
 

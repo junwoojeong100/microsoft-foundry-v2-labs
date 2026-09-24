@@ -6,7 +6,7 @@
 implement a durable approval service, or authorize company/Microsoft 365 access.
 The inspected azd extension labels its routine command surface Preview on September 16, 2026.
 
-**Evidence status:** English routine delivery ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset (answer retrieval was unavailable); not re-run with `gpt-6-sol`.
+**Evidence status:** re-run in English on September 25, 2026 with `gpt-6-sol` and azd `azure.ai.routines` 1.0.0-beta.6: one manual dispatch finished, then the routine was disabled and deleted. The response was again not retrievable, but its `response_id` found the agent's server-side trace. Earlier run: September 16, 2026 (`gpt-5.6-luna`).
 
 **Need:** an approved existing Prompt or Hosted Responses agent, the actual project endpoint,
 azd routine commands, an owned routine name and cost approval.
@@ -101,6 +101,8 @@ python scripts/workshop.py --language en routines inspect --name "$ROUTINE_NAME"
 This verifies **delivery**, not answer content. The observed agent-identity routine completed,
 but its returned response ID produced 404 on later retrieval. Record that boundary rather than
 call the agent directly and present the replacement as a routine answer.
+If Application Insights is connected, paste the returned `response_id` into the target agent's **Traces** search ([Lab 09 B](../09-operations.md#path-b)).
+On 2026-09-25 it showed `invoke_agent <agent>:<version>` with a child `chat` span: proof that the run happened, still not the stored answer.
 `--verify-response` with a new label attempts explicit response verification and fails visibly
 when the original response is unavailable. It never repeats the model request.
 Inspect the matching run's state and returned answer/error; list again only to observe that same run, not to dispatch another.

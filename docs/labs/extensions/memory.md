@@ -4,7 +4,7 @@
 
 **Path C, optional Preview — September 16, 2026.**
 
-**Evidence status:** an English memory lifecycle ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset; not re-run with `gpt-6-sol`.
+**Evidence status:** re-run in English on September 25, 2026 with `gpt-6-sol` and `text-embedding-3-large`: store, alpha put and recall, empty beta recall, update, forget and store deletion verified. Earlier run: September 16, 2026 (`gpt-5.6-luna`).
 
 This first pass uses the **managed Memory Store APIs**, then explicitly passes their results to a fresh model request.
 It does not enable automatic memory extraction in the core policy agent or share memory between evaluation cases.

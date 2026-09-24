@@ -5,7 +5,7 @@
 **C 선택.** Routine은 기존 agent를 트리거합니다. agent를 새로 만들거나 지속 승인 서비스를 구현하거나
 회사/Microsoft 365 접근을 승인하지 않습니다. 확인한 azd 확장은 2026-09-16에 routine 명령을 Preview로 표시했습니다.
 
-**근거 상태:** 영문 routine 전달을 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(답변 조회는 불가). `gpt-6-sol`로 다시 실행하지 않았습니다.
+**근거 상태:** 2026-09-25에 `gpt-6-sol`과 azd `azure.ai.routines` 1.0.0-beta.6으로 영문 재실행: 수동 dispatch 1회가 완료됐고 routine을 비활성화한 뒤 삭제했습니다. 응답은 이번에도 조회할 수 없었지만 그 `response_id`로 agent의 서버 측 추적을 찾았습니다. 이전 실행: 2026-09-16(`gpt-5.6-luna`).
 
 **준비:** 승인된 기존 Prompt 또는 Hosted Responses agent, 실제 프로젝트 endpoint, azd routine 명령, 소유 routine 이름, 비용 승인.
 **완료:** dispatch 하나에서 식별 가능한 실행 결과를 얻고 이후 routine을 비활성화함.
@@ -99,6 +99,8 @@ python scripts/workshop.py --language ko routines inspect --name "$ROUTINE_NAME"
 helper는 **전달**을 확인합니다. 답변 내용이나 미래 timer 발화를 증명하지 않습니다.
 관찰된 agent-identity routine은 완료됐지만 반환된 response ID는 나중 조회에서 404였습니다.
 그 경계를 기록하고 agent를 직접 호출해 대체 답변을 routine 답변처럼 제시하지 않습니다.
+Application Insights가 연결되어 있다면 반환된 `response_id`를 대상 agent의 **추적** 검색에 붙여 넣습니다([Lab 09 B](../09-operations.md#path-b)).
+2026-09-25에는 `invoke_agent <agent>:<version>`과 자식 `chat` span이 보였습니다. 실행이 일어났다는 근거일 뿐 저장된 답변은 아닙니다.
 `--verify-response`와 새 label은 명시적 response 검증을 시도하고 원래 response가 없으면 명확히 실패합니다.
 모델 요청을 반복하지 않습니다.
 일치하는 run의 상태와 반환된 답변/오류를 확인합니다.

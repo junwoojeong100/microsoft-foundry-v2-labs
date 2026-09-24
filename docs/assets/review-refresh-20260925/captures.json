@@ -1,0 +1,543 @@
+{
+  "schema_version": 1,
+  "captured_on": "2026-09-25",
+  "timezone": "Asia/Seoul",
+  "purpose": "Screenshots and short clips of the core steps added by the 2026-09-24 review refresh: Lab 03 B managed Prompt Agent create/invoke with --output, the Lab 03 B portal check, and the Lab 09 B server-side trace search by response ID. The September 24 edition media remain the reference for unchanged steps.",
+  "project": "mfv2-g6luna-20260923",
+  "region": "swedencentral",
+  "deployment": {
+    "name": "gpt-6-sol",
+    "model": "gpt-6-sol",
+    "version": "2026-09-22"
+  },
+  "capture_method": {
+    "terminal": "Real zsh 5.9 PTY (a supported Bash/zsh shell) rendered with xterm.js and recorded by Playwright in headless Microsoft Edge; guide blocks pasted verbatim and the read prompts answered by typing",
+    "portal": "Playwright in headless Microsoft Edge against the Foundry portal; display language chosen per edition in an ephemeral browser context"
+  },
+  "image_format": "lossless WebP decoded pixel-identical to the captured PNG",
+  "image_edited": false,
+  "page_dom_modified_for_capture": false,
+  "authentication_captured": false,
+  "role_assignments_changed": false,
+  "model_deployments_changed": false,
+  "default_subscription_changed": false,
+  "connections_changed": false,
+  "new_evaluation_results": false,
+  "portal_chat_messages_sent": 0,
+  "resource_writes": 2,
+  "model_invocations": 2,
+  "discarded_attempts": [
+    {
+      "language": "en",
+      "agent": "mfv2-cap-20260925-en-policy-sdk",
+      "agent_version": "1",
+      "resource_writes": 1,
+      "model_invocations": 1,
+      "published": false,
+      "reason": "The terminal printed an absolute local path from the operator's home directory; the step was re-recorded from a neutral working directory with a new prefix. Nothing from the attempt is published."
+    }
+  ],
+  "languages": {
+    "en": {
+      "workshop_prefix": "mfv2-sup-20260925-en",
+      "agent": "mfv2-sup-20260925-en-policy-sdk",
+      "agent_version": "1",
+      "prompt_hash": "05c0d23b0f56b08077cbb436cae4b51fdb438f41493ca476bb02394938043ea8",
+      "instructions_sha256": "f30fd066f481bd9c5d84922b60b5d5301b901f897b376ff8c5ee809daeb07941",
+      "response_id": "resp_0ba4d3d0003d5f03016ab59870fb14819696f0b5f95c5bb037",
+      "request_id": "b7e50165-1bc4-4f6b-9704-109bebc41a21",
+      "response_model": "gpt-6-sol",
+      "usage": {
+        "input_tokens": 1124,
+        "output_tokens": 145
+      },
+      "answer": {
+        "answer": "For a domestic business trip in September 2026, the lodging limit is KRW 150,000 per person per night. This policy applies from July 1, 2026, through December 31, 2099. A receipt is required for reimbursement.",
+        "decision": "answer",
+        "limit_krw": 150000,
+        "citations": [
+          "TRAVEL-2026"
+        ]
+      },
+      "trace_export_in_cli_output": "not-configured",
+      "server_trace": {
+        "operation_id": "0ef25bf83fabedacdd66fde777dab616",
+        "spans": [
+          "invoke_agent mfv2-sup-20260925-en-policy-sdk:1",
+          "chat gpt-6-sol-2026-09-22"
+        ],
+        "verified_by": "Application Insights query by gen_ai.response.id and the portal Traces search"
+      },
+      "sdk_versions": {
+        "azure-ai-projects": "2.6.1",
+        "openai": "3.16.1",
+        "azure-identity": "1.25.3"
+      },
+      "source_commit": "f990af331adfc40ee846e050fb6b670c530399e8",
+      "source_hash": "6c98b7c9d4f9abccac2406dae97e3e8e355a77789a17ed213807424a7bb7b5c1"
+    },
+    "ko": {
+      "workshop_prefix": "mfv2-sup-20260925-ko",
+      "agent": "mfv2-sup-20260925-ko-policy-sdk",
+      "agent_version": "1",
+      "prompt_hash": "2b4a2b5e322a85349559fd55436521edf29334b8e69556bfbb4b43239edb9e25",
+      "instructions_sha256": "e959b7e3c3f7832cb789a90b12274b349a16ca5b9663ad0adff2e632b26f9bee",
+      "response_id": "resp_012274539f94676d016ab599e8a5148195b9b46edd2489e2cf",
+      "request_id": "aa7ad6c1-3e5e-4bae-9d0d-ef64120b43b9",
+      "response_model": "gpt-6-sol",
+      "usage": {
+        "input_tokens": 1290,
+        "output_tokens": 160
+      },
+      "answer": {
+        "answer": "2026년 9월 국내 출장에는 2026년 7월 1일부터 적용되는 규정에 따라 숙박비 한도가 1인 1박 150,000원입니다. 정산에는 영수증이 필요하며, 한도를 초과하는 숙소는 예약 전에 팀장의 명시적 승인을 받아야 합니다.",
+        "decision": "answer",
+        "limit_krw": 150000,
+        "citations": [
+          "TRAVEL-2026",
+          "RECEIPT-01",
+          "APPROVAL-01"
+        ]
+      },
+      "trace_export_in_cli_output": "not-configured",
+      "server_trace": {
+        "operation_id": "71804741772546d234d47f0c0b074db6",
+        "spans": [
+          "invoke_agent mfv2-sup-20260925-ko-policy-sdk:1",
+          "chat gpt-6-sol-2026-09-22"
+        ],
+        "verified_by": "Application Insights query by gen_ai.response.id and the portal Traces search"
+      },
+      "sdk_versions": {
+        "azure-ai-projects": "2.6.1",
+        "openai": "3.16.1",
+        "azure-identity": "1.25.3"
+      },
+      "source_commit": "f990af331adfc40ee846e050fb6b670c530399e8",
+      "source_hash": "6c98b7c9d4f9abccac2406dae97e3e8e355a77789a17ed213807424a7bb7b5c1"
+    }
+  },
+  "images": [
+    {
+      "file": "E03-201-sdk-create.webp",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "terminal",
+      "action_id": "E03-201-sdk-create",
+      "guide": "docs/labs/03-prompt-agent.md#path-b",
+      "mode": "LIVE AZURE",
+      "title": "Lab 03 B: create a managed Prompt Agent and save the JSON",
+      "exit_code": 0,
+      "recorded_command": "printf 'New agent name (<your prefix>-policy-sdk): '\nread -r AGENT_NAME\npython scripts/workshop.py --language en prompt-agent create --name \"$AGENT_NAME\" --confirm-create --output outputs/learner-notes-en/prompt-agent-create.json",
+      "command_matches_guide_block": true,
+      "interactive_inputs": [
+        {
+          "after": "New agent name (<your prefix>-policy-sdk): ",
+          "text": "mfv2-sup-20260925-en-policy-sdk"
+        }
+      ],
+      "observed_at": "2026-09-24T21:38:36.774282+00:00",
+      "source_png_sha256": "446c16ed08848e8a402801fbf016ef2e45a431f6908101655680785035f2ed23",
+      "pixel_exact": true,
+      "sha256": "bf842bab39fc453dddd77d4dad5cecd9c198b1a551ba4ce60549ba9d4d6575c2",
+      "bytes": 45284,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "E03-202-sdk-invoke.webp",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "terminal",
+      "action_id": "E03-202-sdk-invoke",
+      "guide": "docs/labs/03-prompt-agent.md#path-b",
+      "mode": "LIVE AZURE",
+      "title": "Lab 03 B: invoke the exact returned version and save the JSON",
+      "exit_code": 0,
+      "recorded_command": "printf 'agent_version returned above: '\nread -r AGENT_VERSION\npython scripts/workshop.py --language en prompt-agent invoke --name \"$AGENT_NAME\" --version \"$AGENT_VERSION\" --question \"What is the domestic business-trip lodging limit for September 2026?\" --output outputs/learner-notes-en/prompt-agent-invoke.json",
+      "command_matches_guide_block": true,
+      "interactive_inputs": [
+        {
+          "after": "agent_version returned above: ",
+          "text": "1"
+        }
+      ],
+      "observed_at": "2026-09-24T21:39:01.167262+00:00",
+      "source_png_sha256": "c0f2210bf0bb7bf125c3df2759ad4ecdc3d5ca19874c33cd3e37464928b330b2",
+      "pixel_exact": true,
+      "sha256": "c51f55bcbeeb8393e2458a97bc6ac9a7b3e8dbb4a4c542de827029e769251fcf",
+      "bytes": 56640,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "EP03-201-playground.webp",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "portal",
+      "action_id": "EP03-201-playground",
+      "guide": "docs/labs/03-prompt-agent.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "en",
+      "checks": {
+        "agent_name_visible": true,
+        "version_label": "Version: 1",
+        "instructions_equal_cli_definition": true,
+        "instructions_sha256": "f30fd066f481bd9c5d84922b60b5d5301b901f897b376ff8c5ee809daeb07941",
+        "chat_message_sent": false
+      },
+      "observed_at": "2026-09-24T21:42:10.050858+00:00",
+      "source_png_sha256": "221bc332a71849366dc0106379924ef20fae4a67811f0c78e1f8f64eebd02a2b",
+      "pixel_exact": true,
+      "sha256": "24f7f8c9b81b18c8d459443ef7e91827ec19faa6493dd04bb12a782b2b805469",
+      "bytes": 39770,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "EP03-202-details.webp",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "portal",
+      "action_id": "EP03-202-details",
+      "guide": "docs/labs/03-prompt-agent.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "en",
+      "checks": {
+        "active_version_text": "Latest (Version 1)",
+        "responses_endpoint_visible": true
+      },
+      "observed_at": "2026-09-24T21:42:17.427574+00:00",
+      "source_png_sha256": "bfd26cf38f6017e34e3cd06958dca42387e7a421475bf4c7a158846b6cbc05be",
+      "pixel_exact": true,
+      "sha256": "35effccf3fff589aa3b43e9f24dbc6a2669c8751a98ee15c223fa99df8750646",
+      "bytes": 35210,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "EP09-201-trace-search.webp",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "portal",
+      "action_id": "EP09-201-trace-search",
+      "guide": "docs/labs/09-operations.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "en",
+      "checks": {
+        "rows": 1,
+        "trace_ids": [
+          "0ef25bf83fabedacdd66fde777dab616"
+        ],
+        "expected_operation_id": "0ef25bf83fabedacdd66fde777dab616",
+        "matches_app_insights_operation": true
+      },
+      "observed_at": "2026-09-24T21:42:54.750427+00:00",
+      "source_png_sha256": "cb9bcefcb4d8bdb1bb66c1f329485e66067cf1471bfabab54cf32f0dd5256703",
+      "pixel_exact": true,
+      "sha256": "d51a57c301ce41f79465999f3040452f7a555812f4c425f3aca267aafc76a09f",
+      "bytes": 33210,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "EP09-202-trace-detail.webp",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "portal",
+      "action_id": "EP09-202-trace-detail",
+      "guide": "docs/labs/09-operations.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "en",
+      "checks": {
+        "invoke_agent_span": true,
+        "chat_span": true,
+        "trace_id_prefix_visible": true
+      },
+      "observed_at": "2026-09-24T21:43:03.989245+00:00",
+      "source_png_sha256": "d22d1e69ac0bb7d414e0281371e1d1ed83fc8b555238c71f386ce011d8278228",
+      "pixel_exact": true,
+      "sha256": "2aa288a1a847e09b4fe5d07449ee1f6c1ff91e18807e89eb2c2e62be700f27cf",
+      "bytes": 54902,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "K03-201-sdk-create.webp",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "terminal",
+      "action_id": "K03-201-sdk-create",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-b",
+      "mode": "LIVE AZURE",
+      "title": "Lab 03 B: 관리형 Prompt Agent 만들고 JSON 저장",
+      "exit_code": 0,
+      "recorded_command": "printf '새 agent 이름(<본인 prefix>-policy-sdk): '\nread -r AGENT_NAME\npython scripts/workshop.py prompt-agent create --name \"$AGENT_NAME\" --confirm-create --output outputs/learner-notes-ko/prompt-agent-create.json",
+      "command_matches_guide_block": true,
+      "interactive_inputs": [
+        {
+          "after": "새 agent 이름(<본인 prefix>-policy-sdk): ",
+          "text": "mfv2-sup-20260925-ko-policy-sdk"
+        }
+      ],
+      "observed_at": "2026-09-24T21:44:47.322207+00:00",
+      "source_png_sha256": "1872fc5c55c2c5226357d6da42c4aa26e5ec540fe0809b8ff59e7f6503aa1b9a",
+      "pixel_exact": true,
+      "sha256": "32fd2759a3e4b3c0f9e13cdfe0eeac03180f6bc83c7470ae8ac4adf6586e8e66",
+      "bytes": 45304,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "K03-202-sdk-invoke.webp",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "terminal",
+      "action_id": "K03-202-sdk-invoke",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-b",
+      "mode": "LIVE AZURE",
+      "title": "Lab 03 B: 반환된 정확한 버전 호출과 JSON 저장",
+      "exit_code": 0,
+      "recorded_command": "printf '위에서 반환된 agent_version: '\nread -r AGENT_VERSION\npython scripts/workshop.py prompt-agent invoke --name \"$AGENT_NAME\" --version \"$AGENT_VERSION\" --question \"2026년 9월 국내 출장 숙박비 한도는?\" --output outputs/learner-notes-ko/prompt-agent-invoke.json",
+      "command_matches_guide_block": true,
+      "interactive_inputs": [
+        {
+          "after": "위에서 반환된 agent_version: ",
+          "text": "1"
+        }
+      ],
+      "observed_at": "2026-09-24T21:45:15.780336+00:00",
+      "source_png_sha256": "2275c01ab40b2a501a847631c0ec970afcca9da8a4a9392f95700842f32d3d0d",
+      "pixel_exact": true,
+      "sha256": "a0470da4fef25bd88020868aae30bf7664035541242ecdd4618017919db8f098",
+      "bytes": 60566,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "KP03-201-playground.webp",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "portal",
+      "action_id": "KP03-201-playground",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "ko",
+      "checks": {
+        "agent_name_visible": true,
+        "version_label": "버전: 1",
+        "instructions_equal_cli_definition": true,
+        "instructions_sha256": "e959b7e3c3f7832cb789a90b12274b349a16ca5b9663ad0adff2e632b26f9bee",
+        "chat_message_sent": false
+      },
+      "observed_at": "2026-09-24T21:52:41.464726+00:00",
+      "source_png_sha256": "66f05c2874f53e8b444dd53b3ca4e32a96154d616b01d8bc035ae7ce86cedc0e",
+      "pixel_exact": true,
+      "sha256": "7a0187d356583338e9144a2ba3720b328d7161cd49611eed37318235586c2d57",
+      "bytes": 40398,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "KP03-202-details.webp",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "portal",
+      "action_id": "KP03-202-details",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "ko",
+      "checks": {
+        "active_version_text": "최신(Version 1)",
+        "responses_endpoint_visible": true
+      },
+      "observed_at": "2026-09-24T21:52:48.537901+00:00",
+      "source_png_sha256": "853cc2971b0f7b27ecb2bf231403d04ea1c3a423ed8d5f817386cb2b7a8da7fe",
+      "pixel_exact": true,
+      "sha256": "00f58b0959870b4a6ed631ffaab3d2aa3af9da871cef577313526f54d690b73a",
+      "bytes": 35520,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "KP09-201-trace-search.webp",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "portal",
+      "action_id": "KP09-201-trace-search",
+      "guide": "docs/ko/labs/09-operations.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "ko",
+      "checks": {
+        "rows": 1,
+        "trace_ids": [
+          "71804741772546d234d47f0c0b074db6"
+        ],
+        "expected_operation_id": "71804741772546d234d47f0c0b074db6",
+        "matches_app_insights_operation": true
+      },
+      "observed_at": "2026-09-24T21:53:23.443597+00:00",
+      "source_png_sha256": "2f697db78ef16736a0cde967dfd28275716770608ae73627b29690c2a487ccb6",
+      "pixel_exact": true,
+      "sha256": "17e98459062b65f2c880bfd28853be6f4e3c39d7cc0699bf283b5a2494d14cc8",
+      "bytes": 30874,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "KP09-202-trace-detail.webp",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "portal",
+      "action_id": "KP09-202-trace-detail",
+      "guide": "docs/ko/labs/09-operations.md#path-b",
+      "mode": "READ-ONLY PORTAL",
+      "portal_display_language": "ko",
+      "checks": {
+        "invoke_agent_span": true,
+        "chat_span": true,
+        "trace_id_prefix_visible": true
+      },
+      "observed_at": "2026-09-24T21:53:32.809700+00:00",
+      "source_png_sha256": "456dad79f34c31b6740eabd9b3b2d9ac0d8d58c076e74d31de5c5c532bb5b866",
+      "pixel_exact": true,
+      "sha256": "04b262248240ef96a089517e82d12ffbdd8d287905b819b212e67af5cbcc12d5",
+      "bytes": 60590,
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "videos": [
+    {
+      "file": "en-terminal.mp4",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "terminal",
+      "actions": [
+        "E00-200-prepare",
+        "E03-201-sdk-create",
+        "E03-202-sdk-invoke"
+      ],
+      "action_offsets_seconds": {
+        "E00-200-prepare": 1.0,
+        "E03-201-sdk-create": 13.0,
+        "E03-202-sdk-invoke": 45.59
+      },
+      "playback_speed": 1,
+      "edit": "leading and trailing idle trimmed only",
+      "source_trim_seconds": {
+        "start": 19.569,
+        "end": 82.004
+      },
+      "source_webm_sha256": "6a7b71a86b02a472c29b21e012c52746c9f942671fab12f4c0228da8e85ae05a",
+      "source_duration_seconds": 87.84,
+      "full_decode_verified": true,
+      "sha256": "eee13bf31fbd1c2d9601477b44fe633488748dc2d4685f9953259070b8510631",
+      "bytes": 1758308,
+      "codec": "h264",
+      "width": 1440,
+      "height": 1000,
+      "fps": "25/1",
+      "frames": 1560,
+      "duration_seconds": 62.4
+    },
+    {
+      "file": "en-portal.mp4",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "channel": "portal",
+      "actions": [
+        "EP03-201-playground",
+        "EP03-202-details",
+        "EP09-201-trace-search",
+        "EP09-202-trace-detail"
+      ],
+      "action_offsets_seconds": {
+        "EP03-201-playground": 0.0,
+        "EP03-202-details": 15.61,
+        "EP09-201-trace-search": 22.99,
+        "EP09-202-trace-detail": 60.31
+      },
+      "playback_speed": 1,
+      "edit": "none (full recording)",
+      "source_trim_seconds": null,
+      "source_webm_sha256": "bfe3577e3220f9d7a697ef1cbbc12dffb666d9c0c582d2da0b2a75ca50912cbe",
+      "source_duration_seconds": 72.64,
+      "full_decode_verified": true,
+      "sha256": "0d13b0554adeeda94d0e5e8a1987c279612bc9702339ac97c83349c29a552298",
+      "bytes": 1646263,
+      "codec": "h264",
+      "width": 1440,
+      "height": 1000,
+      "fps": "25/1",
+      "frames": 1816,
+      "duration_seconds": 72.64
+    },
+    {
+      "file": "ko-terminal.mp4",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "terminal",
+      "actions": [
+        "K00-200-prepare",
+        "K03-201-sdk-create",
+        "K03-202-sdk-invoke"
+      ],
+      "action_offsets_seconds": {
+        "K00-200-prepare": 1.0,
+        "K03-201-sdk-create": 5.42,
+        "K03-202-sdk-invoke": 37.68
+      },
+      "playback_speed": 1,
+      "edit": "leading and trailing idle trimmed only",
+      "source_trim_seconds": {
+        "start": 29.026,
+        "end": 86.052
+      },
+      "source_webm_sha256": "e43b0db3c5cfc0942dd7fe42532f7e94b4934c8ed239be98b034da39a99ed45f",
+      "source_duration_seconds": 97.84,
+      "full_decode_verified": true,
+      "sha256": "f3b65b4f365f7eef96e90d74a34c2b5f9261b215eb811d564196efae584f3f41",
+      "bytes": 1787504,
+      "codec": "h264",
+      "width": 1440,
+      "height": 1000,
+      "fps": "25/1",
+      "frames": 1426,
+      "duration_seconds": 57.04
+    },
+    {
+      "file": "ko-portal.mp4",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "channel": "portal",
+      "actions": [
+        "KP03-201-playground",
+        "KP03-202-details",
+        "KP09-201-trace-search",
+        "KP09-202-trace-detail"
+      ],
+      "action_offsets_seconds": {
+        "KP03-201-playground": 0.0,
+        "KP03-202-details": 12.89,
+        "KP09-201-trace-search": 19.97,
+        "KP09-202-trace-detail": 54.91
+      },
+      "playback_speed": 1,
+      "edit": "none (full recording)",
+      "source_trim_seconds": null,
+      "source_webm_sha256": "7b7aeac9308cd08ef528ca07227510567f163653bcb9fd28b7a45d14e111c544",
+      "source_duration_seconds": 67.0,
+      "full_decode_verified": true,
+      "sha256": "9fa1f02be895c5be6bf3c317976b0ff3148776779316c44a09ef7776f5bbd43c",
+      "bytes": 1484173,
+      "codec": "h264",
+      "width": 1440,
+      "height": 1000,
+      "fps": "25/1",
+      "frames": 1675,
+      "duration_seconds": 67.0
+    }
+  ],
+  "generated_at": "2026-09-24T22:07:59.458233+00:00"
+}

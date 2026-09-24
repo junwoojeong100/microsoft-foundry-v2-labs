@@ -30,6 +30,7 @@
    **지식**은 비어 있습니다. File Search나 IQ를 따로 선택했다면 그 연결을 적습니다.
    승인하지 않은 웹 검색·회사 연결이 없어야 합니다.
 3. 본인의 agent **추적** 탭을 엽니다. 환경 담당자가 수업 전에 Application Insights를 연결해 두었어야 합니다. 본인의 Lab 03 또는 Lab 07 작업에서 저장된 요청 하나를 찾아 엽니다. `invoke_agent <agent>:<version>`과 자식 `chat` span을 찾습니다. `execute_tool web.run` span은 그 요청이 Web search 도구로 실행됐다는 뜻입니다(예: 도구를 제거하기 전 버전). tracing이나 권한을 사용할 수 없으면 `실제 추적 근거 또는 조회할 수 없을 때 추적 미확인:`에 `추적 미확인: <이유>`를 적습니다. 이 확인을 위해 새 메시지를 보내지 않습니다.
+   목록은 **날짜 범위** **어제**(지난 1일)로 열립니다. 더 이전 요청은 **7일**을 고릅니다. 2026-09-25에 2026-09-24 브라우저 agent로 확인했을 때 연 추적마다 `invoke_agent <agent>:2`와 자식 `chat` span이 있었습니다.
    그다음 본인의 6행 평가표와 `workflow-review.txt`를 열고 위치를 적습니다. 이 평가표는 수동 검토이며, Lab 07의 선택 Foundry 평가는 별도 실행입니다.
 4. [정리 체크리스트](../reference/cleanup.md)로 본인 agent, 실습 중 만들어진 모델 배포(예: Lab 03의 `text-embedding-3-large`),
    선택 파일/chat base, 직접 만든 평가 데이터 세트와 평가, session을 목록화합니다.
@@ -116,9 +117,14 @@ response ID가 저절로 Azure Monitor trace가 되지는 않습니다.
 
 포털 **추적** 검색을 열고 `outputs/learner-notes-ko/prompt-agent-invoke.json`의 `response_id`를 붙여 넣습니다. Application Insights가 연결되어 있고 접근 권한이 있으면 일치하는 추적 근거를 기록합니다. 사용할 수 없으면 `operations-checklist.txt`의 `실제 추적 근거 또는 조회할 수 없을 때 추적 미확인:`에 `추적 미확인: <이유>`를 적습니다.
 
+![2026-09-25 국문 녹화: Lab 03 B response_id로 추적을 검색하면 한 행이 나옴](../../assets/review-refresh-20260925/KP09-201-trace-search.webp)
+
+![2026-09-25 국문 녹화: 추적을 열면 invoke_agent와 자식 chat span이 보임](../../assets/review-refresh-20260925/KP09-202-trace-detail.webp)
+
 **화면 확인:** 자식 `chat gpt-6-sol-2026-09-22` span이 있는 `invoke_agent <your agent>:<version>` span 하나를 확인합니다.
 자식 span의 input/output token은 `prompt-agent-invoke.json`의 `usage`와 같습니다. 추적 근거로는 response ID가 아니라 trace 또는 operation ID를 기록합니다.
 2026-09-24 확인(영문·국문)에서는 invoke가 `store: false`였어도 각 관리형 agent 호출이 약 3분 안에 나타났습니다.
+2026-09-25 녹화에서는 언어마다 정확히 한 행이 나왔고, token 열은 `usage`와, trace ID는 Application Insights `operation_Id`와 같았습니다.
 5분 뒤에도 아무것도 보이지 않으면 더 요청하지 말고 **추적 미확인**으로 기록합니다.
 
 Lab 04와 05의 로컬 MAF 실행은 Python process에서 실행되므로 Foundry server-side agent trace를 만들지 않습니다. Client-side tracing은 별도 선택 설정입니다.
@@ -327,7 +333,7 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 
 Hosted matrix를 선택한 경우에만 본인 실행의 root trace와 세션 상태를 확인합니다.
 A와 기본 B는 선택적인 telemetry 없이 정리 인계를 마칠 수 있습니다.
-2026-09-24 `gpt-6-sol` 녹화는 agent 세부 정보·추적·모니터링 탭, 선택 추적 평가와 정리 목록만 포함합니다.
+2026-09-24 `gpt-6-sol` 녹화는 agent 세부 정보·추적·모니터링 탭, 선택 추적 평가와 정리 목록을 포함하고, 2026-09-25 보충 녹화는 B의 `response_id` 추적 검색을 더합니다.
 전체 요청의 확인을 모든 하위 span이 빠짐없이 export되었다는 의미로 확대하지 않습니다.
 이미 idle인 세션은 다시 stop을 호출해 409를 만들지 않고 실제 상태를 확인합니다.
 활성 세션은 중지 후 재조회하고 [실행 기록](../live-run.md)에 별도 receipt를 남깁니다.

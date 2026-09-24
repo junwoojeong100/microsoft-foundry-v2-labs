@@ -12,8 +12,12 @@
 **완료:** 고정 버전의 MAF 요청에 실제 도구 결과·모델 응답·버전 근거가 있음.
 **중단:** 오류를 보존하고 담당자에게 돌아갑니다. 다른 provider로 교체하지 않습니다.
 
-**근거 상태, 2026-09-16(이전 `gpt-5.6-luna` 판):** 영문 MCP discovery, 직접 Search 조회, MAF 답변, 버전 연결을 실행했으며
-`gpt-6-sol` preset으로 다시 실행하지 않았습니다.
+**근거 상태, 2026-09-16(이전 `gpt-5.6-luna` 판):** 영문 MCP discovery, 직접 Search 조회, MAF 답변, 버전 연결을 실행했습니다.
+아래 `gpt-6-sol` 시도는 직접 query에서 멈췄습니다.
+
+**2026-09-25(`gpt-6-sol`, 영문):** keyless `workshop-search` 연결로 생성·조회·MCP 탐색은 성공했습니다.
+프로젝트 managed identity에 Search Index Data Reader만 있어 직접 query는 **Access denied**였고, 답변 요청은 하지 않았습니다.
+소유 Toolbox는 삭제했고 역할은 바꾸지 않았습니다.
 
 ## 1. 담당자에게 두 값을 받기
 

@@ -17,6 +17,9 @@
 영문 실행(대화 수준 groundedness 1/2)은 별도로 기록했으며, 한 언어의 점수를 다른 언어의 결과로 쓰지 않습니다.
 각 실행은 읽은 실제 evaluator catalog를 고정합니다. catalog가 있다는 사실만으로 평가 결과가 되지는 않습니다.
 
+**2026-09-25 영문 재실행(갱신한 SDK 고정 버전):** 업무 검사 6/6, 턴 수준 groundedness 6/6·coherence 6/6,
+대화 수준 groundedness 2/2·coherence 2/2. 국문 결과가 아니며, 같은 질문이라도 judge 점수는 실행마다 달라질 수 있으므로 실행별 label과 기록을 유지합니다.
+
 ## 1. 모델 호출 전 계획
 
 ```bash

@@ -6,7 +6,7 @@
 실제 검색 결과를 새 모델 요청에 명시적으로 전달합니다.
 핵심 정책 agent에 자동 추출을 켜거나 평가 사례 사이에 Memory를 공유하지 않습니다.
 
-**근거 상태:** 영문 memory lifecycle을 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했으며 `gpt-6-sol`로 다시 실행하지 않았습니다.
+**근거 상태:** 2026-09-25에 `gpt-6-sol`과 `text-embedding-3-large`로 영문 재실행: store, alpha put·recall, 비어 있는 beta recall, update, forget, store 삭제를 확인했습니다. 이전 실행: 2026-09-16(`gpt-5.6-luna`).
 
 **준비:** B 환경, 지원되는 기존 chat/embedding 배포, 프로젝트/모델 권한, 쓰기·모델·정리 승인.
 **완료:** 별도 CLI 요청 사이에 항목이 유지되고, alpha/beta 검색이 분리되며 실제 검색 결과로 답하고 삭제를 확인함.

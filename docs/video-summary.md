@@ -29,8 +29,22 @@ python scripts/play_recordings.py --edition en
 
 ## Not recorded in this edition
 
-Lab 10, the optional IQ Chat preset (`gpt-5.6-luna`; Search did not accept a GPT-6 model), Lab 03 portal File Search, Lab 06 hybrid RAG, Lab 08 local/remote Hosted runs, Lab 09 server-side tracing and recurring evaluation, the advanced C paths and the extension modules are **not in this recording**. The conversation evaluation module, the recurring evaluation, Agent Optimizer, cloud red teaming and the CI release ran separately on September 23 ([results](live-run.md#previously-not-run-items--september-23-2026); conversation evaluation: [validation](reference/validation.md#foundry-evaluation-additions)). Earlier recordings were removed and are not evidence for this edition.
+Lab 10, the optional IQ Chat preset (`gpt-5.6-luna`; Search did not accept a GPT-6 model), Lab 03 portal File Search, Lab 06 hybrid RAG, Lab 08 local/remote Hosted runs, Lab 09 recurring evaluation, the advanced C paths and the extension modules are **not in this recording**; the Lab 09 B server-side trace search is in the [September 25 supplement](#review-refresh-supplement). The conversation evaluation module, the recurring evaluation, Agent Optimizer, cloud red teaming and the CI release ran separately on September 23 ([results](live-run.md#previously-not-run-items--september-23-2026); conversation evaluation: [validation](reference/validation.md#foundry-evaluation-additions)). Earlier recordings were removed and are not evidence for this edition.
 
 Authentication, password and MFA entry are not recorded. A recorded exit code is not a quality score, and none of these results is a production approval. Use your own resource names, versions and results.
+
+<a id="review-refresh-supplement"></a>
+
+## Review-refresh supplement — September 25, 2026
+
+**Two short English clips for the core steps the 2026-09-24 review added.** Same project, `gpt-6-sol` / `2026-09-22`, source commit `f990af3`; one new agent version and one model call. The September 24 videos stay the reference for unchanged steps.
+
+| Clip | Duration | File |
+|---|---:|---|
+| B · Lab 03 create and invoke with `--output` (real zsh terminal) | 01:02 | [en-terminal.mp4](assets/review-refresh-20260925/en-terminal.mp4) |
+| Lab 03 B portal check · Lab 09 B trace search by `response_id` | 01:13 | [en-portal.mp4](assets/review-refresh-20260925/en-portal.mp4) |
+
+Both run at 1×; the terminal clip trims only idle time before and after the actions, and the portal clip is uncut. The six lossless screenshots sit in [Lab 03 B](labs/03-prompt-agent.md#path-b) and [Lab 09 B](labs/09-operations.md#path-b).
+[captures.json](assets/review-refresh-20260925/captures.json) records hashes, IDs and checks. One earlier English attempt was discarded because its terminal showed a local home-directory path; nothing from it is published and its agent is on the cleanup list.
 
 **Videos** · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)

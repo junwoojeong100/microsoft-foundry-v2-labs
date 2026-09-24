@@ -14,7 +14,11 @@ a prepared keyless Search project connection, and approval to create your own To
 **If blocked:** preserve the error and return to the prerequisite owner; never replace the provider.
 
 **Evidence status, September 16, 2026 (earlier `gpt-5.6-luna` edition):** an English MCP discovery, direct Search query,
-MAF answer and version binding were executed; they were not re-run with the `gpt-6-sol` preset.
+MAF answer and version binding were executed. The `gpt-6-sol` attempt below stopped at the direct query.
+
+**September 25, 2026 (`gpt-6-sol`, English):** create, inspect and MCP discovery succeeded with the keyless `workshop-search` connection.
+The direct query returned **Access denied** while the project managed identity had only Search Index Data Reader, so no answer was requested.
+The owned Toolbox was deleted and no role was changed.
 
 ## 1. Get the two owner values first
 
