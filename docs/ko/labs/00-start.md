@@ -84,8 +84,8 @@
 국문 가이드의 workshop 명령에는 `--language`가 없습니다. 기본값이 국문 번들이며, 영문 가이드만 같은 명령에 `--language en`을 붙입니다.
 전역 Python에 패키지를 설치하거나 시스템 기본 구독을 바꾸지 않습니다.
 
-활성화·설정이 끝난 터미널을 받았다면 **1·2·5**를 확인하고 SDK 재설치나 `.env` 교체는 하지 않습니다.
-직접 준비한다면 **1–5**를 순서대로 완료합니다.
+활성화·설정이 끝난 터미널을 받았다면 **그 저장소와 터미널을 그대로 사용**해 **1·2·5**를 확인합니다.
+다른 복사본을 내려받거나 SDK를 재설치하거나 `.env`를 교체하지 않습니다. 직접 준비한다면 **1–5**를 순서대로 완료합니다.
 
 <a id="reading-code-blocks"></a>
 
@@ -106,14 +106,21 @@
 
 <a id="offline-rehearsal"></a>
 
+<a id="source-folder"></a>
+
 ### 1. 폴더 열기
 
 **Azure 승인을 기다리고 있나요?** 아래 1–2만 완료합니다. Azure 인증정보나 외부 Python 패키지는 필요 없습니다.
 
-접근 권한이 있는 GitHub 계정으로 [이 저장소](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)를 열고
-**Code → Download ZIP**을 선택합니다. 압축을 풀고 그 폴더를 VS Code로 엽니다.
-작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
-**Terminal → New Terminal**(한국어 VS Code: **터미널 → 새 터미널**)을 열면 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
+**준비된 소스 폴더가 있나요?** 다운로드를 건너뛰고 그 폴더를 사용합니다. `.env`·`.venv`·`outputs/`를 유지하며,
+기존 `outputs/azure-objects.json` 소유권 기록도 보존합니다.
+
+**아직 소스 폴더가 없나요?** 접근 권한이 있는 GitHub 계정으로
+[이 저장소](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)를 열고 **Code → Download ZIP**을 선택합니다.
+압축을 풀고 그 폴더를 VS Code로 엽니다. 작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
+**Terminal → New Terminal**(한국어 VS Code: **터미널 → 새 터미널**)을 엽니다.
+
+어느 경우든 터미널의 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
 Python이 없다면 [Python 3.13](https://www.python.org/downloads/)을 먼저 설치합니다. `command not found`를 무시하고 넘어가지 않습니다.
 
 ```bash

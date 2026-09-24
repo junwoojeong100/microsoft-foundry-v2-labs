@@ -76,7 +76,8 @@ Search 권한이 없으면 Search 실습을 중단합니다. 로컬 검색을 Se
 **중단·재개:** 마지막 완료 단계와 정확한 label을 적습니다. 새 터미널에서는 저장소 루트로 돌아와
 `source .venv/bin/activate`만 다시 실행하며 재설치하거나 `.env`를 다시 만들지 않습니다.
 `evaluate`·`compare`·`accept`는 저장된 실행을 로컬에서 읽습니다. `collect`는 새 유료 호출이므로 새 label이 필요합니다.
-명령을 반복하기 전에 [재개 표](../reference/troubleshooting.md#resume-safely)를 확인합니다.
+Lab 07은 [저장된 결과별 재개 표](../labs/07-evaluation.md#resume-evaluation)에서 재수집 없이 이어갈 단계를 찾습니다.
+오류가 났다면 명령을 반복하기 전에 [복구 표](../reference/troubleshooting.md#resume-safely)를 확인합니다.
 
 **완료:** [Lab 11](../labs/11-capstone.md#path-b).
 **추가 선택:** [C. 고급 모듈](c-advanced.md).

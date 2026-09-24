@@ -32,8 +32,10 @@
 | 로컬 matrix smoke가 `--azd-directory`를 요구 | 워크북에서 준비한 독립 폴더 지정. 소스 프로젝트를 자동 선택하는 기본값은 없음 | 다른 agent의 `azure.yaml`을 소스 루트에 복사 |
 | Toolbox 원격 결과 폴더가 이미 있음 | 원래 stream·검증/실패 보존. 실제 새 요청일 때만 모든 경로의 폴더명을 함께 변경 | 이전 raw stream 덮어쓰기·로컬 검증기 재실행을 위한 모델 재호출 |
 
+기본 Lab 07은 새 수집 전에 [저장된 결과별 재개 표](../labs/07-evaluation.md#resume-evaluation)를 확인합니다.
 새 dev 실험에는 새로운 **baseline/candidate/final-holdout** 이름 묶음을 정해 Lab 07·11에서 일관되게 사용합니다.
 새 후보가 통과하고 고정되기 전에는 holdout을 열지 않습니다. 읽기 전용 재조회는 새 추론 증거가 아닙니다.
+새 label을 붙여도 이미 노출된 holdout이 다시 미사용 검증셋이 되지는 않습니다.
 
 ## 자주 막히는 지점
 
@@ -68,8 +70,8 @@
 | 429 | quota·TPM·동시성·다른 조의 사용량, 서비스 retry 안내 | 02 |
 | `json_schema`/옵션 400 | 모델별 Structured Outputs 지원, 현재 SDK 계약 | 02 |
 | 응답 `incomplete` | 출력 token 한도, content filter, 모델 지원; 임의 보정 금지 | 02 |
-| `FileExistsError` label | 기존 결과 보존 후 새로운 label 사용 | 07 |
-| 원본 hash 불일치 | 응답/데이터를 수정하지 않았는지 확인; 새 버전으로 재수집 | 07 |
+| `FileExistsError` label | 기존 실행을 확인하고 재개. 실제 새 실험에만 새 label 사용 | 07 |
+| 원본 hash 불일치 | 원본 파일·오류 보존 후 입력/응답 변경 조사. 새 dev 실험으로만 재수집하며 노출 holdout을 재시도하지 않음 | 07 |
 | MCP 실패 | 같은 venv의 `mcp`, 서버 path, stdout에 비-JSON 로그 여부 | 04 |
 | workflow timeout | 최대 라운드·출력 한도·도구 지연·quota | 05 |
 | Search 403 | Entra 데이터 평면 인증과 Index Data Reader/Contributor | 06 |

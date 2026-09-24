@@ -32,9 +32,10 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | Local matrix smoke requires `--azd-directory` | Supply the standalone directory prepared by the workbook; there is no implicit source-project default | Copy another agent's `azure.yaml` into the source root |
 | A Toolbox remote-output folder already exists | Preserve its raw stream and verification/failure; choose a new directory in every path only for a genuinely new request | Overwrite the prior raw stream or call the model only to rerun the local verifier |
 
+For core Lab 07, use [the saved-run restart table](../labs/07-evaluation.md#resume-evaluation) before any new collection.
 For a genuinely new dev experiment, choose one fresh **baseline/candidate/final-holdout** label set and
 use it consistently in Lab 07 and Lab 11. Do not unlock holdout until the new candidate passes and is frozen.
-Read-only reinspection does not create new inference evidence.
+Read-only reinspection does not create new inference evidence. A new label does not make an exposed holdout unseen again.
 
 ## Common blockers
 
@@ -69,8 +70,8 @@ Read-only reinspection does not create new inference evidence.
 | 429 | Quota, TPM, concurrency, other teams, service retry guidance | 02 |
 | `json_schema`/option 400 | Model Structured Outputs support and SDK contract | 02 |
 | `incomplete` response | Output limit, filters, model support; no silent repair | 02 |
-| Label `FileExistsError` | Preserve the existing run; use a new label | 07 |
-| Source hash mismatch | Changed response/data; recollect under a new version | 07 |
+| Label `FileExistsError` | Inspect and resume the existing run; new labels are only for a genuinely new experiment | 07 |
+| Source hash mismatch | Preserve the original files/error; investigate changed inputs or responses. Recollect only as a new dev experiment, not by retrying exposed holdout | 07 |
 | MCP failure | Same-venv `mcp`, server path, non-JSON stdout | 04 |
 | Workflow timeout | Round/output bounds, tool latency, quota | 05 |
 | Search 403 | Entra data-plane auth and Index Data Reader/Contributor | 06 |

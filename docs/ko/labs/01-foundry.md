@@ -83,7 +83,9 @@ classic Hub 프로젝트나 threads/runs 코드가 보이면 멈추고 [마이�
 
 `session-notes.txt`의 **Lab 01** 칸에 다음 두 가지를 적습니다.
 
-1. 본인 이름을 넣은 관계: `Foundry 리소스 <account> → 프로젝트 <project> → 배포 gpt-6-sol → 에이전트(Lab 03)`.
+1. 본인 이름으로 `Foundry 리소스 <account> → 프로젝트 <project> → 에이전트(Lab 03)`를 그립니다.
+   `배포 gpt-6-sol`은 **Foundry 리소스** 아래에 프로젝트와 나란히 두고 **에이전트 → 호출 → 배포**를 연결합니다.
+   배포는 프로젝트의 하위 리소스가 아닙니다.
 2. 이 문장: `모델을 바꾸면 에이전트의 지침·지식·평가·권한을 다시 확인해야 한다.`
 
 **A 완료:** **Lab 01** 칸에 관계와 문장이 있고 `전체 project endpoint:` 줄이 채워져 있습니다.

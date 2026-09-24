@@ -237,6 +237,69 @@ class LearnerJourneyTests(unittest.TestCase):
                 ):
                     self.assertIn(name, setup)
 
+    def test_prepared_source_folder_is_kept_before_offering_a_download(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[0], "B")
+                anchor = '<a id="source-folder"></a>'
+                self.assertIn(anchor, core)
+                choice = core.split(anchor, 1)[1].split("```bash", 1)[0]
+                prepared, fresh = (
+                    ("Already have a prepared source folder?", "No source folder yet?")
+                    if language == "en"
+                    else ("준비된 소스 폴더가 있나요?", "아직 소스 폴더가 없나요?")
+                )
+                self.assertLess(choice.index(prepared), choice.index(fresh))
+                reuse = choice.split(fresh, 1)[0]
+                for name in (".env", ".venv", "outputs/", "outputs/azure-objects.json"):
+                    self.assertIn(f"`{name}`", reuse)
+                self.assertNotIn("Download ZIP", reuse)
+
+    def test_four_object_sketch_keeps_deployments_at_account_scope(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[1], "A")
+                self.assertIn('F --> D["', core)
+                self.assertIn('F --> P["', core)
+                self.assertNotRegex(core, r"→ (?:deployment|배포) gpt-6-sol →")
+                relation = (
+                    "agent → calls → deployment" if language == "en" else "에이전트 → 호출 → 배포"
+                )
+                self.assertIn(relation, core)
+
+    def test_portal_evaluation_uses_the_recorded_baseline_not_a_fixed_version(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                text = labs[7].read_text()
+                anchor = '<a id="portal-evaluation"></a>'
+                self.assertIn(anchor, text)
+                optional = text.split(anchor, 1)[1].split('<a id="path-b"></a>', 1)[0]
+                target = re.search(
+                    r"^2\. \*\*(?:Target|대상):\*\*.*?(?=^3\.)",
+                    optional,
+                    flags=re.MULTILINE | re.DOTALL,
+                )
+                if target is None:
+                    self.fail("The optional portal evaluation needs an explicit target step.")
+                self.assertIn("session-notes.txt", target[0])
+                self.assertNotRegex(target[0], r"`[^`\n]+:v\d+`")
+
+    def test_evaluation_resume_table_precedes_collection_and_is_linked_from_the_route(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[7], "B")
+                anchor = '<a id="resume-evaluation"></a>'
+                self.assertIn(anchor, core)
+                self.assertLess(core.index(anchor), core.index("### 1."))
+                resume = core.split(anchor, 1)[1].split("### 1.", 1)[0]
+                for label in ("baseline", "candidate", "final-holdout"):
+                    self.assertIn(f"`outputs/{label}/`", resume)
+                self.assertEqual(DOCS.workshop_commands(resume), [])
+                self.assertIn("(11-capstone.md#incomplete-handoff)", resume)
+                for name in ("paths/b-practitioner.md", "reference/troubleshooting.md"):
+                    text = (directory / name).read_text()
+                    self.assertIn("(../labs/07-evaluation.md#resume-evaluation)", text)
+
     def test_editorial_rubric_is_consistent_without_forcing_a_particular_score(self):
         for language, directory, _ in self.language_labs():
             with self.subTest(language=language):

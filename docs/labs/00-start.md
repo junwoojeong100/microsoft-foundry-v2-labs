@@ -88,8 +88,8 @@ For the offline rehearsal only, Python 3.14 also works; replace `python3.13` wit
 Every workshop command in this guide passes `--language en`; without it, the CLI uses the Korean bundle.
 Do not install into global Python or change the system's default Azure subscription.
 
-If an activated, configured terminal was supplied, complete steps **1, 2 and 5**;
-do not reinstall SDKs or replace its `.env`. Otherwise complete **1–5** in order.
+If an activated, configured terminal was supplied, keep **that repository and terminal** and complete steps **1, 2 and 5**.
+Do not download another copy, reinstall SDKs or replace its `.env`. Otherwise complete **1–5** in order.
 
 <a id="reading-code-blocks"></a>
 
@@ -110,14 +110,20 @@ New terminals do not inherit values entered with `read`.
 
 <a id="offline-rehearsal"></a>
 
+<a id="source-folder"></a>
+
 ### 1. Open the folder
 
 **Waiting for Azure approval?** Complete only steps 1–2 below. Neither requires Azure credentials or external Python packages.
 
-Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs) with a GitHub account that has access,
-then **Code → Download ZIP**, extract it and open the extracted folder in VS Code.
-This is the **source repository ZIP**, not the small learner-materials ZIP.
-Open **Terminal → New Terminal**; its directory must contain `README.md`, `pyproject.toml`, and `scripts/`.
+**Already have a prepared source folder?** Use it; skip the download. Keep its `.env`, `.venv` and `outputs/`,
+including any existing `outputs/azure-objects.json` ownership record.
+
+**No source folder yet?** Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)
+with a GitHub account that has access, then **Code → Download ZIP**, extract it and open the folder in VS Code.
+This is the **source repository ZIP**, not the small learner-materials ZIP. Open **Terminal → New Terminal**.
+
+In either case, the terminal's directory must contain `README.md`, `pyproject.toml`, and `scripts/`.
 If Python is missing, install [Python 3.13](https://www.python.org/downloads/) first; do not continue past a `command not found` error.
 
 ```bash

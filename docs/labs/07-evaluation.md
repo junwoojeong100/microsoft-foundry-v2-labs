@@ -10,7 +10,7 @@
 
 **This pass:** A uses the questions-only file and blank worksheet. B runs the six-case dev comparison. A's portal evaluation, B's cloud judges and the matrices are optional.
 
-**Need:** A: your saved Lab 03 agent and learner ZIP. B: a working code environment and new output labels.
+**Need:** A: your saved Lab 03 agent and learner ZIP. B: a working code environment; new labels for a new experiment, or the original labels and files when resuming.
 
 **Continue when:** A: all six actual answers, their saved agent version and review are recorded. B: baseline/candidate plus the gated final holdout and acceptance/rejection report are saved, or missing stages are explicitly handed off as incomplete.
 
@@ -108,6 +108,8 @@ Completing the assessment is not the same as passing every case or approving pro
 Continue to [Lab 09 A](09-operations.md#path-a), or first try the optional Foundry evaluation below (15 minutes).
 The commands after it are a separate B experiment, not extra browser steps.
 
+<a id="portal-evaluation"></a>
+
 ### 4. Optional: the same six questions as a Foundry evaluation
 
 <details>
@@ -118,9 +120,10 @@ This makes about six agent calls plus judge calls and creates a dataset and an e
 Use `dev-questions.jsonl` from the learner ZIP: questions only, no answers and no holdout.
 
 1. Open your Lab 03 agent, select the **Evaluation** tab, keep **Automatic Evaluation** and select **Create**.
-2. **Target:** keep **Agent**. Open your agent's **Version** list and keep only your saved Lab 07 baseline version
-   (**Version 2** in the recording); the banner must read `<your agent>:v2`. The list can preselect an older version:
-   on September 24, 2026 it preselected **Version 1**, which still had Web search. Then select **Next**.
+2. **Target:** keep **Agent**. Open your agent's **Version** list and keep only your saved Lab 07 baseline version.
+   Compare the banner's agent name and version with **`session-notes.txt`**, not the screenshot; your version need not be **2**.
+   The September 24, 2026 recording used **Version 2**, but the list initially selected **Version 1**, which still had Web search.
+   Continue with **Next** only when your recorded baseline is the only selected version.
 3. **Scope:** keep **Individual turns** and select **Next**.
 4. **Frequency:** keep **One time** and select **Next**.
 5. **Data:** select **Existing dataset**, then **Upload new dataset**.
@@ -166,15 +169,31 @@ Add the dataset and the evaluation to item 4 of `operations-checklist.txt`, then
 The following collection commands call Azure. Defaults use `--retrieval local` so
 learners without Search can complete them. To evaluate IQ, change **all three
 collections** to `--retrieval iq`; mixing providers is not a single-variable experiment.
-For the first pass, keep `local` and follow **1 → 2 → 3 → 4**.
+For a new experiment, keep `local` and follow **1 → 2 → 3 → 4**. If resuming, use the table below first.
 Steps 5–6 are optional extensions after the core result. Plan **6 + 6 + 4 = 16** target-case requests, plus service/tool/retry work.
-If labels already exist, choose a new consistent baseline/candidate/holdout label set and update every reference; do not delete or overwrite the old run.
 
 | Run | Saved under the repository root | Expected cases |
 |---|---|---:|
 | Baseline / v1 | `outputs/baseline/` | 6 dev |
 | Candidate / v2 | `outputs/candidate/` | 6 dev |
 | Final / frozen v2 | `outputs/final-holdout/` | 4 holdout, only after the candidate passes |
+
+<a id="resume-evaluation"></a>
+
+**Starting or resuming?** Use only your own files from this experiment. Folder existence alone is not a passing result.
+
+| Existing evidence | Start here |
+|---|---|
+| None for this experiment | Step 1; use fresh labels |
+| `outputs/baseline/`, no candidate yet | Read its `manifest.json` and `responses.jsonl`; grade the saved run if needed, then continue at step 2 |
+| `outputs/candidate/`, no holdout yet | Keep both dev runs; read or produce their local evaluation/comparison reports in step 3, then check step 4's gate |
+| `outputs/final-holdout/` | Skip all `collect` commands. Read the saved final reports, or run only step 4's local `evaluate` and `accept` with the original labels |
+
+For a new **dev** experiment whose example labels are already taken, choose new names and update every reference.
+For a resumed experiment, keep its original labels, inputs and responses; do not recollect simply because you reopened the guide.
+If a saved run is incomplete or reports request, hash or configuration errors, preserve it and use
+[recovery](../reference/troubleshooting.md#resume-safely) or the [incomplete handoff](11-capstone.md#incomplete-handoff).
+Renaming or recollecting holdout does not make it an unseen test again.
 
 **Run one block, read its result, then continue.** `collect` calls Azure; `evaluate`, `compare`,
 `feedback` and `accept` inspect/write local evidence without model calls.
@@ -267,6 +286,8 @@ Holdout is only for the final check in step 4; never open it to look for failure
 Run this step even if the baseline passed: it compares two fixed instruction versions on the same six cases.
 Compare `prompts/en/v1.txt` and `prompts/en/v2.txt`. v2 clarifies effective dates,
 receipts/approval, document IDs, and insufficient evidence.
+**Resuming with candidate responses already saved?** Skip the `collect` block below and inspect those responses;
+read the existing local reports or run the local checks that follow. Do not pay to recreate the same candidate.
 
 
 **What to check:** Explain which omissions the changed rules target. A text diff is
@@ -313,6 +334,8 @@ and the [incomplete handoff](11-capstone.md#incomplete-handoff); none converts t
 
 Proceed only when instructions, model, and retrieval will no longer change.
 `--candidate` links the frozen dev candidate.
+**If this experiment already has a holdout run, skip the collection block below.**
+Keep its frozen candidate and read the existing report, or run only the local grading/report commands after the block.
 
 ```bash
 python scripts/workshop.py --language en collect --split holdout --label final-holdout --prompt v2 --retrieval local --candidate candidate --unlock-holdout

@@ -82,10 +82,12 @@ another endpoint or guess a different token audience.
 
 In the **Lab 01** section of `session-notes.txt`, write:
 
-1. The chain with your own names: `Foundry resource <account> → project <project> → deployment gpt-6-sol → agent (Lab 03)`.
+1. Sketch `Foundry resource <account> → project <project> → agent (Lab 03)` with your own names.
+   Put `deployment gpt-6-sol` under the **Foundry resource**, alongside the project, and draw **agent → calls → deployment**.
+   The deployment is not a child of the project.
 2. This sentence: `Replacing the model means rechecking the agent's instructions, knowledge, evaluation and permissions.`
 
-**A done:** the **Lab 01** section has your chain and sentence, and the `Full project endpoint:` line is filled in.
+**A done:** the **Lab 01** section has your sketch and sentence, and the `Full project endpoint:` line is filled in.
 Continue to [Lab 02 A](02-models.md#path-a). You do not create resources or assign roles in this prepared-project exercise.
 
 <details>

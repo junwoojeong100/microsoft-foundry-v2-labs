@@ -76,7 +76,8 @@ with the existing files and exact reason. That closes the session honestly; it i
 **Pause/resume:** record the last completed step and exact labels. In a new terminal,
 return to the repository root and run `source .venv/bin/activate`; do not reinstall or recreate `.env`.
 `evaluate`, `compare` and `accept` read saved runs locally; `collect` makes new paid calls and requires a new label.
-Use [the recovery table](../reference/troubleshooting.md#resume-safely) before repeating a command.
+For Lab 07, use [the saved-run restart table](../labs/07-evaluation.md#resume-evaluation) to find the next unfinished step without recollecting.
+For errors, use [the recovery table](../reference/troubleshooting.md#resume-safely) before repeating a command.
 
 **Finish:** [Lab 11](../labs/11-capstone.md#path-b).
 **Choose an advanced module:** [C. Advanced](c-advanced.md).
