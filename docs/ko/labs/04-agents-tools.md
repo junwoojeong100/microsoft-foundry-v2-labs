@@ -10,7 +10,7 @@
 
 **이번 순서:** B는 도구 없음→함수→MCP 순서로 실행합니다. A는 Lab 05로 이동합니다.
 
-**준비물:** Lab 00 환경과 Lab 02 실제 응답. 별도 MCP 서버 터미널은 필요 없습니다.
+**준비물:** Lab 00 환경, Lab 02 실제 응답, Lab 03 B 관리형 agent 파일. 별도 MCP 서버 터미널은 필요 없습니다.
 
 **다음으로 갈 기준:** 도구 없는 응답과 원문 ID를 가진 함수/MCP 응답을 기록했습니다. 긴 입력 거절은 선택적인 실패 검사입니다.
 
@@ -48,7 +48,7 @@ python scripts/workshop.py maf \
 3. `agent.run()`: 실제 모델 호출을 시작한다.
 
 `Agent` 객체를 만들어도 Foundry 포털에 관리형 에이전트가 등록되지 않습니다. 이 에이전트는 내 Python 프로세스의 것입니다.
-(선택: 관리형 방식인 `project.agents.create_version()`은 Lab 03의 [SDK 경로](03-prompt-agent.md#b-선택-sdk-경로--관리형-prompt-agent와-로컬-maf-구분)에 있습니다.)
+Lab 03 B는 `project.agents.create_version()`을 사용하는 관리형 대안을 보여줍니다. 이 Lab 04 agent는 본인 Python 프로세스에만 속합니다.
 
 ## 2. 읽기 전용 함수 도구 추가
 
@@ -130,6 +130,22 @@ python scripts/workshop.py maf --mcp \
 
 **B 완료:** 실제 출력 세 개를 보관하고 도구 없음·함수·로컬 MCP의 차이를 설명합니다.
 [Lab 05 B](05-workflows.md#path-b)로 이동합니다. 아래 4·5절은 선택입니다.
+
+<details>
+<summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
+
+독립 예제는 [`examples/recipes/04_maf_tool.py`](../../../examples/recipes/04_maf_tool.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
+
+```python
+@tool(approval_mode="never_require") def lookup_policy(query: str) -> str
+Agent(client=FoundryChatClient(project_endpoint=..., model=deployment, credential=credential), instructions=..., tools=[lookup_policy])
+await agent.run(question)
+```
+
+**직접 작성:** 읽기 전용 합성 조회 필드를 하나 더 추가하고 답변 전에 도구 출력이 정책 ID를 계속 인용하는지 확인합니다.
+
+</details>
+
 
 ## 4. 선택 — 도구 경계와 잘못된 입력 거절 확인
 

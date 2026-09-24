@@ -69,13 +69,13 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 
 | 자산 | 확인과 정리 |
 |---|---|
-| Prompt/Hosted agent·version | 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제 |
+| Prompt/Hosted agent·version | B의 핵심이 된 Lab 03 B SDK 관리형 agent를 포함해 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제 |
 | Search knowledge base/source/index | 의존 순서 base → source → index; ledger의 본인 이름만 |
 | 업로드 파일/벡터 저장소 | 내 File Search 자료와 공유 자료를 구분 |
 | 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions` 데이터 세트, `<prefix>-...` 평가, `cloud-evaluate`가 만든 `eval-data-...` 데이터 세트, `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
 | 모델 배포 | 조별 전용인지 공유 배포인지 확인; 공유 모델 유지 |
 | Search 서비스 | index 삭제만으로 서비스의 고정 비용이 사라지지 않음 |
-| Application Insights/Log Analytics | 필요한 증거·보존 정책·공유 여부 확인 |
+| Application Insights/Log Analytics | 필요한 증거와 공유 여부 확인. Lab 09 trace 요구 사항을 포함해 보존 기간과 비용은 담당자가 관리 |
 | Resource Group | 실습 전용이고 모든 자산을 확인한 경우에만 소유자가 삭제 |
 
 <details>

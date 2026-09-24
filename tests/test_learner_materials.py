@@ -142,11 +142,13 @@ class LearnerMaterialTests(unittest.TestCase):
                 self.assertTrue(all(line.endswith(":") for line in fields))
                 self.assertEqual(
                     [line.split()[1] for line in fields],
-                    ["02", "04", "05", "06", "06", "07", "07", "07", "07", "08"],
+                    ["02", "03", "04", "05", "06", "06", "07", "07", "07", "07", "08"],
                 )
                 for name in (
                     "model.json",
                     "answer-local.json",
+                    "prompt-agent-create.json",
+                    "prompt-agent-invoke.json",
                     "maf-none.json",
                     "maf-function.json",
                     "maf-mcp.json",

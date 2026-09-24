@@ -17,6 +17,7 @@ An unselected feature is **not run**; an attempted failure stays **failed/blocke
 |---|---|---|
 | Reuse one tool across agents | [Managed Toolbox](../labs/extensions/toolbox.md) | Tool Search/Skills or Hosted Toolbox |
 | Evaluate a conversation, not just one answer | [Conversation evaluation](../labs/extensions/conversation-evaluation.md) | Optimizer or recurring evaluation |
+| Turn recurring trace patterns into a reviewed decision | [Agent Insights](../labs/extensions/agent-insights.md) | Treating severity as ground truth or changing instructions without dev evaluation |
 | Understand pause/resume without model calls | [Local approval/recovery simulation](../labs/extensions/approval-recovery.md) | Real authorization or Hosted crash claims |
 | Review access and architecture without changing resources | [Governance/networking](../labs/extensions/governance-networking.md) or [specialist scope](../labs/extensions/specialist-scope.md) | Creating missing infrastructure |
 | Accept a version-pinned Hosted system | [Hosted evaluation workbook](../reference/evaluation-workbook.md), after B's model/MAF/IQ results | Production release approval |
@@ -32,6 +33,7 @@ These are independent starting points, not five steps to complete. The full cata
 | [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | Verify a real generated CSV or read-only API call | Choose one tool; Code Interpreter first, OpenAPI needs the owned Search index |
 | [Tool Search and Skills](../labs/extensions/tool-search-skills.md) | Discover selected tools; version and reuse behavioral instructions | An owned, working Toolbox; Preview opt-in |
 | [Conversation evaluation](../labs/extensions/conversation-evaluation.md) | Compare individual-turn checks with full-conversation outcomes | A real multi-turn run from bundled dev questions; no holdout development |
+| [Agent Insights](../labs/extensions/agent-insights.md) | Review AI-generated trace-pattern findings before deciding on evaluation, routing or instruction changes | Lab 03 Prompt Agent with connected App Insights and enough existing synthetic traces; Preview; not a source of ground truth |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | Generate and review candidate configurations against a frozen dev baseline | Prepared evaluator/optimizer models, explicit cost approval; Preview |
 | [Approval and recovery](../labs/extensions/approval-recovery.md) | Observe real SDK suspension/checkpoints with explicit prewritten work and simulated decisions | Local-only first pass; not real human authorization or Hosted crash proof |
 | [A2A](../labs/extensions/a2a.md) | Connect independently addressed agent endpoints | Explicit A2A 1.0 and caller permissions; no 0.3 fallback |
@@ -47,7 +49,8 @@ which have actual new Azure evidence, and which remain design-only or blocked.
 An official product page or an installed SDK is not evidence that this workshop ran the feature.
 The modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset (for example, baseline-only
 optimization and delivery-only routine verification). With `gpt-6-sol`, conversation evaluation, Agent Optimizer, the red-team
-step of agent safety and release operations were re-run on September 23; the others were not. Verify each module yourself.
+step of agent safety and release operations were re-run on September 23; the others were not.
+The Agent Insights module was added on 2026-09-24 and was not run. Verify each module yourself.
 
 ## Keep the experiment valid
 

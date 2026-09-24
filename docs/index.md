@@ -4,8 +4,8 @@
 
 **Build one travel-policy assistant and finish with evidence another learner can review.**
 
-1. Choose [A. Beginner](paths/a-beginner.md) for browser steps plus one prepared terminal command, or
-   [B. Implementation](paths/b-practitioner.md) for Python and APIs.
+1. Choose [A. Beginner](paths/a-beginner.md) for browser steps plus a prepared Lab 05 workflow path, or
+   [B. Implementation](paths/b-practitioner.md) for SDK calls, managed prompt agent, tools, workflows, Search/IQ, controlled evaluation, traces and local packaging.
 2. Complete [setup](setup.md) for that route. A uses the learner ZIP; B uses the source repository.
 3. Follow the route's checklist from Lab 00. Use **A done / B done** to leave each lab; do not continue into the other path.
 
@@ -13,7 +13,7 @@
 **Already started:** use [recovery and resume](reference/troubleshooting.md#resume-safely), not a fresh installation.
 
 This Pre-Ignite 2026 Edition uses **synthetic data only**, with separate English/Korean inputs and recordings.
-Neither route authors workflows in the portal. Advanced sections and recordings are optional.
+A takes about 4 h 30 min after setup. B takes about 8 h, recommended as two 4-hour sessions. Neither route authors workflows in the portal. Advanced sections and recordings are optional.
 
 A keeps the extracted learner ZIP as a personal evidence folder. B uses
 [the source copy's notes directory](labs/00-start.md#prepare-notes), without a second ZIP.
@@ -33,7 +33,7 @@ Use the ready files, not reference-answer records. Keep credentials and filled w
 | A starting point and schedule | [Learning paths](paths.md) |
 | First-run instructions | [Lab 00](labs/00-start.md) |
 | Classroom preparation | [Instructor guide](instructor.md) |
-| September 24 `gpt-6-sol` English recordings | [Videos: 6:29 in guide order, 3:11 CLI, 2:55 portal](video-summary.md) |
+| September 24 `gpt-6-sol` English recordings | [Evidence hub](evidence.md) and [videos: 6:29 in guide order, 3:11 CLI, 2:55 portal](video-summary.md) |
 | One video in guide order | [Lab chapters](video-chapters.md) |
 | A particular screen or action | [98 actions and 293 captures](action-captures.md) |
 | Actual results and limits | [Execution evidence](live-run.md) |
@@ -56,9 +56,9 @@ Use the ready files, not reference-answer records. Keep credentials and filled w
 ```mermaid
 flowchart TD
     S["Lab 00 / Choose a starting point"] --> A["A / Portal + prepared MAF"]
-    S --> B["B / Python"]
+    S --> B["B / Python + managed prompt agent"]
     A --> P["Project / Agent / MAF example / Source documents"]
-    B --> C["SDK / MAF and tools / Workflows / Search and IQ"]
+    B --> C["SDK / managed prompt agent / MAF and tools / Workflows / Search and IQ / traces"]
     P --> E["Evaluate against the same business criteria"]
     C --> E
     E --> R["Review failures / Improve / Final check"]

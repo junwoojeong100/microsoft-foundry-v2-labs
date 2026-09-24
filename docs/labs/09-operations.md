@@ -10,7 +10,7 @@
 
 **This pass:** A completes the four browser checks and cleanup inventory. B correlates its own records; matrix commands require the advanced workbook.
 
-**Need:** A: your agent, its version and your evidence files. B: your output labels. Trace access is optional.
+**Need:** A: your agent, its version and your evidence files. B: your output labels and Lab 03 B `response_id`. The owner should have connected Application Insights and granted trace read access; if not, record unverified.
 
 **Continue when:** You can identify the used version, evidence, costs and owned cleanup targets without deleting shared resources.
 
@@ -29,8 +29,8 @@ Complete these four checks using **your own existing results**, without sending 
 2. On its **Playground** tab, check **Instructions**, **Tools** and **Knowledge**. On the default A route, **Instructions** holds the six
    inline synthetic policies and **Knowledge** stays empty; if you separately selected File Search or IQ, note that connection instead.
    There must be no unapproved Web search or company connection.
-3. Open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
-   If you can open the **Traces** tab, find one of your saved requests; otherwise write **trace unverified** (not “no errors”).
+3. Open your agent's **Traces** tab. The environment owner should have connected Application Insights before class. Find one saved request from your own Lab 03 or Lab 07 work; if tracing or permissions are unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:`. Do not send a new message for this check.
+   Then open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
    `text-embedding-3-large`), optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
@@ -110,7 +110,13 @@ Write the run labels and the IDs you used in item 3 of `outputs/learner-notes-en
 `trace_id` stays `null` and `trace_export` is `not-configured` unless tracing was set up for you;
 response IDs do not become Azure Monitor traces by themselves.
 
-### 2. Explain one failure or an all-pass result
+### 2. Search server-side traces for Lab 03 B
+
+Open the portal **Traces** search and paste the `response_id` from `outputs/learner-notes-en/prompt-agent-invoke.json`. If Application Insights was connected and you have access, record the matching trace evidence. If unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:` in `operations-checklist.txt`.
+
+Local MAF runs from Labs 04 and 05 run in your Python process and do not create Foundry server-side agent traces. Client-side tracing is a separate optional setup.
+
+### 3. Explain one failure or an all-pass result
 
 Use an existing dev response. Distinguish a model/request error, tool error, missing evidence and wrong policy application.
 Write one line per service in item 3 of `operations-checklist.txt`, for example:
@@ -118,7 +124,7 @@ Write one line per service in item 3 of `operations-checklist.txt`, for example:
 If all cases passed, retain that finding and the remaining limitations; do not invent a failure.
 Review changes only on dev in [Lab 07](07-evaluation.md#path-b), not the exposed holdout.
 
-### 3. Print the cleanup inventory
+### 4. Print the cleanup inventory
 
 ```bash
 python scripts/workshop.py --language en cleanup-plan
@@ -140,6 +146,16 @@ Use [Cleanup](../reference/cleanup.md) for any separately approved action.
 
 **B done:** your own lineage, failure/all-pass review and cleanup inventory are saved.
 Continue to [Lab 11 B](11-capstone.md#path-b). Without configured tracing, record **trace unverified**; do not create a Hosted deployment or make a new request to finish this core step.
+
+<details>
+<summary>Tracing pointer (optional, no new core code)</summary>
+
+Server-side tracing for prompt and hosted agents needs no code change after Application Insights is connected to the project; traces are searchable by Response ID or Trace ID. See https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup
+
+Local MAF agents need separate client-side instrumentation if you want local spans; do not relabel local response IDs as server traces.
+
+</details>
+
 
 ### Optional: prepare server-side tracing
 
@@ -209,6 +225,8 @@ Model responses, retrieval/tool work, service initialization, and native judgmen
 Do not enable automatic optimization or continuous evaluation by default.
 Sampling, evaluation charges, and data policy require separate approval.
 Six passing teaching cases do not authorize production.
+
+> ⛔ **Stop here unless this optional step was approved.** Everything below is optional/path C and may create billable resources or need extra roles. A/B learners continue with the next-lab link above.
 
 ## C. Hosted matrix Trace/Monitor acceptance
 

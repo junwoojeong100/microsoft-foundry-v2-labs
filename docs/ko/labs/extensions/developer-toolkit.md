@@ -100,6 +100,36 @@ MAF Python 1.18의 vector store/tool-loop/dependency·serialization 변경은
 도움말과 생성된 `azure.yaml`도 실행 계약입니다.
 과거 화면/샘플과 다르면 차이를 보존하고 실제 작업을 확인한 뒤 가이드를 수정합니다.
 
+## 5. 선택: Foundry Dev Pack
+
+Foundry Dev Pack은 `az`, Foundry extension이 포함된 `azd`, coding agent용 Foundry skill,
+적용 가능한 경우 VS Code용 Foundry Toolkit과 canvas 통합 같은 현재 Foundry 개발 도구를 묶습니다
+(2026-09-24 확인).
+
+공식 발표에서 운영 체제에 맞는 installer 하나를 선택합니다.
+
+| 운영 체제 | Installer command |
+|---|---|
+| Windows | `winget install Microsoft.FoundryDevPack` |
+| macOS | `brew install --cask microsoft/foundry/devpack && foundry-devpack install` |
+| Linux | `curl -fsSL https://aka.ms/foundry-devpack-install.sh \| bash` |
+
+이는 현재/latest tooling을 설치하며, 이 워크숍의 고정 SDK 조합과 반드시 같지 않습니다.
+설치 후 실제 버전을 기록하고 실습에는 워크숍 pin을 유지합니다.
+공유 machine에는 담당자 승인 없이 설치하지 않습니다.
+
+## 6. Microsoft Foundry skill을 쓰는 coding agent
+
+GitHub Copilot과 Claude Code는 Microsoft Foundry skill을 사용해 Foundry 작업의 scaffold, 평가, 문제 해결을 도울 수 있습니다
+(2026-09-24 확인). 생성된 변경은 검토해야 하는 코드로 취급합니다.
+
+이 워크숍의 guardrail:
+
+- Coding agent는 명시적 승인 없이 provision, deploy, role assignment, publish, 기본 Azure 구독 변경을 하면 안 됩니다.
+- 모든 예시는 동봉된 합성 데이터로 유지합니다.
+- 생성된 코드, dependency 변경, Azure 명령은 사용 전에 검토합니다.
+- prompt, dataset, response, evaluator, trace 계보를 보존합니다.
+
 **다음:** 이곳으로 보낸 모듈로 돌아가거나 [B의 다음 미완료 단계](../../paths/b-practitioner.md)로 이동합니다.
 [MAF 1.18](https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0) ·
 [호환성 기록](../../reference/versions.md).

@@ -8,6 +8,8 @@
 
 The first pass compares **two already approved deployments** with the same dev inputs;
 Router and retirement planning are separate extensions.
+When the learning goal is provider diversity, prefer making the second approved deployment a non-OpenAI Foundry Model,
+for example a Grok model whose Azure documentation lists Responses API support (checked 2026-09-24).
 
 **Need:** the real [Lab 07](../07-evaluation.md) candidate, a second approved deployment,
 matching API/Structured Outputs support, cost approval and new labels.
@@ -42,6 +44,8 @@ read -r MODEL_B
 
 Confirm the actual underlying model/version and deployment state.
 If the API or output schema is incompatible, stop. That is a migration finding, not permission to use another API for only this model.
+For a non-OpenAI provider, the project Responses path and strict `json_schema` Structured Outputs must both be accepted.
+If either is rejected, stop and record an API-compatibility finding. Do not switch APIs, loosen the schema or fall back to plain text.
 Keep `MODEL_B` in this terminal for step 3; a missing value stops before any request.
 
 ## 3. Collect a new dev run and compare

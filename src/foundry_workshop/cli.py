@@ -342,6 +342,7 @@ def parser() -> argparse.ArgumentParser:
     agent.add_argument("--version")
     agent.add_argument("--question")
     agent.add_argument("--confirm-create", action="store_true")
+    output_argument(agent)
     server = commands.add_parser(
         "serve", help="Run the optional local hosted-agent server. Inference remains billable."
     )

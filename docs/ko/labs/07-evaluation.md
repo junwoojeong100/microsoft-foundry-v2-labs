@@ -393,6 +393,17 @@ Holdout을 수집하지 않았다면 이유를 적습니다. 이 줄을 채우�
 **B 완료:** 실행 폴더 세 개·비교·검토 기록·인수/반려 보고서를 보관합니다.
 [Lab 08 B](08-hosted.md#path-b)에서 **패키징만** 진행합니다. 인수 보고서는 배포 승인이 아닙니다.
 
+<details>
+<summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
+
+로컬 업무 검사는 `src/foundry_workshop/evaluation.py`에 있습니다. 고정된 합성 case에 대해 decision, 금액, citation, 오류 처리를 확인합니다.
+클라우드 평가는 공식 문서를 참고합니다: https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation
+
+**직접 작성:** 기존 출력 필드 하나에 대한 로컬 전용 assertion을 추가하고, 새 모델 호출이 아니라 저장된 response에 대해 실행합니다.
+
+</details>
+
+
 ### 5. 선택: Foundry cloud judge와 포털 비교
 
 <details>

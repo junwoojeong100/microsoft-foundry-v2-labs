@@ -4,12 +4,13 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
+from .compatibility import FOUNDRY_IQ_GA, SEARCH_REST
 from .contracts import digest, load_documents, read_json, validate_question, write_json
 from .knowledge import evidence
 from .settings import Settings, azure_endpoint, credential_for, owned_prefix, require_env
 
-SEARCH_API = "2024-07-01"
-IQ_API = "2026-04-01"
+SEARCH_API = SEARCH_REST.version
+IQ_API = FOUNDRY_IQ_GA.version
 SEARCH_SCOPE = "https://search.azure.com/.default"
 
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "microsoft-foundry-v2-labs"
-version = "2026.9.15"
+version = "2026.9.24"
 description = "An English-first Microsoft Foundry workshop with Korean beginner and practitioner guides."
 requires-python = ">=3.13,<3.15"
 license = "MIT"
@@ -12,22 +12,22 @@ dependencies = []
 
 [project.optional-dependencies]
 cloud = [
-  "azure-ai-projects==2.3.0",
+  "azure-ai-projects==2.6.1",
   "azure-identity==1.25.3",
-  "openai==2.54.0",
+  "openai==3.16.1",
   "httpx==0.28.1",
   "python-dotenv==1.2.3",
 ]
 agents = [
   "microsoft-foundry-v2-labs[cloud]",
-  "agent-framework-core==1.17.0",
-  "agent-framework-foundry==1.12.0",
+  "agent-framework-core==1.18.0",
+  "agent-framework-foundry==1.13.0",
   "agent-framework-orchestrations==1.1.1",
-  "mcp==1.28.1",
+  "mcp==1.30.0",
 ]
 hosted = [
   "microsoft-foundry-v2-labs[agents]",
-  "agent-framework-foundry-hosting==1.0.0b260903",
+  "agent-framework-foundry-hosting==1.0.0b260910",
 ]
 dev = [
   "playwright==1.62.0",

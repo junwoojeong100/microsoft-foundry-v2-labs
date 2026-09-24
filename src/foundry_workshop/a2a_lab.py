@@ -1,9 +1,9 @@
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
 from uuid import uuid4
 
+from .compatibility import A2A_PROTOCOL
 from .contracts import Answer, digest, load_documents, read_json, safe_label, write_json
 from .settings import Settings, owned_prefix
 
@@ -54,6 +54,48 @@ def incoming_patch() -> dict[str, Any]:
     }
 
 
+def incoming_update() -> dict[str, Any]:
+    """Typed SDK arguments whose merge-patch body must equal incoming_patch()."""
+    from azure.ai.projects.models import (
+        A2AProtocolConfiguration,
+        AgentCard,
+        AgentCardSkill,
+        AgentEndpointConfig,
+        ProtocolConfiguration,
+        ResponsesProtocolConfiguration,
+    )
+
+    card = incoming_patch()["agent_card"]
+    return {
+        "agent_card": AgentCard(
+            description=card["description"],
+            version=card["version"],
+            skills=[AgentCardSkill(**skill) for skill in card["skills"]],
+        ),
+        "agent_endpoint": AgentEndpointConfig(
+            protocol_configuration=ProtocolConfiguration(
+                responses=ResponsesProtocolConfiguration(), a2a=A2AProtocolConfiguration()
+            )
+        ),
+    }
+
+
+def caller_definition(settings: Settings, instructions: str, connection_id: str) -> Any:
+    from azure.ai.projects.models import A2AProtocolVersion, A2ATool, PromptAgentDefinition
+
+    return PromptAgentDefinition(
+        model=settings.deployment,
+        instructions=instructions,
+        tools=[
+            A2ATool(
+                project_connection_id=connection_id,
+                a2a_version=A2AProtocolVersion.V1_0,
+                send_credentials_for_agent_card=True,
+            )
+        ],
+    )
+
+
 def select_v1_interface(card: dict[str, Any], expected_url: str) -> dict[str, str]:
     interfaces = card.get("supportedInterfaces")
     if not isinstance(interfaces, list):
@@ -73,32 +115,22 @@ def select_v1_interface(card: dict[str, Any], expected_url: str) -> dict[str, st
     return {key: selected[0][key] for key in ("url", "protocolVersion", "protocolBinding")}
 
 
-def raw_request(
-    project: Any,
-    settings: Settings,
-    method: str,
-    path: str,
-    body: dict | None = None,
-    *,
-    api: bool = True,
-) -> dict:
+def card_request(project: Any, settings: Settings, path: str) -> dict:
+    """GET the A2A protocol card; the management routes use typed SDK methods instead."""
     from azure.core.exceptions import HttpResponseError
     from azure.core.rest import HttpRequest
 
     if not path.startswith("/agents/") or "?" in path or ".." in path:
         raise ValueError("A2A requests must stay on the intended project agent path.")
-    options: dict[str, Any] = {}
-    if api:
-        options["params"] = {"api-version": "v1"}
-    else:
-        options["headers"] = {"A2A-Version": "1.0"}
-    if body is not None:
-        options["json"] = body
-    request = HttpRequest(method, settings.project_endpoint + path, **options)
+    request = HttpRequest(
+        "GET",
+        settings.project_endpoint + path,
+        headers={"A2A-Version": A2A_PROTOCOL.version},
+    )
     response = project.send_request(request)
     if response.status_code != 200:
         raise HttpResponseError(
-            message=f"A2A {method} failed with HTTP {response.status_code}; no protocol downgrade.",
+            message=f"A2A GET failed with HTTP {response.status_code}; no protocol downgrade.",
             response=response,
         )
     return response.json()
@@ -144,15 +176,9 @@ def target(project: Any, root: Path, settings: Settings, *, confirmed: bool) -> 
         "incoming_enabled": False,
     }
     write_json(ledger_path(root, settings), ownership)
-    response = raw_request(
-        project,
-        settings,
-        "PATCH",
-        f"/agents/{quote(selected['target'], safe='')}",
-        incoming_patch(),
-    )
+    response = project.agents.update_details(agent_name=selected["target"], **incoming_update())
     ownership["incoming_enabled"] = True
-    ownership["endpoint_patch_response"] = response
+    ownership["endpoint_patch_response"] = response.as_dict()
     write_json(ledger_path(root, settings), ownership)
     return {
         **created,
@@ -172,12 +198,10 @@ def inspect(project: Any, root: Path, settings: Settings) -> dict[str, Any]:
         raise ValueError(
             "The target has additional/different versions; its endpoint binding is no longer frozen."
         )
-    card = raw_request(
+    card = card_request(
         project,
         settings,
-        "GET",
         f"/agents/{names(settings)['target']}/endpoint/protocols/a2a/agentCard/v1.0",
-        api=False,
     )
     evidence_path = ledger_path(root, settings).parent / "card-checks" / f"{uuid4().hex}.json"
     write_json(evidence_path, card)
@@ -219,25 +243,13 @@ def caller(project: Any, root: Path, settings: Settings, *, confirmed: bool) -> 
         if settings.language == "en"
         else "합성 출장 규정 질문을 연결된 A2A 전문 agent에 위임하세요. 원문 정책 ID·날짜·승인 경계를 유지하고 예약·지급·승인을 실행하지 않습니다. 한국어로 답하세요."
     )
-    body = {
-        "definition": {
-            "kind": "prompt",
-            "model": settings.deployment,
-            "instructions": instructions,
-            "tools": [
-                {
-                    "type": "a2a",
-                    "a2a_version": "1.0",
-                    "project_connection_id": connection.id,
-                    "send_credentials_for_agent_card": True,
-                }
-            ],
-        }
-    }
-    agent = project.agents.create_version(agent_name=names(settings)["caller"], body=body)
+    definition = caller_definition(settings, instructions, connection.id)
+    agent = project.agents.create_version(
+        agent_name=names(settings)["caller"], definition=definition
+    )
     ownership.update(
         caller_version=agent.version,
-        caller_request=body,
+        caller_request={"definition": definition.as_dict()},
         connection_id=connection.id,
         connection_target=connection.target,
     )
@@ -380,12 +392,9 @@ def invoke(
     }
     write_json(directory / "request.json", request)
     write_json(directory / "binding.json", binding)
-    accepted = raw_request(
-        project,
-        settings,
-        "GET",
-        f"/agents/{names(settings)['caller']}/versions/{ownership['caller_version']}",
-    )
+    accepted = project.agents.get_version(
+        agent_name=names(settings)["caller"], agent_version=ownership["caller_version"]
+    ).as_dict()
     write_json(directory / "actual-caller-definition.json", accepted)
     response, raw = response_with_payload(
         client, error_path=directory / "service-error.json", **request

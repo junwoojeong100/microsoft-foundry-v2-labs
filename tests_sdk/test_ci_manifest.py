@@ -71,3 +71,28 @@ class CIManifestTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 PREPARE.prepare(path, settings(), "mfv2-unit-ci")
             self.assertEqual(path.read_bytes(), before)
+
+
+class OptionalWorkflowTests(unittest.TestCase):
+    def test_live_smoke_is_manual_cost_gated_and_read_mostly(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/live-smoke.yml").read_text())
+        triggers = workflow.get("on", workflow.get(True))
+        self.assertEqual(set(triggers), {"workflow_dispatch"})
+        job = workflow["jobs"]["smoke"]
+        self.assertEqual(job["environment"], "foundry-workshop")
+        commands = "\n".join(step.get("run", "") for step in job["steps"])
+        self.assertIn('if [ "$ACKNOWLEDGE_COST" != "true" ]', commands)
+        self.assertIn("doctor --cloud", commands)
+        self.assertIn("model --output outputs/live-smoke/model.json", commands)
+        for forbidden in ("azd", "--confirm-create", "deploy", "role", "seed-search", "collect"):
+            self.assertNotIn(forbidden, commands)
+
+    def test_drift_report_is_scheduled_read_only_and_never_logs_in(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/dependency-drift.yml").read_text())
+        triggers = workflow.get("on", workflow.get(True))
+        self.assertEqual(set(triggers), {"schedule", "workflow_dispatch"})
+        self.assertEqual(workflow["permissions"], {"contents": "read"})
+        steps = workflow["jobs"]["drift"]["steps"]
+        self.assertFalse(any("azure/login" in step.get("uses", "") for step in steps))
+        commands = "\n".join(step.get("run", "") for step in steps)
+        self.assertEqual(commands.strip(), "python scripts/check_dependency_drift.py")

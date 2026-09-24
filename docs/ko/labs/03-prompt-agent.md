@@ -4,17 +4,17 @@
 
 **완료 목표:** 모델에 합성 업무 지침과 문서를 붙여, 출처와 한계를 설명하는 답변을 만듭니다.
 
-**내 구간 바로 열기:** [A — 인라인 agent](#path-a) · B: [Lab 04 B로 이동](04-agents-tools.md#path-b) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 인라인 agent](#path-a) · [B — SDK 관리형 Prompt Agent](#path-b) · [학습 경로](../paths.md)
 
 ## 시작 전
 
-**이번 순서:** A는 완성된 인라인 지침 파일로 Prompt Agent 하나를 만듭니다. File Search·SDK 생성은 별도 선택 경로입니다.
+**이번 순서:** A는 완성된 인라인 지침 파일로 브라우저 Prompt Agent 하나를 만듭니다. B는 SDK로 관리형 Prompt Agent를 만들고 반환된 정확한 버전을 호출합니다. File Search는 계속 선택입니다.
 
-**준비물:** 학습자 ZIP·본인 prefix·Lab 02에서 성공한 모델.
+**준비물:** A는 학습자 ZIP. B는 Lab 00 터미널, `.env`, 본인 prefix, Lab 02에서 성공한 모델.
 
-**다음으로 갈 기준:** 저장한 에이전트 이름/버전과 네 확인 질문의 실제 답변을 기록했습니다.
+**다음으로 갈 기준:** A는 저장한 브라우저 agent/버전과 네 가지 확인을 기록했습니다. B는 `prompt-agent-create.json`, `prompt-agent-invoke.json`, 정확한 버전과 response ID를 기록했습니다.
 
-**막히면:** 답변이 정책을 무시하면 파일 전체가 대화창이 아닌 **지침**에 들어가 저장됐는지 확인합니다. 에이전트 이름과 버전은 본인 것을 사용합니다.
+**막히면:** A 답변이 정책을 무시하면 파일 전체가 **지침**에 들어갔고 저장됐는지 확인합니다. B 생성/호출이 실패하면 오류를 보존하고 `latest`나 로컬 MAF agent로 대체하지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
@@ -161,44 +161,95 @@ D01, D02, D03, D05를 하나씩 질문합니다. ZIP의 `dev-questions.txt`에�
 내려받은 지침 파일만으로 실제 저장 내용을 증명할 수는 없습니다. 이전 회차의 지침 사본은 덮어쓰지 않습니다.
 
 **A 완료:** `instructions-baseline.txt`·해당 agent 버전·확인 4건을 증거 폴더에 보관합니다.
-[Lab 05 A](05-workflows.md#path-a)로 이동합니다. Lab 04와 아래 SDK 경로는 A의 필수 단계가 아닙니다.
+[Lab 05 A](05-workflows.md#path-a)로 이동합니다. Lab 04와 B SDK 경로는 A의 필수 단계가 아닙니다.
 
-## B. 선택 SDK 경로 — 관리형 prompt agent와 로컬 MAF 구분
+<a id="path-b"></a>
+
+## B. 코드 — SDK로 관리형 Prompt Agent를 만들고 정확한 버전 호출
+
+**이 판에서 아직 실행하지 않음(2026-09-24 추가).** 이 핵심 B 단계는 프로젝트 관리형 Prompt Agent와 변경 불가능한 버전 하나를 만듭니다.
+`.env`의 `WORKSHOP_PREFIX`로 시작하는 새 이름을 사용합니다. A의 브라우저 agent나 녹화 속 이름을 재사용하지 않습니다.
+`session-notes.txt`의 `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json 검토:`에 확인 결과를 기록합니다.
+
+### 1. 관리형 Prompt Agent 만들기
+
+```bash
+printf '새 agent 이름(<본인 prefix>-policy-sdk): '
+read -r AGENT_NAME
+python scripts/workshop.py prompt-agent create --name "$AGENT_NAME" --confirm-create --output outputs/learner-notes-ko/prompt-agent-create.json
+```
+
+**저장:** `prompt-agent-create.json`
+
+호출 전에 저장된 JSON을 엽니다. 반환된 agent 이름과 버전을 기록합니다. 이 명령은 실제 관리형 프로젝트 자산을 만듭니다.
+
+### 2. 반환된 정확한 버전 호출
+
+```bash
+printf '위에서 반환된 agent_version: '
+read -r AGENT_VERSION
+python scripts/workshop.py prompt-agent invoke --name "$AGENT_NAME" --version "$AGENT_VERSION" --question "2026년 9월 국내 출장 숙박비 한도는?" --output outputs/learner-notes-ko/prompt-agent-invoke.json
+```
+
+**저장:** `prompt-agent-invoke.json`
+
+같은 터미널에서 실제 반환 버전을 사용합니다. 녹화 속 버전을 입력하거나 `latest`를 호출하지 않습니다.
+`prompt-agent-invoke.json`의 `response_id`를 보관합니다. Lab 09에서 trace 조회에 사용합니다.
+
+### 3. 새 메시지를 보내지 않고 포털 확인
+
+Foundry 상단 **빌드** → 왼쪽 **에이전트**에서 본인 SDK agent를 엽니다. 같은 버전과 지침이 보이는지 확인합니다.
+이 확인을 위해 Playground 메시지를 새로 보내지 않습니다. 이 SDK agent는 Lab 04의 로컬 MAF agent와 달리 관리형 프로젝트 자산입니다.
+반대 방향도 가능합니다. 2단계의 `prompt-agent invoke` 명령은 포털에서 만든 agent도 이름과 저장 버전으로 호출할 수 있습니다(예: Lab 03 A에서 만든 agent가 있는 경우). 선택 사항이며 유료 요청이므로 실행했다면 따로 기록합니다.
+
+### 4. 개념 메모
+
+모든 Foundry agent에는 안정적인 endpoint가 있고 활성 버전이 traffic을 받습니다.
+버전은 변경할 수 없으므로 이 워크숍은 항상 반환된 정확한 버전을 고정합니다.
+Agent Applications, Microsoft 365 Copilot 또는 Teams로 게시/공유하는 기능은 있지만 Microsoft 365 tenant가 필요하므로 범위 밖입니다.
+2026-09-24 확인: [agent 구성](https://learn.microsoft.com/azure/foundry/agents/how-to/configure-agent), [Copilot 게시](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-copilot).
+
+**B 완료:** `prompt-agent-create.json`, `prompt-agent-invoke.json`, 정확한 agent 버전, 호출 `response_id`를 보관합니다.
+[Lab 04 B](04-agents-tools.md#path-b)로 이동합니다.
 
 <details>
-<summary>선택 SDK agent — 다른 agent를 생성하며 A/B 기본 경로에는 필수가 아닙니다</summary>
+<summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
 
-A/B 첫 회차에 필수는 아닙니다. 브라우저 agent와 다른 새 agent를 만듭니다.
-`.env`의 `WORKSHOP_PREFIX`로 시작하는 새 이름을 입력하고 브라우저 agent 이름은 재사용하지 않습니다.
+독립 예제는 [`examples/recipes/03_prompt_agent.py`](../../../examples/recipes/03_prompt_agent.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
 
-```bash
-printf 'New agent name (<your prefix>-policy-sdk): '
-read -r AGENT_NAME
-python scripts/workshop.py prompt-agent create --name "$AGENT_NAME" --confirm-create
+```python
+project.agents.create_version(
+    agent_name=name, definition=PromptAgentDefinition(model=deployment, instructions=instructions)
+)
+client.responses.create(
+    input=question,
+    extra_body={
+        "agent_reference": {"type": "agent_reference", "name": agent.name, "version": agent.version}
+    },
+    store=False,
+)
 ```
 
-위 이름의 접두사는 `.env`의 `WORKSHOP_PREFIX`와 같아야 합니다. 본인 이름으로 바꿉니다.
-명령은 **실제 프로젝트에 새 agent version을 생성**합니다. 에이전트 이름과 버전을 기록합니다.
-SDK 예제는 비교가 쉬운 작은 문서 컨텍스트를 지침에 포함하며 **File Search를 만든다고 주장하지 않습니다.**
+이 워크숍에서는 여전히 `--confirm-create`와 `WORKSHOP_PREFIX-` 이름이 필요합니다.
 
-![2026-09-24 국문 녹화: 선택 SDK Prompt Agent: 소유 버전 생성](../../assets/g6sol-20260924-ko/screenshots/K03-001-sdk-create-2.webp)
+**직접 작성:** 읽기 전용 지침 문장 하나를 추가해 새 버전을 만들고, 질문은 바꾸지 않은 채 정확한 버전을 호출합니다.
 
-**화면 확인:** `agent_name`과 `agent_version`을 다음 호출에 그대로 사용합니다.
-녹화의 SDK agent(버전 1)와 위 브라우저 agent(버전 2)는 별도 에이전트이므로 버전을 혼용하지 않습니다.
+</details>
 
-```bash
-printf 'agent_version returned above: '
-read -r AGENT_VERSION
-python scripts/workshop.py prompt-agent invoke --name "$AGENT_NAME" --version "$AGENT_VERSION" --question "2026년 9월 국내 출장 숙박비 한도는?"
-```
+<details>
+<summary>이전 녹화: 2026-09-24 선택 SDK 경로 — 이번 판의 <code>--output</code> 파일 근거가 아닙니다</summary>
 
-같은 터미널에서 생성 결과의 실제 version을 입력합니다. 녹화의 `1`을 따라 쓰지 않습니다.
+아래 화면은 이전 선택 경로의 녹화입니다. 필드를 알아보는 데만 사용하고 `prompt-agent-create.json` 또는 `prompt-agent-invoke.json`의 근거로 쓰지 않습니다.
 
-![2026-09-24 국문 녹화: 반환된 SDK 에이전트 버전 호출](../../assets/g6sol-20260924-ko/screenshots/K03-002-sdk-invoke-2.webp)
+![2026-09-24 국문 녹화: 선택 SDK Prompt Agent로 본인 버전 만들기](../../assets/g6sol-20260924-ko/screenshots/K03-001-sdk-create-2.webp)
+
+**화면 확인:** 반환된 `agent_name`과 `agent_version`을 호출에 사용합니다.
+녹화의 SDK agent(버전 1)와 브라우저 agent(버전 2)는 별도 에이전트이므로 버전을 혼용하지 않습니다.
+
+![2026-09-24 국문 녹화: 반환된 SDK agent 버전 호출](../../assets/g6sol-20260924-ko/screenshots/K03-002-sdk-invoke-2.webp)
 
 **화면 확인:** SDK 호출은 "latest"가 아니라 반환된 정확한 버전(이 녹화에서는 `1`)을 지정합니다.
 
-같은 이름에 새 버전이 생겼다면 “최신 버전”을 묵시적으로 호출하지 않습니다.
 SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기록합니다.
 
 </details>
@@ -221,4 +272,4 @@ SDK의 버전 고정 방식은 [버전 기준](../reference/versions.md)에 기�
 답변이 자연스럽다는 사실과 회사 규정이 맞다는 사실은 별개입니다.
 이 차이를 [Lab 07](07-evaluation.md)에서 평가 기준으로 바꿉니다.
 
-다음: A → [Lab 05](05-workflows.md#path-a) · B: [Lab 04로 이동](04-agents-tools.md#path-b)
+다음: A → [Lab 05](05-workflows.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)

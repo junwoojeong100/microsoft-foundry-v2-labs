@@ -57,6 +57,25 @@ Azure deployment. Check included/excluded files against the manifest.
 mark local invocation and remote deployment **not run**, then continue to [Lab 09 B](09-operations.md#path-b).
 
 <details>
+<summary>Minimal SDK recipe (optional, outside this repo)</summary>
+
+See [`examples/recipes/08_hosted_agent.py`](../../examples/recipes/08_hosted_agent.py) for the minimal Hosted Responses server pattern. Key lines:
+
+```python
+agent = Agent(...)
+ResponsesHostServer(agent).run()
+```
+
+`agent-framework-foundry-hosting` is a prerelease Python package; the Hosted Agent service is GA (checked 2026-09-24).
+
+**Write it yourself:** expose the same read-only agent locally and verify readiness before sending one synthetic question.
+
+</details>
+
+
+> ⛔ **Stop here unless this optional step was approved.** Everything below is optional/path C and may create billable resources or need extra roles. A/B learners continue with the next-lab link above.
+
+<details>
 <summary>Optional local/remote single-agent execution — expand only with the matching entry gate</summary>
 
 <a id="hosting-gates"></a>
@@ -85,7 +104,9 @@ Learners install and sign in themselves. Do not unconditionally upgrade installe
 python -m pip install -e ".[hosted]"
 azd version
 azd ext list
-azd auth login
+printf 'Azure tenant ID from your setup card: '
+read -r AZD_TENANT_ID
+azd auth login --tenant-id "$AZD_TENANT_ID"
 python scripts/prepare_hosted_azd.py --help
 ```
 

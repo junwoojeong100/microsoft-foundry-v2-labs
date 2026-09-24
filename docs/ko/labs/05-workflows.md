@@ -8,9 +8,9 @@
 
 ## 시작 전
 
-**이번 순서:** A는 준비된 터미널에서 순차 명령 하나, B는 세 패턴을 비교합니다. 배포용 wrapper는 심화입니다.
+**이번 순서:** A는 미리 선택된 실행 방식 하나를 사용합니다. 담당자가 준비한 Hosted workflow agent가 있으면 Playground를, 아니면 준비된 터미널 명령 하나를 사용합니다. B는 세 MAF 패턴을 비교합니다. 배포용 wrapper는 심화입니다.
 
-**준비물:** A도 저장소 루트에서 활성화된 준비 터미널이 필요합니다. 제공받지 않았다면 Lab 00 B와 Lab 02 B를 한 번 완료한 뒤 돌아옵니다.
+**준비물:** 준비된 Hosted workflow agent의 Playground 또는 저장소 루트의 활성화된 준비 터미널이 필요합니다. 둘 다 없으면 Lab 00 B와 Lab 02 B를 한 번 완료한 뒤 돌아옵니다.
 
 **다음으로 갈 기준:** 실제 MAF 출력과 사람의 검토 기록이 남았습니다. pending-human-review는 승인이 아닙니다.
 
@@ -20,6 +20,7 @@
 
 ## 이 랩은 MAF 워크플로만 사용합니다
 
+Foundry 포털 Workflows(시각적, Preview)는 2026-12-01에 종료됩니다. 새 workflow는 Microsoft Agent Framework로 만듭니다([2026-09-24 확인](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow)).
 Foundry 포털의 Workflow Designer에서 노드를 생성·연결·게시하는 경로는 사용하지 않습니다.
 워크플로의 역할·순서·종료 조건은 **Microsoft Agent Framework(MAF) Python 코드**가 소유합니다.
 Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측을 제공합니다.
@@ -29,10 +30,16 @@ Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측�
 
 ## A. 초보자 — 준비된 MAF 예제를 직접 실행
 
-설정 카드에 적은 **준비된 MAF 실행 환경**의 터미널에 명령 하나를 복사해 실행합니다. 코드를 직접 작성하지 않습니다.
+설정 카드에 적은 준비된 방식 하나를 사용합니다. Hosted workflow agent가 준비되어 있으면 Playground를 사용하고, 아니면 **준비된 MAF 실행 환경**의 터미널에 명령 하나를 복사해 실행합니다. 코드를 직접 작성하지 않습니다.
 이 명령은 담당자의 예산 안에서 실제 유료 Azure 모델을 호출합니다. 관리자 계정을 공유하지 않습니다.
 
-### 1. 준비된 순차 워크플로 실행
+### 1. 준비된 실행 방식 선택
+
+**브라우저 방식, 담당자가 미리 선택한 경우에만 — 이 판에서 아직 실행하지 않음(2026-09-24 추가).** 상단 **빌드** → 왼쪽 **에이전트**에서 준비된 Hosted workflow agent를 열고 **플레이그라운드** 탭에서 같은 질문을 한 번 보낸 뒤 `workflow-review.txt`에 대화 ID / 응답 ID를 기록합니다. 터미널 실패 뒤의 대체가 아니라 미리 선택한 hosted 방식입니다.
+
+**터미널 방식(기본 녹화 경로):** 아래 준비된 MAF 명령을 실행하고 `workflow-review.txt`에 `실행 방식(준비된 터미널 / 준비된 hosted workflow agent Playground):`를 기록합니다.
+
+### 2. 준비된 순차 워크플로 실행
 
 1. 브라우저 IDE나 VS Code에서 준비된 터미널을 엽니다. 파일 목록에 `README.md`와 `scripts/`가 보이고,
    프롬프트는 보통 `(.venv)`로 시작합니다. 그렇지 않으면 멈추고 담당자에게 요청합니다. 수업 중에 직접 설치하지 않습니다.
@@ -52,7 +59,7 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 **화면 확인:** 출력에 `mode: live`, `pattern: sequential`, `outputs`가 있습니다.
 터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다. 녹화는 같은 명령을 `--output` 없이 실행했습니다.
 
-### 2. 실제 결과 읽기
+### 3. 실제 결과 읽기
 
 세 MAF 역할이 차례로 질문을 처리했고, `outputs`에는 마지막 역할의 최종 답변만 나옵니다.
 
@@ -113,6 +120,7 @@ flowchart LR
 ### 1. 순차 패턴 실행: 앞 단계 결과가 다음 단계의 입력
 
 ```bash
+mkdir -p outputs
 python scripts/workshop.py workflow --pattern sequential \
   --output outputs/learner-notes-ko/workflow-sequential.json
 ```
@@ -179,6 +187,24 @@ JSON 앞에 `GroupChatOrchestrator reached max_rounds=3; forcing completion.`이
 각 결과의 `approval_status: pending-human-review`, `external_actions_performed: false`를 보존합니다.
 [Lab 06 B](06-knowledge.md#path-b)로 이동합니다. Durable 승인·배포용 wrapper는 별도 확장입니다.
 
+<details>
+<summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
+
+독립 예제는 [`examples/recipes/05_maf_sequential.py`](../../../examples/recipes/05_maf_sequential.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
+
+```python
+Agent(...)
+Agent(...)
+SequentialBuilder(participants=[...]).build()
+await workflow.run(task)
+result.get_outputs()
+```
+
+**직접 작성:** 한 문장짜리 reviewer 역할을 추가하고 입력 질문은 고정한 채 최종 출력이 바뀌는지 비교합니다.
+
+</details>
+
+
 ## Human-in-the-loop를 정확히 이해하기
 
 예제의 `approval_status: pending-human-review`는 **정지 표지**입니다.
@@ -195,6 +221,8 @@ JSON 앞에 `GroupChatOrchestrator reached max_rounds=3; forcing completion.`이
 - 상태 저장, 재시작, 감사 로그, rollback/보상 동작.
 
 모델에게 “너는 승인자”라는 지침을 준 것으로 사람 승인을 대체하지 않습니다.
+
+> ⛔ **승인된 선택 단계가 아니면 여기서 멈춥니다.** 아래는 선택/C 단계이며 유료 자원이나 추가 역할이 필요할 수 있습니다. A/B 학습자는 위의 다음 랩 링크로 이동합니다.
 
 ## C. 경험자 심화 — 같은 워크플로를 배포 가능한 Agent로
 

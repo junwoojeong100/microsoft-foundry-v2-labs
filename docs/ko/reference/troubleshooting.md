@@ -52,6 +52,8 @@
 | 새 모델 출시 직후 `model`·`answer`·MAF·agent에서 HTTP 500 | 프로젝트 agent 경로가 아직 그 모델을 지원하지 않을 수 있음(2026-09-23 `gpt-6-luna`). 멈추고 기록. 모델·endpoint 변경 금지 | [모델 선택](model-choice.md) |
 | IQ에 Chat 모델이 없다고 나옴 | 기본 B는 모델 없는 GA 검색. 선택 A IQ Chat은 별도로 준비한 base 필요 | [06](../labs/06-knowledge.md) |
 | Hosted 명령이 다른 로컬 프로젝트를 선택 | 기록한 절대 경로 `HOSTED_DIRECTORY`를 복구하고 모든 azd 명령에 `--cwd` 사용 | [08](../labs/08-hosted.md) |
+| Traces에 trace가 보이지 않음 | 요청 전에 담당자가 Application Insights를 프로젝트에 연결했는지 확인한 뒤 90일 포털 창에서 Response ID 또는 Trace ID로 검색. 로컬 MAF 실행은 Foundry server-side trace를 만들지 않음 | [09](../labs/09-operations.md) |
+| Traces 권한 오류 | 학습자에게 연결된 Application Insights 리소스의 Log Analytics Reader가 필요. 보호된 테이블이 있으면 Privileged Monitoring Data Reader도 필요 | [09](../labs/09-operations.md) |
 
 <details>
 <summary>전체 오류 참조 — 위 짧은 표에 없는 오류일 때 펼칩니다</summary>
@@ -92,6 +94,8 @@
 | holdout이 거부됨 | 후보 dev 통과·고정, 같은 code/prompt/model/provider, 명시적 unlock | 07 |
 | 로컬은 성공, Hosted는 403 | 런타임 identity의 역할; 로컬 `az login` 반복 금지 | 08 |
 | 로그/trace가 없음 | App Insights app ID·exporter·agent·시간 범위·sampling·보존/보호 테이블 권한. trace 0건은 정상 운영이 아니라 미확인 | 09 |
+| Traces에 trace가 보이지 않음 | 프로젝트에 연결된 Application Insights, 연결 뒤 요청, Response ID/Trace ID 검색, 90일 포털 보존 기간 확인. 로컬 MAF에는 server-side trace가 없음 | 09 |
+| Traces 권한 오류 | 연결된 Application Insights의 Log Analytics Reader. 보호된 테이블이 켜져 있으면 Privileged Monitoring Data Reader도 필요 | 09 |
 | 영문 질문에 국문 자료가 사용됨 | `--language en`과 영문 전용 index/source/base 선택. 오류 뒤 국문 자료로 대체하지 않음 | 00–07 |
 | 영문 파일 누락 | 고정된 영문 번들을 복원하고 기존 국문 파일은 보존 | 00 |
 | `--agent-endpoint`와 `--protocol` 충돌 | full endpoint에 protocol이 이미 포함됨. 로컬 호출은 protocol을 명시 | 08 |

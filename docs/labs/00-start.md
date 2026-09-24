@@ -124,7 +124,7 @@ including any existing `outputs/azure-objects.json` ownership record.
 
 **No source folder yet?** Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)
 with a GitHub account that has access, then **Code → Download ZIP**, extract it and open the folder in VS Code.
-This is the **source repository ZIP**, not the small learner-materials ZIP. Open **Terminal → New Terminal**.
+This is the **source repository ZIP**, not the small learner-materials ZIP. Git users who want a lightweight clone can run `git clone --depth 1 --filter=blob:none --sparse <repo>` and then `git sparse-checkout set --no-cone '/*' '!docs/assets/' '!videos/'`; screenshots then render only on GitHub. Open **Terminal → New Terminal**.
 
 In either case, the terminal's directory must contain `README.md`, `pyproject.toml`, and `scripts/`.
 If Python is missing, install [Python 3.13](https://www.python.org/downloads/) first; do not continue past a `command not found` error.
@@ -222,7 +222,9 @@ Use the [official Azure CLI installation guide](https://learn.microsoft.com/cli/
 Learners sign in themselves.
 
 ```bash
-az login
+printf 'Azure tenant ID from your setup card: '
+read -r AZURE_TENANT_ID
+az login --tenant "$AZURE_TENANT_ID"
 if [ -e .env ] || [ -L .env ]; then
   printf '%s\n' '.env exists; edit it without replacing it.'
 else
@@ -230,7 +232,7 @@ else
 fi
 ```
 
-**What to check:** `az login` ends by listing your account and the intended subscription, and `.env` now exists
+**What to check:** `az login --tenant` ends by listing your account in the intended tenant and subscription, and `.env` now exists
 (or the block printed `.env exists`, so you edit the existing file).
 
 Open `.env` in VS Code and fill **section 1** with the setup-card values. Keep its local defaults;

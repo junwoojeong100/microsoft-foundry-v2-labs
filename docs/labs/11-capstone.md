@@ -32,7 +32,7 @@ learner. Add neither company data nor automatic payments.
 | MAF workflow | Actual prepared sequential run and human review | Code/results for sequential, concurrent, Group Chat |
 | Evaluation | Manual assessment of all six real dev answers | Complete dev before/after, final holdout, errors |
 | Failure review | Actual failure or all-pass record | Source run/request/response and pending review |
-| Operations | Permissions, cost, cleanup | Reproduction settings and cleanup; remote version/trace only if selected |
+| Operations | Permissions, cost, cleanup and trace evidence or unverified reason | Reproduction settings, cleanup and trace evidence; local MAF has no server-side trace |
 | Limitations | Observed-only and unrun features | SDK/cloud/Preview verification boundaries |
 
 <a id="path-a"></a>
@@ -86,6 +86,7 @@ If you chose different names, record those exact paths in `session-notes.txt`.
 | From | Keep |
 |---|---|
 | Lab 02 | `model.json`, `answer-local.json` |
+| Lab 03 | `prompt-agent-create.json`, `prompt-agent-invoke.json` |
 | Lab 04 | `maf-none.json`, `maf-function.json`, `maf-mcp.json` |
 | Lab 05 | `workflow-sequential.json`, `workflow-concurrent.json`, `workflow-group-chat.json`, completed `workflow-review.txt` |
 | Lab 06 | `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`, `answer-iq.json`; original `outputs/azure-objects.json` |
@@ -95,7 +96,7 @@ If you chose different names, record those exact paths in `session-notes.txt`.
 
 Open each saved JSON and review the whole response. `--output` preserves it; saving alone does not establish a correct answer.
 In `session-notes.txt`, **B - code evidence and handoff** must also contain your per-lab findings,
-Lab 07's comparison/gate decision and actual verdict, and Lab 08's package/execution status.
+Lab 07's comparison/gate decision and actual verdict, Lab 08's package/execution status, and Lab 09's trace evidence or unverified reason.
 An empty template or a filename alone is not execution evidence. If an item is missing, use the incomplete outcome below;
 do not repeat paid calls or fabricate files just to fill the inventory.
 
@@ -141,7 +142,7 @@ Do not report missing runs as `0 errors`, manufacture an `acceptance.json`, unlo
 This is a useful blocked-work handoff, **not successful completion of B's missing requirements**.
 Still finish the owned/shared asset and residual-cost entries in `operations-checklist.txt`.
 
-**B done:** hand over the existing files in the [B evidence inventory](#b-evidence), including Lab 02's model outputs and Lab 05's human review.
+**B done:** hand over the existing files in the [B evidence inventory](#b-evidence), including Lab 02's model outputs, Lab 03's managed-agent outputs, Lab 05's human review and Lab 09 trace status.
 Finish the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
 Mark a failed business gate **rejected**, missing required stages **incomplete**, and omitted optional local/remote hosting, cloud judge or trace work **not run / unverified**.
 
@@ -200,5 +201,7 @@ policy approval, broader evaluation, threat modeling, load/recovery/access revie
 and service-specific SLA, price, and retention reviews.
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)
+
+**Next learning:** continue with [Learning resources](../reference/learning-resources.md).
 
 Next: A → [Cleanup](../reference/cleanup.md) · B → [Cleanup](../reference/cleanup.md)

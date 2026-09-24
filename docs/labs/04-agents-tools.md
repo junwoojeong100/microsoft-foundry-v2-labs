@@ -8,9 +8,9 @@
 
 ## Before you start
 
-**This pass:** B runs no-tool, function-tool and MCP commands in order. A skips directly to Lab 05.
+**This pass:** A skips directly to Lab 05. B arrives from Lab 03 B, then runs no-tool, function-tool and MCP commands in order.
 
-**Need:** Lab 00 environment plus a real Lab 02 response; no separate MCP server terminal is required.
+**Need:** Lab 00 environment, a real Lab 02 response and the Lab 03 B managed-agent files; no separate MCP server terminal is required.
 
 **Continue when:** You have the no-tool response plus function/MCP responses with their source IDs. The long-input rejection is an optional negative test.
 
@@ -48,7 +48,7 @@ Open `src/foundry_workshop/agents.py` and locate:
 3. `agent.run()`: the actual model request.
 
 Creating an `Agent` object does not register a managed portal agent; this one belongs to your Python process.
-(Optional: Lab 03's [SDK branch](03-prompt-agent.md#b-optional-sdk-branch-managed-prompt-agent-versus-local-maf) shows the managed alternative, `project.agents.create_version()`.)
+Lab 03 B shows the managed alternative, `project.agents.create_version()`; this Lab 04 agent belongs only to your Python process.
 
 ## 2. Add a read-only function tool
 
@@ -126,6 +126,22 @@ for May 2026. A function-tool response cannot stand in for an MCP execution.
 
 **B done:** retain the three actual outputs and explain no tool, function and local MCP.
 Continue to [Lab 05 B](05-workflows.md#path-b); sections 4 and 5 below are optional.
+
+<details>
+<summary>Minimal SDK recipe (optional, outside this repo)</summary>
+
+See [`examples/recipes/04_maf_tool.py`](../../examples/recipes/04_maf_tool.py) for the standalone pattern. Key lines:
+
+```python
+@tool(approval_mode="never_require") def lookup_policy(query: str) -> str
+Agent(client=FoundryChatClient(project_endpoint=..., model=deployment, credential=credential), instructions=..., tools=[lookup_policy])
+await agent.run(question)
+```
+
+**Write it yourself:** add a second read-only synthetic lookup field and verify the tool output still cites policy IDs before the answer.
+
+</details>
+
 
 ## 4. Optional: inspect tool boundaries and reject invalid input
 

@@ -21,6 +21,7 @@ class A2ATransport(HttpTransport):
         self.requests = []
         self.agents = {}
         self.card_version = "1.0"
+        self.patches = []
 
     def open(self):
         return self
@@ -80,6 +81,9 @@ class A2ATransport(HttpTransport):
                 {"data": [{"name": name, "version": "1", **self.agents[name]}], "has_more": False},
             )
         name = path.rsplit("/", 1)[-1]
+        if request.method == "PATCH":
+            self.patches.append(json.loads(request.body))
+            return Reply(request, 200, {"name": name, "id": name, "versions": {}})
         if name not in self.agents:
             return Reply(
                 request,
@@ -95,7 +99,7 @@ class A2ASDKTests(unittest.TestCase):
         environment.start()
         self.addCleanup(environment.stop)
 
-    def test_raw_v1_contract_works_through_the_pinned_sdk_without_typed_a2a_fallback(self):
+    def test_typed_sdk_requests_serialize_to_the_recorded_v1_contract(self):
         transport = A2ATransport()
         with workspace() as root:
             with AIProjectClient(
@@ -113,14 +117,21 @@ class A2ASDKTests(unittest.TestCase):
             tool = ledger["caller_request"]["definition"]["tools"][0]
             self.assertEqual(tool["type"], "a2a")
             self.assertEqual(tool["a2a_version"], "1.0")
+            self.assertEqual(tool["project_connection_id"], "unit-a2a-link")
+            self.assertIs(tool["send_credentials_for_agent_card"], True)
+            sent = transport.agents[a2a_lab.names(settings())["caller"]]
+            self.assertEqual(sent["definition"], ledger["caller_request"]["definition"])
         card_requests = [
             request for request in transport.requests if request.url.endswith("/agentCard/v1.0")
         ]
         self.assertTrue(card_requests)
         self.assertTrue(all(request.headers["A2A-Version"] == "1.0" for request in card_requests))
         self.assertTrue(all(not request.body for request in card_requests))
-        patches = [request for request in transport.requests if request.method == "PATCH"]
-        self.assertEqual(json.loads(patches[0].body), a2a_lab.incoming_patch())
+        self.assertEqual(transport.patches, [a2a_lab.incoming_patch()])
+        self.assertFalse(
+            any("api-version=v1" in request.url for request in card_requests),
+            "The protocol card uses the A2A header, not a management API version.",
+        )
 
     def test_preview_card_is_not_accepted_as_ga(self):
         transport = A2ATransport()

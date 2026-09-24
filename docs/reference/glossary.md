@@ -9,6 +9,7 @@
 | Resource group | Management container for related Azure resources |
 | Endpoint | Service address to which a program sends requests |
 | Deployment name | Name used to invoke a deployed model |
+| Stable agent endpoint / active version | A Foundry agent has a stable endpoint; the active version receives traffic until changed |
 | Prefix | Your `mfv2-...` naming boundary for owned cloud objects; not a run label |
 | Label | A name for one saved run, such as `baseline`; not an agent name, version or file path |
 | Model key | A local alias such as `a` for one explicitly configured deployment in a matrix |
@@ -27,6 +28,8 @@
 | Managed identity | Azure-managed runtime identity instead of a password |
 | OBO/delegated | Access to another service in an end user's permission context |
 | Trace/span | Request execution flow / one operation within it |
+| Server-side vs client-side tracing | Server-side traces appear after the project is connected to Application Insights; client-side tracing is separate instrumentation in the caller process |
+| Insights in Foundry (preview) | Preview portal analysis that scans recent agent traces, groups recurring behavior and suggests likely causes/actions for human review |
 | Evaluation/evaluator | Assessment against criteria / its rules or model |
 | Dev/holdout | Cases for development/selection / cases reserved until final acceptance |
 | Lineage | Links showing which data, instructions, models, and versions produced a result |

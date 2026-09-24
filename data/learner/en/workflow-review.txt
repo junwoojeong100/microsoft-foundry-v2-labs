@@ -4,6 +4,8 @@ A pastes the full JSON below. B records each --output file path; do not paste it
 Keep B's three original JSON files beside this review for handoff. Review every actual output.
 
 Execution date / language / deployment:
+Execution option (prepared terminal / prepared hosted workflow agent in Playground):
+Conversation ID / response ID (Playground option only):
 Exact command:
 Saved JSON file path (B only):
 Complete actual JSON output (A only):

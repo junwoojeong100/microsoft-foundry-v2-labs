@@ -10,6 +10,7 @@ from .contracts import (
     Answer,
     ModelOutputError,
     load_prompt,
+    openai_request_id,
     validate_question,
     write_json,
 )
@@ -50,7 +51,7 @@ def response_metadata(response: Any) -> dict[str, Any]:
             "Inspect content filtering, model support and output-token limits; no fallback was used.",
             {
                 "response_id": response.id,
-                "request_id": getattr(response, "_request_id", None),
+                "request_id": openai_request_id(response),
                 "response_model": response.model,
                 "raw_response_text": response.output_text,
             },
@@ -58,7 +59,7 @@ def response_metadata(response: Any) -> dict[str, Any]:
     usage = response.usage
     return {
         "response_id": response.id,
-        "request_id": getattr(response, "_request_id", None),
+        "request_id": openai_request_id(response),
         "response_model": response.model,
         "usage": {
             "input_tokens": usage.input_tokens,

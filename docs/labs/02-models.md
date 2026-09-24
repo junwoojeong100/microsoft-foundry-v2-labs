@@ -180,25 +180,22 @@ Choose your return point and stop the B route here:
 
 **B done:** save the complete outputs as `model.json` and `answer-local.json` in your Lab 00 notes directory,
 including response IDs, usage and source IDs.
-Continue to [Lab 04 B](04-agents-tools.md#path-b).
+Continue to [Lab 03 B](03-prompt-agent.md#path-b) to create the managed Prompt Agent before local MAF tools.
 
 <details>
-<summary>How the SDK call works — optional code reading, not another command</summary>
+<summary>Minimal SDK recipe (optional, reuse outside this repo)</summary>
 
-Read `project_clients` and `call_model` in `src/foundry_workshop/cloud.py`.
-The CLI above supplies your actual `.env` values to this flow:
+See [`examples/recipes/02_responses.py`](../../examples/recipes/02_responses.py) for the small standalone version. Key lines:
 
 ```python
-with AIProjectClient(endpoint=project_endpoint, credential=credential) as project:
-    with project.get_openai_client() as client:
-        response = client.responses.create(
-            model=deployment_name,
-            input="Explain the difference between Foundry and MAF.",
-            store=False,
-        )
+with AIProjectClient(endpoint=..., credential=AzureCliCredential()) as project, project.get_openai_client() as client:
+response = client.responses.create(model=deployment, input=question, store=False)
+print(response.output_text)
+print(response.id)
+print(response._request_id)
 ```
 
-Model-only questions may be translated freely. Keep canonical policy/evaluation questions unchanged during a comparison.
+**Write it yourself:** change only the question string, run it against the same deployment, and record the response ID and request ID separately.
 
 </details>
 
@@ -249,4 +246,4 @@ These captures come from the September 24, 2026 English recording with `gpt-6-so
 - 404: check the full project endpoint and the **deployment name** `gpt-6-sol`.
 - 429: stop repeated calls and ask the owner to check the `gpt-6-sol` quota (TPM); do not retry in a loop.
 
-Next: A → [Lab 03](03-prompt-agent.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)
+Next: A → [Lab 03](03-prompt-agent.md#path-a) · B → [Lab 03](03-prompt-agent.md#path-b)

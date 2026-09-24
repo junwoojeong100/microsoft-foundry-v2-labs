@@ -4,6 +4,7 @@
 
 **원본 모듈의 학습 구조를 통합했고, 실행 결과까지 물려받았다고 주장하지 않습니다.**
 확인일: 2026-09-15. 외부 리포의 main이 바뀌어도 아래 커밋은 고정된 비교 기준입니다.
+2026-09-24 확인으로 표시한 새 공식 근거 행은 이번 review refresh를 반영하며, 새 워크숍 실행을 뜻하지 않습니다.
 원본 기능의 v2 대체 위치와 미실행 게이트는 [통합·아카이브 기준](consolidation.md)에 구분했습니다.
 
 ## 통합한 사용자 소유 원본
@@ -43,7 +44,13 @@ MIT가 명시된 MAF Workshop/Agent Framework 원본의 저작권 표기는 루�
 | 자동 trace 데이터 | [Traces to dataset](https://learn.microsoft.com/azure/foundry/observability/how-to/traces-to-dataset) | Preview, SDK/권한 조건 |
 | Hosted 시작 | [Quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent) | code deployment, 기존/새 프로젝트 정리 차이 |
 | Hosted 운영 | [Concepts](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) | 서비스 GA, 리전, session별 scaling/billing |
-| Trace | [Tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup) | App Insights 연결, 민감 데이터·권한 |
+| Trace | [Tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup) | App Insights 연결, 민감 데이터·권한; 2026-09-24 확인 |
+| Agent Insights | [Insights](https://learn.microsoft.com/azure/foundry/observability/how-to/agent-insights) | Preview trace scan, judge model, 연결 trace, 역할 요구 사항; 2026-09-24 확인 |
+| Agent 구성·게시 | [Configure](https://learn.microsoft.com/azure/foundry/agents/how-to/configure-agent) · [Copilot/Teams 게시](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-copilot) | 안정 endpoint, active version, Agent Applications와 M365 게시 경계; 2026-09-24 확인 |
+| Workflows retirement | [Workflow concepts](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow) | Portal Workflows visual Preview는 2026-12-01 retire. Microsoft Agent Framework 사용; 2026-09-24 확인 |
+| Classic agents retirement | [Threads/runs/messages](https://learn.microsoft.com/azure/foundry-classic/agents/concepts/threads-runs-messages) | Classic agents는 2027-03-31 retire; 2026-09-24 확인 |
+| Assistants retirement | [Assistants code interpreter](https://learn.microsoft.com/azure/foundry-classic/openai/how-to/code-interpreter) | Azure OpenAI Assistants API는 2026-08-26 retire; 2026-09-24 확인 |
+| Classic agent migration | [Migration guide](https://learn.microsoft.com/azure/foundry/agents/how-to/migrate) | classic agent에서 현재 Foundry agent로 이전; 2026-09-24 확인 |
 | Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | delegated 사용자, 사용량 과금, user assertion, customer-owned app과 federated credential, 행동 가능성 |
 | Workflow를 agent로 | [Using workflows as agents](https://learn.microsoft.com/agent-framework/workflows/as-agents) | start executor는 `list[Message]`를 받음. 실제 `.as_agent()`를 쓰고 builder 동작 보존 |
 | Hosted adapter | [Foundry Hosted Agents](https://learn.microsoft.com/agent-framework/hosting/foundry-hosted-agent) | 서비스 GA와 prerelease Python 패키지를 구분, Responses와 Invocations |
@@ -54,6 +61,15 @@ MIT가 명시된 MAF Workshop/Agent Framework 원본의 저작권 표기는 루�
 | Toolbox | [MAF FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | 관리형 MCP lifecycle과 준비된 연결 조건, prerelease |
 | Fabric IQ | [Tool guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | 자산별 delegated/OBO ID와 Data Agent MCP의 app-only ID 구분 |
 | 운영·되풀이 평가 | [Monitoring dashboard](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard) | batch·trace·되풀이 sampling의 조건이 각각 다름 |
+| AI-103 / AI-102 | [AI-103 study guide](https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-103) · [AI-102 study guide](https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-102) · [retirement announcement](https://learn.microsoft.com/partner-center/announcements/2026-june) | AI-103 기술 비중과 AI-102 retirement; 2026-09-24 확인 |
+| Learn path와 Applied Skills | [Develop AI agents on Azure](https://learn.microsoft.com/training/paths/develop-ai-agents-on-azure/) · [APL-0302](https://learn.microsoft.com/credentials/applied-skills/resources/study-guides/apl-0302) | 다음 학습 path와 task 평가; 2026-09-24 확인 |
+| Foundry capability map | [Capabilities](https://learn.microsoft.com/azure/foundry/concepts/capabilities) | 전문 기능 범위 지도; 2026-09-24 확인 |
+| Grok Responses 지원 | [Use Grok models](https://learn.microsoft.com/azure/foundry/foundry-models/how-to/use-foundry-models-grok) | Chat Completions와 Responses 지원 문서화. Structured Outputs는 배포별 확인 필요; 2026-09-24 확인 |
+| Foundry Dev Pack | [Announcement](https://devblogs.microsoft.com/foundry/foundry-devpack-announcement/) · [Installer](https://aka.ms/foundrydevpack) | 현재 Foundry tooling bundle 설치; 2026-09-24 확인 |
+| Microsoft Foundry skill | [Use the skill](https://learn.microsoft.com/azure/foundry/how-to/develop/use-microsoft-foundry-skill) | coding agent의 Foundry workflow 통합; 2026-09-24 확인 |
+| Voice-based prompt agents | [Quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/prompt-voice-agent) | Portal voice quickstart. Python SDK 지원은 이 edition의 pin 밖; 2026-09-24 확인 |
+| Content Understanding | [Overview](https://learn.microsoft.com/azure/ai-services/content-understanding/overview) | 전문 문서/receipt extraction 설계 경계; 2026-09-24 확인 |
+| Web IQ preview tool | [azure-ai-projects release history](https://pypi.org/project/azure-ai-projects/) | `WebIQPreviewTool`은 2.6.0에서 추가; 2026-09-24 확인 |
 
 패키지 버전은 PyPI 공식 release metadata와 대조했습니다. 문서의 `Unreleased` 절을 설치 가능한 릴리스로 보지 않았습니다.
 공식 문서의 오래된 `ChatAgent`/middleware 예제는 설치한 SDK와 다를 수 있으며, SDK 계약 검사는 설치본의 `Agent`, `ChatContext`,

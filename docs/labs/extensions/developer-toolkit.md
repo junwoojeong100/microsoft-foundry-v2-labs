@@ -104,6 +104,36 @@ Do not upgrade only one library and infer compatibility from a successful import
 SDK help and generated `azure.yaml` are executable contracts.
 If current help differs from a historical screenshot or source sample, keep the discrepancy and verify the intended operation before changing the guide.
 
+## 5. Optional Foundry Dev Pack
+
+Foundry Dev Pack bundles current Foundry developer tools such as `az`, `azd` with the Foundry extension,
+the Foundry skill for coding agents, Foundry Toolkit for VS Code when applicable, and canvas integration when applicable
+(checked 2026-09-24).
+
+Choose the one installer for your operating system from the official announcement:
+
+| Operating system | Installer command |
+|---|---|
+| Windows | `winget install Microsoft.FoundryDevPack` |
+| macOS | `brew install --cask microsoft/foundry/devpack && foundry-devpack install` |
+| Linux | `curl -fsSL https://aka.ms/foundry-devpack-install.sh \| bash` |
+
+This installs current/latest tooling, not necessarily this workshop's pinned SDK combination.
+Record the actual versions afterward and keep the workshop pins for exercises.
+Do not install it on shared machines without owner approval.
+
+## 6. Coding agents with the Microsoft Foundry skill
+
+GitHub Copilot and Claude Code can use the Microsoft Foundry skill to help scaffold, evaluate and troubleshoot Foundry work
+(checked 2026-09-24). Treat generated changes as code that must be reviewed.
+
+Guardrails for this workshop:
+
+- Coding agents must not provision, deploy, assign roles, publish or change the default Azure subscription without explicit approval.
+- Keep all examples on bundled synthetic data.
+- Review generated code, dependency changes and Azure commands before use.
+- Preserve prompt, dataset, response, evaluator and trace lineage.
+
 **Next:** return to the module that sent you here, or to [B's next unfinished step](../../paths/b-practitioner.md).
 [MAF Python 1.18 release](https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0) ·
 [Workshop compatibility record](../../reference/versions.md).

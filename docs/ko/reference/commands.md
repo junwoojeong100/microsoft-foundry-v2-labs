@@ -46,9 +46,9 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 
 ## 터미널 텍스트를 복사하지 않고 응답 저장하기
 
-`model`·`answer`·`maf`·`workflow`·`workflow-agent`·`retrieve`와 선택 명령 `maf-evaluate`는 **명령 뒤에 `--output FILE`**을 받습니다.
+`model`·`answer`·`maf`·`workflow`·`workflow-agent`·`retrieve`·`prompt-agent`와 선택 명령 `maf-evaluate`는 **명령 뒤에 `--output FILE`**을 받습니다.
 화면에 출력하는 것과 같은 JSON 전체를 저장하며 response ID·원문·사용량·미검증 필드를 바꾸지 않습니다.
-기본 B 명령에는 파일명 12개가 이미 들어 있습니다. [기록 폴더](../labs/00-start.md#prepare-notes)만 한 번 준비합니다.
+기본 B 명령에는 파일명 14개가 이미 들어 있습니다. [기록 폴더](../labs/00-start.md#prepare-notes)만 한 번 준비합니다.
 
 준비 후 추가로 실행할 수 있는 **로컬 전용** 검색 예시입니다.
 
@@ -121,9 +121,9 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 
 | 명령군 | 목적·경계 | 전체 가이드 |
 |---|---|---|
-| `prompt-agent` | 별도 버전의 관리형 agent 생성/호출. 로컬 MAF와 구분 | [Lab 03 SDK](../labs/03-prompt-agent.md) |
+| `prompt-agent` | 별도 버전의 관리형 agent 생성/호출. 이제 B의 핵심이며 로컬 MAF와 구분 | [Lab 03 SDK](../labs/03-prompt-agent.md#path-b) |
 | `collect --retrieval none` | 선택 dev 진단 6회. 정책 근거가 없으며 baseline/candidate 경로가 아님. `feedback`·`cloud-evaluate`는 거부 | [Lab 07 진단](../labs/07-evaluation.md#diagnostic-no-evidence) |
-| `iq-chat` | `gpt-5.6-luna`/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup.md#4-환경-담당자의-준비) |
+| `iq-chat` | `gpt-5.6-luna`/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup-owner.md) |
 | `workflow-agent` / `runtime-contract` | 검증된 workflow 출력 / 로컬 고정 profile·hash | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | 버전 고정 Hosted smoke·matrix·평가·trace·인수 | [평가 워크북](evaluation-workbook.md) |
 | `cloud-evaluate` / `calibrate-judge` | 저장된 응답의 유료 native 평가(Preview `--business-evaluator`는 본인 소유 코드 기반 업무 기준 추가, `--reference`는 다른 label의 평가에 합쳐 **실행 비교**, `--retry-failed`는 실패/invalid 시도만 보존하고 재시도) / 별도 calibration fixture | [Lab 07](../labs/07-evaluation.md), [워크북](evaluation-workbook.md) |

@@ -49,6 +49,10 @@ flowchart LR
 | 실패 | HTTP/JSON/계약 오류를 행으로 보존. 누락·중복 matrix나 수집 중단의 성공 prefix는 평가하지 않음 |
 | 인수 | 업무 검사·native 실행/품질·trace·calibration을 따로 판단. CLI 합격은 운영 배포 승인이 아님 |
 
+provider 다양성을 추가하려면 같은 고정 입력, API, 엄격한 Structured Outputs gate를 통과한 뒤에만
+승인된 non-OpenAI Foundry Model 배포 하나를 같은 matrix에 넣습니다. 기존 4모델 워크북 결과는 OpenAI 계열만 사용했고,
+`gpt-6-sol` 시기에는 그 matrix를 다시 실행하지 않았습니다.
+
 <a id="matrix-setup"></a>
 
 ## 2. 강사 준비와 명시적 모델 목록

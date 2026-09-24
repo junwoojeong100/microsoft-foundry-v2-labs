@@ -13,12 +13,12 @@
 
 | 경로 | 이런 분께 | 하는 일 | 끝나면 남는 것 |
 |---|---|---|---|
-| **[A — 입문](docs/ko/paths/a-beginner.md)** | Azure나 에이전트가 처음인 분 | 브라우저 조작과 준비된 터미널의 명령 한 번. Python 작성 없음 | 내 에이전트·6문항 평가표·workflow 검토·정리 인계 |
-| **[B — 구현](docs/ko/paths/b-practitioner.md)** | Python·API에 익숙한 분 | SDK 호출·도구·workflow·Search/IQ·통제된 평가·로컬 패키징 | 저장된 실행 기록과 인수 보고서 |
+| **[A — 입문](docs/ko/paths/a-beginner.md)** | Azure나 에이전트가 처음인 분 | 브라우저 조작과 준비된 Lab 05 workflow 경로. Python 작성 없음 | 내 에이전트·6문항 평가표·workflow 검토·정리 인계 |
+| **[B — 구현](docs/ko/paths/b-practitioner.md)** | Python·API에 익숙한 분 | SDK 호출·관리형 prompt agent·도구·workflow·Search/IQ·통제된 평가·trace·로컬 패키징 | 저장된 실행 기록과 인수 보고서 |
 
-**준비 후 소요 시간:** A 4시간, B 6시간. **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
-두 경로 모두 준비된 Azure 환경이 필요합니다. A도 Lab 05에서는 준비된 터미널을 사용합니다.
-제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
+**준비 후 소요 시간:** A 4시간 30분, B 8시간(4시간 세션 2회). **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
+두 경로 모두 준비된 Azure 환경이 필요합니다. Lab 05는 브라우저의 준비된 Hosted workflow agent 또는 준비된 터미널 중 하나를 사용합니다(수업 전 담당자가 결정).
+준비된 터미널을 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
 Azure 권한이 없다면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 하고 cloud 실습은 **미실행**으로 기록합니다.
 
 기본 경로를 마친 뒤에는 선택 [C. 고급 모듈](docs/ko/paths/c-advanced.md)을 고를 수 있습니다. 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),
@@ -52,39 +52,10 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 > [Hosted 평가 워크북](docs/ko/reference/evaluation-workbook.md) ·
 > [IQ 확장 워크북](docs/ko/reference/iq-workbook.md).
 
-한국어 · 합성 데이터 · **Pre-Ignite 2026 Edition / 현재 워크플로·평가 커리큘럼: 2026-09-15 / 2026-09-24 `gpt-6-sol` 국문 녹화**
+한국어 · 합성 데이터
 
-**[2026-09-24 `gpt-6-sol` 국문 녹화](docs/ko/video-summary.md)** —
-통합본 **6분 3초**, CLI **2분 57초**, 포털 **2분 43초**.
-Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) 주요 단계와 선택 Foundry 평가 단계를 `gpt-6-sol` / `2026-09-22`로 실제 실행했습니다
-([모델 선택](docs/ko/reference/model-choice.md)).
-[91개 실제 액션·272개 무손실 캡처](docs/ko/action-captures.md)를 제공합니다.
-영상은 실제 화면 녹화에서 대기를 덜어낸 것이며 스크린샷 슬라이드쇼가 아닙니다.
-
-[Lab 챕터 이동](docs/ko/video-chapters.md) · [실측 결과와 한계](docs/ko/live-run.md)
-
-로컬 재생·챕터 이동을 확인했으며 GitHub에는 업로드하지 않았습니다.
-`python scripts/play_recordings.py --edition ko`로 재생합니다. 이전 녹화는 삭제했습니다.
-국문과 영문은 별도 실행·별도 화면·별도 녹화본입니다.
-
-국문과 영문은 **각자 고정된 지침·합성 정책·dev/calibration/holdout 데이터·fixture**를 사용합니다.
-국문은 기본값이고 영문만 `--language en`으로 선택합니다. [언어 계약](docs/ko/reference/languages.md)과
-[버전별 데이터 묶음](data/README.ko.md)이 언어별 계보를 따로 보존합니다.
-
-각 랩 본문에는 2026-09-24 국문 캡처와 화면 확인 포인트를 배치했습니다.
-먼저 [화면 읽는 법](docs/ko/labs/00-start.md#이-가이드의-화면-읽는-법)을 확인하고 자기 경로를 따라가세요.
-
-에이전트·워크플로·지식·평가·운영을 **하나의 환경과 업무 시나리오**로 구성했습니다.
-다른 리포를 차례로 방문하는 링크 모음이 아닙니다.
-이 폴더에 실습 본문, Python 코드, 정책 문서, 평가 데이터, 강사 가이드가 있습니다.
-
-## 추가 모듈과 실행 근거
-
-**9월 16일 확장 경로:** [A — 입문](docs/ko/paths/a-beginner.md) ·
-[B — 구현](docs/ko/paths/b-practitioner.md) · [C — 고급 모듈](docs/ko/paths/c-advanced.md).
-[기능·근거 상태](docs/ko/coverage.md)에서 기존 기본 과정과 새 모듈, 실제 Azure 확인 범위를 구분합니다.
-확장 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며 해당 녹화는 삭제했습니다.
-9월 23일에 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 `gpt-6-sol`로 다시 실행했고(녹화 없음), 나머지 모듈은 다시 실행하지 않았습니다.
+실행 근거, 녹화 metadata, action 수, 재생 확인, coverage와 날짜별 실행 결과는 이제 [실행 근거와 녹화](docs/ko/evidence.md)에 모았습니다.
+그 hub에서 [실측 결과](docs/ko/live-run.md), [녹화](docs/ko/video-summary.md), [action/capture](docs/ko/action-captures.md), [coverage](docs/ko/coverage.md), [검증](docs/ko/reference/validation.md)을 확인합니다.
 
 </details>
 
@@ -145,8 +116,8 @@ SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)
 
 ## 이 버전의 범위
 
-- 현재 Foundry / Projects SDK **2.x**를 사용합니다. classic의 threads/runs 코드를 혼합하지 않습니다.
-- 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다.
+- 현재 Foundry / Projects SDK **2.x** pin은 2026-09-24에 갱신하고 offline 검증했습니다. 2026-09-24 녹화는 이전 pin set을 사용했습니다. [버전](docs/ko/reference/versions.md)을 확인하세요.
+- 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다. Assistants는 2026-08-26 retired, 포털 Workflows는 2026-12-01 retire, classic threads/runs agents는 2027-03-31 retire 예정입니다. [변경 지도](docs/ko/reference/migration.md)를 확인하세요.
 - 첫 실습 preset은 **`gpt-6-sol`**, 같은 이름의 배포, 모델 버전 **`2026-09-22`**입니다.
   2026-09-23에 선택했고 2026-09-24에 이 모델로 주요 단계를 녹화했습니다([이 모델을 고른 이유](docs/ko/reference/model-choice.md)).
   Search knowledge base가 GPT-6 모델을 받지 않아 선택 IQ Chat 경로는 별도 `gpt-5.6-luna` 배포를 유지합니다.
@@ -164,7 +135,7 @@ SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)
 [문제 해결](docs/ko/reference/troubleshooting.md) ·
 [리소스 정리](docs/ko/reference/cleanup.md)
 
-처음 보는 용어는 [용어 사전](docs/ko/reference/glossary.md), 실행 옵션은
+처음 보는 용어는 [용어 사전](docs/ko/reference/glossary.md), 다음 학습은 [학습 자료](docs/ko/reference/learning-resources.md), 실행 옵션은
 [명령 참조](docs/ko/reference/commands.md), 환경변수는 [공통 설정](docs/ko/reference/configuration.md)을 확인하세요.
 
 ## 저장소 구성
@@ -179,7 +150,7 @@ data/evaluation/       dev 6건 / holdout 4건 / judge calibration 2건
 data/fixtures/         Azure 없이 검사기만 체험하는 고정 예제
 data/learner/          바로 쓰는 국문·영문 브라우저 자료와 ZIP
 prompts/               비교할 v1 / v2 지침
-examples/              로컬 MCP 서버와 Hosted Agent 진입점
+examples/              로컬 MCP 서버, Hosted Agent 진입점, 독립 SDK 예제(recipes)
 tests/                 Azure 없는 로직·계약 검사
 outputs/               개인 실행 결과; Git에서 제외
 ```

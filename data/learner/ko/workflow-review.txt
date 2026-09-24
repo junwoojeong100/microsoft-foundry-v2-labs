@@ -4,6 +4,8 @@ A는 아래에 JSON 전체를 붙여 넣습니다. B는 각 --output 파일 경�
 B의 원본 JSON 세 파일은 이 검토와 함께 인계합니다. 실제 출력은 모두 검토합니다.
 
 실행 날짜 / 언어 / 배포:
+실행 방식(준비된 터미널 / 준비된 hosted workflow agent Playground):
+대화 ID / 응답 ID(Playground 방식만):
 정확한 명령:
 저장된 JSON 파일 경로(B 전용):
 실제 JSON 출력 전체(A 전용):

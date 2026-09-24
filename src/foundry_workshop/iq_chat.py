@@ -7,6 +7,7 @@ from typing import Any
 from urllib.parse import urlsplit
 from uuid import UUID
 
+from .compatibility import FOUNDRY_IQ_PREVIEW
 from .contracts import (
     digest,
     load_documents,
@@ -21,7 +22,7 @@ from .profiles import RuntimeProfile, validate_inference_endpoint
 from .search import IQ_API, SearchGateway, asset_name, search_configuration
 from .settings import Settings, owned_prefix, require_env
 
-CHAT_API = "2026-08-01-preview"
+CHAT_API = FOUNDRY_IQ_PREVIEW.version
 # Search knowledge bases accepted no GPT-6 model on 2026-09-23 ("Unsupported model type"), so the
 # optional IQ Chat preset stays on the listed gpt-5.6-luna model instead of the answer model.
 CHAT_MODEL = "gpt-5.6-luna"

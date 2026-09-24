@@ -25,12 +25,14 @@ DOCS = load_script("check_docs")
 
 ROUTES = {
     "A": (0, 1, 2, 3, 5, 6, 7, 9, 11),
-    "B": (0, 2, 4, 5, 6, 7, 8, 9, 11),
+    "B": (0, 2, 3, 4, 5, 6, 7, 8, 9, 11),
 }
+TIMETABLES = {"A": (10, 270), "B": (11, 480)}
 
 CORE_COMMANDS = {
     0: ("doctor", "demo", "demo", "compare", "doctor"),
     2: ("doctor", "model", "answer"),
+    3: ("prompt-agent", "prompt-agent"),
     4: ("maf", "maf", "maf"),
     5: ("workflow", "workflow", "workflow"),
     6: ("retrieve", "seed-search", "retrieve", "seed-search", "retrieve", "answer"),
@@ -118,7 +120,8 @@ class LearnerJourneyTests(unittest.TestCase):
 
     def test_both_timetables_include_handoff_and_sum_to_the_advertised_hours(self):
         for language, directory, _ in self.language_labs():
-            for route, following, total in (("A", "B", 240), ("B", "C", 360)):
+            for route, following in (("A", "B"), ("B", "C")):
+                rows, total = TIMETABLES[route]
                 with self.subTest(language=language, route=route):
                     section = (
                         (directory / "paths.md")
@@ -133,7 +136,7 @@ class LearnerJourneyTests(unittest.TestCase):
                             duration = re.fullmatch(r"(\d+)\s*(?:min|분)", columns[2])
                             if duration:
                                 minutes.append(int(duration[1]))
-                    self.assertEqual(len(minutes), 10)
+                    self.assertEqual(len(minutes), rows)
                     self.assertEqual(sum(minutes), total)
                     self.assertIn(f"(labs/11-capstone.md#path-{route.lower()})", section)
 
@@ -147,7 +150,9 @@ class LearnerJourneyTests(unittest.TestCase):
                         text,
                         re.MULTILINE,
                     )
-                    self.assertEqual([int(index) for index, _ in rows], list(range(1, 10)))
+                    self.assertEqual(
+                        [int(index) for index, _ in rows], list(range(1, len(ROUTES[route]) + 1))
+                    )
                     self.assertEqual(
                         [target for _, target in rows],
                         [f"{labs[number].name}#path-{route.lower()}" for number in ROUTES[route]],
@@ -409,7 +414,7 @@ class LearnerJourneyTests(unittest.TestCase):
                 return_choices = model.split(anchor, 1)[1]
                 self.assertIn("(00-start.md#path-a)", return_choices)
                 self.assertIn("(05-workflows.md#path-a)", return_choices)
-                self.assertIn("(04-agents-tools.md#path-b)", return_choices)
+                self.assertIn("(03-prompt-agent.md#path-b)", return_choices)
                 self.assertEqual(DOCS.workshop_commands(return_choices), [])
 
     def test_retrieval_comparison_keeps_one_question_with_retrievable_policy_evidence(self):
@@ -497,7 +502,7 @@ class LearnerJourneyTests(unittest.TestCase):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):
                 fields = self.worksheet_lines(language)["session-notes.txt"]
-                for number, count in ((2, 1), (4, 1), (5, 1), (6, 2), (7, 4), (8, 1)):
+                for number, count in ((2, 1), (3, 1), (4, 1), (5, 1), (6, 2), (7, 4), (8, 1)):
                     with self.subTest(lab=number):
                         matching = [
                             line for line in fields if line.startswith(f"Lab {number:02d} ")
@@ -608,7 +613,7 @@ class LearnerJourneyTests(unittest.TestCase):
     def test_editorial_rubric_is_consistent_without_forcing_a_particular_score(self):
         for language, directory, _ in self.language_labs():
             with self.subTest(language=language):
-                text = (directory / "reference/validation.md").read_text()
+                text = (directory / "reference/validation-history.md").read_text()
                 anchor = '<a id="guide-straightforwardness"></a>'
                 self.assertIn(anchor, text)
                 section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
@@ -627,7 +632,7 @@ class LearnerJourneyTests(unittest.TestCase):
     def test_straightforwardness_review_v2_totals_match_its_dimension_rows(self):
         for language, directory, _ in self.language_labs():
             with self.subTest(language=language):
-                text = (directory / "reference/validation.md").read_text()
+                text = (directory / "reference/validation-history.md").read_text()
                 anchor = '<a id="guide-straightforwardness-v2"></a>'
                 self.assertIn(anchor, text)
                 section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
@@ -648,7 +653,7 @@ class LearnerJourneyTests(unittest.TestCase):
     def test_straightforwardness_review_v3_totals_match_both_tables(self):
         for language, directory, _ in self.language_labs():
             with self.subTest(language=language):
-                text = (directory / "reference/validation.md").read_text()
+                text = (directory / "reference/validation-history.md").read_text()
                 anchor = '<a id="straightforwardness-v3"></a>'
                 self.assertIn(anchor, text)
                 section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
@@ -678,7 +683,8 @@ class LearnerJourneyTests(unittest.TestCase):
                 text = (directory / "reference/validation.md").read_text()
                 anchor = '<a id="straightforwardness-95"></a>'
                 self.assertIn(anchor, text)
-                self.assertLess(text.index(anchor), text.index("<details>"))
+                if "<details>" in text:
+                    self.assertLess(text.index(anchor), text.index("<details>"))
                 section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
                 totals = {}
                 for prefix in ("D", "R"):
@@ -724,13 +730,17 @@ class LearnerJourneyTests(unittest.TestCase):
                     "straightforwardness-95",
                 ):
                     self.assertIn(f'<a id="{anchor}"></a>', visible)
+                history = (directory / "reference/validation-history.md").read_text()
+                self.assertIn("(validation-history.md)", text)
                 for anchor in (
                     "straightforwardness-v3",
                     "guide-straightforwardness-v2",
                     "guide-straightforwardness",
                 ):
-                    self.assertIn(f'<a id="{anchor}"></a>', text)
-                    self.assertNotIn(f'<a id="{anchor}"></a>', visible)
+                    self.assertIn(f'<a id="{anchor}"></a>', history)
+                    self.assertNotIn(f'<a id="{anchor}"></a>', text)
+                history_headings = re.findall(r"^## (.+)$", history, re.MULTILINE)
+                self.assertEqual(len(history_headings), len(set(history_headings)))
                 visible_headings = re.findall(r"^## (.+)$", visible, re.MULTILINE)
                 self.assertFalse([name for name in visible_headings if "15" in name.split("—")[-1]])
                 self.assertEqual(len(headings), len(set(headings)))
@@ -936,6 +946,7 @@ class LearnerJourneyTests(unittest.TestCase):
     def test_printed_outputs_have_a_save_checkpoint_before_the_next_command(self):
         expected = {
             2: ("model.json", "answer-local.json"),
+            3: ("prompt-agent-create.json", "prompt-agent-invoke.json"),
             4: ("maf-none.json", "maf-function.json", "maf-mcp.json"),
             5: (
                 "workflow-sequential.json",
@@ -974,7 +985,7 @@ class LearnerJourneyTests(unittest.TestCase):
                             saved.append(match[1])
                 self.assertEqual(tuple(saved), filenames)
 
-    def test_all_twelve_b_exports_execute_in_both_languages_without_overwriting(self):
+    def test_all_fourteen_b_exports_execute_in_both_languages_without_overwriting(self):
         def explicit_offline_transport(_root, arguments):
             return {
                 "mode": "explicit-offline-command-stub",
@@ -990,7 +1001,7 @@ class LearnerJourneyTests(unittest.TestCase):
                 notes = root / "outputs" / f"learner-notes-{language}"
                 notes.mkdir(parents=True)
                 saved = set()
-                for number in (2, 4, 5, 6):
+                for number in (2, 3, 4, 5, 6):
                     for _, arguments in DOCS.workshop_commands(
                         self.core_section(language, labs[number], "B")
                     ):
@@ -1020,12 +1031,14 @@ class LearnerJourneyTests(unittest.TestCase):
                             self.assertEqual(main(root, arguments), 2)
                         cloud.assert_not_called()
                         self.assertEqual(target.read_bytes(), original)
-                self.assertEqual(len(saved), 12)
+                self.assertEqual(len(saved), 14)
 
     def test_b_handoff_lists_all_printed_results_and_review_files(self):
         filenames = (
             "model.json",
             "answer-local.json",
+            "prompt-agent-create.json",
+            "prompt-agent-invoke.json",
             "maf-none.json",
             "maf-function.json",
             "maf-mcp.json",

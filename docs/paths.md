@@ -16,13 +16,13 @@ Screenshots come from the September 24, 2026 recording; your names, IDs and answ
 ([how to read them](labs/00-start.md#how-to-read-this-guide)).
 English commands use `--language en`, which selects the English input files ([language rules](reference/languages.md)).
 
-## A. Beginner: four hours in a prepared environment
+## A. Beginner: four hours thirty minutes in a prepared environment
 
 You need a browser, an Entra account, and an instructor-prepared Foundry project and
-**`gpt-6-sol` deployment**. Lab 05 also needs a **prepared MAF environment** with SDKs installed
-and the learner signed in. Copy commands and read their results; Python authoring,
+**`gpt-6-sol` deployment**. Lab 05 needs either a prepared Hosted workflow agent in Playground
+or a **prepared MAF environment** with SDKs installed and the learner signed in. Copy commands and read their results; Python authoring,
 installation, and subscription billing setup are preparation, not class exercises.
-For self-study, complete [the environment-owner checklist](setup.md#4-environment-owner-checklist),
+For self-study, complete [the environment-owner checklist](setup-owner.md),
 [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) and [Lab 02 B](labs/02-models.md#path-b) first.
 
 | Order | Lab | Time | Your evidence |
@@ -31,41 +31,45 @@ For self-study, complete [the environment-owner checklist](setup.md#4-environmen
 | 2 | [01. Foundry](labs/01-foundry.md#path-a) | 25 min | Resource/project/model relationship diagram |
 | 3 | [02. Models: A](labs/02-models.md#path-a) | 20 min | Actual Playground response and deployment name |
 | 4 | [03. Agent: A](labs/03-prompt-agent.md#path-a) | 35 min | Agent using inline synthetic policies |
-| 5 | [05. MAF workflow: A](labs/05-workflows.md#path-a) | 25 min | Prepared sequential run and human review record |
+| 5 | [05. MAF workflow: A](labs/05-workflows.md#path-a) | 25 min | Prepared browser or terminal sequential run and human review record |
 | 6 | [06. Knowledge: A](labs/06-knowledge.md#path-a) | 35 min | Source citation and effective-date check; IQ Chat not selected by default |
-| 7 | [07. Evaluation: A](labs/07-evaluation.md#path-a) | 30 min | Manual business assessment of all six dev cases |
-| 8 | [09. Operations: A](labs/09-operations.md#path-a) | 25 min | Risks, costs, and cleanup record |
+| 7 | [07. Evaluation: A](labs/07-evaluation.md#path-a) | 40 min | Manual business assessment of all six dev cases |
+| 8 | [09. Operations: A](labs/09-operations.md#path-a) | 30 min | Risks, trace evidence or unverified reason, costs, and cleanup record |
 | 9 | [11. Capstone: A](labs/11-capstone.md#path-a) | 15 min | Your worksheet and evidence handoff |
-| — | Breaks and buffer | 10 min | **240 minutes total** |
+| — | Breaks and buffer | 25 min | **270 minutes total** |
 
-**A is complete** when you have actual Playground/agent responses, a prepared MAF
-sequential run, source checks, a dev assessment, and a Lab 11 cleanup/evidence handoff. Writing Python
+**A is complete** when you have actual Playground/agent responses, a prepared MAF or hosted workflow run, source checks,
+a dev assessment, trace evidence or an unverified reason, and a Lab 11 cleanup/evidence handoff. Writing Python
 or deploying a server is not required.
 
-Run the Lab 05 command yourself; watching another person's run does not count.
+Run the Lab 05 option assigned on your setup card yourself; watching another person's run does not count.
 IQ Chat is optional: if it was not prepared for you, mark it **not selected** before you start (a scope choice, not a fallback after an error).
 
-## B. Implementation: six hours in a prepared environment
+## B. Implementation: eight hours in a prepared environment
 
 You should understand basic Python, JSON, a terminal, and `async/await`.
 Region/model/permission approvals, SDK downloads, and Search service creation happen first.
+B includes a managed Prompt Agent, local MAF tools/workflows, Search/IQ, local evaluation, package inspection, and trace lookup.
+Recommended delivery is **two 4-hour sessions**: Day 1 = Labs 00–05, Day 2 = Labs 06–11.
+B assumes a prepared, verified environment; failures, role changes and approvals are extra.
 
 | Order | Lab | Time | Your evidence |
 |---|---|---:|---|
 | 1 | [00. Doctor and settings](labs/00-start.md#path-b) | 15 min | Environment checks |
 | 2 | [02. SDK: B](labs/02-models.md#path-b) | 20 min | Actual Responses result |
-| 3 | [04. MAF, functions, MCP](labs/04-agents-tools.md#path-b) | 45 min | Differences among three execution paths |
-| 4 | [05. MAF workflows: B](labs/05-workflows.md#path-b) | 40 min | Sequential, concurrent, and Group Chat code/results |
-| 5 | [06. Search/IQ: B](labs/06-knowledge.md#path-b) | 45 min | GA references, activity, and context hash |
-| 6 | [07. Learning loop: B](labs/07-evaluation.md#path-b) | 50 min | Local-retrieval baseline/candidate/holdout lineage with real model calls |
-| 7 | [08. Hosted Agent](labs/08-hosted.md#path-b) | 40 min | Package and manifest review; serving/deployment not required |
-| 8 | [09. Observability and operations](labs/09-operations.md#path-b) | 30 min | Existing run-ID lineage and read-only cleanup plan |
-| 9 | [11. Capstone](labs/11-capstone.md#path-b) | 45 min | Existing acceptance report and artifact checklist |
-| — | Breaks and buffer | 30 min | **360 minutes total** |
+| 3 | [03. Prompt Agent SDK: B](labs/03-prompt-agent.md#path-b) | 25 min | Managed agent create/invoke files and response ID |
+| 4 | [04. MAF, functions, MCP](labs/04-agents-tools.md#path-b) | 45 min | Differences among three execution paths |
+| 5 | [05. MAF workflows: B](labs/05-workflows.md#path-b) | 40 min | Sequential, concurrent, and Group Chat code/results |
+| 6 | [06. Search/IQ: B](labs/06-knowledge.md#path-b) | 50 min | GA references, activity, and context hash |
+| 7 | [07. Learning loop: B](labs/07-evaluation.md#path-b) | 70 min | Local-retrieval baseline/candidate/holdout lineage with real model calls |
+| 8 | [08. Hosted Agent](labs/08-hosted.md#path-b) | 40 min | Package and manifest review; serving/deployment not required |
+| 9 | [09. Observability and operations](labs/09-operations.md#path-b) | 40 min | Existing run-ID lineage, Prompt Agent trace lookup, and read-only cleanup plan |
+| 10 | [11. Capstone](labs/11-capstone.md#path-b) | 45 min | Existing acceptance report and artifact checklist |
+| — | Breaks and buffer | 90 min | **480 minutes total** |
 
 **B's core completion** requires the listed real model/tool/workflow and Search/IQ results,
-comparable dev records, frozen final evaluation, package and cleanup handoff.
-Hosted serving/deployment, actual telemetry and paid cloud judges have separate optional gates.
+managed Prompt Agent create/invoke evidence, comparable dev records, frozen final evaluation, package, trace status and cleanup handoff.
+Hosted serving/deployment, actual client-side telemetry and paid cloud judges have separate optional gates.
 Mark them **not run** if omitted; unavailable quota is not permission to submit fixtures
 as real model responses.
 If a required stage stays blocked, use [the incomplete handoff](labs/11-capstone.md#incomplete-handoff)

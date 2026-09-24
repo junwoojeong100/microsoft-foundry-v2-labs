@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlsplit
 
+from .compatibility import FOUNDRY_AGENT_DATA_PLANE
 from .contracts import (
     Answer,
     ModelOutputError,
@@ -171,7 +172,7 @@ class HostedBinding:
             or url.fragment
             or url.path
             != project.path.rstrip("/") + f"/agents/{self.name}/endpoint/protocols/invocations"
-            or query not in ([], [("api-version", "v1")])
+            or query not in ([], [("api-version", FOUNDRY_AGENT_DATA_PLANE.version)])
         ):
             raise ValueError(
                 "Use the actual Invocations endpoint returned by azd show for this project/agent."

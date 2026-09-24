@@ -104,6 +104,9 @@ public documentation such as Microsoft Learn.
 | Mutating operation | Separate approval, idempotency, audit and compensation |
 
 Web IQ and ordinary Web Search are not interchangeable.
+Checked 2026-09-24: `azure-ai-projects` 2.6.0 added a Web IQ Preview tool (`WebIQPreviewTool`).
+It is not covered in this workshop. Treat it like other Preview web grounding: use approved domains only,
+record freshness/source URLs, and do not send sensitive queries.
 Tool registration is not proof of a correct result under real permissions.
 `FoundryToolbox` belongs to the prerelease hosting package; it does not create the upstream project connection.
 Read the [IQ workbook](../reference/iq-workbook.md) for the actual lifecycle, credential, Fabric, and Work IQ boundaries.

@@ -3,7 +3,9 @@
 **English** | [한국어](../ko/reference/versions.md)
 
 **Current preset:** `gpt-6-sol` / `2026-09-22` with a separate `gpt-6-sol-judge` (since September 23, 2026).
-The code edition `2026.9.15` and the dependency pins below were checked on September 15, 2026.
+The code-version marker is `2026.9.24`.
+The refreshed dependency set below was installed and offline-verified on 2026-09-24
+with import-contract checks and mocked SDK tests. It was **not live-verified** against Azure.
 **A compatibility check date is not a release date or a future support guarantee.**
 This edition does not predict Ignite announcements or universal tenant/region availability.
 
@@ -20,7 +22,7 @@ Installed-SDK/transport-stub checks and actual Azure execution are separate evid
 | Workflow host | Actual `Workflow.as_agent()` and ResponsesHostServer |
 | Evaluation host | InvocationAgentServerHost, local POST `/invocations`, four query-only fields |
 | Service-call lineage | Actual ChatResponse ID/model/usage, not the workflow wrapper UUID |
-| Middleware | Pinned core 1.17.0 uses `await call_next()`, not older `next(context)` examples |
+| Middleware | Pinned core 1.18.0 uses `await call_next()`, not older `next(context)` examples |
 | Functional workflows | Experimental; not a mandatory prerequisite |
 | Keyword Search | REST `2024-07-01`; do not call it hybrid |
 | Hybrid | Actual embedding dimensions and text/vector requests; explicit project/account API selection |
@@ -46,25 +48,40 @@ and [Hosted quickstart](https://learn.microsoft.com/azure/foundry/agents/quickst
 
 ## Pinned direct dependencies
 
-`pyproject.toml` is authoritative.
+`pyproject.toml` is authoritative for executable constraints.
+The September 24 recordings and live results used the previous pins:
+`azure-ai-projects` 2.3.0, `openai` 2.54.0, `agent-framework-core` 1.17.0,
+`agent-framework-foundry` 1.12.0, `agent-framework-orchestrations` 1.1.1,
+`agent-framework-foundry-hosting` 1.0.0b260903 and `mcp` 1.28.1.
+Those runs are not retroactive proof for the refreshed pins below.
 
 | Package | Version |
 |---|---|
-| `azure-ai-projects` | 2.3.0 |
+| `azure-ai-projects` | 2.6.1 |
 | `azure-identity` | 1.25.3 |
-| `openai` | 2.54.0 |
+| `openai` | 3.16.1 |
 | `httpx` | 0.28.1 |
 | `python-dotenv` | 1.2.3 |
-| `agent-framework-core` | 1.17.0 |
-| `agent-framework-foundry` | 1.12.0 |
+| `agent-framework-core` | 1.18.0 |
+| `agent-framework-foundry` | 1.13.0 |
 | `agent-framework-orchestrations` | 1.1.1 |
-| `mcp` | 1.28.1 |
-| `agent-framework-foundry-hosting` | 1.0.0b260903 |
+| `agent-framework-foundry-hosting` | 1.0.0b260910 |
+| `mcp` | 1.30.0 |
 
 Use Python 3.13 for Hosted packages. Offline code is tested on 3.13–3.14.
-The provider requires Projects SDK `>=2.2.0,<2.4.0`; the newest independent package versions are not necessarily compatible.
+The provider requires Projects SDK `>=2.2.0,<2.7.0`; the newest independent package versions are not necessarily compatible.
+OpenAI 3.x uses httpx2 internally; legacy httpx clients are still accepted by this workshop's pinned surface.
+Newer PyPI releases exist, including `azure-ai-projects` 2.7.0, `openai` 3.19.2,
+`agent-framework-core` 1.19.0, `agent-framework-foundry` 1.13.1,
+`agent-framework-orchestrations` 1.2.0, `agent-framework-foundry-hosting` 1.0.0b260918 and `mcp` 2.2.0.
+They were not installed or verified for this edition.
 The resolved lock file describes the authoring platform, not every OS or remote build.
 Record the actual remote build's resolved versions.
+
+## Retirement dates
+
+Old Assistants, classic agents and portal Workflows retire on different schedules.
+See [migration](migration.md#retirement-dates-that-affect-old-tutorials) before adapting older tutorials.
 
 ## Drift found during real execution
 

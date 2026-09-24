@@ -170,25 +170,22 @@ JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 
 **B 완료:** Lab 00 기록 폴더에 `model.json`, `answer-local.json`으로 출력 전체를 저장합니다.
 Response ID·사용량·원문 ID도 포함합니다.
-[Lab 04 B](04-agents-tools.md#path-b)로 이동합니다.
+[Lab 03 B](03-prompt-agent.md#path-b)로 이동해 로컬 MAF 도구 전에 관리형 Prompt Agent를 만듭니다.
 
 <details>
-<summary>SDK 호출 원리 — 선택 코드 읽기이며 추가 실행 명령이 아닙니다</summary>
+<summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
 
-`src/foundry_workshop/cloud.py`의 `project_clients`, `call_model`을 읽습니다.
-위 CLI가 `.env`의 실제 값을 다음 흐름에 전달합니다.
+작은 독립 예제는 [`examples/recipes/02_responses.py`](../../../examples/recipes/02_responses.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
 
 ```python
-with AIProjectClient(endpoint=project_endpoint, credential=credential) as project:
-    with project.get_openai_client() as client:
-        response = client.responses.create(
-            model=deployment_name,
-            input="Foundry와 MAF의 차이를 설명해 주세요.",
-            store=False,
-        )
+with AIProjectClient(endpoint=..., credential=AzureCliCredential()) as project, project.get_openai_client() as client:
+response = client.responses.create(model=deployment, input=question, store=False)
+print(response.output_text)
+print(response.id)
+print(response._request_id)
 ```
 
-모델만 호출하는 개념 질문은 자유롭게 번역해도 됩니다. 비교 실험의 정해진 정책·평가 질문은 그대로 유지합니다.
+**직접 작성:** 질문 문자열만 바꾸어 같은 배포에 실행하고 response ID와 request ID를 따로 기록합니다.
 
 </details>
 
@@ -239,4 +236,4 @@ Router가 없어도 이 랩은 완료할 수 있습니다.
 - 404: 전체 프로젝트 엔드포인트와 **배포 이름** `gpt-6-sol`을 확인합니다.
 - 429: 반복 호출을 멈추고 담당자에게 `gpt-6-sol` quota(TPM) 확인을 요청합니다. 반복 재시도하지 않습니다.
 
-다음: A → [Lab 03](03-prompt-agent.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)
+다음: A → [Lab 03](03-prompt-agent.md#path-a) · B → [Lab 03](03-prompt-agent.md#path-b)

@@ -38,6 +38,17 @@
 [공식 Foundry 전환 가이드](https://learn.microsoft.com/azure/foundry/how-to/navigate-from-classic)를
 확인합니다. 현재 문서의 관련 종료·이행 일정은 과거 실습의 동작을 보장하지 않습니다.
 
+## 오래된 tutorial에 영향을 주는 retirement 날짜
+
+2026-09-24 확인. 오래된 sample을 다시 살리기 전에는 현재
+[classic에서 새 agent로 이전하는 가이드](https://learn.microsoft.com/azure/foundry/agents/how-to/migrate)를 확인합니다.
+
+| 오래된 tutorial 표면 | Retirement 날짜 | 대신 할 일 | 출처 |
+|---|---:|---|---|
+| Azure OpenAI Assistants API | 2026-08-26, 이미 retired | 현재 Foundry agent와 SDK 2.x pattern으로 이동 | [Assistants retirement note](https://learn.microsoft.com/azure/foundry-classic/openai/how-to/code-interpreter) |
+| threads/runs/messages를 사용하는 Foundry Agent Service classic agent | 2027-03-31 | classic agent를 새 Foundry agent service로 이전 | [Classic agents deprecation](https://learn.microsoft.com/azure/foundry-classic/agents/concepts/threads-runs-messages) |
+| Foundry portal Workflows visual Preview | 2026-12-01 | 새 workflow logic은 Microsoft Agent Framework로 작성 | [Workflows retirement](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow) |
+
 핵심 과정에는 다른 저장소를 추가로 clone할 필요가 없습니다. 원본 링크는 깊은 확장과 출처 확인을 위한 참고이며,
 실행 가능한 핵심·데이터·문서는 이 저장소에 있습니다.
 이제 영문이 기본 진입점이며, 같은 내용의 [국문 가이드](../../../README.ko.md)가 있습니다.

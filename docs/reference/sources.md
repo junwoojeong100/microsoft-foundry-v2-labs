@@ -4,6 +4,7 @@
 
 **We integrated the source modules' learning structures, not their claimed execution results.**
 Source check date: September 15, 2026. The commits below remain fixed even if upstream main changes.
+New official-reference rows marked checked 2026-09-24 reflect this review refresh, not new workshop execution.
 See [consolidation and archive gates](consolidation.md) for self-contained replacement paths and optional-feature limits.
 
 ## User-owned source workshops
@@ -44,7 +45,13 @@ Document display/edit dates are not necessarily feature-release dates.
 | Automatic trace data | [Traces to dataset](https://learn.microsoft.com/azure/foundry/observability/how-to/traces-to-dataset) | Preview, SDK/role requirements |
 | Hosted start | [Quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-hosted-agent) | Code deployment, existing/new-project cleanup differences |
 | Hosted operations | [Concepts](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents) | Service GA, regions, per-session scaling/billing |
-| Traces | [Tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup) | App Insights, sensitive data, permissions |
+| Traces | [Tracing setup](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup) | App Insights, sensitive data, permissions; checked 2026-09-24 |
+| Agent Insights | [Insights](https://learn.microsoft.com/azure/foundry/observability/how-to/agent-insights) | Preview trace scanning, judge model, linked traces, role requirements; checked 2026-09-24 |
+| Configure and publish agents | [Configure](https://learn.microsoft.com/azure/foundry/agents/how-to/configure-agent) · [Publish to Copilot/Teams](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-copilot) | Stable endpoint, active version, Agent Applications and M365 publishing boundaries; checked 2026-09-24 |
+| Workflows retirement | [Workflow concepts](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow) | Portal Workflows visual Preview retires 2026-12-01; use Microsoft Agent Framework; checked 2026-09-24 |
+| Classic agents retirement | [Threads/runs/messages](https://learn.microsoft.com/azure/foundry-classic/agents/concepts/threads-runs-messages) | Classic agents retire 2027-03-31; checked 2026-09-24 |
+| Assistants retirement | [Assistants code interpreter](https://learn.microsoft.com/azure/foundry-classic/openai/how-to/code-interpreter) | Azure OpenAI Assistants API retired 2026-08-26; checked 2026-09-24 |
+| Classic agent migration | [Migration guide](https://learn.microsoft.com/azure/foundry/agents/how-to/migrate) | Migration from classic agents to current Foundry agents; checked 2026-09-24 |
 | Work IQ | [Knowledge source](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq) | Delegated users, usage billing, user assertion, customer-owned app and federated credential; possible actions |
 | Workflow as agent | [Using workflows as agents](https://learn.microsoft.com/agent-framework/workflows/as-agents) | The start executor takes `list[Message]`; use the actual `.as_agent()` and preserve builder behavior |
 | Hosted adapter | [Foundry Hosted Agents](https://learn.microsoft.com/agent-framework/hosting/foundry-hosted-agent) | Service GA separate from the prerelease Python package; Responses vs. Invocations |
@@ -55,6 +62,15 @@ Document display/edit dates are not necessarily feature-release dates.
 | Toolbox | [MAF FoundryToolbox](https://learn.microsoft.com/agent-framework/integrations/by-component/tools/foundry-toolbox) | Managed MCP lifecycle and prepared connection requirements; prerelease |
 | Fabric IQ | [Tool guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq) | Asset-specific delegated/OBO identity vs. Data Agent MCP app-only identity |
 | Operations and recurring evaluation | [Monitoring dashboard](https://learn.microsoft.com/azure/foundry/observability/how-to/how-to-monitor-agents-dashboard) | Batch, trace and recurring sampling have separate conditions |
+| AI-103 / AI-102 | [AI-103 study guide](https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-103) · [AI-102 study guide](https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-102) · [retirement announcement](https://learn.microsoft.com/partner-center/announcements/2026-june) | AI-103 skill weights and AI-102 retirement; checked 2026-09-24 |
+| Learn path and Applied Skills | [Develop AI agents on Azure](https://learn.microsoft.com/training/paths/develop-ai-agents-on-azure/) · [APL-0302](https://learn.microsoft.com/credentials/applied-skills/resources/study-guides/apl-0302) | Next learning path and task assessment; checked 2026-09-24 |
+| Foundry capability map | [Capabilities](https://learn.microsoft.com/azure/foundry/concepts/capabilities) | Specialist coverage map; checked 2026-09-24 |
+| Grok Responses support | [Use Grok models](https://learn.microsoft.com/azure/foundry/foundry-models/how-to/use-foundry-models-grok) | Chat Completions and Responses support documented; Structured Outputs still deployment-verified; checked 2026-09-24 |
+| Foundry Dev Pack | [Announcement](https://devblogs.microsoft.com/foundry/foundry-devpack-announcement/) · [Installer](https://aka.ms/foundrydevpack) | Installs current Foundry tooling bundle; checked 2026-09-24 |
+| Microsoft Foundry skill | [Use the skill](https://learn.microsoft.com/azure/foundry/how-to/develop/use-microsoft-foundry-skill) | Coding-agent integration for Foundry workflows; checked 2026-09-24 |
+| Voice-based prompt agents | [Quickstart](https://learn.microsoft.com/azure/foundry/agents/quickstarts/prompt-voice-agent) | Portal voice quickstart; Python SDK support is outside this edition's pins; checked 2026-09-24 |
+| Content Understanding | [Overview](https://learn.microsoft.com/azure/ai-services/content-understanding/overview) | Specialist document/receipt extraction design boundary; checked 2026-09-24 |
+| Web IQ preview tool | [azure-ai-projects release history](https://pypi.org/project/azure-ai-projects/) | `WebIQPreviewTool` arrived in 2.6.0; checked 2026-09-24 |
 
 Package versions were compared with official PyPI release metadata. An `Unreleased`
 section was not treated as an installable release. Older official `ChatAgent`/middleware examples can differ

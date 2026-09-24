@@ -1,0 +1,76 @@
+name: Approved live smoke check
+
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        description: Language of the synthetic bundle
+        type: choice
+        options: [en, ko]
+        default: en
+        required: true
+      acknowledge_cost:
+        description: Approve one read-only preflight and one billable model request (no create, deploy or role change)
+        type: boolean
+        default: false
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: owned-foundry-live-smoke
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: foundry-workshop
+    env:
+      WORKSHOP_LANGUAGE: ${{ inputs.language }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
+      AZURE_AI_ACCOUNT_NAME: ${{ vars.AZURE_AI_ACCOUNT_NAME }}
+      AZURE_AI_PROJECT_ENDPOINT: ${{ vars.AZURE_AI_PROJECT_ENDPOINT }}
+      AZURE_AI_MODEL_DEPLOYMENT_NAME: ${{ vars.AZURE_AI_MODEL_DEPLOYMENT_NAME }}
+      WORKSHOP_AUTH_MODE: cli
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require explicit cost approval
+        env:
+          ACKNOWLEDGE_COST: ${{ inputs.acknowledge_cost }}
+        run: |
+          if [ "$ACKNOWLEDGE_COST" != "true" ]; then
+            echo "::error::This workflow sends one billable model request and needs explicit approval."
+            exit 1
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install the pinned SDKs
+        run: |
+          python -m pip install --quiet -r requirements.lock.txt -e ".[cloud,agents,hosted,dev]"
+          python -m pip check
+          python scripts/check_sdk.py
+      - name: Authenticate with the repository-bound OIDC identity
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Read-only preflight and one model request
+        run: |
+          python scripts/workshop.py --language "$WORKSHOP_LANGUAGE" doctor --cloud
+          mkdir -p outputs/live-smoke
+          python scripts/workshop.py --language "$WORKSHOP_LANGUAGE" model --output outputs/live-smoke/model.json
+      - name: Retain outputs including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foundry-live-smoke-${{ inputs.language }}-${{ github.run_id }}
+          path: outputs/
+          if-no-files-found: warn
+          retention-days: 14

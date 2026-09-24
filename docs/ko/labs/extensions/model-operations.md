@@ -7,6 +7,8 @@
 **근거 상태:** 마지막 실행은 2026-09-16 이전 `gpt-5.6-luna` preset입니다. `gpt-6-sol`로 다시 실행하지 않았고 Router 이전은 주장하지 않습니다.
 
 처음에는 **이미 승인된 두 배포**를 같은 dev로 비교합니다. Router와 폐기는 별도입니다.
+학습 목표가 provider 다양성이라면 두 번째 승인 배포는 non-OpenAI Foundry Model로 두는 것을 권장합니다.
+예: Azure 문서가 Responses API 지원을 명시한 Grok 모델(2026-09-24 확인).
 
 **준비:** [Lab 07](../07-evaluation.md)의 실제 candidate, 승인된 두 번째 배포, API/구조화 응답 호환성, 비용과 새 label.
 **완료:** 실제 모델 ID·모든 행/오류를 포함한 비교와 이전 결정을 기록함.
@@ -37,6 +39,8 @@ read -r MODEL_B
 
 실제 하위 모델/버전·배포 상태를 확인합니다.
 API/schema가 맞지 않으면 이전 검토 결과로 남깁니다. 이 모델만 다른 API로 우회하지 않습니다.
+non-OpenAI provider의 경우 project Responses 경로와 엄격한 `json_schema` Structured Outputs를 모두 받아야 합니다.
+둘 중 하나라도 거부되면 중단하고 API 호환성 finding으로 기록합니다. API를 바꾸거나 schema를 느슨하게 하거나 plain text로 fallback하지 않습니다.
 3절에서도 같은 터미널의 `MODEL_B`를 사용합니다. 값이 없으면 요청 전에 멈춥니다.
 
 ## 3. 새 dev 수집과 비교

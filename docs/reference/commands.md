@@ -46,9 +46,9 @@ Full commands appear in the [labs](../paths.md).
 
 ## Save one response without copying terminal text
 
-`model`, `answer`, `maf`, `workflow`, `workflow-agent`, `retrieve` and the optional `maf-evaluate` accept **`--output FILE` after the command**.
+`model`, `answer`, `maf`, `workflow`, `workflow-agent`, `retrieve`, `prompt-agent` and the optional `maf-evaluate` accept **`--output FILE` after the command**.
 They still print the same JSON and save that complete object without changing response IDs, sources, usage or unverified fields.
-Core B already supplies all 12 filenames. Prepare [the notes directory](../labs/00-start.md#prepare-notes) once.
+Core B already supplies all 14 filenames. Prepare [the notes directory](../labs/00-start.md#prepare-notes) once.
 
 For an extra **local-only** retrieval example after that preparation:
 
@@ -122,9 +122,9 @@ Every family's own `--help` and linked lab specify its required values and creat
 
 | Family | Purpose / boundary | Complete guide |
 |---|---|---|
-| `prompt-agent` | Create/invoke a separately versioned managed agent, not the local MAF agent | [Lab 03 SDK branch](../labs/03-prompt-agent.md) |
+| `prompt-agent` | Create/invoke a separately versioned managed agent; now core in B, not the local MAF agent | [Lab 03 SDK branch](../labs/03-prompt-agent.md#path-b) |
 | `collect --retrieval none` | Optional six-call dev diagnostic with no policy evidence; not the baseline/candidate path, and rejected by `feedback` and `cloud-evaluate` | [Lab 07 diagnostic](../labs/07-evaluation.md#diagnostic-no-evidence) |
-| `iq-chat` | Fixed `gpt-5.6-luna`/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup.md#4-environment-owner-checklist) |
+| `iq-chat` | Fixed `gpt-5.6-luna`/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup-owner.md) |
 | `workflow-agent` / `runtime-contract` | Validated workflow output / local frozen profile and hashes | [Lab 05 C](../labs/05-workflows.md) |
 | `benchmark` | Version-pinned Hosted smoke, matrices, evaluation, traces and acceptance | [Evaluation workbook](evaluation-workbook.md) |
 | `cloud-evaluate` / `calibrate-judge` | Billable native judges on recorded responses (Preview `--business-evaluator` adds your owned code-based rubric; `--reference` joins another label's evaluation for **Compare runs**; `--retry-failed` retries only a failed/invalid attempt and keeps it) / separate calibration fixtures | [Lab 07](../labs/07-evaluation.md), [workbook](evaluation-workbook.md) |

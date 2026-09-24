@@ -224,6 +224,34 @@ including original IDs, `references`, `activity`, `context_hash` and the ownersh
 Keep the original `outputs/azure-objects.json` in place; a copied output file does not establish object ownership.
 Continue to [Lab 07 B](07-evaluation.md#path-b). That lesson starts a **declared local-retrieval experiment**; it does not reuse this IQ answer as an evaluation result.
 
+<details>
+<summary>Minimal SDK recipe (optional, outside this repo)</summary>
+
+See [`examples/recipes/06_iq_retrieve.py`](../../examples/recipes/06_iq_retrieve.py) for the standalone GA IQ retrieval pattern. Key lines:
+
+```python
+response = http.post(
+    f"{endpoint}/knowledgebases('{kb}')/retrieve",
+    params={"api-version": "2026-04-01"},  # GA contract, checked 2026-09-24
+    headers={"Authorization": f"Bearer {token}"},  # scope https://search.azure.com/.default
+    json={
+        "intents": [{"type": "semantic", "search": question}],
+        "includeActivity": True,
+        "knowledgeSourceParams": [
+            {"kind": "searchIndex", "knowledgeSourceName": source, "includeReferences": True}
+        ],
+    },
+)
+response.raise_for_status()  # an error is a finding; never switch to plain Search
+```
+
+**Write it yourself:** print the returned reference IDs and the original document IDs separately; do not treat reference numbers as policy IDs.
+
+</details>
+
+
+> ⛔ **Stop here unless this optional step was approved.** Everything below is optional/path C and may create billable resources or need extra roles. A/B learners continue with the next-lab link above.
+
 <a id="iq-chat-model"></a>
 
 ## Optional IQ Chat: open the prepared gpt-5.6-luna chat KB
@@ -290,6 +318,8 @@ A fixed model removes a common configuration mismatch; it cannot guarantee quota
 
 </details>
 
+> ⛔ **Stop here unless this optional step was approved.** Everything below is optional/path C and may create billable resources or need extra roles. A/B learners continue with the next-lab link above.
+
 ## C. Optional real hybrid RAG
 
 **First pass: continue to [Lab 07](07-evaluation.md).** C and D are separate advanced branches, not missing steps in the GA path.
@@ -330,6 +360,8 @@ Changing an environment index name does not rewire a remote IQ source/base.
 Do not mix retrieval changes into a prompt-only evaluation comparison.
 
 </details>
+
+> ⛔ **Stop here unless this optional step was approved.** Everything below is optional/path C and may create billable resources or need extra roles. A/B learners continue with the next-lab link above.
 
 ## D. Connect IQ to Hosted workflows and evaluation
 

@@ -38,6 +38,18 @@ Before adapting classic threads/runs/Assistants or `azure-ai-inference` examples
 check the [official migration guide](https://learn.microsoft.com/azure/foundry/how-to/navigate-from-classic).
 Current transition/retirement guidance does not guarantee old examples still work.
 
+## Retirement dates that affect old tutorials
+
+Checked 2026-09-24. Use the current
+[classic-to-new agent migration guide](https://learn.microsoft.com/azure/foundry/agents/how-to/migrate)
+before reviving an older sample.
+
+| Old tutorial surface | Retirement date | What to do instead | Source |
+|---|---:|---|---|
+| Azure OpenAI Assistants API | 2026-08-26, already retired | Move to current Foundry agents and SDK 2.x patterns | [Assistants retirement note](https://learn.microsoft.com/azure/foundry-classic/openai/how-to/code-interpreter) |
+| Foundry Agent Service classic agents using threads/runs/messages | 2027-03-31 | Migrate classic agents to the new Foundry agent service | [Classic agents deprecation](https://learn.microsoft.com/azure/foundry-classic/agents/concepts/threads-runs-messages) |
+| Foundry portal Workflows visual Preview | 2026-12-01 | Build new workflow logic with Microsoft Agent Framework | [Workflows retirement](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow) |
+
 The core needs no additional repository clones. Source links support deeper exploration
 and attribution; the executable core, data, and documentation are here.
 English is now the default entry point, with matching [Korean guides](../../README.ko.md).

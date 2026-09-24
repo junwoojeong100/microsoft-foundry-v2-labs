@@ -220,7 +220,9 @@ Azure CLI 설치는 [공식 설치 가이드](https://learn.microsoft.com/cli/az
 사용합니다. 로그인은 학습자가 직접 합니다.
 
 ```bash
-az login
+printf '설정 카드의 Azure tenant ID: '
+read -r AZURE_TENANT_ID
+az login --tenant "$AZURE_TENANT_ID"
 if [ -e .env ] || [ -L .env ]; then
   printf '%s\n' '.env exists; edit it without replacing it.'
 else

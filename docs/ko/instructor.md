@@ -10,14 +10,14 @@
 
 | 수업 | 기본 준비 | 미리 빼도 되는 것 |
 |---|---|---|
-| A. 입문 | 브라우저 계정, 프로젝트, 모델, 합성 문서, 평가표, 준비된 MAF 실행 환경 | Python 코드 작성, Hosted, 실제 M365/Fabric |
-| B. 구현 | Python/SDK·코드 환경·모델 접근·Search 서비스와 Lab 06의 범위 제한 읽기/쓰기 권한 | 유료 judge·로컬/원격 Hosted 실행·실제 telemetry는 별도 게이트 |
+| A. 입문 | 270분(4시간 30분): 브라우저 계정, 프로젝트, 모델, 합성 문서, 평가표, 준비된 MAF 실행 환경 또는 hosted workflow agent | Python 코드 작성, 실제 M365/Fabric |
+| B. 구현 | 480분(4시간 세션 2회): Python/SDK·코드 환경·모델 접근·Lab 03 B 관리형 agent·Search 서비스·Lab 06의 범위 제한 읽기/쓰기 권한·Lab 09 trace 접근 | 유료 judge와 로컬/원격 Hosted 실행은 별도 게이트 |
 | IQ 심화 | 준비된 Search, 인증·semantic/knowledge retrieval 설정 | planner·임베딩·richer Preview는 기본 GA에 불필요 |
 | Hosted 심화 | 3.13 런타임, 실제 ARM ID, 배포/identity 권한 | 로컬 Docker는 code deployment에 불필요 |
 
 초보자의 core를 “모든 Preview 승인과 회사 M365 연결”에 의존시키지 않습니다.
 각 조는 고유한 agent/검색 접두사를 사용하고, 공유 서비스의 생성/삭제는 강사만 담당합니다.
-포털 workflow 작성 환경은 준비하지 않습니다. A의 Lab 05도 기존 MAF 예제를 실행하므로,
+포털 workflow 작성 환경은 준비하지 않습니다. A의 Lab 05도 기존 MAF 예제 또는 Playground의 담당자 준비 hosted workflow agent를 실행하므로,
 SDK·가상환경·학습자 계정의 모델 호출 권한을 미리 확인합니다.
 
 영어·한국어는 ID·날짜·금액·정답 기준이 동등한 **별도 동결 언어 번들**입니다.
@@ -35,11 +35,13 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
    Quota/SKU/리전을 점검하며 초보자에게 대체 모델을 추측하게 하지 않습니다.
    수업 전에 [모델 선택](reference/model-choice.md)과 공개 가격을 다시 확인합니다.
 3. 참가자에게 프로젝트의 `Foundry User` 등 필요한 역할을 부여합니다.
-4. **B 또는 선택한 IQ 모듈에만** Search 데이터 읽기·작성 역할을 준비합니다. 기본 A에는 필요 없습니다.
-5. **원격 호스팅을 선택한 경우에만** 런타임 ID의 모델·도구 역할을 준비합니다. 패키징만 하는 B에는 필요 없습니다.
-6. 관리자 아닌 **실제 참가자 계정**으로 첫 요청을 보내 봅니다.
-7. 예산 알림과 로그 보존 기간을 정합니다. 예산 알림은 사용을 자동 차단하는 hard cap이 아닙니다.
-8. 선택 기능의 승인, 지역 간 처리, 테넌트 정책을 확인합니다.
+4. 서버 측 trace를 위해 Application Insights를 프로젝트에 연결하고 학습자에게 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 부여합니다. Lab 09 trace 확인에 필요합니다. **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+5. **B 또는 선택한 IQ 모듈에만** Search 데이터 읽기·작성 역할을 준비합니다. 기본 A에는 필요 없습니다.
+6. **원격 호스팅을 선택한 경우에만** 런타임 ID의 모델·도구 역할을 준비합니다. 패키징만 하는 B에는 필요 없습니다.
+7. A 선택 사항: Lab 05 hosted workflow agent를 준비하고 stable endpoint, active version, 이름, Playground 위치를 학습자에게 줄 수 있게 기록합니다. **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+8. 관리자 아닌 **실제 참가자 계정**으로 첫 요청을 보내 봅니다.
+9. 예산 알림과 로그 보존 기간을 정합니다. 예산 알림은 사용을 자동 차단하는 hard cap이 아닙니다.
+10. 선택 기능의 승인, 지역 간 처리, 테넌트 정책을 확인합니다.
 
 Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로 보일 수 있습니다.
 현재 [역할 표](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry)를 기준으로 확인합니다.
@@ -62,7 +64,7 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 - 선택 judge 배포와 실제 underlying model.
 - Hosted를 선택한 경우 실제 프로젝트 ARM ID·location 코드·고유 agent 이름·빈 독립 폴더.
 
-Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화한 MAF 터미널도 전달합니다.
+Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화한 MAF 터미널 또는 준비된 hosted workflow agent 정보를 전달합니다.
 혼자 학습하면 [Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)가 전체 준비 경로이며 강사의 숨은 조작을 전제로 하지 않습니다.
 
 ## 3. Search/IQ 준비
@@ -90,7 +92,7 @@ Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화
 사용자나 Hosted agent의 역할을 대신 사용하는 것이 아닙니다.
 선택 Preview 실습은 **`gpt-5.6-luna` + Search system-assigned identity + `low` + `answerSynthesis`** preset으로 고정합니다.
 2026-09-23 Search가 KB 연결에서 GPT-6 모델을 받지 않았으므로 이 별도 배포를 준비합니다.
-[담당자 실행 순서](setup.md#4-환경-담당자의-준비)를 한 번 완료하고 출력된 정확한 chat-base 이름을 전달합니다.
+[담당자 실행 순서](setup-owner.md)를 한 번 완료하고 출력된 정확한 chat-base 이름을 전달합니다.
 모델 없는 GA base를 채팅 준비 완료로 전달하지 않습니다.
 `iq-chat check`는 읽기 전용, `iq-chat setup --confirm-create`는 별도 본인 base 생성,
 `iq-chat ask --label <new-label> --confirm-cost`는 실제 유료 계획·합성 확인입니다.
@@ -166,8 +168,8 @@ python scripts/workshop.py workflow --pattern sequential
 
 | 수업 | 필수 리허설 | 필요하지 않은 것 |
 |---|---|---|
-| [A. 입문](paths/a-beginner.md) | 포털 agent·학습자 파일·본인의 순차 MAF 실행·6문항 수동 평가·원문 확인·인계 | Search 서비스·cloud judge·호스팅 |
-| [B. 구현](paths/b-practitioner.md) | 함수/MCP 호출·workflow 세 패턴·Search와 GA IQ·조건을 충족한 평가·패키지·인계를 포함한 기본 B 전체 | 로컬/원격 Hosted 실행·cloud judge·C 모듈 |
+| [A. 입문](paths/a-beginner.md) | 포털 agent·학습자 파일·본인의 순차 MAF 실행 또는 준비된 hosted workflow Playground 옵션·6문항 수동 평가·원문 확인·Lab 09 trace 확인·인계 | Search 서비스·cloud judge |
+| [B. 구현](paths/b-practitioner.md) | 관리형 agent·함수/MCP 호출·workflow 세 패턴·Search와 GA IQ·조건을 충족한 평가·trace 확인·패키지·인계를 포함한 기본 B 전체 | 로컬/원격 Hosted 실행·cloud judge·C 모듈 |
 | [선택한 C 모듈](paths/c-advanced.md) | 그 모듈의 준비 조건·호출·근거만 | 나머지 C 모듈 전체 |
 
 참가자 계정·승인된 비용·고유 prefix를 사용합니다. 새 B 복사본은 Lab 06에서 본인 객체를 만들고 ledger를 보존합니다.
@@ -228,6 +230,10 @@ python -m pip freeze > outputs/instructor/environment.txt
 
 녹화나 강사 관찰은 좋은 보조자료지만 참가자의 직접 실행 증거는 아닙니다.
 원본 영상 링크를 사용하더라도 화면/버전 차이를 먼저 설명합니다.
+
+## 미디어 분리 계획
+
+큰 MP4/WebP asset은 이 저장소와 Git 이력에 들어 있으며 현재 pack은 약 977 MiB입니다. Release asset, Pages, LFS로 옮기거나 이력을 다시 쓰려면 별도 승인과 조율된 migration이 필요합니다. 이번 판에서는 학습자가 브라우저 자료에 **Download ZIP**을 사용하거나, [담당자 준비](setup-owner.md)의 sparse-checkout 방식으로 `docs/assets/`와 video를 피할 수 있습니다.
 
 ## 고급 Hosted workflow·평가 준비
 

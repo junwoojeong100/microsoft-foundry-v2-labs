@@ -72,6 +72,52 @@ def workshop_commands(text: str) -> list[tuple[str, list[str]]]:
     return commands
 
 
+AZD_SURFACE = ROOT / "scripts/azd-surface.json"
+AZD_WORD = re.compile(r"[a-z][a-z0-9-]*")
+
+
+def azd_segments(text: str) -> list[str]:
+    segments = []
+    for block in re.findall(r"```bash\n(.*?)```", text, flags=re.DOTALL):
+        for line in block.replace("\\\n", " ").splitlines():
+            for segment in re.split(r"&&|\|\||;|\|", line):
+                segment = re.sub(r"^\s*(?:[A-Z_][A-Z0-9_]*=\S+\s+)*", "", segment).strip()
+                if segment.startswith("azd "):
+                    segments.append(segment)
+    return segments
+
+
+def azd_words(segment: str) -> tuple[list[str], list[str]]:
+    tokens = shlex.split(segment)[1:]
+    words = []
+    for token in tokens:
+        if not AZD_WORD.fullmatch(token):
+            break
+        words.append(token)
+    flags = sorted({token.split("=", 1)[0] for token in tokens if token.startswith("--")})
+    return words, flags
+
+
+def azd_command_paths(text: str) -> set[str]:
+    return {" ".join(azd_words(segment)[0]) for segment in azd_segments(text)}
+
+
+def azd_errors(segment: str, commands: dict[str, list[str]]) -> list[str]:
+    words, flags = azd_words(segment)
+    path = next(
+        (
+            " ".join(words[:end])
+            for end in range(len(words), 0, -1)
+            if " ".join(words[:end]) in commands
+        ),
+        None,
+    )
+    if path is None:
+        return [f"unknown azd command: {segment}"]
+    unknown = [flag for flag in flags if flag not in commands[path]]
+    return [f"unknown azd flag {', '.join(unknown)} for 'azd {path}': {segment}"] if unknown else []
+
+
 def translation_pairs(root: Path) -> list[tuple[Path, Path]]:
     english = {
         path.relative_to(root / "docs")
@@ -200,11 +246,17 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
     command_parser = parser()
     pending = pending_translations(root, errors)
     translations = command_translations(root, errors)
+    try:
+        azd_surface = read_json(AZD_SURFACE)["commands"]
+    except (OSError, ValueError, KeyError) as exc:
+        errors.append(f"scripts/azd-surface.json: record the azd help snapshot first ({exc}).")
+        azd_surface = None
     counts = {
         "markdown_files": 0,
         "local_links": 0,
         "local_anchors": 0,
         "cli_examples": 0,
+        "azd_examples": 0,
         "language_pairs": 0,
         "pending_translations": len(pending),
     }
@@ -230,6 +282,15 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
                     destination.read_text(encoding="utf-8")
                 ):
                     errors.append(f"{relative}: broken heading link {target}")
+        if azd_surface is not None:
+            for segment in azd_segments(text):
+                counts["azd_examples"] += 1
+                try:
+                    errors.extend(
+                        f"{relative}: {error}" for error in azd_errors(segment, azd_surface)
+                    )
+                except ValueError as exc:
+                    errors.append(f"{relative}: invalid azd command quoting: {exc}")
         try:
             commands = workshop_commands(text)
         except ValueError as exc:

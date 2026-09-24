@@ -49,6 +49,10 @@ flowchart LR
 | Failures | HTTP, JSON, and contract failures remain rows. Never evaluate only the successful prefix of an incomplete run |
 | Acceptance | Execution, business correctness, native quality, traces, and calibration are separate. CLI success is not production approval |
 
+To add provider diversity, include one approved non-OpenAI Foundry Model deployment in the same matrix only after it passes
+the same frozen-input, API and strict Structured Outputs gates. The existing four-model workbook results were OpenAI-family only,
+and the `gpt-6-sol` era did not re-run that matrix.
+
 <a id="matrix-setup"></a>
 
 ## 2. Instructor preparation and explicit model selection

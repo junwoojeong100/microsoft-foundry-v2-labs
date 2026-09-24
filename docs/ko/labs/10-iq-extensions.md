@@ -103,6 +103,9 @@ M365 Copilot 보유 여부만으로 위 조건을 충족했다고 판단하지 �
 | 변경 작업 | 별도 승인, idempotency, 감사·보상 동작 |
 
 Web IQ와 일반 Web Search를 같은 기능으로 표시하지 않습니다.
+2026-09-24 확인: `azure-ai-projects` 2.6.0에 Web IQ Preview tool(`WebIQPreviewTool`)이 추가됐습니다.
+이 워크숍에서는 다루지 않습니다. 다른 Preview web grounding처럼 승인된 domain만 사용하고,
+freshness/source URL을 기록하며, 민감 query를 보내지 않습니다.
 도구가 등록되었다는 것과 실제 권한으로 올바른 결과를 받았다는 것도 구분합니다.
 `FoundryToolbox`는 prerelease hosting 패키지에 속하며 upstream 프로젝트 연결을 만들지 않습니다.
 실제 수명 주기·자격 증명·Fabric·Work IQ 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)을 확인합니다.

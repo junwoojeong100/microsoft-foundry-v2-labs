@@ -9,6 +9,7 @@
 | Resource Group | 관련 Azure 자원을 묶는 관리 폴더 같은 단위 |
 | Endpoint | 프로그램이 요청을 보내는 서비스 주소 |
 | Deployment name | 배포된 모델을 실제로 호출할 때 사용하는 이름 |
+| Stable agent endpoint / active version | Foundry agent에는 안정적인 endpoint가 있으며 active version이 바뀔 때까지 traffic을 받음 |
 | Prefix / 접두사 | 본인 cloud 객체의 `mfv2-...` 이름 범위; 실행 label과 다름 |
 | Label | `baseline`처럼 저장된 실행 하나의 이름; agent 이름·버전·파일 경로가 아님 |
 | Model key | Matrix에서 명시적으로 설정한 배포 하나를 가리키는 `a` 같은 로컬 별칭 |
@@ -27,6 +28,8 @@
 | Managed identity | Azure 런타임이 비밀번호 대신 사용하는 관리형 identity |
 | OBO / delegated | 최종 사용자의 권한 맥락으로 다른 서비스에 접근하는 방식 |
 | Trace / span | 요청의 처리 흐름 / 그 안의 작업 한 단계 |
+| Server-side vs client-side tracing | Server-side trace는 프로젝트를 Application Insights에 연결하면 나타남. Client-side tracing은 호출자 process의 별도 instrumentation |
+| Insights in Foundry (preview) | 최근 agent trace를 scan해 반복 행동을 묶고 likely cause/action을 제안하는 preview 포털 분석 기능 |
 | Evaluation / evaluator | 결과를 기준에 따라 평가하는 과정 / 평가 규칙·모델 |
 | Dev / holdout | 개선·선택에 쓰는 사례 / 마지막 확인까지 쓰지 않는 사례 |
 | Lineage / 계보 | 어떤 데이터·지침·모델·버전에서 결과가 나왔는지 연결한 이력 |

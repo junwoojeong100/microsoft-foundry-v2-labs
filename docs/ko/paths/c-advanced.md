@@ -17,6 +17,7 @@
 |---|---|---|
 | 여러 agent에서 도구 하나 재사용 | [관리형 Toolbox](../labs/extensions/toolbox.md) | Tool Search/Skills 또는 Hosted Toolbox |
 | 답변 하나가 아닌 대화 평가 | [대화 평가](../labs/extensions/conversation-evaluation.md) | Optimizer 또는 반복 평가 |
+| 반복 trace 패턴을 검토된 결정으로 전환 | [Agent Insights](../labs/extensions/agent-insights.md) | severity를 ground truth로 취급하거나 dev 평가 없이 instruction 변경 |
 | 모델 호출 없이 중단·재개 이해 | [로컬 승인/복구 시뮬레이션](../labs/extensions/approval-recovery.md) | 실제 인가나 Hosted crash 검증 |
 | 리소스 변경 없이 접근·구조 검토 | [거버넌스·네트워크](../labs/extensions/governance-networking.md) 또는 [전문 범위](../labs/extensions/specialist-scope.md) | 부족한 인프라 생성 |
 | 고정 버전의 Hosted 시스템 인수 | B의 모델·MAF·IQ 결과 이후 [Hosted 평가 워크북](../reference/evaluation-workbook.md) | 운영 릴리스 승인 |
@@ -32,6 +33,7 @@
 | [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | 실제 CSV 생성 또는 읽기 전용 API 호출 검증 | 도구 하나 선택. 첫 회차는 Code Interpreter, OpenAPI는 본인 Search index 필요 |
 | [Tool Search와 Skills](../labs/extensions/tool-search-skills.md) | 도구 발견·검토된 절차의 버전 재사용 | 실제 동작하는 내 Toolbox, Preview 선택 |
 | [대화 평가](../labs/extensions/conversation-evaluation.md) | 개별 턴과 전체 대화 평가 구분 | 동봉 dev를 사용한 실제 다중 턴, holdout 개발 금지 |
+| [Agent Insights](../labs/extensions/agent-insights.md) | AI 생성 trace 패턴 finding을 검토한 뒤 평가·routing·instruction 변경을 결정 | Lab 03 Prompt Agent, 연결된 App Insights, 충분한 기존 합성 trace. Preview이며 ground truth가 아님 |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | 고정된 dev baseline에 대한 후보 검토 | 준비된 optimizer/judge 모델, 비용 승인, Preview |
 | [승인 게이트와 복구](../labs/extensions/approval-recovery.md) | 실제 SDK 중단·체크포인트·재개 | 로컬 모의 결정, 실제 사람 승인/Hosted crash 증거 아님 |
 | [A2A](../labs/extensions/a2a.md) | 별도 주소의 agent에 위임 | 명시적인 1.0과 호출 권한, 0.3 fallback 금지 |
@@ -44,7 +46,8 @@
 
 [기능 상태](../coverage.md)를 함께 읽습니다. 공식 문서나 설치된 SDK는 이 실습이 실행되었다는 증거가 아닙니다.
 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며(예: 후보가 없는 최적화, 답변이 아닌 전달만 확인된 Routine)
-`gpt-6-sol`로는 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 2026-09-23에 다시 실행했습니다. 각 모듈은 직접 확인합니다.
+`gpt-6-sol`로는 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 2026-09-23에 다시 실행했습니다.
+Agent Insights 모듈은 2026-09-24에 추가됐고 실행하지 않았습니다. 각 모듈은 직접 확인합니다.
 
 ## 실험 조건 유지
 

@@ -11,6 +11,7 @@ from .contracts import (
     ModelOutputError,
     digest,
     load_prompt,
+    openai_request_id,
     validate_question,
 )
 from .profiles import RuntimeProfile, validate_inference_endpoint
@@ -130,7 +131,7 @@ async def run_pipeline(
             {
                 "response_id": response.response_id,
                 "response_model": response.model,
-                "request_id": getattr(response.raw_representation, "_request_id", None),
+                "request_id": openai_request_id(response.raw_representation),
                 "usage": {
                     "input_tokens": usage.get("input_token_count"),
                     "output_tokens": usage.get("output_token_count"),

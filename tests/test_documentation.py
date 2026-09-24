@@ -243,3 +243,35 @@ class DocumentationTests(unittest.TestCase):
             self.assertIn(
                 (root / "docs/labs/01-foundry.md", root / "docs/ko/labs/01-foundry.md"), pairs
             )
+
+    def test_azd_examples_are_checked_against_the_recorded_help_surface(self):
+        commands = {"ai agent invoke": ["--cwd", "--help", "--version"], "deploy": ["--cwd"]}
+        text = (
+            "```bash\n"
+            'AZURE_DEV_USER_AGENT=x azd ai agent invoke --cwd "${DIR:?}" \\\n  --version 1\n'
+            'azd deploy "$NAME" --cwd "$DIR" && azd ai agent invoke --bogus\n'
+            "azd ai agent vanish\n"
+            "```\n"
+            "Prose mentioning azd deploy --nope is not a command.\n"
+        )
+        segments = DOCS.azd_segments(text)
+        self.assertEqual(len(segments), 4)
+        errors = [error for segment in segments for error in DOCS.azd_errors(segment, commands)]
+        self.assertEqual(len(errors), 2)
+        self.assertIn("unknown azd flag --bogus", errors[0])
+        self.assertIn("unknown azd command", errors[1])
+        self.assertEqual(
+            DOCS.azd_command_paths(text), {"ai agent invoke", "deploy", "ai agent vanish"}
+        )
+
+    def test_recorded_azd_surface_is_dated_and_covers_every_guide_command(self):
+        surface = json.loads((ROOT / "scripts/azd-surface.json").read_text())
+        self.assertRegex(surface["recorded_at"], r"^\d{4}-\d{2}-\d{2}$")
+        self.assertTrue(surface["azd_version"])
+        paths = set()
+        for path in DOCS.markdown_files(ROOT):
+            paths |= DOCS.azd_command_paths(path.read_text(encoding="utf-8"))
+        self.assertTrue(paths)
+        self.assertLessEqual(paths, set(surface["commands"]))
+        for flags in surface["commands"].values():
+            self.assertNotIn("--cask", flags)

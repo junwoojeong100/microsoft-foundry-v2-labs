@@ -13,12 +13,12 @@ Use only the supplied synthetic data.
 
 | Route | Choose it if | You do | You finish with |
 |---|---|---|---|
-| **[A — Beginner](docs/paths/a-beginner.md)** | You are new to Azure or agents | Browser steps and one command in a prepared terminal; no Python writing | Your agent, a six-question assessment, a workflow review and a cleanup handoff |
-| **[B — Implementation](docs/paths/b-practitioner.md)** | You are comfortable with Python and APIs | SDK calls, tools, workflows, Search/IQ, a controlled evaluation and local packaging | Saved run records and an acceptance report |
+| **[A — Beginner](docs/paths/a-beginner.md)** | You are new to Azure or agents | Browser steps and a prepared Lab 05 workflow path; no Python writing | Your agent, a six-question assessment, a workflow review and a cleanup handoff |
+| **[B — Implementation](docs/paths/b-practitioner.md)** | You are comfortable with Python and APIs | SDK calls, managed prompt agent, tools, workflows, Search/IQ, controlled evaluation, traces, local packaging | Saved run records and an acceptance report |
 
-**Time after setup:** A 4 hours; B 6 hours. **Files:** A uses the small learner ZIP; B uses the source repository, with no second ZIP.
-Both need a prepared Azure environment. A also needs a prepared terminal for Lab 05;
-if none was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
+**Time after setup:** A 4 h 30 min; B 8 h (two 4-hour sessions). **Files:** A uses the small learner ZIP; B uses the source repository, with no second ZIP.
+Both need a prepared Azure environment. Lab 05 uses either a prepared hosted workflow agent in the browser or a prepared terminal (the owner decides before class).
+If no prepared terminal was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
 Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark cloud labs **not run**.
 
 After finishing a core route, you can choose optional [C. Advanced modules](docs/paths/c-advanced.md).
@@ -48,42 +48,8 @@ Dev data supports iteration; holdout is reserved for final acceptance.
 
 English by default · Korean available · Synthetic data only
 
-**Pre-Ignite 2026 Edition / Current workflow and evaluation curriculum: September 15, 2026**
-
-Follow the **[beginner or practitioner guide](docs/paths.md)**. Each lab places reference
-images and a **What to check** explanation beside the relevant action or command.
-Read [how to use the screenshots](docs/labs/00-start.md#how-to-read-this-guide) first.
-
-**September 24 `gpt-6-sol` recordings:** [English videos](docs/video-summary.md) ·
-[Action/capture index](docs/action-captures.md) · [Chapters](docs/video-chapters.md) ·
-[Actual results and limitations](docs/live-run.md)
-
-The English set contains **98 actions, 293 lossless captures, and three videos**: **6:29 in guide order**,
-3:11 CLI and 2:55 portal. It covers the main A (portal) and B (CLI) steps of Labs 00–09 and 11 and the optional
-Foundry evaluation steps with `gpt-6-sol` / `2026-09-22` in the Sweden Central training project
-([model choice](docs/reference/model-choice.md)). Failed attempts stay in the recording next to their retries
-([what failed](docs/live-run.md#failures-kept-in-this-recording)).
-Local playback and chapter seeks are verified; the videos were not uploaded to GitHub.
-Play them with `python scripts/play_recordings.py --edition en`. Earlier recordings were removed.
-
-English uses **separate English instructions, synthetic policies, dev/calibration/holdout datasets, and fixtures**.
-Select them explicitly with `--language en`; original Korean files remain unchanged.
-The [language contract](docs/reference/languages.md) and [versioned data bundle](data/README.md)
-preserve language-specific lineage. [Korean recordings](docs/ko/video-summary.md) are independent.
-
-This self-contained edition brings agents, workflows, knowledge, evaluation, and
-operations into **one environment and one business scenario**. It is not a list of
-repositories to visit in sequence.
-The labs, Python code, synthetic policies, evaluation data, and instructor guide are here.
-
-## Additional modules and their evidence
-
-**September 16 English-first expansion:** [A — Beginner](docs/paths/a-beginner.md) ·
-[B — Implementation](docs/paths/b-practitioner.md) · [C — Advanced modules](docs/paths/c-advanced.md).
-Use the [capability/evidence record](docs/coverage.md) to distinguish existing labs, executable modules
-and actual Azure verification. The extension modules were exercised on September 16, 2026 with the earlier
-`gpt-5.6-luna` preset, and those recordings were removed. On September 23, conversation evaluation, Agent Optimizer,
-the red-team step of agent safety and release operations were re-run with `gpt-6-sol`, without recording; the other modules were not.
+Execution evidence, recording metadata, action counts, playback checks, coverage and dated run results now live in [Execution evidence and recordings](docs/evidence.md).
+Use that hub for [live results](docs/live-run.md), [recordings](docs/video-summary.md), [action captures](docs/action-captures.md), [coverage](docs/coverage.md) and [validation](docs/reference/validation.md).
 
 </details>
 
@@ -145,8 +111,8 @@ Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authe
 
 ## Scope of this edition
 
-- Current Foundry and Projects SDK **2.x**; no mixing with classic threads/runs code.
-- **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded.
+- Current Foundry and Projects SDK **2.x** pins were refreshed and offline-verified on 2026-09-24; the 2026-09-24 recordings used the previous pins. See [versions](docs/reference/versions.md).
+- **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded. Assistants retired on 2026-08-26, portal Workflows retire on 2026-12-01, and classic threads/runs agents retire on 2027-03-31; see the [migration map](docs/reference/migration.md).
 - The first-pass preset is **`gpt-6-sol`**, deployed with that exact name, model version **`2026-09-22`**.
   It was chosen on September 23, 2026 and the main steps were recorded with it on September 24 ([why this model](docs/reference/model-choice.md)).
   The optional IQ Chat path keeps its own `gpt-5.6-luna` deployment because Search knowledge bases accepted no GPT-6 model;
@@ -163,7 +129,7 @@ Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authe
 [Validation scope](docs/reference/validation.md) · [Sources](docs/reference/sources.md) ·
 [Troubleshooting](docs/reference/troubleshooting.md) · [Cleanup](docs/reference/cleanup.md)
 
-New terms: [glossary](docs/reference/glossary.md). Execution options:
+New terms: [glossary](docs/reference/glossary.md). Next learning: [learning resources](docs/reference/learning-resources.md). Execution options:
 [command reference](docs/reference/commands.md). Environment variables:
 [configuration](docs/reference/configuration.md).
 
@@ -179,7 +145,7 @@ data/evaluation/       Six dev / four holdout / two judge-calibration cases
 data/fixtures/         Fixed examples for the offline checker
 data/learner/          Ready-to-use English/Korean browser materials and ZIPs
 prompts/               Canonical v1 / v2 instructions (Korean)
-examples/              Local MCP server and Hosted Agent entry point
+examples/              Local MCP server, Hosted Agent entry point and standalone SDK recipes
 tests/                 Offline logic and contract checks
 outputs/               Personal run outputs; excluded from Git
 ```

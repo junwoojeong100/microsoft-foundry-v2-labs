@@ -58,6 +58,24 @@ python scripts/package_hosted.py
 로컬 호출·원격 배포는 **미실행**으로 적고 [Lab 09 B](09-operations.md#path-b)로 이동합니다.
 
 <details>
+<summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
+
+최소 Hosted Responses server 패턴은 [`examples/recipes/08_hosted_agent.py`](../../../examples/recipes/08_hosted_agent.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
+
+```python
+agent = Agent(...)
+ResponsesHostServer(agent).run()
+```
+
+`agent-framework-foundry-hosting`은 prerelease Python 패키지이고 Hosted Agent 서비스는 GA입니다(2026-09-24 확인).
+
+**직접 작성:** 같은 읽기 전용 agent를 로컬로 노출하고 readiness를 확인한 뒤 합성 질문 하나를 보냅니다.
+
+</details>
+
+> ⛔ **승인된 선택 단계가 아니면 여기서 멈춥니다.** 아래는 선택/C 단계이며 유료 자원이나 추가 역할이 필요할 수 있습니다. A/B 학습자는 위의 다음 랩 링크로 이동합니다.
+
+<details>
 <summary>선택 로컬/원격 단일 agent 실행 — 해당 시작 게이트를 충족할 때만 펼칩니다</summary>
 
 <a id="hosting-gates"></a>
@@ -86,7 +104,9 @@ Docker/ACR 로컬 설치는 code deployment의 필수 조건이 아닙니다.
 python -m pip install -e ".[hosted]"
 azd version
 azd ext list
-azd auth login
+printf '설정 카드의 Azure tenant ID: '
+read -r AZD_TENANT_ID
+azd auth login --tenant-id "$AZD_TENANT_ID"
 python scripts/prepare_hosted_azd.py --help
 ```
 

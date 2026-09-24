@@ -4,8 +4,8 @@
 
 **출장 규정 안내 도우미 하나를 만들고 다른 학습자가 검토할 수 있는 실행 근거를 남깁니다.**
 
-1. 브라우저 조작과 준비된 터미널 명령 한 번이면 [A. 입문](paths/a-beginner.md),
-   Python·API를 다루려면 [B. 구현](paths/b-practitioner.md)을 고릅니다.
+1. 브라우저 조작과 준비된 Lab 05 workflow 경로라면 [A. 입문](paths/a-beginner.md),
+   SDK 호출·관리형 prompt agent·도구·workflow·Search/IQ·통제된 평가·trace·로컬 패키징을 다루려면 [B. 구현](paths/b-practitioner.md)을 고릅니다.
 2. 고른 경로의 [준비](setup.md)를 마칩니다. A는 학습자 ZIP, B는 소스 저장소를 사용합니다.
 3. 경로의 체크리스트를 따라 Lab 00부터 진행합니다. 다른 경로까지 이어서 실행하지 말고 **A 완료 / B 완료**로 나옵니다.
 
@@ -13,7 +13,7 @@
 **이미 시작했다면:** 재설치하지 말고 [복구·재개](reference/troubleshooting.md#resume-safely)를 확인합니다.
 
 이 Pre-Ignite 2026 Edition은 **합성 데이터만** 쓰며 영어·한국어 입력과 녹화를 구분합니다.
-어느 경로도 포털에서 workflow를 작성하지 않습니다. 심화 절과 녹화는 선택입니다.
+A는 준비 뒤 약 4시간 30분, B는 약 8시간이며 4시간 세션 2회가 권장됩니다. 어느 경로도 포털에서 workflow를 작성하지 않습니다. 심화 절과 녹화는 선택입니다.
 
 A는 압축을 푼 학습자 ZIP을 개인 증거 폴더로 사용합니다.
 B는 추가 ZIP 없이 [소스 복사본의 기록 폴더](labs/00-start.md#prepare-notes)를 사용합니다.
@@ -33,7 +33,7 @@ A는 복사한 `assessment.csv`도 작성합니다.
 | 나에게 맞는 시작점과 시간표 | [학습 경로](paths.md) |
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
-| 2026-09-24 `gpt-6-sol` 국문 녹화 | [영상: 통합본 6분 3초 · CLI 2분 57초 · 포털 2분 43초](video-summary.md) |
+| 2026-09-24 `gpt-6-sol` 국문 녹화 | [근거 hub](evidence.md)와 [영상: 통합본 6분 3초 · CLI 2분 57초 · 포털 2분 43초](video-summary.md) |
 | 가이드 순서대로 한 영상에서 보기 | [Lab 챕터](video-chapters.md) |
 | 특정 화면이나 액션 | [91개 액션·272개 캡처](action-captures.md) |
 | 실제 결과와 한계 | [실행 기록](live-run.md) |
@@ -55,10 +55,10 @@ A는 복사한 `assessment.csv`도 작성합니다.
 
 ```mermaid
 flowchart TD
-    S["Lab 00 · 출발점 선택"] --> A["A · 포털 + 준비된 MAF"]
-    S --> B["B · Python 중심"]
+    S["Lab 00 · 출발점 선택"] --> A["A · 포털 + 준비된 workflow"]
+    S --> B["B · Python + 관리형 prompt agent"]
     A --> P["프로젝트 → 에이전트 → MAF 예제 → 문서 근거"]
-    B --> C["SDK → MAF/도구 → 워크플로 → Search/IQ"]
+    B --> C["SDK → 관리형 prompt agent → MAF/도구 → 워크플로 → Search/IQ → trace"]
     P --> E["같은 업무 기준으로 평가"]
     C --> E
     E --> R["실패 검토 → 개선 → 최종 확인"]

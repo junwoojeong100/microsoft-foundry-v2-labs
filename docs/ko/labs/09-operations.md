@@ -120,7 +120,7 @@ response ID가 저절로 Azure Monitor trace가 되지는 않습니다.
 모두 통과했다면 그 사실과 남은 한계를 기록하며 실패를 만들지 않습니다.
 변경은 [Lab 07](07-evaluation.md#path-b)의 dev로만 검토하고 노출된 holdout은 사용하지 않습니다.
 
-### 3. 정리 목록 출력
+### 4. 정리 목록 출력
 
 ```bash
 python scripts/workshop.py cleanup-plan
@@ -142,6 +142,15 @@ python scripts/workshop.py cleanup-plan
 **B 완료:** 본인 이력·실패/전체 통과 검토·정리 목록을 저장했습니다.
 [Lab 11 B](11-capstone.md#path-b)로 이동합니다. 추적이 준비되지 않았다면 **추적 미확인**으로 기록합니다.
 이 기본 단계를 마치려고 Hosted를 배포하거나 새 모델 요청을 보내지 않습니다.
+
+<details>
+<summary>추적 포인터(선택, 핵심 경로에 새 코드 없음)</summary>
+
+Prompt/Hosted agent의 서버 측 tracing은 프로젝트에 Application Insights를 연결하면 코드 변경 없이 시작됩니다. Response ID 또는 Trace ID로 검색할 수 있습니다. https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup
+
+로컬 MAF agent의 span이 필요하면 별도 client-side instrumentation이 필요합니다. 로컬 response ID를 서버 trace로 바꾸어 적지 않습니다.
+
+</details>
 
 ### 선택: 서버 측 tracing 준비
 
@@ -210,6 +219,8 @@ python scripts/workshop.py cleanup-plan
 자동 최적화나 continuous evaluation을 기본으로 켜지 않습니다.
 운영 중 샘플링·평가 비용·데이터 정책을 승인한 뒤 별도 설정합니다.
 수업의 6문항 통과만으로 운영 배포를 승인하지 않습니다.
+
+> ⛔ **승인된 선택 단계가 아니면 여기서 멈춥니다.** 아래는 선택/C 단계이며 유료 자원이나 추가 역할이 필요할 수 있습니다. A/B 학습자는 위의 다음 랩 링크로 이동합니다.
 
 ## C. 새 Hosted matrix의 Trace·Monitor 인수
 

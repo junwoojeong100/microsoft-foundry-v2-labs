@@ -30,10 +30,15 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 | Capability | Path | Current workshop coverage | Latest dated evidence |
 |---|---|---|---|
 | Models, Prompt Agents, synthetic source evidence | A/B | Existing Labs 00–03 | 2026-09-24 `gpt-6-sol` recording |
+| Managed prompt agent as core route | B | Lab 03 B now treats the managed Prompt Agent as core practitioner work | 2026-09-24 prepared in guidance; status prepared, not run |
 | Functions, local MCP, MAF orchestration | B | Existing Labs 04–05 | 2026-09-24 `gpt-6-sol` recording |
+| Browser option for A Lab 05 | A | Optional owner-prepared Hosted workflow agent can be tested in the portal Playground | 2026-09-24 prepared, not run |
 | Search/hybrid/GA IQ and separate MI chat preset | B/C | Existing Lab 06 and keyless preset | 2026-09-24 `gpt-6-sol` recording: local, Search and GA IQ retrieval. Hybrid RAG and the `gpt-5.6-luna` IQ Chat preset not re-run (configuration screen checked 2026-09-17) |
 | Business/native evaluation and frozen acceptance | A/B | Existing Lab 07, plus optional portal evaluation, no-evidence diagnostic, code-based business evaluator and **Compare runs** | 2026-09-24 `gpt-6-sol` recording and 2026-09-23 verification in both languages ([results](live-run.md)); custom evaluators and TaskAdherence are Preview |
 | Tool-call evaluation of the MAF agent | B | Optional `maf-evaluate` in Lab 04 | 2026-09-24 `gpt-6-sol` recording and 2026-09-23 verification in both languages; experimental MAF evaluation API |
+| Trace check as core evidence | A/B | Lab 09 A/B records actual trace evidence or an explicit unverified reason | 2026-09-24 prepared in guidance; status prepared, not run |
+| Standalone SDK recipes | B/C | Minimal offline recipe files for model, prompt-agent, MAF, IQ and Hosted patterns | 2026-09-24 offline stub-tested (no Azure calls); live not run |
+| SDK pin refresh | B/C | Refreshed dependency set and provider constraint documented | 2026-09-24 offline-verified with import contract and mocked SDK tests; live not run |
 | [Hosted workflow/matrix/calibration/regression/traces](reference/evaluation-workbook.md) | C | Existing workbook | 2026-09-15 `gpt-5.6-luna` only (Korean four-model matrix); not re-run with `gpt-6-sol` |
 | [Managed Toolbox lifecycle](labs/extensions/toolbox.md) | B | Executable owned/versioned path | 2026-09-16 `gpt-5.6-luna`: English direct query, MAF, local/remote Hosted and downloaded evidence verified |
 | [Tool Search, Skills and private skill catalog](labs/extensions/tool-search-skills.md) | C | Executable Tool Search/Skill path | 2026-09-16 `gpt-5.6-luna`: English discovery, pinning, exact Skill readback and actual load verified; catalog infrastructure not provisioned |
@@ -44,7 +49,9 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 | [Memory](labs/extensions/memory.md) and [Routines](labs/extensions/routines.md) | C | Owned lifecycle and bounded timer | 2026-09-16 `gpt-5.6-luna`: memory verified; routine delivery verified, answer retrieval unavailable |
 | [Applied guardrails and controlled red teaming](labs/extensions/agent-safety.md) | C | Dedicated policy/target | 2026-09-16 `gpt-5.6-luna`: English attachment and two unblocked cases. 2026-09-23 `gpt-6-sol`: cloud red-team scans (Preview) ran, but the displayed ASR contradicted every row's reasoning, so no red-team result is claimed |
 | [Continuous evaluation and deployment quality gates](labs/extensions/release-operations.md) | C | Manual guarded workflow and OIDC setup | 2026-09-23 `gpt-6-sol`: both OIDC releases, the existing-traces evaluations and one hourly recurring schedule per language (both then paused) verified ([results](live-run.md#previously-not-run-items--september-23-2026)); production approval remains separate |
+| [Agent Insights](labs/extensions/agent-insights.md) | C | Preview portal review of recurring trace patterns and human decision flow | 2026-09-24 prepared, not run |
 | [Model retirement/migration and Router tradeoffs](labs/extensions/model-operations.md) | C | Fixed-model comparison and Router observation | 2026-09-16 `gpt-5.6-luna`: temporary supported model and frozen version recorded; no Router migration claim |
+| Cross-provider model comparison guidance | C | Model-operations and evaluation workbook explain adding one non-OpenAI Foundry Model under the same gates | 2026-09-24 prepared, not run |
 | [OpenAPI/Code Interpreter](labs/extensions/additional-tools.md), [Toolkit](labs/extensions/developer-toolkit.md), [governance/networking](labs/extensions/governance-networking.md) | B/C | Executable tools and explicit owner boundaries | 2026-09-16 `gpt-5.6-luna`: English API/file results, tooling and scoped role checks recorded; private network not tested |
 | Actual company/Microsoft 365 access | Specialist | Excluded | Remains excluded |
 | [Fine-tuning, voice/multimodal, browser/computer business actions](labs/extensions/specialist-scope.md) | Specialist | Design/scope only | Separate specialist curriculum, not an implied implementation |

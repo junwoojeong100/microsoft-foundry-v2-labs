@@ -52,6 +52,8 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | HTTP 500 from `model`, `answer`, MAF or an agent right after a model release | The project agent path may not support that model yet (seen with `gpt-6-luna` on September 23, 2026). Stop and record it; no model or endpoint switch | [Model choice](model-choice.md) |
 | IQ reports no chat model | Default B uses model-free GA retrieval; optional A IQ Chat needs a different prepared base | [06](../labs/06-knowledge.md) |
 | Hosted call selects the wrong local project | Restore the recorded absolute `HOSTED_DIRECTORY` and use `--cwd` on every azd command | [08](../labs/08-hosted.md) |
+| No trace appears in Traces | Confirm the owner connected Application Insights to the project before the request, then search by Response ID or Trace ID within the 90-day portal window. Local MAF runs do not create Foundry server-side traces | [09](../labs/09-operations.md) |
+| Traces authorization error | The learner needs Log Analytics Reader on the connected Application Insights resource; if protected tables are enabled, also Privileged Monitoring Data Reader | [09](../labs/09-operations.md) |
 
 <details>
 <summary>Full error reference — open if the short table does not cover your failure</summary>
@@ -92,6 +94,8 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Holdout rejected | Passed/frozen dev candidate, matching code/prompt/model/provider, explicit unlock | 07 |
 | Local succeeds; Hosted 403 | Runtime identity roles, not repeated local sign-in | 08 |
 | Missing logs/traces | App Insights app ID, exporter, agent, date range, sampling and retention/protected-table access; zero traces are unverified, not healthy operation | 09 |
+| No trace appears in Traces | Project-connected Application Insights, request after connection, Response ID/Trace ID search, 90-day portal retention; local MAF has no server-side trace | 09 |
+| Traces authorization error | Log Analytics Reader on connected Application Insights; Privileged Monitoring Data Reader too when protected tables are enabled | 09 |
 | English query uses Korean material | Select `--language en` and the dedicated English index/source/base; never fall back to Korean after an error | 00–07 |
 | Missing English file | Restore the frozen English bundle; preserve original Korean files | 00 |
 | `--agent-endpoint` conflicts with `--protocol` | The full endpoint already specifies the protocol; local invocations still select it explicitly | 08 |

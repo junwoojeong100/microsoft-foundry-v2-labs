@@ -4,17 +4,17 @@
 
 **Goal:** Add synthetic business instructions and documents so the agent can explain its sources and limitations.
 
-**Open your section:** [A — inline agent](#path-a) · B: [skip to Lab 04 B](04-agents-tools.md#path-b) · [Paths](../paths.md)
+**Open your section:** [A — inline agent](#path-a) · [B — SDK managed Prompt Agent](#path-b) · [Paths](../paths.md)
 
 ## Before you start
 
-**This pass:** A creates one Prompt Agent with the ready inline instruction file. File Search and SDK creation are separate optional branches.
+**This pass:** A creates one browser Prompt Agent with the ready inline instruction file. B creates a managed Prompt Agent with the SDK and invokes the exact returned version. File Search remains optional.
 
-**Need:** The learner ZIP, your prefix and the model that succeeded in Lab 02.
+**Need:** The learner ZIP for A. B needs Lab 00's terminal, `.env`, your prefix and the model that succeeded in Lab 02.
 
-**Continue when:** The saved agent name/version and your own answers to the four checks are recorded.
+**Continue when:** A has its saved browser agent/version and four checks. B has `prompt-agent-create.json`, `prompt-agent-invoke.json`, the exact version, and the response ID recorded.
 
-**If blocked:** If answers ignore the policies, check that the whole file is in **Instructions** (not the chat box) and saved. Use your own agent name and the version the portal returns.
+**If blocked:** If A answers ignore the policies, check that the whole file is in **Instructions** and saved. If B cannot create/invoke, preserve the error; do not invoke `latest` or switch to the local MAF agent.
 
 [One-time setup and learner files](../setup.md).
 
@@ -167,39 +167,90 @@ These four images are recording examples. Record your own actual answers and fai
 The downloaded instruction file alone does not establish what was actually saved. Do not overwrite an earlier pass's snapshot.
 
 **A done:** keep `instructions-baseline.txt`, its agent version and four checks in your evidence folder.
-Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the SDK branch below are not required for A.
+Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the B SDK path are not required for A.
 
-## B. Optional SDK branch: managed Prompt Agent versus local MAF
+<a id="path-b"></a>
 
-<details>
-<summary>Optional SDK agent — creates a different agent; not required by either core route</summary>
+## B. Code — create a managed Prompt Agent with the SDK and call its exact version
 
-This is not required for A or B's first pass. It creates a separate agent.
-Enter a new name starting with your `.env` `WORKSHOP_PREFIX`; do not reuse the browser agent's name.
+**Not run in this edition yet (added 2026-09-24).** This core B step creates a project-managed Prompt Agent and one immutable version.
+Use a new name starting with your `.env` `WORKSHOP_PREFIX`; do not reuse A's browser agent or any recording name.
+Record findings in `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json findings:` in `session-notes.txt`.
+
+### 1. Create the managed Prompt Agent
 
 ```bash
 printf 'New agent name (<your prefix>-policy-sdk): '
 read -r AGENT_NAME
-python scripts/workshop.py --language en prompt-agent create --name "$AGENT_NAME" --confirm-create
+python scripts/workshop.py --language en prompt-agent create --name "$AGENT_NAME" --confirm-create --output outputs/learner-notes-en/prompt-agent-create.json
 ```
 
-Replace the name with one matching your `.env` `WORKSHOP_PREFIX`.
-The command **creates an actual agent version in the project**; record name and version.
-The SDK example includes small document context for comparison and does not claim to create File Search.
+**Save:** `prompt-agent-create.json`
 
+Open the saved JSON before invoking. Record the returned agent name and version; this command creates an actual managed project asset.
+
+### 2. Invoke the exact returned version
+
+```bash
+printf 'agent_version returned above: '
+read -r AGENT_VERSION
+python scripts/workshop.py --language en prompt-agent invoke --name "$AGENT_NAME" --version "$AGENT_VERSION" --question "What is the domestic business-trip lodging limit for September 2026?" --output outputs/learner-notes-en/prompt-agent-invoke.json
+```
+
+**Save:** `prompt-agent-invoke.json`
+
+Use the actual returned version in the same terminal. Do not type a version from a recording and do not invoke `latest`.
+Keep the `response_id` from `prompt-agent-invoke.json`; Lab 09 uses it for trace lookup.
+
+### 3. Check the portal without sending another message
+
+In Foundry, open **Build → Agents → your SDK agent**. Verify the same version and instructions are visible.
+Do not send a new Playground message for this check. This SDK agent is a managed project asset, unlike the local MAF agent you create in Lab 04.
+The reverse also works: the step 2 `prompt-agent invoke` command can call a portal-created agent by its name and saved version (for example, the Lab 03 A agent if you made one). It is optional and billable; record it separately if you run it.
+
+### 4. Concept note
+
+Every Foundry agent has a stable endpoint; the active version receives traffic.
+Versions are immutable, so this workshop always pins the exact returned version.
+Publishing or sharing through Agent Applications, Microsoft 365 Copilot or Teams exists, but it needs a Microsoft 365 tenant and is out of scope here.
+Facts checked 2026-09-24: [configure an agent](https://learn.microsoft.com/azure/foundry/agents/how-to/configure-agent) and [publish to Copilot](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-copilot).
+
+**B done:** retain `prompt-agent-create.json`, `prompt-agent-invoke.json`, the exact agent version and the invoke `response_id`.
+Continue to [Lab 04 B](04-agents-tools.md#path-b).
+
+<details>
+<summary>Minimal SDK recipe (optional, outside this repo)</summary>
+
+See [`examples/recipes/03_prompt_agent.py`](../../examples/recipes/03_prompt_agent.py) for the standalone pattern. Key lines:
+
+```python
+project.agents.create_version(
+    agent_name=name, definition=PromptAgentDefinition(model=deployment, instructions=instructions)
+)
+client.responses.create(
+    input=question,
+    extra_body={
+        "agent_reference": {"type": "agent_reference", "name": agent.name, "version": agent.version}
+    },
+    store=False,
+)
+```
+
+It still requires `--confirm-create` in this workshop and a `WORKSHOP_PREFIX-` name.
+
+**Write it yourself:** add one read-only instruction sentence, create a new version, and invoke that exact version without changing the question.
+
+</details>
+
+<details>
+<summary>Earlier recording: September 24, 2026 optional SDK branch — not evidence for this edition's <code>--output</code> files</summary>
+
+The screenshots below recorded the earlier optional branch. Use them only to recognize fields; they are not evidence for `prompt-agent-create.json` or `prompt-agent-invoke.json`.
 
 ![September 24 English recording: Optional SDK Prompt Agent: create an owned version](../assets/g6sol-20260924-en/screenshots/E03-001-sdk-create-2.webp)
 
 **What to check:** Use the returned `agent_name` and `agent_version` for invocation.
 The recorded SDK agent (version 1) and browser agent (version 2) are different agents.
-
-```bash
-printf 'agent_version returned above: '
-read -r AGENT_VERSION
-python scripts/workshop.py --language en prompt-agent invoke --name "$AGENT_NAME" --version "$AGENT_VERSION" --question "What is the domestic business-trip lodging limit for September 2026?"
-```
-
-Use the actual returned version in the same terminal. Do not type `1` from a recording or invoke "latest."
 
 ![September 24 English recording: Invoke the returned SDK agent version](../assets/g6sol-20260924-en/screenshots/E03-002-sdk-invoke-2.webp)
 
@@ -224,4 +275,4 @@ recorded on September 24. Record your agent name/version, all four real response
 method, and one wrong or withheld answer. Fluent prose and correct policy application
 are different; [Lab 07](07-evaluation.md) turns that distinction into evaluation criteria.
 
-Next: A → [Lab 05](05-workflows.md#path-a) · B: [skip to Lab 04](04-agents-tools.md#path-b)
+Next: A → [Lab 05](05-workflows.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)

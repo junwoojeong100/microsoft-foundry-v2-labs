@@ -60,6 +60,7 @@ B - 코드 근거와 인계
 
 개인 기록 폴더:
 Lab 02 model.json / answer-local.json 검토:
+Lab 03 prompt-agent-create.json / prompt-agent-invoke.json 검토:
 Lab 04 maf-none.json / maf-function.json / maf-mcp.json 검토:
 Lab 05 workflow-review.txt 경로:
 Lab 06 검색 비교(파일 / provider / source_ids / context_hash):

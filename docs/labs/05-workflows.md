@@ -8,9 +8,9 @@
 
 ## Before you start
 
-**This pass:** A runs one sequential command in a prepared terminal; B compares three patterns. The deployable wrapper is advanced.
+**This pass:** A uses one pre-chosen execution option: a prepared Hosted workflow agent in Playground if the owner supplied it, otherwise one prepared terminal command. B compares three MAF patterns. The deployable wrapper is advanced.
 
-**Need:** A prepared, activated terminal at the repository root, even for A. If none was supplied, complete Lab 00 B and Lab 02 B once, then return here.
+**Need:** A prepared Hosted workflow agent in Playground, or a prepared activated terminal at the repository root. If neither was supplied, complete Lab 00 B and Lab 02 B once, then return here.
 
 **Continue when:** Actual MAF outputs and a human review note exist; pending-human-review is not approval.
 
@@ -20,6 +20,7 @@
 
 ## This lab uses MAF workflows only
 
+Foundry portal Workflows (visual, Preview) retire on 2026-12-01; build new workflows with Microsoft Agent Framework instead ([checked 2026-09-24](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow)).
 Do not create/connect/publish nodes in the portal Workflow Designer.
 **Microsoft Agent Framework Python code** owns roles, order, and termination.
 Foundry supplies the model and optional hosting/observability.
@@ -32,7 +33,13 @@ Using the Agent Playground is different from authoring a workflow in the portal.
 You copy one command into the terminal of the **prepared MAF environment** on your setup card; no code authoring is required.
 It makes real, billable Azure model calls within the owner's budget. Never share an administrator account.
 
-### 1. Run the prepared sequential workflow
+### 1. Choose the prepared execution option
+
+**Browser option, only if preselected by the owner — Not run in this edition yet (added 2026-09-24).** Open the prepared Hosted workflow agent in **Build → Agents → Playground**, send the same question once, and record the conversation ID / response ID in `workflow-review.txt`. This is not a fallback after a terminal failure; it is a pre-chosen hosted option.
+
+**Terminal option (default recording path):** run the prepared MAF command below and record `Execution option (prepared terminal / prepared hosted workflow agent in Playground):` in `workflow-review.txt`.
+
+### 2. Run the prepared sequential workflow
 
 1. Open the prepared terminal in its browser IDE or VS Code. Its file list shows `README.md` and `scripts/`,
    and the prompt usually starts with `(.venv)`. If not, stop and ask the owner; do not install anything in class.
@@ -53,7 +60,7 @@ otherwise change the file name in `--output` and run again.
 **What to check:** the output shows `mode: live`, `pattern: sequential` and `outputs`.
 This is a MAF run in the terminal, not portal Workflow Designer activity. The recording ran the same command without `--output`.
 
-### 2. Read the actual output
+### 3. Read the actual output
 
 Three MAF roles handled the question in order; `outputs` shows only the last role's final text.
 
@@ -82,7 +89,7 @@ and cites `TRAVEL-2026` and `APPROVAL-01` (a missing ID is a finding for your re
 It keeps `approval_status: pending-human-review` and `external_actions_performed: false`.
 The workflow stops at this JSON; no automatic reject-and-rerun loop or approval action runs behind it.
 
-### 3. Determine completion
+### 4. Determine completion
 
 One reviewed sequential run completes A: you need an **actual MAF run and human review record**.
 Manually copying answers between portal conversations is not MAF execution.
@@ -184,6 +191,24 @@ and your `workflow-review.txt` in the Lab 00 notes directory.
 Each must retain `approval_status: pending-human-review` and `external_actions_performed: false`.
 Continue to [Lab 06 B](06-knowledge.md#path-b); durable approval and deployable wrappers are separate extensions.
 
+<details>
+<summary>Minimal SDK recipe (optional, outside this repo)</summary>
+
+See [`examples/recipes/05_maf_sequential.py`](../../examples/recipes/05_maf_sequential.py) for the standalone pattern. Key lines:
+
+```python
+Agent(...)
+Agent(...)
+SequentialBuilder(participants=[...]).build()
+await workflow.run(task)
+result.get_outputs()
+```
+
+**Write it yourself:** add a one-sentence reviewer role and compare whether the final output changes while the input question stays fixed.
+
+</details>
+
+
 ## Understand human-in-the-loop precisely
 
 `approval_status: pending-human-review` is a **stop sign**, not an approval service.
@@ -196,6 +221,8 @@ retries, revalidation immediately before tools, persistence/restarts, audit reco
 and rollback or compensation.
 
 Telling a model "you are the approver" cannot replace human authorization.
+
+> ⛔ **Stop here unless this optional step was approved.** Everything below is optional/path C and may create billable resources or need extra roles. A/B learners continue with the next-lab link above.
 
 ## C. Practitioner extension: make the workflow deployable
 

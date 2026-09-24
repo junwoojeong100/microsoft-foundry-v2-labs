@@ -69,13 +69,13 @@ Never treat an unverified stop request as a confirmed stopped state.
 
 | Asset | Check and cleanup |
 |---|---|
-| Prompt/Hosted agent and version | Confirm the exact project, name, version and owner; the owner deletes it |
+| Prompt/Hosted agent and version | Confirm the exact project, name, version and owner, including the Lab 03 B SDK managed agent now core in B; the owner deletes it |
 | Search knowledge base/source/index | Dependency order base → source → index; only your names in the ledger |
 | Uploaded files/vector stores | Separate your File Search material from shared material |
 | Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, `eval-data-...` datasets created by `cloud-evaluate`, and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
 | Model deployments | Check whether it is team-only or shared; keep shared models |
 | Search service | Deleting an index does not remove the service's fixed cost |
-| Application Insights/Log Analytics | Check required evidence, retention and sharing |
+| Application Insights/Log Analytics | Check required evidence and sharing. Retention and cost are owner-managed, including the Lab 09 trace requirement |
 | Resource group | Only its owner deletes it, and only if it is training-only and every asset is checked |
 
 <details>

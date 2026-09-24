@@ -225,6 +225,33 @@ flowchart LR
 원래 `outputs/azure-objects.json`은 그대로 둡니다. 복사한 출력 파일이 객체 소유권을 만들어 주지 않습니다.
 [Lab 07 B](07-evaluation.md#path-b)는 **명시적인 로컬 검색 실험**으로 시작하며 이 IQ 답변을 평가 결과로 재사용하지 않습니다.
 
+<details>
+<summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
+
+GA IQ 검색의 독립 예제는 [`examples/recipes/06_iq_retrieve.py`](../../../examples/recipes/06_iq_retrieve.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
+
+```python
+response = http.post(
+    f"{endpoint}/knowledgebases('{kb}')/retrieve",
+    params={"api-version": "2026-04-01"},  # GA contract, checked 2026-09-24
+    headers={"Authorization": f"Bearer {token}"},  # scope https://search.azure.com/.default
+    json={
+        "intents": [{"type": "semantic", "search": question}],
+        "includeActivity": True,
+        "knowledgeSourceParams": [
+            {"kind": "searchIndex", "knowledgeSourceName": source, "includeReferences": True}
+        ],
+    },
+)
+response.raise_for_status()  # an error is a finding; never switch to plain Search
+```
+
+**직접 작성:** 반환된 reference ID와 원본 document ID를 따로 출력합니다. reference 번호를 정책 ID로 취급하지 않습니다.
+
+</details>
+
+> ⛔ **승인된 선택 단계가 아니면 여기서 멈춥니다.** 아래는 선택/C 단계이며 유료 자원이나 추가 역할이 필요할 수 있습니다. A/B 학습자는 위의 다음 랩 링크로 이동합니다.
+
 <a id="iq-chat-model"></a>
 
 ## 선택 IQ Chat — 준비된 gpt-5.6-luna chat KB 열기
@@ -293,6 +320,8 @@ python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 
 </details>
 
+> ⛔ **승인된 선택 단계가 아니면 여기서 멈춥니다.** 아래는 선택/C 단계이며 유료 자원이나 추가 역할이 필요할 수 있습니다. A/B 학습자는 위의 다음 랩 링크로 이동합니다.
+
 ## C. 선택 — 실제 하이브리드 RAG
 
 **첫 회차는 [Lab 07](07-evaluation.md)로 이동합니다.** C·D는 별도 심화이며 GA 경로에서 빠진 단계가 아닙니다.
@@ -337,6 +366,8 @@ IQ의 source/base는 원래 연결한 index를 참조하므로 환경변수만 �
 이 실험의 index 변경을 Lab 07의 prompt-only 전후 비교 사이에 섞지 않습니다.
 
 </details>
+
+> ⛔ **승인된 선택 단계가 아니면 여기서 멈춥니다.** 아래는 선택/C 단계이며 유료 자원이나 추가 역할이 필요할 수 있습니다. A/B 학습자는 위의 다음 랩 링크로 이동합니다.
 
 ## D. IQ를 Hosted 워크플로와 평가로 연결
 

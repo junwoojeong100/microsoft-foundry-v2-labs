@@ -32,7 +32,20 @@ def check() -> tuple[dict, list[str]]:
             errors.append(f"{name}: expected {pinned}, installed {installed[name]}")
     imports = {
         "azure.ai.projects": ["AIProjectClient"],
-        "azure.ai.projects.models": ["PromptAgentDefinition", "TestingCriterionAzureAIEvaluator"],
+        "azure.ai.projects.models": [
+            "PromptAgentDefinition",
+            "TestingCriterionAzureAIEvaluator",
+            "A2ATool",
+            "A2AProtocolVersion",
+            "AgentCard",
+            "AgentCardSkill",
+            "AgentEndpointConfig",
+            "ProtocolConfiguration",
+            "ResponsesProtocolConfiguration",
+            "A2AProtocolConfiguration",
+        ],
+        "openai": ["OpenAI", "AsyncOpenAI"],
+        "httpx2": ["Client", "AsyncClient", "MockTransport"],
         "agent_framework": ["Agent", "tool", "MCPStdioTool"],
         "agent_framework.foundry": ["FoundryChatClient"],
         "agent_framework.orchestrations": [

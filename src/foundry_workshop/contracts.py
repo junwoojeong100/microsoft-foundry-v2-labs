@@ -92,6 +92,15 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def openai_request_id(response: Any) -> str | None:
+    """Return the x-request-id header that the OpenAI SDK attaches to parsed responses.
+
+    The OpenAI Python SDK documents `_request_id` as a public property despite its prefix.
+    """
+    value = getattr(response, "_request_id", None)
+    return value if isinstance(value, str) and value else None
+
+
 def safe_label(value: str) -> str:
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,47}", value):
         raise ValueError("Label must be 1-48 lowercase letters, digits or hyphens; no paths.")

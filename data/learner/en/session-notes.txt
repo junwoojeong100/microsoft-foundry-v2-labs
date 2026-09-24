@@ -60,6 +60,7 @@ If you used different filenames, record their actual paths here.
 
 Personal notes directory:
 Lab 02 model.json / answer-local.json findings:
+Lab 03 prompt-agent-create.json / prompt-agent-invoke.json findings:
 Lab 04 maf-none.json / maf-function.json / maf-mcp.json findings:
 Lab 05 workflow-review.txt path:
 Lab 06 retrieval comparison (file / provider / source_ids / context_hash):

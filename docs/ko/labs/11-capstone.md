@@ -32,7 +32,7 @@
 | MAF 워크플로 | 준비된 순차 예제의 실제 실행·사람 검토 기록 | 순차·병렬·Group Chat의 코드와 결과 비교 |
 | 평가 | 실제 dev 6문항 수동 평가표 | 전체 dev 전후·최종 holdout 및 오류 이력 |
 | 실패 검토 | 실제 실패 한 건 또는 전부 통과했다는 기록 | source run/request/response와 검토 대기 기록 |
-| 운영 | 권한·비용·정리 확인 | 재현 설정·정리. 원격 버전·trace는 선택한 경우만 |
+| 운영 | 권한·비용·정리와 trace 근거 또는 미확인 이유 | 재현 설정·정리와 trace 근거. 로컬 MAF에는 서버 측 trace가 없음 |
 | 제한 사항 | 관찰만 한 기능과 미실행 기능 | SDK/클라우드/Preview별 확인 범위 |
 
 <a id="path-a"></a>
@@ -86,6 +86,7 @@ Lab 07에서 `acceptance.json`을 만들었다면 명령을 반복하지 말고 
 | 출처 | 보관할 것 |
 |---|---|
 | Lab 02 | `model.json`, `answer-local.json` |
+| Lab 03 | `prompt-agent-create.json`, `prompt-agent-invoke.json` |
 | Lab 04 | `maf-none.json`, `maf-function.json`, `maf-mcp.json` |
 | Lab 05 | `workflow-sequential.json`, `workflow-concurrent.json`, `workflow-group-chat.json`, 작성한 `workflow-review.txt` |
 | Lab 06 | `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`, `answer-iq.json`, 원래 `outputs/azure-objects.json` |

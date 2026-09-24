@@ -3,7 +3,9 @@
 [English](../../reference/versions.md) | **한국어**
 
 **현재 preset:** `gpt-6-sol` / `2026-09-22`와 별도 `gpt-6-sol-judge`(2026-09-23부터).
-코드 버전 `2026.9.15`와 아래 의존성 고정 버전은 2026-09-15에 확인했습니다.
+코드 버전 표시는 `2026.9.24`입니다.
+아래 갱신된 의존성 조합은 2026-09-24에 설치하고 import 계약 검사와 mocked SDK test로 오프라인 확인했습니다.
+Azure에 대한 **실제 검증은 아닙니다**.
 **호환성 확인일은 출시일이나 향후 지원 보장이 아닙니다.**
 이 에디션은 Ignite 발표나 모든 tenant·지역의 가용성을 예측하지 않습니다.
 
@@ -20,7 +22,7 @@ Python 직접 의존성은 아래의 호환 확인 조합을 유지합니다.
 | Workflow host | 실제 `Workflow.as_agent()`와 ResponsesHostServer |
 | 평가용 host | InvocationAgentServerHost, 로컬 POST `/invocations`, query-only 4필드 |
 | 서비스 호출 계보 | workflow wrapper UUID가 아니라 실제 ChatResponse ID·model·usage |
-| Middleware | 고정한 core 1.17.0은 `await call_next()`를 사용. 예전 `next(context)` 예제가 아님 |
+| Middleware | 고정한 core 1.18.0은 `await call_next()`를 사용. 예전 `next(context)` 예제가 아님 |
 | Functional workflow | 실험 기능. 필수 선행 조건이 아님 |
 | 키워드 Search | REST `2024-07-01`. hybrid로 부르지 않음 |
 | Hybrid | 실제 embedding 차원과 text/vector 요청. project/account API를 명시적으로 선택 |
@@ -46,25 +48,40 @@ Python 직접 의존성은 아래의 호환 확인 조합을 유지합니다.
 
 ## 고정한 직접 의존성
 
-기준은 `pyproject.toml`입니다.
+실행 가능한 제약의 기준은 `pyproject.toml`입니다.
+2026-09-24 녹화와 실제 결과는 이전 pin을 사용했습니다:
+`azure-ai-projects` 2.3.0, `openai` 2.54.0, `agent-framework-core` 1.17.0,
+`agent-framework-foundry` 1.12.0, `agent-framework-orchestrations` 1.1.1,
+`agent-framework-foundry-hosting` 1.0.0b260903, `mcp` 1.28.1.
+그 실행 결과는 아래 갱신된 pin의 증거가 아닙니다.
 
 | 패키지 | 버전 |
 |---|---|
-| `azure-ai-projects` | 2.3.0 |
+| `azure-ai-projects` | 2.6.1 |
 | `azure-identity` | 1.25.3 |
-| `openai` | 2.54.0 |
+| `openai` | 3.16.1 |
 | `httpx` | 0.28.1 |
 | `python-dotenv` | 1.2.3 |
-| `agent-framework-core` | 1.17.0 |
-| `agent-framework-foundry` | 1.12.0 |
+| `agent-framework-core` | 1.18.0 |
+| `agent-framework-foundry` | 1.13.0 |
 | `agent-framework-orchestrations` | 1.1.1 |
-| `mcp` | 1.28.1 |
-| `agent-framework-foundry-hosting` | 1.0.0b260903 |
+| `agent-framework-foundry-hosting` | 1.0.0b260910 |
+| `mcp` | 1.30.0 |
 
 Hosted 패키지에는 Python 3.13을 사용합니다. 오프라인 코드는 3.13–3.14에서 테스트합니다.
-공급자는 Projects SDK `>=2.2.0,<2.4.0`을 요구하며, 각 패키지의 최신 버전이 서로 호환된다는 보장은 없습니다.
+공급자는 Projects SDK `>=2.2.0,<2.7.0`을 요구하며, 각 패키지의 최신 버전이 서로 호환된다는 보장은 없습니다.
+OpenAI 3.x는 내부적으로 httpx2를 사용합니다. 이 워크숍의 고정 표면에서는 legacy httpx client도 계속 허용됩니다.
+`azure-ai-projects` 2.7.0, `openai` 3.19.2, `agent-framework-core` 1.19.0,
+`agent-framework-foundry` 1.13.1, `agent-framework-orchestrations` 1.2.0,
+`agent-framework-foundry-hosting` 1.0.0b260918, `mcp` 2.2.0 같은 더 새 PyPI release가 있습니다.
+이 에디션에서는 설치하거나 검증하지 않았습니다.
 해석된 lock 파일은 작성 환경을 설명할 뿐 모든 OS나 원격 빌드를 설명하지 않습니다.
 실제 원격 빌드에서 해석된 버전을 기록합니다.
+
+## Retirement 날짜
+
+오래된 Assistants, classic agent, portal Workflows는 서로 다른 일정으로 retire됩니다.
+오래된 tutorial을 가져오기 전에는 [migration](migration.md#오래된-tutorial에-영향을-주는-retirement-날짜)을 확인합니다.
 
 ## 실제 실행에서 발견한 차이
 

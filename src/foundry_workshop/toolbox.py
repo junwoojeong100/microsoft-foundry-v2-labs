@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
+from .compatibility import FOUNDRY_AGENT_DATA_PLANE
 from .contracts import (
     ANSWER_SCHEMA,
     Answer,
@@ -59,7 +60,7 @@ def version_value(value: Any) -> str:
 def endpoint(settings: Settings, name: str, version: str) -> str:
     return (
         f"{settings.project_endpoint}/toolboxes/{quote(name, safe='')}"
-        f"/versions/{quote(version_value(version), safe='')}/mcp?api-version=v1"
+        f"/versions/{quote(version_value(version), safe='')}/mcp?api-version={FOUNDRY_AGENT_DATA_PLANE.version}"
     )
 
 

@@ -396,6 +396,17 @@ If holdout was not collected, record why; do not create a report to fill this li
 **B done:** keep all three run folders, the comparison, review notes and the acceptance/rejection report.
 Continue to [Lab 08 B](08-hosted.md#path-b) for **packaging only**. An acceptance report is not deployment authorization.
 
+<details>
+<summary>Minimal SDK recipe (optional, outside this repo)</summary>
+
+The local business check lives in `src/foundry_workshop/evaluation.py`; it verifies decisions, amounts, citations, and error handling against the frozen synthetic cases.
+For cloud evaluation, use the official guide: https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation
+
+**Write it yourself:** add a local-only assertion for one existing output field, then run it against saved responses rather than making new model calls.
+
+</details>
+
+
 ### 5. Optional: Foundry cloud judges and a portal comparison
 
 <details>

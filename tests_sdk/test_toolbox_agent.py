@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import httpx
+import httpx2
 from agent_framework.exceptions import AgentFrameworkException
 from agent_framework.openai import OpenAIChatClient
 from openai import AsyncOpenAI
@@ -29,11 +30,22 @@ class ToolboxAgentTests(unittest.IsolatedAsyncioTestCase):
         self.model_requests = []
         self.tool_error = False
         self.clients = []
+        test = self
         self.real_async_client = httpx.AsyncClient
+
+        class RecordingMCPClient(self.real_async_client):
+            # A real subclass keeps isinstance checks valid while the MCP transport is stubbed.
+            def __init__(self, *args, **kwargs):
+                kwargs["transport"] = httpx.MockTransport(test.mcp_response)
+                super().__init__(*args, **kwargs)
+                test.clients.append(self)
+
+        self.recording_mcp_client = RecordingMCPClient
+        # openai 3.x uses httpx2; the MCP client in the pinned MAF/mcp stack still uses httpx.
         self.model_client = AsyncOpenAI(
             api_key="unit-test-not-a-real-key",
             base_url="https://unit.invalid/v1",
-            http_client=self.real_async_client(transport=httpx.MockTransport(self.model_response)),
+            http_client=httpx2.AsyncClient(transport=httpx2.MockTransport(self.model_response)),
             max_retries=0,
         )
 
@@ -62,7 +74,7 @@ class ToolboxAgentTests(unittest.IsolatedAsyncioTestCase):
                     "status": "completed",
                 }
             ]
-        return httpx.Response(200, json=result)
+        return httpx2.Response(200, json=result)
 
     def mcp_response(self, request):
         if request.method in {"GET", "DELETE"}:
@@ -108,12 +120,6 @@ class ToolboxAgentTests(unittest.IsolatedAsyncioTestCase):
             response["error"] = {"code": -32601, "message": "Method not found"}
         return httpx.Response(200, json=response)
 
-    def http_client(self, *args, **kwargs):
-        kwargs["transport"] = httpx.MockTransport(self.mcp_response)
-        client = self.real_async_client(*args, **kwargs)
-        self.clients.append(client)
-        return client
-
     def binding(self):
         definition = {"name": toolbox.name_for(settings()), "version": "1", **toolbox.definition()}
         return {
@@ -129,7 +135,7 @@ class ToolboxAgentTests(unittest.IsolatedAsyncioTestCase):
         self.root = root
         seed_ledger(root)
         with (
-            patch("httpx.AsyncClient", side_effect=self.http_client),
+            patch("httpx.AsyncClient", self.recording_mcp_client),
             patch("foundry_workshop.toolbox.credential_for", return_value=DummyCredential()),
             patch(
                 "agent_framework.foundry.FoundryChatClient",
