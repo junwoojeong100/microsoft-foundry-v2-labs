@@ -23,8 +23,8 @@
 ## 1. Azure 없이 안전한 패키지 만들기
 
 **기본 B는 명령 하나 실행 → manifest 확인 → Lab 09 이동입니다.**
-`.build/hosted/`가 이미 있으면 manifest부터 확인합니다. 다시 만들려면 이전 패키지를
-아직 쓰지 않은 새 폴더 이름으로 보존해야 합니다. 명령은 기존 폴더를 덮어쓰지 않습니다.
+`.build/hosted/`가 이미 있으면 manifest부터 확인합니다. 명령은 기존 폴더를 덮어쓰지 않습니다.
+다시 만들려면 먼저 이전 패키지를 옮겨 보존합니다. 예: `mv .build/hosted ".build/hosted-$(date +%Y%m%d-%H%M%S)"`.
 
 ```bash
 python scripts/package_hosted.py
@@ -40,16 +40,18 @@ python scripts/package_hosted.py
 | 직접 의존성의 고정 버전 | 로컬 `.venv`나 임의 파일 |
 | 파일별 hash manifest | 클라우드 실행 성공 주장 |
 
-배포 뒤 생성한 `.foundry/` 평가 데이터·결과와 `eval*.yaml` 설정도
+나중에 생성되는 `.foundry/` 평가 데이터·결과와 `eval*.yaml` 설정도
 `.agentignore`로 제외합니다. 재배포할 때 평가 정답이 에이전트 코드에 섞이지 않게 합니다.
 
 `package-manifest.json`과 `requirements.txt`를 확인합니다.
 소스를 바꿨다면 hash를 비교합니다. 저장된 패키지는 소스 변경을 자동으로 반영하지 않습니다.
+`session-notes.txt`의 B 구간에서 `Lab 08 패키지 경로 / cloud_deployed / 로컬·원격 실행:`을 채웁니다.
+실제 패키지 경로와 `cloud_deployed: false`를 적고, 두 선택 실행 단계는 모두 **미실행**으로 표시합니다.
 
 
 ![2026-09-24 국문 녹화: Hosted bundle 패키징만; 배포 없음](../../assets/g6sol-20260924-ko/screenshots/K08-001-package-2.webp)
 
-**화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted` 위치를 반환하는지 확인합니다.
+**화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted`의 절대 경로를 출력하는지 확인합니다.
 파일을 묶은 단계일 뿐 Azure 배포 성공이 아닙니다. 위 표와 manifest로 포함·제외 파일을 대조하세요.
 
 **B 완료:** `cloud_deployed: false`인 `.build/hosted/package-manifest.json`을 보관합니다.

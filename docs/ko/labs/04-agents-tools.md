@@ -26,6 +26,7 @@
 각 명령이 성공하면 `--output`이 실제 JSON 전체를 Lab 00 기록 폴더의
 `maf-none.json`, `maf-function.json`, `maf-mcp.json`에 저장합니다.
 직접 복사하지 말고 다음 명령 전에 해당 파일을 열어 확인합니다.
+`session-notes.txt`의 B 구간에 있는 `Lab 04 maf-none.json / maf-function.json / maf-mcp.json 검토:`에 파일별 확인 결과를 적습니다.
 
 ```bash
 python scripts/workshop.py maf \
@@ -152,7 +153,7 @@ python scripts/workshop.py maf --tools --question "$(python -c 'print("A" * 2001
 ```
 
 
-**화면 확인:** `FAIL: ValueError: Question must contain 1-2000 characters.`와 종료 코드 `2`를 확인합니다.
+**화면 확인:** `FAIL: ValueError: Question must contain 1-2000 characters.`를 확인합니다. 종료 코드는 바로 다음에 `echo $?`를 실행하면 `2`로 나옵니다.
 Azure 호출 전 입력 거절이며 환경이 망가졌다는 뜻이 아닙니다.
 
 긴 문자열을 터미널에 직접 붙여 넣으면 터미널 입력 길이 제한으로 잘릴 수 있습니다.
@@ -187,13 +188,11 @@ MAF 평가 API는 실험 기능이었고 일부 에이전트 평가자는 2026-0
 
 </details>
 
-## 완료·문제 해결
-
-[실행 기록](../live-run.md)에는 2026-09-24의 함수 도구·MCP 호출을 남겼습니다. 선택 2001자 입력 거절은 다시 녹화하지 않았습니다.
-
 [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
-세 명령의 실제 출력과 도구 경계를 설명하면 완료입니다.
+## 완료·문제 해결
+
+[실행 기록](../live-run.md)에는 2026-09-24의 함수 도구·MCP 호출을 남겼습니다. 선택 2001자 입력 거절은 다시 녹화하지 않았습니다. 세 명령의 실제 출력과 도구 경계를 설명하면 완료입니다.
 MCP 실행 실패 시 [환경/도구 문제 해결](../reference/troubleshooting.md)을 확인합니다.
 함수 도구 응답으로 바꾸어 MCP 실행이 성공한 것처럼 기록하지 않습니다.
 

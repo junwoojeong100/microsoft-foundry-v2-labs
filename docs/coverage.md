@@ -43,7 +43,7 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 | [A2A 1.0](labs/extensions/a2a.md) | C | Explicit card/configuration and delegation | 2026-09-16 `gpt-5.6-luna`: English paired call and output verified; wire packets not captured |
 | [Memory](labs/extensions/memory.md) and [Routines](labs/extensions/routines.md) | C | Owned lifecycle and bounded timer | 2026-09-16 `gpt-5.6-luna`: memory verified; routine delivery verified, answer retrieval unavailable |
 | [Applied guardrails and controlled red teaming](labs/extensions/agent-safety.md) | C | Dedicated policy/target | 2026-09-16 `gpt-5.6-luna`: English attachment and two unblocked cases. 2026-09-23 `gpt-6-sol`: cloud red-team scans (Preview) ran, but the displayed ASR contradicted every row's reasoning, so no red-team result is claimed |
-| [Continuous evaluation and deployment quality gates](labs/extensions/release-operations.md) | C | Manual guarded workflow and OIDC setup | 2026-09-23 `gpt-6-sol`: English and Korean OIDC releases passed the six-case business gate; existing-traces evaluations scored 15/15 per evaluator in both languages; an hourly recurring schedule was verified and paused ([results](live-run.md#previously-not-run-items--september-23-2026)); production approval remains separate |
+| [Continuous evaluation and deployment quality gates](labs/extensions/release-operations.md) | C | Manual guarded workflow and OIDC setup | 2026-09-23 `gpt-6-sol`: both OIDC releases, the existing-traces evaluations and one hourly recurring schedule per language (both then paused) verified ([results](live-run.md#previously-not-run-items--september-23-2026)); production approval remains separate |
 | [Model retirement/migration and Router tradeoffs](labs/extensions/model-operations.md) | C | Fixed-model comparison and Router observation | 2026-09-16 `gpt-5.6-luna`: temporary supported model and frozen version recorded; no Router migration claim |
 | [OpenAPI/Code Interpreter](labs/extensions/additional-tools.md), [Toolkit](labs/extensions/developer-toolkit.md), [governance/networking](labs/extensions/governance-networking.md) | B/C | Executable tools and explicit owner boundaries | 2026-09-16 `gpt-5.6-luna`: English API/file results, tooling and scoped role checks recorded; private network not tested |
 | Actual company/Microsoft 365 access | Specialist | Excluded | Remains excluded |
@@ -71,3 +71,5 @@ Costs, roles and feature access appear **before** the first side-effecting comma
 
 Do not mark a module complete because documentation links work or a fixture passes.
 Read-only checks, real model calls, local-only demonstrations, Preview service execution and recorded actions are reported separately.
+
+**Next:** [actual results](live-run.md) · [recordings](video-summary.md) · [choose a route](paths.md).

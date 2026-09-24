@@ -58,32 +58,34 @@ Fabric과 Work IQ는 **설계만 / 미실행**으로 표시하고 응답 JSON이
 2. 게시된 Data Agent/의미 모델과 해당 데이터 원본의 읽기 권한.
 3. Foundry/Search/Fabric의 tenant·network·지역·data processing 요구사항.
 4. MCP 또는 Foundry tool/knowledge source의 현재 지원 방식.
-5. 필요한 delegated 사용자 인증/OBO와 실제 호출자의 권한.
+5. 자산별 identity: ontology/semantic model 경로는 delegated/OBO context가 필요하고, 게시된 Data Agent MCP는 별도로 승인된 service principal을 지원할 수 있습니다.
 6. capacity 활성 시간, 호출 비용, 종료·복원 계획.
 
 자산이 없다면 [공식 Fabric Data Agent 튜토리얼](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial)에서
 합성 자산을 먼저 만듭니다. 자산 준비는 이 랩의 45–90분에 포함하지 않습니다.
 자산별 연결 순서는 [통합 IQ 워크북](../reference/iq-workbook.md)과
 [현재 공식 Fabric IQ 가이드](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq)를 사용합니다.
-Data Agent MCP의 app-only 지원을 ontology/semantic model의 delegated/OBO 지원과 혼동하지 않습니다.
+소스 저장소를 clone할 필요는 없습니다.
 
 **완료 증거:** 실제 사용자의 질문, 선택된 Data Agent/데이터 원본, 응답·근거,
 user-context/OBO 검증 결과. 관리자 계정으로 한 번 성공했다고 모든 사용자에게 권한이 있는 것은 아닙니다.
 
 ## 3. Work IQ — 명시적 옵트인과 추가 과금
 
-현재 [Work IQ knowledge-source 가이드](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq)의
-요구사항을 관리자가 먼저 확인해야 합니다.
-
-- tenant enablement, 실제 사용자 sign-in, 사용자에게 할당된 usage-based billing.
-- delegated `WorkIQAgent.Ask` 권한과 관리자/사용자 동의.
-- tenant·네트워크·지원 경계, 데이터 이동/보존/규제 요구.
-- 사용자별 데이터 접근과 차단/삭제 정책.
-- 비용과 동작 범위: Preview Work IQ가 읽기뿐 아니라 **행동을 수행할 가능성**.
+관리자가 먼저 현재
+[Work IQ knowledge-source 요구사항](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq)을 검토합니다.
+tenant enablement, 실제 사용자 로그인과 할당된 사용량 기반 과금,
+delegated `WorkIQAgent.Ask` 및 관리자/사용자 동의, 네트워크·tenant·지원 경계,
+데이터 이동·보존·규제와 사용자별 접근/삭제 정책을 확인합니다.
+Preview Work IQ는 단순히 읽는 것이 아니라 **작업을 수행할 수 있습니다**.
 
 이 리포에는 실제 Work IQ를 자동 활성화하거나 계정/서비스 principal을 생성하는 스크립트가 없습니다.
 개인 계정을 강제로 로그인시키거나 Graph/Microsoft 365 token을 복사해 넣지 않습니다.
 M365 Copilot 보유 여부만으로 위 조건을 충족했다고 판단하지 않습니다.
+9월 15일 계약에는 사용자별 할당이 있는 Copilot Studio 사용량 기반 과금 plan, tenant enablement, user assertion,
+`WorkIQAgent.Ask` 위임 동의, `2026-08-01-preview` 경로용 고객 소유 Entra 앱/페더레이션 자격 증명이 포함됩니다.
+`applicationId`는 client ID이고 `federatedCredentialId`는 credential object ID입니다.
+이전의 같은 tenant 예시를 일반화하거나 사용자 context를 host identity로 대체하지 않습니다.
 
 **중단 조건:** 승인/과금/tenant/위임 권한/행동 범위 중 하나라도 불명확하면 실제 연결을 하지 않고
 합성 라우팅 실습에서 멈춥니다.
@@ -122,13 +124,13 @@ Managed identity 지원 여부와 Preview 여부는 별개입니다.
 
 </details>
 
+Lab 10은 선택 단원이며 2026-09-24 `gpt-6-sol` 녹화에 포함하지 않았습니다. [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
+
 ## 종료
 
 설계만 했다면 cloud 자산을 만들지 않았습니다. 사용하지 않은 서비스를 정리하지 않습니다.
 추가 연결을 제거/복원하고, 본인 Fabric capacity·Work IQ billing·session 상태를 확인합니다.
 capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참조하는지 점검합니다.
 다른 조의 연결이나 조직 전체 consent를 임의로 삭제하지 않습니다.
-
-Lab 10은 선택 단원이며 2026-09-24 `gpt-6-sol` 녹화에 포함하지 않았습니다. [전체 액션 인덱스](../action-captures.md) · [녹화 영상](../video-summary.md)
 
 다음: A: [Lab 11로 이동](11-capstone.md) · B: [Lab 11로 이동](11-capstone.md)

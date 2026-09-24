@@ -26,8 +26,9 @@ Complete these four checks using **your own existing results**, without sending 
 
 1. In the left menu, select **Agents** and open your Lab 03 agent. On its **Details** tab, compare the name, version and model
    with the version you assessed in Lab 07.
-2. On its **Playground** tab, check **Instructions**, **Tools** and **Knowledge**: the six synthetic sources (or your selected
-   File Search/IQ connection) are there, with no unapproved Web search or company connection.
+2. On its **Playground** tab, check **Instructions**, **Tools** and **Knowledge**. On the default A route, **Instructions** holds the six
+   inline synthetic policies and **Knowledge** stays empty; if you separately selected File Search or IQ, note that connection instead.
+   There must be no unapproved Web search or company connection.
 3. Open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
    If you can open the **Traces** tab, find one of your saved requests; otherwise write **trace unverified** (not “no errors”).
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
@@ -39,7 +40,9 @@ Fill the learner ZIP's blank `operations-checklist.txt` with those four outcomes
 **What to check:** items 1–4 of `operations-checklist.txt` name your agent and version, where your results are,
 the assets you own, the shared services marked **owner-managed**, and who pays for what remains.
 **A done:** continue to [Lab 11 A](11-capstone.md#path-a); no new model, trace or matrix command is required.
-The following table is an optional deeper review, limited to assets visible with your permissions.
+
+<details>
+<summary>Optional deeper review — only assets visible with your permissions; not an A step</summary>
 
 | Area | Question to answer |
 |---|---|
@@ -53,6 +56,8 @@ The following table is an optional deeper review, limited to assets visible with
 
 This integrates the original Control Plane perspective. Missing Fleet/management
 menus can be normal for your role. Gaining subscription-wide permissions is not the objective.
+
+</details>
 
 <details>
 <summary>Optional, owner-prepared: evaluate the answers your agent already gave, from its traces</summary>
@@ -90,7 +95,7 @@ On September 23, 2026 the first run started as soon as the schedule was saved, a
 
 <a id="path-b"></a>
 
-## B. Code: link execution lineage and actual telemetry
+## B. Code: link execution lineage and record trace status
 
 ### 1. Find local lineage first
 
@@ -119,11 +124,18 @@ Review changes only on dev in [Lab 07](07-evaluation.md#path-b), not the exposed
 python scripts/workshop.py --language en cleanup-plan
 ```
 
-This **prints a list and procedure; it deletes nothing**. Add the inventory to item 4 of your
-`operations-checklist.txt`, separating owned objects, shared services, authorized owner actions and residual costs.
+This **reads the local ownership file; it does not query Azure or delete anything**.
+Add the inventory to item 4 of your `operations-checklist.txt`, separating owned objects, shared services,
+authorized owner actions and residual costs.
 
-**What to check:** the output shows `deletes_resources: false` and lists the Search objects under your prefix;
-the other entries are a manual checklist for agents, deployments, Search and logs.
+| Output | What to record |
+|---|---|
+| `search_ownership.objects` | Search objects recorded in this copy's `outputs/azure-objects.json`; their current cloud state is not checked |
+| `search_ownership: null` | No local ownership file exists. If Lab 06 was not run, record that; if objects were created, ask the owner to recover the matching ledger. Do not invent one |
+| `required_manual_inventory` | Other assets to check with the owner, including agents, model deployments, Search and logs; not a discovered list of existing resources |
+
+**What to check:** `deletes_resources: false` means nothing was deleted. A missing ledger or empty object list
+does **not** prove there are no cloud resources or remaining costs.
 Use [Cleanup](../reference/cleanup.md) for any separately approved action.
 
 **B done:** your own lineage, failure/all-pass review and cleanup inventory are saved.

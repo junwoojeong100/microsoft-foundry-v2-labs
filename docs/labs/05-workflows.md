@@ -109,6 +109,7 @@ Open `run_workflow` in `src/foundry_workshop/agents.py` first: the data, model a
 **Review file:** in `workflow-review.txt`, repeat the review fields for each pattern and fill **Saved JSON file path (B only)**
 with that command's exact `--output` path. **Do not paste the JSON again.** Keep the three JSON files beside the review for handoff;
 a path without its file is not evidence.
+Record the review's location on `Lab 05 workflow-review.txt path:` in the B section of `session-notes.txt`.
 
 ### 1. Run the sequential pattern: each stage feeds the next
 

@@ -85,7 +85,7 @@ Expand the cost breakdown for running the agent, scoring responses and generatin
 The displayed range is an **estimate**, not a spending cap. On September 23 it showed an estimated $0.27
 (range $0.00–$0.90) for about 35 agent calls, 70 scoring calls and 3 improvement calls.
 
-After approval, select **Submit** once. Save the run ID and inspect that same run until it finishes.
+After the owner approves the displayed cost estimate, select **Submit** once. Save the run ID and inspect that same run until it finishes.
 Do not submit another job because the first one is waiting or because a screenshot is missing.
 
 An incomplete/failed run is not an improved candidate.

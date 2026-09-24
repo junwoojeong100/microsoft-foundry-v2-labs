@@ -4,7 +4,7 @@
 
 **C 선택.** 기존 CI의 로컬 로직·SDK·문서 검사는 배포된 agent의 품질 gate나 continuous evaluation과 다릅니다.
 
-**근거 상태:** 2026-09-23 `gpt-6-sol`로 다시 실행했습니다. 두 OIDC 릴리스, 기존 추적 평가, 매시간 되풀이 일정을 확인한 뒤 일시 중지했습니다([결과](../../live-run.md#이전에-실행하지-않은-항목--2026-09-23)).
+**근거 상태:** 2026-09-23 `gpt-6-sol`로 다시 실행했습니다. 두 OIDC 릴리스, 기존 추적 평가, 언어별 매시간 되풀이 일정 하나씩을 확인했고 두 일정 모두 일시 중지했습니다([결과](../../live-run.md#이전에-실행하지-않은-항목--2026-09-23)).
 
 반복 유료 작업이나 배포 push에는 별도 승인이 필요합니다.
 
@@ -36,7 +36,7 @@
 | 예약됨 | 라이브 트래픽(또는 데이터 세트의 기존 데이터)을 예약 평가 | 짧은 승인된 시험 후 즉시 일시 중지 |
 | 연속 | 발생한 traffic을 표본 평가 | 지원되는 최소 sampling/run 제한, 무제한 요청 생성 금지. 2026-09-23 추적 평가에서는 사용할 수 없음 |
 
-첫 회차는 **예약됨**과 **라이브 트래픽**을 유지하고 **실행 간격**을 1 **시간별**로, 무작위 샘플링을 유지하고 실행당 최대 추적 수를 `5`로 둔 뒤
+첫 회차는 **예약됨**과 **라이브 트래픽**을 유지하고 **실행 간격**을 **1시간(시간별)**로, 무작위 샘플링을 유지하고 실행당 최대 추적 수를 `5`로 둔 뒤
 **저장**을 누릅니다. 페이지 버튼이 **일시 중지**로 바뀝니다. 일정 ID(SDK에서는 `<agent>-scheduled-<suffix>`), agent/버전 filter,
 sampling, 최대 추적 수, evaluator 버전, 소유자와 일시 중지 계획을 기록합니다.
 일정 생성/활성화는 실제 평가 증거가 아닙니다.
@@ -61,6 +61,7 @@ CI 경로를 별도로 선택하지 않았다면 OIDC ID를 만들지 않습니�
 
 담당자와 별도 승인이 필요합니다.
 의도한 저장소 및 branch/protected environment만 trust하도록 구성합니다.
+필요한 training-project 배포/모델/도구 권한만 부여합니다.
 client secret이나 구독 전체 Owner는 사용하지 않습니다.
 
 이 workflow는 프로젝트 범위 **Foundry Project Manager**와 account metadata 읽기 권한을 사용합니다.
@@ -71,6 +72,7 @@ tenant/subscription/client/project의 비밀 아닌 식별자는 환경 변수�
 토큰이나 `.env` 전체를 workflow log에 출력하지 않습니다.
 [공식 Hosted CI/CD](https://learn.microsoft.com/azure/foundry/agents/quickstarts/set-up-cicd-hosted-agent)를
 이 저장소의 패키지/profile과 정확한 smoke 계약에 맞춥니다.
+stdout이 비어 있지 않다는 사실만으로 agent가 유효한 결과를 반환했다는 증거가 되지는 않습니다.
 
 **기억한 이름 전용 형식이 아니라 실제 subject를 사용합니다.** 저장소의 현재 OIDC 설정을 읽습니다.
 
@@ -110,6 +112,7 @@ workflow는 runner의 임시 폴더에 hash·profile을 검증한 별도 azd 프
 `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME`, `AZURE_AI_PROJECT_ENDPOINT`, 실제 `AZURE_AI_PROJECT_ID`,
 `AZURE_AI_MODEL_DEPLOYMENT_NAME`, `WORKSHOP_PREFIX`, `WORKSHOP_HOSTED_AGENT_NAME`을 지정합니다.
 agent 이름은 prefix로 시작해야 하고 branch/environment 보호를 설정합니다.
+이 변수들에 client secret은 포함하지 않습니다.
 
 | Gate | 필요한 근거 |
 |---|---|
@@ -132,7 +135,7 @@ agent 이름은 prefix로 시작해야 하고 branch/environment 보호를 설�
 수동 dispatch한 [영문](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314)·
 [국문](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318) 릴리스가 모두 첫 시도에 통과했습니다.
 Hosted agent `mfv2-sol-20260923-ci-hosted` 버전 1·2가 배포되었고, 런타임 ID에 **Foundry User**를 한 번 부여해 버전 2도 재사용했습니다.
-언어마다 dev 6문항 gate가 `gpt-6-sol-2026-09-22`로 6/6, 오류 0이었고 생성한 session은 idle로 확인했습니다.
+언어마다 dev 6문항 gate가 배포 `gpt-6-sol`(model version `2026-09-22`)에서 6/6, 오류 0이었고 생성한 session은 idle로 확인했습니다.
 두 실행 모두 native 평가와 holdout은 실행하지 않았습니다.
 
 ## 6. 명시적 rollback

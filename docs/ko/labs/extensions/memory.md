@@ -17,7 +17,8 @@
 
 ## 1. 기존 embedding 배포 지정
 
-`.env`의 `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME`에 담당자가 준비한 실제 배포 이름을 넣습니다.
+설정 카드의 프로젝트와 답변 deployment를 유지합니다.
+`.env`의 `AZURE_AI_EMBEDDING_DEPLOYMENT_NAME`에 담당자가 준비한 실제 기존 embedding deployment 이름을 넣습니다.
 예제 이름으로 추측하거나 오류 뒤에 새 모델을 배포하지 않습니다.
 
 ```bash
@@ -34,8 +35,11 @@ python scripts/workshop.py --language ko memory plan
 python scripts/workshop.py --language ko memory create --confirm-create
 ```
 
-실제 chat/embedding 배포를 연결하고 `outputs/memory/<store-name>/ownership.json`을 남깁니다.
-기존 이름은 가져오지 않습니다. 프로젝트 ID의 모델 접근 권한은 로컬 로그인과 별도이며 API key로 대신하지 않습니다.
+store는 검증된 chat/embedding deployment에 연결됩니다.
+로컬 소유 기록은 `outputs/memory/<store-name>/ownership.json`에 있습니다.
+기존 이름은 가져오지 않습니다.
+담당자가 training 계정에서 프로젝트 identity에 모델 접근 권한을 부여해야 할 수 있습니다.
+이는 내 CLI 로그인과 별도입니다. 빠진 role을 API key로 대신하지 않습니다.
 
 ## 3. 동봉한 학습 질문만 저장
 
@@ -74,8 +78,10 @@ helper는 실제 검색 API의 `memories[].memory_item` ID·내용·scope를 확
 
 `outputs/memory-runs/<label>/`의 request/search/response/summary를 확인합니다.
 실제 search ID, memory ID, 모델·response ID·사용량을 보관합니다.
+모델은 다른 scope의 marker를 반복해서는 안 됩니다.
 `native_agent_memory_tool_used: false`는 의도된 API 기반 경로입니다.
-빈 alpha 결과를 조작하거나 임의 맥락으로 채우지 않습니다.
+작성 뒤 alpha 검색이 비어 있으면 진단할 finding이지 recall을 조작해도 된다는 뜻이 아닙니다.
+명시적으로 새 시도를 하기 전에 원래 빈 결과와 indexing/service 오류를 보존합니다.
 
 ## 5. 항목 수정과 삭제
 
@@ -89,6 +95,8 @@ python scripts/workshop.py --language ko memory inspect --scope alpha
 ID와 marker는 유지되며 정확한 새 내용을 읽어 확인합니다.
 LLM이 스스로 Memory를 고친 것이 아니라 명시적 CRUD입니다.
 
+삭제 승인을 받은 뒤 실행합니다.
+
 ```bash
 python scripts/workshop.py --language ko memory forget --memory-id "$MEMORY_ID" --confirm-delete
 python scripts/workshop.py --language ko memory inspect --scope alpha
@@ -97,8 +105,9 @@ python scripts/workshop.py --language ko memory cleanup --confirm-delete
 ```
 
 삭제 receipt를 보관하고 제한된 읽기 재확인으로 부재를 검증합니다. delete 요청을 반복하지 않습니다.
+삭제 뒤 항목은 없어야 합니다. 삭제가 표시되기까지 짧은 시간이 걸릴 수 있습니다.
 이미 없던 항목은 `already_absent: true`, `delete_requested: false`로 표시하며 새로 지웠다고 주장하지 않습니다.
-store 소유 marker와 알려진 scope의 빈 상태를 확인합니다.
+cleanup은 store 소유 marker를 확인하고 알려진 항목/scope가 비어 있어야 합니다.
 공유 프로젝트·모델·다른 store는 삭제하지 않고 원문/응답/소유 기록을 유지합니다.
 
 ## 선택: 자동 agent memory는 별도
@@ -106,8 +115,8 @@ store 소유 marker와 알려진 scope의 빈 상태를 확인합니다.
 <details>
 <summary>참고 전용 — API 실습을 마치려고 자동 추출을 켜지 않습니다</summary>
 
-`memory_search_preview`의 대화 후 자동 추출과 remember/forget 동작은 다른 경로입니다.
-`{{$userId}}`나 신뢰된 backend의 `x-memory-user-id`를 사용할 수 있어도
+Foundry의 `memory_search_preview` 도구는 대화 후 memory를 추출하고 update delay를 가지며 직접 remember/forget 명령도 지원할 수 있습니다.
+`{{$userId}}` scope는 호출자 identity나 신뢰된 backend의 `x-memory-user-id` header를 사용할 수 있어도
 임의 사용자가 보낸 header를 인가 경계로 신뢰하지 않습니다.
 
 자동 추출·지연된 업데이트·삭제에는 별도 검증이 필요합니다.

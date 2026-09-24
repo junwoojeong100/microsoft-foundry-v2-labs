@@ -211,6 +211,9 @@ so do not edit `.env`, `data/` or `src/` between collections. Preserve the actua
 
 ### 1. Collect the dev baseline
 
+Each `collect` in this section makes billable model calls (six for dev, four for holdout) within B's cost approval;
+`evaluate`, `compare` and `accept` only read saved files.
+
 ```bash
 python scripts/workshop.py --language en collect --split dev --label baseline --prompt v1 --retrieval local
 ```
@@ -240,6 +243,8 @@ inside each case's `checks`. Inspect the summary and all six rows, not just the 
 
 Open `outputs/baseline/business-evaluation.json`. Under `checks`, find a case whose `passed` is `false` and note which of its checks is `false`.
 Then read the same `case_id` in `outputs/baseline/responses.jsonl`.
+In `session-notes.txt`'s B section, fill `Lab 07 baseline failed checks or all-pass review / feedback record path if created:`.
+Record the case, failed check and your explanation, or the observed all-pass result. If `feedback` creates a record below, add its returned path.
 
 | Symptom | Check first |
 |---|---|
@@ -279,7 +284,7 @@ python scripts/workshop.py --language en evaluate --label diagnostic-no-evidence
 
 ![September 24 English recording: The diagnostic fails honestly: 0/6 with 0 errors](../assets/g6sol-20260924-en/screenshots/E07-022-diagnostic-evaluate-2.webp)
 
-**What to check:** `evaluate` exits `1` with `passed: 0` and `errors: 0`. In `business-evaluation.json`,
+**What to check:** `evaluate` prints `passed: 0` and `errors: 0`; `echo $?` right after it prints its exit code `1`. In `business-evaluation.json`,
 `required_citations` and `citations_retrieved` are `false` in every row, and `responses.jsonl` shows the agent withholding
 amounts (`insufficient_evidence`) instead of guessing. Use the first row of the table above: the correct document is absent,
 so the fix is retrieval, not the instructions. `feedback` rejects this run, so it never becomes a regression record, and
@@ -297,6 +302,7 @@ Holdout is only for the final check in step 4; never open it to look for failure
 Run this step even if the baseline passed: it compares two fixed instruction versions on the same six cases.
 Compare `prompts/en/v1.txt` and `prompts/en/v2.txt`. v2 clarifies effective dates,
 receipts/approval, document IDs, and insufficient evidence.
+Use `Lab 07 v1/v2 change and purpose:` in the same B notes section to explain what changed before collecting the candidate.
 **Resuming with candidate responses already saved?** Skip the `collect` block below and inspect those responses;
 read the existing local reports or run the local checks that follow. Do not pay to recreate the same candidate.
 
@@ -347,6 +353,7 @@ Use your own results; English and Korean runs are separate.
 `total: 6`, `passed: 6`, `errors: 0`, `business_gate_passed: true`, and the comparison must accept the frozen configuration.
 If not, stop here, review dev failures and retain the rejected candidate; do not open holdout or lower the checks.
 An error-free collection or `compare` exit code `0` alone is not this gate.
+Record the observed comparison and your **proceed / stop** decision on `Lab 07 comparison findings / holdout gate decision:` in the B notes.
 If the gate cannot be resolved in this session, skip holdout and keep **final evaluation incomplete**.
 You may still finish local [packaging](08-hosted.md#path-b), [operations](09-operations.md#path-b)
 and the [incomplete handoff](11-capstone.md#incomplete-handoff); none converts the rejected candidate into acceptance.
@@ -383,6 +390,8 @@ Repository file separation is an educational procedure, not access control or se
 **What to check:** inspect all four cases and their candidate link, then open
 `outputs/final-holdout/acceptance.json`. Preserve `recommendation` and `deployment_approved: false`.
 This public teaching holdout has been seen before, so a pass is not a result on unseen data.
+Fill `Lab 07 acceptance report path / recommendation, or incomplete reason:` in the B notes with the actual report path and verdict.
+If holdout was not collected, record why; do not create a report to fill this line.
 
 **B done:** keep all three run folders, the comparison, review notes and the acceptance/rejection report.
 Continue to [Lab 08 B](08-hosted.md#path-b) for **packaging only**. An acceptance report is not deployment authorization.

@@ -2,7 +2,7 @@
 
 [English](../video-chapters.md) | **한국어**
 
-로컬 통합본(06:03)의 챕터입니다. Lab 10은 이번 녹화에 포함하지 않았습니다.
+2026-09-24 `gpt-6-sol` / `2026-09-22` 로컬 통합본(06:03)의 챕터입니다. Lab 10은 이번 녹화에 포함하지 않았습니다.
 
 | Lab | 시작 | 챕터 |
 |---|---:|---|
@@ -18,4 +18,4 @@
 | 09 | [05:26](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=326.12) | Lab 09 · 운영과 정리 |
 | 11 | [05:56](../assets/g6sol-20260924-ko/guide-ordered.mp4#t=356.56) | Lab 11 · 최종 인계 |
 
-[영상](video-summary.md) · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)
+[영상](video-summary.md) · [액션과 화면](action-captures.md) · **챕터** · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

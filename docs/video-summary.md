@@ -6,7 +6,7 @@
 
 | Video | Duration | File |
 |---|---:|---|
-| Labs 00–11 in guide order | 06:29 | [guide-ordered.mp4](assets/g6sol-20260924-en/guide-ordered.mp4) |
+| Labs 00–09 and 11 in guide order | 06:29 | [guide-ordered.mp4](assets/g6sol-20260924-en/guide-ordered.mp4) |
 | B · CLI execution | 03:11 | [cli-edited.mp4](assets/g6sol-20260924-en/cli-edited.mp4) |
 | A · Foundry portal | 02:55 | [portal-edited.mp4](assets/g6sol-20260924-en/portal-edited.mp4) |
 
@@ -29,8 +29,8 @@ python scripts/play_recordings.py --edition en
 
 ## Not recorded in this edition
 
-Lab 10, the optional IQ Chat preset (`gpt-5.6-luna`; Search did not accept a GPT-6 model), Lab 03 portal File Search, Lab 06 hybrid RAG, Lab 08 local/remote Hosted runs, Lab 09 server-side tracing and recurring evaluation, the advanced C paths and the extension modules are **not in this recording**. The recurring evaluation, Agent Optimizer, cloud red teaming and the CI release ran separately on September 23 ([results](live-run.md#previously-not-run-items--september-23-2026)). Earlier recordings were removed and are not evidence for this edition.
+Lab 10, the optional IQ Chat preset (`gpt-5.6-luna`; Search did not accept a GPT-6 model), Lab 03 portal File Search, Lab 06 hybrid RAG, Lab 08 local/remote Hosted runs, Lab 09 server-side tracing and recurring evaluation, the advanced C paths and the extension modules are **not in this recording**. The conversation evaluation module, the recurring evaluation, Agent Optimizer, cloud red teaming and the CI release ran separately on September 23 ([results](live-run.md#previously-not-run-items--september-23-2026); conversation evaluation: [validation](reference/validation.md#foundry-evaluation-additions)). Earlier recordings were removed and are not evidence for this edition.
 
 Authentication, password and MFA entry are not recorded. A recorded exit code is not a quality score, and none of these results is a production approval. Use your own resource names, versions and results.
 
-[Videos](video-summary.md) · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)
+**Videos** · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)

@@ -2,7 +2,7 @@
 
 [English](../../../labs/extensions/additional-tools.md) | **한국어**
 
-**B/C 선택.** 먼저 동봉 정책 6개를 사용하는 **Code Interpreter**를 진행합니다.
+**B/C 선택.** 먼저 동봉 합성 정책 record 6개를 사용하는 **Code Interpreter**를 진행합니다.
 
 **근거 상태:** 영문 Code Interpreter·OpenAPI 결과는 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며 `gpt-6-sol`로 다시 실행하지 않았습니다.
 
@@ -17,9 +17,12 @@ CSV를 확인한 뒤 반드시 실행할 두 번째 도구가 아닙니다.
 
 ## 1. 검증 범위
 
-원문 6개로 CSV를 만들고, 같은 순서의 `id,title` 두 열을 요청합니다.
+입력 CSV는 canonical 정책 문서 6개에서 파생됩니다.
+요청한 출력은 정확히 `id,title` 두 열과 같은 순서의 6행입니다.
 정책 답변·금액 계산·모델 순위를 평가하는 실험이 아닙니다.
-Code Interpreter의 session/container 비용은 모델 토큰과 별도이며 채팅 중지가 즉시 모든 과금을 없애지는 않습니다.
+
+Code Interpreter에는 모델 token 외에 session/container 비용이 추가됩니다.
+예시는 chat 중지가 그런 비용을 즉시 없앤다고 약속하지 않습니다.
 
 ## 2. 한 번 실행
 
@@ -27,9 +30,9 @@ Code Interpreter의 session/container 비용은 모델 토큰과 별도이며 �
 python scripts/workshop.py --language ko code-interpreter run --label code-policy-table --confirm-create --confirm-cost
 ```
 
-helper가 합성 CSV만 업로드하고 새 이름의 Prompt Agent를 만듭니다.
-반환된 버전을 고정하고 실제 Code Interpreter 호출을 요구합니다.
-임의 사용자 파일이나 다른 corpus로 교체하지 않습니다.
+helper는 생성한 합성 CSV만 업로드하고 고유 이름의 Prompt Agent를 만듭니다.
+반환된 버전을 request에 고정하고 실제 Code Interpreter 도구 호출을 요구합니다.
+임의 사용자 선택 파일을 load하거나 다른 input corpus를 허용하지 않습니다.
 
 ## 3. 원본 결과 확인
 
@@ -44,7 +47,7 @@ helper가 합성 CSV만 업로드하고 새 이름의 Prompt Agent를 만듭니�
 | `policy-summary.csv` | 실제 container file API에서 내려받은 파일 |
 | `summary.json` | 원본/생성 hash와 `verified_rows: 6` |
 
-실제 code call이 보고한 container의 CSV 하나만 허용합니다.
+helper는 code call이 실제 보고한 container의 생성 CSV citation 하나만 허용합니다.
 모델이 제시한 경로를 그대로 신뢰하지 않고 고정 로컬 파일명에 저장합니다.
 열·누락·중복·순서·title 변경은 검증 실패입니다. 틀린 출력도 그대로 보관합니다.
 
@@ -56,7 +59,7 @@ python scripts/workshop.py --language ko code-interpreter cleanup --label code-p
 
 기록된 전용 agent 버전·업로드 파일·container만 처리합니다.
 추가 버전이나 프로젝트/이름 불일치가 있으면 거부하고 로컬 근거를 유지합니다.
-삭제 상태와 잔여 비용은 별도로 확인합니다.
+resource 상태를 다시 읽고 잔여 청구를 확인합니다. cleanup 요청은 비용이 0이라는 증거가 아닙니다.
 
 ## 5. OpenAPI 분기: 기존 합성 Search API
 
@@ -68,10 +71,16 @@ Lab 06의 **내 정책 index**만 사용하는 read-only Search REST 작업을 �
 API Management, 새 API server, 회사 연결을 만들지 않습니다.
 여기서 POST는 검색 요청이지 문서 업로드/수정/삭제가 아닙니다.
 
-담당자가 같은 Search endpoint/index와 seed ledger, 실제 호출 ID/권한,
-token audience, 요청/응답 schema, 비용 제한과 정리 책임을 확인합니다.
-관리 ID의 Search Index Data Reader와 audience **`https://search.azure.com`**가 필요합니다.
-로컬 사용자 권한이나 Foundry endpoint와 구분합니다.
+호출 전 담당자가 다음을 확인합니다.
+
+- synthetic seed ledger와 같은 `AZURE_SEARCH_ENDPOINT`, `AZURE_SEARCH_INDEX_NAME`.
+- 인증과 token audience. prompt에 key나 secret을 복사하지 않습니다.
+- caller identity와 target 권한.
+- 정확한 요청/응답 shape, 안전한 test input, 비용/rate 한계, cleanup owner.
+
+OpenAPI runtime의 managed identity에는 해당 service의 Search Index Data Reader가 필요합니다.
+token audience는 Foundry project endpoint가 아니라 **`https://search.azure.com`**입니다.
+이는 local user의 Search 접근과 별개입니다.
 
 ```bash
 python scripts/workshop.py --language ko openapi plan
@@ -85,8 +94,8 @@ python scripts/workshop.py --language ko openapi invoke --label openapi-policy -
 
 계획은 server 하나, 내 index 경로 하나, `SearchSyntheticPolicies` 작업 하나여야 합니다.
 `outputs/openapi-runs/openapi-policy/`의 plan/request/response/summary를 확인합니다.
-실제 completed `openapi_call`과 원문 결과·명세 hash·응답/모델 metadata를 남깁니다.
-그럴듯한 답변이나 다른 native Search 호출은 이 도구의 증거가 아닙니다.
+응답에는 실제 completed `openapi_call`이 있어야 합니다. 그럴듯한 답변이나 native Search 호출만으로는 충분하지 않습니다.
+명세 hash, 실제 source data, response/model metadata를 보존합니다.
 
 오류 뒤에 key를 추가하거나 `retrieve --provider search`로 바꾸지 않습니다.
 index/ID 권한이 없으면 **미실행**입니다.

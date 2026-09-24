@@ -177,7 +177,8 @@ An IQ error stays an error; it never falls back to ordinary Search. Do not fill 
 <a id="retrieval-comparison"></a>
 
 **Compare before answering:** open `retrieve-local.json`, `retrieve-search.json` and `retrieve-iq.json` together.
-In `session-notes.txt`, record each file's `provider`, `source_ids` and `context_hash`.
+In `session-notes.txt`'s B section, use `Lab 06 retrieval comparison (file / provider / source_ids / context_hash):`
+for the three files. Do not fill the A-only source-check fields with these SDK results.
 Check the original documents for `TRAVEL-2026` (KRW 150000) and `APPROVAL-01` (approval before booking).
 Different providers need not return identical documents or hashes. If IQ lacks the required evidence, preserve the result and
 diagnose retrieval before step 5; another provider's evidence is not a substitute.
@@ -203,6 +204,7 @@ In `answer`, check `decision: needs_approval`, `limit_krw: 150000`, approval **b
 `TRAVEL-2026` and `APPROVAL-01`. Compare them with this response's original documents; record a mismatch rather than fixing the saved answer.
 
 **Save:** `answer-iq.json` is written to the same notes directory. Check its complete response and retrieval metadata.
+Record your finding on `Lab 06 answer-iq.json evidence / decision / citations / finding:` in the same B section.
 
 ```mermaid
 flowchart LR

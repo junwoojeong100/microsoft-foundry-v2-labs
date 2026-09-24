@@ -23,6 +23,9 @@ This prints an inventory/guide, not a deletion command.
 
 Record the subscription, project, prefix, agent/version/session IDs, model deployments, Search objects, and logging/storage ownership.
 `outputs/azure-objects.json` records only the Search index/source/base objects this copy created; it is not a full Azure inventory or proof of deletion rights.
+In `cleanup-plan`, `search_ownership.objects` comes from that file, not an Azure query; `search_ownership: null` means the file is missing.
+Neither `null` nor an empty list proves there are no resources or costs. If you created objects, recover the matching ledger with the owner,
+not a fabricated replacement. Complete `required_manual_inventory` from your own records and the owner's checks even when the ledger is missing.
 Unknown ownership is a reason to stop, not to widen the deletion scope.
 
 <a id="hosted-sessions"></a>
@@ -69,16 +72,25 @@ Never treat an unverified stop request as a confirmed stopped state.
 | Prompt/Hosted agent and version | Confirm the exact project, name, version and owner; the owner deletes it |
 | Search knowledge base/source/index | Dependency order base → source → index; only your names in the ledger |
 | Uploaded files/vector stores | Separate your File Search material from shared material |
-| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` and `<prefix>-optimizer-dev` datasets, `<prefix>-...` evaluations and optimization runs, `eval-data-...` datasets created by `cloud-evaluate`, and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
-| Recurring evaluation schedules | Your `<agent>-scheduled-...` schedule: select **Pause** on its evaluation page and read back the paused state; pausing keeps earlier results |
-| Red-team taxonomies and red teams | Your `<prefix>-...redteam` taxonomies, red teams and runs; keep every output item and the review record before the owner deletes them |
-| Roles added for monitoring or CI | Only the owner removes roles they added, for example **Monitoring Reader** for the project identity on Application Insights, the CI identity's project roles and a Hosted runtime's **Foundry User** |
-| Temporary optimizer deployment | Only the owner who created it deletes it, after every optimizer run that used it has finished and been reviewed; confirm the answer and judge deployments remain |
+| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, `eval-data-...` datasets created by `cloud-evaluate`, and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
 | Model deployments | Check whether it is team-only or shared; keep shared models |
 | Search service | Deleting an index does not remove the service's fixed cost |
 | Application Insights/Log Analytics | Check required evidence, retention and sharing |
-| Fabric/Work IQ | Check dedicated capacity, billing and connections separately; never revoke organizational consent |
 | Resource group | Only its owner deletes it, and only if it is training-only and every asset is checked |
+
+<details>
+<summary>Only if you ran recurring evaluation, Agent Optimizer, red teaming, CI or Fabric/Work IQ modules</summary>
+
+| Asset | Check and cleanup |
+|---|---|
+| Recurring evaluation schedules | Your `<agent>-scheduled-...` schedule: select **Pause** on its evaluation page and read back the paused state; pausing keeps earlier results |
+| Optimizer datasets and runs | Your `<prefix>-optimizer-dev` dataset and optimization runs; keep results first, then the owner deletes them |
+| Red-team taxonomies and red teams | Your `<prefix>-...redteam` taxonomies, red teams and runs; keep every output item and the review record before the owner deletes them |
+| Roles added for monitoring or CI | Only the owner removes roles they added, for example **Monitoring Reader** for the project identity on Application Insights, the CI identity's project roles and a Hosted runtime's **Foundry User** |
+| Temporary optimizer deployment | Only the owner who created it deletes it, after every optimizer run that used it has finished and been reviewed; confirm the answer and judge deployments remain |
+| Fabric/Work IQ | Check dedicated capacity, billing and connections separately; never revoke organizational consent |
+
+</details>
 
 The optional `iq-chat setup` adds a **separate chat base** to that ledger with API `2026-08-01-preview`.
 After deletion approval, remove every owned base that references a source **before** its source/index.

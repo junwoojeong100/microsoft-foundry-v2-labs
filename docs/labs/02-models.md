@@ -111,6 +111,8 @@ Continue to [Lab 03 A](03-prompt-agent.md#path-a). Do not run B's SDK calls unle
 ## B. Code: call the same project through Responses
 
 Use the repository root and activated `.venv`. The preflight is read-only; the model and structured-answer requests are billable.
+In `session-notes.txt`'s B section, use `Lab 02 model.json / answer-local.json findings:` for one finding per saved file.
+The A-only Playground fields are not required for these SDK calls.
 
 ### 1. Check the deployment
 
@@ -136,7 +138,7 @@ do not relabel a response ID as a trace ID.
 ![September 24 English recording: First real gpt-6-sol request through the project Responses API](../assets/g6sol-20260924-en/screenshots/E02-001-model-2.webp)
 
 **What to check:** Read `text`, `response_model`, `response_id`, and `usage` below
-the last command. `gpt-6-sol` reports reasoning tokens in `usage` even for a short answer. Preserve `trace_id: null` and `trace_export: not-configured` honestly.
+the last command. `usage` shows `input_tokens` and `output_tokens`; with `gpt-6-sol` the output count includes reasoning, so it can be larger than the short answer suggests. Preserve `trace_id: null` and `trace_export: not-configured` honestly.
 
 **Save:** `model.json` is written to your Lab 00 notes directory by `--output`. Open the complete saved response before the next request.
 

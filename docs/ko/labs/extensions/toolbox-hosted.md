@@ -7,7 +7,7 @@
 
 **근거 상태:** 영문 로컬·원격 Hosted Toolbox 실행은 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며 `gpt-6-sol`로 다시 실행하지 않았습니다.
 
-**준비:** 실제 동작한 내 Toolbox 버전, 합성 seed ledger, Hosted SDK, 기존 프로젝트의 전체 ARM ID,
+**준비:** 실제 동작한 소유 Toolbox 버전, 합성 seed ledger, Hosted SDK, 기존 프로젝트의 전체 ARM ID,
 새 agent 이름과 배포/모델/도구 권한 승인.
 **완료:** 새 원격 버전이 실제 도구·모델·근거 metadata를 반환함.
 **중단:** 패키징/로컬까지만 확인한 경우 원격은 미실행으로 표시합니다.
@@ -32,14 +32,16 @@ Skill 버전이면 패키징과 로컬 server 명령 모두에 `--with-skill`을
 프로젝트·모델·Toolbox·Search 연결/원문 설정을 고정합니다.
 
 Hosted의 `/app`은 읽기 전용입니다. 요청 근거는
-`$HOME/workshop-evidence/toolbox-runs`에 저장합니다.
-세션 삭제 전에 해당 세션의 file 명령으로 내려받습니다.
+`/app/outputs`가 아니라 `$HOME/workshop-evidence/toolbox-runs`에 저장합니다.
+세션 삭제 전에 기록된 세션의 `files` 명령으로 내려받습니다.
 출력된 **절대 패키지 경로**를 아래 준비의 `HOSTED_PACKAGE`로 보관하고 기존 패키지를 덮어쓰지 않습니다.
+패키징 뒤 runtime 값을 몰래 바꾸거나 기존 package 위에 다시 빌드하지 않습니다.
 
 ## 2. 별도 azd 실행 폴더 준비
 
 기존 azd 프로젝트의 상위/하위 경로가 아닌 빈 폴더를 사용합니다.
 교육 저장소를 따로 만드는 것이 아니라 실행 상태를 격리하는 단계입니다.
+package는 원래 repository 폴더에 남아 있어도 됩니다.
 저장소 터미널 A에서 실제 값을 입력합니다. `~` 축약형 없이 절대 경로를 사용하고
 새 터미널에서도 복원하도록 폴더·이름을 `session-notes.txt`에 기록합니다.
 
@@ -61,9 +63,9 @@ python scripts/prepare_hosted_azd.py --language ko --kind toolbox \
 azd ai project show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --output json
 ```
 
-helper는 모든 package 파일의 hash를 확인하고 정확한 사본과 JSON 형식의 YAML manifest를 만듭니다.
+helper는 모든 package 파일을 확인하고 정확한 package 사본과 JSON 형식의 YAML manifest를 만듭니다.
 agent 하나와 기존 프로젝트 endpoint만 포함하고 `azd env new/set/get-value`로
-이 폴더의 로컬 azd 환경만 초기화합니다. provision이나 deploy는 실행하지 않습니다.
+이 폴더의 로컬 azd 환경만 초기화합니다. provision이나 deploy는 절대 실행하지 않습니다.
 실제 ARM ID를 설정된 구독·계정·프로젝트와 대조합니다.
 비어 있지 않은 폴더, 기존 azd 프로젝트의 하위 폴더, 변경된 package나 설정은 거부합니다.
 9월 16일 CLI에서 빈 폴더의 `init --src ... --no-prompt`는 template 선택을 요구할 수 있고,
@@ -83,8 +85,9 @@ credential, 정답, 대체 모델이나 새 모델 배포는 포함하지 않습
 배포 전에 실제 값을 확인하며 `.env`를 셸 `source`로 읽거나 manifest 전체·영상 속 ID로 덮어쓰지 않습니다.
 runtime binding이나 schema가 달라졌다면 배포 전에 멈춥니다.
 
-담당자는 새 버전에서 반환된 **실제 runtime principal ID**에 필요한 프로젝트 범위 Foundry User를 부여합니다.
-upstream Search ID의 권한은 별도입니다. 로컬 사용자의 권한이 Hosted ID로 이전되지 않습니다.
+원격 identity는 upstream Search identity 권한과 별개로 Foundry 프로젝트 접근 권한이 필요합니다.
+배포 후 담당자는 새 agent 버전에서 반환된 **실제 runtime principal ID**를 읽고 필요하면 프로젝트 범위 Foundry User를 부여합니다.
+가정한 principal에는 권한을 부여하지 않습니다. 로컬 사용자의 권한이 Hosted ID로 이전되지 않습니다.
 
 ## 4. 두 터미널로 로컬 동작 확인
 
@@ -104,7 +107,7 @@ curl --fail http://127.0.0.1:8088/readiness &&
 azd ai agent invoke --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directory}" --local --new-session --new-conversation --timeout 210 "2026년 9월 국내 출장에서 170000원 호텔의 사전 승인 조건은?"
 ```
 
-readiness만으로 완료하지 않습니다. JSON 안의 버전/hash, 실제 모델/함수/도구 실행, 원문 근거를 확인합니다.
+readiness만으로 완료하지 않습니다. JSON 답변에는 선택된 Toolbox 버전/hash, 실제 모델 호출, 성공한 함수/도구 작업, 원문 정책 근거가 포함되어야 합니다.
 로컬 명령은 방대한 콘솔 metrics 출력을 피하려고 telemetry SDK를 명시적으로 끕니다.
 따라서 App Insights export 검증이 아니며, 이 설정을 원격 환경에 넣지 않습니다.
 이 실습 host는 동봉 dev와 지정된 Toolbox 질문만 받습니다.
@@ -153,18 +156,22 @@ read -r HOSTED_AGENT_VERSION
 **파일 경로 세 곳과 `mkdir`을 모두** 맞춥니다. 이전 결과를 삭제하지 않습니다.
 agent/Session/Conversation/Trace ID와 실제 Toolbox 결과를 보관합니다.
 **CLI가 0으로 끝났지만 답변이 없으면 통과가 아닙니다.**
+재시도하거나 완료를 주장하기 전에 정확한 session log/trace와 response state를 점검합니다.
 검증기는 원래 HTTP/SSE의 completed 상태, 정확한 버전, package hash, 실제 모델/도구/Skill 근거를 확인합니다.
 모델을 다시 호출하지 않습니다.
+package는 다른 프로젝트/모델/Toolbox/connection 값을 runtime에서 대안으로 선택하지 않고 거부합니다.
 연결이나 index 자체는 바뀔 수 있으므로 그 설정과 실제 결과도 별도로 고정·확인합니다.
 
-## 6. 근거를 내려받고 내 세션만 정리
+## 6. 공유 도구를 망가뜨리지 않고 마무리
 
-검증 결과의 `remote_evidence_directory`를 기준으로 `azd ai agent files list`와
-`files download`를 사용합니다. file 명령의 경로는 세션 home 기준입니다.
-binding·request·model/function/tool 결과와 summary를 보관한 뒤 내 세션을 중지합니다.
-[정리 기준](../../reference/cleanup.md)으로 상태와 잔여 비용을 확인합니다.
+[owned-session cleanup](../../reference/cleanup.md)을 이 새 Hosted agent에 사용합니다.
+session을 중지/삭제하기 전에 검증기가 보고한 `remote_evidence_directory`에 대해
+`azd ai agent files list`와 `files download`를 사용합니다.
+`files` 명령의 경로는 세션 home 기준입니다.
+실제 binding·request·model/function/tool 결과와 summary를 보관한 뒤 새 세션을 중지하고 상태를 확인합니다.
+package와 response 근거를 보존합니다.
 
-agent 삭제 시 참조 관계를 먼저 확인합니다. 공유 프로젝트·모델·Search는 삭제하지 않습니다.
-이전 endpoint나 버전의 평가 결과를 새 버전에 재사용하지 않습니다.
+새 Hosted agent를 삭제한다면 Toolbox, skill 또는 Search source를 제거하기 전에 참조 관계를 확인합니다.
+공유 프로젝트·모델·Search 리소스를 삭제하거나 이전 endpoint/버전 ID를 재사용하지 않습니다.
 
 **다음:** [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).

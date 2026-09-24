@@ -7,5 +7,5 @@ It does not execute Azure, Foundry, Agent Framework, or an LLM.
 For `v1`, citations are deliberately removed so you can observe failed checks.
 This difference does not demonstrate a real model or prompt improvement.
 
-The fixture bytes and Korean content are unchanged across documentation languages.
+The Korean fixture (`answers.json`) stays unchanged; English uses its own frozen fixture, `en/answers.json`.
 See the [language contract](../../docs/reference/languages.md).

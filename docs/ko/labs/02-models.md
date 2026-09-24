@@ -103,6 +103,8 @@
 ## B. 코드 — 같은 프로젝트를 Responses API로 호출
 
 저장소 루트·활성 `.venv`에서 실행합니다. 사전 검사는 읽기 전용이며 모델·구조화 답변 요청은 유료입니다.
+`session-notes.txt`의 B 구간에서 `Lab 02 model.json / answer-local.json 검토:`에 저장 파일별 확인 결과를 적습니다.
+이 SDK 호출에는 A 전용 Playground 항목을 채울 필요가 없습니다.
 
 ### 1. 배포 확인
 
@@ -126,7 +128,7 @@ python scripts/workshop.py model \
 
 ![2026-09-24 국문 녹화: 프로젝트 Responses API로 첫 실제 gpt-6-sol 요청](../../assets/g6sol-20260924-ko/screenshots/K02-001-model-2.webp)
 
-**화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다. `gpt-6-sol`은 짧은 답에도 `usage`에 reasoning token을 보고합니다.
+**화면 확인:** 마지막 명령 아래의 `text`, `response_model`, `response_id`, `usage`를 읽습니다. `usage`에는 `input_tokens`와 `output_tokens`가 나옵니다. `gpt-6-sol`은 출력 수에 reasoning이 포함되므로 짧은 답보다 크게 보일 수 있습니다.
 `trace_id: null`과 `trace_export: not-configured`도 그대로 기록하며, 생성된 응답 ID를 Trace ID로 바꾸지 않습니다.
 
 **저장:** `model.json`은 `--output`이 Lab 00 기록 폴더에 작성합니다. 저장된 응답 전체를 연 뒤 다음 요청으로 갑니다.

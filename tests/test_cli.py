@@ -77,6 +77,35 @@ class CliTests(unittest.TestCase):
             self.assertEqual(stderr, "")
             self.assertFalse((root / "outputs").exists())
 
+    def test_cleanup_plan_reports_local_ownership_without_querying_or_changing_it(self):
+        for language in ("en", "ko"):
+            for ledger in (None, {"objects": [{"kind": "index", "name": "mfv2-test-policies"}]}):
+                with (
+                    self.subTest(language=language, ledger=ledger),
+                    tempfile.TemporaryDirectory() as directory,
+                    patch("foundry_workshop.cli.cloud_command") as cloud,
+                ):
+                    root = Path(directory)
+                    path = root / "outputs/azure-objects.json"
+                    if ledger is not None:
+                        path.parent.mkdir()
+                        path.write_text(json.dumps(ledger))
+                    before = path.read_bytes() if path.exists() else None
+                    status, stdout, stderr = self.run_cli(
+                        root, ["--language", language, "cleanup-plan"]
+                    )
+                    self.assertEqual(status, 0, stderr)
+                    result = json.loads(stdout)
+                    self.assertIs(result["deletes_resources"], False)
+                    self.assertEqual(result["search_ownership"], ledger)
+                    self.assertTrue(result["required_manual_inventory"])
+                    guide = "docs/ko" if language == "ko" else "docs"
+                    self.assertEqual(result["guide"], f"{guide}/reference/cleanup.md")
+                    cloud.assert_not_called()
+                    self.assertEqual(path.read_bytes() if path.exists() else None, before)
+                    if ledger is None:
+                        self.assertFalse((root / "outputs").exists())
+
     def test_live_commands_save_the_complete_unmodified_result(self):
         result = {
             "mode": "live",

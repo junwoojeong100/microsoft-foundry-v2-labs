@@ -21,7 +21,7 @@ Both need a prepared Azure environment. A also needs a prepared terminal for Lab
 if none was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
 Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark cloud labs **not run**.
 
-Already completed the core route: [C. Advanced modules](docs/paths/c-advanced.md).
+After finishing a core route, you can choose optional [C. Advanced modules](docs/paths/c-advanced.md).
 Preparing a class: [Instructor guide](docs/instructor.md). Returning from the old edition: [Migration map](docs/reference/migration.md).
 Background reading and recordings below are optional, not prerequisites.
 
@@ -82,7 +82,8 @@ The labs, Python code, synthetic policies, evaluation data, and instructor guide
 [B — Implementation](docs/paths/b-practitioner.md) · [C — Advanced modules](docs/paths/c-advanced.md).
 Use the [capability/evidence record](docs/coverage.md) to distinguish existing labs, executable modules
 and actual Azure verification. The extension modules were exercised on September 16, 2026 with the earlier
-`gpt-5.6-luna` preset; they were not re-run or re-recorded with `gpt-6-sol`, and their recordings were removed.
+`gpt-5.6-luna` preset, and those recordings were removed. On September 23, conversation evaluation, Agent Optimizer,
+the red-team step of agent safety and release operations were re-run with `gpt-6-sol`, without recording; the other modules were not.
 
 </details>
 
@@ -146,8 +147,8 @@ Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authe
 
 - Current Foundry and Projects SDK **2.x**; no mixing with classic threads/runs code.
 - **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded.
-- The first-pass preset is **`gpt-6-sol`**, deployed with that exact name, model version **`2026-09-22`**
-  (September 23, 2026; [why this model](docs/reference/model-choice.md)).
+- The first-pass preset is **`gpt-6-sol`**, deployed with that exact name, model version **`2026-09-22`**.
+  It was chosen on September 23, 2026 and the main steps were recorded with it on September 24 ([why this model](docs/reference/model-choice.md)).
   The optional IQ Chat path keeps its own `gpt-5.6-luna` deployment because Search knowledge bases accepted no GPT-6 model;
   other models belong to explicit comparison experiments.
 - Service GA and SDK Preview are separate. The Hosted Agent service is GA, while this

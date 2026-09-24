@@ -11,7 +11,7 @@
 | Region / project | Sweden Central / `mfv2-g6luna-20260923` |
 | Answer deployment | `gpt-6-sol` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 150K TPM, NoAutoUpgrade |
 | Judge deployment | `gpt-6-sol-judge` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 100K TPM |
-| Created by the portal | `text-embedding-3-large` Standard 110K — created when the first portal agent opened; not used by these labs |
+| Created by the portal | `text-embedding-3-large` Standard 110K — created automatically when the recording's trainer opened the first portal agent; not used by these labs |
 | Owned prefix | `mfv2-sol-20260924-en` |
 
 Resource names keep the environment's original `g6luna` label; the recorded deployments are `gpt-6-sol`. Local keys are disabled; every call used Microsoft Entra ID.
@@ -133,4 +133,4 @@ Findings, owner actions and Azure changes: [validation](reference/validation.md#
 
 Earlier `gpt-5.6-luna` recordings and result pages (September 15–17, 2026) were removed from the working tree; they remain only in git history and are not results for this preset.
 
-[Videos](video-summary.md) · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)
+[Videos](video-summary.md) · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · **Actual results** · [Model choice](reference/model-choice.md)

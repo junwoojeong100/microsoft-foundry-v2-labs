@@ -82,8 +82,8 @@ Search identity에 모델 권한을 부여하고 별도 base에서 모델 기반
 https://<account>.services.ai.azure.com/api/projects/<project>/toolboxes/<name>/mcp?api-version=v1
 ```
 
-다음은 **이미 준비한 client/credential에 toolbox를 결합하는 코드 패턴**입니다.
-실제 endpoint·connection·allowed tool 검토 없이 그대로 실행하는 예제가 아닙니다.
+다음 **통합 패턴은 이미 승인된 client, credential, endpoint가 있다고 가정**합니다.
+그대로 실행 가능한 권한 우회 예제가 아닙니다.
 
 ```python
 from agent_framework import Agent
@@ -112,12 +112,8 @@ server = ResponsesHostServer(agent)
 
 ## 4. Fabric IQ — 자산 종류에 따라 인증을 구분
 
-필수 준비:
-
-- **합성 데이터만** 담긴 Fabric workspace와 사용 가능한 capacity.
-- 실제 게시된 Data Agent/semantic model/ontology의 종류와 ID.
-- 사용자 또는 workload identity의 최소 읽기 권한.
-- tenant·network·지역·처리/보존 정책, 비용과 종료 책임자.
+**합성 데이터만** 담긴 workspace, 승인된 capacity, 실제 게시된 자산 종류/ID, 최소 읽기 권한,
+명시적인 tenant·network·region·retention·cost·cleanup 책임자를 준비합니다.
 
 2026-09-15 [공식 Fabric IQ 가이드](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq)는
 자산별 인증을 구분합니다.

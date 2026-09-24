@@ -4,7 +4,7 @@
 
 These are fictional Hanbit Technology workshop assets, not company policies.
 
-| Asset | Korean source | English version |
+| Asset | Korean original | English version |
 |---|---|---|
 | Six policies | `knowledge/policies.json` | `knowledge/en/policies.json` |
 | Six dev cases | `evaluation/dev.jsonl` | `evaluation/en/dev.jsonl` |
@@ -13,7 +13,7 @@ These are fictional Hanbit Technology workshop assets, not company policies.
 | Offline answer fixtures | `fixtures/answers.json` | `fixtures/en/answers.json` |
 | v1/v2 instructions | `../prompts/v1.txt`, `../prompts/v2.txt` | `../prompts/en/v1.txt`, `../prompts/en/v2.txt` |
 
-Select the English bundle explicitly:
+From the repository root, select the English bundle explicitly:
 
 ```bash
 python scripts/workshop.py --language en doctor

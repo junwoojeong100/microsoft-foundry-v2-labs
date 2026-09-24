@@ -68,7 +68,7 @@ This is a mapping inside the existing agent service, not a complete replacement 
 azd maps it to the agent definition's `rai_config.rai_policy_name`.
 Do not put it in `agent.manifest.yaml` and assume deploy reads that file.
 
-After deployment approval:
+After the owner approves redeploying this owned Hosted agent, run:
 
 ```bash
 printf 'Prepared standalone Hosted directory: '

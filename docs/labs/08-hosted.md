@@ -23,8 +23,8 @@
 ## 1. Build a safe bundle without Azure
 
 **Default B: run this one command, inspect its manifest, then go to Lab 09.**
-If `.build/hosted-en/` already exists, inspect its manifest first. A rebuild needs the old package
-preserved under a new, unused directory name; the command will not overwrite it.
+If `.build/hosted-en/` already exists, inspect its manifest first; the command will not overwrite it.
+To rebuild, move the old package aside first, for example `mv .build/hosted-en ".build/hosted-en-$(date +%Y%m%d-%H%M%S)"`.
 
 ```bash
 python scripts/package_hosted.py --language en
@@ -44,11 +44,13 @@ Output: `.build/hosted-en/`.
 so evaluation answers do not enter a redeployment package.
 Inspect `package-manifest.json` and `requirements.txt`.
 Compare hashes after source changes; a saved package is not automatically updated with your source.
+In `session-notes.txt`'s B section, fill `Lab 08 package path / cloud_deployed / local and remote execution:`.
+Use the actual package path, `cloud_deployed: false`, and **not run** for both optional execution stages.
 
 
 ![September 24 English recording: Package the Hosted bundle only; no deployment](../assets/g6sol-20260924-en/screenshots/E08-001-package-2.webp)
 
-**What to check:** `package_hosted.py` returns `.build/hosted-en`. This is packaging, not
+**What to check:** `package_hosted.py` prints the absolute path of `.build/hosted-en`. This is packaging, not
 Azure deployment. Check included/excluded files against the manifest.
 
 **B done:** retain `.build/hosted-en/package-manifest.json` with `cloud_deployed: false`;

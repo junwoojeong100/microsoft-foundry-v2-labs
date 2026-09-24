@@ -77,6 +77,7 @@
 | Search 403 | Entra 데이터 평면 인증과 Index Data Reader/Contributor | 06 |
 | Search 부분 upload 실패 | 개별 `status`, 문서 수·키, index 필드 | 06 |
 | 기존 Search 객체 거부 | 내 접두사/소유권 ledger인지 확인; 공유 객체 덮어쓰기 금지 | 06 |
+| 하이브리드 index 차원 또는 기존 index 충돌 | 실제 embedding 차원, 별도 본인 index, namespace/ledger 확인. 벡터 자르기·0 채우기 금지 | 06 |
 | IQ 400 | GA intents와 Preview messages를 혼합했는지, 실제 API 버전 | 06 |
 | `Chat completions model is required` | 모델 미선택이지 MI 실패가 아님. **`gpt-5.6-luna` + Search SMI**로 준비된 chat base를 열고 모델 없는 GA base에 포털 기본값을 저장하지 않음 | 06 |
 | `Unsupported model type in Knowledge Base Model Configuration` | Search가 그 모델을 KB에 허용하지 않음. IQ Chat은 GPT-6 모델이 아닌 별도 `gpt-5.6-luna` 배포 사용 | 06 |
@@ -86,33 +87,28 @@
 | IQ 모델 호출 401/403 | Search→모델 identity·계정 scope·RBAC 전파·네트워크 확인. Hosted/사용자 역할이 Search에 상속되지 않음 | 06 |
 | Preview가 `maxOutputSizeInTokens` 거절 | 파라미터 검증 오류를 보존하고 확인한 버전별 `maxOutputSize` 요청 사용. 인증 실패로 분류하지 않음 | 06 |
 | IQ references/activity 오류 | sourceData/docKey, source 설정, semantic·사용/과금 동의 | 06 |
-| cloud judge timeout | 같은 label로 재조회; 저장된 eval/run ID 재사용 | 07 |
+| cloud judge timeout | 같은 label로 재조회; 저장된 eval/run ID 재사용. 새 job을 자동으로 만들지 않음 | 07 |
 | evaluator 초기화 schema 오류 | 실제 catalog의 `model`/`deployment_name` 및 버전 확인 | 07 |
 | holdout이 거부됨 | 후보 dev 통과·고정, 같은 code/prompt/model/provider, 명시적 unlock | 07 |
 | 로컬은 성공, Hosted는 403 | 런타임 identity의 역할; 로컬 `az login` 반복 금지 | 08 |
-| 로그/trace가 없음 | App Insights 연결, exporter, 시간 범위, 보존/보호 테이블 권한 | 09 |
-
-## 새 workflow / benchmark 복구 기준
-
-| 오류 | 확인할 것 |
-|---|---|
-| `runtime-profile.json` 없음 | 새 코드로 생성한 올바른 profile 패키지인지 확인. 이전 패키지를 새 workflow라고 재사용하지 않음 |
-| runtime contract/code/prompt hash 불일치 | 로컬 프로필·소스와 실제 배포 version을 맞춘 뒤 새 label로 수집. manifest를 고쳐 통과시키지 않음 |
-| model key가 allowlist에 없음 | `.env`와 remote service env의 같은 JSON map, 기본 배포 포함 여부 |
-| `account-chat` endpoint 불일치 | 같은 Foundry account의 실제 OpenAI root. 실패했다고 자동 URL 전환 금지 |
-| native timeout | 같은 label로 조회 재개. 새 job 자동 생성 금지 |
-| native failed/invalid | 원본 시도를 보존한 `--retry-failed`. 완료된 낮은 점수의 반복 재시도는 거부 |
-| `Missing evaluator results … missing ['business_rubric']` | 서비스가 평가자 하나를 빠뜨려 시도가 invalid로 저장됨. 같은 `cloud-evaluate` 명령에 `--retry-failed`를 붙여 한 번 재실행. 시도는 `native-attempts/`에 보존. `--reference`로 추가한 실행은 재시도해도 그 평가에 `<label>-retry-1`로 남음 |
-| 회귀 파일이 질문/정답을 바꿈 | 기존 dev 계약을 유지하거나 별도 dataset version 설계. holdout을 회귀로 사용하지 않음 |
-| matrix 누락/중복 | 성공 prefix를 평가하지 않음. 원인을 해결한 후 새 label로 완전 수집 |
-| trace 누락 | 정확한 App Insights app ID·agent·기간·권한·sampling을 확인. 0건을 정상 운영으로 처리하지 않음 |
-| hybrid 차원/기존 index 충돌 | 실제 embedding 차원, 별도 본인 index, namespace/ledger 확인. 벡터 자르기·0 채우기 금지 |
-| azd raw 출력 파싱 | HTTP 상태·UTF-8 바이트 길이·알려진 notice만 허용. 오류 뒤의 임의 JSON 추출 금지 |
-| `--agent-endpoint cannot be combined with --protocol` | full endpoint가 protocol을 포함하므로 원격 smoke에서는 `--protocol`을 별도로 붙이지 않음. 로컬은 명시 |
-| batch의 API version 누락 | session ID를 추가할 때 URL query를 대체하지 않고 merge. `api-version=v1`과 `agent_session_id`를 둘 다 보존 |
-| embedding의 프로젝트 API 404 | 동일 계정 endpoint와 `WORKSHOP_EMBEDDING_API=account`를 사전에 명시. 실패 원본을 남기며 자동 endpoint 전환 금지 |
-| App Insights `InvalidTokenError` | 지정된 구독/tenant credential과 App Insights 전용 audience로 동일 query API를 호출. 잘못된 identity로 대체하지 않음 |
-| CLI 확장이 Incompatible | [버전 게이트](versions.md)를 검토하고 호환 조합을 따로 승인·설치한 후 재확인 |
+| 로그/trace가 없음 | App Insights app ID·exporter·agent·시간 범위·sampling·보존/보호 테이블 권한. trace 0건은 정상 운영이 아니라 미확인 | 09 |
+| 영문 질문에 국문 자료가 사용됨 | `--language en`과 영문 전용 index/source/base 선택. 오류 뒤 국문 자료로 대체하지 않음 | 00–07 |
+| 영문 파일 누락 | 고정된 영문 번들을 복원하고 기존 국문 파일은 보존 | 00 |
+| `--agent-endpoint`와 `--protocol` 충돌 | full endpoint에 protocol이 이미 포함됨. 로컬 호출은 protocol을 명시 | 08 |
+| batch의 API version 누락 | session query parameter를 대체하지 않고 merge해 `api-version=v1`을 보존 | 07–08 |
+| 프로젝트 embedding 404 | `WORKSHOP_EMBEDDING_API=account`와 같은 계정 endpoint를 명시. 원래 실패를 보존 | 06 |
+| trace 조회 `InvalidTokenError` | App Insights audience와 지정된 구독/tenant credential. identity·리소스 대체 금지 | 09 |
+| idle 세션 중지가 409 반환 | 기록된 session/version을 다시 조회하고 추가 stop 요청 없이 idle 상태를 기록 | 09 |
+| Host profile/contract 불일치 또는 `runtime-profile.json` 없음 | 현재 코드로 다시 패키징한 뒤 profile 언어·model map·source package·실제 version·retrieval 설정 비교. 새 label로 수집하며 manifest를 고쳐 통과시키지 않음 | 08 |
+| model key가 allowlist에 없음 | `.env`와 원격 서비스 환경의 `WORKSHOP_MODEL_DEPLOYMENTS_JSON`이 같은 map이고 기본 배포를 포함하는지 확인 | 08 |
+| `account-chat` endpoint 불일치 | `AZURE_OPENAI_ENDPOINT`에 같은 Foundry 계정의 실제 OpenAI root 사용. 실패 후 CLI가 URL을 바꾸지 않음 | 06–08 |
+| azd raw 출력 파싱 실패 | HTTP 상태·UTF-8 바이트 길이·알려진 notice만 허용. 오류 텍스트에서 JSON을 추출하지 않음 | 08 |
+| CLI 확장이 Incompatible로 표시 | [버전 게이트](versions.md)를 검토하고 호환 조합을 따로 승인·설치한 뒤 다시 확인 | 08 |
+| native 품질 점수가 낮음 | 완료된 실행을 보존하고 평가자를 업무 요구와 비교해 검토. 좋은 점수가 나올 때까지 재시도하지 않음 | 07 |
+| native 실행 failed/invalid | 같은 명령에 `--retry-failed`를 붙여 한 번 재실행. 원래 시도는 보존. 완료된 낮은 점수는 재시도할 수 없음 | 07 |
+| 회귀 파일이 질문·정답을 바꿈 | 기존 dev 계약을 유지하거나 별도 dataset version 설계. holdout을 회귀로 사용하지 않음 | 07 |
+| matrix 행 누락·중복 | 성공한 일부만 평가하지 않음. 원인을 해결한 뒤 새 label로 전체 matrix 수집 | 07 |
+| `Missing evaluator results … missing ['business_rubric']` | 서비스가 평가자 하나를 빠뜨려 시도가 invalid로 저장됨. 같은 `cloud-evaluate` 명령에 `--retry-failed`를 붙여 한 번 재실행. 시도는 `native-attempts/`에 보존. `--reference`로 추가한 실행은 재시도해도 그 평가에 `<label>-retry-1`로 남음 | 07 |
 
 </details>
 

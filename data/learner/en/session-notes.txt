@@ -1,6 +1,7 @@
 BLANK WORKSHEET - fill with your own results; this is not execution evidence.
 Use a personal untracked copy, not data/learner/. B may use its outputs/learner-notes-en/ folder.
-No passwords, keys, tokens or .env. A skips the B section; B skips browser-only Labs 01/03 and Lab 07 A notes.
+No passwords, keys, tokens or .env.
+Fill Lab 00, your A or B section, and Pause / resume. Leave the other route's section blank.
 
 Lab 00 - setup card
 Language / path:
@@ -12,6 +13,8 @@ Personal prefix:
 Cost and permission owner:
 Prepared MAF terminal location:
 Optional IQ Chat selected or not selected:
+
+A - browser notes only
 
 Lab 01 - account contains project and deployment; agent calls deployment
 My sketch and explanation:
@@ -51,11 +54,22 @@ Optional Foundry evaluation name / dataset name, or not run:
 Relevance / Coherence / TaskAdherence passed / 6:
 Evaluator results that disagree with my assessment, and why:
 
-B - code evidence and incomplete handoff
+B - code evidence and handoff
+Record findings beside each filename; do not paste the JSON again. Keep the original output files.
+If you used different filenames, record their actual paths here.
+
 Personal notes directory:
-Lab 02/04/05/06 complete JSON output filenames:
+Lab 02 model.json / answer-local.json findings:
+Lab 04 maf-none.json / maf-function.json / maf-mcp.json findings:
+Lab 05 workflow-review.txt path:
 Lab 06 retrieval comparison (file / provider / source_ids / context_hash):
+Lab 06 answer-iq.json evidence / decision / citations / finding:
 Baseline / candidate / holdout labels actually collected:
+Lab 07 baseline failed checks or all-pass review / feedback record path if created:
+Lab 07 v1/v2 change and purpose:
+Lab 07 comparison findings / holdout gate decision:
+Lab 07 acceptance report path / recommendation, or incomplete reason:
+Lab 08 package path / cloud_deployed / local and remote execution:
 Outcome (complete evidence / rejected / incomplete; not deployment approval):
 Missing or blocked steps and exact reason:
 Existing error files / request IDs:

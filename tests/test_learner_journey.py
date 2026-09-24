@@ -1,3 +1,4 @@
+import argparse
 import io
 import json
 import os
@@ -492,11 +493,50 @@ class LearnerJourneyTests(unittest.TestCase):
                         for cited in re.findall(r"`([^`\n]*:)`", core):
                             self.assertIn(cited, lines)
 
+    def test_b_review_fields_are_named_in_the_matching_lab_before_its_exit(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                fields = self.worksheet_lines(language)["session-notes.txt"]
+                for number, count in ((2, 1), (4, 1), (5, 1), (6, 2), (7, 4), (8, 1)):
+                    with self.subTest(lab=number):
+                        matching = [
+                            line for line in fields if line.startswith(f"Lab {number:02d} ")
+                        ]
+                        self.assertEqual(len(matching), count)
+                        core = self.core_section(language, labs[number], "B")
+                        for field in matching:
+                            self.assertTrue(
+                                f"`{field}`" in core, f"Missing review checkpoint: {field}"
+                            )
+                handoff = self.core_section(language, labs[11], "B")
+                heading = (
+                    "B - code evidence and handoff" if language == "en" else "B - 코드 근거와 인계"
+                )
+                self.assertTrue(f"**{heading}**" in handoff, f"Missing handoff section: {heading}")
+
+    def test_cleanup_guidance_explains_missing_and_recorded_local_ownership(self):
+        for language, directory, labs in self.language_labs():
+            texts = (
+                self.core_section(language, labs[9], "B"),
+                expanded_markdown((directory / "reference/cleanup.md").read_text()),
+            )
+            for text in texts:
+                with self.subTest(language=language, text=text[:60]):
+                    for field in (
+                        "search_ownership: null",
+                        "search_ownership.objects",
+                        "required_manual_inventory",
+                        "outputs/azure-objects.json",
+                    ):
+                        self.assertTrue(
+                            f"`{field}`" in text, f"Missing cleanup explanation: {field}"
+                        )
+
     def test_lab00_setup_table_mirrors_the_worksheet_setup_card(self):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):
                 notes = (ROOT / "data/learner" / language / "session-notes.txt").read_text()
-                card = notes.split("\nLab 00", 1)[1].split("\n\n", 1)[0].splitlines()[1:]
+                card = notes.split("\nLab 00 -", 1)[1].split("\n\n", 1)[0].splitlines()[1:]
                 core = self.core_section(language, labs[0], "A")
                 rows = re.findall(r"^\| `([^`]+:)` \|", core, re.MULTILINE)
                 self.assertEqual(rows, card)
@@ -631,6 +671,103 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertEqual(
                     claimed[:4], [scores["D"][1], scores["R"][1], scores["D"][0], scores["R"][0]]
                 )
+
+    def test_latest_straightforwardness_review_totals_match_every_round(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = (directory / "reference/validation.md").read_text()
+                anchor = '<a id="straightforwardness-95"></a>'
+                self.assertIn(anchor, text)
+                self.assertLess(text.index(anchor), text.index("<details>"))
+                section = text.split(anchor, 1)[1].partition("\n## ")[2].split("\n## ", 1)[0]
+                totals = {}
+                for prefix in ("D", "R"):
+                    rows = re.findall(
+                        rf"^\| {prefix}(\d{{1,2}}) \| [^|\n]+ \|((?: \d{{1,2}}(?:\.5)? \|)+)$",
+                        section,
+                        re.MULTILINE,
+                    )
+                    self.assertEqual([int(row[0]) for row in rows], list(range(1, 11)), prefix)
+                    columns = [[float(value) for value in row[1].split("|")[:-1]] for row in rows]
+                    self.assertTrue(all(len(scores) == len(columns[0]) >= 2 for scores in columns))
+                    self.assertTrue(all(0 <= score <= 10 for scores in columns for score in scores))
+                    totals[prefix] = [
+                        sum(scores[index] for scores in columns) for index in range(len(columns[0]))
+                    ]
+                self.assertEqual(len(totals["D"]), len(totals["R"]))
+                claimed = [
+                    float(value) for value in re.findall(r"\b(\d{1,3}(?:\.5)?)/100\b", section)
+                ]
+                expected = [totals["D"][-1], totals["R"][-1]]
+                for guides, documents in zip(totals["D"][:-1], totals["R"][:-1], strict=True):
+                    expected += [guides, documents]
+                self.assertEqual(claimed[: len(expected)], expected)
+                current = text.split('<a id="current-answer"></a>', 1)[1].split("\n## ", 2)[1]
+                self.assertIn("#straightforwardness-95", current)
+                self.assertIn(f"{totals['D'][-1]:g}/100", current)
+                self.assertIn(f"{totals['R'][-1]:g}/100", current)
+
+    def test_validation_page_answers_first_and_collapses_dated_history(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                text = (directory / "reference/validation.md").read_text()
+                headings = re.findall(r"^## (.+)$", text, re.MULTILINE)
+                self.assertTrue(
+                    text.split("\n## ", 1)[0].rstrip().endswith('<a id="current-answer"></a>')
+                )
+                visible = expanded_markdown(text)
+                for anchor in (
+                    "gpt-6-sol-20260924",
+                    "previously-not-run-items",
+                    "foundry-evaluation-additions",
+                    "gpt-6-sol-20260923",
+                    "straightforwardness-95",
+                ):
+                    self.assertIn(f'<a id="{anchor}"></a>', visible)
+                for anchor in (
+                    "straightforwardness-v3",
+                    "guide-straightforwardness-v2",
+                    "guide-straightforwardness",
+                ):
+                    self.assertIn(f'<a id="{anchor}"></a>', text)
+                    self.assertNotIn(f'<a id="{anchor}"></a>', visible)
+                visible_headings = re.findall(r"^## (.+)$", visible, re.MULTILINE)
+                self.assertFalse([name for name in visible_headings if "15" in name.split("—")[-1]])
+                self.assertEqual(len(headings), len(set(headings)))
+
+    def test_full_error_reference_has_the_same_rows_in_both_languages(self):
+        tables = []
+        for _, directory, _ in self.language_labs():
+            text = (directory / "reference/troubleshooting.md").read_text()
+            block = text.split("<details>", 1)[1].split("</details>", 1)[0]
+            rows = [line for line in block.splitlines() if line.startswith("| ")][1:]
+            tables.append([row.rstrip(" |").rsplit("| ", 1)[1] for row in rows])
+        self.assertGreaterEqual(len(tables[0]), 50)
+        self.assertEqual(tables[0], tables[1])
+
+    def test_saving_reference_names_every_command_that_accepts_output(self):
+        subcommands = next(
+            action for action in parser()._actions if isinstance(action, argparse._SubParsersAction)
+        ).choices
+        accepting = [
+            name
+            for name, subparser in subcommands.items()
+            if any("--output" in action.option_strings for action in subparser._actions)
+        ]
+        self.assertIn("maf-evaluate", accepting)
+        for _, directory, _ in self.language_labs():
+            text = (directory / "reference/commands.md").read_text()
+            paragraph = text.split('<a id="saving-json"></a>', 1)[1].split("\n\n", 3)[2]
+            for name in accepting:
+                self.assertIn(f"`{name}`", paragraph)
+
+    def test_learner_start_file_points_to_the_guide_outside_the_zip(self):
+        for language, marker in (("en", "(not in this ZIP)"), ("ko", "(이 ZIP에는 없음)")):
+            with self.subTest(language=language):
+                start = (ROOT / "data/learner" / language / "START-HERE.txt").read_text()
+                self.assertIn(marker, start)
+                for path in re.findall(r"docs/[\w/.-]+\.md", start):
+                    self.assertTrue((ROOT / path).is_file(), path)
 
     def test_b_notes_copy_is_executable_and_never_overwrites_personal_records(self):
         names = (

@@ -212,6 +212,9 @@ Holdout은 이름을 바꾸거나 재수집해도 다시 미사용 검증셋이 
 
 ### 1. dev baseline 수집
 
+이 절의 `collect`는 B의 비용 승인 범위 안에서 유료 모델 호출을 합니다(dev 6건, holdout 4건).
+`evaluate`·`compare`·`accept`는 저장된 파일만 읽습니다.
+
 ```bash
 python scripts/workshop.py collect --split dev --label baseline --prompt v1 --retrieval local
 ```
@@ -239,6 +242,8 @@ python scripts/workshop.py evaluate --label baseline
 
 `outputs/baseline/business-evaluation.json`을 엽니다. `checks`에서 `passed`가 `false`인 case를 찾고, 그 case에서 `false`인 검사를 적습니다.
 그다음 `outputs/baseline/responses.jsonl`에서 같은 `case_id`의 응답을 읽습니다.
+`session-notes.txt`의 B 구간에서 `Lab 07 baseline 실패 검사 또는 전체 통과 검토 / 생성한 feedback 경로:`를 채웁니다.
+사례·실패한 검사·본인의 설명 또는 실제 전체 통과 결과를 적습니다. 아래 `feedback`이 기록을 만들면 반환한 경로도 추가합니다.
 
 | 현상 | 먼저 확인할 것 |
 |---|---|
@@ -278,7 +283,7 @@ python scripts/workshop.py evaluate --label diagnostic-no-evidence
 
 ![2026-09-24 국문 녹화: 진단은 정직하게 실패: 0/6, 오류 0](../../assets/g6sol-20260924-ko/screenshots/K07-022-diagnostic-evaluate-2.webp)
 
-**화면 확인:** `evaluate`는 `passed: 0`, `errors: 0`으로 종료 코드 `1`을 반환합니다. `business-evaluation.json`의 모든 행에서
+**화면 확인:** `evaluate`는 `passed: 0`, `errors: 0`을 출력하고, 바로 다음에 `echo $?`를 실행하면 종료 코드 `1`이 나옵니다. `business-evaluation.json`의 모든 행에서
 `required_citations`와 `citations_retrieved`가 `false`이고, `responses.jsonl`에서 에이전트는 금액을 추측하지 않고
 `insufficient_evidence`로 보류합니다. 위 표의 첫 행(정답 문서 없음)에 해당하므로 고칠 곳은 지침이 아니라 검색입니다.
 `feedback`은 이 실행을 거부하므로 회귀 기록이 되지 않습니다. `cloud-evaluate`도 유료 호출 전에 거부합니다.
@@ -295,6 +300,7 @@ holdout은 4단계의 최종 확인에만 사용합니다. 고칠 실패를 찾�
 baseline이 모두 통과했더라도 이 단계를 실행합니다. 같은 6문항에서 고정된 두 지침 버전을 비교하는 단계입니다.
 `prompts/v1.txt`와 `prompts/v2.txt`를 비교합니다.
 v2는 적용일, 증빙/승인, 문서 ID, 근거 부족 처리의 우선순위를 명확히 합니다.
+후보 수집 전에 같은 B 기록란의 `Lab 07 v1/v2 변경과 목적:`에 무엇이 달라졌는지 설명합니다.
 **Candidate 응답이 이미 저장된 상태로 재개하나요?** 아래 `collect`를 건너뛰고 기존 응답을 확인합니다.
 기존 로컬 보고서를 읽거나 뒤의 로컬 검사만 실행합니다. 같은 후보를 다시 만들려고 유료 호출하지 않습니다.
 
@@ -334,8 +340,8 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 **화면 확인:** `outputs/candidate/comparison-vs-baseline.json`에서
 `variable: prompt`, `baseline_metrics`, `candidate_metrics`, `changed_context_cases`를 읽습니다.
 `changed_context_cases`가 빈 목록이면 검색 근거가 같습니다. 비교 조건이 다르면 보고서를 쓰기 전에 거부합니다.
-입문 B는 실행당 6문항입니다. 심화 경로의 점수를 옮겨 쓰거나
-같은 점수·짧은 실행 시간만으로 v2의 우월성을 주장하지 않습니다.
+같은 점수나 더 짧은 경과 시간만으로 v2의 우월성이 입증되지는 않습니다.
+본인 결과를 사용합니다. 영어와 한국어 실행은 별도입니다.
 
 <a id="final-acceptance"></a>
 
@@ -345,6 +351,7 @@ JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
 `total: 6`, `passed: 6`, `errors: 0`, `business_gate_passed: true`가 있어야 하며 비교에서 고정 설정을 인정해야 합니다.
 아니라면 여기서 멈추고 dev 실패·반려 후보를 보존합니다. Holdout을 열거나 검사 기준을 낮추지 않습니다.
 오류 없는 수집이나 `compare` 종료 코드 `0`만으로는 이 게이트를 통과하지 않습니다.
+B 기록란의 `Lab 07 비교 결과 / holdout 진행 판단:`에 실제 비교 결과와 **진행 / 중단** 판단을 적습니다.
 현재 작업 시간 안에 해결할 수 없다면 holdout을 건너뛰고 **최종 평가 미완료**로 남깁니다.
 로컬 [패키징](08-hosted.md#path-b)·[운영](09-operations.md#path-b)·[미완료 인계](11-capstone.md#incomplete-handoff)는 진행할 수 있지만,
 어느 것도 반려된 후보를 인수 통과로 바꾸지는 않습니다.
@@ -380,6 +387,8 @@ Holdout은 4건입니다. 실패를 보고 지침을 고치면 더 이상 미사
 **화면 확인:** 4개 사례와 후보 연결을 확인한 뒤 `outputs/final-holdout/acceptance.json`을 엽니다.
 `recommendation`, `deployment_approved: false`를 유지합니다.
 공개된 교육용 holdout이므로 통과해도 처음 보는 데이터에서의 결과는 아닙니다.
+B 기록란의 `Lab 07 인수 보고서 경로 / recommendation 또는 미완료 이유:`에 실제 보고서 경로와 판정을 적습니다.
+Holdout을 수집하지 않았다면 이유를 적습니다. 이 줄을 채우려고 보고서를 꾸미지 않습니다.
 
 **B 완료:** 실행 폴더 세 개·비교·검토 기록·인수/반려 보고서를 보관합니다.
 [Lab 08 B](08-hosted.md#path-b)에서 **패키징만** 진행합니다. 인수 보고서는 배포 승인이 아닙니다.
@@ -446,7 +455,7 @@ python scripts/workshop.py cloud-evaluate --label candidate --business-evaluator
 
 **화면 확인:** groundedness·relevance·business_rubric이 한 행씩 있습니다. 2026-09-24 국문 녹화에서 baseline과 candidate는 모두
 groundedness 6/6, relevance 5/6(D05의 올바른 보류), business_rubric 6/6이었습니다. 비교 화면의 relevance 평균은 4.17 → 4.50이었고
-**샘플이 너무 적음**으로 표시되었습니다. 6문항으로는 유의한 차이를 보일 수 없습니다.
+**샘플이 너무 적음**으로 표시되었습니다. 6문항으로는 유의한 차이를 보일 수 없습니다. judge 점수는 실행마다 달라질 수 있습니다.
 영문 녹화에서는 첫 baseline 시도에 `business_rubric` 결과가 없어 `--retry-failed`로 한 번 재시도했습니다.
 사용자 지정 평가자는 2026-09-23 Microsoft Learn에 Preview로 표시되었습니다.
 고정한 버전과 결과는 `outputs/<label>/foundry-business-rubric/`에 저장됩니다.
@@ -532,8 +541,7 @@ holdout을 보고 v2를 고치거나 회귀로 가져오면 최종 검증 경계
 입문 경로는 dev 6개·holdout 4개 사례를 사용합니다. 2026-09-24 국문 녹화는 `gpt-6-sol`로 baseline 6/6, candidate 6/6,
 holdout 4/4 업무 통과를 기록했고 네 모델 Hosted matrix는 다시 실행하지 않았습니다.
 판단 결과는 `ready-for-human-review`이며 v2의 일괄적 우월성이나 운영 승인을 주장하지 않습니다.
-숫자는 이번 작은 합성 사례의 결과이지 일반적인 성능 보장이 아닙니다.
-데이터·실패 원인·분리된 평가 경로는 [실행 기록](../live-run.md)을 확인합니다.
+점수·실패·native 발견 사항은 [실행 기록](../live-run.md)을 확인합니다. 이 작은 공개 합성 데이터로 우월성이나 처음 보는 데이터에서의 품질을 추론하지 않습니다.
 
 A: 6문항 평가표·실제 agent 버전/지침·실패 또는 전부 통과 검토가 남습니다. Holdout·CLI 인수는 필요 없습니다.
 B: 실제 baseline/candidate 이력, 실패 검토 또는 전부 통과했다는 기록, 고정 후보의 holdout

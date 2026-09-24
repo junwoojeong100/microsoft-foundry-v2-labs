@@ -6,7 +6,7 @@
 
 | 영상 | 길이 | 파일 |
 |---|---:|---|
-| Lab 00–11 가이드 순서 통합본 | 06:03 | [guide-ordered.mp4](../assets/g6sol-20260924-ko/guide-ordered.mp4) |
+| Lab 00–09·11 가이드 순서 통합본 | 06:03 | [guide-ordered.mp4](../assets/g6sol-20260924-ko/guide-ordered.mp4) |
 | B · CLI 실행 | 02:57 | [cli-edited.mp4](../assets/g6sol-20260924-ko/cli-edited.mp4) |
 | A · Foundry 포털 | 02:43 | [portal-edited.mp4](../assets/g6sol-20260924-ko/portal-edited.mp4) |
 
@@ -29,8 +29,8 @@ python scripts/play_recordings.py --edition ko
 
 ## 이번 녹화에 포함하지 않은 것
 
-Lab 10, 선택 IQ Chat preset(`gpt-5.6-luna`; Search가 GPT-6 모델을 받지 않음), Lab 03 포털 File Search, Lab 06 하이브리드 RAG, Lab 08 로컬·원격 Hosted 실행, Lab 09 서버 측 tracing·되풀이 평가, 심화 C 경로와 확장 모듈은 **이번 녹화에 포함하지 않았습니다.** 되풀이 평가, Agent Optimizer, 클라우드 red teaming, CI 릴리스는 2026-09-23에 별도로 실행했습니다([결과](live-run.md#이전에-실행하지-않은-항목--2026-09-23)). 이전 녹화는 삭제했으며 이번 판의 근거로 쓰지 않습니다.
+Lab 10, 선택 IQ Chat preset(`gpt-5.6-luna`; Search가 GPT-6 모델을 받지 않음), Lab 03 포털 File Search, Lab 06 하이브리드 RAG, Lab 08 로컬·원격 Hosted 실행, Lab 09 서버 측 tracing·되풀이 평가, 심화 C 경로와 확장 모듈은 **이번 녹화에 포함하지 않았습니다.** 대화 평가 모듈, 되풀이 평가, Agent Optimizer, 클라우드 red teaming, CI 릴리스는 2026-09-23에 별도로 실행했습니다([결과](live-run.md#이전에-실행하지-않은-항목--2026-09-23), 대화 평가: [검증 기록](reference/validation.md#foundry-evaluation-additions)). 이전 녹화는 삭제했으며 이번 판의 근거로 쓰지 않습니다.
 
 인증·암호·MFA 입력은 녹화하지 않았습니다. 기록된 종료 코드는 품질 점수가 아니며 어떤 결과도 운영 승인이 아닙니다. 본인의 리소스 이름·버전·결과를 사용합니다.
 
-[영상](video-summary.md) · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)
+**영상** · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

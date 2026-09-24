@@ -2,7 +2,7 @@
 
 [English](../../../labs/extensions/agent-safety.md) | **한국어**
 
-**C 선택 · agent/tool 개입 제어에는 2026-09-16 기준 Preview가 포함됩니다.**
+**C 선택 · agent/tool 개입 제어에는 2026-09-16 기준 Preview 기능이 포함됩니다.**
 
 **근거 상태:** 영문 guardrail attachment와 차단되지 않은 두 사례는 2026-09-16(이전 `gpt-5.6-luna` preset) 기록입니다. 6절의 클라우드 red-team scan은 2026-09-23 `gpt-6-sol`로 실행했습니다.
 
@@ -45,11 +45,12 @@ agent/버전·도구·정책·질문·실제 결과를 기록합니다.
 
 Foundry **Build → Guardrails → Create**에서 전용 이름으로 준비할 수 있습니다.
 기본 보호를 유지하고 공유 agent/model을 선택하지 않습니다.
-정책 리소스 자체, intervention point와 blocking 설정을 먼저 읽어 확인합니다.
+연결하기 전에 account의 guardrail management view에서 정책 리소스 자체를 읽습니다.
+의도한 control, intervention point, blocking behavior를 확인합니다.
 `Microsoft.DefaultV2`나 다른 팀의 policy는 수정하지 않습니다.
 
-일부 환경은 존재하지 않는 policy ID에도 fail-open할 수 있습니다.
-agent가 active라는 사실만으로 정책이 유효하다고 판단하지 않습니다.
+**active agent는 유효한 guardrail의 증거가 아닙니다.** 일부 구독에서는 존재하지 않는 policy ID가 fail-open할 수 있습니다.
+정책 리소스 자체와 그 결과 동작을 모두 확인해야 합니다.
 
 ## 4. 내 Hosted 새 버전에 연결
 
@@ -64,6 +65,8 @@ policies:
 
 전체 YAML을 교체하지 않습니다. azd가 agent definition의 `rai_config.rai_policy_name`으로 변환합니다.
 `agent.manifest.yaml`에만 넣고 deploy가 읽었다고 가정하지 않습니다.
+
+담당자가 이 소유 Hosted agent의 재배포를 승인한 뒤 실행합니다.
 
 ```bash
 printf 'Prepared standalone Hosted directory: '
@@ -85,8 +88,15 @@ azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone directo
 D01·D06의 질문 텍스트만 각각 **New chat**에 보냅니다.
 원래 응답 상태, guardrail annotation/차단 정보, 해당 trace를 확인합니다.
 
-**정책 연결**, **요청의 완료/차단**, **실제 제어 개입**, **답변 정확성**을 각각 기록합니다.
+다음 결과를 분리해서 보관합니다.
+
+- 정책이 연결됨.
+- 요청이 완료되거나 차단됨.
+- 예상한 제어가 실제로 개입함.
+- underlying answer가 계속 정확함.
+
 D06이 차단되지 않으면 그대로 남깁니다. threshold나 입력을 바꿔 촬영에 맞추지 않습니다.
+업무 경계 거절과 platform safety block은 서로 다른 근거입니다.
 영문에서는 D01/D06 모두 비차단 완료했고 D06은 사전 승인이 필요하다고 답했습니다.
 이를 국문 결과나 platform block으로 옮기지 않습니다.
 
@@ -142,7 +152,7 @@ taxonomy를 검토할 수 없거나 서비스·지역이 지원하지 않으면 
 
 ## 7. 내 추가분만 복원
 
-baseline·시험 버전·정책·응답을 보관합니다.
+baseline과 테스트한 policy/agent version, 실제 응답과 발견 사항을 보관합니다.
 참조를 확인한 뒤 새로 만든 attachment/policy만 복원·제거합니다.
 공유 정책·모델·평가 근거는 삭제하지 않습니다.
 

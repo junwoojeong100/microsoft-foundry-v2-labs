@@ -11,9 +11,9 @@
 | 원본 | 확인 커밋 / 커밋 날짜 | 반영 범위 |
 |---|---|---|
 | [microsoft-foundry-labs](https://github.com/junwoojeong100/microsoft-foundry-labs/tree/23e831f367b37d41ea1ad1df47f22b076bc372ff) | `23e831f367b37d41ea1ad1df47f22b076bc372ff` / 2025-12-14 | 기존 7개 주제와 포털/코드 이원 경로 |
-| [foundry-evaluation](https://github.com/junwoojeong100/foundry-evaluation/tree/0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b) | `0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b` / 2026-09-15 KST | Hosted model matrix·native 평가·회귀 소비·trace/운영 인수 대조 |
+| [foundry-evaluation](https://github.com/junwoojeong100/foundry-evaluation/tree/0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b) | `0b91e47f88ca4d1a5e1dd961d45ea6b40afbb33b` / 2026-09-15 | 형식이 고정된 Hosted matrix, 보존한 실패·계보, trace, native 평가 |
 | [foundry-maf-workshop](https://github.com/junwoojeong100/foundry-maf-workshop/tree/d07c614a616446e63ee50b0b34540b5481aff5b2) | `d07c614a616446e63ee50b0b34540b5481aff5b2` / 2026-07-13 | 모델 SDK, MAF 함수, code deployment 학습 순서 |
-| [agent-framework-labs](https://github.com/junwoojeong100/agent-framework-labs/tree/cca14163def4c88616dcd4c93fcfd6441fb08f30) | `cca14163def4c88616dcd4c93fcfd6441fb08f30` / 2026-09-15 | 세 builder·Workflow.as_agent·MCP·hybrid/IQ·Hosted 경로 대조 |
+| [agent-framework-labs](https://github.com/junwoojeong100/agent-framework-labs/tree/cca14163def4c88616dcd4c93fcfd6441fb08f30) | `cca14163def4c88616dcd4c93fcfd6441fb08f30` / 2026-09-15 | MAF builder, Hosted adapter, MCP 패턴 |
 | [microsoft-iq-on-foundry](https://github.com/junwoojeong100/microsoft-iq-on-foundry/tree/fa16c84f9800377823edd9aea1cb20d6a56a1edf) | `fa16c84f9800377823edd9aea1cb20d6a56a1edf` / 2026-07-25 | IQ/Toolbox 구분, read-only 기본, 실제 M365 연결의 승인 경계 |
 
 이 에디션의 시나리오·합성 데이터·통합 코드·문서는 새로 구성했습니다.

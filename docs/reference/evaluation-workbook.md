@@ -370,7 +370,8 @@ Never use it for prompt development or regression harvesting.
 
 ## 10. Stop only owned execution resources
 
-Run only the lines whose actual collection/session exists; blocked work may have no candidate or final session.
+The learner who collected these labels runs only the lines whose collection/session actually exists in this workshop copy;
+blocked work may have no candidate or final session. If a session's owner is unclear, do not stop it; ask the environment owner.
 
 ```bash
 python scripts/workshop.py --language en benchmark stop-session --label wf-baseline
@@ -378,6 +379,8 @@ python scripts/workshop.py --language en benchmark stop-session --label wf-candi
 python scripts/workshop.py --language en benchmark stop-session --label wf-final
 ```
 
+**Check:** each command prints a receipt with `status: idle` or `stopped` (`stop_requested: false` means it was already idle)
+and saves it as `outputs/benchmarks/<label>/session-cleanup.json`. It refuses a different project or a session bound to another version.
 Only the recorded session/version is stopped or confirmed already idle.
 Cleanup receipts are separate from immutable manifests, preserving candidate/regression lineage.
 Inspect smoke-session headers or the azd session list and stop only your own IDs.

@@ -2,7 +2,7 @@
 
 **English** | [한국어](ko/video-chapters.md)
 
-Chapters of the local guide-ordered video (06:29). Lab 10 was not recorded in this edition.
+Chapters of the September 24, 2026 `gpt-6-sol` / `2026-09-22` local guide-ordered video (06:29). Lab 10 was not recorded in this edition.
 
 | Lab | Start | Chapter |
 |---|---:|---|
@@ -18,4 +18,4 @@ Chapters of the local guide-ordered video (06:29). Lab 10 was not recorded in th
 | 09 | [05:52](assets/g6sol-20260924-en/guide-ordered.mp4#t=352.28) | Lab 09 · Operations and cleanup |
 | 11 | [06:22](assets/g6sol-20260924-en/guide-ordered.mp4#t=382.84) | Lab 11 · Capstone handoff |
 
-[Videos](video-summary.md) · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)
+[Videos](video-summary.md) · [Actions and captures](action-captures.md) · **Chapters** · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)

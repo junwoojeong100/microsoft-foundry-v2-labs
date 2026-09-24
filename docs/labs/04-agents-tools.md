@@ -25,6 +25,7 @@
 Run from the repository root with `.venv` active. All three commands make billable model calls.
 Each successful command saves its complete JSON as `maf-none.json`, `maf-function.json` or `maf-mcp.json`
 in your Lab 00 notes directory through `--output`. Open that file before the next command; no copying is needed.
+Record each file's finding on `Lab 04 maf-none.json / maf-function.json / maf-mcp.json findings:` in the B section of `session-notes.txt`.
 
 ```bash
 python scripts/workshop.py --language en maf \
@@ -147,7 +148,7 @@ python scripts/workshop.py --language en maf --tools --question "$(python -c 'pr
 ```
 
 
-**What to check:** Read `FAIL: ValueError: Question must contain 1-2000 characters.` and exit code `2`.
+**What to check:** Read `FAIL: ValueError: Question must contain 1-2000 characters.` To see the exit code, run `echo $?` next; it prints `2`.
 This is expected input rejection before Azure, not a broken environment.
 
 Pasting a long string directly can hit terminal-input truncation. A model answer to

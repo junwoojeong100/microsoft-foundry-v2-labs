@@ -75,10 +75,10 @@ AZURE_APPLICATION_INSIGHTS_APP_ID=<connected-application-insights-app-id>
 WORKSHOP_IQ_RERANKER_THRESHOLD=0
 ```
 
-`AZURE_OPENAI_ENDPOINT`는 프로젝트 endpoint와 **동일한 Foundry account**여야 합니다.
-새 비교에서는 위 recall 설정을 로컬·원격·baseline·candidate에 똑같이 유지합니다.
-과거 영문 20/24의 누락 원인과 다른 설정을 단일 prompt 효과로 비교하지 않으며,
-이 새 준비값으로 과거 국문 결과를 다시 측정했다고 주장하지 않습니다.
+account endpoint는 프로젝트와 **동일한 Foundry account**에 속해야 합니다.
+첫 영문 dev 실행은 기본 IQ reranker 필터가 범위 정책을 빠뜨려 20/24 결과를 유지했습니다.
+수정된 쌍에서는 로컬·배포 구성에서 같은 recall 설정을 명시적으로 선택합니다.
+그 원래 cohort를 보존하고, 서로 다른 검색 구성을 prompt만 바꾼 효과로 비교하지 않습니다.
 이 워크북의 예시는 명시적인 `account-chat` 경로를 사용합니다.
 다른 API를 선택하려면 패키지·serve·smoke·plan·collect의 `--api`를 **모두** 바꾼 독립 실험으로 시작합니다.
 실패 후 자동 전환하는 옵션이 아닙니다.
@@ -161,7 +161,8 @@ curl --fail http://127.0.0.1:8088/readiness &&
 python scripts/workshop.py benchmark smoke --local --azd-directory "${HOSTED_DIRECTORY:?Use the prepared V1 directory}" --label smoke-v1-local --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --case D01 --model-key a --confirm-cost
 ```
 
-readiness는 `{"status":"healthy"}`입니다. 실제 답·model/response ID·context hash까지 확인해야 smoke가 완료됩니다.
+readiness는 `{"status":"healthy"}`입니다. 이것만으로 추론 성공은 아닙니다.
+실제 답·model/response ID·context hash까지 확인해야 smoke가 완료됩니다.
 `azd`의 raw HTTP 본문은 UTF-8 **바이트 길이**로 파싱하며, 알려진 업데이트 안내만 별도 보존합니다.
 오류 뒤의 임의 JSON을 성공 응답으로 추출하지 않습니다.
 
@@ -368,7 +369,8 @@ python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate w
 
 ## 10. 소유한 실행 자원만 정리
 
-실제 수집·세션이 있는 행만 실행합니다. 막힌 작업에는 candidate나 final 세션이 없을 수 있습니다.
+이 label을 수집한 학습자가, 이 작업 폴더에 실제 수집·세션이 있는 행만 실행합니다.
+막힌 작업에는 candidate나 final 세션이 없을 수 있습니다. 세션 소유자가 불분명하면 중지하지 말고 환경 담당자에게 확인을 요청합니다.
 
 ```bash
 python scripts/workshop.py benchmark stop-session --label wf-baseline
@@ -376,6 +378,8 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 python scripts/workshop.py benchmark stop-session --label wf-final
 ```
 
+**확인:** 명령마다 `status: idle` 또는 `stopped`가 담긴 receipt를 출력하고(`stop_requested: false`는 이미 idle이었다는 뜻)
+`outputs/benchmarks/<label>/session-cleanup.json`으로 저장합니다. 다른 프로젝트나 다른 version에 묶인 세션이면 거부합니다.
 각 manifest의 session/version만 중지하고 idle/stopped를 재조회합니다. manifest는 바꾸지 않고
 별도 cleanup receipt를 남기므로 frozen candidate와 회귀 계보가 깨지지 않습니다.
 별도 smoke의 session은 저장된 raw HTTP/azd session 목록에서 확인해 본인 것만 중지합니다.

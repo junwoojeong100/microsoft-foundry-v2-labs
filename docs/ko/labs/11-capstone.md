@@ -94,6 +94,8 @@ Lab 07에서 `acceptance.json`을 만들었다면 명령을 반복하지 말고 
 | 준비 / Lab 09 | 작성한 `session-notes.txt`, `operations-checklist.txt`, 복사한 `SOURCE.json` |
 
 각 JSON을 열어 응답 전체를 검토합니다. `--output`은 응답을 보존할 뿐, 저장됐다고 정답이 되는 것은 아닙니다.
+`session-notes.txt`의 **B - 코드 근거와 인계**에는 Lab별 확인 결과, Lab 07의 비교·진행 판단과 실제 판정,
+Lab 08의 패키지·실행 상태도 있어야 합니다.
 빈 양식이나 파일 이름만으로는 실행 근거가 되지 않습니다. 빠진 항목은 아래 미완료 상태로 인계합니다.
 목록을 채우려고 유료 호출을 반복하거나 파일을 꾸며 만들지 않습니다.
 
@@ -130,7 +132,7 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 
 ### 필수 작업이 미완료인 경우
 
-`session-notes.txt`의 **B 결과** 구간을 사용합니다. 새 모델 호출이나 만들어 낸 보고서는 필요 없습니다.
+`session-notes.txt`의 **B - 코드 근거와 인계**를 사용합니다. 새 모델 호출이나 만들어 낸 보고서는 필요 없습니다.
 마지막 완료 단계·실패 명령/오류·실제로 있는 실행 폴더·**미수집** 항목을 적습니다.
 부분 manifest와 오류 파일은 수정하지 않습니다. 다음 허용 작업과 담당자를 기록합니다.
 없는 실행을 `오류 0개`로 적거나 `acceptance.json`을 꾸미거나 dev 게이트 실패 후 holdout을 열거나 원래 실패를 삭제하지 않습니다.
@@ -162,17 +164,8 @@ python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate w
 `gate_passed` 또는 `ready-for-human-review`를 실제 배포 승인으로 해석하지 않습니다.
 Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--require-native-pass`를 요구합니다.
 
-다음 자료를 함께 인계합니다.
-
-- 원래 synthetic corpus/dataset/prompt와 실제 runtime/profile/code hash.
-- 정확한 Hosted version·모델 목록·추론 API·retrieval 설정.
-- 모든 응답·원시 오류·model calls·평가자 version/threshold·실제 trace 조회 receipt.
-- 실제로 소비된 dev regression과 그 원래 질문/정답/검토자 기록.
-- calibration 오탐·미탐, 작은 표본의 한계, 아직 미실행인 선택 기능.
-- 본인 session 정리와 남는 서비스 비용.
-
-[통합·아카이브 인수 기준](../reference/consolidation.md)은 이 자료로 판단합니다.
-기존 single-agent 녹화나 원본 저장소의 성공 기록으로 새 workflow 인수를 대신하지 않습니다.
+원래 synthetic 입력/hash, 정확한 버전·모델·API·retrieval 구성, 모든 응답/오류/model call, 평가자 version/threshold, trace 조회 receipt, 해당하는 경우 소비된 regression 이력, calibration과 작은 표본 한계, 소유 session 정리와 남은 비용을 포함합니다.
+이 자료는 [통합·아카이브 인수 기준](../reference/consolidation.md)에 사용하며, 이전 녹화나 upstream 보고서로 대신하지 않습니다.
 
 </details>
 

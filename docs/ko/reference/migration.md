@@ -35,7 +35,7 @@
 - Portal, local MAF, Hosted, offline fixture를 같은 실행 경로라고 하지 않습니다.
 
 기존 classic의 threads/runs/Assistants 또는 `azure-ai-inference` 예제를 가져오기 전에는
-[공식 current Foundry 이동 가이드](https://learn.microsoft.com/azure/foundry/how-to/navigate-from-classic)를
+[공식 Foundry 전환 가이드](https://learn.microsoft.com/azure/foundry/how-to/navigate-from-classic)를
 확인합니다. 현재 문서의 관련 종료·이행 일정은 과거 실습의 동작을 보장하지 않습니다.
 
 핵심 과정에는 다른 저장소를 추가로 clone할 필요가 없습니다. 원본 링크는 깊은 확장과 출처 확인을 위한 참고이며,

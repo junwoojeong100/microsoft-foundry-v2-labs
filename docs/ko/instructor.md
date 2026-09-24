@@ -200,7 +200,7 @@ python -m pip freeze > outputs/instructor/environment.txt
 
 모델 ID/버전/SKU, Python/SDK, 설치 일시, 지역, 실제 성공한 명령, 실패와 대응,
 선택하지 않은 기능을 함께 적습니다. **업스트림 리포의 성공 기록을 이 에디션의 성공으로 복사하지 않습니다.**
-`.env`, 토큰, 개인 식별자, 원문 trace를 공개 GitHub에 올리지 않습니다.
+`.env`, 토큰, 개인 식별자, 원문 trace는 어디에도 게시하지 않습니다.
 
 ## 5. 비용과 호출량 계획
 

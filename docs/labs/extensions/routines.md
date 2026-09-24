@@ -51,7 +51,7 @@ The routine references its agent's active configuration; record the actual invok
 
 ## 3. Create it disabled
 
-After approval for this owned object:
+After the owner approves this owned routine and its costs, run:
 
 ```bash
 azd ai routine create "${ROUTINE_NAME:?Enter the owned routine name}" --trigger timer \

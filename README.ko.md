@@ -13,7 +13,7 @@
 
 | 경로 | 이런 분께 | 하는 일 | 끝나면 남는 것 |
 |---|---|---|---|
-| **[A — 입문](docs/ko/paths/a-beginner.md)** | Azure나 agent가 처음인 분 | 브라우저 조작과 준비된 터미널의 명령 한 번. Python 작성 없음 | 내 agent·6문항 평가표·workflow 검토·정리 인계 |
+| **[A — 입문](docs/ko/paths/a-beginner.md)** | Azure나 에이전트가 처음인 분 | 브라우저 조작과 준비된 터미널의 명령 한 번. Python 작성 없음 | 내 에이전트·6문항 평가표·workflow 검토·정리 인계 |
 | **[B — 구현](docs/ko/paths/b-practitioner.md)** | Python·API에 익숙한 분 | SDK 호출·도구·workflow·Search/IQ·통제된 평가·로컬 패키징 | 저장된 실행 기록과 인수 보고서 |
 
 **준비 후 소요 시간:** A 4시간, B 6시간. **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
@@ -21,7 +21,7 @@
 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
 Azure 권한이 없다면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 하고 cloud 실습은 **미실행**으로 기록합니다.
 
-기본 과정을 마쳤다면 [C. 고급 모듈](docs/ko/paths/c-advanced.md), 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),
+기본 경로를 마친 뒤에는 선택 [C. 고급 모듈](docs/ko/paths/c-advanced.md)을 고를 수 있습니다. 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),
 구버전에서 돌아왔다면 [변경 지도](docs/ko/reference/migration.md)를 사용합니다.
 아래 배경 설명과 녹화는 선택 참고 자료이며 선행 조건이 아닙니다.
 
@@ -52,7 +52,7 @@ Dev 데이터로 반복 개선하고 holdout은 최종 인수에만 사용합니
 > [Hosted 평가 워크북](docs/ko/reference/evaluation-workbook.md) ·
 > [IQ 확장 워크북](docs/ko/reference/iq-workbook.md).
 
-한국어 · 합성 데이터 · **2026-09-24 `gpt-6-sol` 녹화 / Pre-Ignite 2026 Edition**
+한국어 · 합성 데이터 · **Pre-Ignite 2026 Edition / 현재 워크플로·평가 커리큘럼: 2026-09-15 / 2026-09-24 `gpt-6-sol` 국문 녹화**
 
 **[2026-09-24 `gpt-6-sol` 국문 녹화](docs/ko/video-summary.md)** —
 통합본 **6분 3초**, CLI **2분 57초**, 포털 **2분 43초**.
@@ -83,8 +83,8 @@ Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) �
 **9월 16일 확장 경로:** [A — 입문](docs/ko/paths/a-beginner.md) ·
 [B — 구현](docs/ko/paths/b-practitioner.md) · [C — 고급 모듈](docs/ko/paths/c-advanced.md).
 [기능·근거 상태](docs/ko/coverage.md)에서 기존 기본 과정과 새 모듈, 실제 Azure 확인 범위를 구분합니다.
-확장 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며 `gpt-6-sol`로는 다시 실행·녹화하지 않았고,
-해당 녹화는 삭제했습니다.
+확장 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며 해당 녹화는 삭제했습니다.
+9월 23일에 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 `gpt-6-sol`로 다시 실행했고(녹화 없음), 나머지 모듈은 다시 실행하지 않았습니다.
 
 </details>
 
@@ -147,12 +147,12 @@ SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)
 
 - 현재 Foundry / Projects SDK **2.x**를 사용합니다. classic의 threads/runs 코드를 혼합하지 않습니다.
 - 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다.
-- 첫 실습 preset은 **`gpt-6-sol`**, 같은 이름의 배포, 모델 버전 **`2026-09-22`**입니다
-  (2026-09-23, [이 모델을 고른 이유](docs/ko/reference/model-choice.md)).
+- 첫 실습 preset은 **`gpt-6-sol`**, 같은 이름의 배포, 모델 버전 **`2026-09-22`**입니다.
+  2026-09-23에 선택했고 2026-09-24에 이 모델로 주요 단계를 녹화했습니다([이 모델을 고른 이유](docs/ko/reference/model-choice.md)).
   Search knowledge base가 GPT-6 모델을 받지 않아 선택 IQ Chat 경로는 별도 `gpt-5.6-luna` 배포를 유지합니다.
   다른 모델은 명시적인 비교 실험에서 사용합니다.
 - 서비스 GA와 SDK Preview는 따로 표시합니다. Hosted Agent 서비스는 GA지만 이 랩의 Python hosting
-  패키지는 prerelease입니다. Foundry IQ도 GA 계약과 richer Preview 계약을 구분합니다.
+  패키지는 prerelease입니다. Foundry IQ도 GA 계약과 기능이 더 많은 Preview 계약을 구분합니다.
 - 모델 교체, 지침 개선, 평가 데이터 축적을 다룹니다. **자동 가중치 학습·fine-tuning·RL을 수행하지 않습니다.**
 - 실제 배포, 유료 평가, 외부 데이터 연결은 학습자가 별도로 실행하는 선택 단계입니다.
   이 저장소를 열거나 `doctor`를 실행한다고 리소스가 생성되지 않습니다.

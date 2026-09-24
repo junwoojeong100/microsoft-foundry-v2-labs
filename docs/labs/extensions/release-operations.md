@@ -4,7 +4,7 @@
 
 **Path C, optional.** The repository's existing CI checks local logic, SDK contracts and documentation.
 
-**Evidence status:** re-run with `gpt-6-sol` on September 23, 2026: both OIDC releases, the existing-traces evaluations and an hourly recurring schedule, which was then paused ([results](../../live-run.md#previously-not-run-items--september-23-2026)).
+**Evidence status:** re-run with `gpt-6-sol` on September 23, 2026: both OIDC releases, the existing-traces evaluations and one hourly recurring schedule per language, both then paused ([results](../../live-run.md#previously-not-run-items--september-23-2026)).
 
 That is not a deployed-agent quality gate or continuous evaluation.
 Do not enable recurring paid work or push a deployment without its own approval.
@@ -151,7 +151,7 @@ its federated credential was unchanged. The manually dispatched
 [English](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35856612314) and
 [Korean](https://github.com/junwoojeong100/microsoft-foundry-v2-labs/actions/runs/35857252318) releases passed on the first attempt:
 Hosted agent `mfv2-sol-20260923-ci-hosted` versions 1 and 2, **Foundry User** granted once to its runtime identity (reused by version 2),
-the six-case dev gate 6/6 with 0 errors on `gpt-6-sol-2026-09-22` in each language, and the created session confirmed idle.
+the six-case dev gate 6/6 with 0 errors on deployment `gpt-6-sol` (model version `2026-09-22`) in each language, and the created session confirmed idle.
 Neither run executed native judging or holdout.
 
 ## 6. Roll back deliberately

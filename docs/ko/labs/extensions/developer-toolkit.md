@@ -10,6 +10,9 @@ Foundry Toolkit은 선택 편집기 UI이며 다른 구현이나 모든 최신 S
 
 **첫 회차:** 기본 B는 1절 후 자기 경로로 돌아갑니다. 아래 Hosted SDK·azd·편집기 확장은 별도로 선택한 모듈에만 필요합니다.
 
+**준비:** Lab 00 B의 소스 폴더, `.venv`, `.env`, 본인의 `az login`.
+`doctor --cloud`는 read-only 사전 확인이며 아무것도 만들지 않습니다.
+
 ## 1. 실제 Python과 프로젝트
 
 [Lab 00 B](../00-start.md#b-코드--한-폴더-한-환경) 이후 VS Code에서 저장소를 열고
@@ -74,10 +77,14 @@ azd ai agent init --help
 ## 3. 선택: Foundry Toolkit
 
 [공식 설치/설정](https://learn.microsoft.com/azure/foundry/how-to/develop/install-foundry-toolkit-visual-studio-code)을 따릅니다.
-해당 컴퓨터의 설치 승인 후 Activity Bar의 Foundry Toolkit을 엽니다.
-같은 Entra 계정으로 로그인하고 **My Resources**에서 실제 실습 프로젝트를 고릅니다.
-모델/agent 목록·ID·endpoint를 설정 카드와 비교합니다.
-같은 workspace의 파일/터미널을 사용하며 다른 template로 중복 프로젝트를 만들지 않습니다.
+해당 컴퓨터에서 담당자가 확장을 승인한 뒤에만 설치합니다.
+설치 후:
+
+1. VS Code Activity Bar에서 **Foundry Toolkit**을 엽니다.
+2. 같은 의도된 Entra 계정으로 로그인합니다. terminal login이 자동 상속된다고 가정하지 않습니다.
+3. **My Resources**에서 정확한 training project를 선택합니다.
+4. 모델/agent inventory를 살펴보고 ID/endpoint를 설정 카드와 비교합니다.
+5. 같은 workspace에서 source file과 terminal을 엽니다. 관련 없는 template에서 중복 project를 만들지 않습니다.
 
 Toolbox는 [실행 가능한 CLI 경로](toolbox.md)부터 완료하고 Toolkit으로 같은 자산을 확인합니다.
 설치/접근이 없으면 CLI 경로를 유지하고 편집기 통합은 **미실행**으로 표시합니다.
@@ -93,6 +100,6 @@ MAF Python 1.18의 vector store/tool-loop/dependency·serialization 변경은
 도움말과 생성된 `azure.yaml`도 실행 계약입니다.
 과거 화면/샘플과 다르면 차이를 보존하고 실제 작업을 확인한 뒤 가이드를 수정합니다.
 
-**다음:** [B 구현](../../paths/b-practitioner.md).
+**다음:** 이곳으로 보낸 모듈로 돌아가거나 [B의 다음 미완료 단계](../../paths/b-practitioner.md)로 이동합니다.
 [MAF 1.18](https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0) ·
 [호환성 기록](../../reference/versions.md).

@@ -2,12 +2,14 @@
 
 [English](../../../labs/extensions/tool-search-skills.md) | **한국어**
 
-**C 선택 Preview · 2026-09-16 기준.** [기본 Toolbox](toolbox.md)의 실제 요청부터 성공시킵니다.
-그 Toolbox·원래 버전·소유 ledger를 유지합니다. 여전히 동봉 정책만 읽으며 공개 웹이나 skill script를 실행하지 않습니다.
+**C 선택 Preview · 2026-09-16 기준.**
 
 **근거 상태:** 영문 discovery·고정·Skill readback·load를 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(사설 catalog 인프라 없음). `gpt-6-sol`로 다시 실행하지 않았습니다.
 
-**준비:** 동작하는 내 Toolbox, 같은 `.env`, azd skill 명령, 새 버전·모델 호출 승인.
+먼저 일반 [Toolbox 실습](toolbox.md)을 완료합니다. 그 Toolbox·원래 버전·소유 ledger를 유지합니다.
+이 모듈도 동봉 합성 정책 6개만 읽습니다. 공개 웹을 호출하거나 skill script를 실행하지 않습니다.
+
+**준비:** 동작하는 합성 Toolbox, 같은 `.env`, 설치된 azd skill 명령, 새 Toolbox/Skill 버전과 모델 호출 승인.
 **완료:** 발견/고정 설정과 실제 도구 목록이 일치하고, 고정된 skill을 실제 MAF 요청에서 불러옴.
 **중단:** 오류 뒤에 `toolbox_search_preview`나 다른 skill로 바꾸지 않습니다.
 
@@ -26,11 +28,13 @@ Consumer default 변경이나 private catalog 생성은 필수가 아닙니다.
 
 ## 2. 발견 기능과 policy 도구 고정
 
+먼저 전체 제안 정의를 확인합니다.
+
 ```bash
 python scripts/workshop.py --language ko toolbox plan --discovery --pin-policy
 ```
 
-계획의 본인 이름·도구 정의를 확인하고 작성 승인을 받은 뒤에만 실행합니다.
+계획의 소유 이름·도구 정의를 확인합니다. 그 확인과 작성 승인을 받은 뒤에만 실행합니다.
 
 ```bash
 python scripts/workshop.py --language ko toolbox add-version --discovery --pin-policy --confirm-create
@@ -43,12 +47,12 @@ python scripts/workshop.py --language ko toolbox probe --version "$DISCOVERY_VER
 ```
 
 실제 목록은 `tool_search`, `call_tool`, 명시적으로 고정한 `policy_search`를 포함해야 합니다.
-고정하지 않은 도구는 필요할 때 발견될 수 있습니다. 이 probe는 모델이나 정책 검색을 실행하지 않습니다.
+고정하지 않은 다른 도구는 일반적으로 필요할 때 발견됩니다. 숨겨진 도구를 연결 고장으로 오해하지 않습니다.
+이 probe에서는 모델이나 정책 검색이 실행되지 않았습니다.
 
 ## 3. 원본 절차에서 Skill 준비
 
-다른 모듈이 `outputs/extensions-ko/`를 만들었다면 manifest를 확인해 재사용합니다.
-없을 때 한 번 실행합니다.
+이 명령은 **한 번** 실행합니다. 다른 C 모듈이 이미 `outputs/extensions-ko/`를 만들었다면 manifest를 확인해 재사용하고 다시 실행하지 않습니다.
 
 ```bash
 python scripts/workshop.py --language ko prepare-extensions --label extensions-ko
@@ -56,8 +60,9 @@ python scripts/workshop.py --language ko prepare-extensions --label extensions-k
 
 `policy-review/SKILL.md`와 `manifest.json`을 엽니다.
 이름은 `<prefix>-policy-review-ko`이며 기존 v2 절차와 script 실행 금지 경계를 담습니다.
-holdout·답변 fixture·승인 자격 증명은 넣지 않습니다. prompt/corpus/dev hash를 보관합니다.
-함께 생성되는 `optimizer-dev.jsonl`의 평가 정답 필드를 agent 대화에 붙여넣지 않습니다.
+holdout·답변 fixture·승인 자격 증명은 넣지 않습니다. manifest는 원본 prompt/corpus/dev hash를 보존합니다.
+이 준비 명령은 다른 extension 모듈의 입력도 함께 만듭니다.
+`optimizer-dev.jsonl`에는 evaluator reference 필드가 있습니다. 이 필드를 agent 대화에 절대 붙여넣지 않습니다.
 
 ## 4. Skill 생성 후 bytes 확인
 
@@ -79,7 +84,9 @@ azd ai skill show "${SKILL_NAME:?Use the generated skill name}" \
   --project-endpoint "${PROJECT_ENDPOINT:?Enter the full project endpoint}" --output json
 ```
 
-폴더 업로드로 원래 `SKILL.md`를 패키징합니다. 기존 버전을 지울 수 있는 `--force`는 사용하지 않습니다.
+폴더 업로드는 제공된 `SKILL.md` bytes를 패키지로 보존합니다.
+기존 버전을 지울 수 있는 `--force`는 사용하지 않습니다.
+실제 `default_version`을 읽은 뒤 그 정확한 버전을 다운로드합니다.
 
 ```bash
 printf 'show가 반환한 default_version: '
@@ -90,7 +97,7 @@ azd ai skill download "${SKILL_NAME:?Use the generated skill name}" --version "$
 cmp ./outputs/extensions-ko/policy-review/SKILL.md ./outputs/skill-readback-ko/SKILL.md
 ```
 
-같으면 `cmp`는 출력 없이 0으로 끝납니다. 다르면 멈추고 원인을 검토합니다.
+같으면 `cmp`는 출력 없이 0으로 끝납니다. 다르면 멈추고 package/CLI 동작을 검토합니다.
 맞추기 위해 내려받은 파일을 고치지 않습니다.
 Readback 폴더가 이미 있으면 그 시도부터 확인합니다. 새 다운로드에는
 `mkdir`·`--output-dir`·`cmp`의 두 번째 경로에 새 폴더명을 함께 적용합니다. 이전 버전의 근거는 덮어쓰지 않습니다.
@@ -108,7 +115,9 @@ python scripts/workshop.py --language ko toolbox plan --discovery --pin-policy -
 python scripts/workshop.py --language ko toolbox add-version --discovery --pin-policy --skill-version "$SKILL_VERSION" --confirm-create
 ```
 
-내 언어의 Skill과 지정 버전만 참조합니다. 버전을 생략해 mutable default를 따르지 않습니다.
+helper는 `<내-prefix>-policy-review-ko`와 위의 명시적 버전만 참조합니다.
+Skill 버전을 생략하면 mutable default를 따르게 되며 이는 이 실습의 계약이 아닙니다.
+기본 Toolbox 버전은 별도 pointer로 남습니다. promotion을 가정하지 말고 반환된 `selected_version`과 `default_version`을 확인합니다.
 
 ```bash
 printf 'Skill이 연결된 Toolbox selected_version: '
@@ -123,9 +132,11 @@ python scripts/workshop.py --language ko toolbox ask --version "$SKILLED_VERSION
 ```
 
 `skill_ref`, `skill_load_verified`, 실제 `function_calls`/`model_calls`와 `tool-results.json`을 확인합니다.
-helper는 v2 절차가 요구하는 JSON schema를 명시적으로 제공하고 `structured_answer`를 검증합니다.
-저장된 Skill 내용을 몰래 바꾸지 않습니다. 실제 `load_skill`과 정책 도구 사용이 필요하며
-script 실행이나 실패 뒤의 유창한 답변만으로 완료되지 않습니다.
+재사용한 v2 절차는 호출자가 제공하는 JSON schema를 요구합니다.
+helper는 그것을 제공하고 `structured_answer`를 검증하며, 저장된 Skill package를 몰래 바꾸지 않습니다.
+Skill이 연결되어 있다는 사실만으로 agent가 그것을 불러왔다는 증거가 되지는 않습니다.
+MAF provider는 실제로 `load_skill`을 호출한 뒤 정책 도구를 호출하고 결과 답변을 보존해야 합니다.
+코드는 skill-script 실행을 거부하고, 도구가 실패했는데 유창한 최종 답변만 있는 경우도 거부합니다.
 
 ## 6. 공개와 정리
 
@@ -142,11 +153,13 @@ python scripts/workshop.py --language ko toolbox select --version "$SKILLED_VERS
 ```
 
 같은 명령에 보관한 원래 버전을 넣어 rollback합니다.
+Toolbox endpoint는 default가 바뀌어도 그대로일 수 있지만 고정 실행은 기록한 버전을 유지합니다.
 고정된 Toolbox 버전은 고정되지 않은 Skill 참조까지 고정해 주지 않습니다.
 
 </details>
 
 종료 시 참조하는 Toolbox를 먼저 정리하고 새로 만든 Skill만 담당자가 제거합니다.
+공유 Skill을 삭제하거나 force recreation을 버전 업데이트 shortcut으로 사용하지 않습니다.
 
 ## 별도 선택: private catalog
 

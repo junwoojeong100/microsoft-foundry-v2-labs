@@ -86,7 +86,7 @@ Continue to [Lab 01 A](01-foundry.md#path-a); the B installation instructions ar
 
 ## B. Code: one folder, one environment
 
-Use macOS/Linux or WSL on Windows, Bash/zsh, and Python 3.13: the commands call `python3.13`, and the Hosted runtime uses 3.13.
+Use macOS/Linux or WSL on Windows, Bash/zsh, and Python 3.13. Steps 1–3 call `python3.13`; once step 3 activates `.venv`, later commands use its `python`. The Hosted runtime also uses 3.13.
 For the offline rehearsal only, Python 3.14 also works; replace `python3.13` with `python3.14` in steps 1–2.
 Every workshop command in this guide passes `--language en`; without it, the CLI uses the Korean bundle.
 Do not install into global Python or change the system's default Azure subscription.
@@ -160,7 +160,10 @@ cp data/learner/en/{session-notes.txt,workflow-review.txt,operations-checklist.t
 
 If this folder already belongs to your current pass, keep it and resume without running the copy block.
 For a new pass, choose a new notes-directory name and use it consistently. Never fill files under `data/learner/`.
-Open the copied `session-notes.txt` and fill its **Lab 00 - setup card** with the owner's values (path: `English / B`); skip its browser-only fields.
+Open the copied `session-notes.txt` and fill its **Lab 00 - setup card** with the owner's values (path: `English / B`).
+After that, use only **B - code evidence and handoff** and **Pause / resume**; skip the entire **A - browser notes only** section,
+including its Playground and source-check fields. The B section has its own lab-by-lab review lines.
+If an older personal copy lacks a named line, append that line there; do not replace your filled notes with the new blank template.
 
 The B commands in Labs 02/04/05/06 include **`--output`**, which saves the complete JSON to this notes directory
 and still prints it. **No terminal-to-editor copying is needed.** Open the saved file at each **Save** checkpoint.
@@ -210,8 +213,8 @@ Do not paste Bash into a browser developer console or Python's `>>>` prompt.
 
 ![September 24 English recording: Create the virtual environment and install the pinned SDKs](../assets/g6sol-20260924-en/screenshots/E00-006-install-2.webp)
 
-**What to check:** The command has ended and the shell prompt returned. Resolve any
-installation errors; matching the final screen is not sufficient. Installation is not Azure connectivity.
+**What to check:** The output ends with `Successfully installed …`; a following `[notice]` about a newer pip is not an error, and you do not upgrade pip.
+A line starting with `ERROR` means stop and resolve the installation first. Installation is not Azure connectivity.
 
 ### 4. Sign in and configure `.env`
 

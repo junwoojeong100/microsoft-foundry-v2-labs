@@ -46,7 +46,7 @@ Full commands appear in the [labs](../paths.md).
 
 ## Save one response without copying terminal text
 
-`model`, `answer`, `maf`, `workflow`, `workflow-agent` and `retrieve` accept **`--output FILE` after the command**.
+`model`, `answer`, `maf`, `workflow`, `workflow-agent`, `retrieve` and the optional `maf-evaluate` accept **`--output FILE` after the command**.
 They still print the same JSON and save that complete object without changing response IDs, sources, usage or unverified fields.
 Core B already supplies all 12 filenames. Prepare [the notes directory](../labs/00-start.md#prepare-notes) once.
 
@@ -63,8 +63,8 @@ Without `--output`, the print-only behavior is unchanged.
 
 `Saved JSON: ...` appears on stderr; stdout remains the JSON. **Saved is not assessed or approved.**
 A failed request creates no successful-response file. If the response printed but saving failed, preserve that stdout and the error;
-save it manually rather than repeating a paid call. `collect`/`evaluate` and advanced run families already manage their own evidence directories;
-do not add `--output` to them or replace their manifests with an exported response.
+save it manually rather than repeating a paid call. `collect`, `evaluate`, `cloud-evaluate`, `benchmark` and the other run families
+without `--output` in their `--help` manage their own evidence directories; do not add `--output` to them or replace their manifests with an exported response.
 
 <a id="reading-results"></a>
 

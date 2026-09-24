@@ -23,6 +23,9 @@ python scripts/workshop.py cleanup-plan
 
 구독·프로젝트·prefix·agent/version/session ID·모델 배포·Search 객체·로그/저장소 소유자를 기록합니다.
 `outputs/azure-objects.json`은 이 복사본이 만든 Search index/source/base만 기록하며 전체 Azure 목록이나 삭제 권한의 증명이 아닙니다.
+`cleanup-plan`의 `search_ownership.objects`는 Azure 조회가 아닌 그 파일의 내용이며, `search_ownership: null`은 파일이 없다는 뜻입니다.
+`null`이나 빈 목록은 자원·비용이 없다는 증거가 아닙니다. 객체를 만들었다면 담당자와 대응하는 ledger를 복구하고 임의로 대체하지 않습니다.
+Ledger가 없어도 본인 기록과 담당자의 확인을 바탕으로 `required_manual_inventory`를 작성합니다.
 소유자를 모르면 멈춥니다. 삭제 범위를 넓히는 이유가 아닙니다.
 
 <a id="hosted-sessions"></a>
@@ -69,16 +72,25 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 | Prompt/Hosted agent·version | 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제 |
 | Search knowledge base/source/index | 의존 순서 base → source → index; ledger의 본인 이름만 |
 | 업로드 파일/벡터 저장소 | 내 File Search 자료와 공유 자료를 구분 |
-| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions`·`<prefix>-optimizer-dev` 데이터 세트, `<prefix>-...` 평가와 최적화 실행, `cloud-evaluate`가 만든 `eval-data-...` 데이터 세트, `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
-| 되풀이 평가 일정 | 본인의 `<agent>-scheduled-...` 일정: 평가 페이지에서 **일시 중지**를 선택하고 일시 중지 상태를 다시 읽음. 일시 중지해도 이전 결과는 남음 |
-| Red-team taxonomy·red team | 본인의 `<prefix>-...redteam` taxonomy, red team과 실행. 모든 출력 항목과 검토 기록을 먼저 보존한 뒤 담당자가 삭제 |
-| 모니터링·CI용으로 추가한 역할 | 추가한 담당자만 제거. 예: Application Insights에 대한 프로젝트 ID의 **Monitoring Reader**, CI ID의 프로젝트 역할, Hosted 런타임의 **Foundry User** |
-| 임시 optimizer 배포 | 만든 담당자만, 그 배포를 쓴 optimizer 실행이 모두 끝나고 검토된 뒤 삭제. 답변·judge 배포가 남았는지 확인 |
+| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions` 데이터 세트, `<prefix>-...` 평가, `cloud-evaluate`가 만든 `eval-data-...` 데이터 세트, `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
 | 모델 배포 | 조별 전용인지 공유 배포인지 확인; 공유 모델 유지 |
 | Search 서비스 | index 삭제만으로 서비스의 고정 비용이 사라지지 않음 |
 | Application Insights/Log Analytics | 필요한 증거·보존 정책·공유 여부 확인 |
-| Fabric/Work IQ | 전용 capacity·billing·연결을 별도 확인; 조직 consent는 회수하지 않음 |
 | Resource Group | 실습 전용이고 모든 자산을 확인한 경우에만 소유자가 삭제 |
+
+<details>
+<summary>되풀이 평가·Agent Optimizer·red teaming·CI·Fabric/Work IQ 모듈을 실행한 경우에만</summary>
+
+| 자산 | 확인과 정리 |
+|---|---|
+| 되풀이 평가 일정 | 본인의 `<agent>-scheduled-...` 일정: 평가 페이지에서 **일시 중지**를 선택하고 일시 중지 상태를 다시 읽음. 일시 중지해도 이전 결과는 남음 |
+| Optimizer 데이터 세트·실행 | 본인의 `<prefix>-optimizer-dev` 데이터 세트와 최적화 실행. 결과를 먼저 보존한 뒤 담당자가 삭제 |
+| Red-team taxonomy·red team | 본인의 `<prefix>-...redteam` taxonomy, red team과 실행. 모든 출력 항목과 검토 기록을 먼저 보존한 뒤 담당자가 삭제 |
+| 모니터링·CI용으로 추가한 역할 | 추가한 담당자만 제거. 예: Application Insights에 대한 프로젝트 ID의 **Monitoring Reader**, CI ID의 프로젝트 역할, Hosted 런타임의 **Foundry User** |
+| 임시 optimizer 배포 | 만든 담당자만, 그 배포를 쓴 optimizer 실행이 모두 끝나고 검토된 뒤 삭제. 답변·judge 배포가 남았는지 확인 |
+| Fabric/Work IQ | 전용 capacity·billing·연결을 별도 확인; 조직 consent는 회수하지 않음 |
+
+</details>
 
 선택 `iq-chat setup`은 API `2026-08-01-preview`의 **별도 chat base**를 같은 ledger에 추가합니다.
 삭제 승인 후 source/index보다 먼저 그 source를 참조하는 본인 base를 모두 정리합니다.
@@ -124,47 +136,38 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 python scripts/workshop.py benchmark stop-session --label wf-final
 ```
 
-cleanup receipt는 별도 파일이므로 frozen candidate와 regression source hash를 바꾸지 않습니다.
-`outputs/benchmarks/`, `outputs/judge-calibration/`, `outputs/regressions/`의 원본·실패 시도·검토 계보는 보존합니다.
-새 `.build/workflow-*` 프로필을 정리하기 전 현재 `azure.yaml`의 실제 참조 경로와 hash를 확인합니다.
-별도 smoke 세션은 raw HTTP/azd 목록에서 본인의 ID를 확인해 중지합니다.
+cleanup receipt는 변경하지 않는 manifest와 별도 파일이므로 candidate와 regression hash가 그대로 유효합니다.
+별도로 만든 smoke 세션은 그 세션의 raw HTTP/azd 기록으로 확인합니다.
 
 </details>
 
-## 5. 로컬 `outputs`와 생성 디렉토리
+## 5. 로컬 출력과 최종 미디어
 
 <details>
 <summary>별도로 승인된 미디어 교체의 유지보수 담당자만 — 학습자는 저장소의 데이터·영상을 보존합니다</summary>
 
-**새 국문·영문 세트를 각각 검증한 뒤 기존 미디어를 교체합니다.**
-국문은 `docs/assets/g6sol-20260924-ko/media.json`,
-영문은 대응하는 `g6sol-20260924-en/media.json`의 실제 파일·해시를 기준으로 검수합니다.
-한쪽만 완성한 상태에서 다른 언어의 기존 파일을 먼저 삭제하지 않습니다.
-평가 입력·응답·실패·평가자·소유권 기록은 관련 실행 증거이므로 미디어와 별도로 보존합니다.
+기존 스크린샷·영상을 교체하기 전에 새 언어 세트 두 개를 모두 검증합니다.
+`docs/assets/g6sol-20260924-ko/`와 `g6sol-20260924-en/`의 media manifest,
+실제 byte hash, frame 검사, 재생, 문서 링크를 사용합니다.
+한 언어의 교체본만 준비된 상태에서 다른 언어의 기존 asset을 먼저 삭제하지 않습니다.
 
 | 위치 | 보존 기준 |
 |---|---|
-| `docs/assets/g6sol-20260924-ko/` | 별도 국문 캡처·영상·액션·source-frame 검증 |
-| `docs/assets/g6sol-20260924-en/` | 별도 영문 캡처·영상·액션·source-frame 검증 |
-| `outputs/azure-objects.json` | 현재 Search 객체의 소유권 기록. 단순 로그가 아니므로 유지 |
-| `outputs/benchmarks/<label>/` | 실제 matrix, 원시 오류, dataset/corpus/response/native/trace/cleanup 계보 |
-| `outputs/judge-calibration/` | target과 분리된 평가자 calibration |
-| `outputs/regressions/` | 검토된 원본 dev와 source lineage |
+| 현재 언어별 asset 디렉터리 | 새 영상, 무손실 캡처, action/timestamp/frame 계보 |
+| `outputs/benchmarks/<label>/` | 전체 matrix, 원시 실패, dataset/corpus/response/native/trace/cleanup 근거 |
+| `outputs/judge-calibration/` | target 응답과 분리한 calibration |
+| `outputs/regressions/` | 검토한 원래 dev 기준과 source 계보 |
+| `outputs/azure-objects.json` | Azure 객체의 소유권 |
 | `outputs/iq-chat/<label>/` | 모델/KB 사전 확인·요청·실제 응답/근거·실패. Benchmark 점수가 아님 |
-| `data/learner/<language>/` | 저장소의 시작 자료. 학습자의 작성 평가표는 다른 곳에 보관 |
-| `outputs/policy-documents/` | 학습자 ZIP에 이미 있는 동일 합성 TXT 6개의 선택 export |
-| `.build/<profile>/` | 현재 배포에 사용한 source와 profile manifest. 참조 여부를 확인해 필요한 것만 유지 |
+| `data/learner/<language>/` | 커밋된 시작 자료. 학습자가 작성한 기록은 다른 곳에 보관 |
+| `outputs/policy-documents/` | 학습자 ZIP에 이미 있는 같은 합성 파일 6개의 선택 export |
+| `.build/<profile>/` | 활성 참조를 확인한 뒤 필요한 배포 source/profile manifest |
 
-캡처의 중복 파일·단순 대기 갱신·임시 인코딩 결과는 최종 파일의 해시와 원본 대응을 확인한 뒤 정리합니다.
-평가 증거를 압축 보관한다면 각 파일의 해시를 검증하고, 이미지·영상이 섞여 있는지도 확인합니다.
-촬영 제작 도구·가상환경은 참가자 저장소에 추가하지 않습니다.
-로컬 재생기, 실제 실습 명령, 합성 데이터와 회귀 검사는 유지합니다.
+두 언어 세트와 최종 검사가 모두 통과한 뒤 쓸모없는 미디어, 중복 임시 인코딩, 최종 워크숍과 무관한 파일을 제거합니다.
+실행 코드, 테스트, 합성 입력, 필요한 설정, 라이선스, 평가/실패 계보는 유지합니다.
+운영 도구 환경과 비공개 인증/촬영 helper는 학습자 저장소에 두지 않습니다.
 
-압축본에는 개인 환경·실행 식별자가 들어 있을 수 있으므로 외부에 게시하지 않습니다.
-`.git`, 루트 `.venv`, 현재 `.env`·`.azure`, 실습 소스·합성 원본·테스트는 정리 대상이 아닙니다.
-
-이 정리는 현재 파일과 가이드 참조에 대한 것입니다. Git 이력이나 GitHub의 별도 첨부 저장소까지
-삭제하는 작업과는 구분하며, 확인하지 않은 영구 삭제를 완료했다고 표시하지 않습니다.
+이 정리는 현재 파일과 가이드 참조에 관한 것이며, Git 이력을 다시 쓰거나 외부 첨부 저장소에서 확인하지 않은 영구 삭제를 주장하는 작업이 아닙니다.
 저장소 루트, 홈 디렉터리 또는 전체 세션 폴더를 재귀적으로 삭제하지 않습니다.
 
 </details>

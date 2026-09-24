@@ -77,6 +77,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Search 403 | Entra data-plane auth and Index Data Reader/Contributor | 06 |
 | Partial Search upload | Per-document status, count/keys, index fields | 06 |
 | Existing Search object rejected | Prefix and ownership ledger; no shared-object overwrite | 06 |
+| Hybrid index dimension or existing-index conflict | Actual embedding dimension, a separate owned index and the namespace/ledger; never truncate or zero-fill vectors | 06 |
 | IQ 400 | GA intents mixed with Preview messages; actual API version | 06 |
 | `Chat completions model is required` | Missing model selection, not MI failure. Open the prepared chat base with **`gpt-5.6-luna` + Search SMI**; do not save portal defaults over the model-free GA base | 06 |
 | `Unsupported model type in Knowledge Base Model Configuration` | Search does not accept that model for a KB; IQ Chat uses its own `gpt-5.6-luna` deployment, not a GPT-6 model | 06 |
@@ -86,20 +87,27 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | IQ model 401/403 | Search → model identity, account scope, role propagation and network access; the Hosted/user role is not inherited by Search | 06 |
 | Preview rejects `maxOutputSizeInTokens` | Preserve the parameter-validation error and use the tested version-specific `maxOutputSize` request; do not classify it as authentication failure | 06 |
 | IQ references/activity error | sourceData/docKey, sources, semantic settings, billing consent | 06 |
-| Cloud judge timeout | Poll the same label and saved evaluation/run IDs | 07 |
+| Cloud judge timeout | Poll the same label and saved evaluation/run IDs; no new job is created automatically | 07 |
 | Evaluator schema error | Actual catalog's `model`/`deployment_name` and version | 07 |
 | Holdout rejected | Passed/frozen dev candidate, matching code/prompt/model/provider, explicit unlock | 07 |
 | Local succeeds; Hosted 403 | Runtime identity roles, not repeated local sign-in | 08 |
-| Missing logs/traces | App Insights, exporter, date range, retention/protected-table access | 09 |
+| Missing logs/traces | App Insights app ID, exporter, agent, date range, sampling and retention/protected-table access; zero traces are unverified, not healthy operation | 09 |
 | English query uses Korean material | Select `--language en` and the dedicated English index/source/base; never fall back to Korean after an error | 00–07 |
 | Missing English file | Restore the frozen English bundle; preserve original Korean files | 00 |
 | `--agent-endpoint` conflicts with `--protocol` | The full endpoint already specifies the protocol; local invocations still select it explicitly | 08 |
 | Batch API version missing | Merge session query parameters instead of replacing `api-version=v1` | 07–08 |
-| Project embeddings 404 | Explicitly choose the same account API and required endpoint; retain the original failure | 06 |
+| Project embeddings 404 | Set `WORKSHOP_EMBEDDING_API=account` and the same account's endpoint explicitly; retain the original failure | 06 |
 | Trace-query `InvalidTokenError` | App Insights audience and the intended subscription/tenant credential; no identity/resource substitution | 09 |
 | Stop returns 409 for idle session | Re-read the exact recorded session/version and record the idle state without another stop request | 09 |
-| Host profile/contract mismatch | Exact profile language, model map, source package, actual version and retrieval configuration | 08 |
+| Host profile/contract mismatch or missing `runtime-profile.json` | Package again with the current code, then compare the exact profile language, model map, source package, actual version and retrieval configuration. Collect under a new label; never edit a manifest to pass | 08 |
+| Model key not in the allowlist | The same `WORKSHOP_MODEL_DEPLOYMENTS_JSON` map in `.env` and the remote service environment, including the default deployment | 08 |
+| `account-chat` endpoint mismatch | The same Foundry account's actual OpenAI root in `AZURE_OPENAI_ENDPOINT`; the CLI never switches URLs after a failure | 06–08 |
+| azd raw output cannot be parsed | Only the HTTP status, UTF-8 byte length and known notices are accepted; the CLI never extracts JSON from error text | 08 |
+| A CLI extension reports Incompatible | Review the [version gate](versions.md); approve and install a compatible combination separately, then check again | 08 |
 | Native quality score is low | Preserve the completed run; review the evaluator against business requirements, not retries until a favorable score | 07 |
+| Native run failed or invalid | Rerun the same command once with `--retry-failed`; the original attempt is kept. A completed low score cannot be retried | 07 |
+| A regression file changes a question or answer | Keep the existing dev contract or design a separate dataset version; never use holdout as regression | 07 |
+| Matrix rows missing or duplicated | Do not evaluate the successful subset; fix the cause, then collect the complete matrix under a new label | 07 |
 | `Missing evaluator results … missing ['business_rubric']` | The service omitted one evaluator; the attempt is saved as invalid. Rerun the same `cloud-evaluate` command once with `--retry-failed`; the attempt stays in `native-attempts/`. A retried `--reference` run stays in that evaluation as `<label>-retry-1` | 07 |
 
 </details>

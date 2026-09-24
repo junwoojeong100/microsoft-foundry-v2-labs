@@ -17,6 +17,8 @@ API Management, VNet, 새 Foundry 프로젝트를 만들지 않으며 공유 방
 
 ## 1. 실제 ID 경로 그리기
 
+과거 recording에 나온 값이 아니라 본인의 이름과 ID를 사용합니다.
+
 | 연결 | 식별할 주체 | 근거 |
 |---|---|---|
 | 로컬 코드 → Foundry | 설정한 CLI 계정/구독/tenant | doctor와 실제 모델 응답 |
@@ -35,10 +37,14 @@ python scripts/workshop.py --language ko doctor --cloud
 python scripts/workshop.py --language ko cleanup-plan
 ```
 
-설정 카드의 리소스만 엽니다.
-Foundry IAM에서는 project 역할과 account 모델 권한을 구분합니다.
-Search Identity/IAM에서는 Search 자체 ID와 index 호출자를 구분합니다.
-연결 대상과 Entra 인증, public/private 경로, App Insights의 보존·조회·보호된 table 제약을 기록합니다.
+Azure portal에서 설정 카드의 리소스만 엽니다.
+
+1. **Foundry account/project → Access control (IAM)**: project 역할과 account-level model access를 구분합니다.
+2. **Search → Identity and Access control (IAM)**: Search identity와 index를 query하는 caller를 구분합니다.
+3. **Project connections**: 실제 Search endpoint와 Entra 인증을 확인합니다.
+4. **Networking**: public/private access와 승인된 client path를 변경하지 않고 기록합니다.
+5. **App Insights / Log Analytics**: query 권한, 보존, protected-table 제약을 기록합니다.
+
 전체 IAM dump·토큰·비공개 trace를 공개 게시하지 않습니다.
 
 ## 3. 실제 권한 결과 설명

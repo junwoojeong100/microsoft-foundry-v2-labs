@@ -180,7 +180,8 @@ IQ 오류는 오류로 남기며 일반 Search로 대체하지 않습니다. 보
 <a id="retrieval-comparison"></a>
 
 **답변 요청 전 비교:** `retrieve-local.json`, `retrieve-search.json`, `retrieve-iq.json`을 함께 엽니다.
-`session-notes.txt`에 각 파일의 `provider`, `source_ids`, `context_hash`를 기록합니다.
+`session-notes.txt`의 B 구간에 있는 `Lab 06 검색 비교(파일 / provider / source_ids / context_hash):`에
+세 파일의 값을 적습니다. 이 SDK 결과를 A 전용 원문 확인란에 적지 않습니다.
 원문에 `TRAVEL-2026`(150000원)과 `APPROVAL-01`(예약 전 승인)이 있는지 확인합니다.
 검색 방식이 다르면 문서나 hash도 다를 수 있습니다. IQ에 필요한 근거가 없다면 결과를 보존하고 5단계 전에 검색 원인을 확인합니다.
 다른 방식으로 찾은 근거로 대신하지 않습니다.
@@ -205,6 +206,7 @@ python scripts/workshop.py answer --prompt v2 --retrieval iq \
 `TRAVEL-2026`·`APPROVAL-01` 인용을 이번 응답의 원문과 대조합니다. 불일치는 기록하며 저장된 답변을 고치지 않습니다.
 
 **저장:** `answer-iq.json`이 같은 기록 폴더에 작성됩니다. 응답과 검색 metadata 전체를 확인합니다.
+같은 B 구간의 `Lab 06 answer-iq.json 근거 / decision / citations / 검토:`에 확인 결과를 적습니다.
 
 ```mermaid
 flowchart LR
@@ -340,6 +342,15 @@ IQ의 source/base는 원래 연결한 index를 참조하므로 환경변수만 �
 
 <details>
 <summary>심화 workflow·평가 연결 펼치기</summary>
+
+### Recall도 실험의 일부입니다
+
+첫 영어 dev cohort는 해외 숙박 금액을 올바르게 보류했지만 필요한 scope-policy 인용을 놓쳤습니다.
+실제 IQ 근거는 `SCOPE-01`을 누락했고, 관측된 reranker 점수는 약 1.775였습니다.
+같은 endpoint/query/corpus로 `WORKSHOP_IQ_RERANKER_THRESHOLD=0`을 지정한 명시적 진단은 합성 문서 6개를 모두 반환했습니다.
+이는 업무 rubric이나 judge threshold가 아니라 **검색 필터**를 조정한 것입니다.
+처음 실패한 cohort를 보존하고 일관되게 구성한 새 baseline/candidate 쌍을 실행합니다.
+이 작은 corpus 설정을 production에 무작정 적용하거나, reference answer를 바꾸거나, 오류가 난 뒤 provider를 fallback한 것으로 설명하지 않습니다.
 
 ```bash
 python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2

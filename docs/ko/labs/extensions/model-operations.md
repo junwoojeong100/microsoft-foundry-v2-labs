@@ -27,7 +27,7 @@ deployment/model/version, project/API, prompt, corpus, retrieval, 출력 제한�
 괄호 안에서 이 읽기 전용 사전 검사에만 모델을 적용하며 다른 설정은 유지합니다.
 
 ```bash
-printf 'Approved second deployment name: '
+printf '승인된 두 번째 배포 이름: '
 read -r MODEL_B
 (
   export AZURE_AI_MODEL_DEPLOYMENT_NAME="${MODEL_B:?Enter the approved second deployment}"

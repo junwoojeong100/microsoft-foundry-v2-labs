@@ -9,8 +9,9 @@
 로컬 MAF 참여자 두 명은 A2A endpoint 통합이 아닙니다.
 내 합성 전문 agent endpoint와 별도 relay agent를 연결합니다.
 
-**준비:** 모델/agent 환경, 새 agent 두 개와 keyless 연결 생성 승인, 실제 호출 ID의 endpoint 접근, 비용 승인.
-**완료:** 인증된 card의 1.0과 실제 caller의 성공한 A2A 도구 결과가 확인됨.
+**준비:** B의 모델/agent 설정, 기존 프로젝트/모델 접근, 새 agent 두 개와 keyless A2A 연결 권한,
+실제 호출 ID의 endpoint 접근, 비용 승인.
+**완료:** 인증된 card가 1.0을 알리고 실제 caller 응답에 성공한 A2A 도구 호출이 포함됨.
 **중단:** 0.3, 다른 agent, 익명 인증으로 바꾸지 않습니다.
 
 **첫 회차:** 1–5절입니다. 필요하면 [azd 준비](developer-toolkit.md#azd-check)를 먼저 마칩니다.
@@ -28,6 +29,9 @@ target에는 동봉한 합성 정책과 지침만 들어갑니다.
 전체 교육 환경의 SDK를 몰래 교체하지 않습니다.
 
 ## 2. 전문 agent와 incoming A2A
+
+2–4단계는 **준비**에 적힌 두 agent, 연결, 모델 비용을 담당자가 승인한 뒤에만 실행합니다.
+승인된 그 프로젝트에서 실행하며, 생성되는 객체는 내 prefix로 이름이 지정됩니다.
 
 ```bash
 python scripts/workshop.py --language ko a2a target --confirm-create
@@ -85,8 +89,9 @@ python scripts/workshop.py --language ko a2a invoke --label a2a-first --confirm-
 caller는 `type: a2a`, `a2a_version: 1.0`이며 모델 요청은 기록된 실제 caller 버전을 참조합니다.
 위임 없이 생성한 답변을 완료로 계산하지 않습니다.
 
-`outputs/a2a-runs/a2a-first/`의 request, binding, 전체 response, summary를 확인합니다.
-실제 call/output 쌍, 원문 ID, target/caller 버전과 반환 metadata를 유지합니다.
+`outputs/a2a-runs/a2a-first/`의
+`request.json`, `binding.json`, 전체 `response.json`, `summary.json`을 확인합니다.
+성공한 A2A call item, 원문 정책 ID, caller/target 버전과 반환 model/request metadata를 유지합니다.
 caller 사용량만 있으면 target 사용량을 만들어 더하지 않습니다.
 
 서비스는 GA 설정에도 `a2a_preview_call`이라는 기존 event 이름을 반환할 수 있습니다.
@@ -97,17 +102,19 @@ helper는 실제로 수락된 `a2a/1.0` 설정과 일치하는 target output을 
 
 card는 기능 설명이지 사용 권한이 아닙니다. 성공한 위임도 예약·승인·지급 권한을 주지 않습니다.
 소유/응답 근거를 보관하고 참조 확인 후 새 caller → 연결 → target만 담당자가 정리합니다.
-공유 모델과 프로젝트는 삭제하지 않습니다.
-A2A task/context 보존은 별도 서비스 정책이므로 agent 삭제가 모든 이력의 영구 삭제를 의미하지 않습니다.
+공유 모델과 프로젝트는 삭제하지 않습니다. Foundry의 A2A task/context 보존은 별도 서비스 정책입니다.
+agent 삭제가 보존된 모든 record의 영구 삭제를 의미한다고 주장하지 않습니다.
+
+## 복구
 
 | 증상 | 확인 |
 |---|---|
-| card 401/403 | 실제 호출 ID와 endpoint 접근 역할 |
-| 일치하는 1.0 interface 없음 | `supportedInterfaces` 확인, downgrade 금지 |
-| 추가 target 버전 | 전용 target을 고정하고 어느 버전을 제공했는지 추측하지 않기 |
-| 연결 target 불일치 | 전체 base path와 프로젝트 확인 |
-| call이 없음 | raw 응답을 실패 근거로 남기기 |
-| typed SDK symbol 미지원 | 이 실습의 명시적 REST 경로/별도 검증 환경 사용, protocol fallback 금지 |
+| card 401/403 | 실제 caller ID와 Foundry endpoint-access role을 확인합니다 |
+| 일치하는 1.0 JSONRPC interface 없음 | 최상위 version field를 가정하지 말고 `supportedInterfaces`를 검사합니다. downgrade 금지 |
+| 추가 target 버전 감지 | 전용 target을 고정하거나 새 실험을 시작합니다. endpoint가 어느 버전을 제공했는지 추측하지 않습니다 |
+| 연결 target 불일치 | 전체 base path와 프로젝트를 비교합니다. 다른 팀 agent를 가리키지 않습니다 |
+| 응답에 A2A call 없음 | raw output을 실패한 통합 검사로 보존합니다. 위임 성공으로 기록하지 않습니다 |
+| typed SDK symbol 미지원 | 이 실습의 문서화된 REST 경로나 독립적으로 검증된 SDK 환경을 사용합니다. protocol fallback 금지 |
 
 **다음:** [Memory](memory.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).
 [Incoming A2A](https://learn.microsoft.com/azure/foundry/agents/how-to/enable-agent-to-agent-endpoint) ·

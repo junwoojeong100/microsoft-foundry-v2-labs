@@ -30,6 +30,9 @@ It does not silently upgrade the entire course environment.
 
 ## 2. Create the specialist and enable incoming A2A
 
+Run steps 2–4 only after the owner has approved the two agents, the connection and the model cost listed under **Need**.
+You run them in that approved project; the objects they create are named with your prefix.
+
 ```bash
 python scripts/workshop.py --language en a2a target --confirm-create
 python scripts/workshop.py --language en a2a inspect

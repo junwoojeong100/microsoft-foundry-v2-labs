@@ -10,6 +10,8 @@ Foundry Toolkit is an optional editor interface, not a second implementation or 
 
 **First pass:** core B uses section 1 and returns to its route. Hosted SDKs, azd and the editor extension below are needed only by separately selected modules.
 
+**Need:** Lab 00 B's source folder, `.venv`, `.env` and your own `az login`. `doctor --cloud` is a read-only preflight; it creates nothing.
+
 ## 1. Confirm the actual Python and project
 
 Complete [Lab 00 B](../00-start.md#b-code-one-folder-one-environment).
@@ -102,6 +104,6 @@ Do not upgrade only one library and infer compatibility from a successful import
 SDK help and generated `azure.yaml` are executable contracts.
 If current help differs from a historical screenshot or source sample, keep the discrepancy and verify the intended operation before changing the guide.
 
-**Next:** [B implementation route](../../paths/b-practitioner.md).
+**Next:** return to the module that sent you here, or to [B's next unfinished step](../../paths/b-practitioner.md).
 [MAF Python 1.18 release](https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0) ·
 [Workshop compatibility record](../../reference/versions.md).

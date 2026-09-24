@@ -11,7 +11,7 @@
 | 리전 / 프로젝트 | Sweden Central / `mfv2-g6luna-20260923` |
 | 응답 배포 | `gpt-6-sol` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 150K TPM, NoAutoUpgrade |
 | 평가 배포 | `gpt-6-sol-judge` → `gpt-6-sol` `2026-09-22`, DataZoneStandard 100K TPM |
-| 포털이 만든 배포 | `text-embedding-3-large` Standard 110K — 첫 포털 agent를 열 때 자동 생성; 이 실습에서는 사용하지 않음 |
+| 포털이 만든 배포 | `text-embedding-3-large` Standard 110K — 녹화한 실습자가 첫 포털 agent를 열 때 자동 생성; 이 실습에서는 사용하지 않음 |
 | 소유 prefix | `mfv2-sol-20260924-ko` |
 
 리소스 이름에는 환경을 처음 만들 때의 `g6luna`가 남아 있지만 녹화에 사용한 배포는 `gpt-6-sol`입니다. 로컬 키는 비활성화했으며 모든 호출은 Microsoft Entra ID를 사용했습니다.
@@ -120,4 +120,4 @@ judge 점수는 업무 판단이 아닙니다. 행마다 이유를 읽습니다.
 
 이전 `gpt-5.6-luna` 녹화와 결과 페이지(2026-09-15~17)는 작업 트리에서 삭제했습니다. git 기록에만 남아 있으며 이 preset의 결과가 아닙니다.
 
-[영상](video-summary.md) · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)
+[영상](video-summary.md) · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · **실제 결과** · [모델 선택](reference/model-choice.md)

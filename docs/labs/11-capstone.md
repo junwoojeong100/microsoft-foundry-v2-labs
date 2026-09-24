@@ -94,6 +94,8 @@ If you chose different names, record those exact paths in `session-notes.txt`.
 | Setup / Lab 09 | Completed `session-notes.txt`, `operations-checklist.txt`, and the copied `SOURCE.json` |
 
 Open each saved JSON and review the whole response. `--output` preserves it; saving alone does not establish a correct answer.
+In `session-notes.txt`, **B - code evidence and handoff** must also contain your per-lab findings,
+Lab 07's comparison/gate decision and actual verdict, and Lab 08's package/execution status.
 An empty template or a filename alone is not execution evidence. If an item is missing, use the incomplete outcome below;
 do not repeat paid calls or fabricate files just to fill the inventory.
 
@@ -131,7 +133,7 @@ This holdout is public teaching data that learners have already seen, not a fres
 
 ### When required work is incomplete
 
-Use the **B outcome** section of your `session-notes.txt`; no new model call or invented report is needed.
+Use **B - code evidence and handoff** in your `session-notes.txt`; no new model call or invented report is needed.
 Record the last completed step, the failed command/error, which run folders actually exist, and which were **not collected**.
 Keep partial manifests and error files unchanged. Record the next permitted action and responsible owner.
 Do not report missing runs as `0 errors`, manufacture an `acceptance.json`, unlock holdout after a failed dev gate, or delete the original failure.

@@ -119,6 +119,46 @@ class LearnerMaterialTests(unittest.TestCase):
                 for pattern in ("sequential", "concurrent", "group-chat"):
                     self.assertIn(pattern, review)
 
+    def test_session_notes_separate_routes_and_provide_blank_b_review_fields(self):
+        for language, headings in (
+            ("en", ("A - browser notes only", "B - code evidence and handoff", "Pause / resume")),
+            ("ko", ("A - 브라우저 전용 기록", "B - 코드 근거와 인계", "중단 / 재개")),
+        ):
+            with self.subTest(language=language):
+                notes = learner_files(ROOT, language)["session-notes.txt"].decode()
+                a_heading, b_heading, resume_heading = (f"\n{heading}\n" for heading in headings)
+                for heading in (a_heading, b_heading, resume_heading):
+                    self.assertTrue(heading in notes, f"{language}: missing section {heading!r}")
+                self.assertLess(notes.index("\nLab 00 -"), notes.index(a_heading))
+                self.assertLess(notes.index(a_heading), notes.index(b_heading))
+                self.assertLess(notes.index(b_heading), notes.index(resume_heading))
+                browser = notes.split(a_heading, 1)[1].split(b_heading, 1)[0]
+                code = notes.split(b_heading, 1)[1].split(resume_heading, 1)[0]
+                self.assertIn("Playground", browser)
+                self.assertIn("assessment-baseline.csv", browser)
+                self.assertNotIn("Playground", code)
+                self.assertNotIn("assessment-baseline.csv", code)
+                fields = [line for line in code.splitlines() if line.startswith("Lab ")]
+                self.assertTrue(all(line.endswith(":") for line in fields))
+                self.assertEqual(
+                    [line.split()[1] for line in fields],
+                    ["02", "04", "05", "06", "06", "07", "07", "07", "07", "08"],
+                )
+                for name in (
+                    "model.json",
+                    "answer-local.json",
+                    "maf-none.json",
+                    "maf-function.json",
+                    "maf-mcp.json",
+                    "workflow-review.txt",
+                    "answer-iq.json",
+                    "feedback",
+                    "v1/v2",
+                    "recommendation",
+                    "cloud_deployed",
+                ):
+                    self.assertIn(name, code)
+
     def test_unexpected_files_stop_both_language_writes_without_deleting_them(self):
         with workspace() as root:
             BUILDER.write(root)

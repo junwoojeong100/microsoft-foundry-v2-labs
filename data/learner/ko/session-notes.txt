@@ -1,6 +1,7 @@
 빈 기록 양식 - 본인의 실제 결과로 채우세요. 이 파일 자체는 실행 증거가 아닙니다.
 data/learner/ 원본이 아닌 Git에 추적되지 않는 개인 복사본을 사용합니다. B는 outputs/learner-notes-ko/를 사용할 수 있습니다.
-비밀번호·key·token·.env는 넣지 않습니다. A는 B 구역을, B는 브라우저 전용 Lab 01/03과 Lab 07 A 기록을 건너뜁니다.
+비밀번호·key·token·.env는 넣지 않습니다.
+Lab 00, 본인의 A 또는 B 구간, 중단 / 재개만 채웁니다. 다른 경로의 구간은 비워 둡니다.
 
 Lab 00 - 설정 카드
 언어 / 경로:
@@ -12,6 +13,8 @@ Tenant / subscription:
 비용·권한 담당자:
 준비된 MAF 터미널 위치:
 선택 IQ Chat의 선택 또는 미선택:
+
+A - 브라우저 전용 기록
 
 Lab 01 - account 아래 project와 deployment, agent가 deployment를 호출하는 관계
 내 그림과 설명:
@@ -51,11 +54,22 @@ Candidate 통과 수 / 6, 요청 오류 / 미실행 수(변경한 경우만):
 Relevance / Coherence / TaskAdherence 통과 수 / 6:
 내 평가와 다른 evaluator 결과와 그 이유:
 
-B - 코드 근거와 미완료 인계
+B - 코드 근거와 인계
+파일명마다 검토 결과를 적고 JSON을 다시 붙여 넣지 않습니다. 원본 출력 파일은 보존합니다.
+다른 파일명을 썼다면 실제 경로를 여기에 적습니다.
+
 개인 기록 폴더:
-Lab 02/04/05/06의 실제 JSON 출력 전체 파일명:
+Lab 02 model.json / answer-local.json 검토:
+Lab 04 maf-none.json / maf-function.json / maf-mcp.json 검토:
+Lab 05 workflow-review.txt 경로:
 Lab 06 검색 비교(파일 / provider / source_ids / context_hash):
+Lab 06 answer-iq.json 근거 / decision / citations / 검토:
 실제 수집한 baseline / candidate / holdout label:
+Lab 07 baseline 실패 검사 또는 전체 통과 검토 / 생성한 feedback 경로:
+Lab 07 v1/v2 변경과 목적:
+Lab 07 비교 결과 / holdout 진행 판단:
+Lab 07 인수 보고서 경로 / recommendation 또는 미완료 이유:
+Lab 08 패키지 경로 / cloud_deployed / 로컬·원격 실행:
 결과(근거 완비 / 반려 / 미완료이며 배포 승인이 아님):
 빠졌거나 막힌 단계와 정확한 이유:
 기존 오류 파일 / request ID:

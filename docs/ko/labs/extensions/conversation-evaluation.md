@@ -12,10 +12,10 @@
 **첫 회차:** 1–6절 순서입니다. 두 평가 수준에 같은 수집 label을 사용합니다.
 새 target 대화에는 새 label이 필요하지만 저장된 judge job을 조회할 때는 바꾸지 않습니다.
 
-**실행 근거(2026-09-23, `gpt-6-sol`, judge `gpt-6-sol-judge`):** 국문 수집의 모든 턴이 업무 검사를 통과했습니다.
+**근거 상태, 2026-09-23(`gpt-6-sol`, judge `gpt-6-sol-judge`):** 국문 수집은 모든 턴의 업무 검사를 통과했습니다.
 턴 수준은 groundedness 6/6·coherence 6/6, 대화 수준은 groundedness 2/2·coherence 2/2였습니다.
-영문 실행은 별도로 기록했으며 영문 결과를 국문 결과로 재사용하지 않습니다.
-본인 실험도 새 label로 실행하고 각 실행이 읽은 실제 evaluator catalog를 고정합니다.
+영문 실행(대화 수준 groundedness 1/2)은 별도로 기록했으며, 한 언어의 점수를 다른 언어의 결과로 쓰지 않습니다.
+각 실행은 읽은 실제 evaluator catalog를 고정합니다. catalog가 있다는 사실만으로 평가 결과가 되지는 않습니다.
 
 ## 1. 모델 호출 전 계획
 
@@ -85,19 +85,27 @@ python scripts/workshop.py --language ko conversations evaluate --label conversa
 python scripts/workshop.py --language ko conversations evaluate --label conversations-first --level conversation --confirm-cost
 ```
 
-완전한 대화 2개를 별도 입력으로 평가합니다. 마지막 답변 하나나 턴 점수 평균으로 대체하지 않습니다.
-`native-conversation/`의 실제 eval/run ID, 결과 2개, evaluator hash를 보존합니다.
-모델 답변을 다시 생성하지 않고 수집한 원래 대화를 사용합니다.
+명시적 `evaluation_level: conversation`, 전체 message history, catalog 호환 groundedness/coherence evaluator를 사용합니다.
+`native-conversation/`의 **2개 결과**를 모두 읽습니다.
+relevance처럼 턴 전용 evaluator는 지원 수준을 확인하지 않고 이 단계에 복사하지 않습니다.
 
-턴·대화 결과와 업무 검사를 나란히 읽되 같은 단위의 점수처럼 비교하지 않습니다.
-오류나 누락된 대화는 점수를 좋게 만드는 이유가 될 수 없습니다.
-Timeout이면 같은 명령으로 저장된 평가 job의 조회를 재개합니다.
-새 target 대화를 만들거나 좋은 점수가 나올 때까지 평가를 반복하지 않습니다.
+통과율만 보지 말고 이유를 비교합니다.
+
+1. agent가 이전 금액을 반복하지 않고 적용 날짜를 수정했나요?
+2. 식비, 숙박, 국제출장 범위를 분리해 유지했나요?
+3. 이후 사용자 turn이 반박해도 승인 경계를 유지했나요?
+4. native 설명이 실제 대화 기록과 업무 정책에 맞나요?
+
+일반 evaluator와 업무 판단이 다르면 검토할 발견 사항입니다. 점수를 고치거나 유리한 결과가 나올 때까지 반복 실행할 근거가 아닙니다.
+Timeout이면 같은 명령을 다시 실행해 저장된 같은 평가 job을 재개합니다. 새 target 대화를 몰래 만들지 않습니다.
 
 ## 6. 인계
 
-계획·원문·prompt·dataset·response·evaluator 이력을 함께 남깁니다.
-어떤 턴/대화가 왜 실패했는지 사람이 검토합니다.
-이 작은 dev 결과를 통계적 우월성이나 운영 승인으로 해석하지 않습니다.
+두 native directory, catalog, 모든 raw response/error file, local business report를 보관합니다.
+시나리오 순서는 **파생 dev 실험**이며 변경 없는 isolated-case matrix도 새 holdout도 아니라고 기록합니다.
+이 모듈은 자동 배포 승인을 추가하지 않습니다.
 
-**다음:** [Optimizer](agent-optimizer.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).
+**다음:** [C 모듈 선택](../../paths/c-advanced.md), 또는 근거를 [Lab 11](../11-capstone.md)에 추가합니다.
+
+[공식 대화 평가](https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation-conversations) ·
+[평가 단위와 원본](https://learn.microsoft.com/azure/foundry/observability/how-to/cloud-evaluation).

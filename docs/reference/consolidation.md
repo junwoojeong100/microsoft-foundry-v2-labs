@@ -2,7 +2,7 @@
 
 **English** | [한국어](../ko/reference/consolidation.md)
 
-**Checked September 15, 2026.** Core v2 labs use this repository's code, synthetic data, and commands.
+**Checked September 15, 2026; the main A/B steps were re-run with `gpt-6-sol` on September 24 ([results](../live-run.md)).** Core v2 labs use this repository's code, synthetic data, and commands.
 There is no hidden requirement to clone another workshop or reuse its reported results.
 README tables show learning content; attribution, comparison, and limits stay here and in [sources](sources.md).
 

@@ -9,7 +9,7 @@ The six-hour core route uses one repository and language. Deployment and C modul
 
 1. Complete [setup](../setup.md), then [Lab 00 B](../labs/00-start.md#path-b): source folder, personal notes, `.venv`, `.env`, sign-in and preflight.
 2. Run each block from the repository root with `.venv` active and `--language en` intact. Never shell-`source` `.env`.
-3. At each **Save** checkpoint, open the JSON before the next request and write your human review. `--output` saves the full response for you.
+3. At each **Save** checkpoint, open the JSON before the next request. Write the filename and your finding in `session-notes.txt`'s **B - code evidence and handoff** section; keep Lab 05's detailed review in `workflow-review.txt`. `--output` saves the full response, so do not paste it into the notes again.
 
 **Where files go:** Lab 00 prepares `outputs/learner-notes-en/` for the 12 JSON files and your notes.
 Generated evaluation runs stay in `outputs/<label>/`. B needs no browser agent or second learner ZIP.

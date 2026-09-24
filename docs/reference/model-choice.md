@@ -25,7 +25,7 @@ A `gpt-6-astra` deployment in the same project worked, so the failure was specif
 `gpt-6-astra` works but costs more, is slower in this check and is not offered as Data Zone Standard in Sweden Central.
 
 **Choice:** `gpt-6-sol` passed every checked path above, keeps EU Data Zone processing and needs no quota-tier request.
-File Search, hybrid RAG, a learner-run Hosted deployment and most extension modules were not re-run with it; the approved CI release and four extension modules were ([results](../live-run.md#previously-not-run-items--september-23-2026)).
+File Search, hybrid RAG, a learner-run Hosted deployment and most extension modules were not re-run with it; the approved CI release, conversation evaluation, Agent Optimizer, the red-team step of agent safety and release operations were re-run or verified with it ([results](../live-run.md#previously-not-run-items--september-23-2026)).
 Confirm its published price before class. Do not replace it with another model after an error; stop and record the error.
 
 ## Two fixed exceptions

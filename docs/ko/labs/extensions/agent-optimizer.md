@@ -47,7 +47,7 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 임시 `gpt-5.5` 배포(`<prefix>-opt-gpt55`, DataZoneStandard)를 추가했고 두 언어 실행이 끝난 뒤 삭제했습니다.
 최적화 대상은 Lab 03 에이전트와 지침이 같은 격리 복사본 `<prefix>-optimize` 버전 1이었습니다.
 
-## 2. Wizard 열기
+## 2. 최적화 마법사 열기
 
 1. **에이전트 → 내 에이전트 → 최적화 미리 보기**(영문 UI: **Optimize Preview**)를 엽니다. 9월 23일 실행은 영문 UI에서 진행했으므로
    이하 wizard 이름은 영문 UI 기준입니다.
@@ -58,7 +58,10 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 5. **Choose targets → Instruction**을 선택하고 **Model**을 해제합니다.
 
 명시적 대상 선택으로 전환할 때 Model이 자동 선택되었던 화면을 관찰했습니다.
-실제 체크 상태를 확인합니다. 제품의 예시 benchmark 점수는 내 baseline이나 결과가 아닙니다.
+실제 체크 상태를 확인합니다.
+계속하기 전에 agent 이름/버전, 선택한 배포, 원래 지침을 기록합니다.
+optimizer model은 변경을 생성하고 target은 질문에 답하며 judge는 답변을 채점합니다. 이들은 서로 다른 역할입니다.
+제품의 예시 benchmark 점수는 내 baseline이나 결과가 아닙니다.
 
 ## 3. dev와 평가 기준 선택
 
@@ -68,10 +71,11 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 4. 미리보기는 **상위 5행만** 보여줍니다. 원본 파일과 나중의 실제 평가 결과에서 6행 전체를 확인합니다.
 5. Criteria에서 **Custom only**를 해제하고 **Groundedness-Evaluator**, **Relevance-Evaluator**를 고릅니다.
    Service-Groundedness와 혼동하지 않습니다. 고를 때마다 **Configure** 대화상자가 열리면 **Threshold**를 **4**로 두고 **Apply**를 누릅니다.
+   실제 버전을 기록하고 같은 criteria, threshold, reference data를 run 전체에서 유지합니다.
 
-실제 evaluator 버전과 기준을 기록합니다.
 필수 인용 기준을 완화하거나 올바른 승인 거절을 오답으로 바꾸거나 어려운 행을 빼서 점수를 올리지 않습니다.
-schema 불일치는 원인을 확인하며 평가 정답을 target에 보내는 방식으로 해결하지 않습니다.
+service가 schema 불일치를 보고하면 멈추고 실제 요구 사항을 확인합니다.
+열 이름을 몰래 바꾸거나 evaluator label을 target에 보내지 않습니다.
 
 ## 4. 비용 검토 후 한 번 제출
 
@@ -79,16 +83,22 @@ Review의 baseline/dataset/모델/평가 기준/후보 상한을 확인합니다
 답변·judge·개선 생성 비용을 구분합니다. 표시된 범위는 **추정치**이지 실제 청구액이나 강제 예산 제한이 아닙니다.
 9월 23일에는 agent 호출 약 35회, 채점 약 70회, 개선 생성 약 3회에 추정 $0.27(범위 $0.00–$0.90)로 표시되었습니다.
 
-승인 후 **Submit**을 한 번 누릅니다. 같은 run ID를 끝까지 확인합니다.
+담당자가 표시된 예상 비용을 승인한 뒤 **Submit**을 한 번 누릅니다. 같은 run ID를 끝까지 확인합니다.
 대기하거나 화면을 놓쳤다는 이유로 재제출하지 않습니다.
 실패/불완전 실행의 성공 부분만 좋은 후보로 보고하지 않습니다.
 
 ## 5. 후보보다 세부 결과 먼저
 
-각 후보의 모든 결과/분모, 지침 diff, 모델/도구 설정 변화, 실제 사용량,
-날짜·인용·승인 경계가 유지되는지 기록합니다.
+각 후보에 대해 다음을 보관합니다.
+
+- 전체 evaluator 결과와 실제 case 분모.
+- 전후 지침 diff와 바뀐 모델/도구 설정.
+- 모델/phase별 실제 token 사용량. 누락된 측정값은 누락된 상태로 둡니다.
+- 실패 case와 제안 문구가 여전히 근거·날짜·승인 경계를 보존하는지 여부.
+
 가장 높은 종합점수도 제안일 뿐 자동 수락이 아닙니다.
 개선이 없거나 구별되지 않으면 baseline을 유지합니다.
+유용하게 측정된 개선 없이 문구만 바뀌는 것은 성공 주장으로 보지 않습니다.
 
 2026-09-23 `gpt-6-sol` 실행은 9월 16일 영문 실행(이전 `gpt-5.6-luna` 판)처럼 두 언어 모두 baseline만 반환했습니다.
 영문 0.979, 국문 0.938이며 각각 약 4.5분 걸렸습니다. 실행마다 내부 초안 4개를 3건짜리 미니 배치로 평가했지만 후보로 반환하지 않았습니다.
@@ -125,10 +135,12 @@ Groundedness의 `context`에 원래 정책 대신 생성한 답변 자체가 들
 ## 이후 선택 기능
 
 함수 설명 최적화는 실제 함수 실행 검증이 아닙니다.
-Hosted 최적화는 준비된 code/configuration과 실제 도구 반복 실행 비용을 별도로 검토해야 합니다.
+Prompt Agent 함수는 client에서 실행되며 optimizer는 그 최적화 중 함수를 실행할 수 없습니다.
+Hosted 최적화는 optimizer-ready code와 baseline configuration이 필요하고 실제 도구를 반복 실행할 수 있습니다.
+read-only 합성 도구와 검토된 비용을 갖춘 별도 준비 workspace에 보관합니다.
 이 portal 실습에 flag 하나를 붙인 것과 같지 않습니다.
 
-**다음:** [대화 평가](conversation-evaluation.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).
+**다음:** [대화 평가](conversation-evaluation.md), [C 모듈 선택](../../paths/c-advanced.md), 또는 [Lab 11 인계](../11-capstone.md).
 [Prompt wizard](https://learn.microsoft.com/azure/foundry/agents/quickstarts/quickstart-optimize-prompt-agent) ·
 [Agent별 제약](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-overview) ·
 [비용 계산](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-costs).

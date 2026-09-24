@@ -66,7 +66,7 @@ python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
 | 기존 base의 모델/모드가 다름 | 기존 구성을 검토하고 새 소유 이름 선택. 자동 덮어쓰기 없음 |
 | 403 / 429 / 서비스 오류 | `failure.json` 보존. RBAC 전파·네트워크·quota 확인 후 명시적인 새 시도 |
 
-모델 고정은 예방 가능한 불일치를 줄이지 장애·quota 소진까지 없애지는 않습니다.
+모델 고정은 예방 가능한 불일치를 막지만, 장애나 quota 소진까지 없애지는 않습니다.
 2026-09-15 새 명령의 실제 확인은 **읽기 전용**(`configured: false`)이며 영구 chat base를 만들지 않았습니다.
 아래 실제 모델 호출 증거는 별도 승인을 받은 이전 임시 MI 검사입니다.
 

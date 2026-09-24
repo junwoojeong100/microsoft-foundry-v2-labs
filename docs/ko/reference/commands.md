@@ -46,7 +46,7 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 
 ## 터미널 텍스트를 복사하지 않고 응답 저장하기
 
-`model`·`answer`·`maf`·`workflow`·`workflow-agent`·`retrieve`는 **명령 뒤에 `--output FILE`**을 받습니다.
+`model`·`answer`·`maf`·`workflow`·`workflow-agent`·`retrieve`와 선택 명령 `maf-evaluate`는 **명령 뒤에 `--output FILE`**을 받습니다.
 화면에 출력하는 것과 같은 JSON 전체를 저장하며 response ID·원문·사용량·미검증 필드를 바꾸지 않습니다.
 기본 B 명령에는 파일명 12개가 이미 들어 있습니다. [기록 폴더](../labs/00-start.md#prepare-notes)만 한 번 준비합니다.
 
@@ -64,7 +64,8 @@ python scripts/workshop.py retrieve --provider local \
 `Saved JSON: ...`는 stderr에, JSON은 stdout에 나옵니다. **저장은 평가 통과나 승인이 아닙니다.**
 요청이 실패하면 성공 응답 파일을 만들지 않습니다. 응답은 출력됐지만 저장에 실패했다면 stdout과 오류를 보관하고
 유료 요청을 반복하는 대신 직접 새 파일에 저장합니다.
-`collect`·`evaluate`와 심화 실행 명령은 자체 기록 폴더를 관리하므로 `--output`을 붙이거나 manifest를 출력 사본으로 대체하지 않습니다.
+`collect`·`evaluate`·`cloud-evaluate`·`benchmark`처럼 `--help`에 `--output`이 없는 실행 명령은 자체 기록 폴더를 관리합니다.
+`--output`을 붙이거나 manifest를 출력 사본으로 대체하지 않습니다.
 
 <a id="reading-results"></a>
 
@@ -152,8 +153,6 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 Hosted 준비는 로컬 azd 상태를 생성/재조회할 수 있지만 provision·배포·역할 부여는 하지 않습니다.
 
 </details>
-
-<a id="한국어-통합-개정의-추가-명령"></a>
 
 ## Hosted workflow와 평가 확장
 

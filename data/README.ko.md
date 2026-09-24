@@ -4,7 +4,7 @@
 
 가상 한빛기술의 실습 자료이며 실제 회사 규정이 아닙니다.
 
-| 자료 | 한국어 원본 | 별도 영어 버전 |
+| 자료 | 한국어 원본 | 영어 버전 |
 |---|---|---|
 | 정책 6개 | `knowledge/policies.json` | `knowledge/en/policies.json` |
 | dev 6개 | `evaluation/dev.jsonl` | `evaluation/en/dev.jsonl` |
@@ -13,7 +13,7 @@
 | offline 답변 fixture | `fixtures/answers.json` | `fixtures/en/answers.json` |
 | v1/v2 지침 | `../prompts/v1.txt`, `../prompts/v2.txt` | `../prompts/en/v1.txt`, `../prompts/en/v2.txt` |
 
-영어 번들은 명시적으로 선택합니다.
+저장소 루트에서 영어 번들을 명시적으로 선택합니다.
 
 ```bash
 python scripts/workshop.py --language en doctor
@@ -25,7 +25,7 @@ python scripts/workshop.py --language en demo --label english-offline --prompt v
 서로 다른 언어의 데이터셋을 같은 입력의 모델/지침 실험으로 비교하지 않습니다.
 
 `localization.json`은 원본·번역 파일 해시를 고정합니다. ID·날짜·금액·판단·필수 인용은 동등하지만 번역 텍스트의 hash는 별도입니다.
-영문 개발 자료와 실제 workflow 지침을 먼저 고정한 뒤 영어 holdout을 준비했습니다.
+영문 개발 자료와 실제 workflow 지침을 먼저 고정한 뒤 번역된 holdout을 준비했습니다.
 Holdout은 최종 인수용이며 fixture는 미리 작성한 예제이지 Azure 응답이 아닙니다.
 
 ## 바로 쓰는 브라우저 자료

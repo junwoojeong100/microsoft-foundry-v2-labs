@@ -2,7 +2,7 @@
 
 [English](../../reference/consolidation.md) | **한국어**
 
-**2026-09-15 확인.** v2 핵심 실습은 이 저장소의 코드·합성 데이터·명령을 사용합니다.
+**2026-09-15 확인. A/B 주요 단계는 2026-09-24에 `gpt-6-sol`로 다시 실행했습니다([결과](../live-run.md)).** v2 핵심 실습은 이 저장소의 코드·합성 데이터·명령을 사용합니다.
 다른 실습을 clone하거나 그 결과를 재사용해야 하는 숨은 요구 사항은 없습니다.
 README 표는 학습 내용을 보여 주고, 출처·비교·한계는 이 문서와 [출처](sources.md)에 둡니다.
 
@@ -15,12 +15,12 @@ README 표는 학습 내용을 보여 주고, 출처·비교·한계는 이 문�
 
 | 대조 기준 | v2에서 직접 수행할 위치 | 범위·차이 |
 |---|---|---|
-| 단일 Agent·함수·MCP | [Lab 04](../labs/04-agents-tools.md), `agents.py`, `examples/mcp_server.py` | 실제 데이터는 번들 합성 정책뿐. 외부 MCP는 선택 확장 |
+| Agent·함수·MCP | [Lab 04](../labs/04-agents-tools.md), `agents.py`, `mcp_server.py` | 실제 데이터는 번들 합성 정책뿐. 외부 MCP는 선택 사항 |
 | Sequential·Concurrent·Group Chat | [Lab 05](../labs/05-workflows.md), `build_orchestration`, `runtime.py` | 세 패턴 모두 실행. 동시/Group Chat의 배포용 답은 별도 최종 reviewer로 합침 |
 | Workflow → Hosted | [Lab 08](../labs/08-hosted.md), `build_workflow_agent`, `package_hosted.py` | Responses와 평가용 Invocations를 명시적으로 분리 |
 | 일반·하이브리드 RAG | [Lab 06](../labs/06-knowledge.md), `SearchGateway`, `embed_texts` | 일반 검색은 문자열 검색으로 표시. 하이브리드는 실제 embedding+text/vector 요청 |
-| Foundry IQ·지식 계보 | [Lab 06](../labs/06-knowledge.md), [IQ 확장 워크북](iq-workbook.md) | GA intents·references·activity·문서 ID 보존. Preview body와 혼합하지 않음 |
-| 다중 모델 Hosted 비교 | [평가 워크북](evaluation-workbook.md), `benchmark.py`, `hosted.py` | 고정 4종 강제 대신 1–8개 명시적 배포. 4개 선택 시 dev 24+24, holdout 16행 |
+| IQ·근거 계보 | [IQ 워크북](iq-workbook.md) | GA intents·references·activity·문서 ID 보존. Preview 계약은 별도 |
+| Hosted 모델 matrix | [평가 워크북](evaluation-workbook.md) | 1–8개 명시적 배포. 네 모델은 24/24/16행을 생성 |
 | Native 평가·업무 rubric | `native.py`, `grade_strict` | 실제 Hosted 응답 데이터의 평가. 누락·오류를 성공으로 보정하지 않음 |
 | 실패 → 검토 → 회귀 재실행 | `benchmark regression`, `--regressions` | 기존 dev 질문·정답만 승인 기록에 연결하고 다음 수집에서 실제 소비 |
 | Judge calibration | `calibrate-judge`, `calibration.py` | 번들 정답/오답 예제로 오탐·미탐 검사. target의 새 답변으로 집계하지 않음 |
@@ -59,7 +59,7 @@ IQ/Evaluation을 한두 달 더 유지하려는 운영 계획과 별개로, IQ�
 | Workflow Hosted | 새 프로필 패키지, 로컬 실제 응답, 배포된 정확한 version·protocol·runtime contract |
 | IQ/하이브리드 | 실제 provider·API·원문·embedding 차원 확인. 선택하지 않은 방식은 미실행 |
 | 평가 대체 | 네 모델을 선택했다면 완전한 24/24/16행, 동일 evaluator, 실제 trace, 소비된 회귀 계보 |
-| 안전한 인수 | 모델별 실패·native findings·비용·오류·사람 검토를 포함한 보고서 |
+| 인수 | 모델별 실패·native findings·비용·불확실성·사람 검토 |
 | 미디어 | 현재 명령과 일치하는 새 캡처. 기존 single-agent 영상으로 workflow 완료를 주장하지 않음 |
 | 언어 | 현재 원본 언어 순서를 따름. 각 언어의 녹화에는 별도 실행·보완·명령/링크 확인이 필요 |
 
