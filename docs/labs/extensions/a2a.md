@@ -4,7 +4,7 @@
 
 **Path C, A2A 1.0 GA contract checked September 16, 2026.**
 
-**Evidence status:** an English paired call and its output ran on September 16, 2026 with the earlier `gpt-5.6-luna` preset (wire packets not captured); not re-run with `gpt-6-sol`.
+**Evidence status:** re-run in English on 2026-09-24 with `gpt-6-sol` and the refreshed SDK (typed requests): target, card, connection, caller and one delegated call succeeded; wire packets not captured. The earlier English run was on September 16, 2026 with `gpt-5.6-luna`.
 
 Two local MAF participants are not an A2A integration.
 This module creates an owned synthetic specialist endpoint and a separate relay agent that delegates through A2A.
@@ -25,8 +25,8 @@ python scripts/workshop.py --language en a2a plan
 
 The target/caller/connection names use your prefix and language.
 The target contains only the bundled synthetic policy instructions and corpus.
-The helper uses the explicit REST 1.0 contract for fields newer than the common pinned SDK's typed A2A surface.
-It does not silently upgrade the entire course environment.
+Management calls use typed SDK models from `azure-ai-projects` 2.5 or later (`A2ATool`, `update_details`, `get_version`);
+only the protocol card is a raw GET with the `A2A-Version: 1.0` header.
 
 ## 2. Create the specialist and enable incoming A2A
 
@@ -44,7 +44,7 @@ Incoming A2A is not configured by merely adding another local agent to a Python 
 Keep the actual target version, base path, connection name and ownership file.
 The card URL ends in **`/agentCard/v1.0`**. Its `supportedInterfaces` must include
 `protocolVersion: 1.0`, `protocolBinding: JSONRPC`, and your exact A2A base URL.
-The current service can advertise 0.3 alongside 1.0; select the 1.0 interface explicitly.
+The current service can advertise 0.3 alongside 1.0 (on 2026-09-24: 1.0 JSONRPC, 0.3 JSONRPC and 0.3 HTTP+JSON); select the 1.0 interface explicitly.
 Authenticated card access is checked separately from model inference.
 
 Foundry's incoming 1.0 endpoint uses JSONRPC and currently supports text without streaming.
@@ -68,6 +68,7 @@ azd ai connection create "${A2A_CONNECTION:?Use the returned connection name}" -
 ```
 
 Use the **A2A base path**, not the card URL, as the connection target.
+azd can print `connections: no active azd environment ... no project exists` before `Connection "..." created`; with that success line the warning is harmless (observed 2026-09-24).
 An empty value stops before azd; restore the returned values rather than removing these guards.
 Do not use `--force` or an API key.
 The owner verifies the identity used by this connection and grants only required endpoint access

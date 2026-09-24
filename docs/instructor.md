@@ -35,10 +35,10 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
    Check quota, SKU and region; do not let first-time learners guess a replacement.
    Recheck [the model choice](reference/model-choice.md) and its published price before class.
 3. Assign the required project roles, such as `Foundry User`, to participants.
-4. Connect Application Insights to the project for server-side traces and give learners **Log Analytics Reader** on it. If protected tables are enabled, also grant **Privileged Monitoring Data Reader**. This is required for Lab 09 trace checks. **Not run in this edition yet (added 2026-09-24).**
+4. Connect Application Insights to the project for server-side traces and give learners **Log Analytics Reader** on it. If protected tables are enabled, also grant **Privileged Monitoring Data Reader**. This is required for Lab 09 trace checks. In the 2026-09-24 check, managed agent calls appeared in the connected Application Insights within minutes; direct model calls did not.
 5. **For B or a selected IQ module**, prepare separate Search data read/write roles. They are not required for default A.
 6. **Only for selected remote hosting**, prepare the runtime identity's model/tool roles. B's package-only step does not need them.
-7. Optional for A: prepare the Lab 05 hosted workflow agent and record its stable endpoint, active version, name and Playground location for learners. **Not run in this edition yet (added 2026-09-24).**
+7. Optional for A: prepare the Lab 05 hosted workflow agent with the **Responses** protocol and record its stable endpoint, active version, name and Playground location for learners. The local Responses path was checked on 2026-09-24; a remote Playground run was not.
 8. Send a first request using an **actual participant account**, not an administrator.
 9. Set budget alerts and log retention. Budget alerts are not an automatic spending cap.
 10. Review optional-feature approvals, cross-region processing, and tenant policies.

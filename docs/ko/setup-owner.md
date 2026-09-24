@@ -25,14 +25,16 @@
    Lab 05용 터미널을 받지 못한 학습자는 이 설치와 [Lab 02 B](labs/02-models.md#path-b)를 마친 뒤 돌아옵니다.
 7. 수업 전에 Application Insights를 프로젝트에 연결해 server-side tracing을 켭니다. 코드 변경은 필요 없습니다.
    학습자에게 연결된 Application Insights 리소스의 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 필요합니다.
-   이제 핵심이 된 Lab 09 trace 단계에 필요합니다. **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+   이제 핵심이 된 Lab 09 trace 단계에 필요합니다. 2026-09-24 확인: 실습 프로젝트에는 이미 Application Insights가 연결되어 있었고 관리형 agent 호출은 몇 분 안에 추적으로 나타났습니다. 학습자 전용 Log Analytics Reader 부여는 재시험하지 않았습니다.
 8. 선택: A 학습자가 Lab 05에서 브라우저 Playground 옵션을 사용할 수 있도록 Lab 05 MAF workflow를 Hosted Agent로 배포합니다.
    별도 승인 뒤 [Lab 05 C](labs/05-workflows.md) / [Lab 08 6절](labs/08-hosted.md)의 hosted-workflow 경로만 사용합니다.
-   학습자에게 줄 hosted workflow agent 이름과 active version을 기록합니다. **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+   **Responses** protocol(Lab 08 6절 기본값)로 배포합니다. Invocations protocol의 평가용 agent는 브라우저 선택지가 아닙니다.
+   학습자에게 줄 hosted workflow agent 이름과 active version을 기록합니다. 2026-09-24에는 workflow agent가 로컬 Responses 요청 하나에 답했고, 이 확인을 위해 원격 배포는 하지 않았습니다.
 9. 선택: 담당자/강사 PC에 [Foundry Dev Pack](labs/extensions/developer-toolkit.md)을 준비하고, 이후 `az`, `azd`, Foundry azd 확장, SDK, extension 버전을 고정해 기록합니다.
-   **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+   이 판에서는 테스트하지 않았습니다.
 10. 선택 lightweight 소스 배포: 큰 media 이력이 필요 없는 학습자에게 `docs/assets/`와 video 파일을 제외한 sparse checkout을 제공합니다.
-    전체 저장소가 계속 원본입니다. **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+    전체 저장소가 계속 원본입니다. [Lab 00](labs/00-start.md#source-folder)의 sparse pattern은 2026-09-24에 로컬 확인했습니다.
+    `docs/assets/`와 `videos/`는 제외됐고 스크립트와 가이드는 남았습니다.
 
 IQ Chat 학습자는 서비스/객체 정의를 읽는 **Search의 Reader**와 검색하는 **Search Index Data Reader**가 필요합니다.
 위 모델 계정 Reader와는 다른 범위이며 `check`는 모델 계정의 역할 할당도 읽습니다.

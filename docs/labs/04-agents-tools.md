@@ -133,9 +133,17 @@ Continue to [Lab 05 B](05-workflows.md#path-b); sections 4 and 5 below are optio
 See [`examples/recipes/04_maf_tool.py`](../../examples/recipes/04_maf_tool.py) for the standalone pattern. Key lines:
 
 ```python
-@tool(approval_mode="never_require") def lookup_policy(query: str) -> str
-Agent(client=FoundryChatClient(project_endpoint=..., model=deployment, credential=credential), instructions=..., tools=[lookup_policy])
-await agent.run(question)
+@tool(approval_mode="never_require")
+def lookup_policy(query: str) -> str:
+    """Search the synthetic travel policies. Read-only; empty means no evidence."""
+    ...
+
+
+agent = Agent(
+    client=FoundryChatClient(project_endpoint=endpoint, model=deployment, credential=credential),
+    instructions="Call lookup_policy first and cite policy IDs. Never approve, book or pay.",
+    tools=[lookup_policy],
+)
 ```
 
 **Write it yourself:** add a second read-only synthetic lookup field and verify the tool output still cites policy IDs before the answer.
@@ -193,6 +201,8 @@ python scripts/workshop.py --language en maf-evaluate --confirm-cost --output ou
 **What to check:** `complete: true` and `errors: 0`; each row lists its recorded `tool_calls` (one `lookup_policy` call)
 and a `tool_call_accuracy` and `relevance` score. Open `report_url` for the reasons. MAF prints one `ExperimentalWarning`
 for `FoundryEvals`; that is expected. In the September 24, 2026 English recording it scored tool_call_accuracy 6/6 and relevance 6/6.
+With the refreshed SDK pins (`openai` 3.x) the same command also prints Pydantic serializer warnings about `azure_ai_evaluator`;
+the 2026-09-24 re-check still returned `complete: true`, `errors: 0`, tool_call_accuracy 6/6 and relevance 6/6. Judge by those fields, not by the warnings.
 These scores judge tool use, not business correctness, so keep Lab 07's business checks separate.
 The MAF evaluation API was experimental and several agent evaluators were marked Preview on September 23, 2026.
 

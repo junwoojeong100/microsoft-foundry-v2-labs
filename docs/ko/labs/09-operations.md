@@ -29,8 +29,8 @@
 2. **플레이그라운드** 탭에서 **지침**·**도구**·**지식**을 확인합니다. 기본 A 경로에서는 **지침**에 합성 정책 6개가 들어 있고
    **지식**은 비어 있습니다. File Search나 IQ를 따로 선택했다면 그 연결을 적습니다.
    승인하지 않은 웹 검색·회사 연결이 없어야 합니다.
-3. 본인의 6행 평가표와 `workflow-review.txt`를 열고 위치를 적습니다. 이 평가표는 수동 검토이며, Lab 07의 선택 Foundry 평가는 별도 실행입니다.
-   **추적** 탭을 열 수 있으면 저장한 요청 하나를 찾고, 없다면 “오류 없음”이 아니라 **추적 미확인**으로 적습니다.
+3. 본인의 agent **추적** 탭을 엽니다. 환경 담당자가 수업 전에 Application Insights를 연결해 두었어야 합니다. 본인의 Lab 03 또는 Lab 07 작업에서 저장된 요청 하나를 찾아 엽니다. `invoke_agent <agent>:<version>`과 자식 `chat` span을 찾습니다. `execute_tool web.run` span은 그 요청이 Web search 도구로 실행됐다는 뜻입니다(예: 도구를 제거하기 전 버전). tracing이나 권한을 사용할 수 없으면 `실제 추적 근거 또는 조회할 수 없을 때 추적 미확인:`에 `추적 미확인: <이유>`를 적습니다. 이 확인을 위해 새 메시지를 보내지 않습니다.
+   그다음 본인의 6행 평가표와 `workflow-review.txt`를 열고 위치를 적습니다. 이 평가표는 수동 검토이며, Lab 07의 선택 Foundry 평가는 별도 실행입니다.
 4. [정리 체크리스트](../reference/cleanup.md)로 본인 agent, 실습 중 만들어진 모델 배포(예: Lab 03의 `text-embedding-3-large`),
    선택 파일/chat base, 직접 만든 평가 데이터 세트와 평가, session을 목록화합니다.
    공유 서비스는 **담당자 관리**로 표시하고 잔여 비용과 승인된 자산별 중지/삭제 담당자를 확인합니다.
@@ -112,7 +112,19 @@ Lab 03·07에서 기록된 대화를 새 에이전트 호출 없이 채점합니
 Tracing을 설정하지 않았다면 `trace_id`는 `null`, `trace_export`는 `not-configured`로 남습니다.
 response ID가 저절로 Azure Monitor trace가 되지는 않습니다.
 
-### 2. 실제 실패 또는 전체 통과 결과 설명
+### 2. Lab 03 B의 서버 측 trace 검색
+
+포털 **추적** 검색을 열고 `outputs/learner-notes-ko/prompt-agent-invoke.json`의 `response_id`를 붙여 넣습니다. Application Insights가 연결되어 있고 접근 권한이 있으면 일치하는 추적 근거를 기록합니다. 사용할 수 없으면 `operations-checklist.txt`의 `실제 추적 근거 또는 조회할 수 없을 때 추적 미확인:`에 `추적 미확인: <이유>`를 적습니다.
+
+**화면 확인:** 자식 `chat gpt-6-sol-2026-09-22` span이 있는 `invoke_agent <your agent>:<version>` span 하나를 확인합니다.
+자식 span의 input/output token은 `prompt-agent-invoke.json`의 `usage`와 같습니다. 추적 근거로는 response ID가 아니라 trace 또는 operation ID를 기록합니다.
+2026-09-24 확인(영문·국문)에서는 invoke가 `store: false`였어도 각 관리형 agent 호출이 약 3분 안에 나타났습니다.
+5분 뒤에도 아무것도 보이지 않으면 더 요청하지 말고 **추적 미확인**으로 기록합니다.
+
+Lab 04와 05의 로컬 MAF 실행은 Python process에서 실행되므로 Foundry server-side agent trace를 만들지 않습니다. Client-side tracing은 별도 선택 설정입니다.
+같은 확인에서 Responses API를 직접 호출한 명령(`model`, `answer`, `maf`, `workflow`, `collect`)은 서버 측 span을 전혀 남기지 않았고, 관리형 agent 호출만 남겼습니다.
+
+### 3. 실제 실패 또는 전체 통과 결과 설명
 
 기존 dev 응답을 사용합니다. 모델/요청 오류·도구 오류·근거 누락·잘못된 규정 적용을 구분합니다.
 `operations-checklist.txt`의 3번에 서비스마다 한 줄씩 적습니다. 예:
@@ -149,6 +161,21 @@ python scripts/workshop.py cleanup-plan
 Prompt/Hosted agent의 서버 측 tracing은 프로젝트에 Application Insights를 연결하면 코드 변경 없이 시작됩니다. Response ID 또는 Trace ID로 검색할 수 있습니다. https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup
 
 로컬 MAF agent의 span이 필요하면 별도 client-side instrumentation이 필요합니다. 로컬 response ID를 서버 trace로 바꾸어 적지 않습니다.
+
+Log Analytics Reader가 있는 practitioner는 같은 조회를 read-only Application Insights query로 실행할 수 있습니다
+(2026-09-24 확인에 사용한 query):
+
+```text
+dependencies
+| where timestamp > ago(24h)
+| where tostring(customDimensions["gen_ai.response.id"]) == "<response_id>"
+| project timestamp, name, success, operation_Id,
+    agentId = tostring(customDimensions["gen_ai.agent.id"]),
+    inputTokens = toint(customDimensions["gen_ai.usage.input_tokens"]),
+    outputTokens = toint(customDimensions["gen_ai.usage.output_tokens"])
+```
+
+Lab tenant용 token을 사용합니다. Azure CLI 계정이 여러 개이면 기본 계정을 쓰는 query 도구가 `InvalidTokenError`로 실패할 수 있습니다.
 
 </details>
 

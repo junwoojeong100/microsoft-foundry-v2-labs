@@ -18,7 +18,7 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | What has not run with `gpt-6-sol`? | Lab 03 portal File Search; Lab 06 IQ Chat and hybrid RAG; Lab 07 feedback/regression and the Hosted matrix; Lab 08's local server and the learner's own Hosted deployment; Hosted server-side tracing; Lab 10; the other extension modules | [Not-run list](../live-run.md#not-run-with-gpt-6-sol) |
 | How do I check a working copy? | Run the offline tests, Ruff, compilation, documentation and learner-bundle checks below. Each dated record states what passed for its revision | [Local checks](#local-checks-to-run) |
 | What is outside this evidence? | Company/Microsoft 365 data, external Work IQ/Fabric connections, SLAs, statistical superiority, automatic retraining, production approval and other users' resources | [Not established](#not-established) |
-| What changed in the September 24 review refresh? | Refreshed SDK pins, Lab 03 B managed agent in the B core, a core trace check, a browser option for A Lab 05, the Insights module, standalone SDK recipes and new CI checks. Offline checks only; nothing new ran against Azure or was recorded | [Review refresh](#review-refresh-20260924) |
+| What changed in the September 24 review refresh? | Refreshed SDK pins, Lab 03 B managed agent in the B core, a core trace check, a browser option for A Lab 05, the Insights module, standalone SDK recipes and new CI checks. That evening the core B route ran live in both languages with the new pins, plus the trace lookup, recipes, A2A and one Insights scan; four guide or recipe defects were fixed. No recording | [Review refresh](#review-refresh-20260924) · [live check](#review-refresh-live-20260924) |
 | How straightforward are the guides and documents? | AI editorial review, September 24: guides 100/100 and documents 98.5/100 in round 5 (the round-4 reviewers after fixes); new reviewers in rounds 1–4 scored 86.5–97.5. Not a learner pilot or timing measurement | [Latest review](#straightforwardness-95) |
 
 <a id="review-refresh-20260924"></a>
@@ -34,8 +34,29 @@ a read-only SDK drift report and a manual, cost-gated live smoke workflow.
 
 **Verified offline:** 297 offline tests on Python 3.13 and 3.14 without site packages, 87 SDK tests with the installed pinned libraries and stubbed transports, Ruff, formatting, compilation, `check_docs.py` (127 Markdown files, 2,520 local links, 510 anchors, 328 workshop CLI examples, 84 azd examples, 63 language pairs), learner bundles, `pip check`, `check_sdk.py` and the CI offline doctor/demo/evaluate/package steps passed.
 
-**Not run:** no Azure call, deployment, role change, recording or live smoke run was made for this refresh.
+**Not run in this offline pass:** no Azure call, deployment, role change, recording or live smoke run. The live check follows below.
 The recordings and live results above used the previous pins and guide revision; they are not evidence for the new steps.
+
+<a id="review-refresh-live-20260924"></a>
+
+## Review refresh live verification — September 24, 2026 (evening)
+
+**Scope:** fresh copies of commit `a9c3990` with the refreshed pins, prefixes `mfv2-rr-20260924-<language>`, the same Sweden Central
+project and `gpt-6-sol` / `gpt-6-sol-judge`. The lab subscription was pinned; the Azure CLI default was not changed.
+
+- **Core B route, English and Korean:** every documented command exited 0; Lab 07 baseline 6/6, candidate 6/6, holdout 4/4 with 0 errors;
+  acceptance `ready-for-human-review`, `deployment_approved: false`. Lab 03 B created version 1 in each language and invoked it by version.
+- **Traces:** each managed agent call produced `invoke_agent` and `chat` spans with matching tokens within about three minutes;
+  direct Responses calls produced none.
+- **Optional and C items:** `maf-evaluate` 6/6 and 6/6; `cloud-evaluate` groundedness 6/6, relevance 5/6 (D05); A2A 1.0 with typed
+  requests completed one delegated call; one Insights scan analyzed 22 traces and returned 4 insights; the local workflow server
+  answered one Responses request; recipes 02–06 and 08 completed.
+- **Fixed:** recipes now pin `AZURE_SUBSCRIPTION_ID` (an unpinned CLI credential returned 403 from another tenant's account);
+  recipes 05 and 08 now carry synthetic evidence; the Pydantic warnings of `maf-evaluate` and the tenant-scoped trace query are documented.
+- **Not run:** remote Hosted deployment for the browser Lab 05 option, cross-provider comparison, Toolbox/Tool Search/Skills,
+  Memory, Routines, conversation evaluation, Agent Optimizer, red teaming and the route A portal steps.
+
+[Details, IDs and owned objects](../live-run.md#review-refresh-live-verification).
 
 <a id="gpt-6-sol-20260924"></a>
 

@@ -188,8 +188,11 @@ class FrameworkRecipeTests(unittest.IsolatedAsyncioTestCase):
             )
 
         module = recipe("05_maf_sequential")
-        outputs = await module.run(module.build_workflow(self.chat_client(handle)), "Hotel?")
+        task = module.task_for("Hotel?")
+        self.assertEqual(json.loads(task)["question"], "Hotel?")
+        outputs = await module.run(module.build_workflow(self.chat_client(handle)), task)
         self.assertEqual(len(self.requests), 2)
+        self.assertIn("TRAVEL-2026", json.dumps(self.requests[0]["input"], ensure_ascii=False))
         self.assertTrue(outputs)
 
     async def test_hosted_recipe_serves_the_responses_protocol(self):
@@ -208,6 +211,7 @@ class FrameworkRecipeTests(unittest.IsolatedAsyncioTestCase):
             )
         self.assertEqual(response.status_code, 200, response.text)
         self.assertEqual(len(self.requests), 1)
+        self.assertIn("TRAVEL-2026", self.requests[0]["instructions"])
 
 
 class RetrievalRecipeTests(unittest.TestCase):

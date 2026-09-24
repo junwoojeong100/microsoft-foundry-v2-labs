@@ -29,7 +29,7 @@ Complete these four checks using **your own existing results**, without sending 
 2. On its **Playground** tab, check **Instructions**, **Tools** and **Knowledge**. On the default A route, **Instructions** holds the six
    inline synthetic policies and **Knowledge** stays empty; if you separately selected File Search or IQ, note that connection instead.
    There must be no unapproved Web search or company connection.
-3. Open your agent's **Traces** tab. The environment owner should have connected Application Insights before class. Find one saved request from your own Lab 03 or Lab 07 work; if tracing or permissions are unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:`. Do not send a new message for this check.
+3. Open your agent's **Traces** tab. The environment owner should have connected Application Insights before class. Find one saved request from your own Lab 03 or Lab 07 work and open it: look for `invoke_agent <agent>:<version>` with a child `chat` span. An `execute_tool web.run` span means that request ran with the Web search tool (for example, a version before you removed it). If tracing or permissions are unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:`. Do not send a new message for this check.
    Then open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
    `text-embedding-3-large`), optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
@@ -114,7 +114,13 @@ response IDs do not become Azure Monitor traces by themselves.
 
 Open the portal **Traces** search and paste the `response_id` from `outputs/learner-notes-en/prompt-agent-invoke.json`. If Application Insights was connected and you have access, record the matching trace evidence. If unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:` in `operations-checklist.txt`.
 
+**What to check:** one `invoke_agent <your agent>:<version>` span with a child `chat gpt-6-sol-2026-09-22` span.
+The child's input/output tokens equal `usage` in `prompt-agent-invoke.json`. Record the trace or operation ID, not the response ID, as trace evidence.
+In the 2026-09-24 check (English and Korean) each managed agent call appeared within about three minutes, although the invoke used `store: false`.
+If nothing appears after five minutes, record **trace unverified** instead of sending more requests.
+
 Local MAF runs from Labs 04 and 05 run in your Python process and do not create Foundry server-side agent traces. Client-side tracing is a separate optional setup.
+In the same check, direct Responses calls (`model`, `answer`, `maf`, `workflow`, `collect`) left no server-side spans at all; only the managed agent calls did.
 
 ### 3. Explain one failure or an all-pass result
 
@@ -153,6 +159,21 @@ Continue to [Lab 11 B](11-capstone.md#path-b). Without configured tracing, recor
 Server-side tracing for prompt and hosted agents needs no code change after Application Insights is connected to the project; traces are searchable by Response ID or Trace ID. See https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup
 
 Local MAF agents need separate client-side instrumentation if you want local spans; do not relabel local response IDs as server traces.
+
+Practitioners with **Log Analytics Reader** can run the same lookup as a read-only Application Insights query
+(the query used for the 2026-09-24 check):
+
+```text
+dependencies
+| where timestamp > ago(24h)
+| where tostring(customDimensions["gen_ai.response.id"]) == "<response_id>"
+| project timestamp, name, success, operation_Id,
+    agentId = tostring(customDimensions["gen_ai.agent.id"]),
+    inputTokens = toint(customDimensions["gen_ai.usage.input_tokens"]),
+    outputTokens = toint(customDimensions["gen_ai.usage.output_tokens"])
+```
+
+Use a token for the lab tenant: with several Azure CLI accounts, a query tool that uses the default account can fail with `InvalidTokenError`.
 
 </details>
 

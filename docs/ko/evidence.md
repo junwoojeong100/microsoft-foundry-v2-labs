@@ -41,7 +41,9 @@ Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) �
 확장 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며 해당 녹화는 삭제했습니다.
 9월 23일에는 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 `gpt-6-sol`로 다시 실행했고 녹화는 없었습니다. 나머지 모듈은 다시 실행하지 않았습니다.
 
-## 이 판에서 아직 실행하지 않음(2026-09-24 추가)
+## 검토 반영 실제 검증 — 2026-09-24(녹화 없음)
 
-다음 추가 사항은 refresh 문서에 들어갔지만 **아직 실행하거나 녹화하지 않았습니다**: B의 관리형 agent, 이제 핵심인 trace 단계, 브라우저 Lab 05 hosted-workflow 옵션, Insights 모듈, 최소 SDK recipe, SDK pin refresh.
-이 항목의 증거로 이전 screenshot이나 녹화를 재사용하지 않습니다.
+갱신한 SDK 고정 버전, Lab 03 B를 포함한 핵심 B 경로, Lab 09 추적 조회, SDK 예제, 형식이 있는 요청을 쓴 A2A, Insights scan 1회를
+2026-09-24 저녁 같은 실습 프로젝트에서 Azure로 실행했습니다. [실제 결과](live-run.md#review-refresh-live-verification)를 확인하세요.
+새 스크린샷이나 영상은 없습니다. 위 녹화는 이 추가 사항보다 앞선 것이며 그 증거로 사용하지 않습니다.
+아직 실행하지 않은 것: A Lab 05 브라우저 선택지를 위한 원격 배포, 타사 모델 비교, Dev Pack.

@@ -6,7 +6,7 @@
 Insights analyzes recent Foundry agent traces and proposes recurring behavior patterns to review.
 It is decision support, not ground truth, and it does not replace the evaluation workflow.
 
-**Evidence status:** Not run in this edition yet (added 2026-09-24).
+**Evidence status:** one on-demand scan ran on 2026-09-24 through the Python SDK (not the portal) against the recorded English Lab 03 agent; results are below. No recording.
 
 **Need:** the learner's own Lab 03 Prompt Agent, connected Application Insights, recent representative synthetic dev traces,
 an owner-prepared `gpt-6-sol-judge` judge deployment, and owner-prepared roles. Learners do not assign roles.
@@ -74,6 +74,41 @@ Record one of these outcomes in `insights-review.txt`:
 
 If the decision changes instructions, test only on dev through the Lab 07 process.
 Holdout opens only after a candidate is frozen.
+
+## What the 2026-09-24 check returned
+
+| Item | Observed |
+|---|---|
+| Window / traces | Default 7-day lookback; 22 traces in the window, 22 analyzed |
+| Duration / judge tokens | About 2 minutes; 227,246 tokens on `gpt-6-sol-judge` (214,651 input, 12,595 output) |
+| Insights | 4 active: 2 **Output quality** (1 medium, 1 low), 2 **Cost & tokens** (low) |
+| Versions | 3 of 4 described **version 1**, whose Web search tool ran public searches (`execute_tool web.run`) before the instructions were saved; 1 described the saved **version 2** |
+| Version 2 finding | Answers applied `TRAVEL-2026` correctly but often omitted the effective-date explanation the instructions require |
+| Proposed fix | None returned |
+
+Lessons: check `agent_version` before acting, because findings about an obsolete version are not changes to make now.
+Expect token-heavy scans even for a small agent. The version 2 finding is a reasonable dev evaluation case, not a verdict;
+verify it against the linked traces and the synthetic policies first.
+
+<details>
+<summary>SDK alternative used for the check (Preview, `azure-ai-projects` 2.6.1)</summary>
+
+```python
+project = AIProjectClient(endpoint=endpoint, credential=credential, allow_preview=True)
+monitors = project.beta.agent_insight_monitors
+monitor = monitors.create(
+    AgentInsightMonitorCreate(
+        agent_name=agent, enabled=False, model_deployment_name="gpt-6-sol-judge"
+    )
+)
+monitors.begin_create_run(monitor.id, AgentInsightRunCreate(lookback_hours=168)).result()
+insights = list(monitors.list_insights(monitor.id, include_details=True))
+monitors.delete(monitor.id)  # removes the monitor, its runs and insights
+```
+
+`enabled=False` keeps scheduled generation off. Delete the monitor only after saving the insights you want to keep.
+
+</details>
 
 ## 5. Cost and cleanup
 

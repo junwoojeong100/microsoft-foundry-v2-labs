@@ -62,11 +62,16 @@ mark local invocation and remote deployment **not run**, then continue to [Lab 0
 See [`examples/recipes/08_hosted_agent.py`](../../examples/recipes/08_hosted_agent.py) for the minimal Hosted Responses server pattern. Key lines:
 
 ```python
-agent = Agent(...)
-ResponsesHostServer(agent).run()
+agent = Agent(
+    client=chat_client,
+    name="PolicyGuide",
+    instructions="Answer only from the synthetic policies below and cite their IDs.\n" + policies,
+)
+ResponsesHostServer(agent).run(host="127.0.0.1")
 ```
 
 `agent-framework-foundry-hosting` is a prerelease Python package; the Hosted Agent service is GA (checked 2026-09-24).
+On 2026-09-24 this recipe ran locally with the refreshed SDK: readiness returned `healthy` and one Responses request completed with an answer citing `TRAVEL-2026`. An earlier ungrounded draft answered that it had no policy, which is why the recipe embeds the synthetic policies as data. Nothing was deployed.
 
 **Write it yourself:** expose the same read-only agent locally and verify readiness before sending one synthetic question.
 

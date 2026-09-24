@@ -46,8 +46,10 @@ def build_agent(chat_client) -> Agent:
 
 async def main() -> None:
     load_dotenv()
+    # Pin the lab subscription so a multi-account Azure CLI does not pick another tenant.
+    subscription = os.environ.get("AZURE_SUBSCRIPTION_ID") or None
     question = " ".join(sys.argv[1:]) or "Can I book a KRW 170000 hotel in September 2026?"
-    async with AzureCliCredential() as credential:
+    async with AzureCliCredential(subscription=subscription) as credential:
         client = FoundryChatClient(
             project_endpoint=os.environ["AZURE_AI_PROJECT_ENDPOINT"],
             model=os.environ["AZURE_AI_MODEL_DEPLOYMENT_NAME"],

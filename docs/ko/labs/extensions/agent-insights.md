@@ -6,7 +6,7 @@
 Insights는 최근 Foundry agent trace를 분석해 반복되는 동작 패턴을 검토 대상으로 제안합니다.
 이는 의사 결정 보조 자료이지 정답이 아니며, 평가 workflow를 대체하지 않습니다.
 
-**근거 상태:** 이 판에서 아직 실행하지 않음(2026-09-24 추가).
+**근거 상태:** 2026-09-24에 녹화된 영문 Lab 03 agent를 대상으로 포털이 아닌 Python SDK로 on-demand scan을 1회 실행했습니다. 결과는 아래에 있으며 녹화는 없습니다.
 
 **준비:** 학습자 본인의 Lab 03 Prompt Agent, 연결된 Application Insights, 최근의 대표적인 합성 dev trace,
 담당자가 준비한 `gpt-6-sol-judge` judge 배포, 담당자가 준비한 역할. 학습자는 역할을 부여하지 않습니다.
@@ -74,6 +74,41 @@ AI가 생성한 Insight는 불완전하거나 오래됐거나 틀릴 수 있습�
 
 결정이 instruction 변경이라면 Lab 07 절차로 dev에서만 테스트합니다.
 Holdout은 candidate가 고정된 뒤에만 엽니다.
+
+## 2026-09-24 확인 결과
+
+| 항목 | 관찰값 |
+|---|---|
+| 기간 / trace | 기본 7일 lookback, 기간 안의 trace 22개를 모두 분석 |
+| 소요 시간 / judge token | 약 2분, `gpt-6-sol-judge`에서 227,246 token(입력 214,651, 출력 12,595) |
+| Insight | 활성 4개: **Output quality** 2개(medium 1, low 1), **Cost & tokens** 2개(low) |
+| 버전 | 4개 중 3개는 지침 저장 전 Web search 도구가 공개 검색(`execute_tool web.run`)을 실행한 **버전 1**에 관한 것이고, 1개는 저장한 **버전 2**에 관한 것 |
+| 버전 2 finding | `TRAVEL-2026`은 올바르게 적용했지만 지침이 요구하는 적용일 설명을 자주 빠뜨림 |
+| 제안된 수정 | 반환되지 않음 |
+
+교훈: 조치하기 전에 `agent_version`을 확인합니다. 이미 지난 버전에 대한 finding은 지금 적용할 변경이 아닙니다.
+작은 agent라도 scan이 token을 많이 쓸 수 있습니다. 버전 2 finding은 dev 평가 사례로 삼을 만한 후보이지 판정이 아닙니다.
+먼저 연결된 trace와 합성 정책으로 확인합니다.
+
+<details>
+<summary>확인에 사용한 SDK 대안(Preview, `azure-ai-projects` 2.6.1)</summary>
+
+```python
+project = AIProjectClient(endpoint=endpoint, credential=credential, allow_preview=True)
+monitors = project.beta.agent_insight_monitors
+monitor = monitors.create(
+    AgentInsightMonitorCreate(
+        agent_name=agent, enabled=False, model_deployment_name="gpt-6-sol-judge"
+    )
+)
+monitors.begin_create_run(monitor.id, AgentInsightRunCreate(lookback_hours=168)).result()
+insights = list(monitors.list_insights(monitor.id, include_details=True))
+monitors.delete(monitor.id)  # removes the monitor, its runs and insights
+```
+
+`enabled=False`는 scheduled generation을 꺼 둡니다. 보관할 insight를 저장한 뒤에만 monitor를 삭제하세요.
+
+</details>
 
 ## 5. 비용과 정리
 

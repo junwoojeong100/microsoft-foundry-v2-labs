@@ -167,7 +167,7 @@ D01, D02, D03, D05를 하나씩 질문합니다. ZIP의 `dev-questions.txt`에�
 
 ## B. 코드 — SDK로 관리형 Prompt Agent를 만들고 정확한 버전 호출
 
-**이 판에서 아직 실행하지 않음(2026-09-24 추가).** 이 핵심 B 단계는 프로젝트 관리형 Prompt Agent와 변경 불가능한 버전 하나를 만듭니다.
+**2026-09-24에 갱신한 SDK 고정 버전으로 영문·국문 실제 검증(녹화 없음).** 이 핵심 B 단계는 프로젝트 관리형 Prompt Agent와 변경 불가능한 버전 하나를 만듭니다.
 `.env`의 `WORKSHOP_PREFIX`로 시작하는 새 이름을 사용합니다. A의 브라우저 agent나 녹화 속 이름을 재사용하지 않습니다.
 `session-notes.txt`의 `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json 검토:`에 확인 결과를 기록합니다.
 
@@ -195,6 +195,8 @@ python scripts/workshop.py prompt-agent invoke --name "$AGENT_NAME" --version "$
 
 같은 터미널에서 실제 반환 버전을 사용합니다. 녹화 속 버전을 입력하거나 `latest`를 호출하지 않습니다.
 `prompt-agent-invoke.json`의 `response_id`를 보관합니다. Lab 09에서 trace 조회에 사용합니다.
+저장된 `text` 자체가 JSON 답변(`answer`, `decision`, `limit_krw`, `citations`)입니다. 이 SDK agent 지침에 해당 schema가 들어 있기 때문입니다.
+2026-09-24 확인에서 첫 버전은 `1`이었고 답변은 `TRAVEL-2026`과 150,000원을 인용했습니다. 본인의 ID와 문구는 다를 수 있습니다.
 
 ### 3. 새 메시지를 보내지 않고 포털 확인
 

@@ -63,11 +63,16 @@ python scripts/package_hosted.py
 최소 Hosted Responses server 패턴은 [`examples/recipes/08_hosted_agent.py`](../../../examples/recipes/08_hosted_agent.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
 
 ```python
-agent = Agent(...)
-ResponsesHostServer(agent).run()
+agent = Agent(
+    client=chat_client,
+    name="PolicyGuide",
+    instructions="Answer only from the synthetic policies below and cite their IDs.\n" + policies,
+)
+ResponsesHostServer(agent).run(host="127.0.0.1")
 ```
 
 `agent-framework-foundry-hosting`은 prerelease Python 패키지이고 Hosted Agent 서비스는 GA입니다(2026-09-24 확인).
+2026-09-24에 이 예제를 갱신한 SDK로 로컬 실행했습니다. readiness는 `healthy`였고 Responses 요청 하나가 `TRAVEL-2026`을 인용한 답변으로 완료됐습니다. 근거가 없던 초안은 정책이 없다고 답했기 때문에 이 예제는 합성 정책을 데이터로 포함합니다. 아무것도 배포하지 않았습니다.
 
 **직접 작성:** 같은 읽기 전용 agent를 로컬로 노출하고 readiness를 확인한 뒤 합성 질문 하나를 보냅니다.
 

@@ -173,7 +173,7 @@ Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the B SDK path are no
 
 ## B. Code — create a managed Prompt Agent with the SDK and call its exact version
 
-**Not run in this edition yet (added 2026-09-24).** This core B step creates a project-managed Prompt Agent and one immutable version.
+**Live-verified on 2026-09-24 in English and Korean with the refreshed SDK pins (no recording).** This core B step creates a project-managed Prompt Agent and one immutable version.
 Use a new name starting with your `.env` `WORKSHOP_PREFIX`; do not reuse A's browser agent or any recording name.
 Record findings in `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json findings:` in `session-notes.txt`.
 
@@ -200,6 +200,8 @@ python scripts/workshop.py --language en prompt-agent invoke --name "$AGENT_NAME
 **Save:** `prompt-agent-invoke.json`
 
 Use the actual returned version in the same terminal. Do not type a version from a recording and do not invoke `latest`.
+The saved `text` is itself a JSON answer (`answer`, `decision`, `limit_krw`, `citations`) because this SDK agent's instructions include that schema.
+In the 2026-09-24 check the first version was `1` and the answer cited `TRAVEL-2026` with KRW 150,000; your IDs and wording will differ.
 Keep the `response_id` from `prompt-agent-invoke.json`; Lab 09 uses it for trace lookup.
 
 ### 3. Check the portal without sending another message

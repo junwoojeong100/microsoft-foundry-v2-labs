@@ -437,6 +437,7 @@ results**, then inspect individual failures. Native quality and deterministic bu
 **What to check:** Read actual native pass counts and case-level reasons.
 Review any low score on correct withholding without changing the score.
 The September 24 candidate recorded groundedness 6/6 and relevance 5/6; the relevance failure was D05's correct withholding.
+A re-check with the refreshed SDK pins the same evening returned the same pattern (groundedness 6/6, relevance 5/6, D05 relevance 2).
 
 `data/evaluation/en/calibration.jsonl` contains two explicitly correct/incorrect examples.
 Use them in a separate evaluator experiment before production. They are not generated

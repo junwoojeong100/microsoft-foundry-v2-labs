@@ -35,7 +35,7 @@ Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측�
 
 ### 1. 준비된 실행 방식 선택
 
-**브라우저 방식, 담당자가 미리 선택한 경우에만 — 이 판에서 아직 실행하지 않음(2026-09-24 추가).** 상단 **빌드** → 왼쪽 **에이전트**에서 준비된 Hosted workflow agent를 열고 **플레이그라운드** 탭에서 같은 질문을 한 번 보낸 뒤 `workflow-review.txt`에 대화 ID / 응답 ID를 기록합니다. 터미널 실패 뒤의 대체가 아니라 미리 선택한 hosted 방식입니다.
+**브라우저 방식, 담당자가 미리 선택한 경우에만 — 이 판에서 원격 Playground 사용은 검증하지 않았습니다.** 상단 **빌드** → 왼쪽 **에이전트**에서 준비된 Hosted workflow agent를 열고 **플레이그라운드** 탭에서 같은 질문을 한 번 보낸 뒤 `workflow-review.txt`에 대화 ID / 응답 ID를 기록합니다. 터미널 실패 뒤의 대체가 아니라 미리 선택한 hosted 방식입니다. 담당자는 **Responses** protocol(Lab 08 6절 기본값)로 배포해야 합니다. Invocations protocol의 평가용 agent는 이 선택지가 아닙니다. 2026-09-24에는 같은 workflow agent가 갱신한 SDK로 로컬 Responses 요청 하나에 답했습니다(모델 호출 3회, `pending-human-review`). 이 확인을 위해 원격 배포는 하지 않았습니다.
 
 **터미널 방식(기본 녹화 경로):** 아래 준비된 MAF 명령을 실행하고 `workflow-review.txt`에 `실행 방식(준비된 터미널 / 준비된 hosted workflow agent Playground):`를 기록합니다.
 
@@ -193,14 +193,16 @@ JSON 앞에 `GroupChatOrchestrator reached max_rounds=3; forcing completion.`이
 독립 예제는 [`examples/recipes/05_maf_sequential.py`](../../../examples/recipes/05_maf_sequential.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
 
 ```python
-Agent(...)
-Agent(...)
-SequentialBuilder(participants=[...]).build()
-await workflow.run(task)
-result.get_outputs()
+async def run(analyst, writer, question, policies):
+    workflow = SequentialBuilder(participants=[analyst, writer]).build()
+    task = json.dumps({"question": question, "synthetic_evidence": policies}, ensure_ascii=False)
+    result = await workflow.run(task)
+    return result.get_outputs()
 ```
 
 **직접 작성:** 한 문장짜리 reviewer 역할을 추가하고 입력 질문은 고정한 채 최종 출력이 바뀌는지 비교합니다.
+
+이 예제는 합성 정책을 `synthetic_evidence`라는 데이터로 task에 함께 보냅니다(지침이 아님). 근거가 없으면 2026-09-24 시험 실행은 정책을 요청하기만 했습니다.
 
 </details>
 

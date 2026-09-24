@@ -4,7 +4,7 @@
 
 **C 경로 · A2A 1.0 GA 계약 확인일 2026-09-16.**
 
-**근거 상태:** 영문 짝 호출과 그 출력을 2026-09-16 이전 `gpt-5.6-luna` preset으로 실행했습니다(wire packet은 캡처하지 않음). `gpt-6-sol`로 다시 실행하지 않았습니다.
+**근거 상태:** 2026-09-24에 `gpt-6-sol`과 갱신한 SDK(형식이 있는 요청)로 영문 재실행했습니다. target·card·연결·caller와 위임 호출 1회가 성공했고 wire packet은 캡처하지 않았습니다. 이전 영문 실행은 2026년 9월 16일 `gpt-5.6-luna`로 진행했습니다.
 
 로컬 MAF 참여자 두 명은 A2A endpoint 통합이 아닙니다.
 내 합성 전문 agent endpoint와 별도 relay agent를 연결합니다.
@@ -25,8 +25,8 @@ python scripts/workshop.py --language ko a2a plan
 
 target/caller/connection은 내 prefix와 언어로 이름이 정해집니다.
 target에는 동봉한 합성 정책과 지침만 들어갑니다.
-공통 고정 SDK의 typed surface보다 새로운 필드는 명시적 REST 1.0 계약을 사용합니다.
-전체 교육 환경의 SDK를 몰래 교체하지 않습니다.
+관리 호출은 `azure-ai-projects` 2.5 이상의 형식이 있는 SDK 모델(`A2ATool`, `update_details`, `get_version`)을 사용합니다.
+protocol card만 `A2A-Version: 1.0` header를 붙인 raw GET입니다.
 
 ## 2. 전문 agent와 incoming A2A
 
@@ -45,7 +45,7 @@ Python 목록에 다른 로컬 agent를 추가하는 것만으로 incoming A2A�
 card URL은 **`/agentCard/v1.0`**으로 끝납니다.
 `supportedInterfaces`에 `protocolVersion: 1.0`, `protocolBinding: JSONRPC`,
 정확한 내 base URL 조합이 있어야 합니다.
-0.3도 함께 표시될 수 있지만 1.0을 명시적으로 선택합니다.
+0.3도 함께 표시될 수 있습니다(2026-09-24: 1.0 JSONRPC, 0.3 JSONRPC, 0.3 HTTP+JSON). 1.0을 명시적으로 선택합니다.
 인증된 card 읽기는 모델 호출과 별도입니다.
 
 이 경로는 현재 text/non-streaming JSONRPC입니다.
@@ -69,6 +69,7 @@ azd ai connection create "${A2A_CONNECTION:?Use the returned connection name}" -
 ```
 
 대상은 card URL이 아니라 **A2A base path**입니다.
+azd가 `Connection "..." created` 전에 `connections: no active azd environment ... no project exists`를 출력할 수 있습니다. 성공 줄이 있으면 그 경고는 무시해도 됩니다(2026-09-24 관찰).
 빈 값은 azd 실행 전에 차단됩니다. 보호 문법을 제거하지 말고 실제 반환값을 복구합니다.
 `--force`나 API key를 사용하지 않습니다.
 담당자가 연결의 실제 ID와 target agent/project의 필요한 접근 권한만 확인합니다.

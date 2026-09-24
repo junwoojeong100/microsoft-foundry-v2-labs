@@ -111,7 +111,7 @@ Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authe
 
 ## Scope of this edition
 
-- Current Foundry and Projects SDK **2.x** pins were refreshed and offline-verified on 2026-09-24; the 2026-09-24 recordings used the previous pins. See [versions](docs/reference/versions.md).
+- Current Foundry and Projects SDK **2.x** pins were refreshed on 2026-09-24 and live-verified that evening on the core B route in both languages (no recording); the 2026-09-24 recordings used the previous pins. See [versions](docs/reference/versions.md).
 - **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded. Assistants retired on 2026-08-26, portal Workflows retire on 2026-12-01, and classic threads/runs agents retire on 2027-03-31; see the [migration map](docs/reference/migration.md).
 - The first-pass preset is **`gpt-6-sol`**, deployed with that exact name, model version **`2026-09-22`**.
   It was chosen on September 23, 2026 and the main steps were recorded with it on September 24 ([why this model](docs/reference/model-choice.md)).

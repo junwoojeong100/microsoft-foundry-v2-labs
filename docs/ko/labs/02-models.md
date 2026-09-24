@@ -125,6 +125,8 @@ python scripts/workshop.py model \
 `response_id`, 실제 `response_model`, 토큰 사용량이 결과에 기록됩니다.
 `trace_id: null`은 아직 Application Insights trace를 수집한 것이 아니라는 뜻입니다.
 `response_id`를 임의의 trace ID로 바꿔 적지 않습니다.
+2026-09-24 확인에서 `model`, `answer`, `maf`, `collect`처럼 Responses API를 직접 호출한 명령은 프로젝트에 연결된 Application Insights에 서버 측 span을 만들지 않았습니다.
+관리형 agent 호출은 span을 만듭니다(Lab 03 B, [Lab 09](09-operations.md#path-b)에서 확인).
 
 ![2026-09-24 국문 녹화: 프로젝트 Responses API로 첫 실제 gpt-6-sol 요청](../../assets/g6sol-20260924-ko/screenshots/K02-001-model-2.webp)
 
@@ -178,14 +180,19 @@ Response ID·사용량·원문 ID도 포함합니다.
 작은 독립 예제는 [`examples/recipes/02_responses.py`](../../../examples/recipes/02_responses.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
 
 ```python
-with AIProjectClient(endpoint=..., credential=AzureCliCredential()) as project, project.get_openai_client() as client:
-response = client.responses.create(model=deployment, input=question, store=False)
-print(response.output_text)
-print(response.id)
-print(response._request_id)
+subscription = os.environ.get("AZURE_SUBSCRIPTION_ID") or None  # pin the lab subscription
+credential = AzureCliCredential(subscription=subscription)
+with (
+    AIProjectClient(endpoint=endpoint, credential=credential) as project,
+    project.get_openai_client() as client,
+):
+    response = client.responses.create(model=deployment, input=question, store=False)
+    print(response.output_text, response.id, response._request_id)
 ```
 
 **직접 작성:** 질문 문자열만 바꾸어 같은 배포에 실행하고 response ID와 request ID를 따로 기록합니다.
+
+이 예제는 `AZURE_SUBSCRIPTION_ID`를 고정합니다. 2026-09-24 실제 확인에서 고정하지 않은 `AzureCliCredential()`은 로그인된 다른 tenant의 기본 계정을 사용해 요청이 403으로 실패했습니다.
 
 </details>
 

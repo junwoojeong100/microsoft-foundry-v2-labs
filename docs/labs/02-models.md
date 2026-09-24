@@ -133,6 +133,8 @@ python scripts/workshop.py --language en model \
 Results retain `response_id`, actual `response_model`, and token usage.
 `trace_id: null` means no Application Insights trace has been collected;
 do not relabel a response ID as a trace ID.
+In the 2026-09-24 check, direct Responses calls such as `model`, `answer`, `maf` and `collect` produced no server-side spans
+in the project's connected Application Insights; managed agent calls do (Lab 03 B, checked in [Lab 09](09-operations.md#path-b)).
 
 
 ![September 24 English recording: First real gpt-6-sol request through the project Responses API](../assets/g6sol-20260924-en/screenshots/E02-001-model-2.webp)
@@ -188,14 +190,18 @@ Continue to [Lab 03 B](03-prompt-agent.md#path-b) to create the managed Prompt A
 See [`examples/recipes/02_responses.py`](../../examples/recipes/02_responses.py) for the small standalone version. Key lines:
 
 ```python
-with AIProjectClient(endpoint=..., credential=AzureCliCredential()) as project, project.get_openai_client() as client:
-response = client.responses.create(model=deployment, input=question, store=False)
-print(response.output_text)
-print(response.id)
-print(response._request_id)
+subscription = os.environ.get("AZURE_SUBSCRIPTION_ID") or None  # pin the lab subscription
+credential = AzureCliCredential(subscription=subscription)
+with (
+    AIProjectClient(endpoint=endpoint, credential=credential) as project,
+    project.get_openai_client() as client,
+):
+    response = client.responses.create(model=deployment, input=question, store=False)
+    print(response.output_text, response.id, response._request_id)
 ```
 
 **Write it yourself:** change only the question string, run it against the same deployment, and record the response ID and request ID separately.
+The recipe pins `AZURE_SUBSCRIPTION_ID`: in the 2026-09-24 live check, an unpinned `AzureCliCredential()` used another signed-in tenant's default account and the request failed with 403.
 
 </details>
 

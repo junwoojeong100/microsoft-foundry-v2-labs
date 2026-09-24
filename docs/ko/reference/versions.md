@@ -4,8 +4,7 @@
 
 **현재 preset:** `gpt-6-sol` / `2026-09-22`와 별도 `gpt-6-sol-judge`(2026-09-23부터).
 코드 버전 표시는 `2026.9.24`입니다.
-아래 갱신된 의존성 조합은 2026-09-24에 설치하고 import 계약 검사와 mocked SDK test로 오프라인 확인했습니다.
-Azure에 대한 **실제 검증은 아닙니다**.
+아래 갱신된 의존성 조합은 2026-09-24에 설치하고 import 계약 검사와 mock SDK 테스트로 오프라인 확인한 뒤, 같은 날 저녁 실제 검증했습니다. 핵심 B 경로(영문·국문), `maf-evaluate`, `cloud-evaluate`, A2A, Insights scan 1회와 예제가 포함됩니다([결과](../live-run.md#review-refresh-live-verification)).
 **호환성 확인일은 출시일이나 향후 지원 보장이 아닙니다.**
 이 에디션은 Ignite 발표나 모든 tenant·지역의 가용성을 예측하지 않습니다.
 

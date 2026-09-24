@@ -41,7 +41,9 @@ Use the [capability/evidence record](coverage.md) to distinguish existing labs, 
 The extension modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset, and those recordings were removed.
 On September 23, conversation evaluation, Agent Optimizer, the red-team step of agent safety and release operations were re-run with `gpt-6-sol`, without recording; the other modules were not.
 
-## Not run in this edition yet (added 2026-09-24)
+## Review refresh live verification — 2026-09-24 (no recording)
 
-The following additions are documented for the refresh but are **not yet run or recorded**: managed agent in B, the now-core trace step, the browser Lab 05 hosted-workflow option, the Insights module, minimal SDK recipes and the SDK pin refresh.
-Do not reuse older screenshots or recordings as evidence for these additions.
+The refreshed SDK pins, the core B route with Lab 03 B, the Lab 09 trace lookup, the SDK recipes, A2A with typed requests and one Insights scan
+were run against Azure on the evening of 2026-09-24 in the same training project; see [live results](live-run.md#review-refresh-live-verification).
+There are no new screenshots or videos: the recordings above predate these additions and are not evidence for them.
+Still not run: a remote deployment for the browser Lab 05 option, a cross-provider model comparison and the Dev Pack.

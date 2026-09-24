@@ -35,10 +35,10 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
    Quota/SKU/리전을 점검하며 초보자에게 대체 모델을 추측하게 하지 않습니다.
    수업 전에 [모델 선택](reference/model-choice.md)과 공개 가격을 다시 확인합니다.
 3. 참가자에게 프로젝트의 `Foundry User` 등 필요한 역할을 부여합니다.
-4. 서버 측 trace를 위해 Application Insights를 프로젝트에 연결하고 학습자에게 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 부여합니다. Lab 09 trace 확인에 필요합니다. **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+4. 서버 측 trace를 위해 Application Insights를 프로젝트에 연결하고 학습자에게 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 부여합니다. Lab 09 trace 확인에 필요합니다. 2026-09-24 확인에서는 관리형 agent 호출이 연결된 Application Insights에 몇 분 안에 나타났고, 모델을 직접 호출한 요청은 나타나지 않았습니다.
 5. **B 또는 선택한 IQ 모듈에만** Search 데이터 읽기·작성 역할을 준비합니다. 기본 A에는 필요 없습니다.
 6. **원격 호스팅을 선택한 경우에만** 런타임 ID의 모델·도구 역할을 준비합니다. 패키징만 하는 B에는 필요 없습니다.
-7. A 선택 사항: Lab 05 hosted workflow agent를 준비하고 stable endpoint, active version, 이름, Playground 위치를 학습자에게 줄 수 있게 기록합니다. **이 판에서 아직 실행하지 않음(2026-09-24 추가).**
+7. A 선택 사항: Lab 05 hosted workflow agent를 **Responses** protocol로 준비하고 stable endpoint, active version, 이름, Playground 위치를 학습자에게 줄 수 있게 기록합니다. 2026-09-24에 local Responses 경로는 확인했지만 원격 Playground 실행은 하지 않았습니다.
 8. 관리자 아닌 **실제 참가자 계정**으로 첫 요청을 보내 봅니다.
 9. 예산 알림과 로그 보존 기간을 정합니다. 예산 알림은 사용을 자동 차단하는 hard cap이 아닙니다.
 10. 선택 기능의 승인, 지역 간 처리, 테넌트 정책을 확인합니다.

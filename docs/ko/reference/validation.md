@@ -17,7 +17,7 @@
 | `gpt-6-sol`로 실행하지 않은 것은? | Lab 03 포털 File Search, Lab 06 IQ Chat·hybrid RAG, Lab 07 feedback/회귀·Hosted matrix, Lab 08 로컬 server·학습자 본인의 Hosted 배포, Hosted server-side tracing, Lab 10, 나머지 확장 모듈 | [미실행 목록](../live-run.md#gpt-6-sol로-실행하지-않은-것) |
 | 작업 폴더는 어떻게 확인하나요? | 아래 offline 테스트·Ruff·compilation·문서·학습자 번들 검사를 실행합니다. 날짜별 기록마다 해당 revision에서 통과한 검사를 적습니다 | [로컬 검사](#재실행할-로컬-검사) |
 | 이 근거 밖에 있는 것은? | 회사/Microsoft 365 데이터, 외부 Work IQ/Fabric 연결, SLA, 통계적 우월성, 자동 재학습, 운영 승인, 다른 사용자의 자산 | [확인하지 않은 것](#확인하지-않은-것) |
-| 9월 24일 검토 반영에서 바뀐 것은? | SDK 고정 버전 갱신, B 핵심에 Lab 03 B 관리형 agent 추가, trace 확인 필수화, A Lab 05 브라우저 선택지, Insights 모듈, 독립 SDK 예제, 새 CI 검사. 오프라인 검사만 했으며 새 단계는 Azure에서 실행·녹화하지 않음 | [검토 반영](#review-refresh-20260924) |
+| 9월 24일 검토 반영에서 바뀐 것은? | SDK 고정 버전 갱신, B 핵심에 Lab 03 B 관리형 agent 추가, trace 확인 필수화, A Lab 05 브라우저 선택지, Insights 모듈, 독립 SDK 예제, 새 CI 검사. 그날 저녁 새 고정 버전으로 핵심 B 경로를 두 언어에서 실제 실행했고 추적 조회, 예제, A2A, Insights scan 1회를 함께 확인했으며 가이드·예제 결함 4개를 수정. 녹화 없음 | [검토 반영](#review-refresh-20260924) · [live 확인](#review-refresh-live-20260924) |
 | 가이드·문서는 얼마나 straightforward한가요? | 2026-09-24 AI 편집 검토 5차(4차 검토자가 수정 뒤 재검토): 가이드 100/100, 문서 98.5/100. 1–4차의 새 검토자는 86.5–97.5점을 주었습니다. 학습자 시범 운영이나 시간 측정이 아님 | [최신 검토](#straightforwardness-95) |
 
 <a id="review-refresh-20260924"></a>
@@ -32,8 +32,29 @@ A Lab 05 브라우저 선택지, [Insights 모듈](../labs/extensions/agent-insi
 
 **오프라인 검증:** Python 3.13·3.14(site package 없이)에서 오프라인 테스트 297개, 설치한 고정 라이브러리와 transport stub을 쓴 SDK 테스트 87개, Ruff, 포맷, 컴파일, `check_docs.py`(Markdown 127개, 로컬 링크 2,520개, anchor 510개, workshop CLI 예제 328개, azd 예제 84개, 언어 쌍 63개), 학습자 번들, `pip check`, `check_sdk.py`, CI 오프라인 doctor/demo/evaluate/package 단계가 통과했습니다.
 
-**미실행:** 이번 반영을 위해 Azure 호출·배포·역할 변경·녹화·live smoke 실행을 하지 않았습니다.
+**이 오프라인 단계에서 미실행:** Azure 호출·배포·역할 변경·녹화·live smoke 실행은 하지 않았습니다. 실제 확인은 아래에 이어집니다.
 위의 녹화와 실제 결과는 이전 고정 버전과 이전 가이드 revision으로 만든 것이며 새 단계의 근거가 아닙니다.
+
+<a id="review-refresh-live-20260924"></a>
+
+## 검토 반영 실제 검증 — 2026년 9월 24일(저녁)
+
+**범위:** 갱신한 고정 버전을 적용한 commit `a9c3990`의 새 복사본, prefix `mfv2-rr-20260924-<language>`, 같은 Sweden Central
+프로젝트와 `gpt-6-sol` / `gpt-6-sol-judge`. 실습 구독을 고정했고 Azure CLI 기본 구독은 바꾸지 않았습니다.
+
+- **핵심 B 경로, 영문·국문:** 문서의 모든 명령이 종료 코드 0. Lab 07 baseline 6/6, candidate 6/6, holdout 4/4, 오류 0.
+  인수 판단은 `ready-for-human-review`, `deployment_approved: false`. Lab 03 B는 각 언어에서 버전 1을 만들고 그 버전으로 호출했습니다.
+- **추적:** 각 관리형 agent 호출은 약 3분 안에 token이 일치하는 `invoke_agent`와 `chat` span을 만들었습니다.
+  Responses API를 직접 호출한 명령은 span을 만들지 않았습니다.
+- **선택 및 C 항목:** `maf-evaluate` 6/6과 6/6, `cloud-evaluate` groundedness 6/6, relevance 5/6(D05), 형식이 있는
+  SDK 요청을 쓴 A2A 1.0 위임 호출 1회, trace 22개를 분석해 insight 4개를 반환한 Insights scan 1회, 로컬 workflow 서버의
+  Responses 요청 1회, 예제 02–06·08 완료.
+- **수정:** 예제는 이제 `AZURE_SUBSCRIPTION_ID`를 고정합니다(고정하지 않은 CLI credential이 다른 tenant 계정으로 403 반환).
+  예제 05·08은 합성 근거를 함께 보냅니다. `maf-evaluate`의 Pydantic 경고와 tenant를 지정한 추적 조회를 문서화했습니다.
+- **미실행:** A Lab 05 브라우저 선택지를 위한 원격 Hosted 배포, 타사 모델 비교, Toolbox/Tool Search/Skills,
+  Memory, Routines, 대화 평가, Agent Optimizer, red teaming, A 경로의 포털 단계.
+
+[세부 정보·ID·소유 객체](../live-run.md#review-refresh-live-verification).
 
 <a id="gpt-6-sol-20260924"></a>
 

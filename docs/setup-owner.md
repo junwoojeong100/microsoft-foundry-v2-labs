@@ -25,14 +25,18 @@ If you are learning alone, you are also the environment owner. These are prepara
    The same setup, followed by [Lab 02 B](labs/02-models.md#path-b), is the self-service route if no prepared terminal is available for Lab 05.
 7. Connect Application Insights to the project before class for server-side tracing. No code change is needed.
    Give learners **Log Analytics Reader** on the connected Application Insights resource; if protected tables are enabled, also give **Privileged Monitoring Data Reader**.
-   This is required for the now-core Lab 09 trace step. **Not run in this edition yet (added 2026-09-24).**
+   This is required for the now-core Lab 09 trace step. Checked 2026-09-24: the training project already had Application Insights connected
+   and managed agent calls appeared as traces within minutes; a learner-only Log Analytics Reader grant was not re-tested.
 8. Optional: deploy the Lab 05 MAF workflow as a Hosted Agent so A learners can use the browser Playground option in Lab 05.
    Use [Lab 05 C](labs/05-workflows.md) / [Lab 08 section 6](labs/08-hosted.md) hosted-workflow path only after separate approval.
-   Record the hosted workflow agent name and active version for learners. **Not run in this edition yet (added 2026-09-24).**
+   Deploy it with the **Responses** protocol (the Lab 08 section 6 default); an Invocations-protocol evaluation agent is not the browser option.
+   Record the hosted workflow agent name and active version for learners. On 2026-09-24 the workflow agent answered one local Responses request;
+   no remote deployment was made for that check.
 9. Optional: prepare the owner/instructor machine with the [Foundry Dev Pack](labs/extensions/developer-toolkit.md), then pin and record `az`, `azd`, the Foundry azd extension, SDK, and extension versions afterward.
-   **Not run in this edition yet (added 2026-09-24).**
+   Not tested in this edition.
 10. Optional lightweight source distribution: provide a sparse checkout that omits `docs/assets/` and video files for learners who need the source without large media history.
-    The full repository remains the source of truth. **Not run in this edition yet (added 2026-09-24).**
+    The full repository remains the source of truth. The sparse pattern in [Lab 00](labs/00-start.md#source-folder) was checked locally on 2026-09-24:
+    `docs/assets/` and `videos/` were excluded while scripts and guides remained.
 
 For an IQ Chat learner, **Reader on Search** allows inspection of service/object definitions,
 and **Search Index Data Reader** allows retrieval; these are separate from the model-account Reader above.

@@ -120,16 +120,68 @@ none is in the edited videos.
 
 Findings, owner actions and Azure changes: [validation](reference/validation.md#previously-not-run-items).
 
+<a id="review-refresh-live-verification"></a>
+
+## Review refresh live verification — September 24, 2026 (evening, no recording)
+
+Same project and deployments as above. Two fresh copies of commit `a9c3990` used the prefixes `mfv2-rr-20260924-en` and
+`mfv2-rr-20260924-ko` and the refreshed pins (`azure-ai-projects` 2.6.1, `openai` 3.16.1, MAF core 1.18.0,
+`agent-framework-foundry` 1.13.0, hosting 1.0.0b260910, `mcp` 1.30.0). Calls used Microsoft Entra ID with the lab subscription
+pinned; the Azure CLI default subscription was not changed. Nothing here was recorded.
+
+| Core B step | English | Korean |
+|---|---|---|
+| Lab 00 `doctor --cloud` | `gpt-6-sol` `2026-09-22`, `Succeeded` | Same |
+| Lab 02 `model` / `answer` | `response_model: gpt-6-sol`; KRW 150,000 citing `TRAVEL-2026`, `APPROVAL-01` | Same model; KRW 150,000 citing `TRAVEL-2026`, `RECEIPT-01`, `APPROVAL-01` |
+| Lab 03 B managed agent | `mfv2-rr-20260924-en-policy-sdk` version 1; invoke `resp_0e84a5df…` (1,124 / 101 tokens), `TRAVEL-2026` | `mfv2-rr-20260924-ko-policy-sdk` version 1; invoke `resp_0883c0c2…` (1,290 / 157 tokens), `TRAVEL-2026` |
+| Lab 04 function / MCP | `needs_approval` (`TRAVEL-2026`, `APPROVAL-01`, `RECEIPT-01`) / KRW 120,000 (`TRAVEL-2025`) | Same decisions and citations |
+| Lab 05 workflows | Sequential 1, concurrent 4, Group Chat 4 outputs; all `pending-human-review` | Same |
+| Lab 06 retrieval | Local and Search: six sources; GA IQ: four; IQ answer `needs_approval` (`TRAVEL-2026`, `APPROVAL-01`) | Same |
+| Lab 07 | baseline 6/6, candidate 6/6, holdout 4/4, 0 errors; `ready-for-human-review`, `deployment_approved: false` | Same |
+| Lab 08–09 | Package `cloud_deployed: false`; `cleanup-plan` lists the three owned Search objects | Same |
+
+Median latencies: English 2.51 / 2.67 / 3.53 s, Korean 2.46 / 3.17 / 2.56 s (baseline / candidate / holdout). Both baselines had no failed case,
+so `feedback` was not run. Lab 07 runs: English `9a8d3d81…`, `9e187bee…`, `8953197f…`; Korean `bf510464…`, `4924c781…`, `ded07977…`.
+
+**Traces (Lab 09 B):** a read-only Application Insights query by response ID found `invoke_agent <agent>:1` and `chat gpt-6-sol-2026-09-22`
+spans for every managed agent call, with token counts equal to the saved `usage`, within about three minutes. The direct Responses calls
+(`model`, `answer`, `maf`, `workflow`, `collect`) left no server-side spans.
+
+| Optional or C item | Result |
+|---|---|
+| Lab 04 `maf-evaluate` (English) | `complete: true`, 0 errors, tool_call_accuracy 6/6, relevance 6/6; Pydantic serializer warnings printed but did not affect the run |
+| Lab 07 `cloud-evaluate` candidate (English) | groundedness 6/6, relevance 5/6 (D05 score 2, the correct abstention) |
+| A2A 1.0 (English) | Typed target and caller; card offered 1.0 JSONRPC plus 0.3; one delegated call (`a2a_preview_call`) completed; caller usage 676 / 228 tokens |
+| Insights (English, SDK) | 22 traces analyzed, 4 insights, 227,246 judge tokens; the monitor was deleted afterwards |
+| Lab 08 section 6 workflow server (English, local) | `healthy`; one Responses request completed with three model calls and `pending-human-review` (sent with curl, not `azd ai agent invoke --local`) |
+| Recipes 02–06 and 08 (English) | All completed after the two fixes below |
+
+**Found and fixed during this check:**
+
+1. The recipes built `AzureCliCredential()` without a subscription. With several Azure CLI accounts it used another tenant's default account and the call failed with 403; the recipes now pin `AZURE_SUBSCRIPTION_ID`.
+2. Recipes 05 and 08 sent no policy evidence, so the model answered that no policy was available; they now carry the synthetic policies as data.
+3. `maf-evaluate` with `openai` 3.x prints Pydantic serializer warnings; the guide now says to judge `complete` and `errors`.
+4. An Application Insights query through a tool bound to the default account failed with `InvalidTokenError`; the guide now asks for a lab-tenant token.
+
+**Not run:** a remote Hosted deployment for the browser Lab 05 option (needs separate approval); a cross-provider comparison
+(the project has no non-OpenAI deployment); Toolbox, Tool Search and Skills (no keyless Search connection in this project);
+Memory, Routines, conversation evaluation, Agent Optimizer and red teaming (code unchanged, not re-run); the portal steps of route A.
+
+**Owned objects created:** agents `mfv2-rr-20260924-en-policy-sdk`, `-ko-policy-sdk`, `-en-recipe-sdk`, `-en-a2a-target-en`, `-en-a2a-caller-en`
+(version 1 each); connection `mfv2-rr-20260924-en-a2a-link-en`; Search index, knowledge source and knowledge base for each prefix;
+the Foundry evaluations created by `maf-evaluate` and `cloud-evaluate`. Nothing was deleted except the Insights monitor.
+The owner cleans up with [Cleanup](reference/cleanup.md).
+
 ## Not run with gpt-6-sol
 
 - Lab 03 portal File Search
 - Lab 06 IQ Chat preset (gpt-5.6-luna) and hybrid RAG
 - Lab 07 feedback/regression step (the baseline had no failure; the no-evidence diagnostic ran instead)
 - Lab 07 Hosted model matrix
-- Lab 08 local server and the learner's own Hosted deployment (the approved CI release deployed a separate Hosted agent)
+- The learner's own Hosted deployment (the approved CI release deployed a separate Hosted agent; the local workflow server answered once in the review refresh check)
 - Lab 09 server-side tracing checks for a Hosted agent
 - Lab 10 external IQ extensions
-- Extension modules other than conversation evaluation, Agent Optimizer, the red-team step of agent safety and release operations
+- Extension modules other than conversation evaluation, Agent Optimizer, the red-team step of agent safety, release operations, and the A2A and Insights checks of the review refresh
 
 Earlier `gpt-5.6-luna` recordings and result pages (September 15–17, 2026) were removed from the working tree; they remain only in git history and are not results for this preset.
 

@@ -35,7 +35,7 @@ It makes real, billable Azure model calls within the owner's budget. Never share
 
 ### 1. Choose the prepared execution option
 
-**Browser option, only if preselected by the owner — Not run in this edition yet (added 2026-09-24).** Open the prepared Hosted workflow agent in **Build → Agents → Playground**, send the same question once, and record the conversation ID / response ID in `workflow-review.txt`. This is not a fallback after a terminal failure; it is a pre-chosen hosted option.
+**Browser option, only if preselected by the owner — remote Playground use not verified in this edition.** Open the prepared Hosted workflow agent in **Build → Agents → Playground**, send the same question once, and record the conversation ID / response ID in `workflow-review.txt`. This is not a fallback after a terminal failure; it is a pre-chosen hosted option. The owner must deploy it with the **Responses** protocol (the Lab 08 section 6 default); an Invocations-protocol evaluation agent is not this option. On 2026-09-24 the same workflow agent answered one local Responses request with the refreshed SDK (three model calls, `pending-human-review`); no remote deployment was made for that check.
 
 **Terminal option (default recording path):** run the prepared MAF command below and record `Execution option (prepared terminal / prepared hosted workflow agent in Playground):` in `workflow-review.txt`.
 
@@ -197,12 +197,14 @@ Continue to [Lab 06 B](06-knowledge.md#path-b); durable approval and deployable 
 See [`examples/recipes/05_maf_sequential.py`](../../examples/recipes/05_maf_sequential.py) for the standalone pattern. Key lines:
 
 ```python
-Agent(...)
-Agent(...)
-SequentialBuilder(participants=[...]).build()
-await workflow.run(task)
-result.get_outputs()
+async def run(analyst, writer, question, policies):
+    workflow = SequentialBuilder(participants=[analyst, writer]).build()
+    task = json.dumps({"question": question, "synthetic_evidence": policies}, ensure_ascii=False)
+    result = await workflow.run(task)
+    return result.get_outputs()
 ```
+
+The recipe sends the synthetic policies with the task as `synthetic_evidence` (data, not instructions); without evidence the 2026-09-24 test run only asked for the policy.
 
 **Write it yourself:** add a one-sentence reviewer role and compare whether the final output changes while the input question stays fixed.
 

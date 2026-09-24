@@ -107,16 +107,67 @@ judge 점수는 업무 판단이 아닙니다. 행마다 이유를 읽습니다.
 
 발견 사항, 담당자 조치와 Azure 변경은 [검증 기록](reference/validation.md#previously-not-run-items)에 있습니다.
 
+<a id="review-refresh-live-verification"></a>
+
+## 검토 반영 실제 검증 — 2026년 9월 24일(저녁, 녹화 없음)
+
+위와 같은 프로젝트와 배포를 사용했습니다. commit `a9c3990`의 새 복사본 두 개에서 prefix `mfv2-rr-20260924-en`·`mfv2-rr-20260924-ko`와
+갱신한 고정 버전(`azure-ai-projects` 2.6.1, `openai` 3.16.1, MAF core 1.18.0, `agent-framework-foundry` 1.13.0,
+hosting 1.0.0b260910, `mcp` 1.30.0)을 사용했습니다. 모든 호출은 실습 구독을 고정한 Microsoft Entra ID로 했고,
+Azure CLI 기본 구독은 바꾸지 않았습니다. 이 검증은 녹화하지 않았습니다.
+
+| B 핵심 단계 | 영문 | 국문 |
+|---|---|---|
+| Lab 00 `doctor --cloud` | `gpt-6-sol` `2026-09-22`, `Succeeded` | 같음 |
+| Lab 02 `model` / `answer` | `response_model: gpt-6-sol`, 150,000원(`TRAVEL-2026`, `APPROVAL-01` 인용) | 같은 모델, 150,000원(`TRAVEL-2026`, `RECEIPT-01`, `APPROVAL-01` 인용) |
+| Lab 03 B 관리형 agent | `mfv2-rr-20260924-en-policy-sdk` 버전 1, 호출 `resp_0e84a5df…`(1,124 / 101 token), `TRAVEL-2026` | `mfv2-rr-20260924-ko-policy-sdk` 버전 1, 호출 `resp_0883c0c2…`(1,290 / 157 token), `TRAVEL-2026` |
+| Lab 04 함수 / MCP | `needs_approval`(`TRAVEL-2026`, `APPROVAL-01`, `RECEIPT-01`) / 120,000원(`TRAVEL-2025`) | 같은 판단과 인용 |
+| Lab 05 workflow | 순차 1개, 병렬 4개, Group Chat 4개 출력, 모두 `pending-human-review` | 같음 |
+| Lab 06 검색 | 로컬·Search는 원문 6개, GA IQ는 4개. IQ 답변 `needs_approval`(`TRAVEL-2026`, `APPROVAL-01`) | 같음 |
+| Lab 07 | baseline 6/6, candidate 6/6, holdout 4/4, 오류 0, `ready-for-human-review`, `deployment_approved: false` | 같음 |
+| Lab 08–09 | 패키지 `cloud_deployed: false`, `cleanup-plan`에 소유 Search 객체 3개 | 같음 |
+
+지연 시간 중앙값: 영문 2.51 / 2.67 / 3.53초, 국문 2.46 / 3.17 / 2.56초(baseline / candidate / holdout). 두 baseline 모두 실패 사례가 없어
+`feedback`은 실행하지 않았습니다. Lab 07 실행: 영문 `9a8d3d81…`, `9e187bee…`, `8953197f…`, 국문 `bf510464…`, `4924c781…`, `ded07977…`.
+
+**추적(Lab 09 B):** response ID로 읽기 전용 Application Insights 조회를 실행해 모든 관리형 agent 호출에서 `invoke_agent <agent>:1`과
+`chat gpt-6-sol-2026-09-22` span을 찾았습니다. token 수는 저장된 `usage`와 같았고 약 3분 안에 나타났습니다.
+Responses API를 직접 호출한 명령(`model`, `answer`, `maf`, `workflow`, `collect`)은 서버 측 span을 남기지 않았습니다.
+
+| 선택·C 항목 | 결과 |
+|---|---|
+| Lab 04 `maf-evaluate`(영문) | `complete: true`, 오류 0, tool_call_accuracy 6/6, relevance 6/6. Pydantic serializer 경고가 출력됐지만 결과에는 영향 없음 |
+| Lab 07 `cloud-evaluate` candidate(영문) | groundedness 6/6, relevance 5/6(D05 점수 2, 올바른 보류) |
+| A2A 1.0(영문) | 형식이 있는 SDK 요청으로 target·caller 생성, card는 1.0 JSONRPC와 0.3을 함께 제공, 위임 호출 1회(`a2a_preview_call`) 완료, caller 사용량 676 / 228 token |
+| Insights(영문, SDK) | trace 22개 분석, insight 4개, judge token 227,246개. 이후 monitor 삭제 |
+| Lab 08 6절 workflow 서버(영문, 로컬) | `healthy`, Responses 요청 1회가 모델 호출 3회와 `pending-human-review`로 완료(`azd ai agent invoke --local`이 아니라 curl로 전송) |
+| 예제 02–06·08(영문) | 아래 두 가지를 고친 뒤 모두 완료 |
+
+**이 확인에서 찾고 고친 것:**
+
+1. 예제가 구독 없이 `AzureCliCredential()`을 만들었습니다. Azure CLI 계정이 여러 개일 때 다른 tenant의 기본 계정을 사용해 호출이 403으로 실패했으므로 이제 `AZURE_SUBSCRIPTION_ID`를 고정합니다.
+2. 예제 05와 08은 정책 근거를 보내지 않아 모델이 사용할 정책이 없다고 답했습니다. 이제 합성 정책을 데이터로 함께 보냅니다.
+3. `openai` 3.x에서 `maf-evaluate`는 Pydantic serializer 경고를 출력합니다. 가이드는 `complete`와 `errors`로 판단하도록 안내합니다.
+4. 기본 계정에 묶인 도구로 Application Insights를 조회하면 `InvalidTokenError`가 났습니다. 가이드는 실습 tenant용 token을 쓰도록 안내합니다.
+
+**미실행:** A Lab 05 브라우저 선택지를 위한 원격 Hosted 배포(별도 승인 필요), 타사 모델 비교(프로젝트에 OpenAI 외 배포 없음),
+Toolbox·Tool Search·Skills(이 프로젝트에 keyless Search 연결 없음), Memory·Routines·대화 평가·Agent Optimizer·red teaming(코드 변경 없음, 재실행 안 함),
+A 경로의 포털 단계.
+
+**생성한 소유 객체:** agent `mfv2-rr-20260924-en-policy-sdk`, `-ko-policy-sdk`, `-en-recipe-sdk`, `-en-a2a-target-en`, `-en-a2a-caller-en`(각 버전 1),
+연결 `mfv2-rr-20260924-en-a2a-link-en`, prefix별 Search index·knowledge source·knowledge base, `maf-evaluate`와 `cloud-evaluate`가 만든 Foundry 평가.
+Insights monitor 외에는 삭제하지 않았습니다. 정리는 담당자가 [정리](reference/cleanup.md)에 따라 진행합니다.
+
 ## gpt-6-sol로 실행하지 않은 것
 
 - Lab 03 포털 File Search
 - Lab 06 IQ Chat preset(gpt-5.6-luna)과 하이브리드 RAG
 - Lab 07 feedback/regression 단계(baseline 실패 없음, 대신 근거 없음 진단 실행)
 - Lab 07 Hosted 모델 matrix
-- Lab 08 로컬 서버와 학습자 본인의 Hosted 배포(위의 승인된 CI 릴리스는 별도 Hosted agent를 배포)
+- 학습자 본인의 Hosted 배포(위의 승인된 CI 릴리스는 별도 Hosted agent를 배포했고, 검토 반영 확인에서 로컬 workflow 서버가 한 번 답변)
 - Lab 09 Hosted agent의 서버 측 tracing 확인
 - Lab 10 외부 IQ 확장
-- 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영을 제외한 확장 모듈
+- 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영, 검토 반영의 A2A와 Insights 확인을 제외한 확장 모듈
 
 이전 `gpt-5.6-luna` 녹화와 결과 페이지(2026-09-15~17)는 작업 트리에서 삭제했습니다. git 기록에만 남아 있으며 이 preset의 결과가 아닙니다.
 

@@ -38,11 +38,14 @@ def retrieve(http: httpx.Client, endpoint: str, kb: str, source: str, token: str
 
 def main() -> None:
     load_dotenv()
+    # Pin the lab subscription so a multi-account Azure CLI does not pick another tenant.
+    subscription = os.environ.get("AZURE_SUBSCRIPTION_ID") or None
     prefix = os.environ.get("WORKSHOP_PREFIX", "").strip()
     kb = os.environ.get("AZURE_SEARCH_KNOWLEDGE_BASE_NAME") or f"{prefix}-kb"
     source = os.environ.get("AZURE_SEARCH_KNOWLEDGE_SOURCE_NAME") or f"{prefix}-source"
     question = " ".join(sys.argv[1:]) or "Domestic lodging limit for September 2026"
-    token = AzureCliCredential().get_token("https://search.azure.com/.default").token
+    credential = AzureCliCredential(subscription=subscription)
+    token = credential.get_token("https://search.azure.com/.default").token
     with httpx.Client(timeout=90) as http:
         result = retrieve(http, os.environ["AZURE_SEARCH_ENDPOINT"], kb, source, token, question)
     print(json.dumps(result, ensure_ascii=False, indent=2))

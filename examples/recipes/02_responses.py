@@ -28,10 +28,13 @@ def ask(client, deployment: str, question: str) -> dict:
 
 def main() -> None:
     load_dotenv()  # Existing environment variables win over .env values.
+    # Pin the lab subscription so a multi-account Azure CLI does not pick another tenant.
+    subscription = os.environ.get("AZURE_SUBSCRIPTION_ID") or None
     question = " ".join(sys.argv[1:]) or "Explain Microsoft Foundry in two sentences."
     with (
         AIProjectClient(
-            endpoint=os.environ["AZURE_AI_PROJECT_ENDPOINT"], credential=AzureCliCredential()
+            endpoint=os.environ["AZURE_AI_PROJECT_ENDPOINT"],
+            credential=AzureCliCredential(subscription=subscription),
         ) as project,
         project.get_openai_client() as client,
     ):

@@ -137,9 +137,17 @@ python scripts/workshop.py maf --mcp \
 독립 예제는 [`examples/recipes/04_maf_tool.py`](../../../examples/recipes/04_maf_tool.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
 
 ```python
-@tool(approval_mode="never_require") def lookup_policy(query: str) -> str
-Agent(client=FoundryChatClient(project_endpoint=..., model=deployment, credential=credential), instructions=..., tools=[lookup_policy])
-await agent.run(question)
+@tool(approval_mode="never_require")
+def lookup_policy(query: str) -> str:
+    """Search the synthetic travel policies. Read-only; empty means no evidence."""
+    ...
+
+
+agent = Agent(
+    client=FoundryChatClient(project_endpoint=endpoint, model=deployment, credential=credential),
+    instructions="Call lookup_policy first and cite policy IDs. Never approve, book or pay.",
+    tools=[lookup_policy],
+)
 ```
 
 **직접 작성:** 읽기 전용 합성 조회 필드를 하나 더 추가하고 답변 전에 도구 출력이 정책 ID를 계속 인용하는지 확인합니다.
@@ -201,6 +209,8 @@ python scripts/workshop.py maf-evaluate --confirm-cost --output outputs/learner-
 `ExperimentalWarning`을 한 번 출력하는 것은 정상입니다. 2026-09-24 국문 녹화는 tool_call_accuracy 5/6, relevance 5/6이었습니다.
 tool_call_accuracy는 D03 검색어에 대화에 없던 문서 ID `APPROVAL-01`을 넣은 것을 지어낸 인자로 보았고, relevance 실패는 D05의 올바른 보류였습니다. 이 점수는 도구 사용을 판단할 뿐 업무 정답 여부가 아니므로 Lab 07의 업무 검사와 구분합니다.
 MAF 평가 API는 실험 기능이었고 일부 에이전트 평가자는 2026-09-23에 Preview로 표시되었습니다.
+갱신한 SDK 고정 버전(`openai` 3.x)에서는 같은 명령이 `azure_ai_evaluator`에 대한 Pydantic serializer 경고도 출력합니다.
+2026-09-24 재확인은 여전히 `complete: true`, `errors: 0`, tool_call_accuracy 6/6, relevance 6/6을 반환했습니다. 경고가 아니라 이 필드로 판단합니다.
 
 </details>
 

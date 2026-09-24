@@ -5,7 +5,8 @@
 **Current preset:** `gpt-6-sol` / `2026-09-22` with a separate `gpt-6-sol-judge` (since September 23, 2026).
 The code-version marker is `2026.9.24`.
 The refreshed dependency set below was installed and offline-verified on 2026-09-24
-with import-contract checks and mocked SDK tests. It was **not live-verified** against Azure.
+with import-contract checks and mocked SDK tests, then live-verified the same evening: the core B route in English and Korean,
+`maf-evaluate`, `cloud-evaluate`, A2A, one Insights scan and the recipes ([results](../live-run.md#review-refresh-live-verification)).
 **A compatibility check date is not a release date or a future support guarantee.**
 This edition does not predict Ignite announcements or universal tenant/region availability.
 

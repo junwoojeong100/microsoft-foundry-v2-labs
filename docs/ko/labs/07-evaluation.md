@@ -433,6 +433,7 @@ python scripts/workshop.py cloud-evaluate --label candidate --timeout 300 --conf
 
 **화면 확인:** 실제 native 통과 수와 사례별 이유를 읽습니다.
 2026-09-24 candidate는 groundedness 6/6, relevance 5/6이었고 relevance 실패는 D05의 올바른 보류였습니다.
+같은 날 저녁 갱신한 SDK 고정 버전으로 다시 확인해도 같은 패턴(groundedness 6/6, relevance 5/6, D05 relevance 2)이 나왔습니다.
 기본 relevance가 올바른 보류를 낮게 평가한 이유를 검토하되 점수는 바꾸지 않습니다.
 
 `data/evaluation/calibration.jsonl`에는 명시적으로 맞는 답/틀린 답 두 개가 있습니다.
