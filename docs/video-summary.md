@@ -45,6 +45,6 @@ Authentication, password and MFA entry are not recorded. A recorded exit code is
 | Lab 03 B portal check · Lab 09 B trace search by `response_id` | 01:13 | [en-portal.mp4](assets/review-refresh-20260925/en-portal.mp4) |
 
 Both run at 1×; the terminal clip trims only idle time before and after the actions, and the portal clip is uncut. The six lossless screenshots sit in [Lab 03 B](labs/03-prompt-agent.md#path-b) and [Lab 09 B](labs/09-operations.md#path-b).
-[captures.json](assets/review-refresh-20260925/captures.json) records hashes, IDs and checks. One earlier English attempt was discarded because its terminal showed a local home-directory path; nothing from it is published and its agent is on the cleanup list.
+[captures.json](assets/review-refresh-20260925/captures.json) records hashes, IDs and checks. One earlier English attempt was discarded because its terminal showed a local home-directory path; nothing from it is published and its agent was deleted on September 25.
 
 **Videos** · [Actions and captures](action-captures.md) · [Chapters](video-chapters.md) · [Actual results](live-run.md) · [Model choice](reference/model-choice.md)

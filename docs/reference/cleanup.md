@@ -69,10 +69,10 @@ Never treat an unverified stop request as a confirmed stopped state.
 
 | Asset | Check and cleanup |
 |---|---|
-| Prompt/Hosted agent and version | Confirm the exact project, name, version and owner, including the Lab 03 B SDK managed agent now core in B; the owner deletes it |
+| Prompt/Hosted agent and version | Confirm the exact project, name, version and owner, including the Lab 03 B SDK managed agent now core in B; the owner deletes it. In the 2026-09-25 check, deleting a prompt agent also removed its Entra agent identity and blueprint |
 | Search knowledge base/source/index | Dependency order base → source → index; only your names in the ledger |
 | Uploaded files/vector stores | Separate your File Search material from shared material |
-| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, `eval-data-...` datasets created by `cloud-evaluate`, and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
+| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, the `eval-data-<UTC time>` dataset the service creates with each evaluation run (`cloud-evaluate`, `maf-evaluate`, `conversations evaluate`; its time is within seconds of the evaluation's creation; other people's runs create the same kind), and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
 | Model deployments | Check whether it is team-only or shared; keep shared models |
 | Search service | Deleting an index does not remove the service's fixed cost |
 | Application Insights/Log Analytics | Check required evidence and sharing. Retention and cost are owner-managed, including the Lab 09 trace requirement |
@@ -104,7 +104,7 @@ Do not use `azd down`, subscription changes, or resource-group deletion as a sho
 
 - [ ] Only the local servers you ran are stopped; unused ones are recorded as **not run**.
 - [ ] Each Hosted session you used has a recorded final state or a pending authorized owner.
-- [ ] Your agents, files and Search objects have a verified outcome.
+- [ ] Your agents, files and Search objects have a verified outcome: read each deleted object back, because a delete response alone is not proof.
 - [ ] Shared resources and other people's data are kept.
 - [ ] The owner has confirmed residual costs for services, models, logs, storage and capacity.
 - [ ] Results to keep are separated from sensitive data to remove.

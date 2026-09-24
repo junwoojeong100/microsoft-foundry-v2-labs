@@ -45,6 +45,6 @@ Lab 10, 선택 IQ Chat preset(`gpt-5.6-luna`; Search가 GPT-6 모델을 받지 �
 | Lab 03 B 포털 확인 · Lab 09 B `response_id` 추적 검색 | 01:07 | [ko-portal.mp4](../assets/review-refresh-20260925/ko-portal.mp4) |
 
 두 영상 모두 1배속입니다. 터미널 영상은 동작 앞뒤의 대기 시간만 잘랐고 포털 영상은 자르지 않았습니다. 무손실 화면 6장은 [Lab 03 B](labs/03-prompt-agent.md#path-b)와 [Lab 09 B](labs/09-operations.md#path-b)에 있습니다.
-[captures.json](../assets/review-refresh-20260925/captures.json)에 hash, ID, 확인 결과를 기록했습니다. 영문 첫 시도 하나는 터미널에 로컬 홈 디렉터리 경로가 보여 폐기했고, 그 시도의 결과물은 공개하지 않았으며 해당 agent는 정리 목록에 넣었습니다.
+[captures.json](../assets/review-refresh-20260925/captures.json)에 hash, ID, 확인 결과를 기록했습니다. 영문 첫 시도 하나는 터미널에 로컬 홈 디렉터리 경로가 보여 폐기했고, 그 시도의 결과물은 공개하지 않았으며 해당 agent는 2026-09-25에 삭제했습니다.
 
 **영상** · [액션과 화면](action-captures.md) · [챕터](video-chapters.md) · [실제 결과](live-run.md) · [모델 선택](reference/model-choice.md)

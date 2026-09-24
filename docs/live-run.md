@@ -170,8 +170,8 @@ Memory, Routines, conversation evaluation, Agent Optimizer and red teaming (code
 
 **Owned objects created:** agents `mfv2-rr-20260924-en-policy-sdk`, `-ko-policy-sdk`, `-en-recipe-sdk`, `-en-a2a-target-en`, `-en-a2a-caller-en`
 (version 1 each); connection `mfv2-rr-20260924-en-a2a-link-en`; Search index, knowledge source and knowledge base for each prefix;
-the Foundry evaluations created by `maf-evaluate` and `cloud-evaluate`. Nothing was deleted except the Insights monitor.
-The owner cleans up with [Cleanup](reference/cleanup.md).
+the Foundry evaluations created by `maf-evaluate` and `cloud-evaluate`. Nothing was deleted that evening except the Insights monitor;
+the rest was deleted on September 25 ([cleanup record](#cleanup-20260925)).
 
 <a id="review-refresh-supplement"></a>
 
@@ -212,7 +212,26 @@ English only, prefix `mfv2-nr-20260925-en`, same project, lab subscription pinne
 
 **Owned objects created on September 25:** agents `mfv2-cap-20260925-en-policy-sdk`, `mfv2-sup-20260925-en-policy-sdk`, `mfv2-sup-20260925-ko-policy-sdk`
 and `mfv2-nr-20260925-en-policy-sdk` (version 1 each); Search index `mfv2-nr-20260925-en-policies`; the two conversation evaluations.
-The memory store, Toolbox and routine were deleted by their own module commands. The owner cleans up the rest with [Cleanup](reference/cleanup.md).
+The memory store, Toolbox and routine were deleted by their own module commands; the rest was deleted the same day.
+
+<a id="cleanup-20260925"></a>
+
+### Cleanup — September 25, 2026
+
+The owned objects of the September 24 and 25 checks were deleted after their definitions and evaluation results were exported to the private record.
+Each was read back afterwards and returned 404.
+
+| Object | Deleted |
+|---|---|
+| Agents (version 1 each) | `mfv2-rr-20260924-en-a2a-caller-en`, `mfv2-rr-20260924-en-a2a-target-en`, `mfv2-rr-20260924-en-policy-sdk`, `mfv2-rr-20260924-ko-policy-sdk`, `mfv2-rr-20260924-en-recipe-sdk`, `mfv2-cap-20260925-en-policy-sdk`, `mfv2-sup-20260925-en-policy-sdk`, `mfv2-sup-20260925-ko-policy-sdk`, `mfv2-nr-20260925-en-policy-sdk` |
+| Connection | `mfv2-rr-20260924-en-a2a-link-en`, after its caller agent and before its target |
+| Evaluations | `mfv2-rr-20260924-en-maf-tools`, `mfv2-rr-20260924-en-candidate`, `mfv2-nr-20260925-en-conversations-first-turn`, `mfv2-nr-20260925-en-conversations-first-conversation` |
+| Datasets | The four `eval-data-2026-09-24_…_UTC` datasets the service created with those evaluation runs, matched by time and row content |
+| Search | Knowledge base → knowledge source → index for `mfv2-rr-20260924-en` and `mfv2-rr-20260924-ko`; index `mfv2-nr-20260925-en-policies` |
+
+The Entra agent identity and blueprint of each deleted agent also returned 404, while those of a retained agent still returned 200.
+The evaluation delete call returned no `deleted: true` field; only the read-back confirmed each deletion.
+Kept: the September 23–24 recording agents, evaluations and datasets, and the shared connections, deployments, Search service and Application Insights.
 
 ## Not run with gpt-6-sol
 

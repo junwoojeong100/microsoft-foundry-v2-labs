@@ -156,7 +156,7 @@ A 경로의 포털 단계.
 
 **생성한 소유 객체:** agent `mfv2-rr-20260924-en-policy-sdk`, `-ko-policy-sdk`, `-en-recipe-sdk`, `-en-a2a-target-en`, `-en-a2a-caller-en`(각 버전 1),
 연결 `mfv2-rr-20260924-en-a2a-link-en`, prefix별 Search index·knowledge source·knowledge base, `maf-evaluate`와 `cloud-evaluate`가 만든 Foundry 평가.
-Insights monitor 외에는 삭제하지 않았습니다. 정리는 담당자가 [정리](reference/cleanup.md)에 따라 진행합니다.
+그날 저녁에는 Insights monitor 외에는 삭제하지 않았고, 나머지는 2026-09-25에 삭제했습니다([정리 기록](#cleanup-20260925)).
 
 <a id="review-refresh-supplement"></a>
 
@@ -197,7 +197,26 @@ Insights monitor 외에는 삭제하지 않았습니다. 정리는 담당자가 
 
 **2026-09-25에 만든 소유 객체:** agent `mfv2-cap-20260925-en-policy-sdk`, `mfv2-sup-20260925-en-policy-sdk`, `mfv2-sup-20260925-ko-policy-sdk`,
 `mfv2-nr-20260925-en-policy-sdk`(각 버전 1), Search index `mfv2-nr-20260925-en-policies`, 대화 평가 2개.
-Memory store, Toolbox, routine은 각 모듈 명령으로 삭제했습니다. 나머지는 담당자가 [정리](reference/cleanup.md)에 따라 정리합니다.
+Memory store, Toolbox, routine은 각 모듈 명령으로 삭제했고, 나머지도 같은 날 삭제했습니다.
+
+<a id="cleanup-20260925"></a>
+
+### 정리 — 2026년 9월 25일
+
+2026-09-24·25 확인에서 만든 소유 객체를, 정의와 평가 결과를 비공개 기록에 내보낸 뒤 삭제했습니다.
+삭제 후 각 객체를 다시 조회해 모두 404임을 확인했습니다.
+
+| 객체 | 삭제한 것 |
+|---|---|
+| Agent(각 버전 1) | `mfv2-rr-20260924-en-a2a-caller-en`, `mfv2-rr-20260924-en-a2a-target-en`, `mfv2-rr-20260924-en-policy-sdk`, `mfv2-rr-20260924-ko-policy-sdk`, `mfv2-rr-20260924-en-recipe-sdk`, `mfv2-cap-20260925-en-policy-sdk`, `mfv2-sup-20260925-en-policy-sdk`, `mfv2-sup-20260925-ko-policy-sdk`, `mfv2-nr-20260925-en-policy-sdk` |
+| 연결 | `mfv2-rr-20260924-en-a2a-link-en`. 호출 agent 다음, 대상 agent 전에 삭제 |
+| 평가 | `mfv2-rr-20260924-en-maf-tools`, `mfv2-rr-20260924-en-candidate`, `mfv2-nr-20260925-en-conversations-first-turn`, `mfv2-nr-20260925-en-conversations-first-conversation` |
+| 데이터 세트 | 위 평가 실행과 함께 서비스가 만든 `eval-data-2026-09-24_…_UTC` 데이터 세트 4개. 시각과 행 내용으로 대응을 확인 |
+| Search | `mfv2-rr-20260924-en`·`mfv2-rr-20260924-ko`의 knowledge base → knowledge source → index, index `mfv2-nr-20260925-en-policies` |
+
+삭제한 각 agent의 Entra agent ID와 청사진도 404였고, 남겨 둔 agent의 것은 계속 200이었습니다.
+평가 삭제 호출의 응답에는 `deleted: true` 필드가 없었으므로 다시 조회해서만 삭제를 확인했습니다.
+남긴 것: 2026-09-23·24 녹화의 agent·평가·데이터 세트, 공유 연결·배포·Search 서비스·Application Insights.
 
 ## gpt-6-sol로 실행하지 않은 것
 

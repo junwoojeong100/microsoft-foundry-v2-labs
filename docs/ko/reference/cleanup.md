@@ -69,10 +69,10 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 
 | 자산 | 확인과 정리 |
 |---|---|
-| Prompt/Hosted agent·version | B의 핵심이 된 Lab 03 B SDK 관리형 agent를 포함해 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제 |
+| Prompt/Hosted agent·version | B의 핵심이 된 Lab 03 B SDK 관리형 agent를 포함해 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제. 2026-09-25 확인에서 prompt agent를 삭제하면 그 Entra agent ID와 청사진도 함께 삭제됨 |
 | Search knowledge base/source/index | 의존 순서 base → source → index; ledger의 본인 이름만 |
 | 업로드 파일/벡터 저장소 | 내 File Search 자료와 공유 자료를 구분 |
-| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions` 데이터 세트, `<prefix>-...` 평가, `cloud-evaluate`가 만든 `eval-data-...` 데이터 세트, `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
+| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions` 데이터 세트, `<prefix>-...` 평가, 평가 실행마다 서비스가 만드는 `eval-data-<UTC 시각>` 데이터 세트(`cloud-evaluate`, `maf-evaluate`, `conversations evaluate`. 시각은 평가 생성 시각과 몇 초 차이이며, 다른 사람의 실행도 같은 이름 형식을 만듦), `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
 | 모델 배포 | 조별 전용인지 공유 배포인지 확인; 공유 모델 유지 |
 | Search 서비스 | index 삭제만으로 서비스의 고정 비용이 사라지지 않음 |
 | Application Insights/Log Analytics | 필요한 증거와 공유 여부 확인. Lab 09 trace 요구 사항을 포함해 보존 기간과 비용은 담당자가 관리 |
@@ -104,7 +104,7 @@ GA base를 유지한다면 공유 source/index도 유지합니다. chat base만 
 
 - [ ] 실행한 로컬 서버만 종료했고, 사용하지 않은 것은 **미실행**으로 기록했습니다.
 - [ ] 사용한 Hosted session마다 최종 상태 또는 승인된 담당자 대기 작업을 기록했습니다.
-- [ ] 내 agent·파일·Search 객체의 처리 결과를 확인했습니다.
+- [ ] 내 agent·파일·Search 객체의 처리 결과를 확인했습니다. 삭제 응답만으로는 증거가 되지 않으므로 삭제한 객체를 다시 조회합니다.
 - [ ] 공유 자원과 다른 사람의 데이터를 유지했습니다.
 - [ ] 서비스·모델·로그·저장소·capacity의 잔여 비용을 담당자가 확인했습니다.
 - [ ] 보존할 결과와 지울 민감 정보를 구분했습니다.
