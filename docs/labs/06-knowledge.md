@@ -28,7 +28,9 @@ Use the D01, D02 and D03 answers you saved for the exact agent/version recorded 
    If that version is unavailable, record the check incomplete; do not silently use the latest version.
 2. For each answer, note the policy IDs it cites.
 3. Open the matching files in the learner ZIP's `policies/` folder and compare the amount and the effective dates.
-4. Write **correct** or **incorrect** for each row in the Lab 06 section of `session-notes.txt`.
+4. In the Lab 06 section of `session-notes.txt`, write each answer's cited ID, the effective dates and **correct** or **incorrect**:
+   D01 on `Current-policy ID / effective dates / finding:`, D02 on `Historical-policy ID / effective dates / finding:`
+   and D03 on `Over-limit approval source / finding:`.
 
 | Answer | Correct source and amount | What to look for |
 |---|---|---|
@@ -40,7 +42,7 @@ Use the D01, D02 and D03 answers you saved for the exact agent/version recorded 
 A citation that looks right but points to the wrong period is still incorrect; record it.
 If the portal cannot open a cited source, compare the visible ID and text with the `policies/` file instead.
 
-**A done:** the Lab 06 section of `session-notes.txt` has the three checks and **IQ Chat: not selected**
+**A done:** the Lab 06 section of `session-notes.txt` has the three checks and `not selected` on `Optional IQ Chat outcome, or not selected:`
 (if IQ Chat was prepared for you, do [Optional IQ Chat](#iq-chat-model) first). Continue to [Lab 07 A](07-evaluation.md#path-a).
 
 

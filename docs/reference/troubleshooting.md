@@ -49,6 +49,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Prefix rejected | `mfv2-` is mandatory; lowercase letters/digits, single hyphens, no trailing hyphen and at most 32 characters total | [Configuration](configuration.md#workspace-scope) |
 | 401/403 or project missing | Check the intended tenant and caller; renew only expired authentication. For 403, the owner checks resource-scoped permissions, not repeated login | [Sign-in boundary](../labs/00-start.md#azure-sign-in) / [setup](../setup.md) |
 | Browser sign-in succeeds but the training project is unavailable | Match both the account and directory to the setup card before requesting more roles | [Portal tenant check](#portal-tenant) |
+| Learning alone, and a step says to ask the owner | You are the owner: fix the matching project, model, role or tracing step yourself; never switch to another model | [Self-study preparation](../setup-owner.md#self-study) |
 | `MAF request failed` / `Failed to invoke the Azure CLI` | Preserve the SDK cause; a CLI token-process timeout is not a business-check failure | [MAF request recovery](#maf-request-failure) |
 | Model 404 / 429 | Full project endpoint and deployment name / quota and concurrency; no replacement model | [02 B](../labs/02-models.md#path-b) |
 | HTTP 500 from `model`, `answer`, MAF or an agent right after a model release | The project agent path may not support that model yet (seen with `gpt-6-luna` on September 23, 2026). Stop and record it; no model or endpoint switch | [Model choice](model-choice.md) |

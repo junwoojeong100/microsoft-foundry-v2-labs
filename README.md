@@ -17,9 +17,9 @@ Use only the supplied synthetic data.
 | **[B — Implementation](docs/paths/b-practitioner.md)** | You are comfortable with Python and APIs | SDK calls, managed prompt agent, tools, workflows, Search/IQ, controlled evaluation, traces, local packaging | Saved run records and an acceptance report |
 
 **Planned teaching time after setup:** A 4 h 30 min; B 8 h (two 4-hour sessions), not measured learner completion times. **Files:** A uses the small learner ZIP; B uses the source repository, with no second ZIP.
-Both need a prepared Azure environment. **A's default Lab 05 option is the prepared terminal.**
-The browser alternative is optional and requires an owner-verified Hosted Responses workflow before class; this edition has not verified that remote option ([scope](docs/labs/05-workflows.md#path-a)).
-If neither option was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
+Both need a prepared Azure environment: in a class the owner prepares it; **learning alone, prepare it yourself with [the self-study steps](docs/setup-owner.md#self-study)**.
+**A's default Lab 05 option is a prepared terminal**; the optional browser alternative needs an owner-verified Hosted Responses workflow, not verified remotely in this edition ([scope](docs/labs/05-workflows.md#path-a)).
+If no Lab 05 option was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
 Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark cloud labs **not run**.
 
 After finishing a core route, you can choose optional [C. Advanced modules](docs/paths/c-advanced.md).

@@ -64,9 +64,12 @@ Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측�
 
 **터미널 방식만 진행합니다.** Playground 학습자는 이미 요청 한 번을 보냈으므로 이 단계를 건너뜁니다.
 
-1. 브라우저 IDE나 VS Code에서 준비된 터미널을 엽니다. 파일 목록에 `README.md`와 `scripts/`가 보이고,
-   프롬프트는 보통 `(.venv)`로 시작합니다. 그렇지 않으면 멈추고 담당자에게 요청합니다. 수업 중에 직접 설치하지 않습니다.
-   혼자 학습한다면 [Lab 00 B](00-start.md#b-코드--한-폴더-한-환경)와 Lab 02 B로 한 번 준비한 뒤 돌아옵니다.
+1. 브라우저 IDE나 VS Code에서 준비된 터미널을 엽니다. 파일 목록에 `README.md`와 `scripts/`가 보이는지 확인합니다.
+   프롬프트는 보통 `(.venv)`로 시작합니다.
+   - `(.venv)`가 없으면 그 소스 폴더에서 `source .venv/bin/activate`를 실행합니다. 실패하면 멈춥니다. 수업에서는 담당자에게 요청하고,
+     혼자 학습한다면 [Lab 00 B 3단계](00-start.md#3-가상환경과-sdk-설치)로 돌아갑니다.
+   - 준비된 터미널이 없으면 수업에서는 멈추고 담당자에게 요청합니다. 수업 중에 직접 설치하지 않습니다.
+     혼자 학습한다면 [Lab 00 B](00-start.md#b-코드--한-폴더-한-환경)와 Lab 02 B로 한 번 준비한 뒤 돌아옵니다.
 2. 아래 블록을 그대로 실행합니다. 필요하면 `outputs/`를 만들고, 결과를 출력하며 `outputs/workflow-a-sequential.json`에도 저장합니다.
 
 ```bash
@@ -113,6 +116,7 @@ flowchart LR
 1. 터미널의 `outputs/workflow-a-sequential.json` 또는 저장한 Playground 응답 전체를 엽니다.
    인용한 정책 ID를 학습자 ZIP의 `policies/`와 대조합니다. Playground 학습자는 터미널 출력 파일이 필요 없습니다.
 2. 정확한 명령 **또는 Playground 질문**, 출력 전체, 선택한 방식을 개인 `workflow-review.txt`에 보존합니다.
+   터미널 방식은 편집기에서 `outputs/workflow-a-sequential.json`을 열어 전체를 선택·복사한 뒤 `실제 JSON 출력 전체(A 전용):`에 붙여 넣습니다.
    Playground의 pattern은 `runtime_profile.pattern`에서 읽습니다. 이전 양식에 칸이 없으면 추가하고 작성한 기록을 교체하지 않습니다.
 3. 같은 파일에 맞는 부분·수정할 부분·이유를 적습니다. 안내문 검토이지 업무 승인이 아닙니다.
 

@@ -71,7 +71,7 @@ Do not connect company data or tools that modify external systems.
 1. Open **`instructions-with-policies.txt`** from the [learner ZIP](../setup.md#3-download-the-ready-learner-materials) in a text editor.
 2. Select all of its text and copy it.
 3. Paste it into **Instructions** on the left, not into the chat box on the right.
-4. Select **Save** at the top right and write the **Version** shown next to it in `session-notes.txt`.
+4. Select **Save** at the top right and write the **Version** shown next to it on the `Agent name / saved version / deployment:` line of `session-notes.txt`.
 
 The file already contains the instructions and all six synthetic policies; do not add other text.
 
@@ -170,8 +170,9 @@ These four images are recording examples. Record your own actual answers and fai
 
 </details>
 
-**Save:** in your saved agent's **Instructions**, select all text (Ctrl+A or Cmd+A), copy it and save it as
-`instructions-baseline.txt` in your personal evidence folder. Record that filename and version in `session-notes.txt`.
+**Save:** click inside your saved agent's **Instructions**, press Ctrl+A (Cmd+A on macOS) to select only that text and copy it.
+Paste it into a new plain-text file and save it as `instructions-baseline.txt` in your personal evidence folder (the extracted ZIP folder).
+On `Evidence method / instructions-baseline.txt path:` write `inline instructions` and that file's path; keep the version on the line above.
 The downloaded instruction file alone does not establish what was actually saved. Do not overwrite an earlier pass's snapshot.
 
 **A done:** keep `instructions-baseline.txt`, its agent version and four checks in your evidence folder.

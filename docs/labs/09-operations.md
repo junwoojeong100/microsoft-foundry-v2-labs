@@ -22,21 +22,26 @@
 
 ## A. Browser: what needs management?
 
-Complete these four checks using **your own existing results**, without sending another model request:
+Complete these four checks using **your own existing results**, without sending another model request.
+Write each result under the same number in the learner ZIP's blank `operations-checklist.txt`:
 
 1. In the left menu, select **Agents** and open your Lab 03 agent. On its **Details** tab, compare the name and the active version
    (`Latest (Version N)`) with the version you assessed in Lab 07.
 2. On its **Playground** tab, check **Model** (`gpt-6-sol`), **Instructions**, **Tools** and **Knowledge**. On the default A route, **Instructions** holds the six
    inline synthetic policies and **Knowledge** stays empty; if you separately selected File Search or IQ, note that connection instead.
    There must be no unapproved Web search or company connection.
-3. Open your agent's **Traces** tab. The environment owner should have connected Application Insights before class. Find one saved request from your own Lab 03 or Lab 07 work and open it: look for `invoke_agent <agent>:<version>` with a child `chat` span. An `execute_tool web.run` span means that request ran with the Web search tool (for example, a version before you removed it). If tracing or permissions are unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:`. Do not send a new message for this check.
-   The list opens on **Last Day**; choose **7D** for an older request. Checked 2026-09-25 with a September 24 browser agent: each opened trace showed `invoke_agent <agent>:2` with a child `chat` span.
-   Then open your six-row assessment and `workflow-review.txt`, and note where they are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
+3. Open your agent's **Traces** tab; the owner should have connected Application Insights before class ([self-study step 5](../setup-owner.md#self-study)).
+   The list opens on **Last Day**; choose **7D** for an older request. Open one saved request from your own Lab 03 or Lab 07 work
+   and look for `invoke_agent <agent>:<version>` with a child `chat` span. An `execute_tool web.run` span means that request ran with the
+   Web search tool (for example, a version before you removed it). Checked 2026-09-25 with a September 24 browser agent: each opened trace
+   showed `invoke_agent <agent>:2` with a child `chat` span.
+   Write what you found on `Actual trace evidence, or unverified when unavailable:`; if tracing or permissions are unavailable,
+   write `trace unverified: <reason>` there. Do not send a new message for this check.
+   Then note where your six-row assessment and `workflow-review.txt` are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
    `text-embedding-3-large`), optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
-
-Fill the learner ZIP's blank `operations-checklist.txt` with those four outcomes.
+   Learning alone, everything in your own resource group is yours: name that group as the cleanup target after Lab 11.
 
 **What to check:** items 1–4 of `operations-checklist.txt` name your agent and version, where your results are,
 the assets you own, the shared services marked **owner-managed**, and who pays for what remains.

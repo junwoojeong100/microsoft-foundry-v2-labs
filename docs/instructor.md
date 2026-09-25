@@ -72,7 +72,7 @@ Distribute **values only**, separately, in `.env.example` format. Never distribu
 - Actual project ARM ID, location code, unique agent name and an empty standalone directory if Hosted is selected.
 
 For Lab 05, also hand over the option you prepared: the repository location and an activated, participant-signed-in MAF terminal, or the prepared Hosted workflow agent's details.
-For self-study, [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) is the full setup route, not an assumed instructor action.
+For self-study, [the self-study preparation](setup-owner.md#self-study) replaces these handed-over values; [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) remains the full terminal setup route, not an assumed instructor action.
 
 ## 3. Prepare Search/IQ
 

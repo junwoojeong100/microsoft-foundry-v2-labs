@@ -11,7 +11,7 @@ This page does not ask learners to create resources.
 | Your situation | Do this |
 |---|---|
 | A training environment is ready | Follow sections **1 → 2 → 3 → 4** on this page |
-| You own an Azure subscription but have no environment | Complete [owner preparation](setup-owner.md), then follow sections 2–4 |
+| You are learning alone with your own Azure subscription | Complete [the self-study preparation](setup-owner.md#self-study); it walks you through sections 2–4 |
 | You have no Azure permission or quota yet | Run only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run** |
 
 **Choose one route for the whole pass:** **A** if you are new to Azure or agents (browser steps and one prepared
@@ -62,7 +62,7 @@ Empty templates are not completed evidence. Nothing in this ZIP installs a code 
 
 ## 3. Collect the environment values
 
-Get these values from your instructor or environment owner.
+Get these values from your instructor or environment owner; learning alone, read them from your own portal as the table's last column shows.
 Confirm the **sign-in account as well as the tenant**. Your usual work account and the workshop account can be different;
 browser sign-in and Azure CLI sign-in are also separate sessions. Never share credentials to make them match.
 **A:** fill `session-notes.txt` from the ZIP you just extracted.
@@ -72,7 +72,7 @@ You do not need to install anything just to collect the values. Never record pas
 | Value | Needed for | Where to get it |
 |---|---|---|
 | Azure tenant and subscription IDs | A and B | Azure portal → Subscriptions / directory |
-| Foundry account, project and resource group | A and B | Your training project's resource details |
+| Foundry account, project and resource group | A and B | Your training project's resource details; the account is also the `<account>` part of the project endpoint |
 | Full project endpoint | A and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
 | **Answer deployment** | A and B | **`gpt-6-sol`**, model version **`2026-09-22`** |
 | Prefix for your objects | A and B | Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters. Example: `mfv2-team01-en` |

@@ -7,6 +7,9 @@
 **A needs no terminal here.** Use your existing `operations-checklist.txt` and the ownership checks below.
 **B reuses Lab 09's inventory.** Expand a command section only for an asset you actually used.
 An owner-managed or pending authorized cleanup must name its owner and remaining cost; it is not a claim that deletion occurred.
+**Learning alone in your own resource group?** After Lab 11, keep your evidence folder, then delete the resource group from
+[self-study step 2](../setup-owner.md#self-study) if it holds only this course's resources. That removes the project, its deployments
+and any Application Insights at once. When it no longer appears under **Resource groups**, record that in `operations-checklist.txt`. Never delete a shared group this way.
 
 ## 1. Inventory before changing anything
 

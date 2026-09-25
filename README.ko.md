@@ -17,9 +17,9 @@
 | **[B — 구현](docs/ko/paths/b-practitioner.md)** | Python·API에 익숙한 분 | SDK 호출·관리형 prompt agent·도구·workflow·Search/IQ·통제된 평가·trace·로컬 패키징 | 저장된 실행 기록과 인수 보고서 |
 
 **준비 후 수업 계획 시간:** A 4시간 30분, B 8시간(4시간 세션 2회)이며 학습자 완료 시간의 실측값은 아닙니다. **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
-두 경로 모두 준비된 Azure 환경이 필요합니다. **A Lab 05의 기본 방식은 준비된 터미널입니다.**
-브라우저 대안은 선택이며 수업 전에 담당자가 Hosted Responses workflow를 검증해야 합니다. 이 판에서는 해당 원격 방식을 검증하지 않았습니다([범위](docs/ko/labs/05-workflows.md#path-a)).
-둘 다 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
+두 경로 모두 준비된 Azure 환경이 필요합니다. 수업에서는 담당자가 준비하고, **혼자 학습한다면 [혼자 학습 준비](docs/ko/setup-owner.md#self-study)로 직접 준비합니다**.
+**A Lab 05의 기본 방식은 준비된 터미널입니다.** 선택 브라우저 대안은 담당자가 검증한 Hosted Responses workflow가 필요하며, 이 판에서 원격 실행은 검증하지 않았습니다([범위](docs/ko/labs/05-workflows.md#path-a)).
+Lab 05 방식을 하나도 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
 Azure 권한이 없다면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 하고 cloud 실습은 **미실행**으로 기록합니다.
 
 기본 경로를 마친 뒤에는 선택 [C. 고급 모듈](docs/ko/paths/c-advanced.md)을 고를 수 있습니다. 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),

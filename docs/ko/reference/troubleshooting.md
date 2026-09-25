@@ -49,6 +49,7 @@
 | Prefix 거절 | `mfv2-` 필수. 소문자 영문·숫자·하이픈 하나씩, 끝 하이픈 금지, 전체 최대 32자 | [설정](configuration.md#workspace-scope) |
 | 401/403·프로젝트 없음 | 의도한 tenant·호출 주체를 확인하고 만료된 인증만 갱신. 403은 반복 로그인 대신 담당자가 리소스 범위 권한 확인 | [로그인 경계](../labs/00-start.md#azure-sign-in) / [준비](../setup.md) |
 | 브라우저 로그인은 성공했지만 실습 프로젝트를 쓸 수 없음 | 역할을 추가로 요청하기 전에 계정과 디렉터리를 모두 준비 카드와 대조 | [포털 tenant 확인](#portal-tenant) |
+| 혼자 학습하는데 단계가 담당자에게 요청하라고 함 | 본인이 담당자입니다. 해당 프로젝트·모델·역할·추적 단계를 직접 해결하고 다른 모델로 바꾸지 않음 | [혼자 학습 준비](../setup-owner.md#self-study) |
 | `MAF request failed` / `Failed to invoke the Azure CLI` | SDK 원인 보존. CLI token 프로세스 timeout은 업무 검사 실패가 아님 | [MAF 요청 복구](#maf-request-failure) |
 | 모델 404 / 429 | 전체 project endpoint·배포 이름 / quota·동시성. 모델 대체 금지 | [02 B](../labs/02-models.md#path-b) |
 | 새 모델 출시 직후 `model`·`answer`·MAF·agent에서 HTTP 500 | 프로젝트 agent 경로가 아직 그 모델을 지원하지 않을 수 있음(2026-09-23 `gpt-6-luna`). 멈추고 기록. 모델·endpoint 변경 금지 | [모델 선택](model-choice.md) |

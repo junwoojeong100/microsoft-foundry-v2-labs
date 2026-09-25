@@ -8,10 +8,12 @@ Follow only the A rows below. The 270-minute teaching plan assumes setup, permis
 ## Start here
 
 Complete [setup](../setup.md): get the English learner ZIP, then record the owner's values.
+**Learning alone?** You are the owner too: complete [the self-study preparation](../setup-owner.md#self-study) first.
 Open `START-HERE.txt`. Use the prepared **gpt-6-sol** deployment and the ZIP's ready instructions, questions
 and blank worksheets; do not assemble your own inputs or report format.
-For Lab 05, the owner supplies an activated, learner-signed-in terminal by default. The optional Hosted Responses Playground path must be verified by the owner before class.
-If neither option is prepared, complete [Lab 00 B setup](../labs/00-start.md#path-b) and [Lab 02 B](../labs/02-models.md#path-b) before this timed route.
+For Lab 05 you run one prepared option: by default a terminal with the workshop code installed and your own Azure sign-in.
+A Hosted Responses Playground is used only if the owner verified it before class.
+If neither is prepared, complete [Lab 00 B setup](../labs/00-start.md#path-b) and [Lab 02 B](../labs/02-models.md#path-b) before this timed route.
 
 **First-pass choices are already made:** inline policies, one prepared workflow run, manual dev assessment, and trace status in Lab 09.
 File Search, IQ Chat, Hosted deployment, cloud judges and C modules are **not selected** unless you opt in separately.
@@ -45,7 +47,8 @@ An agent is not correct merely because it has a tool, a citation or a fluent ans
 
 ## When something fails
 
-For missing project/model/access, return to the owner and [setup](../setup.md).
+For missing project/model/access, return to the owner and [setup](../setup.md); learning alone, fix the matching
+[self-study step](../setup-owner.md#self-study) yourself.
 For a wrong answer, keep it in the assessment. Do not substitute another learner's output,
 an offline fixture or a recorded response. A missing optional feature stays **not run**; missing traces are `trace unverified: <reason>`.
 

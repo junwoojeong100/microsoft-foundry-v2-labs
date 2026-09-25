@@ -43,6 +43,8 @@
 
 ## A. 브라우저 — 코드를 몰라도 됩니다
 
+**혼자 학습하나요?** 먼저 [혼자 학습 준비](../setup-owner.md#self-study)를 마칩니다. 아래에서 쓰는 프로젝트와 모델을 그 단계에서 만듭니다.
+
 1. Edge 또는 Chrome에서 `https://ai.azure.com`을 엽니다.
 2. 강사가 지정한 **Microsoft Entra 계정과 디렉터리(tenant)**로 로그인합니다.
    개인 Microsoft 계정·GitHub 로그인과 Azure 업무 계정은 같은 개념이 아닙니다.
@@ -52,9 +54,8 @@
 3. 강사가 알려 준 프로젝트를 선택합니다. 이름이 비슷한 운영 프로젝트를 선택하지 않습니다.
    프로젝트 선택 메뉴에서 찾기 어렵다면 메뉴 아래의 전체 리소스 보기 링크(영문 UI **View all resources**)에서
    프로젝트 이름을 검색하고, 이름·부모 리소스·리전을 확인한 뒤 엽니다.
-4. 준비 단계에서 받지 않았다면 [학습자 ZIP](../../../data/learner/ko/learner-materials.zip)을 내려받아 풉니다.
-   `START-HERE.txt`를 열어 둡니다. 혼자 학습하면 [준비 카드](../setup.md)에서 환경 준비를 먼저 확인합니다.
-   [Lab 05](05-workflows.md)는 준비된 MAF 터미널에 명령을 복사하는 것이 기본입니다. 담당자가 미리 선택·검증한 경우에만 선택 Hosted Responses Playground를 사용합니다.
+4. 준비 단계에서 받지 않았다면 [학습자 ZIP](../../../data/learner/ko/learner-materials.zip)을 내려받아 풀고 `START-HERE.txt`를 열어 둡니다.
+   [Lab 05](05-workflows.md)에서는 준비된 방식 하나를 실행하며, 기본은 준비된 터미널에 명령 하나를 복사하는 것입니다.
    Python 코드를 직접 작성하거나 포털에서 workflow를 만들지는 않습니다.
 5. ZIP의 `session-notes.txt`를 열어 **Lab 00 - 설정 카드** 구역을 확인합니다. 준비 단계에서 채운 줄을 하나씩 확인하고 빈 줄은 채웁니다.
    화면 전체나 개인 정보를 공유 채팅에 올리지 않습니다.
@@ -67,8 +68,8 @@
 | `전체 project endpoint:` | 담당자가 준 값. Lab 01에서 **홈** 화면과 대조합니다 |
 | `응답 배포 / 모델 버전:` | `gpt-6-sol` / `2026-09-22` |
 | `개인 prefix:` | 본인 값. 예: `mfv2-team01-ko` |
-| `비용·권한 담당자:` | 비용과 역할을 승인하는 사람 |
-| `준비된 MAF 터미널 위치:` | Lab 05용으로 준비된 터미널을 여는 곳. Playground 방식이면 `사용 안 함` |
+| `비용·권한 담당자:` | 비용과 역할을 승인하는 사람. 혼자 학습하면 본인 |
+| `준비된 MAF 터미널 위치:` | Lab 05용으로 준비된 터미널을 여는 곳(혼자 학습하면 본인 소스 폴더). Playground 방식이면 `사용 안 함` |
 | `선택 IQ Chat의 선택 또는 미선택:` | 담당자가 따로 준비해 주지 않았다면 `미선택` |
 
 ![2026-09-24 국문 녹화: 지정한 실습 프로젝트 열기](../../assets/g6sol-20260924-ko/screenshots/KP00-001-home-2.webp)
@@ -86,7 +87,7 @@
 
 ## B. 코드 — 한 폴더, 한 환경
 
-지원: macOS/Linux 또는 Windows의 WSL, Bash/zsh, Python 3.13. 1–3단계는 `python3.13`을 호출하고, 3단계에서 `.venv`를 활성화한 뒤에는 그 환경의 `python`을 사용합니다. Hosted 런타임도 3.13입니다.
+지원: macOS/Linux 또는 Windows의 WSL([WSL 설치](https://learn.microsoft.com/windows/wsl/install)), Bash/zsh, Python 3.13. 1–3단계는 `python3.13`을 호출하고, 3단계에서 `.venv`를 활성화한 뒤에는 그 환경의 `python`을 사용합니다. Hosted 런타임도 3.13입니다.
 오프라인 리허설만 한다면 Python 3.14도 됩니다. 1–2단계의 `python3.13`을 `python3.14`로 바꿉니다.
 이 가이드의 workshop 명령은 `--language`를 생략합니다. 생략하면 국문 번들을 사용하며, 확장 모듈처럼 `--language ko`를 붙여도 결과는 같습니다. 영문 가이드는 같은 명령에 `--language en`을 붙입니다.
 전역 Python에 패키지를 설치하거나 시스템 기본 구독을 바꾸지 않습니다.
@@ -169,6 +170,8 @@ cp data/learner/ko/{session-notes.txt,workflow-review.txt,operations-checklist.t
 이후에는 **B - 코드 근거와 인계**, **중단 / 재개**만 사용합니다. Playground·원문 확인 항목을 포함한
 **A - 브라우저 전용 기록** 전체는 건너뜁니다. B 구간에 Lab별 검토란이 따로 있습니다.
 이전에 작성한 개인 파일에 해당 줄이 없다면 그 줄만 추가합니다. 새 빈 양식으로 기존 기록을 덮어쓰지 않습니다.
+**A의 Lab 05 터미널만 준비하나요?** Lab 02 B가 `model.json`과 `answer-local.json`을 이 폴더에 저장하므로 블록은 실행합니다.
+다만 이 복사본은 비워 두고, 기록은 학습자 ZIP의 `session-notes.txt`에 계속 적습니다.
 
 Lab 02/03/04/05/06의 B 명령에는 **`--output`**이 있어 JSON 전체를 이 기록 폴더에 저장하면서 화면에도 출력합니다.
 **터미널 출력을 편집기로 복사할 필요가 없습니다.** 각 **저장** 지점에서 생성된 파일을 엽니다.

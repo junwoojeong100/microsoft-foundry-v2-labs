@@ -25,6 +25,31 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | What did the subsequent Azure audit verify? | Both core CLI routes and A Lab 05 terminal commands ran against the existing `gpt-6-sol` project. Each language returned 6/6, 6/6 and 4/4 and matching managed-agent traces. One English Group Chat credential timeout was retained; its uncaught SDK error reporting was fixed. Its portal blocker was resolved in the separate follow-up below | [Live audit](#azure-guide-audit-20260925) |
 | What did the headless follow-up complete? | A's model/inline-agent/dev checks and A/B portal trace correlation, English then Korean. New manual dev assessments: 6/6 each. Median Send-to-render time: 6.75 s / 5.41 s over six rows each. File Search upload was disabled for the selected model | [Headless follow-up](#headless-guide-audit-20260925) |
 | How straightforward are the guides and documents? | Earlier AI editorial review scored guides 94/100 and documents 90/100 (round 6), then 99.5/100 and 98/100 (round 7). Those scores do not rate the later audit revision and are not a learner pilot or timing measurement | [Earlier review](#straightforwardness-95) |
+| Can a beginner finish route A alone from the guide? | Offline editorial audit: in a prepared environment, each A step names the screen, value or worksheet line and its check. Learning alone was the gap; [self-study preparation](../setup-owner.md#self-study) now covers the project, exact model, role, tracing, terminal and final cleanup. Not a learner pilot; the new portal steps follow official docs and were not run live | [Self-study audit](#beginner-self-study-audit-20260925) |
+
+<a id="beginner-self-study-audit-20260925"></a>
+
+## Beginner self-study audit, offline only — September 25, 2026
+
+**Question:** can a beginner finish route A alone, using only the guide? Every A step was traced from the README to the Lab 11 cleanup,
+English first and then Korean, for two learners: one in a prepared class environment and one learning alone.
+
+| Finding | Correction |
+|---|---|
+| Learning alone led to owner steps written for administrators: a code quickstart, no portal steps, no role check and no final cleanup. Many blockers said only "ask the owner" | New [self-study preparation](../setup-owner.md#self-study): portal project, exact `gpt-6-sol` deployment, **Foundry User** check, optional tracing, setup card, terminal and resource-group cleanup, each with a check. The README, index, setup, routes, Lab 00 A, Lab 09 A, instructor guide, troubleshooting and cleanup link to it |
+| Preparing A's terminal ran B's notes block without saying which notes file is the learner's | Lab 00 B runs the block, because Lab 02 B saves there, but keeps A's notes in the learner ZIP. It also links the WSL installation guide |
+| Several checks named a value without saying where to find it | Lab 02 names the line under the reply for time and tokens; Labs 03 and 06 name the exact worksheet lines; Lab 05 says how to copy the saved JSON |
+| Lab 07 asked beginners to compare a 4.8 KB instruction text by eye | Check the recorded **Version** and a greyed-out **Save**: saved versions are immutable, while unsaved edits would be used in the chat |
+| Smaller beginner gaps | A plain-text Lab 01 sketch; `assessment-baseline.csv` as a renamed copy saved as CSV UTF-8; `.venv` reactivation for a self-prepared terminal; Lab 09's trace step in reading order |
+
+**Verified locally:** 322 offline tests on each of Python 3.13 and 3.14 with site packages disabled, including one new regression test
+that keeps the self-study route reachable and checked in both languages; Ruff 0.16.6 check/format, Python compilation, documentation and
+English/Korean command-parity checks for all 63 language pairs, and the learner-bundle check. Installed-SDK tests were not rerun because no
+SDK code or dependency changed. Changed pairs have exact completion hashes in `docs/localization.json`.
+
+**Not run:** live Azure calls or the new portal steps (they follow the linked Microsoft Learn pages, checked September 25, 2026),
+a learner pilot or timing, new screenshots or recordings, and a new editorial score. Workshop commands, prompts, policies, datasets,
+fixtures, grading and the learner ZIPs are unchanged.
 
 <a id="guide-audit-20260925"></a>
 

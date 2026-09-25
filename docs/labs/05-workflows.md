@@ -64,9 +64,12 @@ On 2026-09-24 this workflow answered one local Responses request with the refres
 
 **Terminal option only.** Playground learners have already sent their one request and skip this step.
 
-1. Open the prepared terminal in its browser IDE or VS Code. Its file list shows `README.md` and `scripts/`,
-   and the prompt usually starts with `(.venv)`. If not, stop and ask the owner; do not install anything in class.
-   Learning alone? Prepare it once with [Lab 00 B](00-start.md#b-code-one-folder-one-environment) and Lab 02 B, then return here.
+1. Open the prepared terminal in its browser IDE or VS Code. Check that its file list shows `README.md` and `scripts/`;
+   the prompt usually starts with `(.venv)`.
+   - No `(.venv)`: in that source folder, run `source .venv/bin/activate`. If this fails, stop: in a class ask the owner;
+     learning alone, return to [Lab 00 B step 3](00-start.md#3-install-a-virtual-environment-and-sdks).
+   - No prepared terminal: in a class, stop and ask the owner; do not install anything in class.
+     Learning alone, prepare it once with [Lab 00 B](00-start.md#b-code-one-folder-one-environment) and Lab 02 B, then return here.
 2. Run this block. It creates `outputs/` if needed, then prints the result and saves it to `outputs/workflow-a-sequential.json`.
 
 ```bash
@@ -114,6 +117,7 @@ flowchart LR
 1. Open the terminal's `outputs/workflow-a-sequential.json`, or read the complete Playground reply you saved.
    Compare the cited policy IDs with the learner ZIP's `policies/`. Playground learners do not need a terminal output file.
 2. Keep the exact command **or Playground question**, complete output and selected option in your personal `workflow-review.txt`.
+   Terminal: open `outputs/workflow-a-sequential.json` in the editor, select all, copy it and paste it on `Complete actual JSON output (A only):`.
    For Playground, read the worksheet's pattern from `runtime_profile.pattern`. If an older worksheet lacks a field, append it; do not replace filled notes.
 3. Write your review there: what is correct, what needs correction, and why. This reviews guidance; it is not business approval.
 

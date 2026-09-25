@@ -47,12 +47,16 @@ Evaluator 설정·B 명령·holdout 열기는 필요 없습니다.
 
 ### 1. 질문 전에 baseline 고정
 
-[Lab 03](03-prompt-agent.md#path-a)의 인라인 agent를 열고 저장된 **지침**이 `instructions-baseline.txt`와 일치하는지 확인합니다.
+[Lab 03](03-prompt-agent.md#path-a)의 인라인 agent를 엽니다. 상단 **버전**이 `instructions-baseline.txt`와 함께 기록한 버전인지,
+**저장**이 회색(저장하지 않은 수정 없음)인지 확인합니다. 저장한 버전은 바뀌지 않지만, 저장하지 않은 수정은 대화에 그대로 사용됩니다
+([agent 버전](https://learn.microsoft.com/azure/foundry/agents/concepts/development-lifecycle), 2026-09-25 확인).
+다른 버전이 보이면 그 목록에서 기록한 버전을 선택하고, 목록에 없으면 평가를 미완료로 기록합니다.
 `session-notes.txt`의 **Lab 07 A**에 agent 이름/버전·배포·파일 경로를 적습니다.
 D06까지 그 버전·모델·도구·정책 근거·언어를 바꾸지 않습니다.
 
-ZIP의 빈 **`assessment.csv`**를 개인 증거 폴더의 **`assessment-baseline.csv`**로 저장합니다.
-스프레드시트 편집기로 열고 6개 case ID와 질문은 그대로 둡니다.
+ZIP의 빈 **`assessment.csv`**를 복사해 개인 증거 폴더에서 복사본 이름을 **`assessment-baseline.csv`**로 바꿉니다.
+빈 원본은 candidate가 필요할 때를 위해 그대로 둡니다. 복사본을 스프레드시트 편집기로 열어 6개 case ID와 질문은 그대로 두고,
+저장할 때 CSV 형식을 유지합니다(Excel은 **CSV UTF-8**). 그래야 한글이 깨지지 않습니다.
 이번 회차의 평가표가 이미 있으면 기록된 행을 보존하고 같은 버전에서 아직 시도하지 않은 질문부터 재개합니다.
 Baseline이 완성돼 있다면 3으로 바로 갑니다. 재개하려고 질문을 다시 보내지 않습니다.
 

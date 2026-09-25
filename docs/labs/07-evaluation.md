@@ -47,12 +47,16 @@ No evaluator setup, B commands or holdout access is needed.
 
 ### 1. Freeze the baseline before asking
 
-Open your [Lab 03](03-prompt-agent.md#path-a) inline agent and verify that its saved **Instructions** match
-`instructions-baseline.txt`. Fill **Lab 07 A** in `session-notes.txt` with the agent name/version, deployment
+Open your [Lab 03](03-prompt-agent.md#path-a) inline agent. Check that **Version** at the top shows the version you recorded
+with `instructions-baseline.txt` and that **Save** is greyed out. A saved version cannot change, but unsaved edits would be used in the chat
+([agent versions](https://learn.microsoft.com/azure/foundry/agents/concepts/development-lifecycle), checked 2026-09-25).
+If another version is shown, select your recorded version in that list; if it is not listed, record the assessment incomplete.
+Fill **Lab 07 A** in `session-notes.txt` with the agent name/version, deployment
 and file paths. Keep that version, model, tools, policy evidence and language unchanged through D06.
 
-Save the ZIP's blank **`assessment.csv`** as **`assessment-baseline.csv`** in your personal evidence folder.
-Open it in a spreadsheet editor; keep its six case IDs and questions unchanged.
+Copy the ZIP's blank **`assessment.csv`** and rename the copy **`assessment-baseline.csv`** in your personal evidence folder;
+keep the blank original for a possible candidate. Open the copy in a spreadsheet editor, keep its six case IDs and questions unchanged,
+and keep the CSV format when saving (in Excel, **CSV UTF-8**).
 If this pass's sheet already exists, preserve its recorded rows and resume only unattempted questions on the same version.
 A completed baseline goes straight to step 3; do not resend questions merely to resume.
 

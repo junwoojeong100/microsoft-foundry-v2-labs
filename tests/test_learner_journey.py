@@ -631,6 +631,41 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertIn("(03-prompt-agent.md#path-b)", return_choices)
                 self.assertEqual(DOCS.workshop_commands(return_choices), [])
 
+    def test_self_study_preparation_is_reachable_and_checks_every_step(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                owner = (directory / "setup-owner.md").read_text()
+                anchor = '<a id="self-study"></a>'
+                self.assertEqual(owner.count(anchor), 1)
+                section = owner.split(anchor, 1)[1]
+                section = section.split('<a id="class-owner-checklist"></a>', 1)[0]
+                self.assertEqual(
+                    re.findall(r"^(\d)\. \*\*", section, re.MULTILINE),
+                    [str(number) for number in range(1, 8)],
+                )
+                check = "**Check:**" if language == "en" else "**확인:**"
+                self.assertEqual(section.count(check), 7)
+                for required in (
+                    "`gpt-6-sol`",
+                    "`2026-09-22`",
+                    "**Foundry User**",
+                    "(setup.md#learner-files)",
+                    "(labs/02-models.md#a-terminal-ready)",
+                    "(labs/00-start.md#path-a)",
+                    "(reference/cleanup.md)",
+                ):
+                    self.assertIn(required, section)
+                self.assertEqual(DOCS.workshop_commands(section), [])
+                readme = ROOT / ("README.md" if language == "en" else "README.ko.md")
+                prefix = "docs/" if language == "en" else "docs/ko/"
+                self.assertIn(f"({prefix}setup-owner.md#self-study)", readme.read_text())
+                for name in ("index.md", "setup.md", "paths.md"):
+                    self.assertIn("(setup-owner.md#self-study)", (directory / name).read_text())
+                for name in ("paths/a-beginner.md", "reference/cleanup.md"):
+                    self.assertIn("(../setup-owner.md#self-study)", (directory / name).read_text())
+                start = self.core_section(language, labs[0], "A")
+                self.assertIn("(../setup-owner.md#self-study)", start)
+
     def test_retrieval_comparison_keeps_one_question_with_retrievable_policy_evidence(self):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):

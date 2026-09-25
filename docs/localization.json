@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "source_language": "en",
-  "revision": "final-guide-closeout-20260925",
+  "revision": "beginner-self-study-20260925",
   "pending_files": {},
   "completed_translations": {
     "docs/paths/a-beginner.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "38362ff712b70db96522cd5950bbfbb9d02472f596635d82e44bab169a52b997",
-        "korean_sha256": "f9f09824accf4be195552bb77e95aa70aed75313f06b19e398c2d51216ff124c"
+        "english_sha256": "eeedf6f47094a25c5a0964c9e0618d301aac54582a5ce7030242149a32e1fa87",
+        "korean_sha256": "b80c9c132965b5970eb4bcda2f72e32a12a795a733d0e816adc4b31072528286"
       },
-      "english_sha256_at_completion": "38362ff712b70db96522cd5950bbfbb9d02472f596635d82e44bab169a52b997",
-      "korean_sha256_at_completion": "87701b637fbe411343413d7897828e35bd72d71764a441605f77a9a0a45c9dec",
+      "english_sha256_at_completion": "eeedf6f47094a25c5a0964c9e0618d301aac54582a5ce7030242149a32e1fa87",
+      "korean_sha256_at_completion": "86b15319637ea3c3f7794bbf544ebaf1d29ad58a8506d4069a0d3ed7f3c625e3",
       "cli_parity_verified": true
     },
     "docs/paths/b-practitioner.md": {
@@ -195,33 +195,33 @@
       "cli_parity_verified": true
     },
     "README.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "fa3f56303f9fe0b086b4c652181697225bceb7606d87d30d696bd420b586b714",
-        "korean_sha256": "afab85bd13373a49d1ef159d34c1f3cbc623c02ad7ac5e0cf4613a3a013513da"
+        "english_sha256": "7001c13c9e728c2989efe0a726fcef2a587c2bce90a55a4df18b0eaf0387c9f6",
+        "korean_sha256": "4b3e9884d2a498ae1987b7c72c15b5b91477cff6c75994c6d404f6d9caaf1ae6"
       },
-      "english_sha256_at_completion": "fa3f56303f9fe0b086b4c652181697225bceb7606d87d30d696bd420b586b714",
-      "korean_sha256_at_completion": "0a2dc6283b89051e1cf85e2c4ad7d626286f3615dda52eacde0ff6ec0d1a7585",
+      "english_sha256_at_completion": "7001c13c9e728c2989efe0a726fcef2a587c2bce90a55a4df18b0eaf0387c9f6",
+      "korean_sha256_at_completion": "e5b3639e255cbf56de790cf01130317264dbaf72b4d8b3bdb7025da5073c1da7",
       "cli_parity_verified": true
     },
     "docs/index.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "e20ff13cda0c53b6c3563cf39637e069da74ef628840032f88d1eae501517de5",
-        "korean_sha256": "bd0d0b531a21fbb25eb69b02c7e1acb336a42880506ae971aebb6f69a0c7c901"
+        "english_sha256": "81e85fcd8159f36957df76d3896873f82030de3d789f455119d58aabfc76aa1e",
+        "korean_sha256": "2e9f437c5013e34b7fee1534a37db43a275aaa4fa4e20e372a938f26896cdfd9"
       },
-      "english_sha256_at_completion": "e20ff13cda0c53b6c3563cf39637e069da74ef628840032f88d1eae501517de5",
-      "korean_sha256_at_completion": "1a625821f6f7c0d5db15632853d4ffc4cb0c08501bd5603cc3c3de5e420853ea",
+      "english_sha256_at_completion": "81e85fcd8159f36957df76d3896873f82030de3d789f455119d58aabfc76aa1e",
+      "korean_sha256_at_completion": "539a304591e5acc4dee17f2872cfe3b52f21459b9743244d7f1e1c009775caca",
       "cli_parity_verified": true
     },
     "docs/paths.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "df14f6eac0594abe904c90de9dea3b829e9da2a43a0bcff4516e0bd9850a6c20",
-        "korean_sha256": "0cb36b431b976a465148f00ea688b314dbcf9f79c36d5d751a1459b0ee659ef9"
+        "english_sha256": "d66a7aaee7c48d723ba60b18ef410d4b2f5eec47c3e2cc07f9bdbef0b629b52e",
+        "korean_sha256": "afa195427910a0968e68b59f88ad42dcd205314974b9901b280282d49f030548"
       },
-      "english_sha256_at_completion": "df14f6eac0594abe904c90de9dea3b829e9da2a43a0bcff4516e0bd9850a6c20",
-      "korean_sha256_at_completion": "04c8ba73479874199769960ab4a424c8d4ca3440a5ae35265a8885879679b89a",
+      "english_sha256_at_completion": "d66a7aaee7c48d723ba60b18ef410d4b2f5eec47c3e2cc07f9bdbef0b629b52e",
+      "korean_sha256_at_completion": "1bfbd8bae290d08bbc1bd055cb346123be64fe662f1d04cf903be4db5abaa416",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/toolbox-hosted.md": {
@@ -245,53 +245,53 @@
       "cli_parity_verified": true
     },
     "docs/setup.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "73ed1a3b32b5c3ef68b8ce845e125e017e60bb8eb1b98f0115ad4cca2c86df65",
-        "korean_sha256": "65a40c6fb0f449f972d5d4832ff3653d213ed1d3ed1647aaf2ab9a8708bf3bc8"
+        "english_sha256": "79b5ea1ba325bc71d4fdc3d630e5b21be79e162fcb69a9469f9938cd1992a1e4",
+        "korean_sha256": "4ee076fe2c590ab2aead7c717fe16a93729b494556e160262bc9143bac755467"
       },
-      "english_sha256_at_completion": "73ed1a3b32b5c3ef68b8ce845e125e017e60bb8eb1b98f0115ad4cca2c86df65",
-      "korean_sha256_at_completion": "a86d484cd556e76dbbca4f6cfe3d5111b4bfe84277e1eeb5e8ef816282bc4816",
+      "english_sha256_at_completion": "137f14d19fd0ac9fa701de7087669569980e38ab69a36ab486dcac6faa45ae33",
+      "korean_sha256_at_completion": "6398f414a37525c979a40d9f756b90e6ed22278b93bb6d96f44b4c4336138cc0",
       "cli_parity_verified": true
     },
     "docs/labs/00-start.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "ebc7bc6c2611f60c0e02f988b3abb8b71b0359be5ec5b0cb2389f2c28a6920e2",
-        "korean_sha256": "ffee0e2bd520e7ce7040475726575141ea683b62c95dee6757279c2bede00a4f"
+        "english_sha256": "45c711d37685766eb8436d8b77071e4b228eab39c6a01663cd60d5255dbdf7fa",
+        "korean_sha256": "b3bf93930418155bd652fc6f81c79f4a5ddd874e1807cb694d8ff25adee7f5c2"
       },
-      "english_sha256_at_completion": "ebc7bc6c2611f60c0e02f988b3abb8b71b0359be5ec5b0cb2389f2c28a6920e2",
-      "korean_sha256_at_completion": "9695cf7dda2f660845805a3904b79f42d67c4fa912976e5dbcfc2ba2a8101df2",
+      "english_sha256_at_completion": "0c8b22d7793c591f6b877993bf0499e2baba5256062a02dab29cc7525be87bb8",
+      "korean_sha256_at_completion": "a3628a0b3932dc75d58a5e6ee377a93149bd5d2effd37a782d5c013c849ca776",
       "cli_parity_verified": true
     },
     "docs/labs/01-foundry.md": {
-      "revision": "final-check-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "75725dd04daaa94bc2cec85d20f8147159f49ab41218c2ddaf4d66bbeb4a658a",
-        "korean_sha256": "7caafd259951e0e33590f933ddd9e72364ffb8c579cb6609a4e7c8605d252918"
+        "english_sha256": "b95c58e838da841cec1d1b6e065e8b41d973c8e76710381148e62b8be24388e4",
+        "korean_sha256": "ec7eadab7ab313203289db01fcecbb79b4251483119984f1f9fa0705cc8b28b7"
       },
-      "english_sha256_at_completion": "75725dd04daaa94bc2cec85d20f8147159f49ab41218c2ddaf4d66bbeb4a658a",
-      "korean_sha256_at_completion": "1f1166f9a6679103741671550742ef14119ce9d735177b4b6d73baa670eb7148",
+      "english_sha256_at_completion": "b95c58e838da841cec1d1b6e065e8b41d973c8e76710381148e62b8be24388e4",
+      "korean_sha256_at_completion": "cd7a84ddae43f1661992c142574717be1eae505ff57c62033168d9c648bf0c05",
       "cli_parity_verified": true
     },
     "docs/labs/02-models.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "cc61a045d60e3e003e3dc2dda2cf384741d99bc988bec028b8a2b5f81b050d0f",
-        "korean_sha256": "634238fa55e8854b1f5c35279d173c59c7a6e0144cd120d0800a969be59c02fc"
+        "english_sha256": "7db81ec444c1e199399b1000df73cb7ffb2a979ebd2db8dd417fc991a7ba0e4a",
+        "korean_sha256": "75a32180a2c2fd5e36f34b32def912f0743786397d52ac4fb4c720129dc52594"
       },
-      "english_sha256_at_completion": "cc61a045d60e3e003e3dc2dda2cf384741d99bc988bec028b8a2b5f81b050d0f",
-      "korean_sha256_at_completion": "2bf3a9555f1e491fec3a6541b7d7016480b9c63e9d5c0e907deefa35d3cc90c3",
+      "english_sha256_at_completion": "7db81ec444c1e199399b1000df73cb7ffb2a979ebd2db8dd417fc991a7ba0e4a",
+      "korean_sha256_at_completion": "8edd52e2614e6071c37f576dcc31081fb05ddf1df5ef8353016343465d25df47",
       "cli_parity_verified": true
     },
     "docs/labs/03-prompt-agent.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "fd1e30343c5786a5ce7d65165a57b99bbf4bd35b90c4c151ee687cd3667ca6d6",
-        "korean_sha256": "17ac5d8ca8d41f85ed0fd5a8d806dce872f10e56ffc33b3852336ca431635a59"
+        "english_sha256": "9d80cb96af6c1a59699e5c9f65db831c18fd11def9df7d927d5c96c111fbf946",
+        "korean_sha256": "5021f387e5f870145d1cb8cc2a098ec2a11851b31d2e4947418b63b26a036ae3"
       },
-      "english_sha256_at_completion": "fd1e30343c5786a5ce7d65165a57b99bbf4bd35b90c4c151ee687cd3667ca6d6",
-      "korean_sha256_at_completion": "0e280760598cfb3088c5cb12a25e37a2bbef553b5f215485b8d5724acd8c0631",
+      "english_sha256_at_completion": "9d80cb96af6c1a59699e5c9f65db831c18fd11def9df7d927d5c96c111fbf946",
+      "korean_sha256_at_completion": "c1f7f0ea749ab677d72d58166562f578c63de4768966c2f16d2f1b2d35c84a38",
       "cli_parity_verified": true
     },
     "docs/labs/04-agents-tools.md": {
@@ -305,33 +305,33 @@
       "cli_parity_verified": true
     },
     "docs/labs/05-workflows.md": {
-      "revision": "azure-guide-audit-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "c9e35ad1bafbf6dde645be7d3a7bbf9e3accbbdd1ca0bfe3e1accc654c3075e3",
-        "korean_sha256": "a9819664cf7ce40b936730fea96fe277e56d1515b246303933a671f1f23755c3"
+        "english_sha256": "369762cd506696ea4404e9b6ad7079e047c8f00aaa45e2eb1cf43e872a40e8fa",
+        "korean_sha256": "65569ca82471b8d2e4de8645b6f90363a9141ba4c796cb4780f9409d83527db3"
       },
-      "english_sha256_at_completion": "c9e35ad1bafbf6dde645be7d3a7bbf9e3accbbdd1ca0bfe3e1accc654c3075e3",
-      "korean_sha256_at_completion": "2c53cb134c2fc5a6bd546dd1a4c5934419a3accaafdd29c57d935515b0b07fb8",
+      "english_sha256_at_completion": "369762cd506696ea4404e9b6ad7079e047c8f00aaa45e2eb1cf43e872a40e8fa",
+      "korean_sha256_at_completion": "08a2b22b300476082d4e8a7eb35b645a54017c7566d72f4f51bfd8856f4c294b",
       "cli_parity_verified": true
     },
     "docs/labs/06-knowledge.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "8f260295caa45540a0edd5a9d03ffe12caf91020bf858793ab0d4a9b1364c353",
-        "korean_sha256": "bb2411259d00a4a0f11f82230120f07e10f14ac6cef5942dcfa92ecd4ac2866e"
+        "english_sha256": "67242b624895acdda76d7810a734c9aca9e23efa92673f44f42160d558756498",
+        "korean_sha256": "52b8404e104a2dc87efe93def31ddfd12bb38934b9fb3230c535ce07a1fdc48e"
       },
-      "english_sha256_at_completion": "8f260295caa45540a0edd5a9d03ffe12caf91020bf858793ab0d4a9b1364c353",
-      "korean_sha256_at_completion": "a080eb95f51a4042b31741a6693fa0c8588ed1c33ade88a7461e25428bc05fa2",
+      "english_sha256_at_completion": "67242b624895acdda76d7810a734c9aca9e23efa92673f44f42160d558756498",
+      "korean_sha256_at_completion": "1aeb56de0e4bdf053fd95a750d3c61891499dbdcd5043e2211c3fc894079bfee",
       "cli_parity_verified": true
     },
     "docs/labs/07-evaluation.md": {
-      "revision": "e2e-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "7fe784ead384839acbe2ac005af0be77c5e9be9c799e18560b9957edd3cb771f",
-        "korean_sha256": "d0a7b3cacf4b895407ec4c4c51dfb051e1c38206bed84c6315cfb0753bbfb6f1"
+        "english_sha256": "a6b9f5f241f2c1171e98e953b4b7033010b57058a0adaea1c33420fb52ab3b62",
+        "korean_sha256": "eacb173a3f8f9de210cfe578f7cbab29a1bb45a6e0c0acb0fe569eabbfe9de75"
       },
-      "english_sha256_at_completion": "7fe784ead384839acbe2ac005af0be77c5e9be9c799e18560b9957edd3cb771f",
-      "korean_sha256_at_completion": "966f16de7646284cfb9451cd0d8262549766cd805cdccce425c2ac726b8c5166",
+      "english_sha256_at_completion": "a6b9f5f241f2c1171e98e953b4b7033010b57058a0adaea1c33420fb52ab3b62",
+      "korean_sha256_at_completion": "3c685261baae0501311ff1c81e6a18a1fd5c4e97deec6fd69abda543404e6fdb",
       "cli_parity_verified": true
     },
     "docs/labs/08-hosted.md": {
@@ -345,13 +345,13 @@
       "cli_parity_verified": true
     },
     "docs/labs/09-operations.md": {
-      "revision": "headless-guide-audit-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "33172e64aeb3508d3fcf50a4eeea344615c9c023a2b9b7a2be4253cce84f7f26",
-        "korean_sha256": "ec79f549eb2767fd69b8fcccb2080d919b0c99bc7badb171c5f980258d4e4e37"
+        "english_sha256": "ba314dda53db3fefbb64c7a927eebd0a2a11befb1536839c15f75a5ac1e1869b",
+        "korean_sha256": "53c1d322830af2731752710c03423e8ba15eb8c78173b099f0f9491935556ebc"
       },
-      "english_sha256_at_completion": "33172e64aeb3508d3fcf50a4eeea344615c9c023a2b9b7a2be4253cce84f7f26",
-      "korean_sha256_at_completion": "4b7bbcfbe1f2a3b2194c2f34d3310b9cf493283adeeb25080363ffd428addec2",
+      "english_sha256_at_completion": "ba314dda53db3fefbb64c7a927eebd0a2a11befb1536839c15f75a5ac1e1869b",
+      "korean_sha256_at_completion": "534f71ef876bb965eb612388a390d1728111e2a3c83275ccd198f30d6dfc1104",
       "cli_parity_verified": true
     },
     "docs/labs/11-capstone.md": {
@@ -365,33 +365,33 @@
       "cli_parity_verified": true
     },
     "docs/reference/troubleshooting.md": {
-      "revision": "azure-guide-audit-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "06425f9604f0298ac23aa10a6e08180d2c2f0aec526061591f0c2b268c74859b",
-        "korean_sha256": "52f02a7751cf36792b531124cfad5413a7705137d3365c05a89a175e62c9b14b"
+        "english_sha256": "6159af89e237fe6450056aca84fd1906f02e2ac6d265d527afc827580a003a1a",
+        "korean_sha256": "7c9b8a61029fac9d56622ab0f33b2501b5c192fe1406da9494a5c7254061f92a"
       },
-      "english_sha256_at_completion": "06425f9604f0298ac23aa10a6e08180d2c2f0aec526061591f0c2b268c74859b",
-      "korean_sha256_at_completion": "c9bc2cc18e373c83cd1f53bd0aeddf980fc3bbace8e83202beffcae6cbb37fa6",
+      "english_sha256_at_completion": "6159af89e237fe6450056aca84fd1906f02e2ac6d265d527afc827580a003a1a",
+      "korean_sha256_at_completion": "84d7c95283d9871760bf87d6eb105ce984d0d17711560b3719996006fe1e45cc",
       "cli_parity_verified": true
     },
     "docs/reference/validation.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "acf6a1080f384a683f2da1a4f5e435786fa6e89bd46583e0ad5af9cd57fec50b",
-        "korean_sha256": "ba01ed2f939376a5a7b17f344df6b059a79d74a38b7cda9b0d69ec1868be9611"
+        "english_sha256": "184f0c80abc0f345347c191221b9bdbe47a9b3f9775f7fd8b270f453b1b240e8",
+        "korean_sha256": "5e4931d472f593eda5d9d0a2c30313b2aacb5a75f8ee83bc9fbba21a52590781"
       },
-      "english_sha256_at_completion": "acf6a1080f384a683f2da1a4f5e435786fa6e89bd46583e0ad5af9cd57fec50b",
-      "korean_sha256_at_completion": "ef45c3c46dd73244fd110c19b0f2e5b4e15b4d64d2cc22c57e9543dc1a5d66d4",
+      "english_sha256_at_completion": "834712728ad4536ffed82f0ac9678a2a8057d1a79ba4e4323958ee1f105f55ec",
+      "korean_sha256_at_completion": "25089108bb9a11f3cd855a3daf8572589cc95b8284d89c8d7928c54955b90ec5",
       "cli_parity_verified": true
     },
     "docs/instructor.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "4262407058e6a7df937a359ec5bcbdf1f033b77bf023ece8062399075b09bd75",
-        "korean_sha256": "d289e536b032547c1beeb15727ad84a39bb58b7b9207103a78bb47b5b91c3906"
+        "english_sha256": "18bba4e4ff7d713b2558e9121b10284064e20d43eb4a1065d07f925813e3f175",
+        "korean_sha256": "79dfb79bdedead52cd063192a76e4060dfb7f8fc894edea97ab59e4e7b5755bd"
       },
-      "english_sha256_at_completion": "4262407058e6a7df937a359ec5bcbdf1f033b77bf023ece8062399075b09bd75",
-      "korean_sha256_at_completion": "8bd5015c6878fe4f4f602fd80eaf66dbd99090a2158c533f501a7bcc10f39529",
+      "english_sha256_at_completion": "18bba4e4ff7d713b2558e9121b10284064e20d43eb4a1065d07f925813e3f175",
+      "korean_sha256_at_completion": "50b5bae275e52701d080947ceda05d606a2dcba5081af881e33ad7ba6efc8de0",
       "cli_parity_verified": true
     },
     "docs/reference/commands.md": {
@@ -425,13 +425,13 @@
       "cli_parity_verified": true
     },
     "docs/reference/cleanup.md": {
-      "revision": "cleanup-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "69716655caedae65f8532485c6b3e83df5790baba7d1a8a54a02f86a4ebf0e94",
-        "korean_sha256": "4a75705e8846428077d0bb499ea4705addebd6adbe4f10a4ec0004de71dd8b9f"
+        "english_sha256": "f351020b0f6d6e3d4a68084ff5808c9e71a0c52529b3d3d573efcfd0d29a818f",
+        "korean_sha256": "31ac81682b940ad6ec07f5cd6e89997987de404b53060551ab402b5c52342312"
       },
-      "english_sha256_at_completion": "69716655caedae65f8532485c6b3e83df5790baba7d1a8a54a02f86a4ebf0e94",
-      "korean_sha256_at_completion": "2210e099107734fda1c82062b35ef27e78c1109539064d139dcaf99f9f995066",
+      "english_sha256_at_completion": "f351020b0f6d6e3d4a68084ff5808c9e71a0c52529b3d3d573efcfd0d29a818f",
+      "korean_sha256_at_completion": "d16568461c1214e21bebea65f360778ba3060c5e08ed7076b63540bc77d28092",
       "cli_parity_verified": true
     },
     "docs/reference/consolidation.md": {
@@ -625,13 +625,13 @@
       "cli_parity_verified": true
     },
     "docs/setup-owner.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "beginner-self-study-20260925",
       "pending_source_record": {
-        "english_sha256": "a0fa6ecb5e16384edb82b86b9cf765cc114855335787abc4ccb143fdaa16cb42",
-        "korean_sha256": "43aa5126fe35acabfe7aa60d4349d7cfd363ff9c5c4d2bf6f98fe89c5ec0407f"
+        "english_sha256": "2cbc068d64333e8ecf99a1164a6390551261014cae99a923d3df5f113cdbb8fc",
+        "korean_sha256": "f43778a06496e97982b82d0bc83454c8effc82069949cd0d2c422bd7a3f118da"
       },
-      "english_sha256_at_completion": "a0fa6ecb5e16384edb82b86b9cf765cc114855335787abc4ccb143fdaa16cb42",
-      "korean_sha256_at_completion": "6bae24d1a95c2cc209c6b9470f558fb43bd5a98b7715a3725d85666f7582c4f7",
+      "english_sha256_at_completion": "d8492900e7b2e90e9060506ea1d3fa4c35f824bb7940a953fb0eb7b22484d1d9",
+      "korean_sha256_at_completion": "3c5d3f00651833c81e6ac58a1f7e16f5ed49f0fd645dfd8b1239145eab6335e2",
       "cli_parity_verified": true
     }
   }

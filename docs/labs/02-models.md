@@ -70,8 +70,10 @@ Select **Chat with the model...** at the lower right (not **Instructions** on th
 
 ![September 24 English recording: Concept question and actual gpt-6-sol answer](../assets/g6sol-20260924-en/screenshots/EP02-008-question-2.webp)
 
-**What to check:** in the **Lab 02** section of `session-notes.txt`, fill `Deployment / time / usage:` and
-paste the full answer on `Actual concept-explanation response:`. The recording is a separate run, not your own response.
+**What to check:** in the **Lab 02** section of `session-notes.txt`, fill `Deployment / time / usage:` with the deployment,
+the clock time you sent the question and the token count from the small line under the reply
+(the recording's line reads `gpt-6-sol`, `2s`, `194t`: `2s` is the response time and `194t` means 194 tokens).
+Paste the full answer on `Actual concept-explanation response:`. The recording is a separate run, not your own response.
 Compare the four definitions with [Lab 01's table and diagram](01-foundry.md#path-a).
 A fluent reply can still confuse a Foundry resource with a project; keep the reply and record that finding rather than treating fluency as correctness.
 

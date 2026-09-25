@@ -88,7 +88,15 @@ In the **Lab 01** section of `session-notes.txt`, write:
 
 1. Sketch `Foundry resource <account> → project <project> → agent (Lab 03)` with your own names.
    Put `deployment gpt-6-sol` under the **Foundry resource**, alongside the project, and draw **agent → calls → deployment**.
-   The deployment is not a child of the project.
+   The deployment is not a child of the project. Plain text is enough; replace the angle-bracket names with yours:
+
+   ```text
+   Foundry resource <account>
+       project <project>
+           agent (Lab 03)  -- calls -->  deployment gpt-6-sol
+       deployment gpt-6-sol
+   ```
+
 2. This sentence: `Replacing the model means rechecking the agent's instructions, knowledge, evaluation and permissions.`
 
 **A done:** the **Lab 01** section has your sketch and sentence, and the `Full project endpoint:` line is filled in.

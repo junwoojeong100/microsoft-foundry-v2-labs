@@ -23,8 +23,8 @@ You need a browser, an Entra account, and an instructor-prepared Foundry project
 **`gpt-6-sol` deployment**. Lab 05 defaults to a **prepared MAF environment** with SDKs installed and the learner signed in.
 A Hosted Responses workflow in Playground is optional, only after the owner verifies it before class. Copy commands and read their results; Python authoring,
 installation, and subscription billing setup are preparation, not class exercises.
-For self-study, complete [the environment-owner checklist](setup-owner.md),
-[Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) and [Lab 02 B](labs/02-models.md#path-b) first.
+For self-study, complete [the self-study preparation](setup-owner.md#self-study) first; it includes the
+[Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) and [Lab 02 B](labs/02-models.md#path-b) terminal setup.
 
 | Order | Lab | Time | Your evidence |
 |---|---|---:|---|

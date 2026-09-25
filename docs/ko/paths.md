@@ -23,8 +23,8 @@ Azure나 agent가 처음이면 **A**, Python·API에 익숙하면 **B**를 선�
 Lab 05는 SDK 설치와 본인 계정 로그인이 끝난 **준비된 MAF 실행 환경**이 기본입니다.
 Hosted Responses workflow의 Playground는 수업 전에 담당자가 검증한 경우에만 선택합니다. 학습자는 명령을 복사해 실행하고 결과를 읽습니다.
 Python 코드 작성·설치·구독 결제 설정은 사전 준비입니다.
-혼자 학습하면 [환경 담당자 체크리스트](setup-owner.md),
-[Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경), [Lab 02 B](labs/02-models.md#path-b)를 먼저 완료합니다.
+혼자 학습하면 [혼자 학습 준비](setup-owner.md#self-study)를 먼저 완료합니다. 여기에
+[Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)와 [Lab 02 B](labs/02-models.md#path-b)의 터미널 준비가 포함됩니다.
 
 | 순서 | 실습 | 시간 | 직접 남길 결과 |
 |---|---|---:|---|

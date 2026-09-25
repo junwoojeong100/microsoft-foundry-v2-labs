@@ -2,9 +2,57 @@
 
 **English** | [한국어](ko/setup-owner.md)
 
-**Prepare the shared Azure environment before learners start setup.** This page is for the subscription/project owner or instructor, not a hidden learner step.
+**Prepare the Azure environment before learners start setup.** This page is for the subscription/project owner or instructor, not a hidden prerequisite inside a later lab.
 
-If you are learning alone, you are also the environment owner. These are preparation steps, not hidden prerequisites inside a later lab.
+**Learning alone?** You are also the owner. Follow [Learning alone](#self-study) first; the [class owner checklist](#class-owner-checklist) after it adds class, B Search and optional preparation.
+
+<a id="self-study"></a>
+
+## Learning alone: prepare route A yourself
+
+**Finish with what a class owner would hand you: your own project, the exact `gpt-6-sol` deployment, your role, the setup card and a Lab 05 terminal.**
+Do this once, before Lab 00. It creates billable resources in your subscription; this edition has not timed it with learners.
+The portal steps follow the linked Microsoft Learn pages, checked on September 25, 2026. The workshop recordings used a project prepared beforehand.
+
+1. **Subscription.** Sign in at `https://ai.azure.com` with an account that can create resources and assign roles in your Azure subscription, for example its **Owner**. Model calls are billed to that subscription.
+   **Check:** the Foundry portal opens and **New Foundry** at the top is switched on.
+2. **Project.** Select the project name at the top left, then **Create new project** (if you have no project yet, the portal offers to create one).
+   Enter a name that starts with `mfv2-`, open **Advanced options**, create a **new resource group** used only for this course,
+   choose a **Location** that offers `gpt-6-sol` (this edition used **Sweden Central**) and select **Create**
+   ([official steps](https://learn.microsoft.com/azure/foundry/how-to/create-projects)).
+   **Check:** your new project's **Home** shows **Project endpoint**; its `<account>` part, `https://<account>.services.ai.azure.com/...`, is your Foundry resource name.
+3. **Answer model.** Select **Discover** in the top bar, then **Models**, search for and open **`gpt-6-sol`**, and select **Deploy → Custom settings**.
+   Keep the deployment name **`gpt-6-sol`**, choose model version **`2026-09-22`** and select **Deploy**
+   ([official steps](https://learn.microsoft.com/azure/foundry/foundry-models/how-to/deploy-foundry-models)).
+   Skip `gpt-6-sol-judge` unless you later choose an optional Foundry evaluation.
+   **Check:** **Home → View deployments** shows `gpt-6-sol`, version `2026-09-22` and **Succeeded**.
+   If that model or version is not offered, or has no quota, in your location, stop: repeat step 2 in another location
+   with a new resource group, or [request quota](https://aka.ms/oai/stuquotarequest). Do not deploy another model instead.
+4. **Your role.** Creating the project in the portal with role-assignment rights also gives you, and the project's managed identity,
+   **Foundry User** on the new Foundry resource ([official RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry#minimum-role-assignments-to-get-started)).
+   **Check:** in the Azure portal, open the new Foundry resource → **Access control (IAM)** → **Role assignments** and find **Foundry User**
+   (older name **Azure AI User**) for your account. If it is missing, [assign it](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal) to your account on that resource.
+5. **Traces, optional.** For Lab 09's trace check, select **Build → Agents**, the **Traces** tab and **Connect**, then create a new
+   Application Insights resource ([official steps](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup)). It adds log costs.
+   **Check:** a connection confirmation appears. If you skip this step, Lab 09 records `trace unverified: <reason>`.
+6. **Files and values.** Complete [setup sections 2–3](setup.md#learner-files): download the learner ZIP and fill its setup card from your own portal.
+   On `Cost and permission owner:` write yourself.
+   **Check:** every line of the **Lab 00 - setup card** section in `session-notes.txt` is filled.
+7. **Lab 05 terminal.** Complete [Lab 00 B](labs/00-start.md#path-b) steps 1–5, then [Lab 02 B](labs/02-models.md#path-b) steps 1–3,
+   and leave through [its A return choices](labs/02-models.md#a-terminal-ready). You can also do this step when you reach Lab 05.
+   **Check:** `doctor --cloud` reports `gpt-6-sol` / `2026-09-22` / `Succeeded`, and Lab 02 B saved `model.json` and `answer-local.json`.
+
+**Ready:** after step 6, or step 7 if you do it now, start [Lab 00 A](labs/00-start.md#path-a).
+If a step fails, fix that step before continuing. Do not create another model, resource or project for the same unexplained error.
+**Learning B alone?** Complete steps 1–5 (B's Lab 09 needs step 5), then step 4 of the [class owner checklist](#class-owner-checklist)
+for the Search service and your two Search roles, and continue with [setup](setup.md) for route B.
+**After Lab 11:** keep your evidence folder, then delete the step 2 resource group in the Azure portal (**Resource groups** → your group →
+**Delete resource group**) only if it holds nothing but this course's resources. That removes the project, its deployments and any
+Application Insights together; [cleanup](reference/cleanup.md) shows how to confirm and record it. Keep the group instead if you will continue with route B.
+
+<a id="class-owner-checklist"></a>
+
+## Class owner checklist
 
 1. Select a dedicated training subscription/resource group and a region with the required model quota.
    Use the [current Foundry setup guide](https://learn.microsoft.com/azure/foundry/quickstarts/get-started-code);

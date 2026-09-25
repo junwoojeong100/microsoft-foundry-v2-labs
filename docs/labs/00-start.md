@@ -46,6 +46,8 @@ prevent translated datasets from being presented as the same-input experiment.
 
 ## A. Browser: no coding required
 
+**Learning alone?** Finish [the self-study preparation](../setup-owner.md#self-study) first; it creates the project and model used below.
+
 1. Open `https://ai.azure.com` in Edge or Chrome.
 2. Sign in with the instructor-specified **Microsoft Entra account and directory (tenant)**.
    Personal Microsoft, GitHub, and Azure work-account sign-ins are different.
@@ -55,9 +57,8 @@ prevent translated datasets from being presented as the same-input experiment.
 3. Select the training project, not a similarly named production project.
    If the project picker is hard to use, choose **View all resources**, search for the project name,
    and check its name, parent resource and region before opening it.
-4. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip).
-   Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
-   In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal by default; use the optional Hosted Responses Playground only if the owner preselected and verified it;
+4. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip) and keep `START-HERE.txt` open.
+   [Lab 05](05-workflows.md) later runs one prepared option, by default a command in a prepared terminal;
    you will not write Python or build a portal workflow.
 5. Open the ZIP's `session-notes.txt`. In its **Lab 00 - setup card** section, check each line you filled during setup and complete any blank one.
    Do not post whole screens or personal information in shared chat.
@@ -70,8 +71,8 @@ prevent translated datasets from being presented as the same-input experiment.
 | `Full project endpoint:` | The owner's value; Lab 01 checks it on **Home** |
 | `Answer deployment / model version:` | `gpt-6-sol` / `2026-09-22` |
 | `Personal prefix:` | Your own, for example `mfv2-team01-en` |
-| `Cost and permission owner:` | The person who approves costs and roles |
-| `Prepared MAF terminal location:` | Where to open the terminal prepared for Lab 05, or `not used` for the Playground option |
+| `Cost and permission owner:` | The person who approves costs and roles; yourself when learning alone |
+| `Prepared MAF terminal location:` | Where to open the terminal prepared for Lab 05 (learning alone: your source folder), or `not used` for the Playground option |
 | `Optional IQ Chat selected or not selected:` | `not selected`, unless the owner prepared it for you |
 
 ![September 24 English recording: Open the intended training project](../assets/g6sol-20260924-en/screenshots/EP00-001-home-2.webp)
@@ -89,7 +90,7 @@ Continue to [Lab 01 A](01-foundry.md#path-a); the B installation instructions ar
 
 ## B. Code: one folder, one environment
 
-Use macOS/Linux or WSL on Windows, Bash/zsh, and Python 3.13. Steps 1–3 call `python3.13`; once step 3 activates `.venv`, later commands use its `python`. The Hosted runtime also uses 3.13.
+Use macOS/Linux or WSL on Windows ([install WSL](https://learn.microsoft.com/windows/wsl/install)), Bash/zsh, and Python 3.13. Steps 1–3 call `python3.13`; once step 3 activates `.venv`, later commands use its `python`. The Hosted runtime also uses 3.13.
 For the offline rehearsal only, Python 3.14 also works; replace `python3.13` with `python3.14` in steps 1–2.
 Every workshop command in this guide passes `--language en`; without it, the CLI uses the Korean bundle.
 Do not install into global Python or change the system's default Azure subscription.
@@ -171,6 +172,8 @@ Open the copied `session-notes.txt` and fill its **Lab 00 - setup card** with th
 After that, use only **B - code evidence and handoff** and **Pause / resume**; skip the entire **A - browser notes only** section,
 including its Playground and source-check fields. The B section has its own lab-by-lab review lines.
 If an older personal copy lacks a named line, append that line there; do not replace your filled notes with the new blank template.
+**Preparing only A's Lab 05 terminal?** Run the block anyway, because Lab 02 B saves `model.json` and `answer-local.json` there,
+but leave this copy blank: your notes stay in the learner ZIP's `session-notes.txt`.
 
 The B commands in Labs 02/03/04/05/06 include **`--output`**, which saves the complete JSON to this notes directory
 and still prints it. **No terminal-to-editor copying is needed.** Open the saved file at each **Save** checkpoint.

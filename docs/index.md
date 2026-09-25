@@ -10,6 +10,7 @@
 3. Follow the route's checklist from Lab 00. Use **A done / B done** to leave each lab; do not continue into the other path.
 
 **No Azure access yet:** stop after the [offline rehearsal](labs/00-start.md#offline-rehearsal).
+**Learning alone:** prepare your own environment with [the self-study steps](setup-owner.md#self-study) first.
 **Already started:** use [recovery and resume](reference/troubleshooting.md#resume-safely), not a fresh installation.
 
 This Pre-Ignite 2026 Edition uses **synthetic data only**, with separate English/Korean inputs and recordings.
