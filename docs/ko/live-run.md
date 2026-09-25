@@ -218,6 +218,38 @@ Memory store, Toolbox, routine은 각 모듈 명령으로 삭제했고, 나머�
 평가 삭제 호출의 응답에는 `deleted: true` 필드가 없었으므로 다시 조회해서만 삭제를 확인했습니다.
 남긴 것: 2026-09-23·24 녹화의 agent·평가·데이터 세트, 공유 연결·배포·Search 서비스·Application Insights.
 
+<a id="end-to-end-20260925"></a>
+
+## 가이드대로 끝까지 실행 — 2026년 9월 25일
+
+**두 기본 경로를 같은 프로젝트와 배포에서 영문·국문 모두 가이드에 적힌 그대로 실행했습니다.** commit `f128f0c`의 새 복사본을
+GitHub에서 받았습니다. 영문은 안내된 sparse clone, 국문은 **Download ZIP**을 사용했고 prefix는 `mfv2-e2e-20260925-<language>`입니다.
+B 경로는 Lab 00–11의 핵심 bash 블록을 순서대로 한 터미널(영문 zsh, 국문 macOS bash 3.2)에서 실행하고 각 `read` 프롬프트에 직접 입력했습니다.
+블록 밖에서 한 일은 가이드가 설명하는 두 가지뿐입니다. 이미 로그인한 계정으로 `az login`을 대신했고(이 공유 PC의 기본 구독도 바꾸기 때문),
+`.env`를 설정 카드 값으로 채웠습니다. A 경로는 영문·국문 포털 UI에서 Lab 01–03, 07, 09 단계를 실행했고, 영문에서 Lab 05 A 터미널 명령도 실행했습니다.
+
+| 확인 | 영문 | 국문 |
+|---|---|---|
+| B 경로 블록 | 34개 모두 종료 코드 0. baseline이 6/6이라 feedback 블록은 건너뜀 | 같음 |
+| B 경로 결과 | baseline 6/6, candidate 6/6, holdout 4/4, `ready-for-human-review`, `deployment_approved: false`, Lab 03 B 버전 1, Search·IQ 문서 6개, Lab 08은 패키징만 | 같음 |
+| A 경로 Lab 01–02 | 전체 project endpoint, `gpt-6-sol` `2026-09-22` **Succeeded**, **빌드** 메뉴의 네 항목, Web search가 있어 제거, 근거 없는 질문에는 정책을 요청 | 같음(국문 UI) |
+| A 경로 Lab 03·07 | 정책 ID 6개가 든 버전 2로 저장, D01–D06 모두 그 버전에서 기준 충족 | 같음 |
+| A 경로 Lab 09 | **Details** `Latest (Version 2)`, 추적 10개, 연 추적에 `invoke_agent <agent>:2`와 자식 `chat` span, `web.run` 없음 | **세부 정보** `최신(Version 2)`, 추적 같음 |
+
+**찾아서 고친 가이드 내용:**
+
+1. 포털의 **에이전트 만들기** 창에 필수 **상호 작용 모드**(기본 **텍스트**, 만든 뒤 변경 불가)가 생겼고 버튼 이름이
+   **에이전트 만들기 및 플레이그라운드 열기**로 바뀌었습니다. Lab 03 A에 반영하고 [새 창](../assets/e2e-check-20260925/captures.json)을 보여 줍니다.
+2. agent의 **세부 정보** 탭에는 이름과 활성 버전만 있고 모델은 없습니다. Lab 09 A는 이제 **플레이그라운드** 탭에서 모델을 확인합니다.
+3. Lab 03 A가 삭제된 2026-09-23 녹화의 agent 이름을 적고 있었습니다. 이제 2026-09-24 녹화 이름을 적습니다.
+4. Lab 02 B는 필드가 최상위 `answer` 객체 안에 있다고 설명하고, Lab 05 B는 국문 실행에도 나오는 영문 라운드 상한 문구
+   `The group chat has reached the maximum number of rounds.`를 그대로 적습니다.
+5. 국문 Lab 07 feedback 블록의 입력 안내를 한국어로 바꿨습니다.
+
+**정리:** agent `mfv2-e2e-20260925-<language>-policy`(버전 1–2)와 `mfv2-e2e-20260925-<language>-policy-sdk`(버전 1),
+언어별 Search knowledge base·knowledge source·index를 삭제하고 다시 조회해 404를 확인했고, agent의 Entra agent ID도 404였습니다.
+평가나 데이터 세트는 만들지 않았습니다.
+
 ## gpt-6-sol로 실행하지 않은 것
 
 - Lab 03 포털 File Search

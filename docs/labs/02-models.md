@@ -154,7 +154,7 @@ python scripts/workshop.py --language en answer --prompt v2 --retrieval local \
 ```
 
 The command performs local keyword retrieval over synthetic documents, then calls a
-**real Azure model**. Inspect `answer`, `decision`, `limit_krw`, and `citations`.
+**real Azure model**. Open the top-level `answer` object and inspect its `answer`, `decision`, `limit_krw` and `citations`.
 `local` describes retrieval, **not an offline model**.
 
 

@@ -145,7 +145,7 @@ python scripts/workshop.py answer --prompt v2 --retrieval local \
 ```
 
 이 명령은 합성 문서에서 로컬 키워드 검색을 한 뒤 **실제 Azure 모델**을 호출합니다.
-JSON의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
+JSON의 최상위 `answer` 객체를 열고 그 안의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
 `local`은 검색 위치를 뜻할 뿐 **모델 호출이 오프라인이라는 뜻이 아닙니다.**
 
 

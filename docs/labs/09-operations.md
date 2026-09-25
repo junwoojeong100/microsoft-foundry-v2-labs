@@ -24,9 +24,9 @@
 
 Complete these four checks using **your own existing results**, without sending another model request:
 
-1. In the left menu, select **Agents** and open your Lab 03 agent. On its **Details** tab, compare the name, version and model
-   with the version you assessed in Lab 07.
-2. On its **Playground** tab, check **Instructions**, **Tools** and **Knowledge**. On the default A route, **Instructions** holds the six
+1. In the left menu, select **Agents** and open your Lab 03 agent. On its **Details** tab, compare the name and the active version
+   (`Latest (Version N)`) with the version you assessed in Lab 07.
+2. On its **Playground** tab, check **Model** (`gpt-6-sol`), **Instructions**, **Tools** and **Knowledge**. On the default A route, **Instructions** holds the six
    inline synthetic policies and **Knowledge** stays empty; if you separately selected File Search or IQ, note that connection instead.
    There must be no unapproved Web search or company connection.
 3. Open your agent's **Traces** tab. The environment owner should have connected Application Insights before class. Find one saved request from your own Lab 03 or Lab 07 work and open it: look for `invoke_agent <agent>:<version>` with a child `chat` span. An `execute_tool web.run` span means that request ran with the Web search tool (for example, a version before you removed it). If tracing or permissions are unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:`. Do not send a new message for this check.
@@ -305,9 +305,9 @@ Rule configuration and actual evaluated samples are different evidence; nothing 
 
 These captures come from the September 24, 2026 English recording with `gpt-6-sol` / `2026-09-22`. Use your own resource names, versions and results.
 
-![September 24 English recording: Agent details: name, saved version and model](../assets/g6sol-20260924-en/screenshots/EP09-001-details-2.webp)
+![September 24 English recording: Agent details: name and active version](../assets/g6sol-20260924-en/screenshots/EP09-001-details-2.webp)
 
-**What to check:** Details shows the agent name, the saved version and `gpt-6-sol`; compare them with your worksheet.
+**What to check:** Details shows the agent name and the active version (`Latest (Version 2)` here); the model appears on the **Playground** tab. Compare them with your worksheet.
 
 ![September 24 English recording: Monitor totals are not evaluation correctness](../assets/g6sol-20260924-en/screenshots/EP09-003-monitor-2.webp)
 

@@ -164,7 +164,7 @@ python scripts/workshop.py workflow --pattern group-chat \
 ```
 
 이 예제는 정해진 순서로 최대 **3라운드**만 진행하며, 전체 workflow timeout도 240초입니다.
-`outputs`에는 발화 순서대로 각 참여자의 답변이 나오고, 마지막에 라운드 상한 안내가 나옵니다.
+`outputs`에는 발화 순서대로 각 참여자의 답변이 나오고, 마지막에 라운드 상한 안내인 영문 SDK 문구 `The group chat has reached the maximum number of rounds.`가 나옵니다.
 이 안내만으로는 업무 답변이 아닙니다. 상한을 늘리기 전에 호출량과 token budget을 먼저 계산합니다.
 
 ![2026-09-24 국문 녹화: 제한된 Group Chat workflow](../../assets/g6sol-20260924-ko/screenshots/K05-004-group-chat-2.webp)

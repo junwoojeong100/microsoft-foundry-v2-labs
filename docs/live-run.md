@@ -233,6 +233,39 @@ The Entra agent identity and blueprint of each deleted agent also returned 404, 
 The evaluation delete call returned no `deleted: true` field; only the read-back confirmed each deletion.
 Kept: the September 23–24 recording agents, evaluations and datasets, and the shared connections, deployments, Search service and Application Insights.
 
+<a id="end-to-end-20260925"></a>
+
+## End-to-end guide run — September 25, 2026
+
+**Both core routes ran as written, in English and Korean, against the same project and deployments.** Fresh copies of commit
+`f128f0c` came from GitHub: English by the documented sparse clone, Korean by **Download ZIP**. Prefixes were `mfv2-e2e-20260925-<language>`.
+Route B ran every core bash block of Labs 00–11 in order in one terminal (English zsh, Korean macOS bash 3.2), typing the answers at
+each `read` prompt. Only two steps happened outside a block, as the guide describes: the already signed-in account replaced
+`az login` (which would also reset this shared machine's default subscription), and `.env` was filled from the setup card.
+Route A ran the portal steps of Labs 01–03, 07 and 09 in the English and Korean portal UI, plus Lab 05 A's terminal command in English.
+
+| Check | English | Korean |
+|---|---|---|
+| Route B blocks | 34 exited 0; the feedback block was skipped because the baseline passed 6/6 | Same |
+| Route B results | Baseline 6/6, candidate 6/6, holdout 4/4; `ready-for-human-review`, `deployment_approved: false`; Lab 03 B version 1; Search and IQ six documents; Lab 08 package only | Same |
+| Route A, Labs 01–02 | Full project endpoint, `gpt-6-sol` `2026-09-22` **Succeeded**, the four **Build** menu entries; Web search listed and removed; the no-evidence answer asked for the policy | Same, in the Korean UI |
+| Route A, Labs 03 and 07 | Saved version 2 with all six policy IDs; D01–D06 each met its criteria on that version | Same |
+| Route A, Lab 09 | **Details** `Latest (Version 2)`; 10 traces, each opened one `invoke_agent <agent>:2` with a child `chat` span and no `web.run` | **세부 정보** `최신(Version 2)`; same traces |
+
+**Found and fixed in the guide:**
+
+1. The portal's **Create an agent** dialog now has a required **Interaction mode** (default **Text**, fixed after creation), and its button
+   reads **Create agent and open playground**; Lab 03 A says so and shows [the new dialog](assets/e2e-check-20260925/captures.json).
+2. An agent's **Details** tab shows the name and active version but not the model; Lab 09 A now checks the model on the **Playground** tab.
+3. Lab 03 A named the removed September 23 recording's agent; it now names the September 24 one.
+4. Lab 02 B now says the fields sit inside the top-level `answer` object, and Lab 05 B quotes the English round-limit item
+   `The group chat has reached the maximum number of rounds.`, which also appears in Korean runs.
+5. The Korean Lab 07 feedback block now prompts in Korean.
+
+**Cleanup:** agents `mfv2-e2e-20260925-<language>-policy` (versions 1–2) and `mfv2-e2e-20260925-<language>-policy-sdk` (version 1),
+and each language's Search knowledge base, knowledge source and index were deleted and read back as 404, as were the agents'
+Entra agent identities. No evaluation or dataset was created.
+
 ## Not run with gpt-6-sol
 
 - Lab 03 portal File Search

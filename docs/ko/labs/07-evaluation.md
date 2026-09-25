@@ -257,9 +257,9 @@ python scripts/workshop.py evaluate --label baseline
 **6개가 모두 통과했다면** 검토 기록에 그 사실을 적고 이 블록을 건너뛰어 3으로 이동합니다.
 
 ```bash
-printf 'Actual failed dev case ID: '
+printf '실제로 실패한 dev case ID: '
 read -r FAILED_CASE
-printf 'Your specific review reason: '
+printf '구체적인 검토 이유: '
 read -r REVIEW_REASON
 python scripts/workshop.py feedback --label baseline --case "$FAILED_CASE" --reason "$REVIEW_REASON"
 ```

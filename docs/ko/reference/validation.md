@@ -18,7 +18,7 @@
 | 작업 폴더는 어떻게 확인하나요? | 아래 offline 테스트·Ruff·compilation·문서·학습자 번들 검사를 실행합니다. 날짜별 기록마다 해당 revision에서 통과한 검사를 적습니다 | [로컬 검사](#재실행할-로컬-검사) |
 | 이 근거 밖에 있는 것은? | 회사/Microsoft 365 데이터, 외부 Work IQ/Fabric 연결, SLA, 통계적 우월성, 자동 재학습, 운영 승인, 다른 사용자의 자산 | [확인하지 않은 것](#확인하지-않은-것) |
 | 9월 24일 검토 반영에서 바뀐 것은? | SDK 고정 버전 갱신, B 핵심에 Lab 03 B 관리형 agent 추가, trace 확인 필수화, A Lab 05 브라우저 선택지, Insights 모듈, 독립 SDK 예제, 새 CI 검사. 그날 저녁 새 고정 버전으로 핵심 B 경로를 두 언어에서 실제 실행했고 추적 조회, 예제, A2A, Insights scan 1회를 함께 확인했으며 가이드·예제 결함 4개를 수정 | [검토 반영](#review-refresh-20260924) · [live 확인](#review-refresh-live-20260924) |
-| 9월 25일에 더한 것은? | Lab 03 B와 Lab 09 B 추적 검색의 화면·짧은 영상(두 언어), 대화 평가·Memory·routine·Toolbox 탐색까지의 영문 실행. 나머지 항목은 담당자 승인이 필요 | [보충 녹화와 미실행 검토](#review-refresh-supplement-20260925) |
+| 9월 25일에 더한 것은? | 두 기본 경로를 두 언어로 가이드대로 끝까지 실행(가이드 수정 5건), Lab 03 B와 Lab 09 B 추적 검색의 화면·짧은 영상(두 언어), 대화 평가·Memory·routine·Toolbox 탐색까지의 영문 실행. 나머지 항목은 담당자 승인이 필요 | [보충 녹화와 미실행 검토](#review-refresh-supplement-20260925) |
 | 가이드·문서는 얼마나 straightforward한가요? | AI 편집 검토: 2026-09-25 최종 점검에서 새 검토자는 가이드 94/100, 문서 90/100(6차)을, 수정 뒤 재검토는 99.5/100, 98/100(7차)을 주었습니다. 학습자 시범 운영이나 시간 측정이 아님 | [최신 검토](#straightforwardness-95) |
 
 <a id="review-refresh-20260924"></a>
@@ -70,6 +70,20 @@ A Lab 05 브라우저 선택지, [Insights 모듈](../labs/extensions/agent-insi
 - **오프라인 검사:** Python 3.13·3.14의 오프라인 테스트 305개, 고정 라이브러리의 SDK 테스트 87개, Ruff check·format, compilation, `check_docs.py`, 학습자 번들, CI 오프라인 doctor·demo·evaluate·package 단계가 통과했습니다.
 
 [ID·결과·소유 객체](../live-run.md#review-refresh-supplement).
+
+<a id="end-to-end-20260925"></a>
+
+## 가이드대로 끝까지 실행 — 2026-09-25
+
+- **적힌 그대로 실행:** GitHub에서 받은 `f128f0c` 새 복사본(영문 sparse clone, 국문 ZIP). B 경로 핵심 블록 34개를 언어마다 한 터미널(zsh, bash 3.2)에서
+  실행하고 프롬프트에 직접 입력했습니다. A 경로는 언어별 포털에서 Lab 01–03, 07, 09 단계와 Lab 05 A 터미널 명령을 실행했습니다.
+- **결과:** 모든 블록 종료 코드 0. 두 언어 모두 baseline 6/6, candidate 6/6, holdout 4/4, `ready-for-human-review`.
+  두 포털에서 D01–D06이 기준을 충족했고, 추적에는 `invoke_agent <agent>:2`와 자식 `chat` span이 있었습니다.
+- **수정:** 바뀐 **에이전트 만들기** 창(새 화면), 모델 확인 위치를 **세부 정보**에서 **플레이그라운드**로 변경, 녹화 agent 이름,
+  `answer` 중첩 설명, 영문 라운드 상한 문구, 국문 feedback 입력 안내.
+- **정리:** 이 실행의 모든 객체를 삭제하고 다시 조회해 404를 확인했습니다.
+
+[세부 내용과 객체](../live-run.md#end-to-end-20260925).
 
 <a id="gpt-6-sol-20260924"></a>
 
@@ -324,7 +338,7 @@ D10과 R10은 국문 검토에서 나옵니다. 새 검토자마다 다른 작�
 **이후 수정, 재채점하지 않음:** 7차의 두 발견(준비 카드의 경로 문장·endpoint 행, 근거 허브의 담당자 승인 대기 목록)을 고쳤습니다.
 
 **검증(2026-09-25):** Python 3.13·3.14 각각에서 offline 테스트 305개, Ruff 0.16.6 lint/format, Python compilation,
-`check_docs.py`(Markdown 127개, 로컬 링크 2,612개, anchor 554개, CLI 예제 328개, azd 예제 84개, 언어 쌍 63개), 학습자 번들 검사가
+commit `f128f0c`의 `check_docs.py`(Markdown 127개, 로컬 링크 2,612개, anchor 554개, CLI 예제 328개, azd 예제 84개, 언어 쌍 63개), 학습자 번들 검사가
 통과했고, 바뀐 언어 쌍은 `docs/localization.json`에 정확한 완료 hash가 있습니다. 검토자는 읽기만 했고,
 이 검토에서 Azure 호출, 리소스 변경, push는 하지 않았습니다.
 

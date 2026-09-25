@@ -116,7 +116,7 @@ SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)
 
 ## 이 버전의 범위
 
-- 현재 Foundry / Projects SDK **2.x** 고정 버전은 2026-09-24에 갱신했고 그날 저녁 두 언어의 핵심 B 경로에서 실제 검증했습니다. 2026-09-24 녹화는 이전 고정 버전을 사용했습니다. 새 고정 버전으로 Lab 03 B와 Lab 09 B 추적 검색을 2026-09-25에 녹화했습니다([보충 녹화](docs/ko/video-summary.md#review-refresh-supplement)). [버전](docs/ko/reference/versions.md)을 확인하세요.
+- 현재 Foundry / Projects SDK **2.x** 고정 버전은 2026-09-24에 갱신했고 그날 저녁 두 언어의 핵심 B 경로에서 실제 검증했습니다. 2026-09-24 녹화는 이전 고정 버전을 사용했습니다. 새 고정 버전으로 Lab 03 B와 Lab 09 B 추적 검색을 2026-09-25에 녹화했고([보충 녹화](docs/ko/video-summary.md#review-refresh-supplement)), 같은 날 두 경로를 가이드대로 처음부터 끝까지 실행했습니다([결과](docs/ko/live-run.md#end-to-end-20260925)). [버전](docs/ko/reference/versions.md)을 확인하세요.
 - 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다. Assistants는 2026-08-26 retired, 포털 Workflows는 2026-12-01 retire, classic threads/runs agents는 2027-03-31 retire 예정입니다. [변경 지도](docs/ko/reference/migration.md)를 확인하세요.
 - 첫 실습 preset은 **`gpt-6-sol`**, 같은 이름의 배포, 모델 버전 **`2026-09-22`**입니다.
   2026-09-23에 선택했고 2026-09-24에 이 모델로 주요 단계를 녹화했습니다([이 모델을 고른 이유](docs/ko/reference/model-choice.md)).

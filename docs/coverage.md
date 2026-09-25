@@ -7,7 +7,7 @@ optional Foundry evaluation steps (portal and trace evaluation, business rubric 
 Separate September 23 `gpt-6-sol` checks cover the conversation evaluation module, the existing-traces and recurring
 evaluations, Agent Optimizer, cloud red teaming and the approved Hosted release. The other extension results below date from
 September 16, 2026 (earlier `gpt-5.6-luna` preset) and are not evidence for `gpt-6-sol`, except where a September 24 or 25 row says otherwise.
-On September 25 a short supplement recorded Lab 03 B and the Lab 09 B trace search in both languages, and English runs covered conversation evaluation, memory, a routine and the Toolbox up to discovery.
+On September 25 both core routes ran end to end as written in both languages ([results](live-run.md#end-to-end-20260925)), a short supplement recorded Lab 03 B and the Lab 09 B trace search in both languages, and English runs covered conversation evaluation, memory, a routine and the Toolbox up to discovery.
 This page is a coverage record, not a claim that every Foundry feature has been executed.
 The production order is English guide → English recording → English refinement → Korean guide →
 independent Korean recording → Korean refinement.

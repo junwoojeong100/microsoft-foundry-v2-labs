@@ -19,7 +19,7 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | How do I check a working copy? | Run the offline tests, Ruff, compilation, documentation and learner-bundle checks below. Each dated record states what passed for its revision | [Local checks](#local-checks-to-run) |
 | What is outside this evidence? | Company/Microsoft 365 data, external Work IQ/Fabric connections, SLAs, statistical superiority, automatic retraining, production approval and other users' resources | [Not established](#not-established) |
 | What changed in the September 24 review refresh? | Refreshed SDK pins, Lab 03 B managed agent in the B core, a core trace check, a browser option for A Lab 05, the Insights module, standalone SDK recipes and new CI checks. That evening the core B route ran live in both languages with the new pins, plus the trace lookup, recipes, A2A and one Insights scan; four guide or recipe defects were fixed | [Review refresh](#review-refresh-20260924) · [live check](#review-refresh-live-20260924) |
-| What was added on September 25? | Screenshots and short clips of Lab 03 B and the Lab 09 B trace search in both languages; English runs of conversation evaluation, memory, a routine and the Toolbox up to discovery; the remaining items need owner approval | [Supplement and not-run review](#review-refresh-supplement-20260925) |
+| What was added on September 25? | Both core routes run end to end as written in both languages, with five guide fixes; screenshots and short clips of Lab 03 B and the Lab 09 B trace search in both languages; English runs of conversation evaluation, memory, a routine and the Toolbox up to discovery; the remaining items need owner approval | [Supplement and not-run review](#review-refresh-supplement-20260925) |
 | How straightforward are the guides and documents? | AI editorial review: in the September 25 final check, new reviewers scored guides 94/100 and documents 90/100 (round 6), and 99.5/100 and 98/100 after the fixes (round 7). Not a learner pilot or timing measurement | [Latest review](#straightforwardness-95) |
 
 <a id="review-refresh-20260924"></a>
@@ -72,6 +72,20 @@ project and `gpt-6-sol` / `gpt-6-sol-judge`. The lab subscription was pinned; th
 - **Offline checks:** 305 offline tests on Python 3.13 and 3.14, 87 SDK tests with the pinned libraries, Ruff check and format, compilation, `check_docs.py`, learner bundles and the CI offline doctor, demo, evaluate and package steps passed.
 
 [IDs, results and owned objects](../live-run.md#review-refresh-supplement).
+
+<a id="end-to-end-20260925"></a>
+
+## End-to-end guide run — September 25, 2026
+
+- **Ran as written:** fresh GitHub copies of `f128f0c` (English sparse clone, Korean ZIP); route B's 34 core blocks in one terminal per
+  language (zsh, bash 3.2) with typed prompt answers; route A's portal steps of Labs 01–03, 07 and 09 in each portal language and Lab 05 A's terminal command.
+- **Results:** every block exited 0; baseline 6/6, candidate 6/6, holdout 4/4 and `ready-for-human-review` in both languages;
+  D01–D06 met their criteria in both portals; the traces showed `invoke_agent <agent>:2` with a child `chat` span.
+- **Fixed:** the changed **Create an agent** dialog (new screenshots), the model check moved from **Details** to **Playground**,
+  the recording's agent name, the `answer` nesting, the English round-limit item and the Korean feedback prompts.
+- **Cleanup:** every object of the run was deleted and read back as 404.
+
+[Details and objects](../live-run.md#end-to-end-20260925).
 
 <a id="gpt-6-sol-20260924"></a>
 
@@ -345,7 +359,7 @@ English first and then Korean:
 items waiting for owner approval, were corrected.
 
 **Verification, September 25:** 305 offline tests on each of Python 3.13 and 3.14, Ruff 0.16.6 lint/format, Python compilation,
-`check_docs.py` (127 Markdown files, 2,612 local links, 554 anchors, 328 CLI examples, 84 azd examples, 63 language pairs) and
+`check_docs.py` at commit `f128f0c` (127 Markdown files, 2,612 local links, 554 anchors, 328 CLI examples, 84 azd examples, 63 language pairs) and
 the learner-bundle checks passed; changed pairs have exact completion hashes in `docs/localization.json`. The reviewers were
 read-only, and no Azure call, resource change or push was made for this review.
 

@@ -39,7 +39,7 @@ class MediaIntegrityTests(unittest.TestCase):
     unrecorded_guides = {"10-iq-extensions"}
     action_index = "action-captures.md"
     video_summary = "video-summary.md"
-    supplemental_assets = ("iq-chat-20260917", "review-refresh-20260925")
+    supplemental_assets = ("iq-chat-20260917", "review-refresh-20260925", "e2e-check-20260925")
 
     def test_language_editions_use_different_actual_source_and_output_videos(self):
         hashes = {}

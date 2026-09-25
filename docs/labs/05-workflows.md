@@ -166,7 +166,7 @@ python scripts/workshop.py --language en workflow --pattern group-chat \
 ```
 
 The example uses a fixed speaker order and at most **three rounds**; the whole workflow also has a 240-second timeout.
-`outputs` lists each participant's reply in speaking order, then the orchestrator's round-limit notice.
+`outputs` lists each participant's reply in speaking order, then the orchestrator's round-limit notice, `The group chat has reached the maximum number of rounds.`
 The notice alone is not a business answer. Calculate call/token budgets before increasing either bound.
 
 

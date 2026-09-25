@@ -41,6 +41,12 @@ Use the [capability/evidence record](coverage.md) to distinguish existing labs, 
 The extension modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset, and those recordings were removed.
 With `gpt-6-sol` and without recording, conversation evaluation, Agent Optimizer, the red-team step of agent safety and release operations were re-run on September 23, A2A and one Insights scan on September 24, and conversation evaluation, memory, one routine dispatch and the Toolbox up to discovery on September 25. The [coverage record](coverage.md) shows each module's latest evidence.
 
+## End-to-end guide run — 2026-09-25
+
+Both core routes ran as written in English and Korean from fresh GitHub copies: route B's core blocks in one terminal, route A in the portal.
+Every block exited 0 and D01–D06 met their criteria; five guide defects were fixed, including the portal's changed **Create an agent** dialog.
+See [the run record](live-run.md#end-to-end-20260925).
+
 ## Review refresh live verification — 2026-09-24
 
 The refreshed SDK pins, the core B route with Lab 03 B, the Lab 09 trace lookup, the SDK recipes, A2A with typed requests and one Insights scan

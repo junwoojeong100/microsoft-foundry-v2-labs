@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "captured_on": "2026-09-25",
+  "timezone": "Asia/Seoul",
+  "purpose": "Screens from the 2026-09-25 end-to-end run of route A in the portal: the Create an agent dialog changed (new Interaction mode field; the button now reads Create agent and open playground), so Lab 03 A uses these captures instead of the September 24 screen.",
+  "project": "mfv2-g6luna-20260923",
+  "region": "swedencentral",
+  "capture_method": "Playwright in headless Microsoft Edge against the Foundry portal; display language chosen per edition",
+  "image_format": "lossless WebP decoded pixel-identical to the captured PNG",
+  "image_edited": false,
+  "page_dom_modified_for_capture": false,
+  "authentication_captured": false,
+  "captured_before_create": true,
+  "resource_writes_in_capture": 0,
+  "model_invocations_in_capture": 0,
+  "languages": {
+    "en": {
+      "agent": "mfv2-e2e-20260925-en-policy",
+      "saved_version": "2",
+      "source": "GitHub sparse clone",
+      "source_commit": "f128f0c"
+    },
+    "ko": {
+      "agent": "mfv2-e2e-20260925-ko-policy",
+      "saved_version": "2",
+      "source": "GitHub Download ZIP",
+      "source_commit": "f128f0c"
+    }
+  },
+  "images": [
+    {
+      "file": "EP03-301-create-dialog.webp",
+      "guide_language": "en",
+      "scenario_language": "en",
+      "action_id": "EP03-301-create-dialog",
+      "guide": "docs/labs/03-prompt-agent.md#path-a",
+      "mode": "PORTAL, BEFORE CREATE",
+      "observed_at": "2026-09-25T01:13:33.046059+00:00",
+      "checks": {
+        "create_button": "Create agent and open playground",
+        "interaction_modes": {
+          "Text": true,
+          "Voice": false
+        },
+        "default_interaction_mode": "Text",
+        "new_agent_menu": [
+          "Build an agent",
+          "Code an agent",
+          "With agent template",
+          "Link external agent"
+        ]
+      },
+      "source_png_sha256": "96563899490e2781d2d6aa8ae8924bb0e25fb06131153fc48dc3099e2b66f93f",
+      "pixel_exact": true,
+      "sha256": "d41aec235092e93e7b1371df178445409840e2a5716e10b13cb97621260e4888",
+      "bytes": 49126,
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "file": "KP03-301-create-dialog.webp",
+      "guide_language": "ko",
+      "scenario_language": "ko",
+      "action_id": "KP03-301-create-dialog",
+      "guide": "docs/ko/labs/03-prompt-agent.md#path-a",
+      "mode": "PORTAL, BEFORE CREATE",
+      "observed_at": "2026-09-25T01:26:07.426348+00:00",
+      "checks": {
+        "create_button": "에이전트 만들기 및 플레이그라운드 열기",
+        "interaction_modes": {
+          "텍스트": true,
+          "음성": false
+        },
+        "default_interaction_mode": "텍스트",
+        "new_agent_menu": [
+          "에이전트 빌드",
+          "에이전트 코딩",
+          "에이전트 템플릿 사용",
+          "외부 에이전트 연결"
+        ]
+      },
+      "source_png_sha256": "b6d7c87f5885d08f8156008688245dfabd040b84d7008570ad98b0830aa125db",
+      "pixel_exact": true,
+      "sha256": "74e092c0927ceaaacefda2a90adfb46a4499262f7927b78a2569f7599d96576b",
+      "bytes": 52748,
+      "width": 1440,
+      "height": 1000
+    }
+  ]
+}

@@ -38,13 +38,13 @@ Select **Build** in the top bar and **Agents** in the left menu, then **New agen
 **Code an agent** or an external-agent connection.
 
 In **Agent name**, replace the generated name with one that starts with your prefix, for example `mfv2-team01-en-policy`.
-Select **Create and open playground** and wait for completion.
+Keep **Interaction mode** on **Text**; it cannot be changed after creation. Select **Create agent and open playground** and wait for completion.
 
 
-![September 24 English recording: Use the owned agent name, then create and open the playground](../assets/g6sol-20260924-en/screenshots/EP03-003-name-2.webp)
+![September 25 English check: your prefixed name, Interaction mode Text, then Create agent and open playground](../assets/e2e-check-20260925/EP03-301-create-dialog.webp)
 
-**What to check:** Use your own **Agent name**, not the recording's `mfv2-sol-20260923-en-policy`
-name. If the button is disabled while creating, wait rather than submitting twice.
+**What to check:** Use your own **Agent name**, not the recording's `mfv2-sol-20260924-en-policy`
+name. The September 24 video shows the earlier dialog, without **Interaction mode**. If the button is disabled while creating, wait rather than submitting twice.
 Opening the first agent can also create a `text-embedding-3-large` deployment; note it for the Lab 09 cleanup inventory.
 
 #### Model and tools
