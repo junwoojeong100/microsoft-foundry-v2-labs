@@ -124,6 +124,8 @@ Why each exception happened: [failures kept in this recording](live-run.md#failu
 
 Separate from the 98 actions above: the core steps added by the review refresh, one lossless result capture each. Times open the short [supplement clips](video-summary.md#review-refresh-supplement); the terminal clip starts with the Lab 00 notes preparation.
 
+The later [Lab 03 B resume change](labs/03-prompt-agent.md#sdk-invoke-recording-scope) is offline-checked only; these captures still show the earlier invocation prompt.
+
 | ID | Action | Mode | Status | Capture | Play |
 |---|---|---|---|---|---|
 | E03-201-sdk-create | Lab 03 B: create a managed Prompt Agent and save the JSON | LIVE AZURE | recorded | [1](assets/review-refresh-20260925/E03-201-sdk-create.webp) | [00:13](assets/review-refresh-20260925/en-terminal.mp4#t=13.00) |

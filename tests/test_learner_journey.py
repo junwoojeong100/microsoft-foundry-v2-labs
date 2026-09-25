@@ -602,6 +602,176 @@ class LearnerJourneyTests(unittest.TestCase):
                     self.assertIn(f"`{name}`", reuse)
                 self.assertNotIn("Download ZIP", reuse)
 
+    def test_sparse_clone_enters_only_the_new_copy_and_stops_after_failure(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                blocks = [
+                    block
+                    for block in re.findall(r"```bash\n(.*?)```", labs[0].read_text(), re.DOTALL)
+                    if "git clone" in block
+                ]
+                self.assertEqual(len(blocks), 1)
+                block = blocks[0]
+                self.assertEqual(
+                    shlex.split(block),
+                    [
+                        "git",
+                        "clone",
+                        "--depth",
+                        "1",
+                        "--filter=blob:none",
+                        "--sparse",
+                        "https://github.com/junwoojeong100/microsoft-foundry-v2-labs.git",
+                        "microsoft-foundry-v2-labs",
+                        "&&",
+                        "cd",
+                        "microsoft-foundry-v2-labs",
+                        "&&",
+                        "git",
+                        "sparse-checkout",
+                        "set",
+                        "--no-cone",
+                        "/*",
+                        "!docs/assets/",
+                        "!videos/",
+                    ],
+                )
+                for state in ("new", "clone-failed", "existing"):
+                    with self.subTest(state=state), workspace() as root:
+                        target = root / "microsoft-foundry-v2-labs"
+                        if state == "existing":
+                            target.mkdir()
+                        result = subprocess.run(
+                            [
+                                "bash",
+                                "-c",
+                                "git() {\n"
+                                '  if [ "$1" = clone ]; then\n'
+                                '    [ "$CLONE_STATUS" = 0 ] || return "$CLONE_STATUS"\n'
+                                "    mkdir microsoft-foundry-v2-labs\n"
+                                "  else\n"
+                                '    printf "SPARSE_CWD=%s\\n" "$PWD"\n'
+                                "  fi\n"
+                                "}\n" + block,
+                            ],
+                            cwd=root,
+                            env={
+                                "PATH": os.defpath,
+                                "CLONE_STATUS": "19" if state == "clone-failed" else "0",
+                            },
+                            capture_output=True,
+                            text=True,
+                            timeout=10,
+                            check=False,
+                        )
+                        if state == "new":
+                            self.assertEqual(result.returncode, 0, result.stderr)
+                            self.assertEqual(
+                                result.stdout.strip(), f"SPARSE_CWD={target.resolve()}"
+                            )
+                        else:
+                            self.assertNotEqual(result.returncode, 0)
+                            self.assertNotIn("SPARSE_CWD", result.stdout)
+
+    def test_sdk_install_stops_before_pip_when_venv_or_activation_fails(self):
+        for language, _, labs in self.language_labs():
+            core = self.core_section(language, labs[0], "B")
+            block = next(
+                block
+                for block in re.findall(r"```bash\n(.*?)```", core, re.DOTALL)
+                if "python3.13 -m venv .venv" in block
+            )
+            for venv_status, activation_status in ((19, None), (0, 23), (0, 0)):
+                with (
+                    self.subTest(language=language, venv=venv_status, activation=activation_status),
+                    workspace() as root,
+                ):
+                    if activation_status is not None:
+                        activation = root / ".venv/bin/activate"
+                        activation.parent.mkdir(parents=True)
+                        activation.write_text(f"return {activation_status}\n")
+                    result = subprocess.run(
+                        [
+                            "bash",
+                            "-c",
+                            'python3.13() { return "$VENV_STATUS"; }\n'
+                            'python() { printf "PIP_RAN\\n"; }\n' + block,
+                        ],
+                        cwd=root,
+                        env={"PATH": os.defpath, "VENV_STATUS": str(venv_status)},
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    expected = venv_status or activation_status
+                    self.assertEqual(result.returncode, expected, result.stderr)
+                    self.assertEqual("PIP_RAN" in result.stdout, expected == 0)
+
+    def test_prompt_agent_invoke_restores_saved_name_and_version_in_a_new_terminal(self):
+        for language, directory, labs in self.language_labs():
+            core = self.core_section(language, labs[3], "B")
+            block = next(
+                block
+                for block in re.findall(r"```bash\n(.*?)```", core, re.DOTALL)
+                if "prompt-agent invoke" in block
+            )
+            for name, version in (
+                ("mfv2-resumed-policy-sdk", "7"),
+                ("", "7"),
+                ("mfv2-resumed-policy-sdk", ""),
+            ):
+                with (
+                    self.subTest(language=language, name=name, version=version),
+                    workspace() as root,
+                ):
+                    result = subprocess.run(
+                        ["bash", "-c", 'python() { printf "STUB_ARG=%s\\n" "$@"; }\n' + block],
+                        cwd=root,
+                        env={
+                            "PATH": os.defpath,
+                            "AGENT_NAME": "mfv2-stale-policy-sdk",
+                            "AGENT_VERSION": "99",
+                        },
+                        input=f"{name}\n{version}\n",
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    arguments = re.findall(r"STUB_ARG=(.*)", result.stdout)
+                    if name and version:
+                        self.assertEqual(result.returncode, 0, result.stderr)
+                        parsed = parser().parse_args(arguments[1:])
+                        self.assertEqual(parsed.name, name)
+                        self.assertEqual(parsed.version, version)
+                        self.assertEqual(parsed.action, "invoke")
+                    else:
+                        self.assertNotEqual(result.returncode, 0)
+                        self.assertEqual(arguments, [])
+            with self.subTest(language=language, guide="resume"):
+                self.assertIn('<a id="resume-managed-agent"></a>', core)
+                resume = core.split('<a id="resume-managed-agent"></a>', 1)[1].split("### 1.", 1)[0]
+                for filename in ("prompt-agent-create.json", "prompt-agent-invoke.json"):
+                    self.assertIn(f"`{filename}`", resume)
+                recovery = (directory / "reference/troubleshooting.md").read_text()
+                self.assertIn("(../labs/03-prompt-agent.md#resume-managed-agent)", recovery)
+
+    def test_self_study_finishes_terminal_preparation_before_marking_a_ready(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                owner = (directory / "setup-owner.md").read_text()
+                section = owner.split('<a id="self-study"></a>', 1)[1].split(
+                    '<a id="class-owner-checklist"></a>', 1
+                )[0]
+                label = "**Ready:**" if language == "en" else "**준비 완료:**"
+                ready = section.split(label, 1)[1].split("\n\n", 1)[0]
+                self.assertIn("**1–7**", ready)
+                anchor = "5-ready-to-start" if language == "en" else "5-시작-가능-여부"
+                self.assertIn(f"(setup.md#{anchor})", ready)
+                deferred = "when you reach Lab 05" if language == "en" else "Lab 05에 도착했을 때"
+                self.assertNotIn(deferred, section)
+
     def test_four_object_sketch_keeps_deployments_at_account_scope(self):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):

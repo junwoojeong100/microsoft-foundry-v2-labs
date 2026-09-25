@@ -39,10 +39,12 @@ The portal steps follow the linked Microsoft Learn pages, checked on September 2
    On `Cost and permission owner:` write yourself.
    **Check:** every line of the **Lab 00 - setup card** section in `session-notes.txt` is filled.
 7. **Lab 05 terminal.** Complete [Lab 00 B](labs/00-start.md#path-b) steps 1–5, then [Lab 02 B](labs/02-models.md#path-b) steps 1–3,
-   and leave through [its A return choices](labs/02-models.md#a-terminal-ready). You can also do this step when you reach Lab 05.
+   and leave through [its A return choices](labs/02-models.md#a-terminal-ready). Finish this preparation **before starting the timed A route**;
+   do not continue into the rest of B.
    **Check:** `doctor --cloud` reports `gpt-6-sol` / `2026-09-22` / `Succeeded`, and Lab 02 B saved `model.json` and `answer-local.json`.
 
-**Ready:** after step 6, or step 7 if you do it now, start [Lab 00 A](labs/00-start.md#path-a).
+**Ready:** complete steps **1–7** (step 5 may be recorded as skipped), then tick [the setup ready check](setup.md#5-ready-to-start)
+and start [Lab 00 A](labs/00-start.md#path-a). The setup card alone does not make the Lab 05 terminal ready.
 If a step fails, fix that step before continuing. Do not create another model, resource or project for the same unexplained error.
 **Learning B alone?** Complete steps 1–5 (B's Lab 09 needs step 5), then step 4 of the [class owner checklist](#class-owner-checklist)
 for the Search service and your two Search roles, and continue with [setup](setup.md) for route B.

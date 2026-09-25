@@ -12,6 +12,7 @@ Earlier videos and upstream results are not relabeled as new evidence.
 
 | Question | Answer | Details |
 |---|---|---|
+| What changed in the latest straightforwardness pass? | Four setup/copy/resume gaps corrected in English and Korean: one self-study readiness gate, a complete sparse-clone block, installation that stops on environment failure, and saved-name/version agent resumption. Offline checks only; no new learner-pilot or Azure claim | [Copy and resume audit](#copy-resume-audit-20260925) |
 | What is the final closeout status? | Six guide/material/evidence issues corrected; all 63 language pairs checked. After the corrected revision passed offline gates, 32 bounded guide CLI commands and two local package commands completed in both languages. Two new SDK responses matched portal traces. This is not a fresh full acceptance or an all-feature Azure claim | [Final closeout](#final-guide-closeout-20260925) |
 | What is recorded? | The main A/B steps of Labs 00–09 and 11 and the optional Foundry evaluation steps, in English and Korean, with `gpt-6-sol` / `gpt-6-sol-judge` (`2026-09-22`) in the Sweden Central training project | [Re-recording](#gpt-6-sol-20260924) · [videos](../video-summary.md) |
 | What did the live runs return? | In each language: business checks baseline 6/6, candidate 6/6 and holdout 4/4; acceptance `ready-for-human-review` with `deployment_approved: false`. Judge scores are kept separately and do not decide acceptance | [Actual results](../live-run.md) |
@@ -26,6 +27,32 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | What did the headless follow-up complete? | A's model/inline-agent/dev checks and A/B portal trace correlation, English then Korean. New manual dev assessments: 6/6 each. Median Send-to-render time: 6.75 s / 5.41 s over six rows each. File Search upload was disabled for the selected model | [Headless follow-up](#headless-guide-audit-20260925) |
 | How straightforward are the guides and documents? | Earlier AI editorial review scored guides 94/100 and documents 90/100 (round 6), then 99.5/100 and 98/100 (round 7). Those scores do not rate the later audit revision and are not a learner pilot or timing measurement | [Earlier review](#straightforwardness-95) |
 | Can a beginner finish route A alone from the guide? | Offline editorial audit: in a prepared environment, each A step names the screen, value or worksheet line and its check. Learning alone was the gap; [self-study preparation](../setup-owner.md#self-study) now covers the project, exact model, role, tracing, terminal and final cleanup. Not a learner pilot; the new portal steps follow official docs and were not run live | [Self-study audit](#beginner-self-study-audit-20260925) |
+
+<a id="copy-resume-audit-20260925"></a>
+
+## Straightforwardness: copy and resume audit, offline only — September 25, 2026
+
+**Scope:** traced the core A/B paths against their executable commands and worksheets, English first and then Korean.
+The fixes remove assumptions about preparation order and terminal state; they do not change the model, prompts, policies or grading.
+
+| Finding | Correction |
+|---|---|
+| Self-study said learners were ready after step 6, although A requires the step 7 terminal | Complete steps 1–7, allowing the optional trace step to be marked skipped, then use the setup ready check |
+| The English lightweight-clone shortcut omitted a real URL and folder change; Korean had no matching option | Both guides have one optional, complete clone → enter folder → sparse-checkout block, with `&&` and an explicit parent-directory starting point |
+| A failed virtual-environment creation or activation did not stop the SDK installation line | Chain the three commands with `&&`; keep the first error and do not run global `pip install` |
+| Lab 03 B invocation inherited its name from the previous terminal; portal checks assumed the recording's version 1 | Choose a restart point from saved files; enter both `agent_name` and `agent_version`, reject blank values before the request, and compare the portal with the saved invocation |
+
+**Verified locally:** 326 offline tests on each of Python 3.13 and 3.14 with site packages disabled, including four new regressions
+that first reproduced these gaps. Shell tests use explicit stubs: failed clone/setup stops, and a new terminal uses the entered agent
+name/version rather than stale variables. Ruff 0.16.6 check/format, compilation on both Python versions, documentation/command parity
+for all 63 language pairs and both learner-bundle checks passed. Changed translations retain exact hashes in `docs/localization.json`.
+
+**Media boundary:** the two Lab 03 invocation captures still show the earlier version-only prompt. Their original commands, inputs,
+responses and media hashes are preserved; the capture metadata separately pins the revised blocks and marks them not live-verified.
+The lab, video page and action index disclose that difference. No old recording is evidence for the new resume behavior.
+
+**Not run:** live Azure or portal steps, new recordings, a learner pilot/timing or a new editorial score.
+Installed-SDK tests were not rerun because application code and dependencies are unchanged. Learner ZIPs and evaluation inputs are unchanged.
 
 <a id="beginner-self-study-audit-20260925"></a>
 

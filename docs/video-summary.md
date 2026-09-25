@@ -39,6 +39,9 @@ Authentication, password and MFA entry are not recorded. A recorded exit code is
 
 **Two short English clips for the core steps the 2026-09-24 review added.** Same project, `gpt-6-sol` / `2026-09-22`, source commit `f990af3`; one new agent version and one model call. The September 24 videos stay the reference for unchanged steps.
 
+**Later guide change (2026-09-25):** [Lab 03 B's invocation block](labs/03-prompt-agent.md#sdk-invoke-recording-scope)
+now asks for both the saved name and version and rejects empty values. These clips show the earlier prompt, not that offline-checked resume change.
+
 | Clip | Duration | File |
 |---|---:|---|
 | B · Lab 03 create and invoke with `--output` (real zsh terminal) | 01:02 | [en-terminal.mp4](assets/review-refresh-20260925/en-terminal.mp4) |

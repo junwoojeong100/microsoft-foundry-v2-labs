@@ -39,6 +39,9 @@ Lab 10, 선택 IQ Chat preset(`gpt-5.6-luna`; Search가 GPT-6 모델을 받지 �
 
 **2026-09-24 검토에서 핵심으로 추가한 단계의 짧은 국문 영상 2개입니다.** 같은 프로젝트, `gpt-6-sol` / `2026-09-22`, 소스 commit `f990af3`에서 새 agent 버전 1개와 모델 호출 1회를 사용했습니다. 바뀌지 않은 단계는 2026-09-24 영상을 그대로 참고합니다.
 
+**이후 가이드 변경(2026-09-25):** [Lab 03 B 호출 블록](labs/03-prompt-agent.md#sdk-invoke-recording-scope)은
+이제 저장된 이름·버전을 모두 입력받고 빈 값을 거절합니다. 이 영상은 이전 입력 방식이며, 오프라인으로 확인한 재개 변경의 근거가 아닙니다.
+
 | 영상 | 길이 | 파일 |
 |---|---:|---|
 | B · Lab 03 `--output` 생성과 호출(실제 zsh 터미널) | 00:57 | [ko-terminal.mp4](../assets/review-refresh-20260925/ko-terminal.mp4) |

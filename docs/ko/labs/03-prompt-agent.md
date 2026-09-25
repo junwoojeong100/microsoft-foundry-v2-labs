@@ -180,6 +180,22 @@ D01, D02, D03, D05를 하나씩 질문합니다. ZIP의 `dev-questions.txt`에�
 `.env`의 `WORKSHOP_PREFIX`로 시작하는 새 이름을 사용합니다. A의 브라우저 agent나 녹화 속 이름을 재사용하지 않습니다.
 `session-notes.txt`의 `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json 검토:`에 확인 결과를 기록합니다.
 
+<a id="resume-managed-agent"></a>
+
+**처음 시작하나요, 재개하나요?** 이번 프로젝트·회차에서 본인이 저장한 파일을 기준으로 고릅니다.
+
+| 기존 근거 | 다음 행동 |
+|---|---|
+| 아직 생성을 시도하지 않음 | [1단계](#create-managed-agent), 이어 2–3단계 |
+| 성공한 `prompt-agent-create.json`이 있고 아직 호출하지 않음 | 생성을 건너뜁니다. 파일의 `agent_name`·`agent_version`을 읽고 [2단계](#invoke-managed-agent) |
+| `prompt-agent-create.json`과 `prompt-agent-invoke.json`이 모두 있음 | 두 파일을 읽고 [3단계](#inspect-managed-agent). 새 생성·모델 호출 없음 |
+
+생성 실패나 결과가 불명확한 상태는 미시도와 다릅니다. 오류·stdout을 보존하고, 다시 만들기 전에 담당자와 정확한 agent 이름을 확인합니다.
+응답은 받았는데 파일이 저장되지 않았다면 [저장 복구](../reference/troubleshooting.md#resume-safely)를 따릅니다.
+터미널 변수를 복구하려고 새 버전을 만들지 않습니다.
+
+<a id="create-managed-agent"></a>
+
 ### 1. 관리형 Prompt Agent 만들기
 
 ```bash
@@ -190,31 +206,47 @@ python scripts/workshop.py prompt-agent create --name "$AGENT_NAME" --confirm-cr
 
 **저장:** `prompt-agent-create.json`
 
-호출 전에 저장된 JSON을 엽니다. 반환된 agent 이름과 버전을 기록합니다. 이 명령은 실제 관리형 프로젝트 자산을 만듭니다.
+호출 전에 저장된 JSON을 엽니다. `agent_name`과 `agent_version`을 기록합니다. 이 명령은 실제 관리형 프로젝트 자산을 만듭니다.
 
 ![2026-09-25 국문 녹화: 붙여 넣은 명령 블록, 입력한 agent 이름, 반환된 버전과 저장된 JSON](../../assets/review-refresh-20260925/K03-201-sdk-create.webp)
 
 **화면 확인:** 프롬프트에 입력한 이름, `agent_version`(새 이름이면 `1`), 본인 기록 폴더를 가리키는 `Saved JSON` 줄을 확인합니다.
 
+<a id="invoke-managed-agent"></a>
+
 ### 2. 반환된 정확한 버전 호출
 
+`outputs/learner-notes-ko/prompt-agent-create.json`을 열고 아래에 반환된 필드 **두 개 모두** 입력합니다. 녹화 속 값을 쓰지 않습니다.
+새 터미널이라면 먼저 이 소스 폴더로 돌아와 `source .venv/bin/activate`를 실행합니다. agent를 다시 만들 필요는 없습니다.
+
 ```bash
-printf '위에서 반환된 agent_version: '
+printf 'prompt-agent-create.json의 agent_name: '
+read -r AGENT_NAME
+printf 'prompt-agent-create.json의 agent_version: '
 read -r AGENT_VERSION
-python scripts/workshop.py prompt-agent invoke --name "$AGENT_NAME" --version "$AGENT_VERSION" --question "2026년 9월 국내 출장 숙박비 한도는?" --output outputs/learner-notes-ko/prompt-agent-invoke.json
+python scripts/workshop.py prompt-agent invoke --name "${AGENT_NAME:?Enter agent_name from prompt-agent-create.json}" --version "${AGENT_VERSION:?Enter agent_version from prompt-agent-create.json}" --question "2026년 9월 국내 출장 숙박비 한도는?" --output outputs/learner-notes-ko/prompt-agent-invoke.json
 ```
 
 **저장:** `prompt-agent-invoke.json`
 
-같은 터미널에서 실제 반환 버전을 사용합니다. 녹화 속 버전을 입력하거나 `latest`를 호출하지 않습니다.
+이 블록은 이름과 버전을 다시 읽으므로 중단 후에도 재개할 수 있습니다. 둘 중 하나라도 비어 있으면 요청 전에 멈춥니다.
+`latest`를 호출하지 않습니다. 이번 회차의 호출 파일이 이미 있다면 새 요청을 보내지 말고 그 파일을 읽습니다.
 `prompt-agent-invoke.json`의 `response_id`를 보관합니다. Lab 09에서 trace 조회에 사용합니다.
 저장된 `text` 자체가 JSON 답변(`answer`, `decision`, `limit_krw`, `citations`)입니다. 이 SDK agent 지침에 해당 schema가 들어 있기 때문입니다.
 2026-09-24 확인에서 첫 버전은 `1`이었고 답변은 `TRAVEL-2026`과 150,000원을 인용했습니다. 본인의 ID와 문구는 다를 수 있습니다.
 
+<a id="sdk-invoke-recording-scope"></a>
+
+**녹화 범위 — 2026-09-25:** 아래 화면·영상은 버전만 입력받던 이전 명령입니다.
+현재 위 블록을 실행합니다. `agent_name`도 입력받고 빈 값을 거절합니다.
+이 재개 변경은 오프라인으로 확인했으며 새 녹화나 실제 Azure 재검증은 하지 않았습니다.
+
 ![2026-09-25 국문 녹화: 입력한 버전, JSON 답변, response_id와 usage](../../assets/review-refresh-20260925/K03-202-sdk-invoke.webp)
 
-**화면 확인:** `agent_version`이 입력한 값과 같고, `text`에 JSON 답변이, `response_id`가 있는지 봅니다.
+**화면 확인:** `agent_name`·`agent_version`이 생성 파일과 같고, `text`에 JSON 답변이, `response_id`가 있는지 봅니다.
 `trace_id: null`과 `trace_export: not-configured`는 로컬 내보내기만 뜻합니다. 서버 측 trace는 Lab 09에서 `response_id`로 찾습니다.
+
+<a id="inspect-managed-agent"></a>
 
 ### 3. 새 메시지를 보내지 않고 포털 확인
 
@@ -222,8 +254,9 @@ Foundry 상단 **빌드** → 왼쪽 **에이전트**에서 본인 SDK agent를 
 
 ![2026-09-25 국문 녹화: 플레이그라운드에 버전 1과 SDK 지침이 보이고 메시지는 보내지 않음](../../assets/review-refresh-20260925/KP03-201-playground.webp)
 
-**화면 확인:** 상단 **버전: 1**과 **지침**의 SDK 지침을 확인하고, 채팅 입력란은 비워 둡니다.
-녹화에서 포털 지침은 CLI 정의와 글자 하나까지 같았습니다.
+**화면 확인:** 상단 **버전**이 본인의 `prompt-agent-invoke.json`에 있는 `agent_version`과 같고,
+**지침**에 SDK 지침이 보이는지 확인합니다. 채팅 입력란은 비워 둡니다.
+녹화는 버전 `1`을 사용했고 지침이 CLI 정의와 글자 하나까지 같았습니다. 그 번호가 본인 실행의 필수 값은 아닙니다.
 
 이 확인을 위해 Playground 메시지를 새로 보내지 않습니다. 이 SDK agent는 Lab 04의 로컬 MAF agent와 달리 관리형 프로젝트 자산입니다.
 반대 방향도 가능합니다. 2단계의 `prompt-agent invoke` 명령은 포털에서 만든 agent도 이름과 저장 버전으로 호출할 수 있습니다(예: Lab 03 A에서 만든 agent가 있는 경우). 선택 사항이며 유료 요청이므로 실행했다면 따로 기록합니다.
@@ -235,7 +268,9 @@ Foundry 상단 **빌드** → 왼쪽 **에이전트**에서 본인 SDK agent를 
 
 ![2026-09-25 국문 녹화: 세부 정보에 활성 버전과 응답 프로토콜 endpoint 표시](../../assets/review-refresh-20260925/KP03-202-details.webp)
 
-**화면 확인:** **세부 정보**의 **활성 버전**이 `최신(Version 1)`이고 **응답 프로토콜** 아래에 agent endpoint가 보입니다. CLI 호출은 여전히 버전 `1`을 명시합니다.
+**화면 확인:** **세부 정보**에 **활성 버전**과 **응답 프로토콜** 아래 agent endpoint가 보입니다.
+표시된 버전을 저장한 호출과 대조하고, 다르면 활성 버전을 바꾸지 말고 차이를 기록합니다.
+녹화에는 `최신(Version 1)`이 보이지만 CLI 호출은 `latest`가 아닌 본인이 명시한 버전에 고정됩니다.
 
 Agent Applications, Microsoft 365 Copilot 또는 Teams로 게시/공유하는 기능은 있지만 Microsoft 365 tenant가 필요하므로 범위 밖입니다.
 2026-09-24 확인: [agent 구성](https://learn.microsoft.com/azure/foundry/agents/how-to/configure-agent), [Copilot 게시](https://learn.microsoft.com/azure/foundry/agents/how-to/publish-copilot).

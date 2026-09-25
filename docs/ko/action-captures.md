@@ -116,6 +116,8 @@
 
 위 91개 액션과 별개입니다. 검토 반영으로 추가한 핵심 단계를 액션마다 무손실 결과 화면 1장으로 남겼습니다. 시간은 짧은 [보충 영상](video-summary.md#review-refresh-supplement)을 엽니다. 터미널 영상은 Lab 00 기록 폴더 준비로 시작합니다.
 
+이후 [Lab 03 B 재개 변경](labs/03-prompt-agent.md#sdk-invoke-recording-scope)은 오프라인 확인만 했습니다. 이 화면은 이전 호출 입력 방식을 보여 줍니다.
+
 | ID | 액션 | 방식 | 상태 | 화면 | 재생 |
 |---|---|---|---|---|---|
 | K03-201-sdk-create | Lab 03 B: 관리형 Prompt Agent 만들고 JSON 저장 | LIVE AZURE | recorded | [1](../assets/review-refresh-20260925/K03-201-sdk-create.webp) | [00:05](../assets/review-refresh-20260925/ko-terminal.mp4#t=5.42) |

@@ -131,6 +131,26 @@ Search 소유권이 있는 복사본의 대상을 바꾸거나 이전 모델의 
 압축을 풀고 그 폴더를 VS Code로 엽니다. 작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
 **Terminal → New Terminal**(한국어 VS Code: **터미널 → 새 터미널**)을 엽니다.
 
+<details>
+<summary>선택 대안: 큰 스크린샷·영상을 제외하고 Git으로 다운로드</summary>
+
+ZIP 다운로드 **대신** 사용하며, ZIP을 받은 뒤 추가로 실행하지 않습니다. Git이 설치되어 있어야 합니다.
+이 블록만 기존 실습 폴더가 아닌 **새 소스 폴더를 둘 상위 폴더**에서 실행합니다.
+대상 `microsoft-foundry-v2-labs` 폴더가 이미 있으면 실행하지 않습니다. 이전 복사본과 근거를 보존합니다.
+
+```bash
+git clone --depth 1 --filter=blob:none --sparse https://github.com/junwoojeong100/microsoft-foundry-v2-labs.git microsoft-foundry-v2-labs &&
+cd microsoft-foundry-v2-labs &&
+git sparse-checkout set --no-cone '/*' '!docs/assets/' '!videos/'
+```
+
+**확인:** 현재 터미널이 새 `microsoft-foundry-v2-labs` 폴더 안에 있고 `scripts/`와 `pyproject.toml`이 보입니다.
+`docs/assets/`와 `videos/`는 의도적으로 제외되며 스크린샷은 GitHub에서 봅니다.
+복제나 폴더 이동에 실패하면 `&&`가 다음 명령을 막아 다른 작업 폴더의 설정을 바꾸지 않습니다.
+그 오류에서 멈추고 남은 줄만 따로 실행하지 않습니다. 아래 폴더 확인으로 이어 갑니다.
+
+</details>
+
 어느 경우든 터미널의 현재 위치에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 합니다.
 Python이 없다면 [Python 3.13](https://www.python.org/downloads/)을 먼저 설치합니다. `command not found`를 무시하고 넘어가지 않습니다.
 
@@ -206,10 +226,13 @@ v1은 **고정 답변에서 인용을 제거한 검사기 연습**, v2는 고정
 ### 3. 가상환경과 SDK 설치
 
 ```bash
-python3.13 -m venv .venv
-source .venv/bin/activate
+python3.13 -m venv .venv &&
+source .venv/bin/activate &&
 python -m pip install -e ".[cloud,agents]"
 ```
+
+`&&`를 그대로 둡니다. 가상환경 생성과 활성화가 모두 성공해야 설치가 실행됩니다.
+어느 단계든 실패하면 첫 오류부터 해결하며, `pip install` 줄만 전역 Python에서 따로 실행하지 않습니다.
 
 설치 버전은 `pyproject.toml`에 고정되어 있습니다. `agent-framework` 전체 메타패키지를
 추가 설치하지 않습니다. `.[hosted]`는 [선택한 Hosted/Toolbox SDK 작업](extensions/developer-toolkit.md#hosted-sdk)에만 필요하며 B의 패키징 전용 Lab 08에는 필요 없습니다.

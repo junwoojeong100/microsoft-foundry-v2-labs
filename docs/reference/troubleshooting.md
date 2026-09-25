@@ -15,6 +15,7 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 |---|---|---|
 | Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
 | Opened a new terminal | Return to the repository root; run `source .venv/bin/activate`; keep your existing Azure sign-in | Reinstall everything, overwrite or shell-`source` `.env`, or repeat `az login` merely to resume |
+| Paused after Lab 03 B created the agent | Follow [the saved-agent restart table](../labs/03-prompt-agent.md#resume-managed-agent); restore both `agent_name` and `agent_version` from the creation JSON | Run `create` again to restore a shell variable, use a stale name, or invoke `latest` |
 | `${NAME:?...}` reports a missing value | Restore the named value from this pass's setup/output notes; the command has not run | Remove the guard, paste a recording's ID or assume another terminal supplied the value |
 | A model-comparison command finished or failed | Its [scoped override](../labs/extensions/model-operations.md) leaves the original setup unchanged; inspect the saved comparison/error | Change `.env` to continue or repeat paid work merely to restore the first model |
 | B's notes directory already exists | Resume that pass's files, or choose a new directory for a new pass; the guarded copy block intentionally stops | Overwrite your filled records with blank templates |

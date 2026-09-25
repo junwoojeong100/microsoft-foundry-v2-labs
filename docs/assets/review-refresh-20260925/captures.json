@@ -155,7 +155,16 @@
       "title": "Lab 03 B: invoke the exact returned version and save the JSON",
       "exit_code": 0,
       "recorded_command": "printf 'agent_version returned above: '\nread -r AGENT_VERSION\npython scripts/workshop.py --language en prompt-agent invoke --name \"$AGENT_NAME\" --version \"$AGENT_VERSION\" --question \"What is the domestic business-trip lodging limit for September 2026?\" --output outputs/learner-notes-en/prompt-agent-invoke.json",
-      "command_matches_guide_block": true,
+      "command_matches_guide_block": false,
+      "guide_change": {
+        "reviewed_on": "2026-09-25",
+        "revision": "straightforwardness-copy-resume-20260925",
+        "recorded_block_sha256": "dbe08ebcbaab8ae791e2066eaf2a9f8525b41daa2a9ee9d50fe894306383796f",
+        "current_block_sha256": "bc4005d43d7aa7b7763ab576060d012cfadd52bad085da0af97dfba246f23712",
+        "notice_anchor": "sdk-invoke-recording-scope",
+        "current_block_live_verified": false,
+        "reason": "The guide now re-enters the saved agent name and version and rejects empty values. The original recorded command, inputs, response and media are unchanged."
+      },
       "interactive_inputs": [
         {
           "after": "agent_version returned above: ",
@@ -299,7 +308,16 @@
       "title": "Lab 03 B: 반환된 정확한 버전 호출과 JSON 저장",
       "exit_code": 0,
       "recorded_command": "printf '위에서 반환된 agent_version: '\nread -r AGENT_VERSION\npython scripts/workshop.py prompt-agent invoke --name \"$AGENT_NAME\" --version \"$AGENT_VERSION\" --question \"2026년 9월 국내 출장 숙박비 한도는?\" --output outputs/learner-notes-ko/prompt-agent-invoke.json",
-      "command_matches_guide_block": true,
+      "command_matches_guide_block": false,
+      "guide_change": {
+        "reviewed_on": "2026-09-25",
+        "revision": "straightforwardness-copy-resume-20260925",
+        "recorded_block_sha256": "efb51b0116c39facb55997d7fc87d88b0937c300b94691a3acac83430db30a31",
+        "current_block_sha256": "09a109495b6141e5cc30cbcbe16358c35d94c90f9cae687aec4219169c4b0b96",
+        "notice_anchor": "sdk-invoke-recording-scope",
+        "current_block_live_verified": false,
+        "reason": "The guide now re-enters the saved agent name and version and rejects empty values. The original recorded command, inputs, response and media are unchanged."
+      },
       "interactive_inputs": [
         {
           "after": "위에서 반환된 agent_version: ",

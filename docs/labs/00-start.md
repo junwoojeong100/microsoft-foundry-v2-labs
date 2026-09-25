@@ -131,7 +131,27 @@ do not repoint a Search-owning copy or treat the older model's successful prefli
 
 **No source folder yet?** Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)
 with a GitHub account that has access, then **Code → Download ZIP**, extract it and open the folder in VS Code.
-This is the **source repository ZIP**, not the small learner-materials ZIP. Git users who want a lightweight clone can run `git clone --depth 1 --filter=blob:none --sparse <repo>` and then `git sparse-checkout set --no-cone '/*' '!docs/assets/' '!videos/'`; screenshots then render only on GitHub. Open **Terminal → New Terminal**.
+This is the **source repository ZIP**, not the small learner-materials ZIP. Open **Terminal → New Terminal**.
+
+<details>
+<summary>Optional alternative: Git download without the large screenshots and videos</summary>
+
+Use this **instead of** the ZIP download, not after it. Git must already be installed.
+Run this block in the **parent directory where you want the new source folder**, not inside an existing workshop copy.
+The `microsoft-foundry-v2-labs` destination must not already exist; keep older copies and their evidence.
+
+```bash
+git clone --depth 1 --filter=blob:none --sparse https://github.com/junwoojeong100/microsoft-foundry-v2-labs.git microsoft-foundry-v2-labs &&
+cd microsoft-foundry-v2-labs &&
+git sparse-checkout set --no-cone '/*' '!docs/assets/' '!videos/'
+```
+
+**Check:** the terminal is now inside the new `microsoft-foundry-v2-labs` folder, with `scripts/` and `pyproject.toml`.
+`docs/assets/` and `videos/` are intentionally absent; view screenshots on GitHub.
+If cloning or changing folders fails, `&&` prevents the next command from changing another checkout.
+Stop at that error; do not run the remaining lines separately. Continue with the folder check below.
+
+</details>
 
 In either case, the terminal's directory must contain `README.md`, `pyproject.toml`, and `scripts/`.
 If Python is missing, install [Python 3.13](https://www.python.org/downloads/) first; do not continue past a `command not found` error.
@@ -208,10 +228,13 @@ The following SDK/sign-in steps are for the code route, not required to finish t
 ### 3. Install a virtual environment and SDKs
 
 ```bash
-python3.13 -m venv .venv
-source .venv/bin/activate
+python3.13 -m venv .venv &&
+source .venv/bin/activate &&
 python -m pip install -e ".[cloud,agents]"
 ```
+
+Keep the `&&` separators: installation runs only after the virtual environment is created and activated successfully.
+If either step fails, fix that first error; do not run the `pip install` line separately against global Python.
 
 Versions are pinned in `pyproject.toml`. Do not add the entire `agent-framework`
 metapackage. Add `.[hosted]` only for [selected Hosted/Toolbox SDK work](extensions/developer-toolkit.md#hosted-sdk), not for B's package-only Lab 08. Never bypass download errors by

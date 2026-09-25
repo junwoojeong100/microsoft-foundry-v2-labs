@@ -40,10 +40,12 @@ Lab 00 전에 한 번만 진행합니다. 본인 구독에 유료 리소스를 �
    `비용·권한 담당자:`에는 본인을 적습니다.
    **확인:** `session-notes.txt`의 **Lab 00 - 설정 카드** 구역이 모두 채워져 있습니다.
 7. **Lab 05 터미널.** [Lab 00 B](labs/00-start.md#path-b) 1–5단계와 [Lab 02 B](labs/02-models.md#path-b) 1–3단계를 마치고
-   [A 복귀 선택](labs/02-models.md#a-terminal-ready)으로 나갑니다. 이 단계는 Lab 05에 도착했을 때 해도 됩니다.
+   [A 복귀 선택](labs/02-models.md#a-terminal-ready)으로 나갑니다. **정해진 시간의 A 경로를 시작하기 전에** 준비를 마칩니다.
+   B의 나머지 단계로 계속 진행하지 않습니다.
    **확인:** `doctor --cloud`가 `gpt-6-sol` / `2026-09-22` / `Succeeded`를 보고하고, Lab 02 B가 `model.json`과 `answer-local.json`을 저장했습니다.
 
-**준비 완료:** 6단계 뒤(지금 7단계도 했다면 그 뒤) [Lab 00 A](labs/00-start.md#path-a)를 시작합니다.
+**준비 완료:** **1–7**단계를 마치고(5단계는 건너뛴 것으로 기록 가능) [준비 완료 체크](setup.md#5-시작-가능-여부)를 확인한 뒤
+[Lab 00 A](labs/00-start.md#path-a)를 시작합니다. 설정 카드를 채운 것만으로 Lab 05 터미널이 준비되지는 않습니다.
 단계가 실패하면 그 단계부터 해결한 뒤 진행합니다. 원인을 모르는 같은 오류 때문에 모델·리소스·프로젝트를 새로 만들지 않습니다.
 **B를 혼자 학습하나요?** 1–5단계(B의 Lab 09에는 5단계가 필요)를 마친 뒤 [수업 담당자 체크리스트](#class-owner-checklist) 4단계로
 Search 서비스와 본인의 Search 역할 두 개를 준비하고, B 경로의 [준비](setup.md)로 이어 갑니다.

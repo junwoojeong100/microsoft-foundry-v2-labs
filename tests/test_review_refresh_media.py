@@ -114,14 +114,48 @@ class ReviewRefreshSupplementTests(unittest.TestCase):
                         (item["width"], item["height"]),
                     )
 
-    def test_terminal_captures_used_the_current_guide_blocks(self):
+    def test_terminal_captures_preserve_original_commands_and_disclose_guide_changes(self):
         for item in self.evidence["images"]:
             if item["channel"] != "terminal":
                 continue
             with self.subTest(file=item["file"]):
-                blocks = guide_blocks(GUIDES[item["guide_language"]][0])
-                self.assertIn(item["recorded_command"], blocks)
-                self.assertIs(item["command_matches_guide_block"], True)
+                language = item["guide_language"]
+                guide = GUIDES[language][0]
+                blocks = guide_blocks(guide)
+                if item["action_id"].endswith("sdk-create"):
+                    self.assertIn(item["recorded_command"], blocks)
+                    self.assertIs(item["command_matches_guide_block"], True)
+                    self.assertNotIn("guide_change", item)
+                else:
+                    self.assertIs(item["command_matches_guide_block"], False)
+                    self.assertNotIn(item["recorded_command"], blocks)
+                    change = item["guide_change"]
+                    self.assertEqual(change["reviewed_on"], "2026-09-25")
+                    self.assertEqual(change["revision"], "straightforwardness-copy-resume-20260925")
+                    self.assertIs(change["current_block_live_verified"], False)
+                    self.assertEqual(
+                        hashlib.sha256(item["recorded_command"].encode()).hexdigest(),
+                        change["recorded_block_sha256"],
+                    )
+                    self.assertIn(
+                        change["current_block_sha256"],
+                        [hashlib.sha256(block.encode()).hexdigest() for block in blocks],
+                    )
+                    anchor = change["notice_anchor"]
+                    text = (ROOT / guide).read_text()
+                    self.assertEqual(text.count(f'<a id="{anchor}"></a>'), 1)
+                    notice = text.split(f'<a id="{anchor}"></a>', 1)[1].split("![", 1)[0]
+                    for marker in (
+                        "2026-09-25",
+                        "agent_name",
+                        "offline" if language == "en" else "오프라인",
+                    ):
+                        self.assertIn(marker, notice)
+                    directory = ROOT / ("docs" if language == "en" else "docs/ko")
+                    for page in ("video-summary.md", "action-captures.md"):
+                        self.assertIn(
+                            f"(labs/03-prompt-agent.md#{anchor})", (directory / page).read_text()
+                        )
                 self.assertEqual(item["exit_code"], 0)
                 self.assertEqual(item["mode"], "LIVE AZURE")
                 (answer,) = item["interactive_inputs"]
