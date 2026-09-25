@@ -1,0 +1,636 @@
+{
+  "scope": "All 63 language pairs passed links/anchors/CLI parity and guide-contract checks. Source hashes are from the frozen pre-live revision; result notes are appended afterwards.",
+  "semantic_review_focus": "Entry routes, schedules, setup/roles, default/optional gates, learner files, core commands, evidence claims and extension first-pass boundaries.",
+  "pairs": [
+    {
+      "en": {
+        "path": "README.md",
+        "sha256": "fa3f56303f9fe0b086b4c652181697225bceb7606d87d30d696bd420b586b714"
+      },
+      "ko": {
+        "path": "README.ko.md",
+        "sha256": "0a2dc6283b89051e1cf85e2c4ad7d626286f3615dda52eacde0ff6ec0d1a7585"
+      }
+    },
+    {
+      "en": {
+        "path": "data/README.md",
+        "sha256": "1294826197ef8d4357387eaee6b9d2ea92e25ed7bf9024f5328597d5ed4bbb17"
+      },
+      "ko": {
+        "path": "data/README.ko.md",
+        "sha256": "0f750d791dd124a1f2de944582b34373e10914a0e27e04d1649254e159083cef"
+      }
+    },
+    {
+      "en": {
+        "path": "data/fixtures/README.md",
+        "sha256": "f31e4c738acaa0dd41b4035a9c84296538a6d0b83c9415eb1914ca06e2f44ae1"
+      },
+      "ko": {
+        "path": "data/fixtures/README.ko.md",
+        "sha256": "28f6798b360b67fe9f9cc14277899968b7010be51d9affbe0302fa47e4f1c0c3"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/action-captures.md",
+        "sha256": "1ac042dfc1147b5561595fedc27ad437bce5f2d382e4d8f65cccfb72f11ddd0b"
+      },
+      "ko": {
+        "path": "docs/ko/action-captures.md",
+        "sha256": "36c282e067526d842bf20ea148215894e6197f232e275cf6a91ff096eed23633"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/coverage.md",
+        "sha256": "13dfdefc1ccd9838875f1093b75d824014d769adc84a75c15a6ca2a9b0fea949"
+      },
+      "ko": {
+        "path": "docs/ko/coverage.md",
+        "sha256": "0bd872842cbf02805592c4458066a8b052c9f5f7f86b97342a8c8db6c918b4ab"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/evidence.md",
+        "sha256": "6e9c7b9b363b9939cb8c7c49fd95d79d336b493773aaf33d0c70cef93276ce2d"
+      },
+      "ko": {
+        "path": "docs/ko/evidence.md",
+        "sha256": "ece4c43b6b941c0026bd9c19b70ebc386fa6ef2e9dc58f24d510450412095162"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/index.md",
+        "sha256": "e20ff13cda0c53b6c3563cf39637e069da74ef628840032f88d1eae501517de5"
+      },
+      "ko": {
+        "path": "docs/ko/index.md",
+        "sha256": "1a625821f6f7c0d5db15632853d4ffc4cb0c08501bd5603cc3c3de5e420853ea"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/instructor.md",
+        "sha256": "4262407058e6a7df937a359ec5bcbdf1f033b77bf023ece8062399075b09bd75"
+      },
+      "ko": {
+        "path": "docs/ko/instructor.md",
+        "sha256": "8bd5015c6878fe4f4f602fd80eaf66dbd99090a2158c533f501a7bcc10f39529"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/00-start.md",
+        "sha256": "ebc7bc6c2611f60c0e02f988b3abb8b71b0359be5ec5b0cb2389f2c28a6920e2"
+      },
+      "ko": {
+        "path": "docs/ko/labs/00-start.md",
+        "sha256": "9695cf7dda2f660845805a3904b79f42d67c4fa912976e5dbcfc2ba2a8101df2"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/01-foundry.md",
+        "sha256": "75725dd04daaa94bc2cec85d20f8147159f49ab41218c2ddaf4d66bbeb4a658a"
+      },
+      "ko": {
+        "path": "docs/ko/labs/01-foundry.md",
+        "sha256": "1f1166f9a6679103741671550742ef14119ce9d735177b4b6d73baa670eb7148"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/02-models.md",
+        "sha256": "cc61a045d60e3e003e3dc2dda2cf384741d99bc988bec028b8a2b5f81b050d0f"
+      },
+      "ko": {
+        "path": "docs/ko/labs/02-models.md",
+        "sha256": "2bf3a9555f1e491fec3a6541b7d7016480b9c63e9d5c0e907deefa35d3cc90c3"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/03-prompt-agent.md",
+        "sha256": "fd1e30343c5786a5ce7d65165a57b99bbf4bd35b90c4c151ee687cd3667ca6d6"
+      },
+      "ko": {
+        "path": "docs/ko/labs/03-prompt-agent.md",
+        "sha256": "0e280760598cfb3088c5cb12a25e37a2bbef553b5f215485b8d5724acd8c0631"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/04-agents-tools.md",
+        "sha256": "b23347995e57305f8f864c07b166f6f1ae67de00baff75b93fd9aab77c4a23af"
+      },
+      "ko": {
+        "path": "docs/ko/labs/04-agents-tools.md",
+        "sha256": "aee7d2863fbe76bd9547117bd5e50b45365e3351bb0423f03fe96cd0c0204584"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/05-workflows.md",
+        "sha256": "c9e35ad1bafbf6dde645be7d3a7bbf9e3accbbdd1ca0bfe3e1accc654c3075e3"
+      },
+      "ko": {
+        "path": "docs/ko/labs/05-workflows.md",
+        "sha256": "2c53cb134c2fc5a6bd546dd1a4c5934419a3accaafdd29c57d935515b0b07fb8"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/06-knowledge.md",
+        "sha256": "8f260295caa45540a0edd5a9d03ffe12caf91020bf858793ab0d4a9b1364c353"
+      },
+      "ko": {
+        "path": "docs/ko/labs/06-knowledge.md",
+        "sha256": "a080eb95f51a4042b31741a6693fa0c8588ed1c33ade88a7461e25428bc05fa2"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/07-evaluation.md",
+        "sha256": "7fe784ead384839acbe2ac005af0be77c5e9be9c799e18560b9957edd3cb771f"
+      },
+      "ko": {
+        "path": "docs/ko/labs/07-evaluation.md",
+        "sha256": "966f16de7646284cfb9451cd0d8262549766cd805cdccce425c2ac726b8c5166"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/08-hosted.md",
+        "sha256": "80be6ddbb5f68e14fb110a8ec9619ab13045844de702a35f26d2092b30f4756e"
+      },
+      "ko": {
+        "path": "docs/ko/labs/08-hosted.md",
+        "sha256": "06674c6fd6d48e73b9f50708d068bb52afb47a5182742d7552a117986512d0ce"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/09-operations.md",
+        "sha256": "33172e64aeb3508d3fcf50a4eeea344615c9c023a2b9b7a2be4253cce84f7f26"
+      },
+      "ko": {
+        "path": "docs/ko/labs/09-operations.md",
+        "sha256": "4b7bbcfbe1f2a3b2194c2f34d3310b9cf493283adeeb25080363ffd428addec2"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/10-iq-extensions.md",
+        "sha256": "1fcc2f145b2549c2b19ec566b4d784a6e0ca60f8c883b1663c6136592d895eb0"
+      },
+      "ko": {
+        "path": "docs/ko/labs/10-iq-extensions.md",
+        "sha256": "e8fa8a68afa0eacbb0470f7ff67df4125f8ed697a850e8eeea52d98c78f2c1d7"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/11-capstone.md",
+        "sha256": "fc576bd73b579db71158d2d75696ae09fd39fb31b098779884115e6a28a12538"
+      },
+      "ko": {
+        "path": "docs/ko/labs/11-capstone.md",
+        "sha256": "42d0866f25ec06920d18ac1c61eeb177cdd41e40e0fa2babce6f05ee36f187b0"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/a2a.md",
+        "sha256": "499c4a21d3f3a29866e0649fa89015053e930d83d1b088339a9035c39d9e001a"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/a2a.md",
+        "sha256": "b9ec4a5fe254531b41ab7a7971f7790999494229337dfb201335eb74d3224587"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/additional-tools.md",
+        "sha256": "cadf6bcaa80ccd5638b4d5a76613af173d1a4bb4f4817d37260e821dee9efdbb"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/additional-tools.md",
+        "sha256": "94a6acd23a9cb6b7ed9e00aaa01caa30045ea45e8b7bcd300d4c0ace6eab0910"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/agent-insights.md",
+        "sha256": "c23c4310e345564d8e3f508ad7cb100b83f4c972f2e64aea3f2abe0ec5d6ca2c"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/agent-insights.md",
+        "sha256": "78921bafaf06dc042019aed8a8b9260fc87e5722909c0df908cb36c4a7e4a68a"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/agent-optimizer.md",
+        "sha256": "8e37e2a1f66eb8f38652295c6abf76c5781b6fc674c54b1287fcd69fa1ce241e"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/agent-optimizer.md",
+        "sha256": "ae3edfcad41a96b14d4f9a8e6b7921153aef224515cc9276110cc261655208e9"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/agent-safety.md",
+        "sha256": "f4bb26b70ee4d2c0dc0c093fdf2c464272dae441c366e1d38eccd13aba3227c9"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/agent-safety.md",
+        "sha256": "e5422bd72e90f86607d593e314805ad34fa74040041efb90877b35e955842555"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/approval-recovery.md",
+        "sha256": "4987c501ed9e6ba8b28984b2b5804b91ecd170dadb35dd9400b70ac010805e43"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/approval-recovery.md",
+        "sha256": "4218c1f1a7c5301eae881b0beff6d819dc396cebe3c8d817d0ba9472ace46a72"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/conversation-evaluation.md",
+        "sha256": "f8b3adfa8536d4f0ed88dc0e0a0bb7d586bb008e752934e3f07bf6176c68228e"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/conversation-evaluation.md",
+        "sha256": "9616b450319c06cb4499d869876f79b455fb94c5f72f97a34ee95668f2a7e72e"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/developer-toolkit.md",
+        "sha256": "e5e8e5d37d2d03429040cb3dacc8eefaff5740593fcca085f92c735b822eac5b"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/developer-toolkit.md",
+        "sha256": "75801b9f38bf580fcbe78d464e1fcde28538f4ff61c11d2a7ad5df89b36ada47"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/governance-networking.md",
+        "sha256": "97240fe31fcbd8bda3f3011e8ee9b713009de058644855cf61facc85af6ba9ff"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/governance-networking.md",
+        "sha256": "d607cafc321092f933b21531ae273db6d6b5f9198781a232c790ba977e4c27f5"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/memory.md",
+        "sha256": "b81429bef8db66ce9560bc47a7a4230892208aca8fef42b385451ad867995467"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/memory.md",
+        "sha256": "5527ea32f26f4003f71bfc866e08cc1aabe5d251185df4f8db17ecd2b9b34913"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/model-operations.md",
+        "sha256": "a473ce83fb354eebe7c8621889ed6c887efd84eb1b8faf029659f672e2182949"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/model-operations.md",
+        "sha256": "fb4e86c329484d48941e855b1fca3adb71f56525629319ed5623d0f6b582e184"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/release-operations.md",
+        "sha256": "aaed0203e2d1903ea29d05e333d463a35a4b313e224cb188f3839405296b38bd"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/release-operations.md",
+        "sha256": "e7195024ee838e981b4a625829ed7b0d84f83b6f5e3b077aa983adbc7b0d547e"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/routines.md",
+        "sha256": "cc07794e1885b0e9ae280728a6d52d2429e85113cac83463ebf79ff1ec4d4d4d"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/routines.md",
+        "sha256": "8e7cede05e7a94d24600d654ebb130107db158014add2181bebe8d9b1b9a1dd0"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/specialist-scope.md",
+        "sha256": "eab8ff7cce8acf51eac4311b9ea6cc855153891842216881c8771f0b92c2eb03"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/specialist-scope.md",
+        "sha256": "4b96098bea5def86ea5fa3f87177278baa620239c03efeb0913982c6e46405a8"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/tool-search-skills.md",
+        "sha256": "0b8ead2ded0597a70e43e7a6afa2584f0e1d9efd84558ea28caa4139c8fe409c"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/tool-search-skills.md",
+        "sha256": "4ba217dcb2ab22454d03ac88d00b813fd2e81bf9342b45e3800c070810b77b10"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/toolbox-hosted.md",
+        "sha256": "ea59e904fa3a9ad18acee92dc3109c0d79a38d6afb49849e668bb1ce9f2ba8fd"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/toolbox-hosted.md",
+        "sha256": "e5dcf15361e4f1e8b3ae6f77b7d665482ddb2b738c657439ac420a4ed056835c"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/labs/extensions/toolbox.md",
+        "sha256": "eea90db2554b3200172fe97e6dff520e67c9d24ed8e35d7be77b73f487bc5fcf"
+      },
+      "ko": {
+        "path": "docs/ko/labs/extensions/toolbox.md",
+        "sha256": "c8e2a7e98241781180938accd609f21d563f5883808c60e3412bf31de49788ec"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/live-run.md",
+        "sha256": "7a9189c1d37d483848912e684e2b09d0ab7cea4ff87a332f2c495574eae96997"
+      },
+      "ko": {
+        "path": "docs/ko/live-run.md",
+        "sha256": "4f27bde89a7747d83e7125f3b1af69033ddc75ce2a9c2430d025be5a636d5ead"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/paths/a-beginner.md",
+        "sha256": "38362ff712b70db96522cd5950bbfbb9d02472f596635d82e44bab169a52b997"
+      },
+      "ko": {
+        "path": "docs/ko/paths/a-beginner.md",
+        "sha256": "87701b637fbe411343413d7897828e35bd72d71764a441605f77a9a0a45c9dec"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/paths/b-practitioner.md",
+        "sha256": "3a6361fd4538acff5603740f7c6d873c9976d9074aa5b809a5e2ead166180671"
+      },
+      "ko": {
+        "path": "docs/ko/paths/b-practitioner.md",
+        "sha256": "5f8d3224f4919e385e445e1f47ee6cf19062ec5f99fad7aae0e2e32460d3ad9c"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/paths/c-advanced.md",
+        "sha256": "a87207f3ea992b6c06f9385e0d97a224b853d04f13f8e8115251bb0c60fccbbb"
+      },
+      "ko": {
+        "path": "docs/ko/paths/c-advanced.md",
+        "sha256": "54654f6d6f987e95a8f6bdd98696fb938a8e968e839ea0b25acff2acebd37a22"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/paths.md",
+        "sha256": "df14f6eac0594abe904c90de9dea3b829e9da2a43a0bcff4516e0bd9850a6c20"
+      },
+      "ko": {
+        "path": "docs/ko/paths.md",
+        "sha256": "04c8ba73479874199769960ab4a424c8d4ca3440a5ae35265a8885879679b89a"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/cleanup.md",
+        "sha256": "69716655caedae65f8532485c6b3e83df5790baba7d1a8a54a02f86a4ebf0e94"
+      },
+      "ko": {
+        "path": "docs/ko/reference/cleanup.md",
+        "sha256": "2210e099107734fda1c82062b35ef27e78c1109539064d139dcaf99f9f995066"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/commands.md",
+        "sha256": "6f21ede99cd518a2424ccd4af10884d1762e26d01c3f68545158325fb724f15f"
+      },
+      "ko": {
+        "path": "docs/ko/reference/commands.md",
+        "sha256": "b71be0357cfa35f910aca54cce93353e5b57fdf531d799a10c69147c40b7b9cd"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/configuration.md",
+        "sha256": "70c7e38d28021a2a7ef41fe16255461e4c00ba025c9c367270c0a4cd34864a36"
+      },
+      "ko": {
+        "path": "docs/ko/reference/configuration.md",
+        "sha256": "f423172693484a6742cc3725ec7e9af17a6f01cdef068ae4e0c7f1d3a07a3cd8"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/consolidation.md",
+        "sha256": "5445fcfde85b2cf7f4517586114977f66bd58a1d2dca06270362afb9f1608fa4"
+      },
+      "ko": {
+        "path": "docs/ko/reference/consolidation.md",
+        "sha256": "3a7463b25f6b219e8a64fc3c5e5a3a1a7c1a3e5313a24161b09e2b4924c4de6c"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/evaluation-workbook.md",
+        "sha256": "5ff39f01dc84cfdc5a6981275d04cce54aa8894425f60e6a89b82b048006355b"
+      },
+      "ko": {
+        "path": "docs/ko/reference/evaluation-workbook.md",
+        "sha256": "993c2bcfbec4537704b471fd66bf5f832b5d2661cda1931403da3db09a199843"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/glossary.md",
+        "sha256": "8136e3598e65a6bc10a71b800356da2fd03507c5c183f4fd6cc7c12b06e52f02"
+      },
+      "ko": {
+        "path": "docs/ko/reference/glossary.md",
+        "sha256": "6b69c26cb0ebd12d2ca5f59da0c7e678dc28bc7171d55fbc330dcd0de2de9393"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/iq-model-identity.md",
+        "sha256": "fbc36d534f3cf823d3226b91c5745effcd465b5651c169b946d73237d72b2ad9"
+      },
+      "ko": {
+        "path": "docs/ko/reference/iq-model-identity.md",
+        "sha256": "f4898a9275930e864d185eff9af70aa5c175f90d6fa4cc2a8a75cff3bfe93792"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/iq-workbook.md",
+        "sha256": "76e4f0aa9c07f1a651965a93282d1e0367eeac9e3d9703ed0d219d1c7ca984fb"
+      },
+      "ko": {
+        "path": "docs/ko/reference/iq-workbook.md",
+        "sha256": "7dd03b48cbcd24340336fb718822f27d4e90ecb16d540ea3a2cada1ce7190cdd"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/languages.md",
+        "sha256": "c29a75b40ab7f2e5237f32303a16913c34f237c1c367e9e1b448fc5129130f4f"
+      },
+      "ko": {
+        "path": "docs/ko/reference/languages.md",
+        "sha256": "af464c0641ff6c67a50a149773e62157f8ccbf10ec0b9d7ecb88ae1f122652aa"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/learning-resources.md",
+        "sha256": "ae2c4a6f820aa5a12cf8f3b8677e2391e2138c1afaaf049cae92482194feead7"
+      },
+      "ko": {
+        "path": "docs/ko/reference/learning-resources.md",
+        "sha256": "ad73de4f2c5226fca13c749e2f07387e1228f85b03c20283d485cbbf95dfd289"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/migration.md",
+        "sha256": "cbadc9e8802ad6bccb35c3d0fe9a8a9d7d8a92bf4ee240b46005c27f2978800f"
+      },
+      "ko": {
+        "path": "docs/ko/reference/migration.md",
+        "sha256": "7affc302b3cb50b294a0b8181fdab15ff1deaf3990c27212ee8396657e3fe171"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/model-choice.md",
+        "sha256": "69d6b46ee7895c4c607f75b1ecbb8731645e241f9bf5676154d8d3e52676f7ef"
+      },
+      "ko": {
+        "path": "docs/ko/reference/model-choice.md",
+        "sha256": "1e31d264b7ba96900944e302ab8be07c1bb4f719074e149491298724b9818724"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/sources.md",
+        "sha256": "933988efcf6712620603bb706062f8e700c3be146a9ec399b0e56a680213afa2"
+      },
+      "ko": {
+        "path": "docs/ko/reference/sources.md",
+        "sha256": "4ad7f8d275845cf94619f01d70e7db6d2ca917a1f63fdefe3e0326ac873ceb2a"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/troubleshooting.md",
+        "sha256": "06425f9604f0298ac23aa10a6e08180d2c2f0aec526061591f0c2b268c74859b"
+      },
+      "ko": {
+        "path": "docs/ko/reference/troubleshooting.md",
+        "sha256": "c9bc2cc18e373c83cd1f53bd0aeddf980fc3bbace8e83202beffcae6cbb37fa6"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/validation-history.md",
+        "sha256": "503d109bac54f985ae3a315f79ff9f6bd7762dd65f25238d1a522cd1a642cb1b"
+      },
+      "ko": {
+        "path": "docs/ko/reference/validation-history.md",
+        "sha256": "6270f06739023b3f99f9e1124ad66c4ae5df4366697a722a88e64b9dc8a54bac"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/validation.md",
+        "sha256": "085be39d3fb024536082cfadd2edba20e718e3ca0925f57b37bb276aab137b24"
+      },
+      "ko": {
+        "path": "docs/ko/reference/validation.md",
+        "sha256": "8a3c5f6e4c6377d33799c93c0b8127de882fabb50fa3d7cebf180bf61b2a6fec"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/reference/versions.md",
+        "sha256": "97af96098a1f47432d0bebf2d9566f551ef376ca8a6fe7519cd1af724897f966"
+      },
+      "ko": {
+        "path": "docs/ko/reference/versions.md",
+        "sha256": "f18ba376295c81408ec81c634b23be1c8efa591e1867d2380c1765cf394c0e69"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/setup-owner.md",
+        "sha256": "a0fa6ecb5e16384edb82b86b9cf765cc114855335787abc4ccb143fdaa16cb42"
+      },
+      "ko": {
+        "path": "docs/ko/setup-owner.md",
+        "sha256": "6bae24d1a95c2cc209c6b9470f558fb43bd5a98b7715a3725d85666f7582c4f7"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/setup.md",
+        "sha256": "73ed1a3b32b5c3ef68b8ce845e125e017e60bb8eb1b98f0115ad4cca2c86df65"
+      },
+      "ko": {
+        "path": "docs/ko/setup.md",
+        "sha256": "a86d484cd556e76dbbca4f6cfe3d5111b4bfe84277e1eeb5e8ef816282bc4816"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/video-chapters.md",
+        "sha256": "c2e9a8359ba839a72f3bf14ed02e282f3d02d06af7e2ca1fa64fd9d588356987"
+      },
+      "ko": {
+        "path": "docs/ko/video-chapters.md",
+        "sha256": "b55db4eb984c27d98f15a67a1b9726db6320ec496cb4ca8574fce180e93dac15"
+      }
+    },
+    {
+      "en": {
+        "path": "docs/video-summary.md",
+        "sha256": "46df860dddd9aeec25011e00b78ffc536af4872faf6b3d0ee3a0a097d2f54ad6"
+      },
+      "ko": {
+        "path": "docs/ko/video-summary.md",
+        "sha256": "fe8117440beed4f27ea5aafd65495ef58869b6d9f2a99d1a0ae069908a5dbefb"
+      }
+    }
+  ]
+}

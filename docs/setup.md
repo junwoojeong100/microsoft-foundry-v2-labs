@@ -40,7 +40,7 @@ For private repositories, use a GitHub account with read access.
 | `START-HERE.txt` | File-by-file instructions |
 | `instructions-with-policies.txt` | Copy the entire file into a new Prompt Agent's **Instructions**, then Save |
 | `instructions.txt` | Instructions without inline evidence, for the optional File Search path |
-| `policies/` | Exactly six synthetic TXT files to upload for File Search |
+| `policies/` | Six original synthetic TXT files to inspect in core Labs 03 and 06; upload only for separately selected, available File Search |
 | `dev-questions.txt` | Copy one question, not the case ID or an evaluation record, into each new chat |
 | `dev-questions.jsonl` | The same six questions as a dataset for the optional Lab 07 Foundry evaluation; no answers |
 | `assessment.csv` | Blank six-case worksheet; record your actual answers/citations/pass or fail |
@@ -63,6 +63,8 @@ Empty templates are not completed evidence. Nothing in this ZIP installs a code 
 ## 3. Collect the environment values
 
 Get these values from your instructor or environment owner.
+Confirm the **sign-in account as well as the tenant**. Your usual work account and the workshop account can be different;
+browser sign-in and Azure CLI sign-in are also separate sessions. Never share credentials to make them match.
 **A:** fill `session-notes.txt` from the ZIP you just extracted.
 **B:** keep the owner's values; copy them into `outputs/learner-notes-en/session-notes.txt` when Lab 00 prepares that file.
 You do not need to install anything just to collect the values. Never record passwords, keys or tokens.
@@ -74,7 +76,8 @@ You do not need to install anything just to collect the values. Never record pas
 | Full project endpoint | A and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
 | **Answer deployment** | A and B | **`gpt-6-sol`**, model version **`2026-09-22`** |
 | Prefix for your objects | A and B | Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters. Example: `mfv2-team01-en` |
-| Code environment | A's Lab 05 (prepared for you) and B | Repository folder, Python 3.13, activated `.venv`, your own Azure sign-in |
+| Code environment | B; A's default Lab 05 terminal option | Repository folder, Python 3.13, activated `.venv`, your own Azure sign-in |
+| Prepared Hosted workflow agent | Only for A's separately selected Lab 05 browser option | Owner-verified name/version and Playground location; sequential local/v2 Responses profile in your language, not the Lab 03 Prompt Agent |
 | Search endpoint | B's Lab 06 | The prepared Search service: `https://<search>.search.windows.net` |
 
 **For answers, use exactly `gpt-6-sol`.** Do not pick `gpt-6-sol-judge` (it only scores answers in optional evaluations), another listed model or a router.
@@ -100,7 +103,7 @@ If the deployment or its version is missing, stop and ask the owner to fix it; t
 - [ ] I can open the intended project with my own account.
 - [ ] The actual `gpt-6-sol` deployment and version `2026-09-22` are prepared.
 - [ ] A: I have the learner ZIP and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
-- [ ] I know my Lab 05 option: a prepared Hosted workflow agent in Playground or a prepared terminal. If neither was supplied, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
+- [ ] I have the default prepared Lab 05 terminal, or the owner has preselected and verified the optional Hosted Responses Playground path. If neither was supplied, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
 - [ ] For B, Search access and owned-object creation costs are approved. For A, IQ Chat is **not selected** unless separately prepared.
 - [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
 

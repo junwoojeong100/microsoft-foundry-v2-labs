@@ -80,6 +80,20 @@ class LearnerMaterialTests(unittest.TestCase):
                 self.assertIn(document["effective_from"], rendered)
                 self.assertIn(document["effective_to"], rendered)
 
+    def test_start_file_keeps_policy_inspection_in_the_core_route(self):
+        for language in ("en", "ko"):
+            with self.subTest(language=language):
+                start = learner_files(ROOT, language)["START-HERE.txt"].decode()
+                policy_line = next(line for line in start.splitlines() if "policies/" in line)
+                self.assertIn("Lab 03", policy_line)
+                self.assertIn("06", policy_line)
+                self.assertNotIn("File Search", policy_line)
+                optional_line = next(
+                    line for line in start.splitlines() if "instructions.txt" in line
+                )
+                self.assertIn("File Search", optional_line)
+                self.assertNotIn("policies/", optional_line)
+
     def test_evidence_templates_are_blank_localized_and_in_the_start_sequence(self):
         for language, marker in (("en", "BLANK WORKSHEET"), ("ko", "빈 기록 양식")):
             with self.subTest(language=language):
@@ -118,6 +132,29 @@ class LearnerMaterialTests(unittest.TestCase):
                     self.assertIn(field + "\n", review)
                 for pattern in ("sequential", "concurrent", "group-chat"):
                     self.assertIn(pattern, review)
+
+    def test_workflow_review_supports_the_browser_question_and_hosted_profile(self):
+        for language, fields in (
+            (
+                "en",
+                (
+                    "Hosted agent name / version (Playground option only):",
+                    "Exact command / Playground question:",
+                ),
+            ),
+            (
+                "ko",
+                (
+                    "Hosted agent 이름 / 버전(Playground 방식만):",
+                    "정확한 명령 / Playground 질문:",
+                ),
+            ),
+        ):
+            with self.subTest(language=language):
+                review = learner_files(ROOT, language)["workflow-review.txt"].decode()
+                for field in fields:
+                    self.assertIn(field + "\n", review)
+                self.assertIn("runtime_profile.pattern", review)
 
     def test_session_notes_separate_routes_and_provide_blank_b_review_fields(self):
         for language, headings in (

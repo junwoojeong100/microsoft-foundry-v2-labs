@@ -23,8 +23,8 @@
 <details>
 <summary>선택 화면 도움말 — 녹화가 아니라 현재 본문의 명령을 실행합니다</summary>
 
-각 단계의 이미지는 **2026-09-24에 `gpt-6-sol`로 별도 실행한 국문 녹화 화면**입니다.
-설정 카드와 준비된 학습자 파일을 사용해 별도 실습 프로젝트에서 촬영했으며 영문 촬영본을 재사용하지 않았습니다.
+참고 이미지는 **2026-09-24 `gpt-6-sol` 국문 녹화**와 날짜를 명시한 2026-09-25 확인·보충 자료입니다.
+각 캡션이 출처를 밝히며, 별도 실습 프로젝트와 합성 학습자 파일을 사용했습니다.
 실습 프로젝트 생성은 녹화 전에 따로 준비했으므로 리소스 생성 명령을 녹화한 것처럼 표시하지 않습니다.
 [녹화 영상과 범위](../video-summary.md)에서 실제 호출·fixture·관찰·녹화하지 않은 범위를 구분합니다. 클릭하면 크게 볼 수 있습니다.
 화면의 계정·프로젝트·모델·접두사를 그대로 복사하지 말고 강사가 제공한 본인 값과 대조하세요.
@@ -46,12 +46,15 @@
 1. Edge 또는 Chrome에서 `https://ai.azure.com`을 엽니다.
 2. 강사가 지정한 **Microsoft Entra 계정과 디렉터리(tenant)**로 로그인합니다.
    개인 Microsoft 계정·GitHub 로그인과 Azure 업무 계정은 같은 개념이 아닙니다.
+   평소 쓰는 회사 계정으로 로그인에 성공해도 실습 tenant 접근이 확인된 것은 아닙니다.
+   포털 URL에 `tid=`가 보이면 권한을 바꾸기 전에 설정 카드의 tenant ID와 비교합니다.
+   다르면 [tenant 확인](../reference/troubleshooting.md#portal-tenant)을 따릅니다.
 3. 강사가 알려 준 프로젝트를 선택합니다. 이름이 비슷한 운영 프로젝트를 선택하지 않습니다.
    프로젝트 선택 메뉴에서 찾기 어렵다면 메뉴 아래의 전체 리소스 보기 링크(영문 UI **View all resources**)에서
    프로젝트 이름을 검색하고, 이름·부모 리소스·리전을 확인한 뒤 엽니다.
 4. 준비 단계에서 받지 않았다면 [학습자 ZIP](../../../data/learner/ko/learner-materials.zip)을 내려받아 풉니다.
    `START-HERE.txt`를 열어 둡니다. 혼자 학습하면 [준비 카드](../setup.md)에서 환경 준비를 먼저 확인합니다.
-   [Lab 05](05-workflows.md)에서는 담당자가 준비한 방식을 씁니다. Playground의 Hosted workflow agent를 쓰거나 준비된 MAF 터미널에 명령을 복사해 실행합니다.
+   [Lab 05](05-workflows.md)는 준비된 MAF 터미널에 명령을 복사하는 것이 기본입니다. 담당자가 미리 선택·검증한 경우에만 선택 Hosted Responses Playground를 사용합니다.
    Python 코드를 직접 작성하거나 포털에서 workflow를 만들지는 않습니다.
 5. ZIP의 `session-notes.txt`를 열어 **Lab 00 - 설정 카드** 구역을 확인합니다. 준비 단계에서 채운 줄을 하나씩 확인하고 빈 줄은 채웁니다.
    화면 전체나 개인 정보를 공유 채팅에 올리지 않습니다.
@@ -118,6 +121,9 @@
 
 **준비된 소스 폴더가 있나요?** 다운로드를 건너뛰고 그 폴더를 사용합니다. `.env`·`.venv`·`outputs/`를 유지하며,
 기존 `outputs/azure-objects.json` 소유권 기록도 보존합니다.
+이는 **이번 경로·언어·설정 카드에 맞게 준비한 복사본**을 뜻합니다. 이전 판에서 실행됐다는 이유만으로 준비된 것은 아닙니다.
+프로젝트·모델이 다르면 이전 복사본을 보존하고 담당자에게 새 복사본용 현재 설정값을 받습니다.
+Search 소유권이 있는 복사본의 대상을 바꾸거나 이전 모델의 사전 확인 성공을 이번 가이드의 준비 완료로 해석하지 않습니다.
 
 **아직 소스 폴더가 없나요?** 접근 권한이 있는 GitHub 계정으로
 [이 저장소](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)를 열고 **Code → Download ZIP**을 선택합니다.
@@ -147,7 +153,8 @@ python3.13 scripts/workshop.py doctor
 
 #### B의 개인 기록 폴더 한 번 준비하기
 
-소스 ZIP에 빈 기록 양식이 이미 있습니다. **B는 학습자 ZIP을 추가로 받거나 Lab 03 agent를 만들 필요가 없습니다**.
+소스 ZIP에 빈 기록 양식이 이미 있습니다. **B는 추가 학습자 ZIP이나 [Lab 03 A의 브라우저 agent](03-prompt-agent.md#path-a)가 필요 없습니다**.
+B는 [Lab 03 B](03-prompt-agent.md#path-b)에서 자체 관리형 agent를 만듭니다. 이는 선택 브라우저 실습이 아니라 기본 필수 단계입니다.
 Git에서 제외되는 별도 작업 폴더를 만듭니다. 폴더가 이미 있으면 `&&` 연결이 멈춰 이전 기록을 덮어쓰지 않습니다.
 
 ```bash
@@ -163,7 +170,7 @@ cp data/learner/ko/{session-notes.txt,workflow-review.txt,operations-checklist.t
 **A - 브라우저 전용 기록** 전체는 건너뜁니다. B 구간에 Lab별 검토란이 따로 있습니다.
 이전에 작성한 개인 파일에 해당 줄이 없다면 그 줄만 추가합니다. 새 빈 양식으로 기존 기록을 덮어쓰지 않습니다.
 
-Lab 02/04/05/06의 B 명령에는 **`--output`**이 있어 JSON 전체를 이 기록 폴더에 저장하면서 화면에도 출력합니다.
+Lab 02/03/04/05/06의 B 명령에는 **`--output`**이 있어 JSON 전체를 이 기록 폴더에 저장하면서 화면에도 출력합니다.
 **터미널 출력을 편집기로 복사할 필요가 없습니다.** 각 **저장** 지점에서 생성된 파일을 엽니다.
 상위 폴더가 있어야 하며, 파일이 이미 있거나 경로가 허용 범위 밖이면 요청 전에 멈춥니다.
 다른 기록 폴더를 선택했다면 모든 `--output` 경로를 함께 바꿉니다. 기존 결과를 읽기 위해 유료 호출을 반복하지 않습니다.
@@ -217,12 +224,11 @@ python -m pip install -e ".[cloud,agents]"
 ### 4. 로그인과 `.env`
 
 Azure CLI 설치는 [공식 설치 가이드](https://learn.microsoft.com/cli/azure/install-azure-cli)를
-사용합니다. 로그인은 학습자가 직접 합니다.
+사용합니다. **이미 본인의 실습 계정으로 로그인했나요? 기존 로그인을 유지합니다.** 아래에서 `.env`를 준비하고
+5단계에서 설정한 구독·tenant를 확인합니다. 새 터미널을 열거나 `.env`를 준비한다고 다시 로그인할 필요는 없습니다.
+아직 로그인하지 않았다면 5단계 전에 아래 [로그인 블록](#azure-sign-in)을 사용합니다.
 
 ```bash
-printf '설정 카드의 Azure tenant ID: '
-read -r AZURE_TENANT_ID
-az login --tenant "$AZURE_TENANT_ID"
 if [ -e .env ] || [ -L .env ]; then
   printf '%s\n' '.env exists; edit it without replacing it.'
 else
@@ -230,8 +236,8 @@ else
 fi
 ```
 
-**화면 확인:** `az login`이 본인 계정과 의도한 구독을 표시하며 끝나고, `.env`가 새로 생겼습니다
-(또는 블록이 `.env exists`를 출력했으므로 기존 파일을 편집합니다).
+**화면 확인:** `.env`가 새로 생겼거나, 블록이 `.env exists`를 출력해 기존 파일을 확인합니다.
+이 파일 준비 블록은 로그인하거나 Azure CLI 기본 구독을 바꾸지 않습니다.
 
 VS Code에서 `.env`의 **1번 구간**에 준비 카드의 값을 입력하고 로컬 기본값은 유지합니다.
 **2번 구간의 Search endpoint는 Lab 06에서만** 추가하며, 해당 모듈을 선택하지 않았다면 심화 값은 건드리지 않습니다.
@@ -251,13 +257,39 @@ endpoint가 다른 터미널에 남아 있으면 새 터미널에서 다시 확�
 API key, 비밀번호, access token은 이 파일에 넣지 않습니다.
 Microsoft 365 계정이나 실제 고객 문서도 필요하지 않습니다.
 
+<a id="azure-sign-in"></a>
+
+<details>
+<summary>처음 로그인하거나 인증이 만료된 경우만 — 매번 하는 설정이나 403 복구 단계가 아닙니다</summary>
+
+로그인은 학습자가 직접 합니다. **`az login --tenant`도 Azure CLI 기본 구독을 선택·변경할 수 있습니다**
+([공식 동작, 2026-09-25 확인](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively#subscription-selector)).
+기존 공유 프로필의 기본 구독을 유지해야 한다면 여기서 실행하지 말고, 담당자에게 본인 계정으로 로그인된
+격리 환경을 요청합니다. `az account set`·`az logout`·`az account clear`로 우회하지 않습니다.
+
+본인 프로필 또는 담당자가 준비한 격리 환경에서만 실행합니다.
+
+```bash
+printf '설정 카드의 Azure tenant ID: '
+read -r AZURE_TENANT_ID
+az login --tenant "${AZURE_TENANT_ID:?Enter the tenant ID from your setup card}"
+```
+
+로그인 결과에 본인 계정과 의도한 tenant·구독이 표시되는지 확인하고 5단계로 돌아갑니다.
+Workshop은 기본 구독을 바꾸지 않고 `.env`의 `AZURE_SUBSCRIPTION_ID`를 사용합니다. 로그인만으로 모델 권한이 확인되지는 않습니다.
+403이면 로그인을 반복하지 말고 담당자에게 실제 호출 주체와 필요한 역할을 확인하도록 요청합니다.
+
+</details>
+
 ### 5. 읽기 전용 Azure 검사 실행
 
 ```bash
 python scripts/workshop.py doctor --cloud
 ```
 
-실습 구독, tenant, 배포의 실제 모델·버전과 `Succeeded` 상태를 확인합니다.
+준비 카드의 구독·tenant·전체 project endpoint를 확인합니다. 기본 경로에서는 **배포 이름 `gpt-6-sol`,
+실제 모델 `gpt-6-sol`, 버전 `2026-09-22`, 상태 `Succeeded`를 함께** 확인해야 합니다.
+`doctor --cloud`는 설정된 배포를 보고합니다. 이전 모델의 `Succeeded`는 이번 preset의 통과가 아닙니다.
 이 명령은 리소스를 만들거나 기본 구독을 바꾸지 않습니다.
 권한 오류가 나오면 담당자에게 실습 Foundry 계정의 **Reader** 역할을 요청합니다. 이 검사는 Azure Resource Manager로 배포 정보를 읽습니다.
 검사 통과만으로 모델의 데이터 평면 권한/Structured Outputs 지원이 증명되지는 않습니다.

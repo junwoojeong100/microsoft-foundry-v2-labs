@@ -1,0 +1,30 @@
+﻿item,guide,status,detail
+Lab 00,docs/labs/00-start.md,offline-and-live-preflight,"Offline preparation contracts and explicit-subscription cloud preflight checked; reused the prepared pinned SDK/auth environment, not a new learner install/sign-in."
+Lab 01,docs/labs/01-foundry.md,live-preflight-and-prior-portal,Current project/deployment/version read back; the four-object explanation and prior portal evidence remain distinct from resource creation.
+Lab 02,docs/labs/02-models.md,fresh-live,Real model and structured local-evidence responses in each language; no fixture substitution.
+Lab 03,docs/labs/03-prompt-agent.md,fresh-invoke-and-readback,Existing SDK version 1 invoked; saved definitions and inline version 2 rechecked. No new agent creation/Save or File Search upload.
+Lab 04,docs/labs/04-agents-tools.md,fresh-live,"No-tool, function and local-MCP commands returned real responses and documented fields. The configured tools field alone is not a captured tool-event trace."
+Lab 05,docs/labs/05-workflows.md,fresh-live,All three B patterns and exact A default terminal question ran independently in both languages. Preserve the concurrent citation finding.
+Lab 06,docs/labs/06-knowledge.md,fresh-live-existing-objects,Local/Search/GA IQ reads and an IQ-grounded answer used the current synthetic corpus. Original ledger retained; no seed or role change.
+Lab 07,docs/labs/07-evaluation.md,offline-contracts-and-historical-evidence,"Evaluation/holdout gates tested offline; previous actual cohorts retained unchanged. No new scores, holdout collection, judge job or acceptance."
+Lab 08,docs/labs/08-hosted.md,fresh-local-package,Both exact package commands ran; manifests retain cloud_deployed:false. Local/remote serving not rerun.
+Lab 09,docs/labs/09-operations.md,fresh-read-only-and-local,Both new SDK response IDs and tokens matched headless portal traces; cleanup inventory is local and deletes nothing.
+Lab 10,docs/labs/10-iq-extensions.md,design-only,Synthetic routing/design scope checked; no Fabric or Microsoft 365 connection or company data.
+Lab 11,docs/labs/11-capstone.md,artifact-and-boundary-review,"Fresh outputs, trace and package evidence retained; no invented acceptance, repeated holdout or learner-completion claim."
+a2a,docs/labs/extensions/a2a.md,not-newly-executed,Prior dated typed-SDK run retained; a new target/caller/connection run would require separately approved writes.
+additional-tools,docs/labs/extensions/additional-tools.md,not-newly-executed,Code Interpreter/OpenAPI contracts and gates checked; new agent/tool/file execution was not selected.
+agent-insights,docs/labs/extensions/agent-insights.md,not-newly-executed,"Prior SDK scan retained; no new scan, traffic generation or portal-run claim."
+agent-optimizer,docs/labs/extensions/agent-optimizer.md,not-newly-executed,"Supported optimizer deployment/cost approval needed; no new candidate generation, promotion or holdout development."
+agent-safety,docs/labs/extensions/agent-safety.md,not-newly-executed,No new guardrail attachment or red-team job; earlier invalid ASR remains invalid.
+approval-recovery,docs/labs/extensions/approval-recovery.md,not-newly-executed,Local SDK checkpoint/recovery tests passed; no new claim of actual human authorization or Hosted crash proof.
+conversation-evaluation,docs/labs/extensions/conversation-evaluation.md,not-newly-executed,Existing dated multi-turn evidence retained; no additional paid collection or judges for unchanged guide logic.
+developer-toolkit,docs/labs/extensions/developer-toolkit.md,not-newly-executed,Pinned Python/SDK environment validated; Dev Pack/global CLI installation not performed.
+governance-networking,docs/labs/extensions/governance-networking.md,not-newly-executed,Caller/scope/owner boundaries checked; no least-privilege-account or private-network deployment proof.
+memory,docs/labs/extensions/memory.md,not-newly-executed,"Prior dated synthetic lifecycle evidence retained; no new store, scope, write or delete."
+model-operations,docs/labs/extensions/model-operations.md,not-newly-executed,A second permitted deployment is a separate experiment; no model replacement or Router migration.
+release-operations,docs/labs/extensions/release-operations.md,not-newly-executed,"Offline CI contracts/gates checked; no OIDC/role change, workflow dispatch, schedule or deployment."
+routines,docs/labs/extensions/routines.md,not-newly-executed,Existing dispatch-only limitations retained; no new paid scheduled work.
+specialist-scope,docs/labs/extensions/specialist-scope.md,design-only,"Design/scope only; real company/Microsoft 365, fine-tuning and business actions remain excluded."
+tool-search-skills,docs/labs/extensions/tool-search-skills.md,not-newly-executed,Working approved Toolbox/Search access is still a prerequisite; no skill/version creation or substitute provider.
+toolbox,docs/labs/extensions/toolbox.md,not-newly-executed,Prior Search authorization failure retained; no role broadening or new query claimed as successful.
+toolbox-hosted,docs/labs/extensions/toolbox-hosted.md,not-newly-executed,Remote execution requires its own prepared Toolbox/runtime/deployment approval; no new deployment.

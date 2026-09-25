@@ -25,6 +25,8 @@ Follow [B's ordered route](../paths/b-practitioner.md), not this table from top 
 | `retrieve --provider iq` | Possible IQ charges | GA knowledge-base retrieval |
 | `model --question "question"` | Paid model call | Direct Responses |
 | `answer --prompt v2 --retrieval local` | Paid model call | Structured answer with sources |
+| `prompt-agent create --name <owned-name> --confirm-create` | Creates a managed agent version | Required [Lab 03 B](../labs/03-prompt-agent.md#path-b), separate from the browser and local MAF agents |
+| `prompt-agent invoke --name <owned-name> --version <returned-version> --question "question"` | Paid agent/model call | Invoke the saved exact version; keep its response ID for Lab 09 |
 | `maf --tools` / `maf --mcp` | Paid model calls | Read-only function / local MCP |
 | `workflow --pattern sequential` | Paid model calls | Alternatives: concurrent, group-chat |
 | `seed-search --confirm-create` | Creates/uploads owned Search objects | Existing service only |
@@ -80,7 +82,9 @@ without `--output` in their `--help` manage their own evidence directories; do n
 | `pending-human-review` / `ready-for-human-review` | A person still needs to review; no business approval or deployment permission was granted |
 | A service error, missing response or failed row | Preserve the exact attempt and use [recovery](troubleshooting.md#resume-safely). A later read/list success does not erase it |
 
-For this workshop CLI, exit `2` identifies an input/configuration/dependency/precondition error.
+For handled workshop CLI failures, exit `2` identifies an input/configuration/dependency/precondition error
+or a failed individual Azure/MAF request. A batch `collect` with saved error rows instead exits `1`.
+`MAF request failed` includes the SDK exception and its underlying cause; it never creates a successful `--output` file.
 Do not assume other tools use the same codes. Missing measurements stay missing, never zero.
 
 <a id="saved-results"></a>
@@ -122,7 +126,6 @@ Every family's own `--help` and linked lab specify its required values and creat
 
 | Family | Purpose / boundary | Complete guide |
 |---|---|---|
-| `prompt-agent` | Create/invoke a separately versioned managed agent; now core in B, not the local MAF agent | [Lab 03 SDK branch](../labs/03-prompt-agent.md#path-b) |
 | `collect --retrieval none` | Optional six-call dev diagnostic with no policy evidence; not the baseline/candidate path, and rejected by `feedback` and `cloud-evaluate` | [Lab 07 diagnostic](../labs/07-evaluation.md#diagnostic-no-evidence) |
 | `iq-chat` | Fixed `gpt-5.6-luna`/SMI preflight, owned chat-base creation, then billable planning/synthesis | [Owner setup](../setup-owner.md) |
 | `workflow-agent` / `runtime-contract` | Validated workflow output / local frozen profile and hashes | [Lab 05 C](../labs/05-workflows.md) |

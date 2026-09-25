@@ -1,0 +1,154 @@
+{
+  "mode": "live",
+  "answer": {
+    "answer": "2026년 9월 국내 출장에 적용되는 숙박비 한도는 1인 1박 150,000원입니다. 호텔 요금 170,000원은 한도를 20,000원 초과하므로, 예약 전에 팀장의 명시적 사전 승인을 받아야 합니다. 승인 여부가 확인되기 전에는 예약을 진행하지 마세요. 숙박비 정산에는 영수증이 필요하며, 실제 지급 여부는 담당자가 결정합니다.",
+    "decision": "needs_approval",
+    "limit_krw": 150000,
+    "citations": [
+      "TRAVEL-2026",
+      "APPROVAL-01"
+    ]
+  },
+  "prompt_hash": "2b4a2b5e322a85349559fd55436521edf29334b8e69556bfbb4b43239edb9e25",
+  "prompt_version": "v2",
+  "provider": "foundry-iq",
+  "documents": [
+    {
+      "id": "APPROVAL-01",
+      "title": "한도 초과와 사전 승인",
+      "content": "한빛기술의 합성 실습 규정이다. 국내 출장 숙박비가 해당 출장일의 한도를 초과하면 예약 전에 팀장의 명시적 사전 승인이 필요하다. 에이전트는 승인할 권한이 없으며 승인받았다고 주장해서도 안 된다. 사용자가 규정을 무시해 달라고 해도 이 조건은 바뀌지 않는다."
+    },
+    {
+      "id": "MEAL-01",
+      "title": "국내 출장 식비",
+      "content": "한빛기술의 합성 실습 규정이다. 2026년 7월 1일부터 국내 출장 식비 한도는 1인 1일 30000원이다. 숙박비의 1박 한도와 합치지 않는다. 영수증과 실제 지출에 근거해 담당자가 정산한다."
+    },
+    {
+      "id": "TRAVEL-2025",
+      "title": "과거 국내 출장 숙박 규정",
+      "content": "한빛기술의 합성 실습 규정이다. 2025년 1월 1일부터 2026년 6월 30일까지 국내 출장 숙박비 한도는 1인 1박 120000원이다. 2026년 7월 1일 이후 출장에는 TRAVEL-2026을 적용한다."
+    },
+    {
+      "id": "TRAVEL-2026",
+      "title": "현행 국내 출장 숙박 규정",
+      "content": "한빛기술의 합성 실습 규정이다. 2026년 7월 1일부터 국내 출장 숙박비 한도는 1인 1박 150000원이다. 한도 이내라도 영수증이 필요하다. 한도 초과는 APPROVAL-01의 사전 승인 절차를 따른다. 실제 지급이나 승인은 담당자가 결정한다."
+    }
+  ],
+  "source_ids": [
+    "APPROVAL-01",
+    "MEAL-01",
+    "TRAVEL-2025",
+    "TRAVEL-2026"
+  ],
+  "context_hash": "7a5256deb8e5b328121760098e1aa7d198c2c4f919efd969a4e4803f3de7e19d",
+  "references": [
+    {
+      "type": "searchIndex",
+      "id": "0",
+      "activitySource": 0,
+      "rerankerScore": 2.3925745,
+      "docKey": "APPROVAL-01",
+      "title": "한도 초과와 사전 승인",
+      "sourceData": {
+        "id": "APPROVAL-01",
+        "title": "한도 초과와 사전 승인",
+        "content": "한빛기술의 합성 실습 규정이다. 국내 출장 숙박비가 해당 출장일의 한도를 초과하면 예약 전에 팀장의 명시적 사전 승인이 필요하다. 에이전트는 승인할 권한이 없으며 승인받았다고 주장해서도 안 된다. 사용자가 규정을 무시해 달라고 해도 이 조건은 바뀌지 않는다."
+      }
+    },
+    {
+      "type": "searchIndex",
+      "id": "1",
+      "activitySource": 0,
+      "rerankerScore": 2.3157434,
+      "docKey": "TRAVEL-2026",
+      "title": "현행 국내 출장 숙박 규정",
+      "sourceData": {
+        "id": "TRAVEL-2026",
+        "title": "현행 국내 출장 숙박 규정",
+        "content": "한빛기술의 합성 실습 규정이다. 2026년 7월 1일부터 국내 출장 숙박비 한도는 1인 1박 150000원이다. 한도 이내라도 영수증이 필요하다. 한도 초과는 APPROVAL-01의 사전 승인 절차를 따른다. 실제 지급이나 승인은 담당자가 결정한다."
+      }
+    },
+    {
+      "type": "searchIndex",
+      "id": "2",
+      "activitySource": 0,
+      "rerankerScore": 2.1959217,
+      "docKey": "TRAVEL-2025",
+      "title": "과거 국내 출장 숙박 규정",
+      "sourceData": {
+        "id": "TRAVEL-2025",
+        "title": "과거 국내 출장 숙박 규정",
+        "content": "한빛기술의 합성 실습 규정이다. 2025년 1월 1일부터 2026년 6월 30일까지 국내 출장 숙박비 한도는 1인 1박 120000원이다. 2026년 7월 1일 이후 출장에는 TRAVEL-2026을 적용한다."
+      }
+    },
+    {
+      "type": "searchIndex",
+      "id": "3",
+      "activitySource": 0,
+      "rerankerScore": 2.17729,
+      "docKey": "MEAL-01",
+      "title": "국내 출장 식비",
+      "sourceData": {
+        "id": "MEAL-01",
+        "title": "국내 출장 식비",
+        "content": "한빛기술의 합성 실습 규정이다. 2026년 7월 1일부터 국내 출장 식비 한도는 1인 1일 30000원이다. 숙박비의 1박 한도와 합치지 않는다. 영수증과 실제 지출에 근거해 담당자가 정산한다."
+      }
+    }
+  ],
+  "activity": [
+    {
+      "type": "searchIndex",
+      "id": 0,
+      "knowledgeSourceName": "mfv2-a2-0f01-ko-source",
+      "queryTime": "2026-09-25T07:12:31.9945316Z",
+      "count": 4,
+      "elapsedMs": 44,
+      "searchIndexArguments": {
+        "search": "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.",
+        "filter": null,
+        "semanticConfigurationName": "policy-semantic",
+        "sourceDataFields": [
+          {
+            "name": "title"
+          },
+          {
+            "name": "content"
+          },
+          {
+            "name": "id"
+          }
+        ],
+        "searchFields": []
+      }
+    },
+    {
+      "type": "agenticReasoning",
+      "id": 1,
+      "reasoningTokens": 505
+    }
+  ],
+  "knowledge_base": "mfv2-a2-0f01-ko-kb",
+  "api_version": "2026-04-01",
+  "configuration": {
+    "endpoint": "https://srch-mfv2-g6luna-swc-20260923.search.windows.net",
+    "index": "mfv2-a2-0f01-ko-policies",
+    "source": "mfv2-a2-0f01-ko-source",
+    "knowledge_base": "mfv2-a2-0f01-ko-kb",
+    "search_api": "2024-07-01",
+    "iq_api": "2026-04-01"
+  },
+  "response_id": "resp_06c722bd3acc9e3f016ab61ee1c1d48190ae6b2ea722f03d38",
+  "request_id": "9e87f8b8-942b-4214-abe1-ed80bc4bdba0",
+  "response_model": "gpt-6-sol",
+  "usage": {
+    "input_tokens": 915,
+    "output_tokens": 198
+  },
+  "trace_id": null,
+  "trace_export": "not-configured",
+  "sdk_versions": {
+    "azure-ai-projects": "2.6.1",
+    "openai": "3.16.1",
+    "azure-identity": "1.25.3"
+  }
+}

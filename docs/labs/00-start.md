@@ -23,8 +23,8 @@
 <details>
 <summary>Optional screenshot help — execute the current text, not the recording</summary>
 
-Reference images come from the **September 24, 2026 English recording with `gpt-6-sol`**,
-made in a separate training project with the setup card and the ready learner files.
+Reference images come from the **September 24, 2026 English recording with `gpt-6-sol`** and dated September 25 checks/supplements.
+Each caption identifies its source; these used a separate training project and synthetic learner files.
 [Recordings and scope](../video-summary.md) distinguish actual calls, fixtures, observations, and what was not recorded.
 Click to enlarge. Compare account, project, model, and prefix with your instructor's
 values; do not copy identifiers from images.
@@ -49,12 +49,15 @@ prevent translated datasets from being presented as the same-input experiment.
 1. Open `https://ai.azure.com` in Edge or Chrome.
 2. Sign in with the instructor-specified **Microsoft Entra account and directory (tenant)**.
    Personal Microsoft, GitHub, and Azure work-account sign-ins are different.
+   A successful sign-in to your usual work account does not establish access to the training tenant.
+   If the portal URL shows `tid=`, compare it with the setup card's tenant ID before changing permissions;
+   use [the tenant check](../reference/troubleshooting.md#portal-tenant) when they differ.
 3. Select the training project, not a similarly named production project.
    If the project picker is hard to use, choose **View all resources**, search for the project name,
    and check its name, parent resource and region before opening it.
 4. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip).
    Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
-   In [Lab 05](05-workflows.md), use the option the owner prepared: the Hosted workflow agent in Playground, or commands copied into the prepared MAF terminal;
+   In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal by default; use the optional Hosted Responses Playground only if the owner preselected and verified it;
    you will not write Python or build a portal workflow.
 5. Open the ZIP's `session-notes.txt`. In its **Lab 00 - setup card** section, check each line you filled during setup and complete any blank one.
    Do not post whole screens or personal information in shared chat.
@@ -121,6 +124,9 @@ New terminals do not inherit values entered with `read`.
 
 **Already have a prepared source folder?** Use it; skip the download. Keep its `.env`, `.venv` and `outputs/`,
 including any existing `outputs/azure-objects.json` ownership record.
+This means a copy prepared for **this route, language and setup card**, not merely a folder that worked in an older edition.
+If its project/model differs, preserve that copy and have the owner supply the current values for a fresh copy;
+do not repoint a Search-owning copy or treat the older model's successful preflight as readiness for this guide.
 
 **No source folder yet?** Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)
 with a GitHub account that has access, then **Code → Download ZIP**, extract it and open the folder in VS Code.
@@ -149,7 +155,8 @@ and the local runtime, not a successful Azure call.
 
 #### Prepare B's personal notes once
 
-The source ZIP already contains the blank worksheets; **B does not need another learner-ZIP download or Lab 03 agent**.
+The source ZIP already contains the blank worksheets; **B does not need another learner ZIP or the [Lab 03 A browser agent](03-prompt-agent.md#path-a)**.
+B creates its own managed agent in [Lab 03 B](03-prompt-agent.md#path-b); that is a required core step, not an optional browser exercise.
 Create a separate, Git-ignored working directory. The `&&` chain stops if it exists, so it cannot overwrite earlier notes:
 
 ```bash
@@ -165,7 +172,7 @@ After that, use only **B - code evidence and handoff** and **Pause / resume**; s
 including its Playground and source-check fields. The B section has its own lab-by-lab review lines.
 If an older personal copy lacks a named line, append that line there; do not replace your filled notes with the new blank template.
 
-The B commands in Labs 02/04/05/06 include **`--output`**, which saves the complete JSON to this notes directory
+The B commands in Labs 02/03/04/05/06 include **`--output`**, which saves the complete JSON to this notes directory
 and still prints it. **No terminal-to-editor copying is needed.** Open the saved file at each **Save** checkpoint.
 The parent directory must exist; an existing file or an out-of-scope path stops before the request.
 If you chose another notes directory, change every `--output` path consistently. Keep an earlier result instead of repeating a paid call.
@@ -219,12 +226,11 @@ A line starting with `ERROR` means stop and resolve the installation first. Inst
 ### 4. Sign in and configure `.env`
 
 Use the [official Azure CLI installation guide](https://learn.microsoft.com/cli/azure/install-azure-cli).
-Learners sign in themselves.
+**Already signed in with your own training account? Keep that sign-in.** Prepare `.env` below, then use step 5 to check
+the configured subscription and tenant. Opening a new terminal or preparing `.env` does not require another login.
+If you have not signed in, use the [sign-in block](#azure-sign-in) below before step 5.
 
 ```bash
-printf 'Azure tenant ID from your setup card: '
-read -r AZURE_TENANT_ID
-az login --tenant "$AZURE_TENANT_ID"
 if [ -e .env ] || [ -L .env ]; then
   printf '%s\n' '.env exists; edit it without replacing it.'
 else
@@ -232,8 +238,8 @@ else
 fi
 ```
 
-**What to check:** `az login --tenant` ends by listing your account in the intended tenant and subscription, and `.env` now exists
-(or the block printed `.env exists`, so you edit the existing file).
+**What to check:** `.env` now exists, or the block printed `.env exists`, so you inspect the existing file.
+This file-preparation block neither signs in nor changes the Azure CLI default subscription.
 
 Open `.env` in VS Code and fill **section 1** with the setup-card values. Keep its local defaults;
 add **section 2's Search endpoint only for Lab 06**. Leave the advanced fields alone unless that module is selected.
@@ -253,13 +259,39 @@ variables in a terminal can therefore take precedence. Check again in a fresh te
 Do not store API keys, passwords, or access tokens in this file.
 No Microsoft 365 account or real customer document is needed.
 
+<a id="azure-sign-in"></a>
+
+<details>
+<summary>First sign-in or expired authentication only — not a routine setup or 403 recovery step</summary>
+
+Learners sign in themselves. **`az login --tenant` can still select/change the Azure CLI default subscription**
+([official behavior, checked 2026-09-25](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively#subscription-selector)).
+If an existing shared profile's default must remain unchanged, stop and ask the owner for an isolated, learner-signed-in
+environment rather than running this block there. Do not use `az account set`, `az logout` or `az account clear` as a shortcut.
+
+Only in your own profile or the owner-prepared isolated environment:
+
+```bash
+printf 'Azure tenant ID from your setup card: '
+read -r AZURE_TENANT_ID
+az login --tenant "${AZURE_TENANT_ID:?Enter the tenant ID from your setup card}"
+```
+
+Verify that the sign-in lists your own account in the intended tenant and subscription, then return to step 5.
+The workshop uses `.env`'s `AZURE_SUBSCRIPTION_ID` without changing the default; login alone does not establish model permissions.
+For a 403, have the owner check the actual caller and required role instead of repeatedly signing in.
+
+</details>
+
 ### 5. Run the read-only Azure preflight
 
 ```bash
 python scripts/workshop.py --language en doctor --cloud
 ```
 
-Verify subscription, tenant, underlying model/version, and deployment state `Succeeded`.
+Verify the setup card's subscription, tenant and full project endpoint. For this core route, require
+**deployment name `gpt-6-sol`, underlying model `gpt-6-sol`, version `2026-09-22`, and state `Succeeded` together**.
+`doctor --cloud` reports the configured deployment; `Succeeded` on an older model is not a pass for this preset.
 This command creates no resources and does not change the default subscription.
 If it reports an authorization error, ask the owner for **Reader** on the training Foundry account; the preflight reads the deployment through Azure Resource Manager.
 Preflight does not prove data-plane permissions or Structured Outputs support;

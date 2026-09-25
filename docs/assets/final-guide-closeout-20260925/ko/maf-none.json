@@ -1,0 +1,9 @@
+{
+  "mode": "live",
+  "language": "ko",
+  "orchestration": "local",
+  "tools": "none",
+  "text": "Foundry는 AI 모델과 에이전트를 개발·배포·운영하는 플랫폼입니다. Agent Framework는 에이전트의 동작, 도구 사용, 여러 에이전트 간 협업을 코드로 구현하는 개발 프레임워크입니다. 즉, Foundry가 개발·운영 환경이라면 Agent Framework는 에이전트의 작동 방식을 만드는 도구입니다.",
+  "answer": null,
+  "note": "Local Python orchestration still calls a billable Azure model."
+}

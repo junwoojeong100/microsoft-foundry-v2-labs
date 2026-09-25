@@ -47,7 +47,7 @@ Put these in your own evidence folder, without `.env`, credentials or another le
 | `instructions-baseline.txt` and the learner ZIP's `SOURCE.json` | Snapshot matches the assessed baseline version; `SOURCE.json` identifies the supplied bundle, not your later edits |
 | `assessment-baseline.csv` | All D01–D06 actual answers/citations/reasons and the version recorded in `session-notes.txt`; not copied answer keys |
 | Only for a changed candidate: `instructions-candidate.txt`, `assessment-candidate.csv` | New saved version, change reason and all six new results; no overwritten baseline or mixed-version rows |
-| `workflow-review.txt` | One real sequential command/output and your review |
+| `workflow-review.txt` | One selected sequential run: exact command or Playground question, complete output and your review; Hosted name/version and visible IDs if used |
 | `operations-checklist.txt` | Owned/shared assets, cleanup outcomes or pending owner action, remaining costs, unrun optional features |
 
 Open each file and check it against the table. For self-study, review it yourself; for a class, hand it over only through the agreed channel.

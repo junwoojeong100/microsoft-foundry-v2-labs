@@ -1,0 +1,16 @@
+{
+  "mode": "live",
+  "language": "en",
+  "orchestration": "local",
+  "tools": "local-mcp",
+  "text": "{\"answer\":\"For domestic business trips in May 2026, the lodging limit was KRW 120,000 per person per night. The historical policy was effective from January 1, 2025 through June 30, 2026.\",\"decision\":\"answer\",\"limit_krw\":120000,\"citations\":[\"TRAVEL-2025\"]}",
+  "answer": {
+    "answer": "For domestic business trips in May 2026, the lodging limit was KRW 120,000 per person per night. The historical policy was effective from January 1, 2025 through June 30, 2026.",
+    "decision": "answer",
+    "limit_krw": 120000,
+    "citations": [
+      "TRAVEL-2025"
+    ]
+  },
+  "note": "Local Python orchestration still calls a billable Azure model."
+}

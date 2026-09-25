@@ -1,0 +1,20 @@
+{
+  "mode": "live",
+  "agent_name": "mfv2-a2-0f01-en-policy-sdk",
+  "agent_version": "1",
+  "text": "{\"answer\":\"For a domestic business trip in September 2026, the lodging limit is KRW 150,000 per person per night. This policy applies from July 1, 2026, and a receipt is required.\",\"decision\":\"answer\",\"limit_krw\":150000,\"citations\":[\"TRAVEL-2026\"]}",
+  "response_id": "resp_0131ce4e1fd7c0f2016ab61dcaebb88194acd3fea76cd13212",
+  "request_id": "c8d3d4d7-1299-4e33-8bf4-edc6c0d9fc3d",
+  "response_model": "gpt-6-sol",
+  "usage": {
+    "input_tokens": 1124,
+    "output_tokens": 113
+  },
+  "trace_id": null,
+  "trace_export": "not-configured",
+  "sdk_versions": {
+    "azure-ai-projects": "2.6.1",
+    "openai": "3.16.1",
+    "azure-identity": "1.25.3"
+  }
+}

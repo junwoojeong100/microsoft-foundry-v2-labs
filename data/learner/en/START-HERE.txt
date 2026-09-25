@@ -5,10 +5,11 @@ Keep this extracted personal copy outside the repository; never commit filled no
 2. Follow the guide's docs/paths/a-beginner.md. Record Labs 00-03 and 06 in session-notes.txt.
 3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Keep the actual saved text as instructions-baseline.txt and record its version. Do not paste instructions into chat.
 4. Copy only a question from dev-questions.txt into each new chat, not IDs or assessment columns.
-5. In Lab 05, fill workflow-review.txt with your complete actual command/output and review.
+5. In Lab 05, use the prepared terminal by default; the Hosted Responses Playground is optional only after owner verification. Use one option and fill workflow-review.txt with its command or question, complete actual output and your review.
 6. In Lab 07, save assessment.csv as assessment-baseline.csv and assess all six rows on one saved version. Record versions, file paths and findings in Lab 07 A of session-notes.txt. No answer keys are included.
 Keep errors and unrun rows in the six-case denominator. A candidate is optional, only for a justified change; preserve the baseline.
 Optional Lab 07 Foundry evaluation: upload dev-questions.jsonl (questions only) as the dataset; never add answers or holdout.
 7. In Lab 09, fill operations-checklist.txt; Lab 11 hands over these files without new Azure calls.
-Optional only: policies/ and instructions.txt are for a separately selected File Search agent.
+Core Labs: inspect policies/ in Lab 03 and 06 to verify original amounts, effective dates and cited IDs.
+Optional only: instructions.txt is for a separately selected File Search agent when that feature is available.
 Use session-notes.txt to save your last completed step and next link before pausing.

@@ -8,7 +8,14 @@
 승인된 Hosted 릴리스를 다룹니다. 아래의 나머지 확장 결과는 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며, 2026-09-24·25 행에 따로 적은 경우를 빼면 `gpt-6-sol`의 근거가 아닙니다.
 2026-09-25에는 두 기본 경로를 두 언어로 가이드대로 끝까지 실행했고([결과](live-run.md#end-to-end-20260925)), 짧은 보충 녹화로 Lab 03 B와 Lab 09 B 추적 검색을 두 언어로 남기고, 대화 평가·Memory·routine·Toolbox 탐색까지를 영문으로 실행했습니다.
 이 페이지는 범위 기록이지 모든 Foundry 기능을 실행했다는 주장이 아닙니다.
+이후 [9월 25일 headless 후속 확인](live-run.md#headless-guide-audit-20260925)에서 두 언어의 새 모델·인라인 agent 응답,
+6행 수동 평가와 A/B 포털 trace 대조를 추가했습니다. 기존 agent를 재사용했으며 새 버전이나 영상을 만들지 않았습니다.
+선택 모델의 File Search 업로드는 비활성화되어 있었습니다. 실측 브라우저 응답시간은 학습자 시범 운영 결과가 아닙니다.
 제작 순서는 영문 가이드 → 영문 녹화 → 영문 보완 → 국문 가이드 → 별도 국문 녹화 → 국문 보완입니다.
+
+**최종 마무리:** 가이드 수정과 오프라인 검사 뒤 [범위를 제한한 CLI 명령 32개와 로컬 패키징 2개](live-run.md#final-guide-closeout-20260925)를
+영문·국문에서 완료하고 새 포털 trace를 대조했습니다. [항목별 상태](../assets/final-guide-closeout-20260925/module-checks.csv)는
+기본 랩 12개와 확장 가이드 17개를 구분하며 모든 선택 기능을 다시 실행했다고 주장하지 않습니다. 별도 MCP 403과 workflow 인용 누락 한 건도 기록에 남습니다.
 
 ## 상태를 정직하게 읽기
 
@@ -28,14 +35,14 @@ GA/Preview는 **제품 속성**이지 위 완료 상태가 아닙니다.
 
 | 기능 | 경로 | 현재 워크숍 범위 | 최신 날짜 근거 |
 |---|---|---|---|
-| 모델·Prompt Agent·합성 원문 근거 | A/B | 기존 Lab 00–03 | 2026-09-24 `gpt-6-sol` 녹화 |
+| 모델·Prompt Agent·합성 원문 근거 | A/B | 기존 Lab 00–03 | 2026-09-25 headless: 기존 저장 지침이 현재 학습자 파일과 일치. 언어별 모델 응답 2건과 인라인 agent smoke 응답 4건. 생성은 반복하지 않음 |
 | 관리형 Prompt Agent를 핵심 경로로 | B | Lab 03 B는 관리형 Prompt Agent를 B의 핵심 작업으로 다룸 | 2026-09-24 갱신한 고정 버전으로 영문·국문 실제 검증(생성, 정확한 버전 호출, 추적). 2026-09-25 두 언어 화면과 짧은 영상 |
-| 함수·로컬 MCP·MAF orchestration | B | 기존 Lab 04–05 | 2026-09-24 `gpt-6-sol` 녹화 |
+| 함수·로컬 MCP·MAF orchestration | B | 기존 Lab 04–05 | 2026-09-25 두 언어 CLI 가이드 점검. 영문 Group Chat 최초 인증 timeout과 명시적 재시도 기록 보존 |
 | A Lab 05 브라우저 선택지 | A | 담당자가 준비한 선택 Hosted workflow agent를 포털 Playground에서 사용 | 2026-09-24: workflow agent가 로컬 Responses 요청 1개에 답함. 원격 배포와 Playground 사용은 실행하지 않음 |
-| Search·hybrid·GA IQ와 별도 MI chat preset | B/C | 기존 Lab 06과 keyless preset | 2026-09-24 `gpt-6-sol` 녹화: 로컬·Search·GA IQ 검색. 하이브리드 RAG와 `gpt-5.6-luna` IQ Chat preset은 다시 실행하지 않음(설정 화면은 2026-09-17 확인) |
+| Search·hybrid·GA IQ와 별도 MI chat preset | B/C | 기존 Lab 06과 keyless preset | 2026-09-25 CLI 가이드 점검: 두 언어 로컬·Search·GA IQ 검색. 하이브리드 RAG와 `gpt-5.6-luna` IQ Chat preset은 다시 실행하지 않음(설정 화면은 2026-09-17 확인) |
 | 업무 평가·native 평가와 고정된 인수 기준 | A/B | 기존 Lab 07과 선택 포털 평가·근거 없음 진단·코드 기반 업무 평가자·**실행 비교** | 2026-09-24 `gpt-6-sol` 녹화와 2026-09-23 검증, 두 언어([결과](live-run.md)). 사용자 지정 평가자와 TaskAdherence는 Preview |
 | MAF 에이전트의 도구 호출 평가 | B | Lab 04의 선택 `maf-evaluate` | 2026-09-24 `gpt-6-sol` 녹화와 2026-09-23 검증, 두 언어. MAF 평가 API는 실험 기능 |
-| 추적 확인을 핵심 근거로 | A/B | Lab 09 A/B는 실제 추적 근거 또는 명시적인 미확인 이유를 기록 | 2026-09-24: Application Insights에서 response ID로 관리형 agent 추적을 찾음(영문·국문). 2026-09-25: 포털 **추적** 검색을 두 언어로 녹화하고 A 경로 추적 확인을 읽기 전용으로 반복 |
+| 추적 확인을 핵심 근거로 | A/B | Lab 09 A/B는 실제 추적 근거 또는 명시적인 미확인 이유를 기록 | 2026-09-25 headless: A의 새 응답과 B의 원래 점검 응답이 두 언어의 포털 trace ID·agent 버전·input/output token과 일치. B는 추적 조회를 위해 다시 호출하지 않음 |
 | 독립 SDK 예제 | B/C | 모델, Prompt Agent, MAF, IQ, Hosted 패턴의 최소 예제 파일 | 2026-09-24 오프라인 stub 테스트, 두 가지 수정 뒤 예제 02–06·08 실제 실행(영문) |
 | SDK 고정 버전 갱신 | B/C | 갱신한 의존성 조합과 공급자 제약 문서화 | 2026-09-24 오프라인 테스트와 두 언어 핵심 B 경로·선택 평가 실제 실행 |
 | [Hosted workflow·모델 matrix·calibration·regression·trace](reference/evaluation-workbook.md) | C | 기존 워크북 | 2026-09-15 `gpt-5.6-luna`만(국문 4모델 matrix). `gpt-6-sol`로 다시 실행하지 않음 |

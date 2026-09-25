@@ -28,8 +28,9 @@ If you are learning alone, you are also the environment owner. These are prepara
    This is required for the now-core Lab 09 trace step. Checked 2026-09-24: the training project already had Application Insights connected
    and managed agent calls appeared as traces within minutes; a learner-only Log Analytics Reader grant was not re-tested.
 8. Optional: deploy the Lab 05 MAF workflow as a Hosted Agent so A learners can use the browser Playground option in Lab 05.
-   Use [Lab 05 C](labs/05-workflows.md) / [Lab 08 section 6](labs/08-hosted.md) hosted-workflow path only after separate approval.
-   Deploy it with the **Responses** protocol (the Lab 08 section 6 default); an Invocations-protocol evaluation agent is not the browser option.
+   Use [Lab 05 C](labs/05-workflows.md) / [Lab 08 section 6](labs/08-hosted.md#6-deploy-a-maf-workflow-as-a-hosted-agent) only after separate approval.
+   Prepare the **sequential, local-retrieval, v2, Responses** workflow profile in the learner's language; an Invocations evaluation
+   agent or the Lab 03 Prompt Agent is not this option. Verify an actual Playground reply with a participant account before offering it.
    Record the hosted workflow agent name and active version for learners. On 2026-09-24 the workflow agent answered one local Responses request;
    no remote deployment was made for that check.
 9. Optional: prepare the owner/instructor machine with the [Foundry Dev Pack](labs/extensions/developer-toolkit.md), then pin and record `az`, `azd`, the Foundry azd extension, SDK, and extension versions afterward.
@@ -41,7 +42,15 @@ If you are learning alone, you are also the environment owner. These are prepara
 For an IQ Chat learner, **Reader on Search** allows inspection of service/object definitions,
 and **Search Index Data Reader** allows retrieval; these are separate from the model-account Reader above.
 The read-only `check` also reads role assignments at the model-account scope.
-Only the owner who seeds/creates objects needs Search Service Contributor and Search Index Data Contributor.
+Assign Search roles for the action the learner will perform, not only for an instructor's successful request:
+
+| Learner action | Search roles | Scope |
+|---|---|---|
+| B participant or owner running `seed-search` | **Search Service Contributor** and **Search Index Data Contributor** | Prepared training Search service |
+| Read-only `retrieve` or prepared IQ Chat use | **Search Index Data Reader**; also **Reader** when inspecting service/object definitions | Prepared training Search service |
+
+Fresh B learners are object writers in Lab 06. They need the first row even when the owner already created the shared service.
+The owner authorizes role assignments; running the seeding exercise does not require subscription Owner.
 Use resource-level scopes, not subscription Owner for everyone. [Official Search role matrix](https://learn.microsoft.com/azure/search/search-security-rbac#summary-of-permissions), checked September 15, 2026.
 
 **Only for the separately selected IQ Chat branch, after authorization for these training objects**, prepare the fixed-model chat base.

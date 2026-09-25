@@ -40,7 +40,7 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 | `START-HERE.txt` | 파일별 사용 순서 |
 | `instructions-with-policies.txt` | 전체를 새 Prompt Agent의 **지침**에 복사하고 저장 |
 | `instructions.txt` | 인라인 근거 없는 지침. 선택 File Search 경로에서 사용 |
-| `policies/` | File Search에 올릴 합성 TXT 원문 정확히 6개 |
+| `policies/` | 기본 Lab 03·06에서 확인할 합성 TXT 원문 6개. File Search 업로드는 기능을 사용할 수 있고 별도 선택한 경우에만 진행 |
 | `dev-questions.txt` | 매번 새 대화에 질문 하나만 복사. ID나 평가 레코드 전체는 보내지 않음 |
 | `dev-questions.jsonl` | 선택 Lab 07 Foundry 평가에 올리는 같은 6문항 데이터 세트. 정답 없음 |
 | `assessment.csv` | 빈 6문항 평가표. 실제 응답·인용·통과/실패 기록 |
@@ -63,6 +63,8 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 ## 3. 환경 설정값 받기
 
 강사나 환경 담당자에게 다음 값을 받습니다.
+Tenant뿐 아니라 **로그인할 계정**도 확인합니다. 평소 회사 계정과 실습 계정은 다를 수 있으며,
+브라우저 로그인과 Azure CLI 로그인도 별도 세션입니다. 둘을 맞추려고 인증정보를 공유하지 않습니다.
 **A:** 방금 압축을 푼 ZIP의 `session-notes.txt`에 적습니다.
 **B:** 받은 값을 보관했다가 Lab 00에서 `outputs/learner-notes-ko/session-notes.txt`를 만들면 옮깁니다.
 값을 받기 위해 설치부터 할 필요는 없습니다. 비밀번호·key·token은 기록하지 않습니다.
@@ -74,7 +76,8 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 | 전체 project endpoint | A·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
 | **응답 모델 배포** | A·B | **`gpt-6-sol`**, 모델 버전 **`2026-09-22`** |
 | 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈만 사용하고 하이픈을 연달아 쓰거나 끝에 두지 않음, 최대 32자. 예: `mfv2-team01-ko` |
-| 코드 환경 | A의 Lab 05(준비해 줌)·B | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
+| 코드 환경 | B와 A의 기본 Lab 05 터미널 방식 | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
+| 준비된 Hosted workflow agent | A에서 Lab 05 브라우저 방식을 별도 선택했을 때만 | 담당자가 확인한 이름·버전·Playground 위치. 본인 언어의 순차 local/v2 Responses profile이며 Lab 03 Prompt Agent가 아님 |
 | Search endpoint | B의 Lab 06 | 준비된 Search 서비스: `https://<search>.search.windows.net` |
 
 **답변에는 `gpt-6-sol`만 사용합니다.** `gpt-6-sol-judge`(선택 평가에서 답변 채점에만 사용)·목록의 다른 모델·router를 고르지 않습니다.
@@ -100,7 +103,7 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 - [ ] 본인 계정으로 정확한 프로젝트를 열 수 있습니다.
 - [ ] 실제 `gpt-6-sol` 배포와 버전 `2026-09-22`가 준비되었습니다.
 - [ ] A: 학습자 ZIP을 받았고 **지침**과 대화창에 넣을 파일을 구분합니다. B: Lab 00의 소스 복사본·기록 준비 순서를 확인했습니다.
-- [ ] Lab 05에서 쓸 방식을 압니다: Playground의 준비된 Hosted workflow agent 또는 준비된 터미널. 둘 다 받지 못했다면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
+- [ ] 기본 Lab 05 준비 터미널이 있거나, 담당자가 선택 Hosted Responses Playground 방식을 미리 지정·검증했습니다. 둘 다 받지 못했다면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
 - [ ] B라면 Search 접근·본인 객체 작성 비용이 승인됐습니다. A의 IQ Chat은 별도 준비하지 않았다면 **미선택**입니다.
 - [ ] 비용·권한 담당자를 알고 있으며 승인 없이 리소스 생성·역할 부여를 하지 않습니다.
 

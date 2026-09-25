@@ -98,7 +98,15 @@ and **Version** shows your returned number (the recording shows version 2; yours
 <summary>Optional: retrieve the same synthetic files with File Search</summary>
 
 Proceed only if File Search is available and the instructor has approved storage/retrieval costs.
-This optional branch is not in the September 24, 2026 `gpt-6-sol` recording, so it has no screenshots.
+This optional branch is not in the September 24, 2026 `gpt-6-sol` recording.
+
+**Check availability before creating another agent.** On September 25, 2026, the headless check of this training project
+with `gpt-6-sol` showed **Upload files** disabled: **File search is temporarily unavailable for the selected model.
+Support is coming soon.** This is a dated observation, not a promise of a release date.
+If your project shows the same message, leave this branch **not run**; do not switch models or count inline answers as File Search.
+
+[September 25 availability reference — English UI, no upload attempted](../assets/headless-guide-audit-20260925/file-search-unavailable.png).
+This reference shows feature availability only; it is not a File Search execution or a language-specific learner recording.
 
 1. Create a **separate** agent using your prefix plus `-files`; keep the inline agent unchanged for Lab 07.
 2. Paste the ZIP's **`instructions.txt`** into its **Instructions**, select `gpt-6-sol`, remove **Web search**, and select **Save**.
@@ -274,8 +282,11 @@ It still requires `--confirm-create` in this workshop and a `WORKSHOP_PREFIX-` n
 ## Completion
 
 The [execution record](../live-run.md) separates the browser agent (version 2) and the SDK agent (version 1)
-recorded on September 24. Record your agent name/version, all four real responses, evidence
-method, and one wrong or withheld answer. Fluent prose and correct policy application
-are different; [Lab 07](07-evaluation.md) turns that distinction into evaluation criteria.
+recorded on September 24. Keep only the completion evidence for your route:
+
+- **A:** your saved instructions/version, four actual checks, evidence method and findings.
+- **B:** `prompt-agent-create.json`, `prompt-agent-invoke.json`, the exact version and response ID; the four browser questions are not extra B calls.
+
+Fluent prose and correct policy application are different; [Lab 07](07-evaluation.md) turns that distinction into evaluation criteria.
 
 Next: A → [Lab 05](05-workflows.md#path-a) · B → [Lab 04](04-agents-tools.md#path-b)

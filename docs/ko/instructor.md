@@ -15,6 +15,10 @@
 | IQ 심화 | 준비된 Search, 인증·semantic/knowledge retrieval 설정 | planner·임베딩·richer Preview는 기본 GA에 불필요 |
 | Hosted 심화 | 3.13 런타임, 실제 ARM ID, 배포/identity 권한 | 로컬 Docker는 code deployment에 불필요 |
 
+이 시간은 수업 계획값이며 학습자 완료 시간의 실측값이 아닙니다. B의 [세션별 시간표](paths.md#b-session-budget)는 Lab 06을 첫째 날에 배치해
+두 세션 모두 핵심 실습 195분과 휴식·진행 버퍼 45분으로 구성합니다.
+A Lab 05는 터미널을 기본으로 준비하고, 선택 Hosted Responses 브라우저 방식은 참가자 계정으로 검증한 뒤에만 제공합니다.
+
 초보자의 core를 “모든 Preview 승인과 회사 M365 연결”에 의존시키지 않습니다.
 각 조는 고유한 agent/검색 접두사를 사용하고, 공유 서비스의 생성/삭제는 강사만 담당합니다.
 포털 workflow 작성 환경은 준비하지 않습니다. A의 Lab 05도 기존 MAF 예제 또는 Playground의 담당자 준비 hosted workflow agent를 실행하므로,
@@ -38,7 +42,9 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
 4. 서버 측 trace를 위해 Application Insights를 프로젝트에 연결하고 학습자에게 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 부여합니다. Lab 09 trace 확인에 필요합니다. 2026-09-24 확인에서는 관리형 agent 호출이 연결된 Application Insights에 몇 분 안에 나타났고, 모델을 직접 호출한 요청은 나타나지 않았습니다.
 5. **B 또는 선택한 IQ 모듈에만** Search 데이터 읽기·작성 역할을 준비합니다. 기본 A에는 필요 없습니다.
 6. **원격 호스팅을 선택한 경우에만** 런타임 ID의 모델·도구 역할을 준비합니다. 패키징만 하는 B에는 필요 없습니다.
-7. A 선택 사항: Lab 05 hosted workflow agent를 **Responses** protocol로 준비하고 stable endpoint, active version, 이름, Playground 위치를 학습자에게 줄 수 있게 기록합니다. 2026-09-24에 local Responses 경로는 확인했지만 원격 Playground 실행은 하지 않았습니다.
+7. A 선택 사항: 학습자 언어로 Lab 05의 **순차·local 검색·v2·Responses** Hosted workflow를 준비합니다.
+   참가자 계정으로 Playground 응답을 확인한 뒤 이름·버전·위치를 전달합니다. Lab 03 Prompt Agent가 아닙니다.
+   2026-09-24에 local Responses 경로는 확인했지만 원격 Playground 실행은 하지 않았습니다.
 8. 관리자 아닌 **실제 참가자 계정**으로 첫 요청을 보내 봅니다.
 9. 예산 알림과 로그 보존 기간을 정합니다. 예산 알림은 사용을 자동 차단하는 hard cap이 아닙니다.
 10. 선택 기능의 승인, 지역 간 처리, 테넌트 정책을 확인합니다.
@@ -79,7 +85,7 @@ Lab 05용으로 준비한 방식도 전달합니다. 저장소 위치와 학습�
 |---|---|
 | 서비스 tier·리전 | 사용하려는 기능의 지원 범위 |
 | 데이터 평면 인증 | Entra ID로 문서 조회/작성이 가능한가 |
-| 참가자 역할 | Reader + Search Index Data Reader. 필요한 작성자에만 Search Service/Index Data Contributor |
+| 참가자 역할 | seed하는 모든 B 학습자는 **Search Service Contributor** + **Search Index Data Contributor**. 읽기 전용 조회·검색은 **Reader** + **Search Index Data Reader** |
 | semantic ranker | GA semantic intent에 필요한 구성·별도 요금 |
 | knowledge retrieval | 서비스 관리 평면의 사용/과금 동의; `free`/`standard` 조건 |
 | source 인용 | `id`, `title`, `content`를 돌려주는가 |
@@ -206,7 +212,8 @@ python -m pip freeze > outputs/instructor/environment.txt
 
 ## 5. 비용과 호출량 계획
 
-- Lab 07의 기본 target 수집은 dev 6 + dev 6 + holdout 4 = **16개 사례 요청**입니다.
+- A의 기본 브라우저 요청은 Lab 02의 2건 + Lab 03의 4건 + Lab 07 baseline의 6건 = **12건**이며 Lab 05 MAF 호출은 별도로 더합니다. 정당한 candidate 실행은 6건을 추가하며 A는 holdout을 사용하지 않습니다.
+- B Lab 07의 기본 target 수집은 dev 6 + dev 6 + holdout 4 = **16개 사례 요청**이며 다른 랩의 요청은 별도입니다.
 - 도구 호출, SDK 재시도, reasoning, 추가 모델 비교에는 별도 사용량이 생깁니다.
 - candidate 6건에 evaluator 2개면 **12개 평가 항목**입니다. 내부 LLM 호출 수/요금과 같다고 단정하지 않습니다.
 - Search는 요청이 없을 때도 선택 SKU의 비용이 생길 수 있습니다.
@@ -220,11 +227,11 @@ python -m pip freeze > outputs/instructor/environment.txt
 
 | 상황 | 강사 조치 |
 |---|---|
-| 한 조가 10분 이상 환경 오류 | 사전 확인한 조별 환경으로 이동, 계정/모델 변경을 명시적으로 기록 |
-| 모델/region quota 없음 | 승인된 준비 환경 사용 또는 실제 실습 미실행으로 표시 |
+| 한 조가 10분 이상 환경 오류 | 실패한 시도를 보존하고 담당자가 원래 환경을 복구하거나 세션을 미완료로 기록. 별도 승인된 새 회차는 본인 설정 카드·폴더·label을 따로 사용 |
+| 모델/region quota 없음 | 멈추고 담당자에게 정확한 preset의 용량 복구 요청. 불가하면 실제 실습 미실행으로 기록하며 오류 뒤 다른 모델로 대체하지 않음 |
 | A의 MAF 실행 환경 미준비 | 준비된 학습자 환경으로 복구하거나 `MAF 관찰 / 직접 실행 미완료`로 기록; 포털 workflow 작성으로 대체하지 않음 |
-| IQ Preview 승인 없음 | GA 경로 또는 설계 관찰. 서로 같은 결과로 표시하지 않음 |
-| SDK 다운로드 불가 | 미리 준비한 환경/브라우저 경로. 인증서 검증 해제 금지 |
+| IQ Preview 승인 없음 | 선택한 Preview 모듈은 차단 상태로 기록. 별도의 GA 수업이나 설계 기록은 해당 모듈의 완료가 아님 |
+| SDK 다운로드 불가 | 고정 SDK 또는 같은 경로의 준비 환경을 복구하고, 불가하면 미완료로 기록. 인증서 검증 해제 금지 |
 | baseline 전부 통과 | 그대로 기록; 실패를 조작하지 않고 평가 범위의 한계 토론 |
 | Hosted 배포 실패 | 패키지/로컬 확인까지 분리 기록; 반복 배포로 비용을 키우지 않음 |
 

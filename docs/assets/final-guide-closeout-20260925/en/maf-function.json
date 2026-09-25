@@ -1,0 +1,18 @@
+{
+  "mode": "live",
+  "language": "en",
+  "orchestration": "local",
+  "tools": "function",
+  "text": "{\"answer\":\"For travel in September 2026, the domestic lodging limit is KRW 150,000 per person per night, under the policy effective from July 1, 2026. Your KRW 170,000 hotel exceeds that limit by KRW 20,000. You need explicit team-lead approval before booking; approval has not been granted here. Keep a receipt for reimbursement.\",\"decision\":\"needs_approval\",\"limit_krw\":150000,\"citations\":[\"TRAVEL-2026\",\"APPROVAL-01\",\"RECEIPT-01\"]}",
+  "answer": {
+    "answer": "For travel in September 2026, the domestic lodging limit is KRW 150,000 per person per night, under the policy effective from July 1, 2026. Your KRW 170,000 hotel exceeds that limit by KRW 20,000. You need explicit team-lead approval before booking; approval has not been granted here. Keep a receipt for reimbursement.",
+    "decision": "needs_approval",
+    "limit_krw": 150000,
+    "citations": [
+      "TRAVEL-2026",
+      "APPROVAL-01",
+      "RECEIPT-01"
+    ]
+  },
+  "note": "Local Python orchestration still calls a billable Azure model."
+}

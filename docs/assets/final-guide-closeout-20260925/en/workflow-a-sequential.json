@@ -1,0 +1,10 @@
+{
+  "mode": "live",
+  "language": "en",
+  "pattern": "sequential",
+  "outputs": [
+    "The September 2026 domestic lodging limit is **KRW 150,000 per person per night**. A KRW 170,000 room is **KRW 20,000 over the limit**. [TRAVEL-2026]\n\n**Before booking, obtain explicit team-lead approval** for the over-limit cost. This answer does not grant approval. Keep the hotel receipt for reimbursement. [APPROVAL-01, RECEIPT-01]"
+  ],
+  "approval_status": "pending-human-review",
+  "external_actions_performed": false
+}

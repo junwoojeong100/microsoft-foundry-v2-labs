@@ -47,7 +47,7 @@
 | `instructions-baseline.txt`·학습자 ZIP의 `SOURCE.json` | 지침 사본과 평가한 baseline 버전이 일치. `SOURCE.json`은 제공한 원본 묶음의 식별 정보이지 이후 수정 내용의 근거가 아님 |
 | `assessment-baseline.csv` | D01–D06 실제 응답·인용·이유 전부와 `session-notes.txt`의 버전 연결. 정답표 복사 금지 |
 | 변경한 candidate만: `instructions-candidate.txt`, `assessment-candidate.csv` | 새 저장 버전·변경 이유·새 응답 6개 전부. Baseline 덮어쓰기나 버전 혼합 금지 |
-| `workflow-review.txt` | 실제 순차 명령/출력 한 번과 본인의 검토 |
+| `workflow-review.txt` | 선택한 순차 실행 한 번: 정확한 명령 또는 Playground 질문, 출력 전체, 본인 검토. Hosted를 썼다면 이름·버전·표시된 ID 포함 |
 | `operations-checklist.txt` | 본인/공유 자산·정리 결과 또는 담당자 대기 항목·잔여 비용·선택 기능 미실행 여부 |
 
 각 파일을 열어 표와 대조합니다. 혼자 학습하면 직접 검토하고, 수업이면 합의한 경로로만 인계합니다.

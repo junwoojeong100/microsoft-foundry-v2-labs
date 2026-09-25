@@ -115,7 +115,14 @@ response ID가 저절로 Azure Monitor trace가 되지는 않습니다.
 
 ### 2. Lab 03 B의 서버 측 trace 검색
 
-포털 **추적** 검색을 열고 `outputs/learner-notes-ko/prompt-agent-invoke.json`의 `response_id`를 붙여 넣습니다. Application Insights가 연결되어 있고 접근 권한이 있으면 일치하는 추적 근거를 기록합니다. 사용할 수 없으면 `operations-checklist.txt`의 `실제 추적 근거 또는 조회할 수 없을 때 추적 미확인:`에 `추적 미확인: <이유>`를 적습니다.
+1. **빌드 → 에이전트 → Lab 03 B에서 만든 SDK agent → 추적**을 엽니다.
+2. 오늘 세션뿐 아니라 **원래 Lab 03 요청 시각**을 포함하도록 기간을 정합니다. 기본은 **어제**(영문 **Last Day**, 최근 1일)이며,
+   2일 차에 돌아왔다면 **7일**(영문 **7D**) 또는 해당 요청이 포함되는 기간을 선택합니다. Agent·버전 필터도 확인합니다.
+3. 검색창에 `outputs/learner-notes-ko/prompt-agent-invoke.json`의 `response_id`를 붙여 넣고 일치하는 행을 엽니다.
+   Application Insights나 권한을 사용할 수 없으면 `operations-checklist.txt`의
+   `실제 추적 근거 또는 조회할 수 없을 때 추적 미확인:`에 `추적 미확인: <이유>`를 적고 4번을 건너뜁니다.
+4. 추적 트리에서 자식 **chat gpt-6-sol-2026-09-22** span을 선택한 뒤 **메타데이터**를 엽니다.
+   `gen_ai.response.id`, `gen_ai.usage.input_tokens`, `gen_ai.usage.output_tokens`를 저장한 response ID·`usage`와 대조합니다.
 
 ![2026-09-25 국문 녹화: Lab 03 B response_id로 추적을 검색하면 한 행이 나옴](../../assets/review-refresh-20260925/KP09-201-trace-search.webp)
 
@@ -125,7 +132,10 @@ response ID가 저절로 Azure Monitor trace가 되지는 않습니다.
 자식 span의 input/output token은 `prompt-agent-invoke.json`의 `usage`와 같습니다. 추적 근거로는 response ID가 아니라 trace 또는 operation ID를 기록합니다.
 2026-09-24 확인(영문·국문)에서는 invoke가 `store: false`였어도 각 관리형 agent 호출이 약 3분 안에 나타났습니다.
 2026-09-25 녹화에서는 언어마다 정확히 한 행이 나왔고, token 열은 `usage`와, trace ID는 Application Insights `operation_Id`와 같았습니다.
-5분 뒤에도 아무것도 보이지 않으면 더 요청하지 말고 **추적 미확인**으로 기록합니다.
+이후 [9월 25일 headless 후속 확인](../live-run.md#headless-guide-audit-20260925)에서도 원래 점검의 영문·국문 SDK 요청을
+새 메시지 없이 포털에서 다시 대조해 일치함을 확인했습니다.
+최근 요청이라면 수집 반영까지 최대 5분을 기다립니다. 이전 요청이라면 날짜 범위·필터부터 확인합니다.
+기다리거나 새 요청을 보내도 누락된 과거 기록이 복구되지는 않습니다. 계속 보이지 않으면 이유와 함께 **추적 미확인**으로 기록합니다.
 
 Lab 04와 05의 로컬 MAF 실행은 Python process에서 실행되므로 Foundry server-side agent trace를 만들지 않습니다. Client-side tracing은 별도 선택 설정입니다.
 같은 확인에서 Responses API를 직접 호출한 명령(`model`, `answer`, `maf`, `workflow`, `collect`)은 서버 측 span을 전혀 남기지 않았고, 관리형 agent 호출만 남겼습니다.

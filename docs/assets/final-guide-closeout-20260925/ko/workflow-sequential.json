@@ -1,0 +1,10 @@
+{
+  "mode": "live",
+  "language": "ko",
+  "pattern": "sequential",
+  "outputs": [
+    "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 2026년 7월 1일부터 적용되는 규정에 따른 금액입니다. 정산에는 영수증이 필요하며, 한도 초과 시에는 예약 전에 팀장의 명시적 사전 승인이 필요합니다. (근거: TRAVEL-2026, APPROVAL-01)"
+  ],
+  "approval_status": "pending-human-review",
+  "external_actions_performed": false
+}

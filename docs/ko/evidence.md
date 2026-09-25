@@ -8,7 +8,9 @@
 
 | 필요한 것 | 링크 |
 |---|---|
+| 최종 수정과 수정 후 항목별 확인 | [최종 마무리](reference/validation.md#final-guide-closeout-20260925) · [새 실행](live-run.md#final-guide-closeout-20260925) |
 | 실제 실행 결과와 한계 | [live-run.md](live-run.md) |
+| 9월 25일 headless 응답·실측·포털 trace 대조 | [Headless 후속 확인](live-run.md#headless-guide-audit-20260925) |
 | 녹화 요약 | [video-summary.md](video-summary.md) |
 | Action/capture index | [action-captures.md](action-captures.md) |
 | 기능과 모듈별 근거 | [coverage.md](coverage.md) |
@@ -16,7 +18,16 @@
 
 ## 2026-09-15 기본 실행 상자
 
-**Pre-Ignite 2026 Edition / 현재 workflow·평가 curriculum: 2026-09-15.** [입문 또는 구현 가이드](paths.md)를 따릅니다. 각 lab은 관련 action이나 command 옆에 참고 이미지와 **확인할 것** 설명을 둡니다. 먼저 [화면 읽는 법](labs/00-start.md#이-가이드의-화면-읽는-법)을 확인합니다.
+**이전 preset의 기초 실행 기록: 2026-09-15.** 현재 `gpt-6-sol`의 실행 근거가 아닙니다.
+오래된 녹화가 아니라 현재 [입문 또는 구현 가이드](paths.md)를 따릅니다. 먼저 [화면 읽는 법](labs/00-start.md#이-가이드의-화면-읽는-법)을 확인합니다.
+
+## Headless 후속 확인 — 2026-09-25
+
+인증 문제를 해결한 뒤 Playwright MCP headless로 기존 A agent와 새 모델·smoke·dev 응답을 확인하고,
+A의 새 요청과 B의 원래 요청의 response ID·token을 포털 trace와 두 언어에서 독립적으로 대조했습니다.
+요청 24건·스크린샷 28개·6행 평가표·정확한 hash는 [별도 실제 근거](live-run.md#headless-guide-audit-20260925)이며,
+새 영상이나 새 agent 생성 실행은 아닙니다. 보내기→응답 표시 시간으로 학습자 완료 시간을 알 수는 없습니다.
+선택한 `gpt-6-sol` 모델의 File Search 업로드는 사용할 수 없었고, 원격 Lab 05 Hosted Responses 방식은 계속 미검증입니다.
 
 ## 2026-09-24 `gpt-6-sol` 녹화
 
@@ -44,7 +55,7 @@ Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) �
 ## 가이드대로 끝까지 실행 — 2026-09-25
 
 두 기본 경로를 GitHub에서 받은 새 복사본으로 영문·국문 모두 가이드대로 실행했습니다. B 경로는 핵심 블록을 한 터미널에서, A 경로는 포털에서 실행했습니다.
-모든 블록이 종료 코드 0이었고 D01–D06이 기준을 충족했습니다. 바뀐 포털 **에이전트 만들기** 창을 포함해 가이드 결함 5건을 고쳤습니다.
+모든 블록이 종료 코드 0이었고 D01–D06이 기준을 충족했습니다. 바뀐 **에이전트 만들기** 창 등을 포함한 가이드 수정 내역은 실행 기록에 정리했습니다.
 [실행 기록](live-run.md#end-to-end-20260925)을 확인하세요.
 
 ## 검토 반영 실제 검증 — 2026-09-24

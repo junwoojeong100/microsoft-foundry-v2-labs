@@ -16,8 +16,9 @@
 | **[A — 입문](docs/ko/paths/a-beginner.md)** | Azure나 에이전트가 처음인 분 | 브라우저 조작과 준비된 Lab 05 workflow 경로. Python 작성 없음 | 내 에이전트·6문항 평가표·workflow 검토·정리 인계 |
 | **[B — 구현](docs/ko/paths/b-practitioner.md)** | Python·API에 익숙한 분 | SDK 호출·관리형 prompt agent·도구·workflow·Search/IQ·통제된 평가·trace·로컬 패키징 | 저장된 실행 기록과 인수 보고서 |
 
-**준비 후 소요 시간:** A 4시간 30분, B 8시간(4시간 세션 2회). **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
-두 경로 모두 준비된 Azure 환경이 필요합니다. Lab 05는 브라우저의 준비된 Hosted workflow agent 또는 준비된 터미널 중 하나를 사용합니다(수업 전 담당자가 결정).
+**준비 후 수업 계획 시간:** A 4시간 30분, B 8시간(4시간 세션 2회)이며 학습자 완료 시간의 실측값은 아닙니다. **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
+두 경로 모두 준비된 Azure 환경이 필요합니다. **A Lab 05의 기본 방식은 준비된 터미널입니다.**
+브라우저 대안은 선택이며 수업 전에 담당자가 Hosted Responses workflow를 검증해야 합니다. 이 판에서는 해당 원격 방식을 검증하지 않았습니다([범위](docs/ko/labs/05-workflows.md#path-a)).
 둘 다 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
 Azure 권한이 없다면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 하고 cloud 실습은 **미실행**으로 기록합니다.
 
@@ -117,6 +118,7 @@ SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)
 ## 이 버전의 범위
 
 - 현재 Foundry / Projects SDK **2.x** 고정 버전은 2026-09-24에 갱신했고 그날 저녁 두 언어의 핵심 B 경로에서 실제 검증했습니다. 2026-09-24 녹화는 이전 고정 버전을 사용했습니다. 새 고정 버전으로 Lab 03 B와 Lab 09 B 추적 검색을 2026-09-25에 녹화했고([보충 녹화](docs/ko/video-summary.md#review-refresh-supplement)), 같은 날 두 경로를 가이드대로 처음부터 끝까지 실행했습니다([결과](docs/ko/live-run.md#end-to-end-20260925)). [버전](docs/ko/reference/versions.md)을 확인하세요.
+- 이후 [headless 후속 확인](docs/ko/live-run.md#headless-guide-audit-20260925)에서는 두 언어의 기존 agent·새 응답·포털 trace를 검증했습니다. 브라우저 응답시간은 학습자 시범 운영 결과가 아니며, 선택 모델의 File Search 업로드는 사용할 수 없었습니다.
 - 워크플로 작성·오케스트레이션은 **MAF 코드**를 사용합니다. 포털 workflow 생성/게시 단계는 포함하지 않습니다. Assistants는 2026-08-26 retired, 포털 Workflows는 2026-12-01 retire, classic threads/runs agents는 2027-03-31 retire 예정입니다. [변경 지도](docs/ko/reference/migration.md)를 확인하세요.
 - 첫 실습 preset은 **`gpt-6-sol`**, 같은 이름의 배포, 모델 버전 **`2026-09-22`**입니다.
   2026-09-23에 선택했고 2026-09-24에 이 모델로 주요 단계를 녹화했습니다([이 모델을 고른 이유](docs/ko/reference/model-choice.md)).

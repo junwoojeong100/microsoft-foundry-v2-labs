@@ -123,32 +123,51 @@ class WorkflowHostingTests(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(ids[0] & ids[1])
 
     async def test_real_responses_host_runs_the_workflow_without_azure(self):
-        server = ResponsesHostServer(
-            build_workflow_agent(settings(), ROOT, RuntimeProfile(kind="workflow"))
-        )
-        async with httpx.AsyncClient(
-            transport=httpx.ASGITransport(app=server), base_url="http://testserver"
-        ) as client:
-            readiness = await client.get("/readiness")
-            self.assertEqual(readiness.json(), {"status": "healthy"})
-            response = await client.post(
-                "/responses",
-                json={
-                    "input": "2026년 9월 국내 출장 호텔 170000원 사전 승인",
-                    "stream": False,
-                    "store": False,
-                },
-            )
-        self.assertEqual(response.status_code, 200, response.text)
-        outputs = response.json()["output"]
-        text = "".join(
-            content["text"]
-            for item in outputs
-            for content in item.get("content", [])
-            if content["type"] == "output_text"
-        )
-        self.assertEqual(parse_json(text)["runtime_profile"]["kind"], "workflow")
-        self.assertEqual(len(self.requests), 3)
+        for language, question in (
+            (
+                "en",
+                "A domestic hotel in September 2026 costs KRW 170000. Is advance approval needed?",
+            ),
+            ("ko", "2026년 9월 국내 출장 호텔 170000원 사전 승인"),
+        ):
+            with self.subTest(language=language):
+                self.requests.clear()
+                profile = RuntimeProfile(kind="workflow", language=language)
+                server = ResponsesHostServer(
+                    build_workflow_agent(
+                        replace(settings(), language=language),
+                        ROOT,
+                        profile,
+                    )
+                )
+                async with httpx.AsyncClient(
+                    transport=httpx.ASGITransport(app=server), base_url="http://testserver"
+                ) as client:
+                    readiness = await client.get("/readiness")
+                    self.assertEqual(readiness.json(), {"status": "healthy"})
+                    response = await client.post(
+                        "/responses",
+                        json={"input": question, "stream": False, "store": False},
+                    )
+                self.assertEqual(response.status_code, 200, response.text)
+                outputs = response.json()["output"]
+                text = "".join(
+                    content["text"]
+                    for item in outputs
+                    for content in item.get("content", [])
+                    if content["type"] == "output_text"
+                )
+                payload = parse_json(text)
+                self.assertEqual(payload["mode"], "live")
+                self.assertEqual(payload["runtime_profile"]["kind"], "workflow")
+                self.assertEqual(payload["runtime_profile"]["pattern"], "sequential")
+                self.assertEqual(payload["runtime_profile"], profile.to_dict())
+                self.assertEqual(payload["answer"]["decision"], "needs_approval")
+                self.assertEqual(payload["approval_status"], "pending-human-review")
+                self.assertIs(payload["external_actions_performed"], False)
+                self.assertNotIn("pattern", payload)
+                self.assertNotIn("outputs", payload)
+                self.assertEqual(len(self.requests), 3)
 
     async def test_real_invocations_host_rejects_gold_labels_and_preserves_contract(self):
         profile = RuntimeProfile(kind="workflow", protocol="invocations")

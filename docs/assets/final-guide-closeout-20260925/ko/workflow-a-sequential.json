@@ -1,0 +1,10 @@
+{
+  "mode": "live",
+  "language": "ko",
+  "pattern": "sequential",
+  "outputs": [
+    "2026년 9월 국내 출장에는 **1인 1박 숙박비 한도 150,000원**이 적용됩니다. 제시하신 호텔 요금 170,000원은 한도를 **20,000원 초과**하므로, **예약 전에 팀장의 명시적인 사전 승인**을 받아야 합니다. 승인을 받았다고 제가 확인하거나 대신 승인할 수는 없습니다.\n\n정산을 위해 영수증도 보관해 주세요. 근거: **TRAVEL-2026, APPROVAL-01, RECEIPT-01**."
+  ],
+  "approval_status": "pending-human-review",
+  "external_actions_performed": false
+}

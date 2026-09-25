@@ -22,9 +22,10 @@
 
 ## A. 브라우저 — 인용이 보이면 끝인가?
 
-[Lab 03](03-prompt-agent.md#path-a)에서 저장한 D01·D02·D03 답변을 사용합니다.
+[Lab 03](03-prompt-agent.md#path-a)에 기록한 정확한 agent·버전의 D01·D02·D03 저장 답변을 사용합니다.
 
-1. 빠진 답변이 있으면 agent에서 **새 채팅**을 열고 `dev-questions.txt`의 해당 질문만 보냅니다.
+1. 빠진 답변이 있으면 같은 저장 버전의 agent를 다시 열어 **새 채팅**에서 `dev-questions.txt`의 해당 질문만 보냅니다.
+   그 버전을 사용할 수 없으면 해당 확인을 미완료로 기록하고, 말없이 최신 버전을 쓰지 않습니다.
 2. 답변마다 인용한 정책 ID를 적습니다.
 3. 학습자 ZIP의 `policies/` 폴더에서 해당 파일을 열어 금액과 적용 기간을 대조합니다.
 4. `session-notes.txt`의 Lab 06 구간에 행마다 **맞음** 또는 **틀림**을 적습니다.
@@ -174,6 +175,11 @@ python scripts/workshop.py retrieve --provider iq \
 **화면 확인:** `provider: foundry-iq`, 본인의 `knowledge_base`, `api_version: 2026-04-01`, `references`, `activity`, 원문 `documents`를 확인합니다.
 참조 번호는 문서 ID가 아닙니다. **빈 결과는 검색된 문서가 0건이라는 뜻입니다.** 기록하고 금액을 지어내지 않습니다.
 IQ 오류는 오류로 남기며 일반 Search로 대체하지 않습니다. 보고되지 않은 지연이나 사용량은 임의로 채우지 않습니다.
+
+이 minimal GA 경로에도 `reasoningTokens`가 있는 `agenticReasoning` activity가 나타날 수 있습니다
+(2026-09-25 관찰). 이것만으로 선택 `modelQueryPlanning`·`modelAnswerSynthesis` 경로가 실행됐다는 뜻은 아닙니다.
+[Search의 검색 token 과금](https://learn.microsoft.com/azure/search/agentic-retrieval-overview#billing)과
+5단계 응답 모델의 `usage`는 별개이므로 두 기록을 구분합니다.
 
 **저장:** `retrieve-iq.json`이 원문·activity와 함께 같은 기록 폴더에 작성됩니다. 답변 요청 전에 확인합니다.
 

@@ -14,7 +14,7 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | What happened | Safe next action | Do not |
 |---|---|---|
 | Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
-| Opened a new terminal | Return to the repository root; run `source .venv/bin/activate` | Reinstall everything, overwrite or shell-`source` `.env` |
+| Opened a new terminal | Return to the repository root; run `source .venv/bin/activate`; keep your existing Azure sign-in | Reinstall everything, overwrite or shell-`source` `.env`, or repeat `az login` merely to resume |
 | `${NAME:?...}` reports a missing value | Restore the named value from this pass's setup/output notes; the command has not run | Remove the guard, paste a recording's ID or assume another terminal supplied the value |
 | A model-comparison command finished or failed | Its [scoped override](../labs/extensions/model-operations.md) leaves the original setup unchanged; inspect the saved comparison/error | Change `.env` to continue or repeat paid work merely to restore the first model |
 | B's notes directory already exists | Resume that pass's files, or choose a new directory for a new pass; the guarded copy block intentionally stops | Overwrite your filled records with blank templates |
@@ -47,12 +47,14 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | A setting must be a UUID / output tokens must be an integer | Correct the named setting from the setup card; tokens must be 256–8192. Check inherited process variables too | [Configuration](configuration.md) |
 | `check_sdk.py` reports a missing hosting package in core B | That check covers the optional Hosted/Toolbox SDK too. Core B does not require it; selected extensions use the declared extra | [Module SDK preparation](../labs/extensions/developer-toolkit.md#hosted-sdk) |
 | Prefix rejected | `mfv2-` is mandatory; lowercase letters/digits, single hyphens, no trailing hyphen and at most 32 characters total | [Configuration](configuration.md#workspace-scope) |
-| 401/403 or project missing | Intended tenant, actual caller identity and resource-scoped permissions; owner resolves access | [00](../labs/00-start.md) / [setup](../setup.md) |
+| 401/403 or project missing | Check the intended tenant and caller; renew only expired authentication. For 403, the owner checks resource-scoped permissions, not repeated login | [Sign-in boundary](../labs/00-start.md#azure-sign-in) / [setup](../setup.md) |
+| Browser sign-in succeeds but the training project is unavailable | Match both the account and directory to the setup card before requesting more roles | [Portal tenant check](#portal-tenant) |
+| `MAF request failed` / `Failed to invoke the Azure CLI` | Preserve the SDK cause; a CLI token-process timeout is not a business-check failure | [MAF request recovery](#maf-request-failure) |
 | Model 404 / 429 | Full project endpoint and deployment name / quota and concurrency; no replacement model | [02 B](../labs/02-models.md#path-b) |
 | HTTP 500 from `model`, `answer`, MAF or an agent right after a model release | The project agent path may not support that model yet (seen with `gpt-6-luna` on September 23, 2026). Stop and record it; no model or endpoint switch | [Model choice](model-choice.md) |
 | IQ reports no chat model | Default B uses model-free GA retrieval; optional A IQ Chat needs a different prepared base | [06](../labs/06-knowledge.md) |
 | Hosted call selects the wrong local project | Restore the recorded absolute `HOSTED_DIRECTORY` and use `--cwd` on every azd command | [08](../labs/08-hosted.md) |
-| No trace appears in Traces | Confirm the owner connected Application Insights to the project before the request, then search by Response ID or Trace ID within the 90-day portal window. Local MAF runs do not create Foundry server-side traces | [09](../labs/09-operations.md) |
+| No trace appears in Traces | Include the original request's date and agent/version in the filters, then search by Response ID or Trace ID. Confirm Application Insights was connected before the request; local MAF has no server-side agent trace | [09](../labs/09-operations.md#path-b) |
 | Traces authorization error | The learner needs Log Analytics Reader on the connected Application Insights resource; if protected tables are enabled, also Privileged Monitoring Data Reader | [09](../labs/09-operations.md) |
 
 <details>
@@ -65,7 +67,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | `ModuleNotFoundError` | Venv, required extra, `python -m pip check` | 00 |
 | Package TLS/connection error | Network policy, official PyPI access, prepared environment | 00 |
 | `.env` changes have no effect | Process variables taking precedence; fresh terminal | 00 |
-| 401 | Sign-in, tenant, credential type; local vs. runtime identity | 00 |
+| 401 | Sign-in, tenant, credential type; renew expired local authentication only within the shared-profile boundary | [00](../labs/00-start.md#azure-sign-in) |
 | `AADSTS90072` / wrong default account | Configured subscription/account profile and subscription-scoped authentication; do not change the default, invite guests, or log everyone out | 00 |
 | 403 | Management/data-plane roles, actual identity/scope, propagation | 01 |
 | Model 404 | Actual deployment name rather than catalog name; full project endpoint | 02 |
@@ -94,7 +96,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Holdout rejected | Passed/frozen dev candidate, matching code/prompt/model/provider, explicit unlock | 07 |
 | Local succeeds; Hosted 403 | Runtime identity roles, not repeated local sign-in | 08 |
 | Missing logs/traces | App Insights app ID, exporter, agent, date range, sampling and retention/protected-table access; zero traces are unverified, not healthy operation | 09 |
-| No trace appears in Traces | Project-connected Application Insights, request after connection, Response ID/Trace ID search, 90-day portal retention; local MAF has no server-side trace | 09 |
+| No trace appears in Traces | Request date range and agent/version filters, project-connected Application Insights before the request, Response ID/Trace ID search; local MAF has no server-side agent trace | 09 |
 | Traces authorization error | Log Analytics Reader on connected Application Insights; Privileged Monitoring Data Reader too when protected tables are enabled | 09 |
 | English query uses Korean material | Select `--language en` and the dedicated English index/source/base; never fall back to Korean after an error | 00–07 |
 | Missing English file | Restore the frozen English bundle; preserve original Korean files | 00 |
@@ -115,6 +117,38 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | `Missing evaluator results … missing ['business_rubric']` | The service omitted one evaluator; the attempt is saved as invalid. Rerun the same `cloud-evaluate` command once with `--retry-failed`; the attempt stays in `native-attempts/`. A retried `--reference` run stays in that evaluation as `<label>-retry-1` | 07 |
 
 </details>
+
+<a id="portal-tenant"></a>
+
+## Browser sign-in is not a tenant or permission check
+
+Compare the portal's directory with the setup card's tenant ID. When the URL includes `tid=`, it must identify that tenant.
+Use the owner's project link for that directory and the **specified workshop account**, not simply another signed-in work account.
+The project name in a page header can appear while the agent is still **Loading...**; wait for the actual agent name,
+version and instructions before calling the page verified.
+
+Browser and Azure CLI sessions can represent different accounts or tenants. SDK success does not prove that the browser
+has the same access, and a browser 403 does not prove that the correctly scoped CLI caller is missing a role.
+If the account or directory is wrong, correct the sign-in selection first; do not grant roles, invite guests or change
+the Azure CLI default subscription to get past it. If the correct account still lacks access, the owner resolves that scope.
+
+<a id="maf-request-failure"></a>
+
+## Recover from a failed MAF request, not a failed answer
+
+`maf`, `workflow`, `workflow-agent`, `maf-evaluate` and `serve` report handled Agent Framework failures as
+`FAIL: ValueError: MAF request failed: ...` with exit code `2`. The cause and recovery-guide path are retained.
+No successful-response file is written, and the CLI does not retry or replace the model/provider after reporting the failure.
+`--debug` retains the complete exception chain; debug logs can contain local paths, so keep them private.
+
+For `TimeoutExpired` around `az account get-access-token` / `Failed to invoke the Azure CLI`, preserve the original stderr
+and time. Check the active environment and the **same** subscription/tenant with Lab 00's read-only `doctor --cloud`
+before deciding on another paid workflow attempt. Do not print or share access tokens.
+Reauthenticate only if authentication actually expired, following [the shared-profile boundary](../labs/00-start.md#azure-sign-in);
+a slow local CLI process alone is not a reason to sign in again or grant roles.
+
+A later successful attempt is a new execution, not a replacement for the failed record. Read an existing successful
+`--output` file instead of replaying it, and never retry completed low scores until they improve.
 
 ## Network isolation
 
@@ -140,7 +174,7 @@ timestamp, and relevant request/response/run IDs to the responsible instructor.
 Never paste an entire `.env`, tokens, passwords, real customer messages, or raw traces
 into a public issue.
 
-Main CLI exit codes: `0` success, `1` failed business gate/collection error,
-`2` configuration/input/dependency/precondition error.
+Handled CLI exit codes: `0` success, `1` failed business gate/collection error,
+`2` configuration/input/dependency/precondition error or failed individual Azure/MAF request.
 `demo` generates a fixture, so v1's intentionally low score is not generation failure;
 the separate `evaluate` command returns a score-based exit code.

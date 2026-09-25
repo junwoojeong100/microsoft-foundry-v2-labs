@@ -113,7 +113,14 @@ response IDs do not become Azure Monitor traces by themselves.
 
 ### 2. Search server-side traces for Lab 03 B
 
-Open the portal **Traces** search and paste the `response_id` from `outputs/learner-notes-en/prompt-agent-invoke.json`. If Application Insights was connected and you have access, record the matching trace evidence. If unavailable, write `trace unverified: <reason>` on `Actual trace evidence, or unverified when unavailable:` in `operations-checklist.txt`.
+1. Open **Build → Agents → your Lab 03 B SDK agent → Traces**.
+2. Set the time range to include the **original Lab 03 request**, not just today's session. The list opens on **Last Day**;
+   choose **7D** or another range covering that request when returning for day 2. Check the agent/version filter too.
+3. Paste the `response_id` from `outputs/learner-notes-en/prompt-agent-invoke.json` into the search and open the matching row.
+   If Application Insights or access is unavailable, write `trace unverified: <reason>` on
+   `Actual trace evidence, or unverified when unavailable:` in `operations-checklist.txt` and skip step 4.
+4. In the trace tree, select the child **chat gpt-6-sol-2026-09-22** span, then **Metadata**.
+   Compare `gen_ai.response.id`, `gen_ai.usage.input_tokens` and `gen_ai.usage.output_tokens` with the saved response ID and `usage`.
 
 ![September 25 English recording: Traces search by the Lab 03 B response_id returns one trace](../assets/review-refresh-20260925/EP09-201-trace-search.webp)
 
@@ -123,7 +130,10 @@ Open the portal **Traces** search and paste the `response_id` from `outputs/lear
 The child's input/output tokens equal `usage` in `prompt-agent-invoke.json`. Record the trace or operation ID, not the response ID, as trace evidence.
 In the 2026-09-24 check (English and Korean) each managed agent call appeared within about three minutes, although the invoke used `store: false`.
 The 2026-09-25 recording found exactly one row per language; its token columns matched `usage` and its trace ID matched the Application Insights `operation_Id`.
-If nothing appears after five minutes, record **trace unverified** instead of sending more requests.
+The later [September 25 headless follow-up](../live-run.md#headless-guide-audit-20260925) also matched the original audit's
+English and Korean SDK requests in the portal, without sending another message.
+For a recent request, allow up to five minutes for ingestion. For an older request, check its date range and filters first;
+waiting or sending a new request does not restore missing history. If it is still absent, record **trace unverified** with the reason.
 
 Local MAF runs from Labs 04 and 05 run in your Python process and do not create Foundry server-side agent traces. Client-side tracing is a separate optional setup.
 In the same check, direct Responses calls (`model`, `answer`, `maf`, `workflow`, `collect`) left no server-side spans at all; only the managed agent calls did.

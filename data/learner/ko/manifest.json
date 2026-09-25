@@ -14,8 +14,8 @@
       "sha256": "ed29612b3776d5fafb7fd706654d01b90250e87a6031a82a91200f59570d00e1"
     },
     "START-HERE.txt": {
-      "bytes": 1937,
-      "sha256": "5d8d34b90e94088320d5968fabec65739642e2fa19dd31b3e974445179d21498"
+      "bytes": 2214,
+      "sha256": "e84eb17bcaf3f0a7cf2d43ce516d01737f842df7fc12df604b73c3fd530c1316"
     },
     "assessment.csv": {
       "bytes": 694,
@@ -38,8 +38,8 @@
       "sha256": "2088e56ce66d49a4190aee367c44c13f612ab92ac06f46fc207b714bb1515680"
     },
     "learner-materials.zip": {
-      "bytes": 21200,
-      "sha256": "e112e6b9c687fa8c4c2a180c3a84f8b6ca7d7a3ecb982f533fcc62b2c3e41ff2"
+      "bytes": 21670,
+      "sha256": "ec754b0a403f6b1224e22ab62159746a8ecc147107520eb33916e66222f04776"
     },
     "operations-checklist.txt": {
       "bytes": 739,
@@ -74,8 +74,8 @@
       "sha256": "59e96b06be72c60ecdaee94b1bed1092619ae93ac67ace9f81f179866b02c261"
     },
     "workflow-review.txt": {
-      "bytes": 1005,
-      "sha256": "d7a57d3849a61b0e54110999bcf513980c31bd86ad2ae27b1d7dbc12e3987a00"
+      "bytes": 1198,
+      "sha256": "e9a5572471b43fc5838c1cee9c469c67ea2320f1bbd9009f99e0aba703b33d63"
     }
   }
 }

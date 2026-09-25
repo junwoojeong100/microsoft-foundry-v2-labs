@@ -14,7 +14,11 @@
 
 **다음으로 갈 기준:** 실제 MAF 출력과 사람의 검토 기록이 남았습니다. pending-human-review는 승인이 아닙니다.
 
-**막히면:** 담당자에게 터미널이 저장소 루트이고 `.venv` 활성·`.env` 입력·본인 Azure 로그인이 되어 있는지, 그 터미널에서 Lab 02 B 모델 호출이 되는지 확인을 요청합니다. 포털 Workflow Designer나 답변 붙여 넣기로 대신하지 않습니다.
+**막히면:** 터미널은 저장소 루트·활성 `.venv`·`.env`·본인 로그인·Lab 02 B 결과를 확인합니다.
+`MAF request failed`는 SDK 실패와 원인을 알려줍니다. Azure CLI 인증 timeout은 잘못된 정책 답변이 아닙니다.
+오류를 보존하고 새 유료 시도 전에 [복구](../reference/troubleshooting.md#maf-request-failure)를 따릅니다.
+Playground는 담당자에게 제공한 Hosted agent/버전과 Responses profile을 확인하도록 요청합니다.
+다른 방식이나 포털 Workflow Designer로 대체하지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
@@ -30,16 +34,35 @@ Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측�
 
 ## A. 초보자 — 준비된 MAF 예제를 직접 실행
 
-설정 카드에 적은 준비된 방식 하나를 사용합니다. Hosted workflow agent가 준비되어 있으면 Playground를 사용하고, 아니면 **준비된 MAF 실행 환경**의 터미널에 명령 하나를 복사해 실행합니다. 코드를 직접 작성하지 않습니다.
-이 명령은 담당자의 예산 안에서 실제 유료 Azure 모델을 호출합니다. 관리자 계정을 공유하지 않습니다.
+설정 카드에서 선택한 **한 가지** 방식만 사용합니다. **준비된 MAF 실행 환경**의 터미널 또는 담당자가 준비한 Hosted workflow agent의 Playground입니다.
+코드를 직접 작성하지 않으며, 두 방식 모두 담당자의 예산 안에서 실제 유료 Azure 모델을 호출합니다.
+관리자 계정을 공유하거나 A 완료를 위해 두 방식을 모두 실행하지 않습니다.
 
 ### 1. 준비된 실행 방식 선택
 
-**브라우저 방식, 담당자가 미리 선택한 경우에만 — 이 판에서 원격 Playground 사용은 검증하지 않았습니다.** 상단 **빌드** → 왼쪽 **에이전트**에서 준비된 Hosted workflow agent를 열고 **플레이그라운드** 탭에서 같은 질문을 한 번 보낸 뒤 `workflow-review.txt`에 대화 ID / 응답 ID를 기록합니다. 터미널 실패 뒤의 대체가 아니라 미리 선택한 hosted 방식입니다. 담당자는 **Responses** protocol(Lab 08 6절 기본값)로 배포해야 합니다. Invocations protocol의 평가용 agent는 이 선택지가 아닙니다. 2026-09-24에는 같은 workflow agent가 갱신한 SDK로 로컬 Responses 요청 하나에 답했습니다(모델 호출 3회, `pending-human-review`). 이 확인을 위해 원격 배포는 하지 않았습니다.
+두 방식에서 아래의 같은 질문을 사용합니다.
 
-**터미널 방식(기본 녹화 경로):** 아래 준비된 MAF 명령을 실행하고 `workflow-review.txt`에 `실행 방식(준비된 터미널 / 준비된 hosted workflow agent Playground):`를 기록합니다.
+> 2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요.
+
+개인 `workflow-review.txt`의 `실행 방식(준비된 터미널 / 준비된 hosted workflow agent Playground):`를 기록합니다.
+
+**터미널 방식(기본 녹화 경로):** 2단계로 갑니다.
+
+**브라우저 방식, 담당자가 미리 선택한 경우에만 — 이 판에서 원격 Playground 사용은 검증하지 않았습니다.**
+
+1. **빌드 → 에이전트 → 제공받은 Hosted workflow agent → 플레이그라운드**를 엽니다. **Lab 03의 Prompt Agent가 아닙니다.**
+   제공받은 이름·버전·언어를 확인합니다. 담당자는 [Lab 08 6절](08-hosted.md#6-maf-워크플로를-hosted-agent로-배포)의
+   순차 local/v2 **Responses** profile을 준비해야 하며, Invocations 평가 profile은 이 선택지가 아닙니다.
+2. **새 대화**를 선택하고 위 질문만 한 번 보냅니다. `workflow-review.txt`에 JSON 응답 전체,
+   Hosted agent 이름·버전, 표시된 대화·응답 ID를 보존합니다. 보이지 않는 ID는 확인 불가로 적고 만들어 넣지 않습니다.
+3. **2단계의 터미널 명령은 건너뛰고 [3단계 검토](#workflow-a-review)로 갑니다.**
+
+2026-09-24에는 이 workflow가 갱신한 SDK로 로컬 Responses 요청 하나에 답했습니다(모델 호출 3회,
+`pending-human-review`). 이 확인을 위해 원격 배포나 Playground 실행은 하지 않았습니다.
 
 ### 2. 준비된 순차 워크플로 실행
+
+**터미널 방식만 진행합니다.** Playground 학습자는 이미 요청 한 번을 보냈으므로 이 단계를 건너뜁니다.
 
 1. 브라우저 IDE나 VS Code에서 준비된 터미널을 엽니다. 파일 목록에 `README.md`와 `scripts/`가 보이고,
    프롬프트는 보통 `(.venv)`로 시작합니다. 그렇지 않으면 멈추고 담당자에게 요청합니다. 수업 중에 직접 설치하지 않습니다.
@@ -59,9 +82,19 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 **화면 확인:** 출력에 `mode: live`, `pattern: sequential`, `outputs`가 있습니다.
 터미널에서 실행한 MAF 결과이며 포털의 Workflow Designer를 조작한 화면이 아닙니다. 녹화는 같은 명령을 `--output` 없이 실행했습니다.
 
+<a id="workflow-a-review"></a>
+
 ### 3. 실제 결과 읽기
 
-세 MAF 역할이 차례로 질문을 처리했고, `outputs`에는 마지막 역할의 최종 답변만 나옵니다.
+두 방식 모두 세 MAF 역할을 순서대로 실행하지만 **JSON 구조는 다릅니다**. 선택한 방식의 행만 확인합니다.
+
+| 방식 | 실행 필드 | 검토할 답변 |
+|---|---|---|
+| 터미널 | `mode: live`, `pattern: sequential` | `outputs`: `EvidenceReviewer`의 최종 답변 하나 |
+| Playground | `mode: live`, `runtime_profile.kind: workflow`, `runtime_profile.pattern: sequential` | `answer`: `decision`·`limit_krw`·`citations`가 있는 구조화 답변. 반환된 `documents`와 대조 |
+
+Hosted wrapper에는 터미널의 최상위 `pattern`·`outputs`가 없습니다. 다른 방식의 필드가 없다고 실행 실패로
+판단하지 않습니다. 반면 서비스 오류나 profile 불일치는 실패입니다. 원래 응답은 수정하지 않고 보존합니다.
 
 ```mermaid
 flowchart LR
@@ -74,13 +107,13 @@ flowchart LR
 
 | 출력 | 초보자가 확인할 내용 |
 |---|---|
-| `mode: live`, `pattern: sequential` | 준비된 MAF 코드가 실행한 결과인가 |
-| `outputs` | `EvidenceReviewer`의 최종 답변 하나가 현행 한도와 사전 승인 조건을 근거와 함께 설명하는가 |
 | `approval_status: pending-human-review` | 모델 검토를 실제 사람 승인으로 오해하지 않았는가 |
 | `external_actions_performed: false` | 실제 예약·지급을 수행하지 않았는가 |
 
-1. 편집기에서 `outputs/workflow-a-sequential.json`을 열어 인용한 정책 ID를 학습자 ZIP의 `policies/`와 대조합니다.
-2. 정확한 명령과 파일 전체를 학습자 ZIP의 빈 `workflow-review.txt`에 붙여 넣습니다.
+1. 터미널의 `outputs/workflow-a-sequential.json` 또는 저장한 Playground 응답 전체를 엽니다.
+   인용한 정책 ID를 학습자 ZIP의 `policies/`와 대조합니다. Playground 학습자는 터미널 출력 파일이 필요 없습니다.
+2. 정확한 명령 **또는 Playground 질문**, 출력 전체, 선택한 방식을 개인 `workflow-review.txt`에 보존합니다.
+   Playground의 pattern은 `runtime_profile.pattern`에서 읽습니다. 이전 양식에 칸이 없으면 추가하고 작성한 기록을 교체하지 않습니다.
 3. 같은 파일에 맞는 부분·수정할 부분·이유를 적습니다. 안내문 검토이지 업무 승인이 아닙니다.
 
 **화면 확인:** 저장한 출력이 170000원 호텔은 한도 150000원을 넘으므로 예약 전 승인이 필요하다고 설명하고
@@ -88,12 +121,12 @@ flowchart LR
 `approval_status: pending-human-review`, `external_actions_performed: false`가 그대로 있습니다.
 워크플로는 이 JSON에서 끝나며, 뒤에서 자동 반려·재실행이나 승인 동작이 돌지 않습니다.
 
-### 3. 완료 판정
+### 4. 완료 판정
 
 순차 실행 한 번과 검토로 A를 완료합니다. **실제 MAF 실행 결과와 사람의 검토 기록**이 있어야 합니다.
 여러 포털 대화의 답변을 사람이 복사해 이어 붙이는 것을 MAF 실행으로 기록하지 않습니다.
 환경이 준비되지 않아 강사 실행만 봤다면 `MAF 관찰 / 직접 실행 미완료`로 구분합니다.
-이 단계는 로컬 MAF 실행이며 관리형 workflow 리소스나 Hosted Agent를 만든 것이 아닙니다.
+터미널 방식은 관리형 workflow 리소스나 Hosted Agent를 만들지 않습니다. 브라우저 방식은 담당자의 기존 Hosted agent를 사용합니다.
 **A 완료:** 본인의 실행과 작성한 `workflow-review.txt`를 저장했습니다.
 [Lab 06 A](06-knowledge.md#path-a)로 이동합니다. B의 세 명령을 A의 추가 단계로 실행하지 않습니다.
 
@@ -103,6 +136,12 @@ flowchart LR
 
 세 명령 모두 실제 Azure 모델을 호출하고 JSON 전체를 `--output`으로 저장하며, 포털 workflow 리소스는 만들지 않습니다.
 먼저 `src/foundry_workshop/agents.py`의 `run_workflow`를 엽니다. 데이터·모델·세 역할의 지침은 그대로이고 builder만 바뀝니다.
+
+이 B 명령들은 `--question`을 생략하므로 세 가지 모두 CLI의 같은 기본 질문을 사용합니다.
+
+> 2026년 9월 국내 출장 숙박비는 1박 얼마까지인가요?
+
+A의 170000원 호텔 질문과는 다릅니다. 앞 절의 질문이 자동으로 전달됐다고 가정하지 말고 실제 보낸 질문을 기준으로 답변을 검토합니다.
 
 | 옮길 개념 | 이 실습에서 사용하는 MAF 구현 |
 |---|---|
@@ -120,7 +159,6 @@ flowchart LR
 ### 1. 순차 패턴 실행: 앞 단계 결과가 다음 단계의 입력
 
 ```bash
-mkdir -p outputs
 python scripts/workshop.py workflow --pattern sequential \
   --output outputs/learner-notes-ko/workflow-sequential.json
 ```

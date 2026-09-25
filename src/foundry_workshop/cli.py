@@ -485,7 +485,12 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
 
     load_environment(root)
     settings = Settings.from_env(language=args.language)
+    framework_errors: tuple[type[Exception], ...] = ()
     try:
+        if args.command in {"maf", "workflow", "workflow-agent", "maf-evaluate", "serve"}:
+            from agent_framework.exceptions import AgentFrameworkException
+
+            framework_errors = (AgentFrameworkException,)
         if args.command == "openapi":
             from . import openapi_lab
 
@@ -786,6 +791,18 @@ def cloud_command(root: Path, args: argparse.Namespace) -> dict[str, Any] | None
                     candidate=args.candidate,
                     language=args.language,
                 )
+    except framework_errors as exc:
+        cause: BaseException = exc
+        for _ in range(4):
+            if cause.__cause__ is None:
+                break
+            cause = cause.__cause__
+        raise ValueError(
+            f"MAF request failed: {type(exc).__name__}. "
+            f"Cause: {type(cause).__name__}: {cause}. "
+            f"See docs/{'ko/' if args.language == 'ko' else ''}reference/troubleshooting.md. "
+            "No provider/model fallback was used."
+        ) from exc
     except (AzureError, OpenAIError, httpx.HTTPError) as exc:
         status = (
             exc.response.status_code

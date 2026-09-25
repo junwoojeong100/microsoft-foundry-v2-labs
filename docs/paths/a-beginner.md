@@ -3,15 +3,15 @@
 **English** | [한국어](../ko/paths/a-beginner.md)
 
 **Finish with your own agent, a six-question assessment, one workflow review, trace status and a cleanup handoff.**
-Follow only the A rows below. The 270-minute course assumes setup, permissions and installations are already complete.
+Follow only the A rows below. The 270-minute teaching plan assumes setup, permissions and installations are already complete; it is not a measured learner duration.
 
 ## Start here
 
 Complete [setup](../setup.md): get the English learner ZIP, then record the owner's values.
 Open `START-HERE.txt`. Use the prepared **gpt-6-sol** deployment and the ZIP's ready instructions, questions
 and blank worksheets; do not assemble your own inputs or report format.
-For Lab 05, the owner supplies either a prepared Hosted workflow agent in Playground or an activated, learner-signed-in terminal;
-otherwise complete [Lab 00 B setup](../labs/00-start.md#path-b) and [Lab 02 B](../labs/02-models.md#path-b) before this timed route.
+For Lab 05, the owner supplies an activated, learner-signed-in terminal by default. The optional Hosted Responses Playground path must be verified by the owner before class.
+If neither option is prepared, complete [Lab 00 B setup](../labs/00-start.md#path-b) and [Lab 02 B](../labs/02-models.md#path-b) before this timed route.
 
 **First-pass choices are already made:** inline policies, one prepared workflow run, manual dev assessment, and trace status in Lab 09.
 File Search, IQ Chat, Hosted deployment, cloud judges and C modules are **not selected** unless you opt in separately.
@@ -54,4 +54,5 @@ Reopen that same project and saved version; read existing results before sending
 Do not recreate the agent or repeat earlier labs merely to resume.
 
 **Finish:** [Lab 11 handoff](../labs/11-capstone.md#path-a).
-**Continue later:** [B. Implementation](b-practitioner.md), using the same source repository.
+**Continue later:** [B. Implementation](b-practitioner.md). Start with [Lab 00 B's source-folder setup](../labs/00-start.md#source-folder);
+the small A learner ZIP is not the code repository. Keep an existing prepared source copy if you already have one.

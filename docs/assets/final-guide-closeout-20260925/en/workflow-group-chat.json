@@ -1,0 +1,13 @@
+{
+  "mode": "live",
+  "language": "en",
+  "pattern": "group-chat",
+  "outputs": [
+    "For a domestic business trip in September 2026, the lodging limit is **KRW 150,000 per person per night**. (Source: TRAVEL-2026)",
+    "For a domestic business trip in September 2026, the lodging limit is **KRW 150,000 per person per night**. (Source: TRAVEL-2026)",
+    "The answer’s **KRW 150,000 per person per night** is correct for September 2026: that limit took effect on July 1, 2026, and the citation to **TRAVEL-2026** is appropriate. There is no mistake in the amount or effective date.\n\nFor a fuller policy answer, it could add that lodging **above the limit requires explicit team-lead approval before booking** (**APPROVAL-01**) and that a **receipt is required even within the limit** (**TRAVEL-2026**). The answer did not claim that approval had been granted.",
+    "The group chat has reached the maximum number of rounds."
+  ],
+  "approval_status": "pending-human-review",
+  "external_actions_performed": false
+}

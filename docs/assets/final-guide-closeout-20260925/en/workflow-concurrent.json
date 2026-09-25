@@ -1,0 +1,13 @@
+{
+  "mode": "live",
+  "language": "en",
+  "pattern": "concurrent",
+  "outputs": [
+    "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This limit took effect on July 1, 2026. A receipt is required, and a booking above the limit requires explicit team-lead approval **before booking**. (TRAVEL-2026; APPROVAL-01)",
+    "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This rate took effect on **July 1, 2026**; the earlier KRW 120,000 rate no longer applies. [TRAVEL-2026; TRAVEL-2025]\n\nA receipt is required. If the cost would exceed the limit, **explicit team-lead approval is required before booking**; I cannot grant that approval. [TRAVEL-2026; APPROVAL-01]",
+    "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night** under **TRAVEL-2026**. A receipt is required (**TRAVEL-2026; RECEIPT-01**), and costs above the limit require team-lead approval before booking (**APPROVAL-01**).",
+    "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night** under **TRAVEL-2026**. A receipt is required (**TRAVEL-2026; RECEIPT-01**), and costs above the limit require team-lead approval before booking (**APPROVAL-01**).For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This limit took effect on July 1, 2026. A receipt is required, and a booking above the limit requires explicit team-lead approval **before booking**. (TRAVEL-2026; APPROVAL-01)For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This rate took effect on **July 1, 2026**; the earlier KRW 120,000 rate no longer applies. [TRAVEL-2026; TRAVEL-2025]\n\nA receipt is required. If the cost would exceed the limit, **explicit team-lead approval is required before booking**; I cannot grant that approval. [TRAVEL-2026; APPROVAL-01]"
+  ],
+  "approval_status": "pending-human-review",
+  "external_actions_performed": false
+}

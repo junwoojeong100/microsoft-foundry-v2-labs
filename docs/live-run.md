@@ -4,6 +4,10 @@
 
 **These are this English recording's actual Azure results from September 24, 2026.** They are not copied from the Korean run, from the earlier `gpt-5.6-luna` editions or from upstream repositories.
 
+**Later check:** [September 25 live guide audit](#azure-guide-audit-20260925) covers the CLI routes and trace API in both languages, with one retained request failure. It is not a new portal recording.
+The subsequent [headless portal follow-up](#headless-guide-audit-20260925) resolved its browser-authentication blocker and added new responses, timings and screenshots, not a new video.
+**Latest:** the [final closeout](#final-guide-closeout-20260925) ran bounded core checks only after the final guide corrections and offline gates; its fresh results and remaining boundaries are separate below.
+
 ## Environment
 
 | Item | Value |
@@ -266,9 +270,164 @@ Route A ran the portal steps of Labs 01–03, 07 and 09 in the English and Korea
 and each language's Search knowledge base, knowledge source and index were deleted and read back as 404, as were the agents'
 Entra agent identities. No evaluation or dataset was created.
 
+<a id="azure-guide-audit-20260925"></a>
+
+## Live guide audit — September 25, 2026 (CLI and trace API)
+
+**Scope:** separate English and Korean copies of the current working tree after `b741473`, including the uncommitted guide fixes.
+The existing project and `gpt-6-sol` / `2026-09-22` deployment above were verified read-only.
+The source repository's personal `.env` still pointed to an earlier project and `gpt-5.6-luna`; it was left unchanged.
+Fresh copies used the verified current-guide values and owned prefixes `mfv2-a2-0f01-en` and `mfv2-a2-0f01-ko`.
+No request was sent to the older model as a substitute.
+
+| Check | English | Korean |
+|---|---|---|
+| Core B terminal blocks | 33 distinct blocks completed; 34 attempts because the first Group Chat attempt failed | 33 distinct blocks, all first attempts completed |
+| Saved response files | All 14 core JSON files retained | All 14 retained independently |
+| Managed Prompt Agent | `mfv2-a2-0f01-en-policy-sdk`, version `1` | `mfv2-a2-0f01-ko-policy-sdk`, version `1` |
+| Functions / local MCP | Prior approval for KRW 170000; historical KRW 120000 with `TRAVEL-2025` | Same criteria, independent Korean answers |
+| Sequential / concurrent / Group Chat | 1 / 4 / 4 outputs; pending human review, no external actions | Same output shapes; the sequential final text omitted the date and stated the limit only through an over-limit condition, retained as a review finding |
+| Search / GA IQ | Six indexed policies; local and ordinary Search returned six, IQ returned four including `TRAVEL-2026` and `APPROVAL-01` | Same counts with the Korean corpus |
+| IQ-grounded answer | `needs_approval`, KRW 150000, both required citations; the second retrieval's context hash matched the prior IQ result | Same criteria and independent matching context hash |
+| Lab 07 baseline / candidate / final holdout | 6/6 / 6/6 / 4/4, zero collection errors | 6/6 / 6/6 / 4/4, zero collection errors |
+| Acceptance | `ready-for-human-review`, `deployment_approved: false` | Same; not copied from English |
+| Lab 09 trace API | Matching `invoke_agent` and `chat` spans; input/output tokens 1124 / 123 | Matching spans; 1290 / 216 |
+| A Lab 05 terminal option | Exact KRW 170000 question executed once and reviewed | Independently executed once and reviewed |
+| Lab 08 / Lab 11 | Local package only; read the existing acceptance report instead of repeating `accept` | Same |
+
+The all-pass baselines correctly skipped `feedback`. Each candidate was reviewed and frozen before its one final holdout collection.
+All six evaluation runs used code hash `d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4`;
+each language retained its own prompt, corpus, dataset and response hashes.
+The public teaching holdout is not an unseen production acceptance set.
+
+**Failure kept and code fixed:** English Group Chat's first attempt failed when `az account get-access-token` exceeded
+the configured 30-second subprocess timeout. MAF wrapped the credential error in `ChatClientException`, which escaped the
+CLI's existing error boundary as a traceback/exit `1`. The CLI now catches the specific Agent Framework exception family,
+reports the underlying cause and returns the normal handled-failure code `2`, without writing a success file.
+It adds no retry or fallback and changes no timeout, model, endpoint or prompt.
+A read-only token check succeeded; one new Group Chat attempt with the same configuration completed. The first log remains retained.
+
+**Browser boundary:** Playwright headless observations exposed an account/tenant mismatch: a project header and
+**Loading...** did not establish that the SDK agent had loaded. A visible authentication-only browser was opened for the
+training account. Correct-tenant portal verification remains pending authentication; neither the A portal sequence nor
+the B portal agent/trace checks are claimed as newly verified. The trace results above came from the scoped read-only API,
+not the portal. No new screenshot or video asset was produced.
+That was this CLI audit's boundary; the separate headless follow-up below subsequently resolved the portal blocker.
+
+**Other clarifications:** verify the exact preset, not just `Succeeded`; distinguish A's explicit workflow question from
+B's default question; and keep IQ `agenticReasoning`/retrieval-token activity separate from answer-model `usage`.
+The two GA IQ results reported 413 and 505 reasoning tokens respectively; that is not proof of optional model planning/synthesis.
+
+**Owned assets retained for review:** the two SDK agents and each prefix's `-policies` index, `-source` knowledge source
+and `-kb` knowledge base. Ownership ledgers and original errors/results remain in the separate working copies.
+Cleanup inventory was recorded; no cloud deletion was performed. Shared models, Search and logging remain owner-managed.
+No model deployment, role assignment, Hosted deployment, default-subscription change or push occurred.
+The signed-in CLI account was used as configured; a least-privilege learner-only identity was not separately tested.
+
+[Machine-readable results, hashes and trace IDs](assets/azure-guide-audit-20260925/results.json) ·
+[Validation and changes](reference/validation.md#azure-guide-audit-20260925).
+
+<a id="headless-guide-audit-20260925"></a>
+
+## Headless portal follow-up and measured response times — September 25, 2026
+
+**The previously blocked A/B portal checks now have new live evidence.** A visible browser was used only for authentication;
+all checks ran through **Playwright MCP headless**, English first, then Korean, in the same training project.
+The portal language was restored to English. The temporary authentication-transfer file was deleted.
+
+The existing A agents `mfv2-sol-20260924-<language>-policy`, version **2**, were reused without saving a new version.
+Their actual saved instructions exactly matched the current learner files, including all six synthetic policies.
+The creation dialogs were inspected and cancelled: this is a resume/read-back and request check, **not a new agent-creation run**.
+
+| Check | English | Korean |
+|---|---|---|
+| Lab 02 model Playground | Two new replies; the no-evidence question withheld the amount | Two independent new replies; the amount was withheld |
+| Lab 03 / Lab 06 inline evidence | Four new smoke replies met the date, amount, approval and citation criteria; no external tools or knowledge connection | Same four checks with Korean questions and instructions |
+| Lab 07 fixed-version dev assessment | **6/6**, no request errors or missing rows | **6/6**, no request errors or missing rows |
+| Send → rendered answer, six dev rows | Median **6.75 s**, range **5.69–9.29 s** | Median **5.41 s**, range **4.11–7.01 s** |
+| Lab 09 A, this run's D06 | Matching response, version 2 and `invoke_agent` → `chat`; input/output **1144/153** | Matching response, version 2 and spans; **1339/273** |
+| Lab 03 B / Lab 09 B, original audit request | SDK instructions exactly match the CLI definition; version 1, trace **79b867e1985015fdd02cfe8a47fa9ee7**, **1124/123** tokens | Exact instruction match; version 1, trace **87fad9894be9e9c55f0a9b3d8b5199bc**, **1290/216** tokens |
+
+**Measurement boundary:** 24 new requests in total: two model, four smoke and six dev requests per language.
+Each question started a new chat. No B request was repeated for trace lookup, and no candidate, holdout or cloud judge ran.
+The times measure the Send click to the rendered response-specific Copy action, including portal/network/rendering overhead.
+They are not server-span durations, a human learner pilot, a validation of the 270-minute course, or evidence that one language is faster.
+The Korean concept reply simplified a Foundry resource as a workspace; Lab 01's resource/project distinction remains the reference.
+
+**Capture failures retained:** the initial capture helper hit VM, endpoint, response-body and stream-lifecycle limitations.
+The original replies and response IDs were retained from the UI, without resending a question.
+Four initial requests have no high-resolution timing; none is assigned a fabricated value. All six dev rows per language have measured times.
+These capture issues do not replace the earlier CLI audit's retained Group Chat failure.
+
+**Still not run:** File Search—the selected `gpt-6-sol` model showed **Upload files** disabled with a model-unavailability tooltip;
+the remote Lab 05 Hosted **Responses** Playground option; new deployments, role changes, default-subscription changes, optional cloud judges
+and C modules. A Lab 05's already completed terminal outputs remain in the earlier audit; they were not rerun or relabeled as Hosted results.
+No agent definition, prompt, corpus, dataset or grading criterion was changed. No publication, push or cloud deletion occurred.
+New conversation/response records and the existing shared services remain subject to the owner's cleanup and cost plan.
+
+**Evidence:** 28 new screenshots, both six-row assessment CSVs, actual instruction snapshots, responses, token counts,
+trace metadata and SHA-256 hashes are retained separately from earlier recordings.
+[Results and hashes](assets/headless-guide-audit-20260925/results.json) ·
+[English assessment](assets/headless-guide-audit-20260925/en/assessment-baseline.csv) ·
+[Korean assessment](assets/headless-guide-audit-20260925/ko/assessment-baseline.csv) ·
+[English trace](assets/headless-guide-audit-20260925/en-b-trace-detail.png) ·
+[Korean trace](assets/headless-guide-audit-20260925/ko-b-trace-detail.png).
+
+<a id="final-guide-closeout-20260925"></a>
+
+## Final closeout: checks after the guide corrections — September 25, 2026
+
+**Order:** English guide fixes → Korean/learner-file alignment → all offline gates → source freeze → English CLI checks →
+Korean CLI checks → headless read-back and trace correlation. The freeze is `2026-09-25T07:04:32Z`,
+base `b741473` plus working-tree changes, code hash `e92c1be2716a3a65608de16bd217a72439d606594ca2506910881974996b1682`.
+Fresh isolated runtime copies reused the existing owned training prefixes and their original ledgers. The source `.env` and Azure CLI
+default subscription were unchanged. These were prepared-environment checks, not new learner installation, resource creation or deployment.
+
+| Item | Fresh result, English and Korean |
+|---|---|
+| Lab 00/02 preflight | Exact `gpt-6-sol` / `2026-09-22`, `Succeeded`; no inference claim from preflight alone |
+| Lab 02 | Real model response and structured local-evidence answer; current KRW 150000 limit and actual citations |
+| Lab 03 B | Existing `mfv2-a2-0f01-<language>-policy-sdk`, version 1, invoked once per language; saved instructions matched the current CLI definition. Creation was not repeated |
+| Lab 04 | No-tool, function and local-MCP commands completed; over-limit approval and historical KRW 120000 results checked. A configured-tool flag alone is not a captured tool-event trace |
+| Lab 05 B | Sequential/concurrent/Group Chat output counts 1/4/4; no external actions and pending human review |
+| Lab 05 A default terminal | The exact KRW 170000 question ran once per language; both final texts stated KRW 150000, approval before booking and `TRAVEL-2026` + `APPROVAL-01` |
+| Lab 06 | Existing local/Search/GA IQ evidence: 6/6/4 documents in each language; actual contents matched the synthetic originals. IQ's three returned fields were `id`, `title`, `content`; separate date fields were not invented |
+| Lab 06 answer | New IQ-grounded answer: `needs_approval`, KRW 150000 and both required IDs. Its retrieval hash matched the preceding IQ read in each language |
+| Lab 08 | Two local package commands completed; both manifests retain `cloud_deployed: false` |
+| Lab 09 | The new English and Korean SDK response IDs matched portal traces and input/output tokens; cleanup inventory read the preserved local ledger and deleted nothing |
+| Lab 07/10/11 boundary | No new collection, judge or acceptance; prior evaluation lineage retained, external IQ remains design-only, fresh output/package/trace artifacts checked for handoff |
+
+**Counts:** 32 guide CLI commands, all exit 0; two additional local package commands; 28 fresh JSON outputs.
+These are command counts, **not the number of underlying model calls**. MAF workflows/tools and the unchanged SDK retry policy can make
+more calls. No driver retry, alternative model, endpoint/provider substitution or fixture fallback was used.
+The A inline agents were read back at saved version 2 with exact instruction hashes; their earlier six-case browser assessments were not repeated.
+Both agent languages were inspected in the English portal UI in this closeout, not relabeled as a new Korean UI recording.
+
+| New managed-agent call | Response ID | Server trace ID | Input / output tokens |
+|---|---|---|---|
+| English version 1 | `resp_0131ce4e1fd7c0f2016ab61dcaebb88194acd3fea76cd13212` | `bd829da0e764532e45c5cc134b1585ac` | 1124 / 113 |
+| Korean version 1 | `resp_07b8501455f6649a016ab61e946b588195ae3734eb853b81e1` | `4d5f22d02ca12433bbdd18c8f8203d51` | 1290 / 114 |
+
+**Failures and review findings retained:** a separate Foundry MCP `agent_get` read returned **403** because its configured identity lacked
+`agents/read`. No role was added and that probe is not marked successful; the guide's preselected subscription-bound CLI and the authenticated
+headless portal were checked separately. In Korean concurrent output index 2, the amount and approval conditions are present but policy IDs are
+missing. Other participants' citations in the aggregate do not repair that individual answer. Its original JSON is unchanged.
+No prompts, corpus, datasets or thresholds were tuned to improve these observations.
+
+**Not newly executed:** agent creation/Save, Search seeding, v1/v2 dev/holdout collections, cloud judges, local/remote Hosted serving,
+the remote A Hosted Responses option and the separately gated extension modules. Earlier 6/6·6/6·4/4 runs are not new acceptance for this code hash.
+File Search remained disabled after capability loading; an initially enabled-looking control was not counted as support.
+No company/Microsoft 365 data, role/default-subscription change, publication, push or cloud deletion.
+Actual participant-account readiness and learner teaching-time validation remain owner/pilot work, not claims from an operator's successful run.
+
+[Results and byte-exact output hashes](assets/final-guide-closeout-20260925/results.json) ·
+[Per-lab and per-extension status](assets/final-guide-closeout-20260925/module-checks.csv) ·
+[Document-pair checks](assets/final-guide-closeout-20260925/document-checks.json) ·
+[Guide corrections and local validation](reference/validation.md#final-guide-closeout-20260925).
+
 ## Not run with gpt-6-sol
 
-- Lab 03 portal File Search
+- Lab 03 portal File Search (the September 25 headless check found upload disabled for the selected model)
 - Lab 06 IQ Chat preset (gpt-5.6-luna) and hybrid RAG
 - Lab 07 feedback/regression step (the baseline had no failure; the no-evidence diagnostic ran instead)
 - Lab 07 Hosted model matrix

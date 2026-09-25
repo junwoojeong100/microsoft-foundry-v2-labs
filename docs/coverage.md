@@ -9,8 +9,15 @@ evaluations, Agent Optimizer, cloud red teaming and the approved Hosted release.
 September 16, 2026 (earlier `gpt-5.6-luna` preset) and are not evidence for `gpt-6-sol`, except where a September 24 or 25 row says otherwise.
 On September 25 both core routes ran end to end as written in both languages ([results](live-run.md#end-to-end-20260925)), a short supplement recorded Lab 03 B and the Lab 09 B trace search in both languages, and English runs covered conversation evaluation, memory, a routine and the Toolbox up to discovery.
 This page is a coverage record, not a claim that every Foundry feature has been executed.
+The later [September 25 headless follow-up](live-run.md#headless-guide-audit-20260925) added new bilingual model/inline-agent responses,
+six-row manual assessments and A/B portal trace correlation. It reused existing agents, created no new version and recorded no new video.
+File Search upload was disabled for the selected model. The measured browser response times are not a learner pilot.
 The production order is English guide → English recording → English refinement → Korean guide →
 independent Korean recording → Korean refinement.
+
+**Final closeout:** after the guide corrections and offline gates, [32 bounded CLI checks and two local package commands](live-run.md#final-guide-closeout-20260925)
+completed in English and Korean, with fresh portal trace correlation. The [item-by-item status](assets/final-guide-closeout-20260925/module-checks.csv)
+covers all 12 labs and 17 extension guides without claiming every optional feature was rerun. The separate MCP 403 and one workflow citation finding remain recorded.
 
 ## Read the status honestly
 
@@ -30,14 +37,14 @@ An installed prerelease SDK does not make the entire service Preview; a GA servi
 
 | Capability | Path | Current workshop coverage | Latest dated evidence |
 |---|---|---|---|
-| Models, Prompt Agents, synthetic source evidence | A/B | Existing Labs 00–03 | 2026-09-24 `gpt-6-sol` recording |
+| Models, Prompt Agents, synthetic source evidence | A/B | Existing Labs 00–03 | 2026-09-25 headless: existing saved instructions matched the current learner files; two model and four inline-agent smoke replies per language. Creation was not repeated |
 | Managed prompt agent as core route | B | Lab 03 B now treats the managed Prompt Agent as core practitioner work | 2026-09-24 live-verified in English and Korean with the refreshed pins (create, exact-version invoke, trace); 2026-09-25 screenshots and short clips in both languages |
-| Functions, local MCP, MAF orchestration | B | Existing Labs 04–05 | 2026-09-24 `gpt-6-sol` recording |
+| Functions, local MCP, MAF orchestration | B | Existing Labs 04–05 | 2026-09-25 CLI guide audit in both languages; the initial English Group Chat credential timeout and its explicit retry remain recorded |
 | Browser option for A Lab 05 | A | Optional owner-prepared Hosted workflow agent can be tested in the portal Playground | 2026-09-24: the workflow agent answered one local Responses request; remote deployment and Playground use not run |
-| Search/hybrid/GA IQ and separate MI chat preset | B/C | Existing Lab 06 and keyless preset | 2026-09-24 `gpt-6-sol` recording: local, Search and GA IQ retrieval. Hybrid RAG and the `gpt-5.6-luna` IQ Chat preset not re-run (configuration screen checked 2026-09-17) |
+| Search/hybrid/GA IQ and separate MI chat preset | B/C | Existing Lab 06 and keyless preset | 2026-09-25 CLI guide audit: local, Search and GA IQ retrieval in both languages. Hybrid RAG and the `gpt-5.6-luna` IQ Chat preset not re-run (configuration screen checked 2026-09-17) |
 | Business/native evaluation and frozen acceptance | A/B | Existing Lab 07, plus optional portal evaluation, no-evidence diagnostic, code-based business evaluator and **Compare runs** | 2026-09-24 `gpt-6-sol` recording and 2026-09-23 verification in both languages ([results](live-run.md)); custom evaluators and TaskAdherence are Preview |
 | Tool-call evaluation of the MAF agent | B | Optional `maf-evaluate` in Lab 04 | 2026-09-24 `gpt-6-sol` recording and 2026-09-23 verification in both languages; experimental MAF evaluation API |
-| Trace check as core evidence | A/B | Lab 09 A/B records actual trace evidence or an explicit unverified reason | 2026-09-24: managed agent traces found by response ID in Application Insights (English and Korean); 2026-09-25: portal **Traces** search recorded in both languages and the route A trace check repeated read-only |
+| Trace check as core evidence | A/B | Lab 09 A/B records actual trace evidence or an explicit unverified reason | 2026-09-25 headless: A's new responses and B's original audit responses matched portal trace IDs, agent versions and input/output tokens in both languages; B was not invoked again for trace lookup |
 | Standalone SDK recipes | B/C | Minimal offline recipe files for model, prompt-agent, MAF, IQ and Hosted patterns | 2026-09-24 offline stub tests and live runs of recipes 02–06 and 08 (English), after two fixes |
 | SDK pin refresh | B/C | Refreshed dependency set and provider constraint documented | 2026-09-24 offline tests plus a live run of the core B route in both languages and the optional evaluations |
 | [Hosted workflow/matrix/calibration/regression/traces](reference/evaluation-workbook.md) | C | Existing workbook | 2026-09-15 `gpt-5.6-luna` only (Korean four-model matrix); not re-run with `gpt-6-sol` |

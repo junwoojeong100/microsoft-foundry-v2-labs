@@ -1,0 +1,9 @@
+{
+  "mode": "live",
+  "language": "en",
+  "orchestration": "local",
+  "tools": "none",
+  "text": "Foundry is a platform for building, deploying, and managing AI applications and agents, including access to models and evaluation tools. Agent Framework is a developer framework for coding how agents use tools and work together. In short, Foundry provides the platform, while Agent Framework helps you implement agent behavior.",
+  "answer": null,
+  "note": "Local Python orchestration still calls a billable Azure model."
+}

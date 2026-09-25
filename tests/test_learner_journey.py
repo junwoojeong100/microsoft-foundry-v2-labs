@@ -12,7 +12,7 @@ from contextlib import redirect_stderr, redirect_stdout
 from itertools import pairwise
 from unittest.mock import patch
 
-from foundry_workshop.cli import main, parser
+from foundry_workshop.cli import DEFAULT_QUESTION, DEFAULT_QUESTION_EN, main, parser
 from foundry_workshop.contracts import load_documents, read_json, read_jsonl
 from foundry_workshop.evaluation import grade
 from foundry_workshop.knowledge import local_retrieve
@@ -159,6 +159,82 @@ class LearnerJourneyTests(unittest.TestCase):
                     )
                     for number in ROUTES[route]:
                         self.core_section(language, labs[number], route)
+
+    def test_each_practitioner_session_fits_four_hours_including_breaks(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                section = (
+                    (directory / "paths.md").read_text().split("## B.", 1)[1].split("## C.", 1)[0]
+                )
+                lab_minutes = {}
+                sessions = []
+                for line in section.splitlines():
+                    columns = [value.strip() for value in line.split("|")[1:-1]]
+                    if len(columns) == 4:
+                        lab = re.search(r"labs/(\d{2})-", columns[1])
+                        minutes = re.fullmatch(r"(\d+)\s*(?:min|분)", columns[2])
+                        if lab and minutes:
+                            lab_minutes[int(lab[1])] = int(minutes[1])
+                    elif len(columns) == 5 and re.fullmatch(r"Day [12]", columns[0]):
+                        sessions.append(columns)
+                self.assertEqual(len(sessions), 2)
+                self.assertIn('<a id="b-session-budget"></a>', section)
+                ordered_labs = []
+                route = (directory / "paths/b-practitioner.md").read_text()
+                for day, columns in enumerate(sessions, start=1):
+                    self.assertEqual(columns[0], f"Day {day}")
+                    labs = [int(value) for value in re.findall(r"\b\d{2}\b", columns[1])]
+                    self.assertTrue(labs)
+                    ordered_labs.extend(labs)
+                    durations = []
+                    for value in columns[2:]:
+                        match = re.fullmatch(r"(\d+)\s*(?:min|분)", value)
+                        self.assertIsNotNone(match)
+                        durations.append(int(match[1]))
+                    core, buffer, total = durations
+                    self.assertEqual(core, sum(lab_minutes[lab] for lab in labs))
+                    self.assertEqual(core + buffer, total)
+                    self.assertGreater(buffer, 0)
+                    self.assertEqual(total, 240)
+                    route_day = re.search(rf"Day {day}[^`]*`([\d, ]+)`", route)
+                    self.assertIsNotNone(route_day)
+                    self.assertEqual(
+                        [int(value.strip()) for value in route_day[1].split(",")], labs
+                    )
+                self.assertEqual(tuple(ordered_labs), ROUTES["B"])
+                self.assertIn("(../paths.md#b-session-budget)", route)
+
+    def test_setup_distinguishes_search_writers_from_read_only_learners(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                owner = (directory / "setup-owner.md").read_text()
+                writer_rows = [
+                    line
+                    for line in owner.splitlines()
+                    if line.startswith("|") and "`seed-search`" in line
+                ]
+                self.assertEqual(len(writer_rows), 1)
+                self.assertIn("B", writer_rows[0])
+                self.assertIn("Search Service Contributor", writer_rows[0])
+                self.assertIn("Search Index Data Contributor", writer_rows[0])
+                reader_rows = [
+                    line
+                    for line in owner.splitlines()
+                    if line.startswith("|") and "`retrieve`" in line
+                ]
+                self.assertEqual(len(reader_rows), 1)
+                self.assertIn("Search Index Data Reader", reader_rows[0])
+                self.assertNotIn("Contributor", reader_rows[0])
+
+    def test_evidence_hub_and_coverage_include_the_headless_followup(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                for name in ("evidence.md", "coverage.md"):
+                    text = (directory / name).read_text()
+                    self.assertIn("(live-run.md#headless-guide-audit-20260925)", text)
+                hub = (directory / "evidence.md").read_text()
+                self.assertNotIn("Current workflow and evaluation curriculum", hub)
+                self.assertNotIn("five guide defects", hub)
 
     def test_beginner_exits_before_code_except_for_one_prepared_workflow(self):
         for language, _, labs in self.language_labs():
@@ -370,6 +446,144 @@ class LearnerJourneyTests(unittest.TestCase):
                     expanded_markdown(text),
                 )
 
+    def test_setup_and_core_lookup_distinguish_required_sdk_agent_from_browser_agent(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                setup = self.core_section(language, labs[0], "B")
+                notes = setup.split('<a id="prepare-notes"></a>', 1)[1].split("```bash", 1)[0]
+                for route in ("a", "b"):
+                    self.assertTrue(
+                        f"(03-prompt-agent.md#path-{route})" in notes,
+                        "Notes setup must distinguish the browser agent from the core SDK agent.",
+                    )
+                lookup = expanded_markdown((directory / "reference/commands.md").read_text())
+                core = lookup.split('<a id="saving-json"></a>', 1)[0]
+                for operation in ("create", "invoke"):
+                    self.assertTrue(
+                        f"`prompt-agent {operation} " in core,
+                        f"Managed-agent {operation} belongs in the core lookup, not optional work.",
+                    )
+
+    def test_existing_sign_in_is_reused_and_optional_login_rejects_an_empty_tenant(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                text = labs[0].read_text()
+                visible_blocks = re.findall(
+                    r"```bash\n(.*?)```", expanded_markdown(text), re.DOTALL
+                )
+                self.assertFalse(
+                    any(re.search(r"(?m)^\s*az login\b", block) for block in visible_blocks),
+                    "An already authenticated learner must not be sent through another login.",
+                )
+                self.assertIn('<a id="azure-sign-in"></a>', text)
+                login_blocks = [
+                    block
+                    for block in re.findall(r"```bash\n(.*?)```", text, re.DOTALL)
+                    if re.search(r"(?m)^\s*az login\b", block)
+                ]
+                self.assertEqual(len(login_blocks), 1)
+                for shell in ("bash", "zsh"):
+                    if not shutil.which(shell):
+                        continue
+                    for tenant in ("", "00000000-0000-0000-0000-000000000001"):
+                        with self.subTest(shell=shell, tenant=tenant):
+                            result = subprocess.run(
+                                [
+                                    shell,
+                                    "-c",
+                                    'az() { printf "STUB_AZ %s\\n" "$*"; }\n' + login_blocks[0],
+                                ],
+                                input=tenant + "\n",
+                                env={**os.environ, "AZURE_TENANT_ID": ""},
+                                capture_output=True,
+                                text=True,
+                                timeout=10,
+                                check=False,
+                            )
+                            if tenant:
+                                self.assertEqual(result.returncode, 0, result.stderr)
+                                self.assertIn(f"STUB_AZ login --tenant {tenant}", result.stdout)
+                            else:
+                                self.assertNotEqual(result.returncode, 0)
+                                self.assertNotIn("STUB_AZ", result.stdout)
+
+    def test_documented_env_preparation_preserves_existing_files_and_symlinks(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language), workspace() as root:
+                blocks = [
+                    block
+                    for block in re.findall(r"```bash\n(.*?)```", labs[0].read_text(), re.DOTALL)
+                    if "cp .env.example .env" in block
+                ]
+                self.assertEqual(len(blocks), 1)
+                self.assertNotIn("az login", blocks[0])
+                template = "WORKSHOP_PREFIX=mfv2-template\n"
+                (root / ".env.example").write_text(template)
+                for state in ("missing", "existing", "symlink"):
+                    with self.subTest(state=state):
+                        if state == "existing":
+                            (root / ".env").write_text("WORKSHOP_PREFIX=mfv2-preserved\n")
+                        elif state == "symlink":
+                            (root / ".env").unlink()
+                            (root / ".env").symlink_to("absent-personal-config")
+                        result = subprocess.run(
+                            ["bash", "-c", blocks[0]],
+                            cwd=root,
+                            capture_output=True,
+                            text=True,
+                            timeout=10,
+                            check=False,
+                        )
+                        self.assertEqual(result.returncode, 0, result.stderr)
+                        if state == "symlink":
+                            self.assertTrue((root / ".env").is_symlink())
+                            self.assertFalse((root / "absent-personal-config").exists())
+                        else:
+                            self.assertEqual(
+                                (root / ".env").read_text(),
+                                template
+                                if state == "missing"
+                                else "WORKSHOP_PREFIX=mfv2-preserved\n",
+                            )
+
+    def test_core_preflights_require_the_exact_preset_not_only_succeeded(self):
+        for language, _, labs in self.language_labs():
+            for number, step in ((0, 5), (2, 1)):
+                with self.subTest(language=language, lab=number):
+                    section = self.core_section(language, labs[number], "B")
+                    section = section.split(f"### {step}.", 1)[1]
+                    verification = section.split("```", 2)[2].split("![", 1)[0]
+                    for value in ("`gpt-6-sol`", "`2026-09-22`", "`Succeeded`"):
+                        self.assertTrue(
+                            value in verification,
+                            f"Preflight must require the exact preset before inference: {value}",
+                        )
+
+    def test_portal_recovery_distinguishes_tenant_identity_and_loaded_agent_content(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                start = self.core_section(language, labs[0], "A")
+                self.assertIn("(../reference/troubleshooting.md#portal-tenant)", start)
+                recovery = (directory / "reference/troubleshooting.md").read_text()
+                section = recovery.split('<a id="portal-tenant"></a>', 1)[1]
+                section = section.split('<a id="maf-request-failure"></a>', 1)[0]
+                for marker in ("`tid=`", "Loading...", "Azure CLI"):
+                    self.assertTrue(marker in section, f"Missing portal recovery check: {marker}")
+
+    def test_maf_failure_recovery_is_linked_and_covers_each_framework_entry_point(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                start = labs[5].read_text().split('<a id="path-a"></a>', 1)[0]
+                self.assertIn("(../reference/troubleshooting.md#maf-request-failure)", start)
+                recovery = (directory / "reference/troubleshooting.md").read_text()
+                section = recovery.split('<a id="maf-request-failure"></a>', 1)[1]
+                for command in ("maf", "workflow", "workflow-agent", "maf-evaluate", "serve"):
+                    self.assertIn(f"`{command}`", section)
+                for marker in ("MAF request failed", "TimeoutExpired", "doctor --cloud", "`2`"):
+                    self.assertIn(marker, section)
+                lookup = (directory / "reference/commands.md").read_text()
+                self.assertIn("MAF request failed", lookup)
+
     def test_prepared_source_folder_is_kept_before_offering_a_download(self):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):
@@ -562,12 +776,55 @@ class LearnerJourneyTests(unittest.TestCase):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):
                 self.assertIn("`EvidenceReviewer`", self.core_section(language, labs[5], "A"))
-                steps = self.core_section(language, labs[5], "B").split("### 1.", 1)[1]
+                core = self.core_section(language, labs[5], "B")
+                question = DEFAULT_QUESTION_EN if language == "en" else DEFAULT_QUESTION
+                self.assertIn(f"> {question}", core.split("```bash", 1)[0])
+                steps = core.split("### 1.", 1)[1]
                 sequential, rest = steps.split("### 2.", 1)
                 concurrent, group_chat = rest.split("### 3.", 1)
                 self.assertIn("`EvidenceReviewer`", sequential.split("```", 2)[2])
                 self.assertIn("aggregator", concurrent.split("```", 2)[2])
                 self.assertIn("max_rounds=3", group_chat.split("```", 2)[2])
+
+    def test_a_workflow_options_share_a_question_but_keep_distinct_output_contracts(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[5], "A")
+                self.assertEqual(
+                    re.findall(r"^### (\d+)\.", core, re.MULTILINE), ["1", "2", "3", "4"]
+                )
+                command = parser().parse_args(DOCS.workshop_commands(core)[0][1])
+                choice, remainder = core.split("### 2.", 1)
+                self.assertIn(f"> {command.question}", choice)
+                self.assertIn("(#workflow-a-review)", choice)
+                self.assertIn('<a id="workflow-a-review"></a>', remainder)
+                terminal_label = "Terminal" if language == "en" else "터미널"
+                rows = {
+                    parts[1].strip(): line
+                    for line in core.splitlines()
+                    if len(parts := line.split("|")) == 5
+                }
+                self.assertIn(terminal_label, rows)
+                self.assertIn("Playground", rows)
+                self.assertIn("`pattern: sequential`", rows[terminal_label])
+                self.assertIn("`outputs`", rows[terminal_label])
+                for field in (
+                    "runtime_profile.kind: workflow",
+                    "runtime_profile.pattern: sequential",
+                    "answer",
+                ):
+                    self.assertIn(f"`{field}`", rows["Playground"])
+                self.assertNotIn("`outputs`", rows["Playground"])
+
+    def test_b_trace_resume_checks_the_request_time_range_before_declaring_it_missing(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[9], "B")
+                lookup = core.split("### 2.", 1)[1].split("### 3.", 1)[0]
+                for field in ("**Last Day**", "**7D**", "prompt-agent-invoke.json", "response_id"):
+                    self.assertTrue(field in lookup, f"Trace lookup must retain {field}.")
+                marker = "trace unverified" if language == "en" else "추적 미확인"
+                self.assertLess(lookup.index("**7D**"), lookup.index(marker))
 
     def test_failed_case_comes_from_the_business_evaluation_before_feedback(self):
         failed = grade({"status": "error"}, {"case_id": "D01"})

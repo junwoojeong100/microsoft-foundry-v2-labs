@@ -13,7 +13,9 @@
 **Already started:** use [recovery and resume](reference/troubleshooting.md#resume-safely), not a fresh installation.
 
 This Pre-Ignite 2026 Edition uses **synthetic data only**, with separate English/Korean inputs and recordings.
-A takes about 4 h 30 min after setup. B takes about 8 h, recommended as two 4-hour sessions. Neither route authors workflows in the portal. Advanced sections and recordings are optional.
+A's planned teaching budget is 4 h 30 min after setup; B's is 8 h, split into [two balanced 4-hour sessions](paths.md#b-session-budget).
+These are plans, not measured learner completion times. Neither route authors workflows in the portal. Advanced sections and recordings are optional.
+For A Lab 05, use the prepared terminal by default; the optional browser path needs an owner-verified Hosted Responses workflow before class.
 
 A keeps the extracted learner ZIP as a personal evidence folder. B uses
 [the source copy's notes directory](labs/00-start.md#prepare-notes), without a second ZIP.

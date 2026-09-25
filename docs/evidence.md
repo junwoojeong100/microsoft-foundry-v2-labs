@@ -8,7 +8,9 @@
 
 | Need | Link |
 |---|---|
+| Final corrections and post-edit, item-by-item checks | [Final closeout](reference/validation.md#final-guide-closeout-20260925) · [fresh execution](live-run.md#final-guide-closeout-20260925) |
 | Actual live results and limitations | [live-run.md](live-run.md) |
+| September 25 headless responses, timings and portal trace correlation | [Headless follow-up](live-run.md#headless-guide-audit-20260925) |
 | Recording summary | [video-summary.md](video-summary.md) |
 | Action/capture index | [action-captures.md](action-captures.md) |
 | Capability and module evidence | [coverage.md](coverage.md) |
@@ -16,7 +18,16 @@
 
 ## September 15 foundation run box
 
-**Pre-Ignite 2026 Edition / Current workflow and evaluation curriculum: September 15, 2026.** Follow the [beginner or practitioner guide](paths.md). Each lab places reference images and a **What to check** explanation beside the relevant action or command. Read [how to use the screenshots](labs/00-start.md#how-to-read-this-guide) first.
+**Historical foundation: September 15, 2026, with the earlier preset.** This is not current `gpt-6-sol` execution evidence.
+Follow the current [beginner or practitioner guide](paths.md), not an older recording. Read [how to use the screenshots](labs/00-start.md#how-to-read-this-guide) first.
+
+## Headless follow-up — 2026-09-25
+
+After authentication was resolved, Playwright MCP headless verified the existing A agents and new model/smoke/dev replies,
+then correlated A's new and B's original response IDs and tokens with portal traces, independently in both languages.
+The 24 requests, 28 screenshots, six-row assessments and exact hashes are [separate live evidence](live-run.md#headless-guide-audit-20260925),
+not a new video or a new agent-creation run. Send-to-render timings do not establish learner completion times.
+File Search upload was unavailable for the selected `gpt-6-sol` model; the remote Lab 05 Hosted Responses option remains unverified.
 
 ## September 24 `gpt-6-sol` recordings
 
@@ -44,7 +55,7 @@ With `gpt-6-sol` and without recording, conversation evaluation, Agent Optimizer
 ## End-to-end guide run — 2026-09-25
 
 Both core routes ran as written in English and Korean from fresh GitHub copies: route B's core blocks in one terminal, route A in the portal.
-Every block exited 0 and D01–D06 met their criteria; five guide defects were fixed, including the portal's changed **Create an agent** dialog.
+Every block exited 0 and D01–D06 met their criteria. The guide corrections, including the changed **Create an agent** dialog, are itemized in the run record.
 See [the run record](live-run.md#end-to-end-20260925).
 
 ## Review refresh live verification — 2026-09-24

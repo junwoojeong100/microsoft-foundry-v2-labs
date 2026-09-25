@@ -15,6 +15,10 @@ Parent: [Learning paths](paths.md) · Evidence: [Validation record](reference/va
 | IQ advanced | Search, authentication, semantic/knowledge retrieval settings | Planner, embeddings, richer Preview are unnecessary for basic GA |
 | Hosted advanced | Python 3.13 runtime, actual ARM ID, deployment/identity permissions | Local Docker is unnecessary for code deployment |
 
+These are teaching budgets, not measured learner durations. B's [session budget](paths.md#b-session-budget) places Lab 06 on Day 1:
+195 minutes of core work and 45 minutes of breaks/buffer in each session.
+For A Lab 05, prepare the terminal by default; offer the optional Hosted Responses browser path only after verifying it with a participant account.
+
 Do not make beginners depend on every Preview approval or company M365 connection.
 Give each team a unique agent/Search prefix. Only instructors manage shared service
 creation and deletion. Do not prepare a portal Workflow Designer exercise: A's Lab 05
@@ -38,7 +42,9 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
 4. Connect Application Insights to the project for server-side traces and give learners **Log Analytics Reader** on it. If protected tables are enabled, also grant **Privileged Monitoring Data Reader**. This is required for Lab 09 trace checks. In the 2026-09-24 check, managed agent calls appeared in the connected Application Insights within minutes; direct model calls did not.
 5. **For B or a selected IQ module**, prepare separate Search data read/write roles. They are not required for default A.
 6. **Only for selected remote hosting**, prepare the runtime identity's model/tool roles. B's package-only step does not need them.
-7. Optional for A: prepare the Lab 05 hosted workflow agent with the **Responses** protocol and record its stable endpoint, active version, name and Playground location for learners. The local Responses path was checked on 2026-09-24; a remote Playground run was not.
+7. Optional for A: prepare Lab 05's **sequential, local-retrieval, v2, Responses** Hosted workflow in the learner's language.
+   Verify its Playground reply with a participant account, then provide its name/version and location. This is not the Lab 03 Prompt Agent.
+   The local Responses path was checked on 2026-09-24; a remote Playground run was not.
 8. Send a first request using an **actual participant account**, not an administrator.
 9. Set budget alerts and log retention. Budget alerts are not an automatic spending cap.
 10. Review optional-feature approvals, cross-region processing, and tenant policies.
@@ -80,7 +86,7 @@ Check these separately:
 |---|---|
 | Service tier/region | Support for the selected features |
 | Data-plane authentication | Document reads/writes with Entra ID |
-| Participant roles | Reader + Search Index Data Reader; Search Service/Index Data Contributor only for required writers |
+| Participant roles | **Search Service Contributor** + **Search Index Data Contributor** for every B participant who seeds; **Reader** + **Search Index Data Reader** for read-only inspection/retrieval |
 | Semantic ranker | Configuration and separate charges for GA semantic intent |
 | Knowledge retrieval | Management-plane usage/billing consent; `free`/`standard` conditions |
 | Source citations | Returned `id`, `title`, and `content` |
@@ -208,7 +214,8 @@ this edition's validation.** Never publish `.env`, tokens, personal identifiers,
 
 ## 5. Budget and request planning
 
-- Lab 07 collects dev 6 + dev 6 + holdout 4 = **16 target-case requests**.
+- A's core browser route has two Lab 02, four Lab 03 and six Lab 07 baseline requests: **12 requests**, plus the separately counted Lab 05 MAF calls. A justified candidate adds six; A does not use holdout.
+- B Lab 07 collects dev 6 + dev 6 + holdout 4 = **16 target-case requests**, in addition to its other labs.
 - Tools, SDK retries, reasoning, and additional comparisons consume more.
 - Six candidates with two evaluators produce **12 evaluation items**, not necessarily 12 internal LLM calls.
 - Search can incur SKU charges while idle.
@@ -222,11 +229,11 @@ Calculate aggregate team quota. Do not promise an unsupported fixed low price.
 
 | Situation | Instructor response |
 |---|---|
-| A team is blocked by setup for over ten minutes | Use a preverified team environment and explicitly record account/model changes |
-| No model/region quota | Use an approved prepared environment or mark live work not run |
+| A team is blocked by setup for over ten minutes | Preserve the failed attempt; the owner restores the intended environment or records the session incomplete. A separately approved new pass needs its own setup card, folder and labels |
+| No model/region quota | Stop and ask the owner to restore the exact preset's capacity; otherwise mark live work not run. Do not substitute another model after the error |
 | A's MAF environment is missing | Restore it or record "observed; not personally executed"; no portal-workflow substitute |
-| IQ Preview access unavailable | GA path or design observation, labeled as different outcomes |
-| SDK download unavailable | Prepared environment/browser path; never disable certificate verification |
+| IQ Preview access unavailable | Mark the selected Preview module blocked; a separate GA lesson or design note is not completion of that module |
+| SDK download unavailable | Restore the pinned SDKs or a prepared environment for the same route; otherwise record it incomplete. Never disable certificate verification |
 | Baseline passes everything | Record it honestly; discuss coverage rather than manufacturing failures |
 | Hosted deployment fails | Separate package/local verification; avoid repeated costly deployment attempts |
 

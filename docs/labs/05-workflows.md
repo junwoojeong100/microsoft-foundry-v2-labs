@@ -14,7 +14,11 @@
 
 **Continue when:** Actual MAF outputs and a human review note exist; pending-human-review is not approval.
 
-**If blocked:** Ask the owner to check that the terminal is at the repository root with `.venv` active, `.env` filled and your own Azure sign-in, and that Lab 02 B's model request works there. Do not substitute portal Workflow Designer or pasted agent answers.
+**If blocked:** For the terminal, check the repository root, active `.venv`, `.env`, your sign-in and the Lab 02 B result.
+`MAF request failed` reports the SDK failure and its cause; an Azure CLI credential timeout is not a wrong policy answer.
+Preserve the error and use [recovery](../reference/troubleshooting.md#maf-request-failure) before a new paid attempt.
+For Playground, ask the owner to check the supplied Hosted agent/version and Responses profile.
+Do not switch options or substitute portal Workflow Designer.
 
 [One-time setup and learner files](../setup.md).
 
@@ -30,16 +34,35 @@ Using the Agent Playground is different from authoring a workflow in the portal.
 
 ## A. Beginner: run the prepared example yourself
 
-You copy one command into the terminal of the **prepared MAF environment** on your setup card; no code authoring is required.
-It makes real, billable Azure model calls within the owner's budget. Never share an administrator account.
+Use **one** option selected on your setup card: the terminal of a **prepared MAF environment**, or an owner-prepared Hosted workflow agent in Playground.
+No code authoring is required. Either option makes real, billable Azure model calls within the owner's budget.
+Never share an administrator account or run both options just to complete A.
 
 ### 1. Choose the prepared execution option
 
-**Browser option, only if preselected by the owner — remote Playground use not verified in this edition.** Open the prepared Hosted workflow agent in **Build → Agents → Playground**, send the same question once, and record the conversation ID / response ID in `workflow-review.txt`. This is not a fallback after a terminal failure; it is a pre-chosen hosted option. The owner must deploy it with the **Responses** protocol (the Lab 08 section 6 default); an Invocations-protocol evaluation agent is not this option. On 2026-09-24 the same workflow agent answered one local Responses request with the refreshed SDK (three model calls, `pending-human-review`); no remote deployment was made for that check.
+Both options use this exact question:
 
-**Terminal option (default recording path):** run the prepared MAF command below and record `Execution option (prepared terminal / prepared hosted workflow agent in Playground):` in `workflow-review.txt`.
+> My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking.
+
+Record `Execution option (prepared terminal / prepared hosted workflow agent in Playground):` in your personal `workflow-review.txt`.
+
+**Terminal option (default recording path):** continue to step 2.
+
+**Browser option, only if preselected by the owner — remote Playground use not verified in this edition:**
+
+1. Open **Build → Agents → the supplied Hosted workflow agent → Playground**. This is **not** your Lab 03 Prompt Agent.
+   Check the supplied name/version and language. The owner must prepare the sequential local/v2 **Responses** profile from
+   [Lab 08 section 6](08-hosted.md#6-deploy-a-maf-workflow-as-a-hosted-agent), not the Invocations evaluation profile.
+2. Select **New chat** and send only the question above once. Preserve the complete JSON reply in `workflow-review.txt`,
+   with the Hosted agent name/version and visible conversation/response IDs. Record an unavailable ID as unavailable; do not invent it.
+3. **Skip the terminal command in step 2 and go to [step 3's review](#workflow-a-review).**
+
+On 2026-09-24 this workflow answered one local Responses request with the refreshed SDK (three model calls,
+`pending-human-review`); no remote deployment or Playground run was made for that check.
 
 ### 2. Run the prepared sequential workflow
+
+**Terminal option only.** Playground learners have already sent their one request and skip this step.
 
 1. Open the prepared terminal in its browser IDE or VS Code. Its file list shows `README.md` and `scripts/`,
    and the prompt usually starts with `(.venv)`. If not, stop and ask the owner; do not install anything in class.
@@ -60,9 +83,19 @@ otherwise change the file name in `--output` and run again.
 **What to check:** the output shows `mode: live`, `pattern: sequential` and `outputs`.
 This is a MAF run in the terminal, not portal Workflow Designer activity. The recording ran the same command without `--output`.
 
+<a id="workflow-a-review"></a>
+
 ### 3. Read the actual output
 
-Three MAF roles handled the question in order; `outputs` shows only the last role's final text.
+Both options run three MAF roles in order, but **their JSON shapes differ**. Use the row for your chosen option:
+
+| Option | Execution fields | Answer to review |
+|---|---|---|
+| Terminal | `mode: live`, `pattern: sequential` | `outputs`: one final text from `EvidenceReviewer` |
+| Playground | `mode: live`, `runtime_profile.kind: workflow`, `runtime_profile.pattern: sequential` | `answer`: structured answer with `decision`, `limit_krw` and `citations`; compare with the returned `documents` |
+
+The Hosted wrapper does not return the terminal's top-level `pattern` or `outputs`. A missing field from the other option
+is not a failed run; a service error or mismatched profile is. Keep the original response unchanged.
 
 ```mermaid
 flowchart LR
@@ -75,13 +108,13 @@ flowchart LR
 
 | Field | What it establishes |
 |---|---|
-| `mode: live`, `pattern: sequential` | Execution of the prepared MAF code |
-| `outputs` | One final text from `EvidenceReviewer`: the current limit and advance-approval conditions supported by evidence |
 | `approval_status: pending-human-review` | Model review has not become human approval |
 | `external_actions_performed: false` | No actual booking/payment |
 
-1. Open `outputs/workflow-a-sequential.json` in the editor and compare its cited policy IDs with the learner ZIP's `policies/`.
-2. Paste the exact command and the whole file into the learner ZIP's blank `workflow-review.txt`.
+1. Open the terminal's `outputs/workflow-a-sequential.json`, or read the complete Playground reply you saved.
+   Compare the cited policy IDs with the learner ZIP's `policies/`. Playground learners do not need a terminal output file.
+2. Keep the exact command **or Playground question**, complete output and selected option in your personal `workflow-review.txt`.
+   For Playground, read the worksheet's pattern from `runtime_profile.pattern`. If an older worksheet lacks a field, append it; do not replace filled notes.
 3. Write your review there: what is correct, what needs correction, and why. This reviews guidance; it is not business approval.
 
 **What to check:** the saved output says the KRW 170000 hotel exceeds the KRW 150000 limit and needs approval before booking,
@@ -94,7 +127,7 @@ The workflow stops at this JSON; no automatic reject-and-rerun loop or approval 
 One reviewed sequential run completes A: you need an **actual MAF run and human review record**.
 Manually copying answers between portal conversations is not MAF execution.
 If you only watched an instructor, record **MAF observed; personal execution incomplete**.
-Local MAF does not create a managed workflow resource or Hosted Agent.
+The terminal option creates no managed workflow resource or Hosted Agent; the browser option uses the owner's existing Hosted agent.
 **A done:** your personal run and completed `workflow-review.txt` are saved.
 Continue to [Lab 06 A](06-knowledge.md#path-a); do not run the three B commands as additional A steps.
 
@@ -104,6 +137,12 @@ Continue to [Lab 06 A](06-knowledge.md#path-a); do not run the three B commands 
 
 All three commands call a real Azure model and save their full JSON through `--output`; none creates a portal workflow resource.
 Open `run_workflow` in `src/foundry_workshop/agents.py` first: the data, model and three role instructions stay fixed; only the builder changes.
+
+These B commands omit `--question`, so all three use the CLI's same default question:
+
+> What is the domestic business-trip lodging limit per night for September 2026?
+
+This is not A's KRW 170000 hotel question. Review the replies against the question actually sent; do not assume the preceding section supplied it.
 
 | Concept | MAF implementation in this lab |
 |---|---|

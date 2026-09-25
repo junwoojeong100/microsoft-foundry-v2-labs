@@ -27,8 +27,9 @@
    학습자에게 연결된 Application Insights 리소스의 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 필요합니다.
    이제 핵심이 된 Lab 09 trace 단계에 필요합니다. 2026-09-24 확인: 실습 프로젝트에는 이미 Application Insights가 연결되어 있었고 관리형 agent 호출은 몇 분 안에 추적으로 나타났습니다. 학습자 전용 Log Analytics Reader 부여는 재시험하지 않았습니다.
 8. 선택: A 학습자가 Lab 05에서 브라우저 Playground 옵션을 사용할 수 있도록 Lab 05 MAF workflow를 Hosted Agent로 배포합니다.
-   별도 승인 뒤 [Lab 05 C](labs/05-workflows.md) / [Lab 08 6절](labs/08-hosted.md)의 hosted-workflow 경로만 사용합니다.
-   **Responses** protocol(Lab 08 6절 기본값)로 배포합니다. Invocations protocol의 평가용 agent는 브라우저 선택지가 아닙니다.
+   별도 승인 뒤 [Lab 05 C](labs/05-workflows.md) / [Lab 08 6절](labs/08-hosted.md#6-maf-워크플로를-hosted-agent로-배포)만 사용합니다.
+   학습자 언어의 **순차·local 검색·v2·Responses** workflow profile을 준비합니다. Invocations 평가 agent나
+   Lab 03 Prompt Agent는 이 선택지가 아닙니다. 학습자에게 제공하기 전에 참가자 계정으로 실제 Playground 응답을 확인합니다.
    학습자에게 줄 hosted workflow agent 이름과 active version을 기록합니다. 2026-09-24에는 workflow agent가 로컬 Responses 요청 하나에 답했고, 이 확인을 위해 원격 배포는 하지 않았습니다.
 9. 선택: 담당자/강사 PC에 [Foundry Dev Pack](labs/extensions/developer-toolkit.md)을 준비하고, 이후 `az`, `azd`, Foundry azd 확장, SDK, extension 버전을 고정해 기록합니다.
    이 판에서는 테스트하지 않았습니다.
@@ -38,7 +39,15 @@
 
 IQ Chat 학습자는 서비스/객체 정의를 읽는 **Search의 Reader**와 검색하는 **Search Index Data Reader**가 필요합니다.
 위 모델 계정 Reader와는 다른 범위이며 `check`는 모델 계정의 역할 할당도 읽습니다.
-Source를 seed하거나 객체를 만드는 담당자만 Search Service Contributor·Search Index Data Contributor가 필요합니다.
+강사의 성공한 요청만이 아니라 학습자가 수행할 동작에 맞춰 Search 역할을 준비합니다.
+
+| 학습자 동작 | Search 역할 | 범위 |
+|---|---|---|
+| `seed-search`를 실행하는 B 학습자 또는 담당자 | **Search Service Contributor**와 **Search Index Data Contributor** | 준비된 실습 Search 서비스 |
+| 읽기 전용 `retrieve` 또는 준비된 IQ Chat 사용 | **Search Index Data Reader**. 서비스·객체 정의를 조회할 때는 **Reader**도 필요 | 준비된 실습 Search 서비스 |
+
+새 B 학습자는 Lab 06의 객체 작성자입니다. 담당자가 공유 서비스를 이미 만들었어도 첫 행의 역할이 필요합니다.
+역할 할당은 담당자가 승인하며, seed 실습을 한다고 구독 Owner가 필요한 것은 아닙니다.
 모두에게 구독 Owner를 주지 말고 리소스 범위를 사용합니다.
 [공식 Search 권한 표](https://learn.microsoft.com/azure/search/search-security-rbac#summary-of-permissions), 2026-09-15 확인.
 

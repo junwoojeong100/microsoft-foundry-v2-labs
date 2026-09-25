@@ -1,0 +1,18 @@
+{
+  "mode": "live",
+  "language": "ko",
+  "orchestration": "local",
+  "tools": "local-mcp",
+  "text": "{\"answer\":\"2026년 5월 국내 출장 숙박비 한도는 1인 1박 120,000원입니다. 이 한도는 2025년 1월 1일부터 2026년 6월 30일까지의 출장에 적용됩니다. 숙박비 정산에는 영수증이 필요하며, 한도를 초과하는 숙박을 예약하려면 예약 전에 팀장의 명시적 승인을 받아야 합니다.\",\"decision\":\"answer\",\"limit_krw\":120000,\"citations\":[\"TRAVEL-2025\",\"RECEIPT-01\",\"APPROVAL-01\"]}",
+  "answer": {
+    "answer": "2026년 5월 국내 출장 숙박비 한도는 1인 1박 120,000원입니다. 이 한도는 2025년 1월 1일부터 2026년 6월 30일까지의 출장에 적용됩니다. 숙박비 정산에는 영수증이 필요하며, 한도를 초과하는 숙박을 예약하려면 예약 전에 팀장의 명시적 승인을 받아야 합니다.",
+    "decision": "answer",
+    "limit_krw": 120000,
+    "citations": [
+      "TRAVEL-2025",
+      "RECEIPT-01",
+      "APPROVAL-01"
+    ]
+  },
+  "note": "Local Python orchestration still calls a billable Azure model."
+}

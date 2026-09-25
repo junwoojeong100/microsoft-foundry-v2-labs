@@ -1,0 +1,19 @@
+{
+  "mode": "live",
+  "language": "en",
+  "text": "Microsoft Foundry is a managed platform for building, deploying, and monitoring AI applications and agents. Microsoft Agent Framework is an open-source SDK for defining agent behavior and orchestrating agents in code. In short, Foundry provides the platform and services, while Agent Framework provides code-level tools that can be used with Foundry or elsewhere.",
+  "response_id": "resp_068db3d11cf908c3016ab61dc0b3f481909435b338e8237338",
+  "request_id": "47a05c3e-7987-4017-92e2-2a511d9e33a3",
+  "response_model": "gpt-6-sol",
+  "usage": {
+    "input_tokens": 35,
+    "output_tokens": 209
+  },
+  "trace_id": null,
+  "trace_export": "not-configured",
+  "sdk_versions": {
+    "azure-ai-projects": "2.6.1",
+    "openai": "3.16.1",
+    "azure-identity": "1.25.3"
+  }
+}

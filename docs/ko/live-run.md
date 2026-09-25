@@ -4,6 +4,10 @@
 
 **2026-09-24 국문 녹화의 실제 Azure 실행 결과입니다.** 영문 실행, 이전 `gpt-5.6-luna` 판, 원본 저장소의 결과를 복사하지 않았습니다.
 
+**이후 확인:** [9월 25일 Azure 가이드 점검](#azure-guide-audit-20260925)은 두 언어의 CLI 경로와 trace API를 확인했고 요청 실패 한 건을 보존합니다. 새 포털 녹화가 아닙니다.
+그 뒤 [headless 포털 후속 확인](#headless-guide-audit-20260925)으로 브라우저 인증 문제를 해결하고 새 응답·실측값·스크린샷을 추가했습니다. 새 영상은 아닙니다.
+**최신:** [최종 마무리 확인](#final-guide-closeout-20260925)은 가이드 최종 수정과 오프라인 검사 후에만 범위를 제한한 핵심 검증을 실행했습니다. 새 결과와 남은 경계는 아래에 별도로 기록합니다.
+
 ## 환경
 
 | 항목 | 값 |
@@ -250,9 +254,161 @@ B 경로는 Lab 00–11의 핵심 bash 블록을 순서대로 한 터미널(영�
 언어별 Search knowledge base·knowledge source·index를 삭제하고 다시 조회해 404를 확인했고, agent의 Entra agent ID도 404였습니다.
 평가나 데이터 세트는 만들지 않았습니다.
 
+<a id="azure-guide-audit-20260925"></a>
+
+## Azure 가이드 점검 — 2026-09-25(CLI·trace API)
+
+**범위:** `b741473` 이후의 미커밋 가이드 수정까지 포함한 작업 트리를 영문·국문 별도 복사본으로 실행했습니다.
+위의 기존 프로젝트와 `gpt-6-sol` / `2026-09-22` 배포를 읽기 전용으로 확인했습니다.
+원본 저장소의 개인 `.env`는 이전 프로젝트와 `gpt-5.6-luna`를 가리키고 있었으며 그대로 두었습니다.
+새 복사본에는 확인한 현재 가이드의 설정과 본인 prefix `mfv2-a2-0f01-en`, `mfv2-a2-0f01-ko`를 사용했습니다.
+대체 결과를 얻으려고 이전 모델을 호출하지 않았습니다.
+
+| 확인 | 영문 | 국문 |
+|---|---|---|
+| 기본 B 터미널 블록 | 서로 다른 33개 블록 완료. 첫 Group Chat 실패로 총 34회 시도 | 33개 블록 모두 첫 시도 완료 |
+| 저장 응답 파일 | 기본 JSON 14개 모두 보존 | 독립 국문 파일 14개 보존 |
+| 관리형 Prompt Agent | `mfv2-a2-0f01-en-policy-sdk`, 버전 `1` | `mfv2-a2-0f01-ko-policy-sdk`, 버전 `1` |
+| 함수 / 로컬 MCP | 170000원 예약 전 승인 조건, 과거 120000원·`TRAVEL-2025` 확인 | 같은 기준의 독립 국문 응답 |
+| 순차 / 병렬 / Group Chat | 출력 1/4/4개. 사람 검토 대기, 외부 동작 없음 | 같은 출력 구조. 순차 최종 문구는 날짜를 생략하고 한도 초과 조건으로 금액을 설명해 검토 사항으로 보존 |
+| Search / GA IQ | 합성 정책 6건 색인. Local·일반 Search는 6건, IQ는 `TRAVEL-2026`·`APPROVAL-01`을 포함한 4건 | 국문 corpus에서 같은 수 확인 |
+| IQ 근거 답변 | `needs_approval`, 150000원, 필수 인용 두 개. 재검색 context hash가 앞선 IQ 결과와 같음 | 같은 기준이며 독립 국문 context hash 일치 |
+| Lab 07 baseline / candidate / 최종 holdout | 6/6 / 6/6 / 4/4. 수집 오류 0 | 6/6 / 6/6 / 4/4. 수집 오류 0 |
+| 인수 | `ready-for-human-review`, `deployment_approved: false` | 영문에서 복사하지 않은 같은 판단 |
+| Lab 09 trace API | 같은 `invoke_agent`·`chat` span. input/output token 1124/123 | 같은 방식으로 일치. 1290/216 |
+| A Lab 05 터미널 | 정확한 170000원 질문을 한 번 실행·검토 | 국문도 독립적으로 한 번 실행·검토 |
+| Lab 08 / Lab 11 | 로컬 패키지만 생성. `accept`를 반복하지 않고 기존 인수 보고서를 읽음 | 동일 |
+
+Baseline이 모두 통과해 `feedback`은 올바르게 건너뛰었습니다. 각 후보를 검토·고정한 뒤 holdout을 한 번만 수집했습니다.
+평가 실행 여섯 개의 code hash는 `d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4`이며,
+언어마다 별도 prompt·corpus·dataset·response hash를 보존했습니다. 공개 교육용 holdout은 미사용 운영 인수 세트가 아닙니다.
+
+**보존한 실패와 코드 수정:** 영문 Group Chat 첫 시도에서 `az account get-access-token`이 설정된 subprocess timeout 30초를 넘었습니다.
+MAF가 인증 오류를 `ChatClientException`으로 감싸 기존 CLI 오류 처리 밖으로 빠져나가 traceback·종료 코드 `1`이 나왔습니다.
+이제 CLI는 명시적인 Agent Framework 예외 계열을 처리해 하위 원인을 알리고 표준 실패 코드 `2`로 종료하며 성공 파일을 만들지 않습니다.
+자동 재시도·대체 경로를 추가하지 않았고 timeout·모델·endpoint·prompt도 바꾸지 않았습니다.
+읽기 전용 token 확인 성공 뒤 같은 설정으로 새 Group Chat 시도 한 번이 완료됐으며 최초 로그는 그대로 남았습니다.
+
+**브라우저 경계:** Playwright headless 관찰에서 계정·tenant 불일치를 확인했습니다. 프로젝트 머리글과 **Loading...**만으로
+SDK agent가 로드됐다고 판단할 수 없었습니다. 실습 계정용 인증 전용 브라우저를 화면에 열었지만 올바른 tenant의 포털 확인은 인증 대기입니다.
+A 포털 순서나 B의 포털 agent/trace 확인을 이번에 새로 완료했다고 주장하지 않습니다.
+위 trace 결과는 포털이 아닌 scope가 고정된 읽기 전용 API에서 얻었습니다. 새 스크린샷·영상 자산은 만들지 않았습니다.
+이는 해당 CLI 점검 시점의 경계이며, 아래 별도 headless 후속 확인에서 포털 인증 문제를 해결했습니다.
+
+**추가 명확화:** `Succeeded`만이 아니라 정확한 preset을 확인하고, A의 명시적 workflow 질문과 B 기본 질문을 구분하며,
+IQ의 `agenticReasoning`·검색 token을 응답 모델 `usage`와 분리합니다.
+두 GA IQ 결과에는 각각 reasoning token 413·505가 있었지만 선택 모델 계획/합성의 실행 증거는 아닙니다.
+
+**검토를 위해 보존한 소유 자산:** SDK agent 두 개와 언어별 prefix의 `-policies` index, `-source` knowledge source,
+`-kb` knowledge base. 각 작업 폴더에 원본 소유권 ledger·오류·결과를 보존했습니다.
+정리 목록만 작성했고 클라우드 객체를 삭제하지 않았습니다. 공유 모델·Search·로그는 담당자 관리로 남깁니다.
+모델 배포·역할 할당·Hosted 배포·기본 구독 변경·push는 하지 않았습니다.
+기존에 로그인된 CLI 계정을 사용했으며 최소 권한만 가진 학습자 계정은 별도로 시험하지 않았습니다.
+
+[결과·hash·trace ID의 JSON 기록](../assets/azure-guide-audit-20260925/results.json) ·
+[검증과 수정](reference/validation.md#azure-guide-audit-20260925).
+
+<a id="headless-guide-audit-20260925"></a>
+
+## Headless 포털 후속 확인과 응답시간 실측 — 2026-09-25
+
+**인증 때문에 남아 있던 A/B 포털 확인에 새 실제 근거를 추가했습니다.** 화면에 보이는 브라우저는 인증에만 사용했고,
+모든 확인은 같은 실습 프로젝트에서 **Playwright MCP headless**로 영문부터 진행한 뒤 국문을 확인했습니다.
+포털 언어는 영어로 복원했고 임시 인증 전달 파일은 삭제했습니다.
+
+기존 A agent `mfv2-sol-20260924-<language>-policy`의 **버전 2**를 새 버전 저장 없이 재사용했습니다.
+실제 저장 지침은 합성 정책 6개를 포함한 현재 학습자 파일과 정확히 일치했습니다.
+만들기 창은 확인 후 취소했으므로 **새 agent 생성 실행이 아니라 재개·읽기 확인과 실제 요청 검증**입니다.
+
+| 확인 | 영문 | 국문 |
+|---|---|---|
+| Lab 02 모델 Playground | 새 응답 2건. 근거 없는 질문에서 금액을 보류 | 독립 국문 응답 2건. 금액을 보류 |
+| Lab 03 / Lab 06 인라인 근거 | 새 smoke 응답 4건이 적용일·금액·승인·인용 기준 충족. 외부 도구·지식 연결 없음 | 국문 질문·지침으로 같은 네 기준 확인 |
+| Lab 07 고정 버전 dev 평가 | **6/6**, 요청 오류·누락 행 없음 | **6/6**, 요청 오류·누락 행 없음 |
+| dev 6행의 보내기 → 응답 표시 시간 | 중앙값 **6.75초**, 범위 **5.69–9.29초** | 중앙값 **5.41초**, 범위 **4.11–7.01초** |
+| Lab 09 A, 이번 D06 | 응답·버전 2·`invoke_agent` → `chat` 일치. input/output **1144/153** | 응답·버전 2·span 일치. **1339/273** |
+| Lab 03 B / Lab 09 B, 원래 점검 요청 | SDK 지침이 CLI 정의와 정확히 일치. 버전 1, trace **79b867e1985015fdd02cfe8a47fa9ee7**, token **1124/123** | 지침 정확히 일치. 버전 1, trace **87fad9894be9e9c55f0a9b3d8b5199bc**, token **1290/216** |
+
+**실측 경계:** 새 요청은 총 24건으로 언어별 모델 2건·smoke 4건·dev 6건입니다.
+질문마다 새 채팅을 시작했습니다. B 추적을 찾으려고 재호출하지 않았으며 candidate·holdout·cloud judge도 실행하지 않았습니다.
+시간은 보내기 클릭부터 해당 응답 ID의 복사 동작이 화면에 나타날 때까지로, 포털·네트워크·렌더링 시간이 포함됩니다.
+서버 span 시간, 실제 학습자 시범 운영, 270분 수업 검증 또는 어느 언어가 더 빠르다는 근거가 아닙니다.
+국문 개념 응답은 Foundry 리소스를 작업 공간으로 단순화했으므로, 리소스·프로젝트 구분은 Lab 01의 설명을 기준으로 합니다.
+
+**수집 실패 보존:** 초기 계측 도구에서 VM·endpoint·응답 본문·스트림 종료 처리의 제약이 발생했습니다.
+원래 응답과 response ID를 화면에서 보존했으며 같은 질문을 다시 보내지 않았습니다.
+초기 요청 4건은 고해상도 시간이 없고 임의 값을 채우지 않았습니다. 언어별 dev 6행에는 모두 실측 시간이 있습니다.
+이 수집 오류가 앞선 CLI 점검의 Group Chat 실패를 대체하지도 않습니다.
+
+**계속 미실행:** File Search는 선택한 `gpt-6-sol` 모델에서 **파일 업로드**가 비활성화되고 모델 미지원 안내가 표시됐습니다.
+원격 Lab 05 Hosted **Responses** Playground 방식, 새 배포·역할·기본 구독 변경, 선택 cloud judge·C 모듈도 실행하지 않았습니다.
+A Lab 05의 완료된 터미널 결과는 앞선 점검에 그대로 두었고 재실행하거나 Hosted 결과로 바꾸어 적지 않았습니다.
+Agent 정의·prompt·corpus·dataset·채점 기준을 바꾸지 않았고 게시·push·클라우드 삭제도 하지 않았습니다.
+새 대화·응답 기록과 기존 공유 서비스에는 담당자의 정리·비용 관리 계획이 계속 적용됩니다.
+
+**근거:** 새 스크린샷 28개, 두 언어의 6행 평가 CSV, 실제 지침 스냅샷, 응답·token,
+trace 메타데이터·SHA-256 hash를 이전 녹화와 분리해 보존했습니다.
+[결과와 hash](../assets/headless-guide-audit-20260925/results.json) ·
+[영문 평가표](../assets/headless-guide-audit-20260925/en/assessment-baseline.csv) ·
+[국문 평가표](../assets/headless-guide-audit-20260925/ko/assessment-baseline.csv) ·
+[영문 trace](../assets/headless-guide-audit-20260925/en-b-trace-detail.png) ·
+[국문 trace](../assets/headless-guide-audit-20260925/ko-b-trace-detail.png).
+
+<a id="final-guide-closeout-20260925"></a>
+
+## 최종 마무리: 가이드 수정 후 실행 확인 — 2026-09-25
+
+**순서:** 영문 가이드 수정 → 국문·학습자 파일 정합 → 모든 오프라인 검사 → 소스 고정 → 영문 CLI →
+국문 CLI → headless 읽기 확인·trace 대조. 고정 시각은 `2026-09-25T07:04:32Z`,
+기준은 `b741473`과 작업 트리 수정이며 code hash는 `e92c1be2716a3a65608de16bd217a72439d606594ca2506910881974996b1682`입니다.
+새 독립 실행 복사본에서 기존 실습 소유 prefix와 원래 ledger를 재사용했습니다. 원본 `.env`와 Azure CLI 기본 구독은 바꾸지 않았습니다.
+준비된 환경의 확인이지 새 학습자 설치·리소스 생성·배포 실행은 아닙니다.
+
+| 항목 | 영문·국문 새 결과 |
+|---|---|
+| Lab 00/02 사전 확인 | 정확한 `gpt-6-sol` / `2026-09-22`, `Succeeded`. 사전 확인만으로 추론 성공을 주장하지 않음 |
+| Lab 02 | 실제 모델 응답과 로컬 근거 구조화 답변. 현행 150000원 한도와 실제 인용 확인 |
+| Lab 03 B | 기존 `mfv2-a2-0f01-<language>-policy-sdk` 버전 1을 언어별 한 번 호출. 저장 지침이 현재 CLI 정의와 일치하며 생성은 반복하지 않음 |
+| Lab 04 | 도구 없음·함수·로컬 MCP 명령 완료. 한도 초과 승인과 과거 120000원 답변 확인. 설정된 도구 표시만으로 실제 tool-event trace를 캡처한 것은 아님 |
+| Lab 05 B | 순차/병렬/Group Chat 출력 1/4/4개. 외부 동작 없이 사람 검토 대기 |
+| Lab 05 A 기본 터미널 | 정확한 170000원 질문을 언어별 한 번 실행. 최종 문장 두 개 모두 150000원·예약 전 승인·`TRAVEL-2026` + `APPROVAL-01` 포함 |
+| Lab 06 | 기존 local/Search/GA IQ 근거는 언어별 6/6/4건. 실제 본문이 합성 원문과 일치. IQ 반환 필드는 `id`, `title`, `content`였고 별도 날짜 필드를 만들어 넣지 않음 |
+| Lab 06 답변 | 새 IQ 근거 답변은 `needs_approval`, 150000원, 필수 ID 두 개. 각 언어에서 재검색 hash가 앞선 IQ 조회와 같음 |
+| Lab 08 | 로컬 패키징 명령 두 개 완료. 두 manifest의 `cloud_deployed: false` 유지 |
+| Lab 09 | 새 영문·국문 SDK response ID가 포털 trace·input/output token과 일치. 정리 목록은 보존한 로컬 ledger만 읽고 아무것도 삭제하지 않음 |
+| Lab 07/10/11 경계 | 새 수집·judge·인수 없음. 이전 평가 이력 보존, 외부 IQ는 설계만, 새 출력·패키지·trace 인계 근거 확인 |
+
+**개수:** 가이드 CLI 명령 32개 모두 종료 코드 0, 별도 로컬 패키징 명령 2개, 새 JSON 출력 28개입니다.
+이는 **실제 내부 모델 호출 수가 아니라 명령 수**입니다. MAF workflow·도구·변경하지 않은 SDK 재시도 정책에 따라
+더 많은 호출이 생길 수 있습니다. 검증 드라이버의 재시도, 대체 모델·endpoint/provider·fixture 사용은 없었습니다.
+A 인라인 agent는 저장 버전 2와 정확한 지침 hash를 읽기 확인했으며 앞선 6문항 브라우저 평가를 반복하지 않았습니다.
+이번 포털 읽기 확인은 영문 UI에서 두 agent 언어를 확인한 것이며 새 국문 UI 녹화로 바꾸어 적지 않습니다.
+
+| 새 관리형 agent 호출 | Response ID | 서버 trace ID | Input / output token |
+|---|---|---|---|
+| 영문 버전 1 | `resp_0131ce4e1fd7c0f2016ab61dcaebb88194acd3fea76cd13212` | `bd829da0e764532e45c5cc134b1585ac` | 1124 / 113 |
+| 국문 버전 1 | `resp_07b8501455f6649a016ab61e946b588195ae3734eb853b81e1` | `4d5f22d02ca12433bbdd18c8f8203d51` | 1290 / 114 |
+
+**보존한 실패와 검토 사항:** 별도 Foundry MCP `agent_get` 조회는 설정된 ID에 `agents/read` 권한이 없어 **403**을 반환했습니다.
+역할을 추가하거나 성공으로 표시하지 않았습니다. 가이드에서 미리 선택한 구독 고정 CLI와 인증된 headless 포털은 별도로 확인했습니다.
+국문 concurrent의 출력 인덱스 2에는 금액·승인 조건이 있지만 정책 ID가 없습니다.
+집계에 다른 참가자의 인용이 있다고 그 개별 답변을 고친 것으로 처리하지 않습니다. 원본 JSON을 그대로 보존했습니다.
+이 관찰을 개선하려고 prompt·corpus·dataset·기준을 조정하지 않았습니다.
+
+**새로 실행하지 않은 것:** agent 생성/저장, Search seed, v1/v2 dev/holdout 수집, cloud judge, 로컬/원격 Hosted 서버,
+원격 A Hosted Responses 방식, 별도 게이트가 있는 확장 모듈입니다. 이전 6/6·6/6·4/4는 이 code hash의 새 인수가 아닙니다.
+기능 정보 로드 후 File Search는 계속 비활성화됐으며, 처음 잠깐 활성화된 것처럼 보인 버튼을 지원으로 세지 않았습니다.
+회사/Microsoft 365 데이터, 역할·기본 구독 변경, 게시·push·클라우드 삭제도 없습니다.
+실제 참가자 계정 준비와 학습자 수업시간 검증은 담당자·시범 운영의 몫이며 운영자 실행 성공으로 주장하지 않습니다.
+
+[결과와 원본 출력 hash](../assets/final-guide-closeout-20260925/results.json) ·
+[랩·확장 항목별 상태](../assets/final-guide-closeout-20260925/module-checks.csv) ·
+[문서 쌍 검사](../assets/final-guide-closeout-20260925/document-checks.json) ·
+[가이드 수정과 로컬 검증](reference/validation.md#final-guide-closeout-20260925).
+
 ## gpt-6-sol로 실행하지 않은 것
 
-- Lab 03 포털 File Search
+- Lab 03 포털 File Search(9월 25일 headless 확인에서 선택 모델의 업로드 비활성화 확인)
 - Lab 06 IQ Chat preset(gpt-5.6-luna)과 하이브리드 RAG
 - Lab 07 feedback/regression 단계(baseline 실패 없음, 대신 근거 없음 진단 실행)
 - Lab 07 Hosted 모델 matrix

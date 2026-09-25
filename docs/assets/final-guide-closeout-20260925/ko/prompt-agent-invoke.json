@@ -1,0 +1,20 @@
+{
+  "mode": "live",
+  "agent_name": "mfv2-a2-0f01-ko-policy-sdk",
+  "agent_version": "1",
+  "text": "{\"answer\":\"2026년 9월 국내 출장 숙박비 한도는 1인 1박 150,000원입니다. 2026년 7월 1일부터 적용되는 규정이며, 한도 이내라도 정산 시 영수증이 필요합니다.\",\"decision\":\"answer\",\"limit_krw\":150000,\"citations\":[\"TRAVEL-2026\"]}",
+  "response_id": "resp_07b8501455f6649a016ab61e946b588195ae3734eb853b81e1",
+  "request_id": "64f9e3b0-36e7-46bd-9e4f-78f6851f7d6b",
+  "response_model": "gpt-6-sol",
+  "usage": {
+    "input_tokens": 1290,
+    "output_tokens": 114
+  },
+  "trace_id": null,
+  "trace_export": "not-configured",
+  "sdk_versions": {
+    "azure-ai-projects": "2.6.1",
+    "openai": "3.16.1",
+    "azure-identity": "1.25.3"
+  }
+}

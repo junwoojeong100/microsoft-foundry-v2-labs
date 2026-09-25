@@ -12,6 +12,7 @@ Earlier videos and upstream results are not relabeled as new evidence.
 
 | Question | Answer | Details |
 |---|---|---|
+| What is the final closeout status? | Six guide/material/evidence issues corrected; all 63 language pairs checked. After the corrected revision passed offline gates, 32 bounded guide CLI commands and two local package commands completed in both languages. Two new SDK responses matched portal traces. This is not a fresh full acceptance or an all-feature Azure claim | [Final closeout](#final-guide-closeout-20260925) |
 | What is recorded? | The main A/B steps of Labs 00–09 and 11 and the optional Foundry evaluation steps, in English and Korean, with `gpt-6-sol` / `gpt-6-sol-judge` (`2026-09-22`) in the Sweden Central training project | [Re-recording](#gpt-6-sol-20260924) · [videos](../video-summary.md) |
 | What did the live runs return? | In each language: business checks baseline 6/6, candidate 6/6 and holdout 4/4; acceptance `ready-for-human-review` with `deployment_approved: false`. Judge scores are kept separately and do not decide acceptance | [Actual results](../live-run.md) |
 | What else ran with `gpt-6-sol`, unrecorded? | September 23: verification runs of the optional evaluation steps (recorded again on September 24), the conversation evaluation module, existing-traces and recurring evaluations, Agent Optimizer (baseline only), cloud red teaming (displayed ASR invalid) and the approved Hosted CI release | [Additions](#foundry-evaluation-additions) · [previously not-run items](#previously-not-run-items) |
@@ -19,8 +20,134 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | How do I check a working copy? | Run the offline tests, Ruff, compilation, documentation and learner-bundle checks below. Each dated record states what passed for its revision | [Local checks](#local-checks-to-run) |
 | What is outside this evidence? | Company/Microsoft 365 data, external Work IQ/Fabric connections, SLAs, statistical superiority, automatic retraining, production approval and other users' resources | [Not established](#not-established) |
 | What changed in the September 24 review refresh? | Refreshed SDK pins, Lab 03 B managed agent in the B core, a core trace check, a browser option for A Lab 05, the Insights module, standalone SDK recipes and new CI checks. That evening the core B route ran live in both languages with the new pins, plus the trace lookup, recipes, A2A and one Insights scan; four guide or recipe defects were fixed | [Review refresh](#review-refresh-20260924) · [live check](#review-refresh-live-20260924) |
-| What was added on September 25? | Both core routes run end to end as written in both languages, with five guide fixes; screenshots and short clips of Lab 03 B and the Lab 09 B trace search in both languages; English runs of conversation evaluation, memory, a routine and the Toolbox up to discovery; the remaining items need owner approval | [Supplement and not-run review](#review-refresh-supplement-20260925) |
-| How straightforward are the guides and documents? | AI editorial review: in the September 25 final check, new reviewers scored guides 94/100 and documents 90/100 (round 6), and 99.5/100 and 98/100 after the fixes (round 7). Not a learner pilot or timing measurement | [Latest review](#straightforwardness-95) |
+| What was added on September 25? | Both core routes run end to end as written in both languages, with six guide fixes; screenshots and short clips of Lab 03 B and the Lab 09 B trace search in both languages; English runs of conversation evaluation, memory, a routine and the Toolbox up to discovery; the remaining items need owner approval | [End-to-end run](#end-to-end-20260925) · [supplement](#review-refresh-supplement-20260925) |
+| What changed in the later guide audit? | Corrected the required B agent, sign-in/recovery, A workflow branches and their different JSON shapes, trace-resume filters and learner worksheets. Offline checks only; no new Azure or media evidence | [Guide audit](#guide-audit-20260925) |
+| What did the subsequent Azure audit verify? | Both core CLI routes and A Lab 05 terminal commands ran against the existing `gpt-6-sol` project. Each language returned 6/6, 6/6 and 4/4 and matching managed-agent traces. One English Group Chat credential timeout was retained; its uncaught SDK error reporting was fixed. Its portal blocker was resolved in the separate follow-up below | [Live audit](#azure-guide-audit-20260925) |
+| What did the headless follow-up complete? | A's model/inline-agent/dev checks and A/B portal trace correlation, English then Korean. New manual dev assessments: 6/6 each. Median Send-to-render time: 6.75 s / 5.41 s over six rows each. File Search upload was disabled for the selected model | [Headless follow-up](#headless-guide-audit-20260925) |
+| How straightforward are the guides and documents? | Earlier AI editorial review scored guides 94/100 and documents 90/100 (round 6), then 99.5/100 and 98/100 (round 7). Those scores do not rate the later audit revision and are not a learner pilot or timing measurement | [Earlier review](#straightforwardness-95) |
+
+<a id="guide-audit-20260925"></a>
+
+## Guide accuracy and consistency audit, offline only — September 25, 2026
+
+Reviewed the A/B instructions after `b741473` against the executable commands, output contracts, generated handouts
+and official sign-in/tracing documentation. English was corrected first, then Korean; completed pairs retain exact hashes in `docs/localization.json`.
+
+| Finding | Correction |
+|---|---|
+| Lab 00 said B did not need a Lab 03 agent, while the route required one; the command lookup also hid it under optional work | Distinguish A's browser agent from B's required SDK agent; align the core lookup, save checkpoints and route-specific completion criteria |
+| `.env` preparation repeated `az login`, and 403 recovery repeated it again despite shared-subscription constraints | Separate file preparation from first/expired sign-in, preserve an existing login, reject a blank tenant before login and send permission failures to the owner |
+| Lab 05's browser option led into terminal-only commands and output fields | One explicit question and one selected option; Playground skips the terminal block. Document `runtime_profile` / `answer` versus terminal `pattern` / `outputs`, the owner-prepared profile, and the matching worksheet/handoff |
+| Day-2 trace lookup could search only Last Day and report older evidence missing | Include the original request's time range and agent/version before searching the saved response ID; do not make a new request to replace history |
+| Smaller cross-page/language inconsistencies remained | Correct Korean Lab 05 step numbering, remove its extra B setup command, distinguish the A ZIP from B's source copy, and correct the earlier live-run fix count from five to six |
+
+**Verified locally:** 314 offline tests on each of Python 3.13 and 3.14 with site packages disabled, including six added regression tests;
+five installed-SDK workflow tests with stubbed transports, including both language Responses payloads;
+Ruff check/format, Python compilation, documentation checks, generated learner-bundle checks, `pip check` and `check_sdk.py`.
+The worksheet generator rebuilt both learner ZIPs and their manifests. Canonical prompts, policy corpus, evaluation datasets,
+fixtures and grading criteria were not changed.
+
+**Not run in this audit:** live Azure calls, sign-in, deployment, role/default-subscription changes, publication, push,
+new screenshots/recordings or a learner pilot. The remote Lab 05 Playground option remains unverified in this edition;
+the local stub-transport check is not a remote execution result. No new editorial score or model-quality claim was assigned.
+
+<a id="azure-guide-audit-20260925"></a>
+
+## Subsequent Azure guide audit — September 25, 2026
+
+The user requested real Azure execution after the offline audit, with **Playwright headless** for browser work and a visible
+browser only when authentication was needed. English ran first, then Korean, using separate copies/prefixes and only bundled synthetic data.
+
+**Live evidence:** 33 distinct core B terminal blocks per language; all 14 saved response files per language;
+real model, managed-agent, function/MCP, three workflow patterns, Search/IQ and controlled evaluation;
+A Lab 05's terminal question in both languages; package-only output and cleanup inventory.
+Each language's baseline/candidate/holdout passed 6/6, 6/6 and 4/4 with no collection errors.
+Both managed-agent trace queries matched the saved response IDs and token counts.
+The existing acceptance files were read at handoff; they were not recreated to count another execution.
+
+**Corrected:** typed MAF SDK exceptions now retain their cause and use exit `2` rather than escaping the CLI error boundary;
+the guides distinguish authentication/tenant/preset readiness, document the actual default B workflow question,
+and separate IQ retrieval accounting from model usage. The first English Group Chat credential timeout remains in the record;
+after a successful read-only token check, one explicit retry with unchanged model/prompt/provider settings completed.
+
+**Verified locally:** 317 offline tests on each of Python 3.13 and 3.14, four new installed-SDK error-boundary tests with mocked
+calls, Ruff check/format, compilation, documentation and learner-bundle checks. No model, prompt, corpus, dataset, grading threshold
+or fallback behavior was changed.
+
+**Blocked or not selected at that point:** correct training-account browser authentication, hence new A portal and B portal verification;
+remote Hosted/Playground deployment, cloud judges and C modules. The portal header seen while loading was not counted as a successful
+agent check. No new media, role assignment, model deployment, default-subscription change, deletion or push.
+The subsequent headless follow-up resolved the browser blocker without changing this earlier run's scope or results.
+
+[Run details and retained objects](../live-run.md#azure-guide-audit-20260925) ·
+[Machine-readable evidence](../assets/azure-guide-audit-20260925/results.json).
+
+<a id="headless-guide-audit-20260925"></a>
+
+## Headless portal follow-up — September 25, 2026
+
+**Completed live, in English then Korean:** the prepared project/model check; two model Playground questions; read-back of the existing
+inline agent's exact saved instructions, version and empty tools/knowledge; four smoke questions and six dev questions per language;
+the new A response's portal trace; and the original audit's B agent/version/instructions and response-to-trace/token correlation.
+There were **24 new requests**, with no B trace-seeding call. Both six-row dev assessments passed **6/6**, with no missing/error rows.
+
+**Measured:** over the six dev requests per language, Send-to-render median **6.75 s** (English, **5.69–9.29 s**) and
+**5.41 s** (Korean, **4.11–7.01 s**). These are automated browser measurements including network/rendering, not server latency,
+a learner pilot or proof of the 270-minute schedule. Initial capture-helper failures were preserved without resending questions;
+four initial requests lack high-resolution timing. They are not assigned zero or included in the six-row dev timing cohort.
+
+**New evidence, not older media:** 28 screenshots, actual responses, instruction snapshots, two assessment CSVs,
+trace metadata and exact file hashes. No new video, agent creation/Save, prompt change, candidate, holdout, cloud judge or acceptance run.
+The two creation forms were inspected and cancelled; the existing version-2 browser agents were reused.
+
+**Remaining boundary:** File Search upload was disabled for the selected `gpt-6-sol` model in this project;
+the remote Lab 05 Hosted Responses option remains unverified. A Lab 05's terminal runs remain the previous audit's results.
+Provisioning, role/default-subscription changes, deployment, publication, push and cloud deletion were not performed.
+Company/Microsoft 365 data and a separate least-privilege learner-account test remain outside this evidence.
+
+[Actual results and measurement method](../live-run.md#headless-guide-audit-20260925) ·
+[Machine-readable evidence](../assets/headless-guide-audit-20260925/results.json).
+
+<a id="final-guide-closeout-20260925"></a>
+
+## Final guide closeout — September 25, 2026
+
+**The identified guide inconsistencies are corrected; owner preparation and unselected modules remain explicit.**
+English was corrected first, then Korean and the generated learner ZIPs. No new editorial score or learner-time claim was assigned.
+
+| Review angle | Correction |
+|---|---|
+| Accuracy | The former B Day 2 had 245 minutes before breaks. Lab 06 now ends Day 1; each session is 195 minutes of labs + 45 minutes of breaks/buffer. All advertised durations are teaching plans |
+| Consistency | `policies/` is required for A's source inspection, not File Search only. Setup, generated `START-HERE.txt`, ZIPs and both languages agree |
+| Alignment | Fresh B seeding participants need the named Search writer roles. Current evidence is linked with its actual scope; the English availability image is labeled as a reference, not a Korean tutorial capture |
+| Straightforwardness | A Lab 05 defaults to the verified prepared terminal. Hosted Responses is an owner-verified opt-in; an error never silently changes the selected account/model/route |
+
+**Verified before Azure:** 321 offline tests on each of Python 3.13 and 3.14, 91 installed-SDK tests with stubbed transports,
+Ruff check/format, compilation, documentation/CLI parity and both generated learner bundles.
+Four new regressions first reproduced the inconsistencies. The full suite also found the availability-image language/registration
+problem; it was corrected without relaxing the existing media test.
+
+**Then verified live:** the corrected source was frozen before the English and Korean checks.
+Each language completed 16 current guide CLI commands: read-only preflight, model/structured answers, invocation of the existing
+SDK agent, all three MAF modes and workflow patterns, local/Search/GA IQ reads, an IQ-grounded answer, A's exact terminal workflow
+question and local cleanup inventory. Each language also built the package locally. Saved definitions and new response/trace/token
+correlation were checked through Playwright MCP headless. No agent creation, seeding, deployment, role/default-subscription change,
+cloud judge or holdout collection was performed.
+
+**Retained findings, not hidden by successful exits:** the separate Foundry MCP `agent_get` probe returned **403** for its configured
+identity; its permissions were not broadened. The already authenticated portal and explicitly subscription-bound guide CLI worked.
+One Korean concurrent participant output omitted policy IDs; its original text remains. The aggregate's citations do not repair that output.
+Successful command execution is not an all-pass business-quality score or human approval.
+
+**Remaining work before a class:** the owner must check actual participant permissions, quota, Search writes and trace access.
+The 270/480-minute schedules still need a learner pilot. File Search was unavailable after capabilities loaded; the remote A Hosted
+Responses path and other optional C/paid/owner-write workflows are not newly verified. Earlier baseline/candidate/holdout results remain
+historical evidence, not acceptance for this new code hash.
+
+[Fresh execution details](../live-run.md#final-guide-closeout-20260925) ·
+[12 labs and 17 extensions, item by item](../assets/final-guide-closeout-20260925/module-checks.csv) ·
+[63 document pairs and frozen hashes](../assets/final-guide-closeout-20260925/document-checks.json) ·
+[Results, original outputs and retained findings](../assets/final-guide-closeout-20260925/results.json).
 
 <a id="review-refresh-20260924"></a>
 
@@ -404,4 +531,3 @@ learner ZIPs were regenerated. No Azure call, resource or permission change, dep
 ## Older validation history
 
 Older guide reviews, September 17 records and September 15 media/execution history moved to [Validation history](validation-history.md). The current page keeps the current answer, recent dated evidence, local checks and boundaries.
-

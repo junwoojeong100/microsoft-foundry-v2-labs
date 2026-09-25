@@ -1,0 +1,1614 @@
+{
+  "schema_version": 1,
+  "artifact_format_normalization": {
+    "kind": "csv-record-newlines-crlf-to-lf",
+    "csv_cell_values_unchanged": true,
+    "response_json_unchanged": true,
+    "original_sha256": {
+      "module-checks.csv": "7137088ead34b6eb4ce151eb669473237103ad93a961900ef1e379cacad5d520"
+    }
+  },
+  "date": "2026-09-25",
+  "recorded_at": "2026-09-25T07:36:10.313770+00:00",
+  "scope": "Final accuracy, consistency, alignment and straightforwardness closeout, followed by bounded live checks only after guide fixes and offline validation.",
+  "order": [
+    "English guide fixes",
+    "Korean alignment and learner-bundle regeneration",
+    "offline and SDK gates",
+    "source freeze",
+    "English live commands",
+    "Korean live commands",
+    "headless read-back and trace correlation",
+    "result documentation"
+  ],
+  "base_commit": "b7414734a4a378f298dc93dfd37da52e9973ce16",
+  "working_tree_included": true,
+  "frozen_at": "2026-09-25T07:04:32.603833+00:00",
+  "code_hash": "e92c1be2716a3a65608de16bd217a72439d606594ca2506910881974996b1682",
+  "review_dimensions": {
+    "accuracy": [
+      "Each B session now fits 195 minutes of labs plus 45 minutes of breaks/buffer.",
+      "Teaching plans are not labeled as measured learner durations.",
+      "Historical foundation evidence is not called the current preset."
+    ],
+    "consistency": [
+      "Core policy inspection is distinct from optional File Search in the generator, ZIPs and setup guides.",
+      "The prepared terminal is consistently A Lab 05's default."
+    ],
+    "alignment": [
+      "B seeding writers, including participants, need the two named Search writer roles.",
+      "Actual saved agent versions and instructions are kept when resuming source checks.",
+      "English availability evidence is an explicitly labeled reference, not a Korean tutorial image."
+    ],
+    "straightforwardness": [
+      "One default workflow path; Hosted Responses requires preselection and owner verification.",
+      "Failures stop the chosen path rather than silently changing accounts, models or learning routes.",
+      "Current evidence links and per-item status distinguish fresh, historical, blocked and design-only work."
+    ]
+  },
+  "new_regression_tests": 4,
+  "initial_regressions": "The four new checks failed for both languages before the corrections. Full validation also caught the unregistered/cross-language availability image; the original media test was preserved.",
+  "offline_validation": {
+    "python_3_13_tests": 321,
+    "python_3_14_tests": 321,
+    "installed_sdk_stub_tests": 91,
+    "ruff": "passed",
+    "compilation": "passed",
+    "docs": "passed",
+    "learner_bundles": "passed",
+    "markdown_files": 127,
+    "cli_examples": 328,
+    "azd_examples": 84,
+    "language_pairs": 63,
+    "pending_translations": 0
+  },
+  "status_meaning": "Executed/contract-checked means the documented command completed and its observable output contract was checked. It is not an all-case business-quality score, actual human approval, or production acceptance.",
+  "unchanged_boundaries": {
+    "new_model_deployments": false,
+    "new_agent_versions": false,
+    "search_seeding": false,
+    "role_assignments": false,
+    "default_subscription_changed": false,
+    "root_env_changed": false,
+    "cloud_judges_run": false,
+    "new_dev_or_holdout_collection": false,
+    "acceptance_reissued": false,
+    "publication_or_push": false,
+    "cloud_deletion": false,
+    "company_or_microsoft_365_data": false,
+    "least_privilege_learner_identity_tested": false,
+    "human_learner_pilot": false
+  },
+  "questions_source": "Exact current guide CLI blocks. These are not a new dev/holdout evaluation cohort.",
+  "caller_boundary": "Guide commands used the existing training subscription's explicitly pinned Azure CLI authentication. Portal checks used the already authenticated headless browser. The separate Foundry MCP read failure is retained, not counted as success.",
+  "mcp_probe": {
+    "operation": "Foundry MCP agent_get",
+    "target_agent": "mfv2-a2-0f01-en-policy-sdk",
+    "observed_at": "2026-09-25T07:05:15.1231387+00:00",
+    "status": "failed",
+    "http_status": 403,
+    "error_code": "ForbiddenError",
+    "message": "The configured MCP identity lacks Microsoft.CognitiveServices/accounts/AIServices/agents/read.",
+    "correlation_operation": "68e7aaaaf851d43b93261d4e331371c9",
+    "correlation_request": "07af04d894a6e192",
+    "retried": false,
+    "role_assignments_changed": false,
+    "default_subscription_changed": false,
+    "boundary": "Do not relabel this as a successful MCP read. The planned guide CLI checks use the repository's explicit subscription-bound authentication; the already authenticated headless portal is checked separately."
+  },
+  "languages": {
+    "en": {
+      "started_at": "2026-09-25T07:07:34.038425+00:00",
+      "finished_at": "2026-09-25T07:09:23.828395+00:00",
+      "guide_commands": [
+        {
+          "id": "en-B02-01",
+          "guide": "docs/labs/02-models.md",
+          "original_command": "python scripts/workshop.py --language en doctor --cloud",
+          "arguments": [
+            "--language",
+            "en",
+            "doctor",
+            "--cloud"
+          ],
+          "started_at": "2026-09-25T07:07:34.043877+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "observed": {
+            "command": "doctor",
+            "deployment": {
+              "model": {
+                "callRateLimit": null,
+                "format": "OpenAI",
+                "name": "gpt-6-sol",
+                "publisher": null,
+                "source": null,
+                "sourceAccount": null,
+                "version": "2026-09-22"
+              },
+              "name": "gpt-6-sol",
+              "state": "Succeeded"
+            }
+          },
+          "elapsed_seconds": 4.703,
+          "finished_at": "2026-09-25T07:07:38.747228+00:00"
+        },
+        {
+          "id": "en-B02-02",
+          "guide": "docs/labs/02-models.md",
+          "original_command": "python scripts/workshop.py --language en model    --question \"Explain the difference between Foundry and Agent Framework in three English sentences.\"    --output outputs/learner-notes-en/model.json",
+          "arguments": [
+            "--language",
+            "en",
+            "model",
+            "--question",
+            "Explain the difference between Foundry and Agent Framework in three English sentences.",
+            "--output",
+            "outputs/learner-notes-en/model.json"
+          ],
+          "started_at": "2026-09-25T07:07:38.751405+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/model.json",
+          "output_sha256": "19ddbc37e22e240b883cfcf0d7977a07a9fc9b99efb22e549ee891340ea3c7be",
+          "observed": {
+            "command": "model",
+            "response_id": "resp_068db3d11cf908c3016ab61dc0b3f481909435b338e8237338",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 35,
+              "output_tokens": 209
+            }
+          },
+          "elapsed_seconds": 6.533,
+          "finished_at": "2026-09-25T07:07:45.288607+00:00",
+          "artifact": "en/model.json"
+        },
+        {
+          "id": "en-B02-03",
+          "guide": "docs/labs/02-models.md",
+          "original_command": "python scripts/workshop.py --language en answer --prompt v2 --retrieval local    --output outputs/learner-notes-en/answer-local.json",
+          "arguments": [
+            "--language",
+            "en",
+            "answer",
+            "--prompt",
+            "v2",
+            "--retrieval",
+            "local",
+            "--output",
+            "outputs/learner-notes-en/answer-local.json"
+          ],
+          "started_at": "2026-09-25T07:07:45.293079+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/answer-local.json",
+          "output_sha256": "baba8148475d8637dc2c6b97c34bea0c644ef3abd1282d47b647b6de06ae150e",
+          "observed": {
+            "command": "answer",
+            "response_id": "resp_05d65ca82523aa5f016ab61dc5db7881939f8b3fc0141da216",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 1085,
+              "output_tokens": 150
+            },
+            "answer": {
+              "answer": "For domestic business trips in September 2026, the lodging limit is KRW 150,000 per person per night. This policy applies from July 1, 2026, and a receipt is required. If a booking would exceed the limit, team-lead approval is required before booking.",
+              "decision": "answer",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026",
+                "APPROVAL-01"
+              ]
+            }
+          },
+          "elapsed_seconds": 4.802,
+          "finished_at": "2026-09-25T07:07:50.099810+00:00",
+          "artifact": "en/answer-local.json"
+        },
+        {
+          "id": "en-B03-04",
+          "guide": "docs/labs/03-prompt-agent.md",
+          "original_command": "python scripts/workshop.py --language en prompt-agent invoke --name \"$AGENT_NAME\" --version \"$AGENT_VERSION\" --question \"What is the domestic business-trip lodging limit for September 2026?\" --output outputs/learner-notes-en/prompt-agent-invoke.json",
+          "arguments": [
+            "--language",
+            "en",
+            "prompt-agent",
+            "invoke",
+            "--name",
+            "mfv2-a2-0f01-en-policy-sdk",
+            "--version",
+            "1",
+            "--question",
+            "What is the domestic business-trip lodging limit for September 2026?",
+            "--output",
+            "outputs/learner-notes-en/prompt-agent-invoke.json"
+          ],
+          "started_at": "2026-09-25T07:07:50.104375+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/prompt-agent-invoke.json",
+          "output_sha256": "e850b01311ac975208061df647313628f3525dfa5c7d5582299b8640f82c64c9",
+          "observed": {
+            "command": "prompt-agent",
+            "response_id": "resp_0131ce4e1fd7c0f2016ab61dcaebb88194acd3fea76cd13212",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 1124,
+              "output_tokens": 113
+            },
+            "answer": {
+              "answer": "For a domestic business trip in September 2026, the lodging limit is KRW 150,000 per person per night. This policy applies from July 1, 2026, and a receipt is required.",
+              "decision": "answer",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026"
+              ]
+            }
+          },
+          "elapsed_seconds": 4.404,
+          "finished_at": "2026-09-25T07:07:54.513124+00:00",
+          "artifact": "en/prompt-agent-invoke.json"
+        },
+        {
+          "id": "en-B04-05",
+          "guide": "docs/labs/04-agents-tools.md",
+          "original_command": "python scripts/workshop.py --language en maf    --question \"Explain the difference between Foundry and Agent Framework in three sentences.\"    --output outputs/learner-notes-en/maf-none.json",
+          "arguments": [
+            "--language",
+            "en",
+            "maf",
+            "--question",
+            "Explain the difference between Foundry and Agent Framework in three sentences.",
+            "--output",
+            "outputs/learner-notes-en/maf-none.json"
+          ],
+          "started_at": "2026-09-25T07:07:54.518451+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/maf-none.json",
+          "output_sha256": "bc30d5d93cb3ff743e97bb0589feb7f7c54549a4946df94bf02eb6a730ff7eee",
+          "observed": {
+            "command": "maf",
+            "configured_tools": "none"
+          },
+          "elapsed_seconds": 5.959,
+          "finished_at": "2026-09-25T07:08:00.482222+00:00",
+          "artifact": "en/maf-none.json"
+        },
+        {
+          "id": "en-B04-06",
+          "guide": "docs/labs/04-agents-tools.md",
+          "original_command": "python scripts/workshop.py --language en maf --tools    --question \"My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.\"    --output outputs/learner-notes-en/maf-function.json",
+          "arguments": [
+            "--language",
+            "en",
+            "maf",
+            "--tools",
+            "--question",
+            "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.",
+            "--output",
+            "outputs/learner-notes-en/maf-function.json"
+          ],
+          "started_at": "2026-09-25T07:08:00.487852+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/maf-function.json",
+          "output_sha256": "062ecbc8e3790cf0c56306ea500b89c169250e43b48ab58a4be548488574c43a",
+          "observed": {
+            "command": "maf",
+            "configured_tools": "function",
+            "answer": {
+              "answer": "For travel in September 2026, the domestic lodging limit is KRW 150,000 per person per night, under the policy effective from July 1, 2026. Your KRW 170,000 hotel exceeds that limit by KRW 20,000. You need explicit team-lead approval before booking; approval has not been granted here. Keep a receipt for reimbursement.",
+              "decision": "needs_approval",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026",
+                "APPROVAL-01",
+                "RECEIPT-01"
+              ]
+            }
+          },
+          "elapsed_seconds": 10.049,
+          "finished_at": "2026-09-25T07:08:10.540772+00:00",
+          "artifact": "en/maf-function.json"
+        },
+        {
+          "id": "en-B04-07",
+          "guide": "docs/labs/04-agents-tools.md",
+          "original_command": "python scripts/workshop.py --language en maf --mcp    --question \"What was the domestic business-trip lodging limit per night in May 2026?\"    --output outputs/learner-notes-en/maf-mcp.json",
+          "arguments": [
+            "--language",
+            "en",
+            "maf",
+            "--mcp",
+            "--question",
+            "What was the domestic business-trip lodging limit per night in May 2026?",
+            "--output",
+            "outputs/learner-notes-en/maf-mcp.json"
+          ],
+          "started_at": "2026-09-25T07:08:10.546425+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/maf-mcp.json",
+          "output_sha256": "6d87474aeecd1a0a4c04312c12eb94857b18e5fd988881989203df452f6b6251",
+          "observed": {
+            "command": "maf",
+            "configured_tools": "local-mcp",
+            "answer": {
+              "answer": "For domestic business trips in May 2026, the lodging limit was KRW 120,000 per person per night. The historical policy was effective from January 1, 2025 through June 30, 2026.",
+              "decision": "answer",
+              "limit_krw": 120000,
+              "citations": [
+                "TRAVEL-2025"
+              ]
+            }
+          },
+          "elapsed_seconds": 7.48,
+          "finished_at": "2026-09-25T07:08:18.031292+00:00",
+          "artifact": "en/maf-mcp.json"
+        },
+        {
+          "id": "en-B05-08",
+          "guide": "docs/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py --language en workflow --pattern sequential    --output outputs/learner-notes-en/workflow-sequential.json",
+          "arguments": [
+            "--language",
+            "en",
+            "workflow",
+            "--pattern",
+            "sequential",
+            "--output",
+            "outputs/learner-notes-en/workflow-sequential.json"
+          ],
+          "started_at": "2026-09-25T07:08:18.037365+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/workflow-sequential.json",
+          "output_sha256": "1eb340098e7cda075a578c4e7c3f216ec7f571940fd5447819a8573821d16a03",
+          "observed": {
+            "command": "workflow",
+            "pattern": "sequential",
+            "outputs": [
+              "The domestic business-trip lodging limit for September 2026 is **KRW 150,000 per person per night**. (TRAVEL-2026)"
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 11.959,
+          "finished_at": "2026-09-25T07:08:30.002207+00:00",
+          "artifact": "en/workflow-sequential.json"
+        },
+        {
+          "id": "en-B05-09",
+          "guide": "docs/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py --language en workflow --pattern concurrent    --output outputs/learner-notes-en/workflow-concurrent.json",
+          "arguments": [
+            "--language",
+            "en",
+            "workflow",
+            "--pattern",
+            "concurrent",
+            "--output",
+            "outputs/learner-notes-en/workflow-concurrent.json"
+          ],
+          "started_at": "2026-09-25T07:08:30.008909+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/workflow-concurrent.json",
+          "output_sha256": "129673bfecde39b0c1b283af6d7d1d1f5b1a78386ab7bb280ee337e32cdb83c5",
+          "observed": {
+            "command": "workflow",
+            "pattern": "concurrent",
+            "outputs": [
+              "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This limit took effect on July 1, 2026. A receipt is required, and a booking above the limit requires explicit team-lead approval **before booking**. (TRAVEL-2026; APPROVAL-01)",
+              "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This rate took effect on **July 1, 2026**; the earlier KRW 120,000 rate no longer applies. [TRAVEL-2026; TRAVEL-2025]\n\nA receipt is required. If the cost would exceed the limit, **explicit team-lead approval is required before booking**; I cannot grant that approval. [TRAVEL-2026; APPROVAL-01]",
+              "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night** under **TRAVEL-2026**. A receipt is required (**TRAVEL-2026; RECEIPT-01**), and costs above the limit require team-lead approval before booking (**APPROVAL-01**).",
+              "For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night** under **TRAVEL-2026**. A receipt is required (**TRAVEL-2026; RECEIPT-01**), and costs above the limit require team-lead approval before booking (**APPROVAL-01**).For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This limit took effect on July 1, 2026. A receipt is required, and a booking above the limit requires explicit team-lead approval **before booking**. (TRAVEL-2026; APPROVAL-01)For a domestic business trip in **September 2026**, the lodging limit is **KRW 150,000 per person per night**. This rate took effect on **July 1, 2026**; the earlier KRW 120,000 rate no longer applies. [TRAVEL-2026; TRAVEL-2025]\n\nA receipt is required. If the cost would exceed the limit, **explicit team-lead approval is required before booking**; I cannot grant that approval. [TRAVEL-2026; APPROVAL-01]"
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 9.84,
+          "finished_at": "2026-09-25T07:08:39.855887+00:00",
+          "artifact": "en/workflow-concurrent.json"
+        },
+        {
+          "id": "en-B05-10",
+          "guide": "docs/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py --language en workflow --pattern group-chat    --output outputs/learner-notes-en/workflow-group-chat.json",
+          "arguments": [
+            "--language",
+            "en",
+            "workflow",
+            "--pattern",
+            "group-chat",
+            "--output",
+            "outputs/learner-notes-en/workflow-group-chat.json"
+          ],
+          "started_at": "2026-09-25T07:08:39.919032+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/workflow-group-chat.json",
+          "output_sha256": "d68e3919d015eaf06a4448e8879a98d5af06b68de94f1b4fdce85af54e5c0aa3",
+          "observed": {
+            "command": "workflow",
+            "pattern": "group-chat",
+            "outputs": [
+              "For a domestic business trip in September 2026, the lodging limit is **KRW 150,000 per person per night**. (Source: TRAVEL-2026)",
+              "For a domestic business trip in September 2026, the lodging limit is **KRW 150,000 per person per night**. (Source: TRAVEL-2026)",
+              "The answer’s **KRW 150,000 per person per night** is correct for September 2026: that limit took effect on July 1, 2026, and the citation to **TRAVEL-2026** is appropriate. There is no mistake in the amount or effective date.\n\nFor a fuller policy answer, it could add that lodging **above the limit requires explicit team-lead approval before booking** (**APPROVAL-01**) and that a **receipt is required even within the limit** (**TRAVEL-2026**). The answer did not claim that approval had been granted.",
+              "The group chat has reached the maximum number of rounds."
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 15.817,
+          "finished_at": "2026-09-25T07:08:55.791611+00:00",
+          "artifact": "en/workflow-group-chat.json"
+        },
+        {
+          "id": "en-B06-11",
+          "guide": "docs/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py --language en retrieve --provider local    --question \"My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.\"    --output outputs/learner-notes-en/retrieve-local.json",
+          "arguments": [
+            "--language",
+            "en",
+            "retrieve",
+            "--provider",
+            "local",
+            "--question",
+            "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.",
+            "--output",
+            "outputs/learner-notes-en/retrieve-local.json"
+          ],
+          "started_at": "2026-09-25T07:08:55.797603+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/retrieve-local.json",
+          "output_sha256": "75d2a4e9e84fa590c5bdca22bb10fefc23da98102740dffb6d90dd53291efff5",
+          "observed": {
+            "command": "retrieve",
+            "provider": "local-keyword",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "RECEIPT-01",
+              "SCOPE-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "e44582db0080622d0e45becbca08793849613450f33673718f178d10b451b515",
+            "returned_document_fields": [
+              "content",
+              "effective_from",
+              "effective_to",
+              "id",
+              "title"
+            ]
+          },
+          "elapsed_seconds": 0.105,
+          "finished_at": "2026-09-25T07:08:55.908440+00:00",
+          "artifact": "en/retrieve-local.json"
+        },
+        {
+          "id": "en-B06-12",
+          "guide": "docs/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py --language en retrieve --provider search    --question \"My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.\"    --output outputs/learner-notes-en/retrieve-search.json",
+          "arguments": [
+            "--language",
+            "en",
+            "retrieve",
+            "--provider",
+            "search",
+            "--question",
+            "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.",
+            "--output",
+            "outputs/learner-notes-en/retrieve-search.json"
+          ],
+          "started_at": "2026-09-25T07:08:55.914175+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/retrieve-search.json",
+          "output_sha256": "949987d0af21761d3f45820e481fbd023082d9bf5ee384f845b0f8096b702624",
+          "observed": {
+            "command": "retrieve",
+            "provider": "azure-ai-search-keyword",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "RECEIPT-01",
+              "SCOPE-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "e44582db0080622d0e45becbca08793849613450f33673718f178d10b451b515",
+            "returned_document_fields": [
+              "content",
+              "effective_from",
+              "effective_to",
+              "id",
+              "title"
+            ]
+          },
+          "elapsed_seconds": 3.146,
+          "finished_at": "2026-09-25T07:08:59.066297+00:00",
+          "artifact": "en/retrieve-search.json"
+        },
+        {
+          "id": "en-B06-13",
+          "guide": "docs/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py --language en retrieve --provider iq    --question \"My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.\"    --output outputs/learner-notes-en/retrieve-iq.json",
+          "arguments": [
+            "--language",
+            "en",
+            "retrieve",
+            "--provider",
+            "iq",
+            "--question",
+            "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.",
+            "--output",
+            "outputs/learner-notes-en/retrieve-iq.json"
+          ],
+          "started_at": "2026-09-25T07:08:59.071917+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/retrieve-iq.json",
+          "output_sha256": "827552a36978327150173bfd525265373bfc5733ee241414fb9870bcb9a40647",
+          "observed": {
+            "command": "retrieve",
+            "provider": "foundry-iq",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "87923789464b814de1453517acf8c9418a70004d36e91e93146c648099f53b47",
+            "returned_document_fields": [
+              "content",
+              "id",
+              "title"
+            ]
+          },
+          "elapsed_seconds": 2.597,
+          "finished_at": "2026-09-25T07:09:01.674710+00:00",
+          "artifact": "en/retrieve-iq.json"
+        },
+        {
+          "id": "en-B06-14",
+          "guide": "docs/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py --language en answer --prompt v2 --retrieval iq    --question \"My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.\"    --output outputs/learner-notes-en/answer-iq.json",
+          "arguments": [
+            "--language",
+            "en",
+            "answer",
+            "--prompt",
+            "v2",
+            "--retrieval",
+            "iq",
+            "--question",
+            "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.",
+            "--output",
+            "outputs/learner-notes-en/answer-iq.json"
+          ],
+          "started_at": "2026-09-25T07:09:01.680905+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-en/answer-iq.json",
+          "output_sha256": "1f895810b558da9934aa473bddc95ebb2193b2e3ce0783e516b85d37a2a48a01",
+          "observed": {
+            "command": "answer",
+            "provider": "foundry-iq",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "87923789464b814de1453517acf8c9418a70004d36e91e93146c648099f53b47",
+            "returned_document_fields": [
+              "content",
+              "id",
+              "title"
+            ],
+            "response_id": "resp_0c50f156c5b94bbe016ab61e1492d481959c070330d80625a2",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 779,
+              "output_tokens": 157
+            },
+            "answer": {
+              "answer": "For travel in September 2026, the domestic lodging limit is KRW 150,000 per person per night, effective from July 1, 2026. Your KRW 170,000 hotel exceeds that limit, so you need explicit team-lead approval before booking; approval has not been granted here. Keep the receipt for expense settlement.",
+              "decision": "needs_approval",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026",
+                "APPROVAL-01"
+              ]
+            }
+          },
+          "elapsed_seconds": 6.812,
+          "finished_at": "2026-09-25T07:09:08.498706+00:00",
+          "artifact": "en/answer-iq.json"
+        },
+        {
+          "id": "en-A05-terminal",
+          "guide": "docs/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py --language en workflow --pattern sequential --question \"My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking.\" --output outputs/workflow-a-sequential.json",
+          "arguments": [
+            "--language",
+            "en",
+            "workflow",
+            "--pattern",
+            "sequential",
+            "--question",
+            "My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking.",
+            "--output",
+            "outputs/workflow-a-sequential.json"
+          ],
+          "started_at": "2026-09-25T07:09:08.506072+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/workflow-a-sequential.json",
+          "output_sha256": "c7cfa7d270581feacd17fbad0c28d3197bebacb53f1f669c550e7094e008601c",
+          "observed": {
+            "command": "workflow",
+            "pattern": "sequential",
+            "outputs": [
+              "The September 2026 domestic lodging limit is **KRW 150,000 per person per night**. A KRW 170,000 room is **KRW 20,000 over the limit**. [TRAVEL-2026]\n\n**Before booking, obtain explicit team-lead approval** for the over-limit cost. This answer does not grant approval. Keep the hotel receipt for reimbursement. [APPROVAL-01, RECEIPT-01]"
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 14.287,
+          "finished_at": "2026-09-25T07:09:22.799998+00:00",
+          "artifact": "en/workflow-a-sequential.json"
+        },
+        {
+          "id": "en-B09-cleanup-inventory",
+          "guide": "docs/labs/09-operations.md",
+          "original_command": "python scripts/workshop.py --language en cleanup-plan",
+          "arguments": [
+            "--language",
+            "en",
+            "cleanup-plan"
+          ],
+          "started_at": "2026-09-25T07:09:22.808478+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "observed": {
+            "command": "cleanup-plan",
+            "deletes_resources": false
+          },
+          "elapsed_seconds": 0.261,
+          "finished_at": "2026-09-25T07:09:23.077282+00:00"
+        }
+      ],
+      "command_count": 16,
+      "command_failures": 0,
+      "new_output_files": 14,
+      "package": {
+        "file": "en/package-manifest.json",
+        "sha256": "e5af016d0f8d65f086e2e47dc1c6f146617b7b1a09114b9696c535b242906ae6",
+        "cloud_deployed": false
+      },
+      "sdk_agent_readback": {
+        "agent": "mfv2-a2-0f01-en-policy-sdk",
+        "version": "Version:\n1 (Today 12:15 PM)",
+        "model": "Model:\ngpt-6-sol\nData Zone Standard deployment",
+        "instructions_sha256": "f30fd066f481bd9c5d84922b60b5d5301b901f897b376ff8c5ee809daeb07941",
+        "checked_at": "2026-09-25T07:06:42.190Z",
+        "portal_language": "en",
+        "scenario_language": "en",
+        "messages_sent": 0
+      },
+      "server_trace": {
+        "response_id": "resp_0131ce4e1fd7c0f2016ab61dcaebb88194acd3fea76cd13212",
+        "trace_id": "bd829da0e764532e45c5cc134b1585ac",
+        "table_cells": [
+          "bd829da0e764532e45c5cc134b1585ac",
+          "Completed",
+          "9/25/26, 4:07:55 PM",
+          "1.189",
+          "1,124",
+          "113",
+          "-",
+          "--",
+          "Annotate",
+          "1"
+        ],
+        "span_tree": "Invoke Agent\ninvoke_agent mfv2-a2-0f01-en-policy-sdk:1\n1.19s\nChat\nchat gpt-6-sol-2026-09-22\n358ms",
+        "verified_at": "2026-09-25T07:17:04.255Z",
+        "new_message_for_trace": false,
+        "metadata_file": "en/trace-metadata.txt",
+        "input_tokens": 1124,
+        "output_tokens": 113,
+        "correlated": true
+      },
+      "inline_agent_readback": {
+        "agent": "mfv2-sol-20260924-en-policy",
+        "version": "Version:\n2 (9/24/2026 12:11 AM)",
+        "instructions_sha256": "0311bd763661c960f32a0d554ebd47e2f6551efb3d2a40bb09b3dafd45f9114f",
+        "model": "Model:\ngpt-6-sol\nData Zone Standard deployment",
+        "file_search_disabled": false,
+        "file_search_tooltip": [],
+        "checked_at": "2026-09-25T07:29:55.174Z",
+        "portal_language": "en",
+        "scenario_language": "en",
+        "new_messages": 0,
+        "settled_file_search": {
+          "checked_at": "2026-09-25T07:31:10.439Z",
+          "disabled": true,
+          "tooltips": [
+            "File search is temporarily unavailable for the selected model. Support is coming soon."
+          ]
+        },
+        "initial_availability_not_used_as_success": true
+      },
+      "default_subscription_unchanged": true,
+      "root_env_unchanged": true
+    },
+    "ko": {
+      "started_at": "2026-09-25T07:10:52.730554+00:00",
+      "finished_at": "2026-09-25T07:12:51.341677+00:00",
+      "guide_commands": [
+        {
+          "id": "ko-B02-01",
+          "guide": "docs/ko/labs/02-models.md",
+          "original_command": "python scripts/workshop.py doctor --cloud",
+          "arguments": [
+            "doctor",
+            "--cloud"
+          ],
+          "started_at": "2026-09-25T07:10:52.732634+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "observed": {
+            "command": "doctor",
+            "deployment": {
+              "model": {
+                "callRateLimit": null,
+                "format": "OpenAI",
+                "name": "gpt-6-sol",
+                "publisher": null,
+                "source": null,
+                "sourceAccount": null,
+                "version": "2026-09-22"
+              },
+              "name": "gpt-6-sol",
+              "state": "Succeeded"
+            }
+          },
+          "elapsed_seconds": 4.94,
+          "finished_at": "2026-09-25T07:10:57.674480+00:00"
+        },
+        {
+          "id": "ko-B02-02",
+          "guide": "docs/ko/labs/02-models.md",
+          "original_command": "python scripts/workshop.py model    --question \"Foundry와 Agent Framework의 차이를 한국어로 세 문장으로 설명해 주세요.\"    --output outputs/learner-notes-ko/model.json",
+          "arguments": [
+            "model",
+            "--question",
+            "Foundry와 Agent Framework의 차이를 한국어로 세 문장으로 설명해 주세요.",
+            "--output",
+            "outputs/learner-notes-ko/model.json"
+          ],
+          "started_at": "2026-09-25T07:10:57.680080+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/model.json",
+          "output_sha256": "3b323562b050603c4e504d444e519b1f59dd329e40e4357666b090f756a79bfe",
+          "observed": {
+            "command": "model",
+            "response_id": "resp_025a59c3d4746476016ab61e880e088193a4900f57448713b4",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 40,
+              "output_tokens": 278
+            }
+          },
+          "elapsed_seconds": 7.516,
+          "finished_at": "2026-09-25T07:11:05.209802+00:00",
+          "artifact": "ko/model.json"
+        },
+        {
+          "id": "ko-B02-03",
+          "guide": "docs/ko/labs/02-models.md",
+          "original_command": "python scripts/workshop.py answer --prompt v2 --retrieval local    --output outputs/learner-notes-ko/answer-local.json",
+          "arguments": [
+            "answer",
+            "--prompt",
+            "v2",
+            "--retrieval",
+            "local",
+            "--output",
+            "outputs/learner-notes-ko/answer-local.json"
+          ],
+          "started_at": "2026-09-25T07:11:05.216575+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/answer-local.json",
+          "output_sha256": "f1697a2b32e40f1b165342fa6688383f790b86095366619461e739429e493184",
+          "observed": {
+            "command": "answer",
+            "response_id": "resp_07ca741d81fd3cf3016ab61e8e7aa881979750f8da7ba0c01f",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 1254,
+              "output_tokens": 106
+            },
+            "answer": {
+              "answer": "2026년 9월 국내 출장 숙박비 한도는 1인 1박 150,000원입니다. 정산에는 영수증이 필요하며, 한도를 초과하는 숙박은 예약 전에 팀장의 명시적 사전 승인을 받아야 합니다.",
+              "decision": "answer",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026",
+                "RECEIPT-01",
+                "APPROVAL-01"
+              ]
+            }
+          },
+          "elapsed_seconds": 5.622,
+          "finished_at": "2026-09-25T07:11:10.847843+00:00",
+          "artifact": "ko/answer-local.json"
+        },
+        {
+          "id": "ko-B03-04",
+          "guide": "docs/ko/labs/03-prompt-agent.md",
+          "original_command": "python scripts/workshop.py prompt-agent invoke --name \"$AGENT_NAME\" --version \"$AGENT_VERSION\" --question \"2026년 9월 국내 출장 숙박비 한도는?\" --output outputs/learner-notes-ko/prompt-agent-invoke.json",
+          "arguments": [
+            "prompt-agent",
+            "invoke",
+            "--name",
+            "mfv2-a2-0f01-ko-policy-sdk",
+            "--version",
+            "1",
+            "--question",
+            "2026년 9월 국내 출장 숙박비 한도는?",
+            "--output",
+            "outputs/learner-notes-ko/prompt-agent-invoke.json"
+          ],
+          "started_at": "2026-09-25T07:11:10.852732+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/prompt-agent-invoke.json",
+          "output_sha256": "273bdb72a777574f8434f1ad5b6187becde9cf0b87dc53b61e1468db745b72b6",
+          "observed": {
+            "command": "prompt-agent",
+            "response_id": "resp_07b8501455f6649a016ab61e946b588195ae3734eb853b81e1",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 1290,
+              "output_tokens": 114
+            },
+            "answer": {
+              "answer": "2026년 9월 국내 출장 숙박비 한도는 1인 1박 150,000원입니다. 2026년 7월 1일부터 적용되는 규정이며, 한도 이내라도 정산 시 영수증이 필요합니다.",
+              "decision": "answer",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026"
+              ]
+            }
+          },
+          "elapsed_seconds": 5.373,
+          "finished_at": "2026-09-25T07:11:16.234141+00:00",
+          "artifact": "ko/prompt-agent-invoke.json"
+        },
+        {
+          "id": "ko-B04-05",
+          "guide": "docs/ko/labs/04-agents-tools.md",
+          "original_command": "python scripts/workshop.py maf    --question \"Foundry와 Agent Framework의 차이를 세 문장으로 설명해 주세요.\"    --output outputs/learner-notes-ko/maf-none.json",
+          "arguments": [
+            "maf",
+            "--question",
+            "Foundry와 Agent Framework의 차이를 세 문장으로 설명해 주세요.",
+            "--output",
+            "outputs/learner-notes-ko/maf-none.json"
+          ],
+          "started_at": "2026-09-25T07:11:16.239470+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/maf-none.json",
+          "output_sha256": "1e6138da1d9ed5eee60827a3b82ec0930c7d48fd3840a87937bf22dabd05d835",
+          "observed": {
+            "command": "maf",
+            "configured_tools": "none"
+          },
+          "elapsed_seconds": 7.127,
+          "finished_at": "2026-09-25T07:11:23.374421+00:00",
+          "artifact": "ko/maf-none.json"
+        },
+        {
+          "id": "ko-B04-06",
+          "guide": "docs/ko/labs/04-agents-tools.md",
+          "original_command": "python scripts/workshop.py maf --tools    --question \"2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.\"    --output outputs/learner-notes-ko/maf-function.json",
+          "arguments": [
+            "maf",
+            "--tools",
+            "--question",
+            "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.",
+            "--output",
+            "outputs/learner-notes-ko/maf-function.json"
+          ],
+          "started_at": "2026-09-25T07:11:23.380329+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/maf-function.json",
+          "output_sha256": "b1062cfd8225b401984fb75b5b00c3b672c1a705ab13222d0e5bb615b1c9d904",
+          "observed": {
+            "command": "maf",
+            "configured_tools": "function",
+            "answer": {
+              "answer": "2026년 9월 국내 출장의 숙박비 한도는 1인 1박 150,000원입니다. 호텔 요금 170,000원은 한도를 20,000원 초과하므로, 예약 전에 팀장의 명시적인 사전 승인을 받아야 합니다. 승인 여부를 확인하기 전에는 예약을 진행하지 마세요. 숙박비 정산에는 영수증이 필요하며, 실제 지급 여부는 담당자가 결정합니다.",
+              "decision": "needs_approval",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026",
+                "APPROVAL-01",
+                "RECEIPT-01"
+              ]
+            }
+          },
+          "elapsed_seconds": 7.868,
+          "finished_at": "2026-09-25T07:11:31.256751+00:00",
+          "artifact": "ko/maf-function.json"
+        },
+        {
+          "id": "ko-B04-07",
+          "guide": "docs/ko/labs/04-agents-tools.md",
+          "original_command": "python scripts/workshop.py maf --mcp    --question \"2026년 5월 국내 출장 숙박비의 1박 한도는 얼마인가요?\"    --output outputs/learner-notes-ko/maf-mcp.json",
+          "arguments": [
+            "maf",
+            "--mcp",
+            "--question",
+            "2026년 5월 국내 출장 숙박비의 1박 한도는 얼마인가요?",
+            "--output",
+            "outputs/learner-notes-ko/maf-mcp.json"
+          ],
+          "started_at": "2026-09-25T07:11:31.263147+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/maf-mcp.json",
+          "output_sha256": "191c3d0f81598f3cc5d9a0914f1c978d829e0ef5d43cd6a550b769f66147ece3",
+          "observed": {
+            "command": "maf",
+            "configured_tools": "local-mcp",
+            "answer": {
+              "answer": "2026년 5월 국내 출장 숙박비 한도는 1인 1박 120,000원입니다. 이 한도는 2025년 1월 1일부터 2026년 6월 30일까지의 출장에 적용됩니다. 숙박비 정산에는 영수증이 필요하며, 한도를 초과하는 숙박을 예약하려면 예약 전에 팀장의 명시적 승인을 받아야 합니다.",
+              "decision": "answer",
+              "limit_krw": 120000,
+              "citations": [
+                "TRAVEL-2025",
+                "RECEIPT-01",
+                "APPROVAL-01"
+              ]
+            }
+          },
+          "elapsed_seconds": 11.922,
+          "finished_at": "2026-09-25T07:11:43.193016+00:00",
+          "artifact": "ko/maf-mcp.json"
+        },
+        {
+          "id": "ko-B05-08",
+          "guide": "docs/ko/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py workflow --pattern sequential    --output outputs/learner-notes-ko/workflow-sequential.json",
+          "arguments": [
+            "workflow",
+            "--pattern",
+            "sequential",
+            "--output",
+            "outputs/learner-notes-ko/workflow-sequential.json"
+          ],
+          "started_at": "2026-09-25T07:11:43.199614+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/workflow-sequential.json",
+          "output_sha256": "7db75c3fd9d8c898c6ad50df8ea6ba4b11dbb47acaba2600ba7fdaf3ba85cabd",
+          "observed": {
+            "command": "workflow",
+            "pattern": "sequential",
+            "outputs": [
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 2026년 7월 1일부터 적용되는 규정에 따른 금액입니다. 정산에는 영수증이 필요하며, 한도 초과 시에는 예약 전에 팀장의 명시적 사전 승인이 필요합니다. (근거: TRAVEL-2026, APPROVAL-01)"
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 13.342,
+          "finished_at": "2026-09-25T07:11:56.549859+00:00",
+          "artifact": "ko/workflow-sequential.json"
+        },
+        {
+          "id": "ko-B05-09",
+          "guide": "docs/ko/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py workflow --pattern concurrent    --output outputs/learner-notes-ko/workflow-concurrent.json",
+          "arguments": [
+            "workflow",
+            "--pattern",
+            "concurrent",
+            "--output",
+            "outputs/learner-notes-ko/workflow-concurrent.json"
+          ],
+          "started_at": "2026-09-25T07:11:56.556066+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/workflow-concurrent.json",
+          "output_sha256": "0a17464e55f846cdc4f07076756be1963aca34c9a77e693a10261bd5645b78ff",
+          "observed": {
+            "command": "workflow",
+            "pattern": "concurrent",
+            "outputs": [
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 2026년 7월 1일부터 적용되는 **TRAVEL-2026** 기준입니다.",
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 15만 원**입니다. 2026년 7월 1일부터 적용되는 규정입니다. 숙박비 정산에는 영수증이 필요하고, 한도를 초과하려면 **예약 전에 팀장의 명시적 사전 승인**을 받아야 합니다. [TRAVEL-2026, RECEIPT-01, APPROVAL-01]\n\n**12만 원**은 2026년 6월 30일까지의 과거 숙박비 한도이므로 9월 출장에는 적용되지 않습니다. [TRAVEL-2025]",
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 한도를 초과하는 숙박비는 예약 전에 팀장의 명시적 사전 승인이 필요하며, 한도 이내라도 정산 시 영수증이 필요합니다.",
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 2026년 7월 1일부터 적용되는 **TRAVEL-2026** 기준입니다.2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 한도를 초과하는 숙박비는 예약 전에 팀장의 명시적 사전 승인이 필요하며, 한도 이내라도 정산 시 영수증이 필요합니다.2026년 9월 국내 출장 숙박비 한도는 **1인 1박 15만 원**입니다. 2026년 7월 1일부터 적용되는 규정입니다. 숙박비 정산에는 영수증이 필요하고, 한도를 초과하려면 **예약 전에 팀장의 명시적 사전 승인**을 받아야 합니다. [TRAVEL-2026, RECEIPT-01, APPROVAL-01]\n\n**12만 원**은 2026년 6월 30일까지의 과거 숙박비 한도이므로 9월 출장에는 적용되지 않습니다. [TRAVEL-2025]"
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 7.909,
+          "finished_at": "2026-09-25T07:12:04.470804+00:00",
+          "artifact": "ko/workflow-concurrent.json"
+        },
+        {
+          "id": "ko-B05-10",
+          "guide": "docs/ko/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py workflow --pattern group-chat    --output outputs/learner-notes-ko/workflow-group-chat.json",
+          "arguments": [
+            "workflow",
+            "--pattern",
+            "group-chat",
+            "--output",
+            "outputs/learner-notes-ko/workflow-group-chat.json"
+          ],
+          "started_at": "2026-09-25T07:12:04.476080+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/workflow-group-chat.json",
+          "output_sha256": "7374708816a2e089272a5ad245008fcf721f4d862fef52bf0a212d327229d47e",
+          "observed": {
+            "command": "workflow",
+            "pattern": "group-chat",
+            "outputs": [
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 2026년 7월 1일부터 적용되는 규정입니다. (문서 ID: **TRAVEL-2026**)",
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 2026년 7월 1일부터 적용되는 규정입니다. 정산에는 영수증이 필요하며, 한도를 초과하는 숙박은 예약 전에 팀장의 명시적 승인을 받아야 합니다. (근거: TRAVEL-2026, APPROVAL-01)",
+              "2026년 9월 국내 출장 숙박비 한도는 **1인 1박 150,000원**입니다. 이 한도는 **2026년 7월 1일부터** 적용됩니다. (TRAVEL-2026)\n\n정산에는 영수증이 필요하고, 한도를 초과해 예약하려면 **예약 전에 팀장의 명시적 승인**을 받아야 합니다. 실제 지급·승인 여부는 담당자가 결정합니다. (TRAVEL-2026, APPROVAL-01)\n\n앞선 답변의 금액·적용일·승인 조건에 잘못된 부분은 없습니다.",
+              "The group chat has reached the maximum number of rounds."
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 15.032,
+          "finished_at": "2026-09-25T07:12:19.512852+00:00",
+          "artifact": "ko/workflow-group-chat.json"
+        },
+        {
+          "id": "ko-B06-11",
+          "guide": "docs/ko/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py retrieve --provider local    --question \"2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.\"    --output outputs/learner-notes-ko/retrieve-local.json",
+          "arguments": [
+            "retrieve",
+            "--provider",
+            "local",
+            "--question",
+            "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.",
+            "--output",
+            "outputs/learner-notes-ko/retrieve-local.json"
+          ],
+          "started_at": "2026-09-25T07:12:19.518392+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/retrieve-local.json",
+          "output_sha256": "2fdbd405dedbfa87cd470c4429571fc10819ccacf4a2ada5e01690f8d61ef0b6",
+          "observed": {
+            "command": "retrieve",
+            "provider": "local-keyword",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "RECEIPT-01",
+              "SCOPE-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "8dfd1fca72c0b9184bd11bce99d598984772d72f201e2396dd8a540982f6f1c8",
+            "returned_document_fields": [
+              "content",
+              "effective_from",
+              "effective_to",
+              "id",
+              "title"
+            ]
+          },
+          "elapsed_seconds": 0.26,
+          "finished_at": "2026-09-25T07:12:19.784069+00:00",
+          "artifact": "ko/retrieve-local.json"
+        },
+        {
+          "id": "ko-B06-12",
+          "guide": "docs/ko/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py retrieve --provider search    --question \"2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.\"    --output outputs/learner-notes-ko/retrieve-search.json",
+          "arguments": [
+            "retrieve",
+            "--provider",
+            "search",
+            "--question",
+            "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.",
+            "--output",
+            "outputs/learner-notes-ko/retrieve-search.json"
+          ],
+          "started_at": "2026-09-25T07:12:19.812495+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/retrieve-search.json",
+          "output_sha256": "8e0febc7fa47a87f84537016e24e379746fa068e2119dd39780237b67ac14091",
+          "observed": {
+            "command": "retrieve",
+            "provider": "azure-ai-search-keyword",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "RECEIPT-01",
+              "SCOPE-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "8dfd1fca72c0b9184bd11bce99d598984772d72f201e2396dd8a540982f6f1c8",
+            "returned_document_fields": [
+              "content",
+              "effective_from",
+              "effective_to",
+              "id",
+              "title"
+            ]
+          },
+          "elapsed_seconds": 3.995,
+          "finished_at": "2026-09-25T07:12:23.813461+00:00",
+          "artifact": "ko/retrieve-search.json"
+        },
+        {
+          "id": "ko-B06-13",
+          "guide": "docs/ko/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py retrieve --provider iq    --question \"2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.\"    --output outputs/learner-notes-ko/retrieve-iq.json",
+          "arguments": [
+            "retrieve",
+            "--provider",
+            "iq",
+            "--question",
+            "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.",
+            "--output",
+            "outputs/learner-notes-ko/retrieve-iq.json"
+          ],
+          "started_at": "2026-09-25T07:12:23.818839+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/retrieve-iq.json",
+          "output_sha256": "099964196e98d24a4a0545f38ea7decb9d7e544826641931a195bede0dbc6d0d",
+          "observed": {
+            "command": "retrieve",
+            "provider": "foundry-iq",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "7a5256deb8e5b328121760098e1aa7d198c2c4f919efd969a4e4803f3de7e19d",
+            "returned_document_fields": [
+              "content",
+              "id",
+              "title"
+            ]
+          },
+          "elapsed_seconds": 2.985,
+          "finished_at": "2026-09-25T07:12:26.812150+00:00",
+          "artifact": "ko/retrieve-iq.json"
+        },
+        {
+          "id": "ko-B06-14",
+          "guide": "docs/ko/labs/06-knowledge.md",
+          "original_command": "python scripts/workshop.py answer --prompt v2 --retrieval iq    --question \"2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.\"    --output outputs/learner-notes-ko/answer-iq.json",
+          "arguments": [
+            "answer",
+            "--prompt",
+            "v2",
+            "--retrieval",
+            "iq",
+            "--question",
+            "2026년 9월 국내 출장 호텔이 170000원인데 예약해도 되나요? 한도와 절차를 알려주세요.",
+            "--output",
+            "outputs/learner-notes-ko/answer-iq.json"
+          ],
+          "started_at": "2026-09-25T07:12:26.817059+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/learner-notes-ko/answer-iq.json",
+          "output_sha256": "9f4b82eada5c5b0eb3ee43900fe59ff17f710b378e322f1346d8cb3a6f448654",
+          "observed": {
+            "command": "answer",
+            "provider": "foundry-iq",
+            "source_ids": [
+              "APPROVAL-01",
+              "MEAL-01",
+              "TRAVEL-2025",
+              "TRAVEL-2026"
+            ],
+            "context_hash": "7a5256deb8e5b328121760098e1aa7d198c2c4f919efd969a4e4803f3de7e19d",
+            "returned_document_fields": [
+              "content",
+              "id",
+              "title"
+            ],
+            "response_id": "resp_06c722bd3acc9e3f016ab61ee1c1d48190ae6b2ea722f03d38",
+            "response_model": "gpt-6-sol",
+            "usage": {
+              "input_tokens": 915,
+              "output_tokens": 198
+            },
+            "answer": {
+              "answer": "2026년 9월 국내 출장에 적용되는 숙박비 한도는 1인 1박 150,000원입니다. 호텔 요금 170,000원은 한도를 20,000원 초과하므로, 예약 전에 팀장의 명시적 사전 승인을 받아야 합니다. 승인 여부가 확인되기 전에는 예약을 진행하지 마세요. 숙박비 정산에는 영수증이 필요하며, 실제 지급 여부는 담당자가 결정합니다.",
+              "decision": "needs_approval",
+              "limit_krw": 150000,
+              "citations": [
+                "TRAVEL-2026",
+                "APPROVAL-01"
+              ]
+            }
+          },
+          "elapsed_seconds": 7.15,
+          "finished_at": "2026-09-25T07:12:33.971625+00:00",
+          "artifact": "ko/answer-iq.json"
+        },
+        {
+          "id": "ko-A05-terminal",
+          "guide": "docs/ko/labs/05-workflows.md",
+          "original_command": "python scripts/workshop.py workflow --pattern sequential --question \"2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요.\" --output outputs/workflow-a-sequential.json",
+          "arguments": [
+            "workflow",
+            "--pattern",
+            "sequential",
+            "--question",
+            "2026년 9월 국내 출장 호텔이 170000원입니다. 적용 한도와 예약 전 필요한 절차를 알려주세요.",
+            "--output",
+            "outputs/workflow-a-sequential.json"
+          ],
+          "started_at": "2026-09-25T07:12:33.979351+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "output_file": "outputs/workflow-a-sequential.json",
+          "output_sha256": "1daeb6f6da0326d028494c443315698f6cf1ec075792db3fba616ef61681cec3",
+          "observed": {
+            "command": "workflow",
+            "pattern": "sequential",
+            "outputs": [
+              "2026년 9월 국내 출장에는 **1인 1박 숙박비 한도 150,000원**이 적용됩니다. 제시하신 호텔 요금 170,000원은 한도를 **20,000원 초과**하므로, **예약 전에 팀장의 명시적인 사전 승인**을 받아야 합니다. 승인을 받았다고 제가 확인하거나 대신 승인할 수는 없습니다.\n\n정산을 위해 영수증도 보관해 주세요. 근거: **TRAVEL-2026, APPROVAL-01, RECEIPT-01**."
+            ],
+            "approval_status": "pending-human-review"
+          },
+          "elapsed_seconds": 16.915,
+          "finished_at": "2026-09-25T07:12:50.899697+00:00",
+          "artifact": "ko/workflow-a-sequential.json"
+        },
+        {
+          "id": "ko-B09-cleanup-inventory",
+          "guide": "docs/ko/labs/09-operations.md",
+          "original_command": "python scripts/workshop.py cleanup-plan",
+          "arguments": [
+            "cleanup-plan"
+          ],
+          "started_at": "2026-09-25T07:12:50.905179+00:00",
+          "status": "executed-contract-checked",
+          "exit_code": 0,
+          "observed": {
+            "command": "cleanup-plan",
+            "deletes_resources": false
+          },
+          "elapsed_seconds": 0.114,
+          "finished_at": "2026-09-25T07:12:51.024968+00:00"
+        }
+      ],
+      "command_count": 16,
+      "command_failures": 0,
+      "new_output_files": 14,
+      "package": {
+        "file": "ko/package-manifest.json",
+        "sha256": "eb51878fa758bb066a23547fd5a411d8b6b710c379e5529dec4b410039585edd",
+        "cloud_deployed": false
+      },
+      "sdk_agent_readback": {
+        "agent": "mfv2-a2-0f01-ko-policy-sdk",
+        "version": "Version:\n1 (Today 1:32 PM)",
+        "model": "Model:\ngpt-6-sol\nData Zone Standard deployment",
+        "instructions_sha256": "e959b7e3c3f7832cb789a90b12274b349a16ca5b9663ad0adff2e632b26f9bee",
+        "checked_at": "2026-09-25T07:10:43.100Z",
+        "portal_language": "en",
+        "scenario_language": "ko",
+        "messages_sent": 0
+      },
+      "server_trace": {
+        "response_id": "resp_07b8501455f6649a016ab61e946b588195ae3734eb853b81e1",
+        "trace_id": "4d5f22d02ca12433bbdd18c8f8203d51",
+        "table_cells": [
+          "4d5f22d02ca12433bbdd18c8f8203d51",
+          "Completed",
+          "9/25/26, 4:11:16 PM",
+          "1.279",
+          "1,290",
+          "114",
+          "-",
+          "--",
+          "Annotate",
+          "1"
+        ],
+        "span_tree": "Invoke Agent\ninvoke_agent mfv2-a2-0f01-ko-policy-sdk:1\n1.28s\nChat\nchat gpt-6-sol-2026-09-22\n492ms",
+        "verified_at": "2026-09-25T07:16:01.494Z",
+        "new_message_for_trace": false,
+        "metadata_file": "ko/trace-metadata.txt",
+        "input_tokens": 1290,
+        "output_tokens": 114,
+        "correlated": true
+      },
+      "inline_agent_readback": {
+        "agent": "mfv2-sol-20260924-ko-policy",
+        "version": "Version:\n2 (9/24/2026 12:37 AM)",
+        "instructions_sha256": "e689e56d6ca5f776e3d69eff57059f4c04e5c7b70f783c1247932a2d0b64adec",
+        "model": "Model:\ngpt-6-sol\nData Zone Standard deployment",
+        "file_search_disabled": true,
+        "file_search_tooltip": [
+          "File search is temporarily unavailable for the selected model. Support is coming soon."
+        ],
+        "checked_at": "2026-09-25T07:30:00.608Z",
+        "portal_language": "en",
+        "scenario_language": "ko",
+        "new_messages": 0
+      },
+      "default_subscription_unchanged": true,
+      "root_env_unchanged": true
+    }
+  },
+  "historical_evidence": [
+    {
+      "file": "../azure-guide-audit-20260925/results.json",
+      "scope": "Earlier creation/seeding and 6/6, 6/6, 4/4 evaluations. Not rerun or relabeled as this revision's acceptance."
+    },
+    {
+      "file": "../headless-guide-audit-20260925/results.json",
+      "scope": "Earlier independent A model/smoke/manual-dev responses and browser timings, not a learner pilot."
+    }
+  ],
+  "remaining_work": [
+    "Before class, the owner must test actual participant accounts, model quota, Search writes and trace permissions; operator success does not establish least-privilege learner access.",
+    "Validate the planned 270/480-minute teaching budgets with a real learner pilot.",
+    "If the Foundry MCP path is needed, verify its configured caller and intended project scope; the observed agents/read request was 403. No roles were broadened.",
+    "File Search remained unavailable after model capabilities loaded. No upload was attempted.",
+    "Remote Hosted Responses, paid evaluators/optimization, extra deployments/roles and external specialist modules require separate selection and approval."
+  ],
+  "workflow_review": {
+    "reviewer": "Copilot, not a human approval",
+    "a_terminal": "Both exact KRW 170000 questions returned the KRW 150000 limit, approval before booking and the required policy IDs; no business approval or external action.",
+    "b_patterns": "Both languages returned sequential/concurrent/group-chat output counts 1/4/4. These are execution contracts, not an all-pass content grade.",
+    "retained_finding": {
+      "language": "ko",
+      "file": "ko/workflow-concurrent.json",
+      "output_index_zero_based": 2,
+      "finding": "One individual concurrent output states the amount/approval conditions but omits policy IDs. The aggregate includes other participants' citations; it does not repair that individual output.",
+      "original_response_preserved": true,
+      "prompt_tuned_to_fix_this_result": false
+    }
+  },
+  "module_checks": [
+    {
+      "item": "Lab 00",
+      "guide": "docs/labs/00-start.md",
+      "status": "offline-and-live-preflight",
+      "detail": "Offline preparation contracts and explicit-subscription cloud preflight checked; reused the prepared pinned SDK/auth environment, not a new learner install/sign-in."
+    },
+    {
+      "item": "Lab 01",
+      "guide": "docs/labs/01-foundry.md",
+      "status": "live-preflight-and-prior-portal",
+      "detail": "Current project/deployment/version read back; the four-object explanation and prior portal evidence remain distinct from resource creation."
+    },
+    {
+      "item": "Lab 02",
+      "guide": "docs/labs/02-models.md",
+      "status": "fresh-live",
+      "detail": "Real model and structured local-evidence responses in each language; no fixture substitution."
+    },
+    {
+      "item": "Lab 03",
+      "guide": "docs/labs/03-prompt-agent.md",
+      "status": "fresh-invoke-and-readback",
+      "detail": "Existing SDK version 1 invoked; saved definitions and inline version 2 rechecked. No new agent creation/Save or File Search upload."
+    },
+    {
+      "item": "Lab 04",
+      "guide": "docs/labs/04-agents-tools.md",
+      "status": "fresh-live",
+      "detail": "No-tool, function and local-MCP commands returned real responses and documented fields. The configured tools field alone is not a captured tool-event trace."
+    },
+    {
+      "item": "Lab 05",
+      "guide": "docs/labs/05-workflows.md",
+      "status": "fresh-live",
+      "detail": "All three B patterns and exact A default terminal question ran independently in both languages. Preserve the concurrent citation finding."
+    },
+    {
+      "item": "Lab 06",
+      "guide": "docs/labs/06-knowledge.md",
+      "status": "fresh-live-existing-objects",
+      "detail": "Local/Search/GA IQ reads and an IQ-grounded answer used the current synthetic corpus. Original ledger retained; no seed or role change."
+    },
+    {
+      "item": "Lab 07",
+      "guide": "docs/labs/07-evaluation.md",
+      "status": "offline-contracts-and-historical-evidence",
+      "detail": "Evaluation/holdout gates tested offline; previous actual cohorts retained unchanged. No new scores, holdout collection, judge job or acceptance."
+    },
+    {
+      "item": "Lab 08",
+      "guide": "docs/labs/08-hosted.md",
+      "status": "fresh-local-package",
+      "detail": "Both exact package commands ran; manifests retain cloud_deployed:false. Local/remote serving not rerun."
+    },
+    {
+      "item": "Lab 09",
+      "guide": "docs/labs/09-operations.md",
+      "status": "fresh-read-only-and-local",
+      "detail": "Both new SDK response IDs and tokens matched headless portal traces; cleanup inventory is local and deletes nothing."
+    },
+    {
+      "item": "Lab 10",
+      "guide": "docs/labs/10-iq-extensions.md",
+      "status": "design-only",
+      "detail": "Synthetic routing/design scope checked; no Fabric or Microsoft 365 connection or company data."
+    },
+    {
+      "item": "Lab 11",
+      "guide": "docs/labs/11-capstone.md",
+      "status": "artifact-and-boundary-review",
+      "detail": "Fresh outputs, trace and package evidence retained; no invented acceptance, repeated holdout or learner-completion claim."
+    },
+    {
+      "item": "a2a",
+      "guide": "docs/labs/extensions/a2a.md",
+      "status": "not-newly-executed",
+      "detail": "Prior dated typed-SDK run retained; a new target/caller/connection run would require separately approved writes."
+    },
+    {
+      "item": "additional-tools",
+      "guide": "docs/labs/extensions/additional-tools.md",
+      "status": "not-newly-executed",
+      "detail": "Code Interpreter/OpenAPI contracts and gates checked; new agent/tool/file execution was not selected."
+    },
+    {
+      "item": "agent-insights",
+      "guide": "docs/labs/extensions/agent-insights.md",
+      "status": "not-newly-executed",
+      "detail": "Prior SDK scan retained; no new scan, traffic generation or portal-run claim."
+    },
+    {
+      "item": "agent-optimizer",
+      "guide": "docs/labs/extensions/agent-optimizer.md",
+      "status": "not-newly-executed",
+      "detail": "Supported optimizer deployment/cost approval needed; no new candidate generation, promotion or holdout development."
+    },
+    {
+      "item": "agent-safety",
+      "guide": "docs/labs/extensions/agent-safety.md",
+      "status": "not-newly-executed",
+      "detail": "No new guardrail attachment or red-team job; earlier invalid ASR remains invalid."
+    },
+    {
+      "item": "approval-recovery",
+      "guide": "docs/labs/extensions/approval-recovery.md",
+      "status": "not-newly-executed",
+      "detail": "Local SDK checkpoint/recovery tests passed; no new claim of actual human authorization or Hosted crash proof."
+    },
+    {
+      "item": "conversation-evaluation",
+      "guide": "docs/labs/extensions/conversation-evaluation.md",
+      "status": "not-newly-executed",
+      "detail": "Existing dated multi-turn evidence retained; no additional paid collection or judges for unchanged guide logic."
+    },
+    {
+      "item": "developer-toolkit",
+      "guide": "docs/labs/extensions/developer-toolkit.md",
+      "status": "not-newly-executed",
+      "detail": "Pinned Python/SDK environment validated; Dev Pack/global CLI installation not performed."
+    },
+    {
+      "item": "governance-networking",
+      "guide": "docs/labs/extensions/governance-networking.md",
+      "status": "not-newly-executed",
+      "detail": "Caller/scope/owner boundaries checked; no least-privilege-account or private-network deployment proof."
+    },
+    {
+      "item": "memory",
+      "guide": "docs/labs/extensions/memory.md",
+      "status": "not-newly-executed",
+      "detail": "Prior dated synthetic lifecycle evidence retained; no new store, scope, write or delete."
+    },
+    {
+      "item": "model-operations",
+      "guide": "docs/labs/extensions/model-operations.md",
+      "status": "not-newly-executed",
+      "detail": "A second permitted deployment is a separate experiment; no model replacement or Router migration."
+    },
+    {
+      "item": "release-operations",
+      "guide": "docs/labs/extensions/release-operations.md",
+      "status": "not-newly-executed",
+      "detail": "Offline CI contracts/gates checked; no OIDC/role change, workflow dispatch, schedule or deployment."
+    },
+    {
+      "item": "routines",
+      "guide": "docs/labs/extensions/routines.md",
+      "status": "not-newly-executed",
+      "detail": "Existing dispatch-only limitations retained; no new paid scheduled work."
+    },
+    {
+      "item": "specialist-scope",
+      "guide": "docs/labs/extensions/specialist-scope.md",
+      "status": "design-only",
+      "detail": "Design/scope only; real company/Microsoft 365, fine-tuning and business actions remain excluded."
+    },
+    {
+      "item": "tool-search-skills",
+      "guide": "docs/labs/extensions/tool-search-skills.md",
+      "status": "not-newly-executed",
+      "detail": "Working approved Toolbox/Search access is still a prerequisite; no skill/version creation or substitute provider."
+    },
+    {
+      "item": "toolbox",
+      "guide": "docs/labs/extensions/toolbox.md",
+      "status": "not-newly-executed",
+      "detail": "Prior Search authorization failure retained; no role broadening or new query claimed as successful."
+    },
+    {
+      "item": "toolbox-hosted",
+      "guide": "docs/labs/extensions/toolbox-hosted.md",
+      "status": "not-newly-executed",
+      "detail": "Remote execution requires its own prepared Toolbox/runtime/deployment approval; no new deployment."
+    }
+  ],
+  "counts": {
+    "core_labs": 12,
+    "extension_guides": 17,
+    "language_pairs": 63,
+    "guide_cli_commands": 32,
+    "local_package_commands": 2,
+    "fresh_output_json_files": 28,
+    "matched_new_server_traces": 2,
+    "retained_mcp_failures": 1
+  },
+  "artifacts_sha256": {
+    "document-checks.json": "1251394b7da189fd2df97a38fa7c2cedc14969c61f3c5402b323d74d397c9a78",
+    "en/answer-iq.json": "1f895810b558da9934aa473bddc95ebb2193b2e3ce0783e516b85d37a2a48a01",
+    "en/answer-local.json": "baba8148475d8637dc2c6b97c34bea0c644ef3abd1282d47b647b6de06ae150e",
+    "en/maf-function.json": "062ecbc8e3790cf0c56306ea500b89c169250e43b48ab58a4be548488574c43a",
+    "en/maf-mcp.json": "6d87474aeecd1a0a4c04312c12eb94857b18e5fd988881989203df452f6b6251",
+    "en/maf-none.json": "bc30d5d93cb3ff743e97bb0589feb7f7c54549a4946df94bf02eb6a730ff7eee",
+    "en/model.json": "19ddbc37e22e240b883cfcf0d7977a07a9fc9b99efb22e549ee891340ea3c7be",
+    "en/package-manifest.json": "e5af016d0f8d65f086e2e47dc1c6f146617b7b1a09114b9696c535b242906ae6",
+    "en/prompt-agent-invoke.json": "e850b01311ac975208061df647313628f3525dfa5c7d5582299b8640f82c64c9",
+    "en/retrieve-iq.json": "827552a36978327150173bfd525265373bfc5733ee241414fb9870bcb9a40647",
+    "en/retrieve-local.json": "75d2a4e9e84fa590c5bdca22bb10fefc23da98102740dffb6d90dd53291efff5",
+    "en/retrieve-search.json": "949987d0af21761d3f45820e481fbd023082d9bf5ee384f845b0f8096b702624",
+    "en/trace-metadata.txt": "0dba24e85da4adcae5c08e78c896e9f1679fc7ce5ec76bd0a945f3621b2bb0e4",
+    "en/workflow-a-sequential.json": "c7cfa7d270581feacd17fbad0c28d3197bebacb53f1f669c550e7094e008601c",
+    "en/workflow-concurrent.json": "129673bfecde39b0c1b283af6d7d1d1f5b1a78386ab7bb280ee337e32cdb83c5",
+    "en/workflow-group-chat.json": "d68e3919d015eaf06a4448e8879a98d5af06b68de94f1b4fdce85af54e5c0aa3",
+    "en/workflow-sequential.json": "1eb340098e7cda075a578c4e7c3f216ec7f571940fd5447819a8573821d16a03",
+    "ko/answer-iq.json": "9f4b82eada5c5b0eb3ee43900fe59ff17f710b378e322f1346d8cb3a6f448654",
+    "ko/answer-local.json": "f1697a2b32e40f1b165342fa6688383f790b86095366619461e739429e493184",
+    "ko/maf-function.json": "b1062cfd8225b401984fb75b5b00c3b672c1a705ab13222d0e5bb615b1c9d904",
+    "ko/maf-mcp.json": "191c3d0f81598f3cc5d9a0914f1c978d829e0ef5d43cd6a550b769f66147ece3",
+    "ko/maf-none.json": "1e6138da1d9ed5eee60827a3b82ec0930c7d48fd3840a87937bf22dabd05d835",
+    "ko/model.json": "3b323562b050603c4e504d444e519b1f59dd329e40e4357666b090f756a79bfe",
+    "ko/package-manifest.json": "eb51878fa758bb066a23547fd5a411d8b6b710c379e5529dec4b410039585edd",
+    "ko/prompt-agent-invoke.json": "273bdb72a777574f8434f1ad5b6187becde9cf0b87dc53b61e1468db745b72b6",
+    "ko/retrieve-iq.json": "099964196e98d24a4a0545f38ea7decb9d7e544826641931a195bede0dbc6d0d",
+    "ko/retrieve-local.json": "2fdbd405dedbfa87cd470c4429571fc10819ccacf4a2ada5e01690f8d61ef0b6",
+    "ko/retrieve-search.json": "8e0febc7fa47a87f84537016e24e379746fa068e2119dd39780237b67ac14091",
+    "ko/trace-metadata.txt": "feffa6718ac799fbe29eb78f8191e834fa8e26bd9678bde83e33d10552b2ee45",
+    "ko/workflow-a-sequential.json": "1daeb6f6da0326d028494c443315698f6cf1ec075792db3fba616ef61681cec3",
+    "ko/workflow-concurrent.json": "0a17464e55f846cdc4f07076756be1963aca34c9a77e693a10261bd5645b78ff",
+    "ko/workflow-group-chat.json": "7374708816a2e089272a5ad245008fcf721f4d862fef52bf0a212d327229d47e",
+    "ko/workflow-sequential.json": "7db75c3fd9d8c898c6ad50df8ea6ba4b11dbb47acaba2600ba7fdaf3ba85cabd",
+    "module-checks.csv": "4d22c314788b1d43e16447bee3c8c523c5404f55abeaa8a939f6343e275126ef"
+  }
+}

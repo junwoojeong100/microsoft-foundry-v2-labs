@@ -3,14 +3,14 @@
 [English](../../paths/a-beginner.md) | **한국어**
 
 **본인 에이전트·6문항 평가표·workflow 검토 한 건·trace 상태·정리 인계를 남깁니다.**
-아래 표의 A 구간만 따라갑니다. 270분 과정은 환경·권한·설치가 이미 준비된 상태를 기준으로 합니다.
+아래 표의 A 구간만 따라갑니다. 270분 수업 계획은 환경·권한·설치가 이미 준비된 상태를 기준으로 하며 학습자 완료 시간의 실측값이 아닙니다.
 
 ## 먼저 준비하기
 
 [준비](../setup.md)에서 국문 학습자 ZIP을 받은 뒤 담당자의 값을 기록합니다.
 `START-HERE.txt`를 엽니다. 준비된 **gpt-6-sol** 배포와 ZIP의 완성 지침·질문·빈 기록 양식을 사용합니다.
 입력 파일이나 보고서 형식을 따로 만들지 않습니다.
-Lab 05에는 담당자가 준비한 Hosted workflow agent Playground 또는 학습자 계정으로 로그인된 준비 터미널이 필요합니다.
+Lab 05는 학습자 계정으로 로그인·활성화한 준비 터미널이 기본입니다. 선택 Hosted Responses Playground 방식은 수업 전에 담당자가 검증해야 합니다.
 둘 다 없다면 시간표를 시작하기 전에 [Lab 00 B](../labs/00-start.md#path-b)와 [Lab 02 B](../labs/02-models.md#path-b)를 완료합니다.
 
 **첫 회차의 선택은 정해져 있습니다:** 인라인 정책, 준비된 workflow 실행 한 번, 수동 dev 평가, Lab 09 trace 상태 기록입니다.
@@ -53,4 +53,5 @@ Toolbox 생성, Hosted 배포, workflow 작성, Optimizer 실행, 회사/Microso
 재개하려고 에이전트를 다시 만들거나 앞 랩을 전부 반복하지 않습니다.
 
 **완료:** [Lab 11 인계](../labs/11-capstone.md#path-a).
-**나중에 확장:** 같은 저장소의 [B. 구현](b-practitioner.md).
+**나중에 확장:** [B. 구현](b-practitioner.md)의 [Lab 00 B 소스 폴더 준비](../labs/00-start.md#source-folder)부터 시작합니다.
+A의 작은 학습자 ZIP은 코드 저장소가 아닙니다. 준비된 소스 복사본이 이미 있다면 그대로 유지합니다.

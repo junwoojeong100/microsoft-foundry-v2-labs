@@ -3,7 +3,7 @@
 **English** | [한국어](../ko/paths/b-practitioner.md)
 
 **Finish with 14 saved response files, a managed Prompt Agent trace lookup, a dev/holdout evaluation, a local package and a cleanup handoff.**
-The 480-minute core route is best delivered as two 4-hour sessions. Deployment and C modules are not required.
+The 480-minute core teaching plan uses two 4-hour sessions; it is not a measured learner duration. Deployment and C modules are not required.
 
 ## Before the first command
 
@@ -47,7 +47,9 @@ Without Search access, record Lab 06 incomplete rather than claiming the full B 
 | 9 | [Lab 09 B](../labs/09-operations.md#path-b): operations and trace | Existing lineage, Prompt Agent trace lookup or unverified reason, cleanup inventory, owner and remaining costs |
 | 10 | [Lab 11 B](../labs/11-capstone.md#path-b): handoff | Actual acceptance/rejection report, or an explicitly incomplete handoff with missing steps |
 
-**Suggested split:** Day 1 covers Labs 00, 02, 03, 04 and 05. Day 2 covers Labs 06, 07, 08, 09 and 11.
+**Suggested split:** Day 1 covers Labs `00, 02, 03, 04, 05, 06`. Day 2 covers Labs `07, 08, 09, 11`.
+Each has 195 minutes of core work plus 45 minutes of breaks/buffer ([session budget](../paths.md#b-session-budget)).
+Keep Day 1's Search ledger and outputs; Day 2 resumes at Lab 07, not another setup or seed.
 Additional capability modules are **extra sessions**; do not claim the expanded course still fits that schedule without measuring it.
 
 ## Implementation extensions

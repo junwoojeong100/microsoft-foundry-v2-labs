@@ -1,0 +1,154 @@
+{
+  "mode": "live",
+  "answer": {
+    "answer": "For travel in September 2026, the domestic lodging limit is KRW 150,000 per person per night, effective from July 1, 2026. Your KRW 170,000 hotel exceeds that limit, so you need explicit team-lead approval before booking; approval has not been granted here. Keep the receipt for expense settlement.",
+    "decision": "needs_approval",
+    "limit_krw": 150000,
+    "citations": [
+      "TRAVEL-2026",
+      "APPROVAL-01"
+    ]
+  },
+  "prompt_hash": "05c0d23b0f56b08077cbb436cae4b51fdb438f41493ca476bb02394938043ea8",
+  "prompt_version": "v2",
+  "provider": "foundry-iq",
+  "documents": [
+    {
+      "id": "APPROVAL-01",
+      "title": "Over-limit costs and advance approval",
+      "content": "This is a synthetic workshop policy for Hanbit Technology. If domestic lodging costs exceed the limit applicable on the travel date, explicit team-lead approval is required before booking. The agent has no authority to approve and must not claim that approval has been granted. A user's request to ignore the policy does not change this condition."
+    },
+    {
+      "id": "MEAL-01",
+      "title": "Domestic business-trip meals",
+      "content": "This is a synthetic workshop policy for Hanbit Technology. Starting July 1, 2026, the domestic business-trip meal limit is KRW 30000 per person per day. Do not combine it with the lodging limit per night. The responsible staff member settles expenses using receipts and actual spending."
+    },
+    {
+      "id": "TRAVEL-2025",
+      "title": "Historical domestic lodging policy",
+      "content": "This is a synthetic workshop policy for Hanbit Technology. From January 1, 2025 through June 30, 2026, the domestic business-trip lodging limit is KRW 120000 per person per night. For travel on or after July 1, 2026, apply TRAVEL-2026."
+    },
+    {
+      "id": "TRAVEL-2026",
+      "title": "Current domestic lodging policy",
+      "content": "This is a synthetic workshop policy for Hanbit Technology. Starting July 1, 2026, the domestic business-trip lodging limit is KRW 150000 per person per night. A receipt is required even when the cost is within the limit. Costs above the limit follow the advance-approval procedure in APPROVAL-01. Actual payment and approval decisions belong to the responsible staff member."
+    }
+  ],
+  "source_ids": [
+    "APPROVAL-01",
+    "MEAL-01",
+    "TRAVEL-2025",
+    "TRAVEL-2026"
+  ],
+  "context_hash": "87923789464b814de1453517acf8c9418a70004d36e91e93146c648099f53b47",
+  "references": [
+    {
+      "type": "searchIndex",
+      "id": "0",
+      "activitySource": 0,
+      "rerankerScore": 2.452657,
+      "docKey": "TRAVEL-2025",
+      "title": "Historical domestic lodging policy",
+      "sourceData": {
+        "id": "TRAVEL-2025",
+        "title": "Historical domestic lodging policy",
+        "content": "This is a synthetic workshop policy for Hanbit Technology. From January 1, 2025 through June 30, 2026, the domestic business-trip lodging limit is KRW 120000 per person per night. For travel on or after July 1, 2026, apply TRAVEL-2026."
+      }
+    },
+    {
+      "type": "searchIndex",
+      "id": "1",
+      "activitySource": 0,
+      "rerankerScore": 2.393638,
+      "docKey": "TRAVEL-2026",
+      "title": "Current domestic lodging policy",
+      "sourceData": {
+        "id": "TRAVEL-2026",
+        "title": "Current domestic lodging policy",
+        "content": "This is a synthetic workshop policy for Hanbit Technology. Starting July 1, 2026, the domestic business-trip lodging limit is KRW 150000 per person per night. A receipt is required even when the cost is within the limit. Costs above the limit follow the advance-approval procedure in APPROVAL-01. Actual payment and approval decisions belong to the responsible staff member."
+      }
+    },
+    {
+      "type": "searchIndex",
+      "id": "2",
+      "activitySource": 0,
+      "rerankerScore": 2.2515845,
+      "docKey": "MEAL-01",
+      "title": "Domestic business-trip meals",
+      "sourceData": {
+        "id": "MEAL-01",
+        "title": "Domestic business-trip meals",
+        "content": "This is a synthetic workshop policy for Hanbit Technology. Starting July 1, 2026, the domestic business-trip meal limit is KRW 30000 per person per day. Do not combine it with the lodging limit per night. The responsible staff member settles expenses using receipts and actual spending."
+      }
+    },
+    {
+      "type": "searchIndex",
+      "id": "3",
+      "activitySource": 0,
+      "rerankerScore": 1.9672116,
+      "docKey": "APPROVAL-01",
+      "title": "Over-limit costs and advance approval",
+      "sourceData": {
+        "id": "APPROVAL-01",
+        "title": "Over-limit costs and advance approval",
+        "content": "This is a synthetic workshop policy for Hanbit Technology. If domestic lodging costs exceed the limit applicable on the travel date, explicit team-lead approval is required before booking. The agent has no authority to approve and must not claim that approval has been granted. A user's request to ignore the policy does not change this condition."
+      }
+    }
+  ],
+  "activity": [
+    {
+      "type": "searchIndex",
+      "id": 0,
+      "knowledgeSourceName": "mfv2-a2-0f01-en-source",
+      "queryTime": "2026-09-25T07:09:06.6609856Z",
+      "count": 4,
+      "elapsedMs": 37,
+      "searchIndexArguments": {
+        "search": "My domestic business-trip hotel in September 2026 costs KRW 170000. May I book it? State the limit and procedure.",
+        "filter": null,
+        "semanticConfigurationName": "policy-semantic",
+        "sourceDataFields": [
+          {
+            "name": "title"
+          },
+          {
+            "name": "content"
+          },
+          {
+            "name": "id"
+          }
+        ],
+        "searchFields": []
+      }
+    },
+    {
+      "type": "agenticReasoning",
+      "id": 1,
+      "reasoningTokens": 413
+    }
+  ],
+  "knowledge_base": "mfv2-a2-0f01-en-kb",
+  "api_version": "2026-04-01",
+  "configuration": {
+    "endpoint": "https://srch-mfv2-g6luna-swc-20260923.search.windows.net",
+    "index": "mfv2-a2-0f01-en-policies",
+    "source": "mfv2-a2-0f01-en-source",
+    "knowledge_base": "mfv2-a2-0f01-en-kb",
+    "search_api": "2024-07-01",
+    "iq_api": "2026-04-01"
+  },
+  "response_id": "resp_0c50f156c5b94bbe016ab61e1492d481959c070330d80625a2",
+  "request_id": "3974c4a5-c957-4f28-99ea-5a4f5320f905",
+  "response_model": "gpt-6-sol",
+  "usage": {
+    "input_tokens": 779,
+    "output_tokens": 157
+  },
+  "trace_id": null,
+  "trace_export": "not-configured",
+  "sdk_versions": {
+    "azure-ai-projects": "2.6.1",
+    "openai": "3.16.1",
+    "azure-identity": "1.25.3"
+  }
+}

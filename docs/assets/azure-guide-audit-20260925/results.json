@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-25",
+  "scope": "Live core CLI routes in both languages, A Lab 05 terminal commands, and read-only trace correlation. Not a complete portal-route validation.",
+  "project": "mfv2-g6luna-20260923",
+  "region": "swedencentral",
+  "deployment": "gpt-6-sol",
+  "model_version": "2026-09-22",
+  "base_commit": "b7414734a4a378f298dc93dfd37da52e9973ce16",
+  "working_tree_changes_included": true,
+  "new_model_deployments": false,
+  "role_assignments_changed": false,
+  "remote_hosted_deployment": false,
+  "cloud_judges_run": false,
+  "portal_ui_verified": false,
+  "portal_blocker": "Initial browser authentication used another tenant/account. Correct training-account authentication was requested in a visible browser; it has not been confirmed. Subsequent portal checks must stay headless.",
+  "languages": {
+    "en": {
+      "prefix": "mfv2-a2-0f01-en",
+      "distinct_core_command_blocks": 33,
+      "core_attempts": 34,
+      "failed_core_attempts": [
+        {
+          "lab": 5,
+          "block": 2,
+          "return_code": 1,
+          "elapsed_seconds": 148.113
+        }
+      ],
+      "core_response_files": {
+        "model.json": "db02246d2ce6f9547f2807677077d97f574b68e7272df09563473bf37e9ce664",
+        "answer-local.json": "a7ecc05ff310a2a8e1c132124cac108cdfc6fcde51f37be7a4389292b14ec975",
+        "prompt-agent-create.json": "d1dfd5748597c39dc1091a827bd05fe4509a6a0187394c905a7ac7da2688e03b",
+        "prompt-agent-invoke.json": "0e29a627e8b725ab3e1befb8d664156154167ddb65a6a28c0541bf563266ab51",
+        "maf-none.json": "7eb09f960b811c98a0ef4799841832cc836091ad2cecb4036994e26e3ff3dc6b",
+        "maf-function.json": "4913218b53762eacb711433ddffa5e37684d7827ebb327865527f728cc72403f",
+        "maf-mcp.json": "6d87474aeecd1a0a4c04312c12eb94857b18e5fd988881989203df452f6b6251",
+        "workflow-sequential.json": "6215f67d174fc9eabbcbc196b5a598a3dc7143ef1695c631babe607567542b95",
+        "workflow-concurrent.json": "99662ab4402152c4e6425dd91b8f9a425c187bbeeefd2c6b954308d9e8b101c7",
+        "workflow-group-chat.json": "7ca5e286716a5e9421f06bfb323d5f1edb474a4d724d0df568e185bc2463953f",
+        "retrieve-local.json": "75d2a4e9e84fa590c5bdca22bb10fefc23da98102740dffb6d90dd53291efff5",
+        "retrieve-search.json": "949987d0af21761d3f45820e481fbd023082d9bf5ee384f845b0f8096b702624",
+        "retrieve-iq.json": "8010e4ae1be94c4bb8590d83dcd2d5bc0451b7403f8da4eaaccb648b9baf2110",
+        "answer-iq.json": "cb7459c91297ee6f74f84e40f30c2838bbd13a87bf7d2a7699c5e395a969e8e7"
+      },
+      "agent_name": "mfv2-a2-0f01-en-policy-sdk",
+      "agent_version": "1",
+      "agent_response_id": "resp_0dd99b0b930e6cf2016ab5e7935da88190bf036f59ac44c85e",
+      "agent_usage": {
+        "input_tokens": 1124,
+        "output_tokens": 123
+      },
+      "workflow_output_counts": {
+        "sequential": 1,
+        "concurrent": 4,
+        "group-chat": 4
+      },
+      "a_terminal_output_sha256": "7aa29e54ae48f65e8eb05fd96869dd55297e1eceab65ce8a6e48b656a18dac81",
+      "evaluations": {
+        "baseline": {
+          "run_id": "5d8330bf-e49f-4eab-8f11-1ff1b937c972",
+          "split": "dev",
+          "language": "en",
+          "deployment": "gpt-6-sol",
+          "prompt_version": "v1",
+          "prompt_hash": "705dc29ecb89c047dcfd6489f8d08c81c429f5c7ec7c6e5a5aa0a31f4c0339a6",
+          "dataset_hash": "1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e",
+          "corpus_hash": "9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14",
+          "code_hash": "d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4",
+          "total": 6,
+          "passed": 6,
+          "errors": 0,
+          "business_gate_passed": true,
+          "manifest_sha256": "768e8519af2c14bd9397902b9143d4e99f1f67a50cbacfd4f480ed0d91a7291e",
+          "responses_sha256": "a94627c3e06d9016c499d1e5d31cbd22c2aef02d388c771df1c51de0db1cb753"
+        },
+        "candidate": {
+          "run_id": "7013f69f-b88c-4998-97a2-da37bfd305c4",
+          "split": "dev",
+          "language": "en",
+          "deployment": "gpt-6-sol",
+          "prompt_version": "v2",
+          "prompt_hash": "05c0d23b0f56b08077cbb436cae4b51fdb438f41493ca476bb02394938043ea8",
+          "dataset_hash": "1fa5362e46e027e3835ebf682dd2a991ca102e5f93e0326ac5e6ce551f8ed66e",
+          "corpus_hash": "9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14",
+          "code_hash": "d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4",
+          "total": 6,
+          "passed": 6,
+          "errors": 0,
+          "business_gate_passed": true,
+          "manifest_sha256": "353f0b1e9df05149259db8cac8dd8b3f6efdc1aefa1f8edf9d2dfef60603725a",
+          "responses_sha256": "7f8f722339b6906a20537a9bcfa7d0479ad75643c51e477c53164f669d536298"
+        },
+        "final-holdout": {
+          "run_id": "9ef3cd23-d0fa-417a-a950-467d09412f2c",
+          "split": "holdout",
+          "language": "en",
+          "deployment": "gpt-6-sol",
+          "prompt_version": "v2",
+          "prompt_hash": "05c0d23b0f56b08077cbb436cae4b51fdb438f41493ca476bb02394938043ea8",
+          "dataset_hash": "e276e82bbac04260e11747f802b6671b2ad2a5c340c3af4a5b44895ca2aa14b9",
+          "corpus_hash": "9df56da4500a010ce8960dab08b1f8114720812a61455fac796b24925ffbfc14",
+          "code_hash": "d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4",
+          "total": 4,
+          "passed": 4,
+          "errors": 0,
+          "business_gate_passed": true,
+          "manifest_sha256": "d5cc09352752e37c974e73edee7739cc53a6a5be37711a797be9678853f7bdf1",
+          "responses_sha256": "aebc4efebee1073171edc22c31e200056366809505bf4800cbad2a9f8112d2de"
+        }
+      },
+      "changed_context_cases": [],
+      "recommendation": "ready-for-human-review",
+      "deployment_approved": false,
+      "trace_api_verified": true,
+      "trace_operation_ids": [
+        "79b867e1985015fdd02cfe8a47fa9ee7"
+      ],
+      "trace_response_sha256": "4cbeaa0c5c03a30a1965fb0b56df4eb406e4b2b3bffc513f96aedadf07fb295d",
+      "owned_search_objects": [
+        {
+          "path": "indexes/mfv2-a2-0f01-en-policies",
+          "api_version": "2024-07-01"
+        },
+        {
+          "path": "knowledgesources('mfv2-a2-0f01-en-source')",
+          "api_version": "2026-04-01"
+        },
+        {
+          "path": "knowledgebases('mfv2-a2-0f01-en-kb')",
+          "api_version": "2026-04-01"
+        }
+      ],
+      "cleanup": "Inventory recorded; owned objects retained for review. No cloud deletion performed.",
+      "default_subscription_unchanged_during_run": true
+    },
+    "ko": {
+      "prefix": "mfv2-a2-0f01-ko",
+      "distinct_core_command_blocks": 33,
+      "core_attempts": 33,
+      "failed_core_attempts": [],
+      "core_response_files": {
+        "model.json": "07e4a3cbb75b14213762c3bd5036b73267e30831d3e51d9bb08c3ae368e09d17",
+        "answer-local.json": "85cc553e1dbe22d8d34d17256336648e77f79cc973688e1fdf1fff5fa90092dd",
+        "prompt-agent-create.json": "82636925c67f6861c1ad2688bf024b124e0c9e78dc9168c8758e4f4e3cb22317",
+        "prompt-agent-invoke.json": "85130808319c84b5d92d4e8f7777e186c371e36057d53a12993390a33c38e884",
+        "maf-none.json": "ed7dda6f33f387e83c999d2eb29eb51182bda00cadc2371a4019094a0c5a7853",
+        "maf-function.json": "69cc89dabdda48ec4ff70928db722fc2c462cd15c11974aa5c3d2021333bf1b8",
+        "maf-mcp.json": "7757bac144770b7cc48210272314db95f3ccdb6bc0b0c0bc603080c6bf8fe77c",
+        "workflow-sequential.json": "8bcb6ed38c554f2a4764cd28587bdc01b6b39520dac17551fd73c4a4dff97c19",
+        "workflow-concurrent.json": "60e00c918ce833ba02a44d0cdab4983c8b547e53531a1493e82fe1f0ae2e48f6",
+        "workflow-group-chat.json": "d6a666716cad7cbbd14501e889aab6d0207499cb34fee49a575580306d06a490",
+        "retrieve-local.json": "2fdbd405dedbfa87cd470c4429571fc10819ccacf4a2ada5e01690f8d61ef0b6",
+        "retrieve-search.json": "8e0febc7fa47a87f84537016e24e379746fa068e2119dd39780237b67ac14091",
+        "retrieve-iq.json": "bd7d9466084e3ed6f1f532c2c5337ee6ae0ea38c248a8119fa7adc4a9122538b",
+        "answer-iq.json": "c55b9c8e96ed7caa858fbc0491fbf3c6abb9e3fac28c21189ffecd00d1753888"
+      },
+      "agent_name": "mfv2-a2-0f01-ko-policy-sdk",
+      "agent_version": "1",
+      "agent_response_id": "resp_0f6cfe713a24a15c016ab5f9576f588193a48f8f7098a80574",
+      "agent_usage": {
+        "input_tokens": 1290,
+        "output_tokens": 216
+      },
+      "workflow_output_counts": {
+        "sequential": 1,
+        "concurrent": 4,
+        "group-chat": 4
+      },
+      "a_terminal_output_sha256": "c0f426063103a87ae2675e4755cf879aea13b2757522abc5a4214ddc634fa25e",
+      "evaluations": {
+        "baseline": {
+          "run_id": "ac10c2a5-75a9-4980-a0c0-8df0e2fdb16b",
+          "split": "dev",
+          "language": "ko",
+          "deployment": "gpt-6-sol",
+          "prompt_version": "v1",
+          "prompt_hash": "fb6e5f43288e2aa5d6a6c719a46f568783d7df13847d273228c788910d1e3516",
+          "dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
+          "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+          "code_hash": "d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4",
+          "total": 6,
+          "passed": 6,
+          "errors": 0,
+          "business_gate_passed": true,
+          "manifest_sha256": "16eff9da408375cfa4dbef762700269865392efe3a3e05d2b3ccff114cbfadaa",
+          "responses_sha256": "6f84c07a13bc710545f1db458f98ef3311294a06762b340a88ebc9372e4a802f"
+        },
+        "candidate": {
+          "run_id": "2cbc92e4-28de-4e77-8dbc-9ca864da87c8",
+          "split": "dev",
+          "language": "ko",
+          "deployment": "gpt-6-sol",
+          "prompt_version": "v2",
+          "prompt_hash": "2b4a2b5e322a85349559fd55436521edf29334b8e69556bfbb4b43239edb9e25",
+          "dataset_hash": "84e2b286e92e73f3e4998339c1826ca140cbc28d2aa7cb46c24182b4b57a6e22",
+          "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+          "code_hash": "d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4",
+          "total": 6,
+          "passed": 6,
+          "errors": 0,
+          "business_gate_passed": true,
+          "manifest_sha256": "55bf66f449fbda94fa371e27480113c7b3d400a62281dd4802e56e2caeaf9f47",
+          "responses_sha256": "9420c9b0255dd0b50f1c9d87bfeb0a1bdc7e22059f572c187fd07a4570f5d9d1"
+        },
+        "final-holdout": {
+          "run_id": "8c747551-f117-4128-a5c5-ebf2667002ea",
+          "split": "holdout",
+          "language": "ko",
+          "deployment": "gpt-6-sol",
+          "prompt_version": "v2",
+          "prompt_hash": "2b4a2b5e322a85349559fd55436521edf29334b8e69556bfbb4b43239edb9e25",
+          "dataset_hash": "9d478d727527064c78985201052e86a94eaeb551327d19f29b83cc23e5c53e9c",
+          "corpus_hash": "3556faa7cb0099cf01794a3e4da995f5fd8524982299fe34aafa636173287d39",
+          "code_hash": "d105b70b726458f70c1f7820ae8f6a921f0d42a2e008e8100af083e876f59ae4",
+          "total": 4,
+          "passed": 4,
+          "errors": 0,
+          "business_gate_passed": true,
+          "manifest_sha256": "36355aada3a5b023854c190ec49b714437e8915992ac82174b6f98aca583d2bc",
+          "responses_sha256": "23a1a2dfeb702bf8279ada2f2f884459d73d8b910b21af7c3c90315ed6d46b33"
+        }
+      },
+      "changed_context_cases": [],
+      "recommendation": "ready-for-human-review",
+      "deployment_approved": false,
+      "trace_api_verified": true,
+      "trace_operation_ids": [
+        "87fad9894be9e9c55f0a9b3d8b5199bc"
+      ],
+      "trace_response_sha256": "716332457c5a6a45cbe1f8845228b3a992bb76197437f789defc619460e262d9",
+      "owned_search_objects": [
+        {
+          "path": "indexes/mfv2-a2-0f01-ko-policies",
+          "api_version": "2024-07-01"
+        },
+        {
+          "path": "knowledgesources('mfv2-a2-0f01-ko-source')",
+          "api_version": "2026-04-01"
+        },
+        {
+          "path": "knowledgebases('mfv2-a2-0f01-ko-kb')",
+          "api_version": "2026-04-01"
+        }
+      ],
+      "cleanup": "Inventory recorded; owned objects retained for review. No cloud deletion performed.",
+      "default_subscription_unchanged_during_run": true
+    }
+  }
+}

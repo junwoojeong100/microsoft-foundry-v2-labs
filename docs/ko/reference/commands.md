@@ -25,6 +25,8 @@ workshop 명령 앞에는 `python scripts/workshop.py`를 붙입니다.
 | `retrieve --provider iq` | IQ 조회 비용 가능 | GA knowledge base |
 | `model --question "질문"` | 유료 모델 호출 | 직접 Responses |
 | `answer --prompt v2 --retrieval local` | 유료 모델 호출 | 구조화 답변 + 원문 |
+| `prompt-agent create --name <owned-name> --confirm-create` | 관리형 agent 버전 생성 | 필수 [Lab 03 B](../labs/03-prompt-agent.md#path-b). 브라우저·로컬 MAF agent와 구분 |
+| `prompt-agent invoke --name <owned-name> --version <returned-version> --question "질문"` | 유료 agent·모델 호출 | 저장한 정확한 버전 호출. Lab 09를 위해 response ID 보존 |
 | `maf --tools` / `maf --mcp` | 유료 모델 호출 | 읽기 전용 함수 / 로컬 MCP |
 | `workflow --pattern sequential` | 유료 모델 호출 | 대안: concurrent, group-chat |
 | `seed-search --confirm-create` | 본인 Search 객체 생성/업로드 | 기존 서비스만 사용 |
@@ -81,7 +83,9 @@ python scripts/workshop.py retrieve --provider local \
 | `pending-human-review` / `ready-for-human-review` | 사람의 검토가 남았습니다. 업무 승인이나 배포 권한을 부여한 것이 아닙니다 |
 | 서비스 오류·응답 누락·실패 행 | 원래 시도를 보관하고 [복구](troubleshooting.md#resume-safely)로 갑니다. 이후 조회 성공이 원래 실패를 없애지 않습니다 |
 
-Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 오류입니다.
+Workshop CLI가 처리한 종료 코드 `2`는 입력·설정·의존성·선행 조건 오류 또는 개별 Azure/MAF 요청 실패입니다.
+반면 오류 행을 보존한 배치 `collect`는 `1`로 종료합니다.
+`MAF request failed`에는 SDK 예외와 하위 원인이 포함되며 성공한 `--output` 파일은 만들지 않습니다.
 다른 도구도 같은 코드를 쓴다고 가정하지 않습니다. 측정하지 않은 값은 0이 아니라 미측정으로 둡니다.
 
 <a id="saved-results"></a>
@@ -121,7 +125,6 @@ Workshop CLI의 종료 코드 `2`는 입력·설정·의존성·선행 조건 �
 
 | 명령군 | 목적·경계 | 전체 가이드 |
 |---|---|---|
-| `prompt-agent` | 별도 버전의 관리형 agent 생성/호출. 이제 B의 핵심이며 로컬 MAF와 구분 | [Lab 03 SDK](../labs/03-prompt-agent.md#path-b) |
 | `collect --retrieval none` | 선택 dev 진단 6회. 정책 근거가 없으며 baseline/candidate 경로가 아님. `feedback`·`cloud-evaluate`는 거부 | [Lab 07 진단](../labs/07-evaluation.md#diagnostic-no-evidence) |
 | `iq-chat` | `gpt-5.6-luna`/SMI 사전 확인·본인 chat base 생성·유료 계획/합성 | [담당자 준비](../setup-owner.md) |
 | `workflow-agent` / `runtime-contract` | 검증된 workflow 출력 / 로컬 고정 profile·hash | [Lab 05 C](../labs/05-workflows.md) |

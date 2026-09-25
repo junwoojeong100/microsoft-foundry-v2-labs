@@ -72,6 +72,8 @@ Select **Chat with the model...** at the lower right (not **Instructions** on th
 
 **What to check:** in the **Lab 02** section of `session-notes.txt`, fill `Deployment / time / usage:` and
 paste the full answer on `Actual concept-explanation response:`. The recording is a separate run, not your own response.
+Compare the four definitions with [Lab 01's table and diagram](01-foundry.md#path-a).
+A fluent reply can still confuse a Foundry resource with a project; keep the reply and record that finding rather than treating fluency as correctness.
 
 ### 4. Compare a question without evidence
 
@@ -120,7 +122,9 @@ The A-only Playground fields are not required for these SDK calls.
 python scripts/workshop.py --language en doctor --cloud
 ```
 
-Continue only after preflight identifies the intended deployment in `Succeeded` state. This does not test inference.
+Continue only when the project matches your setup card and preflight shows **deployment/model `gpt-6-sol`,
+version `2026-09-22`, state `Succeeded`**. A different model can also be `Succeeded`; that does not make it this guide's preset.
+Stop and resolve a mismatched setup before any model request. This preflight does not test inference.
 
 ### 2. Save one actual model response
 
@@ -248,7 +252,8 @@ These captures come from the September 24, 2026 English recording with `gpt-6-so
 [Execution records](../live-run.md) separate models, deployments, and evaluation scope.
 
 - Complete: an actual model response, its deployment name, and an explanation of unsupported policy questions.
-- 401/403: run `az login` again; if it persists, ask the owner for **Foundry User** on the project ([roles](../reference/troubleshooting.md)), not Owner.
+- 401: check the intended tenant and sign-in state. Renew expired authentication only through [Lab 00's sign-in boundary](00-start.md#azure-sign-in).
+- 403: preserve the caller, error and time; ask the owner to check **Foundry User** on the project ([roles](../reference/troubleshooting.md)), not Owner. Repeated login does not grant a missing role.
 - 404: check the full project endpoint and the **deployment name** `gpt-6-sol`.
 - 429: stop repeated calls and ask the owner to check the `gpt-6-sol` quota (TPM); do not retry in a loop.
 

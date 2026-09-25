@@ -2,11 +2,13 @@ BLANK WORKSHEET - personally executed Lab 05 workflows, not an instructor record
 A records one sequential run. B repeats the fields below for sequential, concurrent and group-chat.
 A pastes the full JSON below. B records each --output file path; do not paste its JSON again.
 Keep B's three original JSON files beside this review for handoff. Review every actual output.
+For Playground, read pattern from runtime_profile.pattern and review answer, not the terminal's outputs.
 
 Execution date / language / deployment:
 Execution option (prepared terminal / prepared hosted workflow agent in Playground):
+Hosted agent name / version (Playground option only):
 Conversation ID / response ID (Playground option only):
-Exact command:
+Exact command / Playground question:
 Saved JSON file path (B only):
 Complete actual JSON output (A only):
 

@@ -16,8 +16,9 @@ Use only the supplied synthetic data.
 | **[A — Beginner](docs/paths/a-beginner.md)** | You are new to Azure or agents | Browser steps and a prepared Lab 05 workflow path; no Python writing | Your agent, a six-question assessment, a workflow review and a cleanup handoff |
 | **[B — Implementation](docs/paths/b-practitioner.md)** | You are comfortable with Python and APIs | SDK calls, managed prompt agent, tools, workflows, Search/IQ, controlled evaluation, traces, local packaging | Saved run records and an acceptance report |
 
-**Time after setup:** A 4 h 30 min; B 8 h (two 4-hour sessions). **Files:** A uses the small learner ZIP; B uses the source repository, with no second ZIP.
-Both need a prepared Azure environment. Lab 05 uses either a prepared hosted workflow agent in the browser or a prepared terminal (the owner decides before class).
+**Planned teaching time after setup:** A 4 h 30 min; B 8 h (two 4-hour sessions), not measured learner completion times. **Files:** A uses the small learner ZIP; B uses the source repository, with no second ZIP.
+Both need a prepared Azure environment. **A's default Lab 05 option is the prepared terminal.**
+The browser alternative is optional and requires an owner-verified Hosted Responses workflow before class; this edition has not verified that remote option ([scope](docs/labs/05-workflows.md#path-a)).
 If neither option was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
 Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark cloud labs **not run**.
 
@@ -112,6 +113,7 @@ Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authe
 ## Scope of this edition
 
 - Current Foundry and Projects SDK **2.x** pins were refreshed on 2026-09-24 and live-verified that evening on the core B route in both languages; the 2026-09-24 recordings used the previous pins. Lab 03 B and the Lab 09 B trace search were recorded with the new pins on 2026-09-25 ([supplement](docs/video-summary.md#review-refresh-supplement)), and both routes ran end to end as written that day ([results](docs/live-run.md#end-to-end-20260925)). See [versions](docs/reference/versions.md).
+- The later [headless follow-up](docs/live-run.md#headless-guide-audit-20260925) checked existing agents, new replies and portal traces in both languages. Its browser timings are not a learner pilot, and File Search upload was unavailable for the selected model.
 - **MAF code** owns workflow authoring and orchestration. Portal workflow creation/publishing is excluded. Assistants retired on 2026-08-26, portal Workflows retire on 2026-12-01, and classic threads/runs agents retire on 2027-03-31; see the [migration map](docs/reference/migration.md).
 - The first-pass preset is **`gpt-6-sol`**, deployed with that exact name, model version **`2026-09-22`**.
   It was chosen on September 23, 2026 and the main steps were recorded with it on September 24 ([why this model](docs/reference/model-choice.md)).

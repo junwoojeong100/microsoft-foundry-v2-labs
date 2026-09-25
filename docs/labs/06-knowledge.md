@@ -22,9 +22,10 @@
 
 ## A. Browser: a visible citation is not enough
 
-Use the D01, D02 and D03 answers you saved in [Lab 03](03-prompt-agent.md#path-a).
+Use the D01, D02 and D03 answers you saved for the exact agent/version recorded in [Lab 03](03-prompt-agent.md#path-a).
 
-1. If one of them is missing, open your agent, select **New chat** and ask only that question from `dev-questions.txt`.
+1. If one of them is missing, reopen that same saved agent version, select **New chat** and ask only that question from `dev-questions.txt`.
+   If that version is unavailable, record the check incomplete; do not silently use the latest version.
 2. For each answer, note the policy IDs it cites.
 3. Open the matching files in the learner ZIP's `policies/` folder and compare the amount and the effective dates.
 4. Write **correct** or **incorrect** for each row in the Lab 06 section of `session-notes.txt`.
@@ -171,6 +172,11 @@ python scripts/workshop.py --language en retrieve --provider iq \
 **What to check:** `provider: foundry-iq`, your `knowledge_base`, `api_version: 2026-04-01`, `references`, `activity` and the original `documents`.
 Reference numbers are not document IDs. **An empty result means no documents were retrieved:** record it; do not invent an amount.
 An IQ error stays an error; it never falls back to ordinary Search. Do not fill unreported latency or usage with invented values.
+
+An `agenticReasoning` activity with `reasoningTokens` can still appear in this minimal GA path
+(observed on 2026-09-25). It does not establish the optional `modelQueryPlanning` or `modelAnswerSynthesis` path.
+[Search retrieval-token billing](https://learn.microsoft.com/azure/search/agentic-retrieval-overview#billing)
+is separate from the answer model's `usage` in step 5; keep the two records separate.
 
 **Save:** `retrieve-iq.json` is written to the same notes directory, including the original documents and activity. Inspect them before answering.
 

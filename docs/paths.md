@@ -2,7 +2,7 @@
 
 **English** | [한국어](ko/paths.md)
 
-**Path A uses the browser and one prepared Lab 05 workflow (in Playground or a prepared terminal), without writing Python. Path B works with code and saved run records.**
+**Path A uses the browser and one prepared Lab 05 workflow (terminal by default; an owner-verified Hosted Playground is optional), without writing Python. Path B works with code and saved run records.**
 Both use the same Hanbit Technology scenario with language-specific synthetic policies.
 
 **Choose A** if you are new to Azure or agents, and **B** if you are comfortable with Python and APIs.
@@ -12,15 +12,16 @@ The tables below are schedules, not extra tasks. Each lab has a `path-a` / `path
 [C — Advanced modules](paths/c-advanced.md) are separate sessions after the core route.
 
 **How each lab works:** read the start card, do the action or command, then compare your result with **What to check**.
-Screenshots come from the September 24, 2026 recording, plus a September 25 supplement for Lab 03 B and Lab 09 B; your names, IDs and answers will differ
+Screenshots come from the September 24, 2026 recording and dated September 25 checks/supplements; your names, IDs and answers will differ
 ([how to read them](labs/00-start.md#how-to-read-this-guide)).
 English commands use `--language en`, which selects the English input files ([language rules](reference/languages.md)).
+**All times below are teaching budgets, not measured learner completion times.** Browser response timings and edited video lengths do not validate a class schedule.
 
 ## A. Beginner: four hours thirty minutes in a prepared environment
 
 You need a browser, an Entra account, and an instructor-prepared Foundry project and
-**`gpt-6-sol` deployment**. Lab 05 needs either a prepared Hosted workflow agent in Playground
-or a **prepared MAF environment** with SDKs installed and the learner signed in. Copy commands and read their results; Python authoring,
+**`gpt-6-sol` deployment**. Lab 05 defaults to a **prepared MAF environment** with SDKs installed and the learner signed in.
+A Hosted Responses workflow in Playground is optional, only after the owner verifies it before class. Copy commands and read their results; Python authoring,
 installation, and subscription billing setup are preparation, not class exercises.
 For self-study, complete [the environment-owner checklist](setup-owner.md),
 [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) and [Lab 02 B](labs/02-models.md#path-b) first.
@@ -50,7 +51,7 @@ IQ Chat is optional: if it was not prepared for you, mark it **not selected** be
 You should understand basic Python, JSON, a terminal, and `async/await`.
 Region/model/permission approvals, SDK downloads, and Search service creation happen first.
 B includes a managed Prompt Agent, local MAF tools/workflows, Search/IQ, local evaluation, package inspection, and trace lookup.
-Recommended delivery is **two 4-hour sessions**: Day 1 = Labs 00–05, Day 2 = Labs 06–11.
+Recommended delivery is **two 4-hour sessions**, with Lab 06 on Day 1 and evaluation beginning on Day 2.
 B assumes a prepared, verified environment; failures, role changes and approvals are extra.
 
 | Order | Lab | Time | Your evidence |
@@ -66,6 +67,15 @@ B assumes a prepared, verified environment; failures, role changes and approvals
 | 9 | [09. Observability and operations](labs/09-operations.md#path-b) | 40 min | Existing run-ID lineage, Prompt Agent trace lookup, and read-only cleanup plan |
 | 10 | [11. Capstone](labs/11-capstone.md#path-b) | 45 min | Existing acceptance report and artifact checklist |
 | — | Breaks and buffer | 90 min | **480 minutes total** |
+
+<a id="b-session-budget"></a>
+
+| Session | Labs, in order | Core work | Breaks and buffer | Total |
+|---|---|---:|---:|---:|
+| Day 1 | 00, 02, 03, 04, 05, 06 | 195 min | 45 min | 240 min |
+| Day 2 | 07, 08, 09, 11 | 195 min | 45 min | 240 min |
+
+At the Day 1 pause, keep the Search ownership ledger and all saved outputs. Resume at Lab 07 without reseeding Search or repeating earlier model calls.
 
 **B's core completion** requires the listed real model/tool/workflow and Search/IQ results,
 managed Prompt Agent create/invoke evidence, comparable dev records, frozen final evaluation, package, trace status and cleanup handoff.
