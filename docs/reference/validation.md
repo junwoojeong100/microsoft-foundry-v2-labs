@@ -8,11 +8,11 @@ Earlier videos and upstream results are not relabeled as new evidence.
 
 <a id="current-answer"></a>
 
-## Current answer — September 25, 2026
+## Current answer — September 26, 2026
 
 | Question | Answer | Details |
 |---|---|---|
-| What changed in the latest straightforwardness pass? | Four setup/copy/resume gaps corrected in English and Korean: one self-study readiness gate, a complete sparse-clone block, installation that stops on environment failure, and saved-name/version agent resumption. Offline checks only; no new learner-pilot or Azure claim | [Copy and resume audit](#copy-resume-audit-20260925) |
+| What changed in the latest straightforwardness pass? | Beginner instructions now distinguish offline-only preparation, the correct terminal, replacing an instruction field, preserving a saved baseline and six-row CSV, and course-only cleanup ownership. English/Korean guidance and recovery links are aligned. Offline checks only; no new learner-pilot or Azure claim | [Beginner final audit](#beginner-final-audit-20260926) |
 | What is the final closeout status? | Six guide/material/evidence issues corrected; all 63 language pairs checked. After the corrected revision passed offline gates, 32 bounded guide CLI commands and two local package commands completed in both languages. Two new SDK responses matched portal traces. This is not a fresh full acceptance or an all-feature Azure claim | [Final closeout](#final-guide-closeout-20260925) |
 | What is recorded? | The main A/B steps of Labs 00–09 and 11 and the optional Foundry evaluation steps, in English and Korean, with `gpt-6-sol` / `gpt-6-sol-judge` (`2026-09-22`) in the Sweden Central training project | [Re-recording](#gpt-6-sol-20260924) · [videos](../video-summary.md) |
 | What did the live runs return? | In each language: business checks baseline 6/6, candidate 6/6 and holdout 4/4; acceptance `ready-for-human-review` with `deployment_approved: false`. Judge scores are kept separately and do not decide acceptance | [Actual results](../live-run.md) |
@@ -27,6 +27,32 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | What did the headless follow-up complete? | A's model/inline-agent/dev checks and A/B portal trace correlation, English then Korean. New manual dev assessments: 6/6 each. Median Send-to-render time: 6.75 s / 5.41 s over six rows each. File Search upload was disabled for the selected model | [Headless follow-up](#headless-guide-audit-20260925) |
 | How straightforward are the guides and documents? | Earlier AI editorial review scored guides 94/100 and documents 90/100 (round 6), then 99.5/100 and 98/100 (round 7). Those scores do not rate the later audit revision and are not a learner pilot or timing measurement | [Earlier review](#straightforwardness-95) |
 | Can a beginner finish route A alone from the guide? | Offline editorial audit: in a prepared environment, each A step names the screen, value or worksheet line and its check. Learning alone was the gap; [self-study preparation](../setup-owner.md#self-study) now covers the project, exact model, role, tracing, terminal and final cleanup. Not a learner pilot; the new portal steps follow official docs and were not run live | [Self-study audit](#beginner-self-study-audit-20260925) |
+
+<a id="beginner-final-audit-20260926"></a>
+
+## Beginner final clarity audit, offline only — September 26, 2026
+
+**Scope:** followed the core A/B reading order and corrected concrete copy, save and recovery gaps, English first and then Korean.
+The route, executable workshop commands, model, prompts, synthetic inputs, grading and learner ZIPs are unchanged.
+
+| Finding | Correction |
+|---|---|
+| Offline-only readers reached B's Azure setup-card and notes instructions before the fixtures | A direct jump after `doctor` skips that preparation; no `.env`, Azure sign-in or SDK installation is needed |
+| Opening a Windows source folder did not ensure a Bash terminal | Show the WSL-connected VS Code entry, distinguish PowerShell/Command Prompt and Python's `>>>`, and explain root-relative output paths |
+| Browser instructions assumed Web search existed and did not say to replace existing instructions | Continue when Web search is absent; select only the Instructions field and replace its whole contents |
+| A's assessment did not explain unsaved-version recovery or multiline CSV pasting | Define baseline/candidate/dev, restore the recorded version without saving a draft, paste each reply into one cell, undo a misplaced paste before other edits, and retain all six original rows |
+| Self-study wording implied that accessible resource-group assets were all learner-owned | Require the dedicated group to contain only course resources; otherwise inventory individual assets and the authorized owner |
+
+**Verified locally:** 331 offline tests on each of Python 3.13 and 3.14 with site packages disabled, including five new bilingual
+guide-contract regressions that failed before the corrections. Existing tests execute the documented offline commands in temporary
+copies and check their saved files and overwrite protection. Ruff 0.16.6 lint/format, compilation on both Python versions,
+documentation/command parity for all 63 language pairs and both learner-bundle checks passed.
+Changed translations retain exact completion hashes in `docs/localization.json`.
+
+**Evidence boundary:** the WSL opening steps were checked against the linked official VS Code guide on September 26, 2026.
+Windows/WSL and spreadsheet UI execution, live Azure/portal checks, new recordings, a beginner pilot/timing and a new editorial score
+were **not run**. Installed-SDK tests were not rerun because application code and dependencies are unchanged.
+Older screenshots remain references, not proof of these new usability instructions.
 
 <a id="copy-resume-audit-20260925"></a>
 

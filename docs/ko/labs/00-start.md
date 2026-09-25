@@ -106,6 +106,7 @@
 | Python·JSON·YAML 예시 | 앞뒤 설명에서 흐름 설명·예상 출력·편집할 파일 중 무엇인지 확인합니다. 추가 터미널 명령이 아닙니다 |
 | `<your-...>` | 꺾쇠까지 포함한 전체 자리를 확인한 실제 값으로 바꿉니다 |
 | `read -r NAME` | 요청한 값만 따옴표를 덧붙이지 않고 입력한 뒤 Enter를 누릅니다. 뒤 명령의 `$NAME`·`${NAME:?...}`는 그대로 둡니다 |
+| `outputs/...` / `.build/...` | 소스 저장소 루트를 기준으로 한 파일 경로이지 명령이 아닙니다. 편집기의 파일 목록에서 엽니다. `.build`가 안 보이면 숨김 폴더 표시를 켭니다 |
 
 블록 하나를 실행하고 결과를 확인한 뒤 다음으로 갑니다. `\`로 이어진 줄은 명령 하나이며
 `&&`는 앞 명령이 성공했을 때만 다음 명령을 실행합니다. 셸 프롬프트가 돌아온 것은 **종료**이지 **통과**가 아닙니다.
@@ -122,14 +123,26 @@
 
 **준비된 소스 폴더가 있나요?** 다운로드를 건너뛰고 그 폴더를 사용합니다. `.env`·`.venv`·`outputs/`를 유지하며,
 기존 `outputs/azure-objects.json` 소유권 기록도 보존합니다.
-이는 **이번 경로·언어·설정 카드에 맞게 준비한 복사본**을 뜻합니다. 이전 판에서 실행됐다는 이유만으로 준비된 것은 아닙니다.
+이후 Azure 단계에는 **이번 경로·언어·설정 카드에 맞게 준비한 복사본**이 필요합니다. 이전 판에서 실행됐다는 이유만으로 준비된 것은 아닙니다.
 프로젝트·모델이 다르면 이전 복사본을 보존하고 담당자에게 새 복사본용 현재 설정값을 받습니다.
 Search 소유권이 있는 복사본의 대상을 바꾸거나 이전 모델의 사전 확인 성공을 이번 가이드의 준비 완료로 해석하지 않습니다.
 
 **아직 소스 폴더가 없나요?** 접근 권한이 있는 GitHub 계정으로
 [이 저장소](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)를 열고 **Code → Download ZIP**을 선택합니다.
 압축을 풀고 그 폴더를 VS Code로 엽니다. 작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
-**Terminal → New Terminal**(한국어 VS Code: **터미널 → 새 터미널**)을 엽니다.
+
+<a id="terminal-check"></a>
+
+**명령을 복사하기 전에 터미널부터 확인합니다.**
+
+- **macOS/Linux:** VS Code에서 **Terminal → New Terminal**(**터미널 → 새 터미널**)을 열고 Bash 또는 zsh를 사용합니다.
+- **Windows:** PowerShell이나 Command Prompt(명령 프롬프트)가 아니라 WSL에 연결된 VS Code 창을 사용합니다.
+  [WSL 확장](https://code.visualstudio.com/docs/remote/wsl)을 준비한 뒤 **F1 → WSL: Reopen Folder in WSL**(WSL에서 폴더 다시 열기)을 선택합니다.
+  왼쪽 아래에 **WSL: …**가 보이는지 확인한 뒤 그 창에서 **터미널 → 새 터미널**을 엽니다.
+  Python 3.13과 이후 사용할 Azure CLI는 **WSL 안에서** 실행돼야 합니다. Windows에 설치한 것만으로는 충분하지 않습니다.
+
+입력란 앞에 `>>>`가 보이면 Python 안에 들어간 상태입니다. 먼저 `exit()`를 입력해 터미널로 돌아옵니다.
+Python 입력란에 실습의 Bash 블록을 붙여 넣지 않습니다.
 
 <details>
 <summary>선택 대안: 큰 스크린샷·영상을 제외하고 Git으로 다운로드</summary>
@@ -170,6 +183,10 @@ python3.13 scripts/workshop.py doctor
 **화면 확인:** `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`와 함께 `azure_tested: false`를 읽습니다.
 이 단계에서는 파일과 실행 환경만 확인하며 Azure 호출 성공을 판정하지 않습니다.
 
+**오프라인 체험만 하나요?** 아래 B의 개인 기록 폴더 준비는 건너뜁니다.
+[2단계: 고정 예제 실행](#offline-fixtures)으로 바로 갑니다. 설정 카드 값·`.env`·SDK 설치·Azure 로그인은 필요 없습니다.
+B 학습자와 A의 Lab 05 터미널을 준비하는 학습자는 기록 폴더를 준비한 뒤 2단계로 갑니다.
+
 <a id="prepare-notes"></a>
 
 #### B의 개인 기록 폴더 한 번 준비하기
@@ -200,6 +217,8 @@ Lab 02/03/04/05/06의 B 명령에는 **`--output`**이 있어 JSON 전체를 이
 `--output`이 없으면 기존처럼 JSON만 출력합니다. 요청 실패 시 실제 오류와 단계를 기록하며 성공 응답 파일은 만들지 않습니다.
 [저장 동작과 복구](../reference/commands.md#saving-json)를 확인하세요.
 `collect`·`evaluate`는 `outputs/<label>/`를 자동 작성합니다. 이 생성 폴더는 옮기거나 응답을 수정하지 않습니다.
+
+<a id="offline-fixtures"></a>
 
 ### 2. Azure 없이 먼저 실행 형태 익히기
 

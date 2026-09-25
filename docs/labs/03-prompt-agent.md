@@ -70,7 +70,8 @@ Do not connect company data or tools that modify external systems.
 
 1. Open **`instructions-with-policies.txt`** from the [learner ZIP](../setup.md#3-download-the-ready-learner-materials) in a text editor.
 2. Select all of its text and copy it.
-3. Paste it into **Instructions** on the left, not into the chat box on the right.
+3. Click **inside Instructions** on the left. Press **Ctrl+A** (**Cmd+A** on macOS) to select only that field's text,
+   then paste to **replace** it with the whole file. Do not append to default instructions or paste into the chat box on the right.
 4. Select **Save** at the top right and write the **Version** shown next to it on the `Agent name / saved version / deployment:` line of `session-notes.txt`.
 
 The file already contains the instructions and all six synthetic policies; do not add other text.
@@ -87,7 +88,7 @@ The pasted file puts six synthetic policies directly into the agent's context (n
 
 1. In **Instructions**, find the six IDs: `TRAVEL-2025`, `TRAVEL-2026`, `APPROVAL-01`, `RECEIPT-01`, `MEAL-01` and `SCOPE-01`.
 2. Open the same six files in the ZIP's `policies/` folder and compare each amount and effective period.
-3. If one is missing or different, paste the whole file again and select **Save**; otherwise change nothing.
+3. If one is missing or different, repeat the whole-field replacement above and select **Save**; otherwise change nothing.
 
 ![September 24 English recording: Save and read the returned agent version](../assets/g6sol-20260924-en/screenshots/EP03-007-save-2.webp)
 
@@ -109,7 +110,7 @@ If your project shows the same message, leave this branch **not run**; do not sw
 This reference shows feature availability only; it is not a File Search execution or a language-specific learner recording.
 
 1. Create a **separate** agent using your prefix plus `-files`; keep the inline agent unchanged for Lab 07.
-2. Paste the ZIP's **`instructions.txt`** into its **Instructions**, select `gpt-6-sol`, remove **Web search**, and select **Save**.
+2. Replace its **Instructions** with the ZIP's **`instructions.txt`**, select `gpt-6-sol`, remove **Web search** if listed, and select **Save**.
 3. In **Tools**, select **Upload files → Attach files**, choose **Create a new index** with your unique name, then use
    **browse for files** to select only the six **`.txt` files inside `policies/`** (not the ZIP, CSV or inline instruction file).
 4. Check that all six names show **Success**, then select **Attach**. Upload success does not mean indexing has finished.

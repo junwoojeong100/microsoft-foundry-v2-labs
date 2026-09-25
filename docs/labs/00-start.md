@@ -109,6 +109,7 @@ Do not download another copy, reinstall SDKs or replace its `.env`. Otherwise co
 | Python, JSON or YAML example | Read the surrounding instruction: it identifies explanatory code, expected output or the file to edit. It is not another terminal command |
 | `<your-...>` | Replace the entire placeholder, including angle brackets, with your verified value |
 | `read -r NAME` | Enter the requested value, without extra quote characters, then press Enter. Keep `$NAME` and `${NAME:?...}` unchanged in later commands |
+| `outputs/...` / `.build/...` | A file path relative to the source repository root, not a command. Open it in the editor's file list; enable hidden folders if `.build` is not visible |
 
 Run one block and inspect its result before the next. Lines joined by `\` form one command;
 `&&` runs the next command only after success. A returned shell prompt means **finished**, not **passed**.
@@ -125,13 +126,26 @@ New terminals do not inherit values entered with `read`.
 
 **Already have a prepared source folder?** Use it; skip the download. Keep its `.env`, `.venv` and `outputs/`,
 including any existing `outputs/azure-objects.json` ownership record.
-This means a copy prepared for **this route, language and setup card**, not merely a folder that worked in an older edition.
+For later Azure steps, this must be a copy prepared for **this route, language and setup card**, not merely a folder that worked in an older edition.
 If its project/model differs, preserve that copy and have the owner supply the current values for a fresh copy;
 do not repoint a Search-owning copy or treat the older model's successful preflight as readiness for this guide.
 
 **No source folder yet?** Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)
 with a GitHub account that has access, then **Code → Download ZIP**, extract it and open the folder in VS Code.
-This is the **source repository ZIP**, not the small learner-materials ZIP. Open **Terminal → New Terminal**.
+This is the **source repository ZIP**, not the small learner-materials ZIP.
+
+<a id="terminal-check"></a>
+
+**Check the terminal before copying commands:**
+
+- **macOS/Linux:** in VS Code, open **Terminal → New Terminal** and use Bash or zsh.
+- **Windows:** use a WSL-connected VS Code window, not PowerShell or Command Prompt.
+  With the [WSL extension](https://code.visualstudio.com/docs/remote/wsl) prepared, press **F1 → WSL: Reopen Folder in WSL**.
+  Check that the bottom-left indicator says **WSL: …**, then open **Terminal → New Terminal** there.
+  Python 3.13 and, later, Azure CLI must be available **inside WSL**; a Windows installation alone does not provide them there.
+
+If the prompt is `>>>`, you are inside Python: enter `exit()` first to return to the terminal.
+Do not paste the workshop's Bash blocks into that Python prompt.
 
 <details>
 <summary>Optional alternative: Git download without the large screenshots and videos</summary>
@@ -172,6 +186,10 @@ Expected fields include `documents: 6`, `dev_cases: 6`, `holdout_cases: 4`,
 **What to check:** Read all three counts and `azure_tested: false`. This checks files
 and the local runtime, not a successful Azure call.
 
+**Offline only?** Skip B's personal-notes preparation below and go directly to
+[step 2: fixed examples](#offline-fixtures). No setup-card values, `.env`, SDK installation or Azure sign-in are needed.
+B learners and people preparing A's Lab 05 terminal complete the notes preparation before step 2.
+
 <a id="prepare-notes"></a>
 
 #### Prepare B's personal notes once
@@ -202,6 +220,8 @@ If you chose another notes directory, change every `--output` path consistently.
 Without `--output`, these commands still only print JSON. On a request failure, record the actual error and failed step;
 no successful-response file is created. [Save behavior and recovery](../reference/commands.md#saving-json).
 `collect`/`evaluate` already write `outputs/<label>/`; keep those generated folders in place and do not edit their responses.
+
+<a id="offline-fixtures"></a>
 
 ### 2. Learn the output format without Azure
 

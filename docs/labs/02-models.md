@@ -39,8 +39,9 @@ Even if the right panel's sample code shows the judge, send questions in the `gp
 
 ### 2. Disable external web tools
 
-Select the **`gpt-6-sol`** name link to open its Playground. In **Tools**, find **Web search**,
-open its **⋮** menu and select **Remove**. The core workshop does not query the external web.
+Select the **`gpt-6-sol`** name link to open its Playground. In **Tools**, if **Web search** is listed,
+open its **⋮** menu and select **Remove**. If it is already absent, leave the tools unchanged and continue to step 3;
+do not add it to match a screenshot. The core workshop does not query the external web.
 
 
 ![September 24 English recording: Open the default Web search tool actions](../assets/g6sol-20260924-en/screenshots/EP02-006-web-menu-2.webp)

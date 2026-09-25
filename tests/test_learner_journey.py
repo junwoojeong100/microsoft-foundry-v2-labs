@@ -1,4 +1,5 @@
 import argparse
+import csv
 import io
 import json
 import os
@@ -159,6 +160,111 @@ class LearnerJourneyTests(unittest.TestCase):
                     )
                     for number in ROUTES[route]:
                         self.core_section(language, labs[number], route)
+
+    def test_offline_readers_can_skip_the_live_setup_card_and_notes_copy(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                text = expanded_markdown(labs[0].read_text())
+                folder = text.split('<a id="source-folder"></a>', 1)[1]
+                before_notes = folder.split('<a id="prepare-notes"></a>', 1)[0]
+                self.assertIn("(#offline-fixtures)", before_notes)
+                self.assertIn(
+                    "Skip B's personal-notes preparation"
+                    if language == "en"
+                    else "B의 개인 기록 폴더 준비는 건너뜁니다",
+                    before_notes,
+                )
+                anchor = '<a id="offline-fixtures"></a>'
+                self.assertIn(anchor, text)
+                rehearsal = text.split(anchor, 1)[1].split("### 3.", 1)[0]
+                commands = [args for _, args in DOCS.workshop_commands(rehearsal)]
+                self.assertEqual(
+                    [parser().parse_args(args).command for args in commands],
+                    ["demo", "demo", "compare"],
+                )
+                self.assertIn("not run" if language == "en" else "미실행", rehearsal)
+
+    def test_terminal_choice_is_explained_before_the_first_download_command(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                text = labs[0].read_text()
+                anchor = '<a id="terminal-check"></a>'
+                self.assertIn(anchor, text)
+                check = text.split(anchor, 1)[1].split("```bash", 1)[0]
+                for marker in ("WSL:", "PowerShell", "Command Prompt", "`>>>`", "`exit()`"):
+                    self.assertIn(marker, check)
+                recovery = (directory / "reference/troubleshooting.md").read_text()
+                self.assertIn("(../labs/00-start.md#terminal-check)", recovery)
+
+    def test_browser_paste_replaces_instructions_and_absent_web_search_is_ready(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                model = self.core_section(language, labs[2], "A")
+                tools = model.split("### 2.", 1)[1].split("### 3.", 1)[0]
+                self.assertIn("already absent" if language == "en" else "처음부터 없다면", tools)
+                agent = self.core_section(language, labs[3], "A")
+                paste = agent.split(
+                    "#### Instructions and saving" if language == "en" else "#### 지침 입력과 저장",
+                    1,
+                )[1].split("### 2.", 1)[0]
+                for marker in ("instructions-with-policies.txt", "Ctrl+A", "Cmd+A"):
+                    self.assertIn(marker, paste)
+                self.assertIn("replace" if language == "en" else "교체", paste)
+
+    def test_a_assessment_preserves_saved_version_and_all_csv_cells(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                assessment = self.core_section(language, labs[7], "A")
+                for anchor in ("assessment-version", "assessment-sheet"):
+                    self.assertIn(f'<a id="{anchor}"></a>', assessment)
+                    recovery = (directory / "reference/troubleshooting.md").read_text()
+                    self.assertIn(f"(../labs/07-evaluation.md#{anchor})", recovery)
+                version = assessment.split('<a id="assessment-version"></a>', 1)[1].split(
+                    '<a id="assessment-sheet"></a>', 1
+                )[0]
+                self.assertIn("draft" if language == "en" else "초안", version)
+                self.assertIn(
+                    "do not select **Save**" if language == "en" else "**저장**을 누르지", version
+                )
+                sheet = assessment.split('<a id="assessment-sheet"></a>', 1)[1].split("### 3.", 1)[
+                    0
+                ]
+                with (ROOT / "data/learner" / language / "assessment.csv").open(
+                    encoding="utf-8-sig", newline=""
+                ) as source:
+                    reader = csv.DictReader(source)
+                    for column in reader.fieldnames:
+                        self.assertIn(f"`{column}`", sheet)
+                    self.assertEqual(
+                        [row["case_id"] for row in reader],
+                        [f"D{index:02d}" for index in range(1, 7)],
+                    )
+                for marker in ("CSV UTF-8", "D01", "D06"):
+                    self.assertIn(marker, sheet)
+                paste = sheet.split("### 2.", 1)[1].split("\n3. ", 1)[0]
+                for marker in (
+                    ("edit mode", "one cell", "Undo")
+                    if language == "en"
+                    else ("편집 상태", "한 셀", "실행 취소")
+                ):
+                    self.assertIn(marker, paste)
+                self.assertIn("comma" if language == "en" else "쉼표", sheet)
+
+    def test_a_cleanup_does_not_assume_self_study_implies_resource_ownership(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                operations = self.core_section(language, labs[9], "A")
+                self.assertIn("(../setup-owner.md#self-study)", operations)
+                self.assertIn(
+                    "only this course's resources" if language == "en" else "이 실습의 자산만",
+                    operations,
+                )
+                self.assertNotIn(
+                    "everything in your own resource group is yours"
+                    if language == "en"
+                    else "본인 리소스 그룹의 모든 자산이 본인 것입니다",
+                    operations,
+                )
 
     def test_each_practitioner_session_fits_four_hours_including_breaks(self):
         for language, directory, _ in self.language_labs():

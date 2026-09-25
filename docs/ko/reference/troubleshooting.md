@@ -14,6 +14,8 @@
 | 상황 | 안전한 다음 행동 | 하지 않을 일 |
 |---|---|---|
 | 브라우저를 닫았음 | 같은 프로젝트·agent·저장 버전을 열고 기존 대화 확인 | 새 agent 생성·모든 질문 재전송 |
+| Lab 07 A의 **저장** 버튼이 활성화됨 | 보관할 초안은 따로 복사한 뒤 [기록된 baseline 버전 복구](../labs/07-evaluation.md#assessment-version). 미저장 수정이 없는 상태에서 질문 | 초안을 baseline으로 저장·원래 지침 파일 덮어쓰기·한 평가표에 여러 버전 혼합 |
+| 답변을 붙여 넣자 여러 셀이 바뀜 | 마지막 붙여넣기를 실행 취소하고 [셀 편집 상태에서 받은 답변을 다시 붙여넣기](../labs/07-evaluation.md#assessment-sheet). 원래 ID·질문 6개 유지 | 질문 재전송·작성한 baseline을 빈 양식으로 교체·영향받은 문항 삭제 |
 | 새 터미널을 열었음 | 저장소 루트로 돌아와 `source .venv/bin/activate`. 기존 Azure 로그인 유지 | 전체 재설치·`.env` 덮어쓰기·셸 `source .env`·단순 재개를 위한 `az login` 반복 |
 | Lab 03 B에서 agent를 만든 뒤 중단함 | [저장된 agent별 재개 표](../labs/03-prompt-agent.md#resume-managed-agent)에 따라 생성 JSON의 `agent_name`·`agent_version`을 모두 복구 | 셸 변수 복구를 위한 `create` 재실행·이전 이름 사용·`latest` 호출 |
 | `${NAME:?...}`가 값 누락을 알림 | 이번 회차의 설정/출력 기록에서 해당 값을 복구. 아직 명령은 실행되지 않음 | 보호 문법 제거·녹화 ID 복사·다른 터미널 값의 자동 전달 가정 |
@@ -43,6 +45,7 @@
 | 증상 | 첫 확인 | 바로 복귀 |
 |---|---|---|
 | `scripts/workshop.py`를 찾지 못함 | 현재 폴더에 `README.md`, `pyproject.toml`, `scripts/`가 있어야 함. 학습자 ZIP과 소스 ZIP은 다름 | [00 B](../labs/00-start.md#path-b) |
+| PowerShell/Command Prompt에서 Bash 명령 오류 또는 `>>>` 표시 | Windows는 WSL 터미널 사용. Python 안이면 `exit()`로 나온 뒤 터미널 명령 붙여넣기 | [터미널 확인](../labs/00-start.md#terminal-check) |
 | Python·패키지 없음 | 지원 Python·활성 `.venv`·고정 설치 단계 확인. 설치 오류를 무시하지 않음 | [00 B](../labs/00-start.md#path-b) |
 | `--output` 폴더가 없거나 `outputs/` 밖임 | Lab 00 기록 폴더를 준비하고 이 소스 복사본 안의 새 `.json` 경로 사용 | [JSON 저장](commands.md#saving-json) |
 | UUID 또는 출력 token 정수 오류 | 준비 카드로 명시된 설정만 수정. Token은 256–8192이며 프로세스에서 상속한 값도 확인 | [설정](configuration.md) |

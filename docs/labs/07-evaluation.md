@@ -44,6 +44,10 @@ English and Korean use separate frozen prompts, policies and evaluation datasets
 **One worksheet = one saved agent version + all six dev questions.**
 These are billable agent calls and a manual assessment, not a Foundry Evaluation portal run.
 No evaluator setup, B commands or holdout access is needed.
+Here, **baseline** means your recorded Lab 03 version, **candidate** means a later version with a justified instruction change,
+and **dev** means the six practice questions. Start with the baseline only.
+
+<a id="assessment-version"></a>
 
 ### 1. Freeze the baseline before asking
 
@@ -51,12 +55,19 @@ Open your [Lab 03](03-prompt-agent.md#path-a) inline agent. Check that **Version
 with `instructions-baseline.txt` and that **Save** is greyed out. A saved version cannot change, but unsaved edits would be used in the chat
 ([agent versions](https://learn.microsoft.com/azure/foundry/agents/concepts/development-lifecycle), checked 2026-09-25).
 If another version is shown, select your recorded version in that list; if it is not listed, record the assessment incomplete.
+If **Save** is enabled, do not select **Save** or send a question. Preserve any wanted draft in a separate personal file,
+then reopen the recorded baseline version without keeping the unsaved edits. Continue only when the recorded version is shown
+and **Save** is greyed out. If you cannot restore that state, record **assessment incomplete**; do not overwrite `instructions-baseline.txt`
+to make changed instructions look like the original baseline.
 Fill **Lab 07 A** in `session-notes.txt` with the agent name/version, deployment
 and file paths. Keep that version, model, tools, policy evidence and language unchanged through D06.
 
+<a id="assessment-sheet"></a>
+
 Copy the ZIP's blank **`assessment.csv`** and rename the copy **`assessment-baseline.csv`** in your personal evidence folder;
-keep the blank original for a possible candidate. Open the copy in a spreadsheet editor, keep its six case IDs and questions unchanged,
+keep the blank original for a possible candidate. Open the copy in a local spreadsheet editor; leave `case_id` and `question` unchanged in all six rows,
 and keep the CSV format when saving (in Excel, **CSV UTF-8**).
+If everything appears in one column, import the file with **UTF-8** encoding and a **comma** separator before entering answers.
 If this pass's sheet already exists, preserve its recorded rows and resume only unattempted questions on the same version.
 A completed baseline goes straight to step 3; do not resend questions merely to resume.
 
@@ -64,10 +75,13 @@ A completed baseline goes straight to step 3; do not resend questions merely to 
 
 1. Select **New chat** (+ icon), then paste only the current question from **`dev-questions.txt`** into **Message the agent...** and send it.
    Do not send IDs, this criteria table or assessment columns.
-2. Save the unedited reply in `actual_answer` and its actual cited IDs in `actual_document_ids` **before the next question**.
-   Do not fill missing citations from the criteria below.
+2. In that case's `actual_answer` cell, **double-click to enter edit mode**, then paste the unedited reply.
+   Keep the entire reply, including line breaks, in **one cell**. If it spreads across rows or columns, use **Undo** immediately,
+   before editing any other cell, then paste again in cell edit mode. Use the already received answer; do not send another request.
+   Put only its actual cited IDs in `actual_document_ids`; do not fill missing citations from the criteria below.
 3. Set `pass_or_fail` to **`pass` only if every condition and required citation in the row below is satisfied**;
    otherwise use **`fail`**. Explain the observed reason in `review_note`. Check the cited original, not just the presence of an ID.
+4. Save **before the next question**. Check that D01–D06 still occupy exactly six data rows and the full reply is in the intended cell.
 
 | ID | Required answer and condition | Required policy IDs |
 |---|---|---|

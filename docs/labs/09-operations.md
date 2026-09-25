@@ -41,7 +41,9 @@ Write each result under the same number in the learner ZIP's blank `operations-c
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
    `text-embedding-3-large`), optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
-   Learning alone, everything in your own resource group is yours: name that group as the cleanup target after Lab 11.
+   Learning alone, check the dedicated group from [self-study step 2](../setup-owner.md#self-study).
+   Name the group as a cleanup target after Lab 11 **only if it still holds only this course's resources**.
+   For a shared group or uncertain ownership, record individual assets and the authorized owner instead; do not infer ownership from access.
 
 **What to check:** items 1–4 of `operations-checklist.txt` name your agent and version, where your results are,
 the assets you own, the shared services marked **owner-managed**, and who pays for what remains.

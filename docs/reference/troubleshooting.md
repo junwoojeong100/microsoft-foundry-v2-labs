@@ -14,6 +14,8 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | What happened | Safe next action | Do not |
 |---|---|---|
 | Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
+| Lab 07 A's **Save** button is enabled | Preserve any wanted draft separately, then [restore the recorded baseline version](../labs/07-evaluation.md#assessment-version) with no unsaved edits before asking | Save the draft as the baseline, overwrite its snapshot, or mix versions in one assessment |
+| Pasting an answer changed several spreadsheet cells | Undo the last paste, then [paste the received answer in cell edit mode](../labs/07-evaluation.md#assessment-sheet); keep all six original case IDs/questions | Resend the question, replace the filled baseline with a blank template, or delete affected cases |
 | Opened a new terminal | Return to the repository root; run `source .venv/bin/activate`; keep your existing Azure sign-in | Reinstall everything, overwrite or shell-`source` `.env`, or repeat `az login` merely to resume |
 | Paused after Lab 03 B created the agent | Follow [the saved-agent restart table](../labs/03-prompt-agent.md#resume-managed-agent); restore both `agent_name` and `agent_version` from the creation JSON | Run `create` again to restore a shell variable, use a stale name, or invoke `latest` |
 | `${NAME:?...}` reports a missing value | Restore the named value from this pass's setup/output notes; the command has not run | Remove the guard, paste a recording's ID or assume another terminal supplied the value |
@@ -43,6 +45,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Symptom | First check | Return directly to |
 |---|---|---|
 | Cannot find `scripts/workshop.py` | The terminal must contain `README.md`, `pyproject.toml`, and `scripts/`; the learner ZIP is not the source ZIP | [00 B](../labs/00-start.md#path-b) |
+| Bash commands fail in PowerShell/Command Prompt, or the prompt is `>>>` | Use the WSL terminal on Windows; leave Python with `exit()` before pasting terminal commands | [Terminal check](../labs/00-start.md#terminal-check) |
 | Missing Python/package | Supported Python, active `.venv`, then the pinned install step; stop on installation errors | [00 B](../labs/00-start.md#path-b) |
 | `--output` directory missing or outside `outputs/` | Prepare Lab 00's notes directory and use a new `.json` path inside this source copy | [Saving JSON](commands.md#saving-json) |
 | A setting must be a UUID / output tokens must be an integer | Correct the named setting from the setup card; tokens must be 256–8192. Check inherited process variables too | [Configuration](configuration.md) |
