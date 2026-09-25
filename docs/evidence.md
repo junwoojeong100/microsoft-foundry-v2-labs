@@ -39,7 +39,7 @@ The [language contract](reference/languages.md) and [versioned data bundle](../d
 **September 16 English-first expansion:** [A — Beginner](paths/a-beginner.md) · [B — Implementation](paths/b-practitioner.md) · [C — Advanced modules](paths/c-advanced.md).
 Use the [capability/evidence record](coverage.md) to distinguish existing labs, executable modules and actual Azure verification.
 The extension modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset, and those recordings were removed.
-On September 23, conversation evaluation, Agent Optimizer, the red-team step of agent safety and release operations were re-run with `gpt-6-sol`, without recording; the other modules were not.
+With `gpt-6-sol` and without recording, conversation evaluation, Agent Optimizer, the red-team step of agent safety and release operations were re-run on September 23, A2A and one Insights scan on September 24, and conversation evaluation, memory, one routine dispatch and the Toolbox up to discovery on September 25. The [coverage record](coverage.md) shows each module's latest evidence.
 
 ## Review refresh live verification — 2026-09-24
 
@@ -49,4 +49,4 @@ The September 24 recordings above predate these additions and are not evidence f
 
 **Supplement recorded 2026-09-25:** Lab 03 B create/invoke with `--output`, the Lab 03 B portal check and the Lab 09 B trace search by `response_id`, in English and Korean.
 Twelve lossless screenshots and four short clips: [summary](video-summary.md#review-refresh-supplement) · [captures](action-captures.md#review-refresh-supplement) · [captures.json](assets/review-refresh-20260925/captures.json).
-The other additions have no new recording. Still not run: a remote deployment for the browser Lab 05 option, a cross-provider model comparison and the Dev Pack; see [what can run next](live-run.md#not-run-feasibility).
+The other additions have no new recording. Still not run, or waiting for owner approval: a remote deployment for the browser Lab 05 option, a cross-provider model comparison, a new Agent Optimizer run (needs a supported optimizer deployment), the Toolbox query, Tool Search and Skills (need a Search role) and the Dev Pack; see [what each needs](live-run.md#not-run-feasibility).

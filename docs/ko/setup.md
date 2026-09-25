@@ -71,7 +71,7 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 |---|---|---|
 | Azure tenant·subscription ID | A·B | Azure 포털 → 구독·디렉터리 |
 | Foundry 계정·프로젝트·리소스 그룹 | A·B | 실습 프로젝트의 리소스 상세 |
-| 전체 project endpoint | A의 Lab 05 터미널·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
+| 전체 project endpoint | A·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
 | **응답 모델 배포** | A·B | **`gpt-6-sol`**, 모델 버전 **`2026-09-22`** |
 | 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈만 사용하고 하이픈을 연달아 쓰거나 끝에 두지 않음, 최대 32자. 예: `mfv2-team01-ko` |
 | 코드 환경 | A의 Lab 05(준비해 줌)·B | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
@@ -100,7 +100,7 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 - [ ] 본인 계정으로 정확한 프로젝트를 열 수 있습니다.
 - [ ] 실제 `gpt-6-sol` 배포와 버전 `2026-09-22`가 준비되었습니다.
 - [ ] A: 학습자 ZIP을 받았고 **지침**과 대화창에 넣을 파일을 구분합니다. B: Lab 00의 소스 복사본·기록 준비 순서를 확인했습니다.
-- [ ] Lab 05의 준비된 Hosted workflow agent 또는 준비된 터미널 중 어느 쪽을 사용할지 받았습니다. 터미널이 준비되지 않았다면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
+- [ ] Lab 05에서 쓸 방식을 압니다: Playground의 준비된 Hosted workflow agent 또는 준비된 터미널. 둘 다 받지 못했다면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
 - [ ] B라면 Search 접근·본인 객체 작성 비용이 승인됐습니다. A의 IQ Chat은 별도 준비하지 않았다면 **미선택**입니다.
 - [ ] 비용·권한 담당자를 알고 있으며 승인 없이 리소스 생성·역할 부여를 하지 않습니다.
 

@@ -239,7 +239,7 @@ Kept: the September 23–24 recording agents, evaluations and datasets, and the 
 - Lab 06 IQ Chat preset (gpt-5.6-luna) and hybrid RAG
 - Lab 07 feedback/regression step (the baseline had no failure; the no-evidence diagnostic ran instead)
 - Lab 07 Hosted model matrix
-- The learner's own Hosted deployment (the approved CI release deployed a separate Hosted agent; the local workflow server answered once in the review refresh check)
+- Lab 08's default local server, `azd ai agent invoke --local` and the learner's own Hosted deployment (the approved CI release deployed a separate Hosted agent; section 6's workflow server answered one `curl` request in the review refresh check)
 - Lab 09 server-side tracing checks for a Hosted agent
 - Lab 10 external IQ extensions
 - Extension modules other than conversation evaluation, Agent Optimizer, the red-team step of agent safety, release operations, the A2A and Insights checks of the review refresh, and the September 25 memory, routine and Toolbox discovery checks

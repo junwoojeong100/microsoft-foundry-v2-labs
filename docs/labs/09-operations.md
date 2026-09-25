@@ -329,7 +329,7 @@ Completed overall does not mean every child span is exported or error-free.
 The September 24 `gpt-6-sol` recording covers the agent Details/Traces/Monitor tabs, the optional trace evaluation and the cleanup inventory; the September 25 supplement adds the B trace search by `response_id`.
 [Execution records](../live-run.md) list actual outcomes and retained assets.
 
-A uses the checklist and owner handoff above. B has already printed the local inventory in step 3.
+A uses the checklist and owner handoff above. B has already printed the local inventory in step 4.
 Follow [Cleanup](../reference/cleanup.md), preserve shared/other-team resources, and
 recheck active sessions, residual resources, and costs rather than assuming a command
 means cleanup is complete.

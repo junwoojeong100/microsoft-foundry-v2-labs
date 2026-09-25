@@ -63,7 +63,7 @@ The [September 24 `gpt-6-sol` execution](live-run.md), its [recordings](video-su
 [validation scope](reference/validation.md) keep their own dates, code versions and results.
 The September 24 recording is not relabeled as an execution of the extension modules.
 The September 16 extension results and videos (earlier `gpt-5.6-luna` preset) were removed from the working tree;
-the dated outcomes in the table above remain historical notes, not evidence for `gpt-6-sol`.
+their September 16 outcomes in the table above remain historical notes, not evidence for `gpt-6-sol`; rows dated September 23–25 are `gpt-6-sol` evidence for what they name.
 
 New evidence must identify the language, source commit/package, actual model and agent version,
 question/dataset/corpus/evaluator hashes, all responses and failures, and resource cleanup state.

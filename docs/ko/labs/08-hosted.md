@@ -259,7 +259,8 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 
 
 앞의 기본 단일-agent 경로와 다음 workflow 경로는 서로 다른 target입니다.
-2026-09-24 `gpt-6-sol` 녹화는 패키징만 포함하며 로컬 서버·본인의 원격 배포·아래 workflow 경로는 다시 실행하지 않았습니다.
+2026-09-24 `gpt-6-sol` 녹화는 패키징만 포함합니다. 3절의 로컬 서버, `azd ai agent invoke --local`, 본인의 원격 배포는 다시 실행하지 않았고,
+2026-09-24 저녁 확인에서 6절의 workflow 서버가 `curl`로 보낸 Responses 요청 하나에 답했습니다.
 2026-09-23에 별도의 승인된 CI 릴리스가 workflow 프로필을 `gpt-6-sol`로 배포했습니다([릴리스 운영](extensions/release-operations.md#5-릴리스-순서)).
 정확한 결과와 한계는 [실행 기록](../live-run.md)을 확인합니다.
 

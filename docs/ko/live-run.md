@@ -224,7 +224,7 @@ Memory store, Toolbox, routine은 각 모듈 명령으로 삭제했고, 나머�
 - Lab 06 IQ Chat preset(gpt-5.6-luna)과 하이브리드 RAG
 - Lab 07 feedback/regression 단계(baseline 실패 없음, 대신 근거 없음 진단 실행)
 - Lab 07 Hosted 모델 matrix
-- 학습자 본인의 Hosted 배포(위의 승인된 CI 릴리스는 별도 Hosted agent를 배포했고, 검토 반영 확인에서 로컬 workflow 서버가 한 번 답변)
+- Lab 08 기본 로컬 서버, `azd ai agent invoke --local`, 학습자 본인의 Hosted 배포(위의 승인된 CI 릴리스는 별도 Hosted agent를 배포했고, 검토 반영 확인에서 6절 workflow 서버가 `curl` 요청 하나에 답변)
 - Lab 09 Hosted agent의 서버 측 tracing 확인
 - Lab 10 외부 IQ 확장
 - 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영, 검토 반영의 A2A와 Insights 확인, 2026-09-25의 Memory·routine·Toolbox 탐색 확인을 제외한 확장 모듈

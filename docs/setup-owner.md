@@ -22,7 +22,7 @@ If you are learning alone, you are also the environment owner. These are prepara
    On the model's Foundry account, give **the Search identity** `Cognitive Services User`.
    A role assigned to the user or Hosted agent does not grant it to Search.
 6. Complete [Lab 00 B setup](labs/00-start.md#b-code-one-folder-one-environment), including `.env`, before running the owner commands below.
-   The same setup, followed by [Lab 02 B](labs/02-models.md#path-b), is the self-service route if no prepared terminal is available for Lab 05.
+   The same setup, followed by [Lab 02 B](labs/02-models.md#path-b), is the self-service route if neither Lab 05 option is prepared.
 7. Connect Application Insights to the project before class for server-side tracing. No code change is needed.
    Give learners **Log Analytics Reader** on the connected Application Insights resource; if protected tables are enabled, also give **Privileged Monitoring Data Reader**.
    This is required for the now-core Lab 09 trace step. Checked 2026-09-24: the training project already had Application Insights connected

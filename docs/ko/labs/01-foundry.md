@@ -61,9 +61,9 @@ flowchart TD
 
 ![2026-09-24 국문 녹화: 프로젝트 엔드포인트와 계정 OpenAI 엔드포인트 구분](../../assets/g6sol-20260924-ko/screenshots/KP01-001-endpoints-2.webp)
 
-**화면 확인:** **프로젝트 엔드포인트**는 `/api/projects/<project>`로 끝나고, 옆의 **Azure OpenAI 엔드포인트**는
+**화면 확인:** 긴 엔드포인트는 화면에서 잘리므로 붙여 넣은 값으로 확인합니다. **프로젝트 엔드포인트**는 `/api/projects/<project>`로 끝나고, 옆의 **Azure OpenAI 엔드포인트**는
 `.openai.azure.com`으로 끝나는 다른 값입니다. **배포 보기**는 상위 Foundry 리소스의 모델 배포를 열고,
-**빌드 시작**은 프로젝트 안의 에이전트를 만듭니다. `gpt-6-sol` 행에는 버전 **`2026-09-22`**와 **Succeeded**가 표시되고,
+**빌드 시작**은 프로젝트 안의 에이전트를 만듭니다. **배포 보기**의 `gpt-6-sol` 행에는 버전 **`2026-09-22`**와 **Succeeded**가 표시되고,
 `gpt-6-sol-judge`는 평가용 별도 배포입니다.
 
 classic Hub 프로젝트나 threads/runs 코드가 보이면 멈추고 [마이그레이션 지도](../reference/migration.md)를 확인합니다.

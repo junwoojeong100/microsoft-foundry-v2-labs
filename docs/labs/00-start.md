@@ -54,7 +54,7 @@ prevent translated datasets from being presented as the same-input experiment.
    and check its name, parent resource and region before opening it.
 4. If not already done during setup, download and extract [the learner ZIP](../../data/learner/en/learner-materials.zip).
    Keep `START-HERE.txt` open. If learning alone, use [the setup card](../setup.md) for environment preparation.
-   In [Lab 05](05-workflows.md), copy commands into the prepared MAF terminal;
+   In [Lab 05](05-workflows.md), use the option the owner prepared: the Hosted workflow agent in Playground, or commands copied into the prepared MAF terminal;
    you will not write Python or build a portal workflow.
 5. Open the ZIP's `session-notes.txt`. In its **Lab 00 - setup card** section, check each line you filled during setup and complete any blank one.
    Do not post whole screens or personal information in shared chat.
@@ -68,7 +68,7 @@ prevent translated datasets from being presented as the same-input experiment.
 | `Answer deployment / model version:` | `gpt-6-sol` / `2026-09-22` |
 | `Personal prefix:` | Your own, for example `mfv2-team01-en` |
 | `Cost and permission owner:` | The person who approves costs and roles |
-| `Prepared MAF terminal location:` | Where to open the terminal prepared for Lab 05 |
+| `Prepared MAF terminal location:` | Where to open the terminal prepared for Lab 05, or `not used` for the Playground option |
 | `Optional IQ Chat selected or not selected:` | `not selected`, unless the owner prepared it for you |
 
 ![September 24 English recording: Open the intended training project](../assets/g6sol-20260924-en/screenshots/EP00-001-home-2.webp)

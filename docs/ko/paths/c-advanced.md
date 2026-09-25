@@ -45,9 +45,10 @@
 | [거버넌스·네트워크](../labs/extensions/governance-networking.md) | 호출 주체·정책·사설망 경계 | 담당자가 준비한 인프라, 공유 설정 변경 금지 |
 
 [기능 상태](../coverage.md)를 함께 읽습니다. 공식 문서나 설치된 SDK는 이 실습이 실행되었다는 증거가 아닙니다.
-모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며(예: 후보가 없는 최적화, 답변이 아닌 전달만 확인된 Routine)
-`gpt-6-sol`로는 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 2026-09-23에 다시 실행했습니다.
-2026-09-24 저녁에는 A2A를 `gpt-6-sol`과 형식이 있는 SDK 요청으로 영문 재실행했고, SDK로 on-demand Insights scan을 1회 실행했습니다. 각 모듈은 직접 확인합니다.
+모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했습니다(예: 후보가 없는 최적화, 답변이 아닌 전달만 확인된 Routine).
+`gpt-6-sol`로는 2026-09-23에 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영을 두 언어로 다시 실행했습니다.
+영문으로는 2026-09-24에 형식이 있는 SDK 요청의 A2A와 on-demand Insights scan 1회를, 2026-09-25에 대화 평가, Memory, routine dispatch 1회,
+MCP 탐색까지의 Toolbox를 실행했습니다. Tool Search와 Skills는 Search 접근 문제로 막혔습니다. 각 모듈은 직접 확인합니다.
 
 ## 실험 조건 유지
 

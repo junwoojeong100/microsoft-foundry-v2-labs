@@ -49,8 +49,9 @@ which have actual new Azure evidence, and which remain design-only or blocked.
 An official product page or an installed SDK is not evidence that this workshop ran the feature.
 The modules were exercised on September 16, 2026 with the earlier `gpt-5.6-luna` preset (for example, baseline-only
 optimization and delivery-only routine verification). With `gpt-6-sol`, conversation evaluation, Agent Optimizer, the red-team
-step of agent safety and release operations were re-run on September 23; the others were not.
-On the evening of 2026-09-24, A2A was re-run in English with `gpt-6-sol` and typed SDK requests, and one on-demand Insights scan ran through the SDK. Verify each module yourself.
+step of agent safety and release operations were re-run in both languages on September 23. In English, A2A with typed SDK requests
+and one on-demand Insights scan ran on September 24, and conversation evaluation, memory, one routine dispatch and the Toolbox up to
+MCP discovery ran on September 25; Tool Search and Skills stayed blocked by Search access. Verify each module yourself.
 
 ## Keep the experiment valid
 

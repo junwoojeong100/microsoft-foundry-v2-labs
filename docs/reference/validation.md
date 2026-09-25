@@ -15,12 +15,12 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | What is recorded? | The main A/B steps of Labs 00–09 and 11 and the optional Foundry evaluation steps, in English and Korean, with `gpt-6-sol` / `gpt-6-sol-judge` (`2026-09-22`) in the Sweden Central training project | [Re-recording](#gpt-6-sol-20260924) · [videos](../video-summary.md) |
 | What did the live runs return? | In each language: business checks baseline 6/6, candidate 6/6 and holdout 4/4; acceptance `ready-for-human-review` with `deployment_approved: false`. Judge scores are kept separately and do not decide acceptance | [Actual results](../live-run.md) |
 | What else ran with `gpt-6-sol`, unrecorded? | September 23: verification runs of the optional evaluation steps (recorded again on September 24), the conversation evaluation module, existing-traces and recurring evaluations, Agent Optimizer (baseline only), cloud red teaming (displayed ASR invalid) and the approved Hosted CI release | [Additions](#foundry-evaluation-additions) · [previously not-run items](#previously-not-run-items) |
-| What has not run with `gpt-6-sol`? | Lab 03 portal File Search; Lab 06 IQ Chat and hybrid RAG; Lab 07 feedback/regression and the Hosted matrix; Lab 08's local server and the learner's own Hosted deployment; Hosted server-side tracing; Lab 10; the other extension modules (memory, a routine and Toolbox discovery ran on September 25) | [Not-run list](../live-run.md#not-run-with-gpt-6-sol) |
+| What has not run with `gpt-6-sol`? | Lab 03 portal File Search; Lab 06 IQ Chat and hybrid RAG; Lab 07 feedback/regression and the Hosted matrix; Lab 08's default local server, `azd ai agent invoke --local` and the learner's own Hosted deployment (section 6's workflow server answered one `curl` request on September 24); Hosted server-side tracing; Lab 10; the extension modules that [coverage](../coverage.md) does not list as re-run | [Not-run list](../live-run.md#not-run-with-gpt-6-sol) |
 | How do I check a working copy? | Run the offline tests, Ruff, compilation, documentation and learner-bundle checks below. Each dated record states what passed for its revision | [Local checks](#local-checks-to-run) |
 | What is outside this evidence? | Company/Microsoft 365 data, external Work IQ/Fabric connections, SLAs, statistical superiority, automatic retraining, production approval and other users' resources | [Not established](#not-established) |
 | What changed in the September 24 review refresh? | Refreshed SDK pins, Lab 03 B managed agent in the B core, a core trace check, a browser option for A Lab 05, the Insights module, standalone SDK recipes and new CI checks. That evening the core B route ran live in both languages with the new pins, plus the trace lookup, recipes, A2A and one Insights scan; four guide or recipe defects were fixed | [Review refresh](#review-refresh-20260924) · [live check](#review-refresh-live-20260924) |
 | What was added on September 25? | Screenshots and short clips of Lab 03 B and the Lab 09 B trace search in both languages; English runs of conversation evaluation, memory, a routine and the Toolbox up to discovery; the remaining items need owner approval | [Supplement and not-run review](#review-refresh-supplement-20260925) |
-| How straightforward are the guides and documents? | AI editorial review, September 24: guides 100/100 and documents 98.5/100 in round 5 (the round-4 reviewers after fixes); new reviewers in rounds 1–4 scored 86.5–97.5. Not a learner pilot or timing measurement | [Latest review](#straightforwardness-95) |
+| How straightforward are the guides and documents? | AI editorial review: in the September 25 final check, new reviewers scored guides 94/100 and documents 90/100 (round 6), and 99.5/100 and 98/100 after the fixes (round 7). Not a learner pilot or timing measurement | [Latest review](#straightforwardness-95) |
 
 <a id="review-refresh-20260924"></a>
 
@@ -69,7 +69,7 @@ project and `gpt-6-sol` / `gpt-6-sol-judge`. The lab subscription was pinned; th
 - **Ran, English:** conversation evaluation with the refreshed pins, the memory lifecycle, one routine dispatch, the Toolbox up to MCP discovery and a read-only route A trace check. Search denied the Toolbox direct query because the project identity has only Search Index Data Reader.
 - **Needs owner approval:** a remote Hosted deployment with runtime roles; one non-OpenAI deployment for the cross-provider comparison; a supported optimizer deployment; the Search role for Toolbox, Tool Search and Skills. Installing the Dev Pack changes a workstation's global tools.
 
-- **Offline checks:** 305 offline tests on Python 3.13 and 3.14, 87 SDK tests with the pinned libraries, Ruff check and format, compilation, `check_docs.py` (127 Markdown files, 2,608 local links, 552 anchors), learner bundles and the CI offline doctor, demo, evaluate and package steps passed.
+- **Offline checks:** 305 offline tests on Python 3.13 and 3.14, 87 SDK tests with the pinned libraries, Ruff check and format, compilation, `check_docs.py`, learner bundles and the CI offline doctor, demo, evaluate and package steps passed.
 
 [IDs, results and owned objects](../live-run.md#review-refresh-supplement).
 
@@ -290,50 +290,73 @@ Stopping sessions does not eliminate all model/Search/log/storage costs.
 
 <a id="straightforwardness-95"></a>
 
-## Straightforwardness review: guides and documents — September 24, 2026
+## Straightforwardness review: guides and documents — September 24–25, 2026
 
-**Round 5: guides 100/100 and documents 98.5/100.** Earlier rounds: 97/100 and 86.5/100; 97.5/100 and 94/100;
-93.5/100 and 92.5/100; 96.5/100 and 92/100.
-Rounds 1–4 each used seven new, independent AI cold reads: English A, English B and Korean guides (D1–D10), and two English
-and two Korean document groups (R1–R10). Round 5 is the round-4 reviewers re-reading their whole scope after the fixes.
+**Round 7: guides 99.5/100 and documents 98/100.** Earlier rounds: 97/100 and 86.5/100; 97.5/100 and 94/100;
+93.5/100 and 92.5/100; 96.5/100 and 92/100; 100/100 and 98.5/100; 94/100 and 90/100.
+Rounds 1–4 and 6 each used seven new, independent AI cold reads: English A, English B and Korean guides (D1–D10), and two English
+and two Korean document groups (R1–R10). Rounds 5 and 7 are the previous round's reviewers re-reading their whole scope after the fixes.
+Round 6, on September 25, is the final check after the review refresh, the live verification, the supplement recording and the cleanup.
 Each dimension starts at 10, loses 3, 2, 1 or 0.5 points per critical, major, moderate or minor finding and takes the lowest
-reviewer score; D10 and R10 come from the Korean reviews. New reviewers kept finding a few different small issues, so rounds 2–4
+reviewer score; D10 and R10 come from the Korean reviews. New reviewers kept finding a few different small issues, so rounds 2–4 and 6
 moved up and down. This is an editorial assessment, not a human usability pilot, a learner-success rate or a measured completion time.
 
-| Guides | What earns full points | Round 1 | Round 2 | Round 3 | Round 4 | Round 5 |
-|---|---|---:|---:|---:|---:|---:|
-| D1 | Entry and route choice reach the first action of either route | 10 | 9.5 | 10 | 10 | 10 |
-| D2 | One linear core path; optional, owner and historical material collapsed or marked | 10 | 10 | 9 | 10 | 10 |
-| D3 | Numbered, imperative steps with exact UI labels, file names and values | 10 | 10 | 9 | 10 | 10 |
-| D4 | A visible success or failure check after every action or command | 10 | 9 | 9 | 10 | 10 |
-| D5 | Commands run as written, in order, with named output files | 10 | 10 | 10 | 7 | 10 |
-| D6 | Plain, lean language in the core path | 10 | 10 | 9 | 9.5 | 10 |
-| D7 | Concrete recovery, including what to ask the owner for | 9 | 10 | 9 | 10 | 10 |
-| D8 | Explicit done criteria, correct A/B next links and a clear handoff | 10 | 10 | 10 | 10 | 10 |
-| D9 | Current, consistent model, date, screenshot and link claims | 10 | 10 | 9.5 | 10 | 10 |
-| D10 | Korean pages mirror the English and read naturally | 8 | 9 | 9 | 10 | 10 |
+| Guides | What earns full points | Round 1 | Round 2 | Round 3 | Round 4 | Round 5 | Round 6 | Round 7 |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| D1 | Entry and route choice reach the first action of either route | 10 | 9.5 | 10 | 10 | 10 | 8 | 9.5 |
+| D2 | One linear core path; optional, owner and historical material collapsed or marked | 10 | 10 | 9 | 10 | 10 | 10 | 10 |
+| D3 | Numbered, imperative steps with exact UI labels, file names and values | 10 | 10 | 9 | 10 | 10 | 9 | 10 |
+| D4 | A visible success or failure check after every action or command | 10 | 9 | 9 | 10 | 10 | 9.5 | 10 |
+| D5 | Commands run as written, in order, with named output files | 10 | 10 | 10 | 7 | 10 | 10 | 10 |
+| D6 | Plain, lean language in the core path | 10 | 10 | 9 | 9.5 | 10 | 10 | 10 |
+| D7 | Concrete recovery, including what to ask the owner for | 9 | 10 | 9 | 10 | 10 | 10 | 10 |
+| D8 | Explicit done criteria, correct A/B next links and a clear handoff | 10 | 10 | 10 | 10 | 10 | 9.5 | 10 |
+| D9 | Current, consistent model, date, screenshot and link claims | 10 | 10 | 9.5 | 10 | 10 | 9 | 10 |
+| D10 | Korean pages mirror the English and read naturally | 8 | 9 | 9 | 10 | 10 | 9 | 10 |
 
-| Documents | What earns full points | Round 1 | Round 2 | Round 3 | Round 4 | Round 5 |
-|---|---|---:|---:|---:|---:|---:|
-| R1 | Purpose, audience and the current answer come first | 8 | 10 | 10 | 9.5 | 10 |
-| R2 | Headings, tables and anchors find an answer in seconds | 9 | 10 | 10 | 9.5 | 10 |
-| R3 | Procedures are numbered, with the actor and a success check | 10 | 10 | 10 | 9 | 10 |
-| R4 | Numbers, flags, links and results agree with guides, CLI and evidence | 7 | 9 | 8 | 9 | 9 |
-| R5 | Each fact lives in one place; dated history stays compact | 9 | 10 | 10 | 9.5 | 10 |
-| R6 | Short sentences and explained terms | 9.5 | 10 | 10 | 10 | 9.5 |
-| R7 | Brief, consistent evidence boundaries, Preview status and dates | 10 | 9 | 9 | 9 | 10 |
-| R8 | Paid calls, cloud writes, roles and cleanup name approver and actor | 9 | 8 | 8 | 9 | 10 |
-| R9 | Every page gives a next step; no dead or removed links | 9 | 9.5 | 10 | 9.5 | 10 |
-| R10 | Korean pages mirror the English and read naturally | 6 | 8.5 | 7.5 | 8 | 10 |
+| Documents | What earns full points | Round 1 | Round 2 | Round 3 | Round 4 | Round 5 | Round 6 | Round 7 |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| R1 | Purpose, audience and the current answer come first | 8 | 10 | 10 | 9.5 | 10 | 8 | 10 |
+| R2 | Headings, tables and anchors find an answer in seconds | 9 | 10 | 10 | 9.5 | 10 | 10 | 10 |
+| R3 | Procedures are numbered, with the actor and a success check | 10 | 10 | 10 | 9 | 10 | 10 | 10 |
+| R4 | Numbers, flags, links and results agree with guides, CLI and evidence | 7 | 9 | 8 | 9 | 9 | 7 | 9 |
+| R5 | Each fact lives in one place; dated history stays compact | 9 | 10 | 10 | 9.5 | 10 | 9 | 10 |
+| R6 | Short sentences and explained terms | 9.5 | 10 | 10 | 10 | 9.5 | 10 | 10 |
+| R7 | Brief, consistent evidence boundaries, Preview status and dates | 10 | 9 | 9 | 9 | 10 | 8 | 10 |
+| R8 | Paid calls, cloud writes, roles and cleanup name approver and actor | 9 | 8 | 8 | 9 | 10 | 9 | 9 |
+| R9 | Every page gives a next step; no dead or removed links | 9 | 9.5 | 10 | 9.5 | 10 | 10 | 10 |
+| R10 | Korean pages mirror the English and read naturally | 6 | 8.5 | 7.5 | 8 | 10 | 9 | 10 |
 
-**Rejected after verification:** two critical findings came from errors in the reviewers' brief, not from the pages.
+**Round 6, the final check on September 25:** no critical finding. Its 14 findings named 12 distinct issues; all were fixed,
+English first and then Korean:
+
+- **Lab 05's two A options:** README, learning paths, the setup card, owner setup, the instructor handoff and Lab 00 now name the
+  prepared Hosted workflow agent in Playground as well as the prepared terminal, and send learners to Lab 00 B and Lab 02 B only when
+  neither was supplied.
+- **Status made stale by later runs:** the not-run answer above, Lab 08's evidence limits and the live-run not-run list now separate
+  section 6's one `curl` request from section 3's server, `azd ai agent invoke --local` and a remote deployment; the advanced path,
+  evidence hub, model choice and coverage note now include the September 24–25 module runs and the Tool Search/Skills block.
+- **Steps and checks:** Lab 01 checks the pasted endpoint because the screen cuts it off; Lab 09's cleanup sentence points to step 4;
+  the screenshot note names the September 25 supplement; the Korean Lab 09 start card again asks for Lab 03 B's `response_id` and
+  trace access.
+- **One fact, one place:** the September 25 supplement record no longer repeats the documentation-check counts.
+
+**Afterward, not re-scored:** round 7's two findings, the setup card's route sentence and endpoint row and the evidence hub's list of
+items waiting for owner approval, were corrected.
+
+**Verification, September 25:** 305 offline tests on each of Python 3.13 and 3.14, Ruff 0.16.6 lint/format, Python compilation,
+`check_docs.py` (127 Markdown files, 2,612 local links, 554 anchors, 328 CLI examples, 84 azd examples, 63 language pairs) and
+the learner-bundle checks passed; changed pairs have exact completion hashes in `docs/localization.json`. The reviewers were
+read-only, and no Azure call, resource change or push was made for this review.
+
+**Rejected after verification, rounds 1 and 4:** two critical findings came from errors in the reviewers' brief, not from the pages.
 Round 1's R4 finding said the coverage page over-claimed the September 23 `gpt-6-sol` runs; those claims are correct, but the
 README sentence denying any re-run was wrong and is fixed. Round 4's D5 finding assumed core paid commands take `--confirm-cost`;
 by design they do not, and the reviewer withdrew it after the correction (Lab 07 B now states its billable calls).
 Without them, round 1 documents would score 89.5 and round 4 guides 99.5. Round 1's proposal to add `--language ko` to every
 Korean core command was not adopted because the Korean recordings use the default form; Lab 00 now states both Korean forms.
 
-**What changed, English first and then Korean:**
+**What changed after rounds 1–4, English first and then Korean:**
 
 - **Validation page:** a current-answer table comes first; current evidence, local checks and limits precede the collapsed
   review and September 15–17 history; the recording summary is a list.
@@ -354,13 +377,13 @@ Korean core command was not adopted because the Korean recordings use the defaul
 **Afterward, not re-scored:** round 5's two findings, a missing verb on the model-choice page and one schedule count on the
 coverage page, were corrected.
 
-**Verification:** 287 offline tests passed on each of Python 3.13 and 3.14; five new tests cover this record's arithmetic,
+**Verification, September 24:** 287 offline tests passed on each of Python 3.13 and 3.14; five new tests cover this record's arithmetic,
 the validation layout, the mirrored error reference, the `--output` command list and the learner start files.
 Ruff 0.16.6 lint/format, Python compilation, documentation checks (117 Markdown files, 58 language pairs, 328 CLI examples)
 and byte-for-byte learner-bundle checks passed. Changed pairs have exact completion hashes in `docs/localization.json`;
 no translation is deferred.
 
-**Boundaries:** workshop command lines, Foundry request logic, prompts, synthetic policies, evaluation datasets, fixtures and
+**Boundaries, September 24:** workshop command lines, Foundry request logic, prompts, synthetic policies, evaluation datasets, fixtures and
 recordings are unchanged; only one Korean `printf` prompt was translated. The learner `START-HERE.txt` text changed, so both
 learner ZIPs were regenerated. No Azure call, resource or permission change, deployment, publishing or push was performed.
 

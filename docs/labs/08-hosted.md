@@ -263,8 +263,9 @@ a Hosted version; collect a separately version-pinned dev/holdout evaluation.
 
 
 Verify evaluation type, exact agent/version, evaluator, and the complete case denominator.
-The September 24 `gpt-6-sol` recording covers packaging only; the local server, your own remote deployment and the workflow
-extension below were not re-run. A separate approved CI release deployed the workflow profile with `gpt-6-sol` on September 23
+The September 24 `gpt-6-sol` recording covers packaging only. Section 3's local server, `azd ai agent invoke --local` and your own
+remote deployment were not re-run; in the September 24 evening check, section 6's workflow server answered one Responses request
+sent with `curl`. A separate approved CI release deployed the workflow profile with `gpt-6-sol` on September 23
 ([release operations](extensions/release-operations.md#5-define-the-release-sequence)). See [execution records](../live-run.md);
 do not transfer scores between these targets.
 

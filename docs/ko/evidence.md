@@ -39,7 +39,7 @@ Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) �
 **9월 16일 확장 경로:** [A — 입문](paths/a-beginner.md) · [B — 구현](paths/b-practitioner.md) · [C — 고급 모듈](paths/c-advanced.md).
 [기능·근거 상태](coverage.md)에서 기존 기본 과정, 실행 가능한 모듈, 실제 Azure 검증 범위를 구분합니다.
 확장 모듈은 2026-09-16에 이전 `gpt-5.6-luna` preset으로 실행했으며 해당 녹화는 삭제했습니다.
-9월 23일에는 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영만 `gpt-6-sol`로 다시 실행했고 녹화는 없었습니다. 나머지 모듈은 다시 실행하지 않았습니다.
+`gpt-6-sol`로는 녹화 없이 다음을 다시 실행했습니다. 2026-09-23: 대화 평가, Agent Optimizer, 안전 제어의 red-team 단계, 릴리스 운영. 2026-09-24: A2A, Insights scan 1회. 2026-09-25: 대화 평가, Memory, routine dispatch 1회, 탐색까지의 Toolbox. 모듈별 최신 근거는 [기능·근거 상태](coverage.md)에 있습니다.
 
 ## 검토 반영 실제 검증 — 2026-09-24
 
@@ -49,4 +49,4 @@ Sweden Central 실습 프로젝트에서 Lab 00–09·11의 A(포털)·B(CLI) �
 
 **2026-09-25 보충 녹화:** Lab 03 B의 `--output` 생성·호출, Lab 03 B 포털 확인, Lab 09 B `response_id` 추적 검색을 영문·국문으로 녹화했습니다.
 무손실 화면 12장과 짧은 영상 4개: [요약](video-summary.md#review-refresh-supplement) · [화면](action-captures.md#review-refresh-supplement) · [captures.json](../assets/review-refresh-20260925/captures.json).
-나머지 추가 사항은 새 녹화가 없습니다. 아직 실행하지 않은 것: A Lab 05 브라우저 선택지를 위한 원격 배포, 타사 모델 비교, Dev Pack. [다음에 실행하려면 필요한 것](live-run.md#not-run-feasibility)을 확인하세요.
+나머지 추가 사항은 새 녹화가 없습니다. 아직 실행하지 않았거나 담당자 승인을 기다리는 것: A Lab 05 브라우저 선택지를 위한 원격 배포, 타사 모델 비교, 새 Agent Optimizer 실행(지원 optimizer 배포 필요), Toolbox 조회·Tool Search·Skills(Search 역할 필요), Dev Pack. [각각에 필요한 것](live-run.md#not-run-feasibility)을 확인하세요.

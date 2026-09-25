@@ -18,7 +18,7 @@
 
 **준비 후 소요 시간:** A 4시간 30분, B 8시간(4시간 세션 2회). **파일:** A는 작은 학습자 ZIP, B는 소스 저장소만 사용하며 두 번째 ZIP은 필요 없습니다.
 두 경로 모두 준비된 Azure 환경이 필요합니다. Lab 05는 브라우저의 준비된 Hosted workflow agent 또는 준비된 터미널 중 하나를 사용합니다(수업 전 담당자가 결정).
-준비된 터미널을 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
+둘 다 제공받지 않았다면 수업 전에 [Lab 00 B](docs/ko/labs/00-start.md#path-b)와 [Lab 02 B](docs/ko/labs/02-models.md#path-b)를 완료합니다.
 Azure 권한이 없다면 [오프라인 체험](docs/ko/labs/00-start.md#offline-rehearsal)만 하고 cloud 실습은 **미실행**으로 기록합니다.
 
 기본 경로를 마친 뒤에는 선택 [C. 고급 모듈](docs/ko/paths/c-advanced.md)을 고를 수 있습니다. 수업을 준비한다면 [강사 가이드](docs/ko/instructor.md),

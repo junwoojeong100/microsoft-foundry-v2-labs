@@ -18,7 +18,7 @@ Use only the supplied synthetic data.
 
 **Time after setup:** A 4 h 30 min; B 8 h (two 4-hour sessions). **Files:** A uses the small learner ZIP; B uses the source repository, with no second ZIP.
 Both need a prepared Azure environment. Lab 05 uses either a prepared hosted workflow agent in the browser or a prepared terminal (the owner decides before class).
-If no prepared terminal was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
+If neither option was supplied, complete [Lab 00 B](docs/labs/00-start.md#path-b) and [Lab 02 B](docs/labs/02-models.md#path-b) before class.
 Without Azure access, use only the [offline rehearsal](docs/labs/00-start.md#offline-rehearsal) and mark cloud labs **not run**.
 
 After finishing a core route, you can choose optional [C. Advanced modules](docs/paths/c-advanced.md).

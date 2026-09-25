@@ -22,7 +22,7 @@
    모델의 Foundry 계정에서 **Search identity**에 `Cognitive Services User`를 부여합니다.
    사용자나 Hosted agent에 준 역할이 Search에 생기는 것은 아닙니다.
 6. 아래 담당자 명령 전에 `.env`를 포함한 [Lab 00 B 설치](labs/00-start.md#b-코드--한-폴더-한-환경)를 완료합니다.
-   Lab 05용 터미널을 받지 못한 학습자는 이 설치와 [Lab 02 B](labs/02-models.md#path-b)를 마친 뒤 돌아옵니다.
+   Lab 05 방식을 하나도 받지 못한 학습자는 이 설치와 [Lab 02 B](labs/02-models.md#path-b)를 마친 뒤 돌아옵니다.
 7. 수업 전에 Application Insights를 프로젝트에 연결해 server-side tracing을 켭니다. 코드 변경은 필요 없습니다.
    학습자에게 연결된 Application Insights 리소스의 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 필요합니다.
    이제 핵심이 된 Lab 09 trace 단계에 필요합니다. 2026-09-24 확인: 실습 프로젝트에는 이미 Application Insights가 연결되어 있었고 관리형 agent 호출은 몇 분 안에 추적으로 나타났습니다. 학습자 전용 Log Analytics Reader 부여는 재시험하지 않았습니다.

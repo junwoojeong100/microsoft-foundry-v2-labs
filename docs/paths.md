@@ -2,7 +2,7 @@
 
 **English** | [한국어](ko/paths.md)
 
-**Path A uses the browser and one prepared terminal command, without writing Python. Path B works with code and saved run records.**
+**Path A uses the browser and one prepared Lab 05 workflow (in Playground or a prepared terminal), without writing Python. Path B works with code and saved run records.**
 Both use the same Hanbit Technology scenario with language-specific synthetic policies.
 
 **Choose A** if you are new to Azure or agents, and **B** if you are comfortable with Python and APIs.
@@ -12,7 +12,7 @@ The tables below are schedules, not extra tasks. Each lab has a `path-a` / `path
 [C — Advanced modules](paths/c-advanced.md) are separate sessions after the core route.
 
 **How each lab works:** read the start card, do the action or command, then compare your result with **What to check**.
-Screenshots come from the September 24, 2026 recording; your names, IDs and answers will differ
+Screenshots come from the September 24, 2026 recording, plus a September 25 supplement for Lab 03 B and Lab 09 B; your names, IDs and answers will differ
 ([how to read them](labs/00-start.md#how-to-read-this-guide)).
 English commands use `--language en`, which selects the English input files ([language rules](reference/languages.md)).
 

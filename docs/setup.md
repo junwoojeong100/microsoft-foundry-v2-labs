@@ -15,7 +15,7 @@ This page does not ask learners to create resources.
 | You have no Azure permission or quota yet | Run only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run** |
 
 **Choose one route for the whole pass:** **A** if you are new to Azure or agents (browser steps and one prepared
-command in Lab 05), or **B** if you are comfortable with Python and APIs. [Compare the routes](paths.md).
+Lab 05 workflow option), or **B** if you are comfortable with Python and APIs. [Compare the routes](paths.md).
 Keep one language for the whole pass: English and Korean use different input files (in B, a switch also needs new run labels).
 
 <a id="learner-files"></a>
@@ -71,7 +71,7 @@ You do not need to install anything just to collect the values. Never record pas
 |---|---|---|
 | Azure tenant and subscription IDs | A and B | Azure portal → Subscriptions / directory |
 | Foundry account, project and resource group | A and B | Your training project's resource details |
-| Full project endpoint | A's Lab 05 terminal and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
+| Full project endpoint | A and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
 | **Answer deployment** | A and B | **`gpt-6-sol`**, model version **`2026-09-22`** |
 | Prefix for your objects | A and B | Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters. Example: `mfv2-team01-en` |
 | Code environment | A's Lab 05 (prepared for you) and B | Repository folder, Python 3.13, activated `.venv`, your own Azure sign-in |
@@ -100,7 +100,7 @@ If the deployment or its version is missing, stop and ask the owner to fix it; t
 - [ ] I can open the intended project with my own account.
 - [ ] The actual `gpt-6-sol` deployment and version `2026-09-22` are prepared.
 - [ ] A: I have the learner ZIP and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
-- [ ] My Lab 05 terminal is ready; if not, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
+- [ ] I know my Lab 05 option: a prepared Hosted workflow agent in Playground or a prepared terminal. If neither was supplied, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
 - [ ] For B, Search access and owned-object creation costs are approved. For A, IQ Chat is **not selected** unless separately prepared.
 - [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
 

@@ -64,7 +64,7 @@ Foundry User와 Project Manager 등의 역할 이름이 이전 `Azure AI ...`로
 - 선택 judge 배포와 실제 underlying model.
 - Hosted를 선택한 경우 실제 프로젝트 ARM ID·location 코드·고유 agent 이름·빈 독립 폴더.
 
-Lab 05를 위해 저장소 위치와 학습자 본인으로 로그인·활성화한 MAF 터미널 또는 준비된 hosted workflow agent 정보를 전달합니다.
+Lab 05용으로 준비한 방식도 전달합니다. 저장소 위치와 학습자 본인으로 로그인·활성화한 MAF 터미널, 또는 준비된 Hosted workflow agent 정보입니다.
 혼자 학습하면 [Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)가 전체 준비 경로이며 강사의 숨은 조작을 전제로 하지 않습니다.
 
 ## 3. Search/IQ 준비

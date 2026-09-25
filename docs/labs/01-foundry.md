@@ -60,10 +60,10 @@ The project and model deployment are both under the Foundry resource. The agent 
 
 ![September 24 English recording: Distinguish the project endpoint from the account OpenAI endpoint](../assets/g6sol-20260924-en/screenshots/EP01-001-endpoints-2.webp)
 
-**What to check:** the **Project endpoint** ends with `/api/projects/<project>`; the **Azure OpenAI endpoint** beside it
+**What to check:** long endpoints are cut off on screen, so check the value you pasted: the **Project endpoint** ends with `/api/projects/<project>`; the **Azure OpenAI endpoint** beside it
 ends with `.openai.azure.com` and is a different endpoint. **View deployments** opens model deployments and
 **Start building** creates an agent in the project. The deployments belong to the parent Foundry resource.
-The `gpt-6-sol` row shows version **`2026-09-22`** and **Succeeded**; `gpt-6-sol-judge` is the separate evaluation deployment.
+In **View deployments**, the `gpt-6-sol` row shows version **`2026-09-22`** and **Succeeded**; `gpt-6-sol-judge` is the separate evaluation deployment.
 
 If you see a classic Hub project or threads/runs code instead, stop and use the [migration map](../reference/migration.md).
 
