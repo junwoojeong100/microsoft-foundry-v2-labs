@@ -19,6 +19,9 @@
 | `.env` | 프로그램이 읽을 설정값 파일; 이 랩에서는 비밀을 넣지 않음 |
 | JSON / JSONL | 구조화된 데이터 / 한 줄에 JSON 객체 하나씩 저장한 형식 |
 | Prompt / Instructions | 모델에게 주는 요청 / 에이전트가 따를 업무 지침 |
+| Prompt Agent | Foundry가 관리하는 모델·지침 기반 agent. Lab 03에서 [A는 포털](../labs/03-prompt-agent.md#path-a), [B는 SDK](../labs/03-prompt-agent.md#path-b)로 생성 |
+| MAF (Microsoft Agent Framework) | Agent·workflow를 만드는 framework. [Lab 04](../labs/04-agents-tools.md#path-b)는 로컬 Python에서 agent를 실행하고 Azure의 모델을 호출 |
+| Hosted agent | Foundry에서 호스팅하는 사용자 작성 agent 코드. [Lab 08 B](../labs/08-hosted.md#path-b)는 로컬 패키지만 만들며 배포하지 않음 |
 | Tool | 모델이 요청하고 프로그램이 실제 실행하는 함수·API |
 | MCP | 모델/에이전트와 도구 서버 사이의 표준 프로토콜 |
 | RAG | 관련 자료를 먼저 찾아 모델의 응답 근거로 제공하는 방식 |

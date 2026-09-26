@@ -76,6 +76,7 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 ```
 
 Continuation token이 있으면 같은 범위의 list 명령에 `--pagination-token`을 넣어 이어서 확인합니다.
+Session ID와 agent version을 본인의 호출 기록과 대조합니다. 목록에 보인다는 이유만으로 본인 소유가 되지는 않습니다.
 본인 session이 이미 idle/stopped이면 다시 중지하지 말고 상태만 기록합니다.
 본인의 **활성** session에만 실행합니다.
 
@@ -87,9 +88,9 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 ```
 
 영구 파일을 남겨야 하면 중지(stop)를 사용합니다. session을 삭제하면 컴퓨트와 영구 파일 시스템 상태가 함께 사라집니다.
-선택한 agent/session을 확인하고 본인이 만든 ID만 중지합니다.
-이미 idle인 session은 충돌하는 중지 요청을 다시 보내지 않고 idle로 확인합니다.
-확인하지 않은 중지 요청을 중지 완료로 기록하지 않습니다.
+중지 뒤 같은 범위의 목록에서 **동일한 session ID**를 다시 찾고 필요하면 다음 페이지도 확인합니다.
+첫 페이지에 없거나 목록 조회가 실패했다는 사실은 중지 완료의 증거가 아닙니다.
+상태를 확인할 수 없으면 오류와 승인된 담당자의 대기 작업을 기록하며, 정리 범위를 넓히지 않습니다.
 
 </details>
 
@@ -100,7 +101,7 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 | Prompt/Hosted agent·version | B의 핵심이 된 Lab 03 B SDK 관리형 agent를 포함해 정확한 프로젝트·이름·version·소유자 확인 후 담당자가 삭제. 2026-09-25 확인에서 prompt agent를 삭제하면 그 Entra agent ID와 청사진도 함께 삭제됨 |
 | Search knowledge base/source/index | 의존 순서 base → source → index; ledger의 본인 이름만 |
 | 업로드 파일/벡터 저장소 | 내 File Search 자료와 공유 자료를 구분 |
-| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions` 데이터 세트, `<prefix>-...` 평가, 평가 실행마다 서비스가 만드는 `eval-data-<UTC 시각>` 데이터 세트(`cloud-evaluate`, `maf-evaluate`, `conversations evaluate`. 시각은 평가 생성 시각과 몇 초 차이이며, 다른 사람의 실행도 같은 이름 형식을 만듦), `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 결과를 먼저 보존한 뒤 담당자가 삭제 |
+| 평가 데이터 세트·평가·사용자 지정 평가자 | 본인의 `<prefix>-dev-questions` 데이터 세트, `<prefix>-...` 평가, 서비스가 만드는 `eval-data-<UTC 시각>` 데이터 세트(`cloud-evaluate`, `maf-evaluate`, `conversations evaluate`), `<prefix>_business_rubric` 버전(하이픈은 밑줄로 바뀜). 자동 생성 데이터 세트마다 본인의 기록된 평가/실행에 속하는지 담당자가 확인하며, 비슷한 생성 시각만으로 소유권을 판단하지 않음. 결과 보존 후 삭제 |
 | 모델 배포 | 조별 전용인지 공유 배포인지 확인; 공유 모델 유지 |
 | Search 서비스 | index 삭제만으로 서비스의 고정 비용이 사라지지 않음 |
 | Application Insights/Log Analytics | 두 리소스와 실제 그룹을 목록에 기록. 공유/관리형 작업 영역 소유권과 각각의 정리 결과를 확인하며, Lab 09 trace 요구 사항을 포함해 보존 기간과 비용은 담당자가 관리 |
@@ -132,7 +133,7 @@ GA base를 유지한다면 공유 source/index도 유지합니다. chat base만 
 
 - [ ] 실행한 로컬 서버만 종료했고, 사용하지 않은 것은 **미실행**으로 기록했습니다.
 - [ ] 사용한 Hosted session마다 최종 상태 또는 승인된 담당자 대기 작업을 기록했습니다.
-- [ ] 내 agent·파일·Search 객체의 처리 결과를 확인했습니다. 삭제 응답만으로는 증거가 되지 않으므로 삭제한 객체를 다시 조회합니다.
+- [ ] 내 agent·파일·Search 객체의 처리 결과를 확인했습니다. 기록한 범위와 정상 읽기 권한으로 삭제한 객체를 다시 조회합니다. 삭제 응답만으로는 증거가 아니며, 403이나 timeout이면 삭제가 아니라 **미확인**입니다.
 - [ ] 공유 자원과 다른 사람의 데이터를 유지했습니다.
 - [ ] 서비스·모델·로그·저장소·capacity의 잔여 비용을 담당자가 확인했습니다.
 - [ ] 보존할 결과와 지울 민감 정보를 구분했습니다.
@@ -162,8 +163,9 @@ GA base를 유지한다면 공유 source/index도 유지합니다. chat base만 
 
 아래의 실제 matrix label이 있을 때만 실행합니다. A와 입문 B는 건너뜁니다.
 
-새 `benchmark` 경로는 생성한 session ID와 exact version을 immutable manifest에 남깁니다.
-실제 trace 확인 후 해당 label의 세션만 중지합니다.
+Matrix manifest는 생성한 session ID와 정확한 agent version을 기록합니다.
+확인 가능한 trace 결과/오류를 보존한 뒤 별도 정리 승인을 받아 기록된 세션만 중지합니다.
+Trace 검증 성공은 컴퓨트 중지의 선행 조건이 **아닙니다**. 조회할 수 없는 telemetry는 미확인으로 유지합니다.
 
 ```bash
 python scripts/workshop.py benchmark stop-session --label wf-baseline

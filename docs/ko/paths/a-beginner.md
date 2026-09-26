@@ -13,7 +13,8 @@
 입력 파일이나 보고서 형식을 따로 만들지 않습니다.
 Lab 05에서는 준비된 방식 하나를 실행합니다. 기본은 워크숍 코드가 설치되고 본인 계정으로 Azure에 로그인한 터미널입니다.
 Hosted Responses Playground는 수업 전에 담당자가 검증한 경우에만 사용합니다.
-둘 다 없다면 시간표를 시작하기 전에 [Lab 00 B](../labs/00-start.md#path-b)와 [Lab 02 B](../labs/02-models.md#path-b)를 완료합니다.
+둘 다 없다면 시간표를 시작하기 전에 [Lab 00 B](../labs/00-start.md#path-b)와 [Lab 02 B](../labs/02-models.md#path-b)를 완료한 뒤,
+Lab 03 B가 아니라 **아래 표의 1단계(Lab 00 A)**로 돌아갑니다.
 
 **첫 회차의 선택은 정해져 있습니다:** 인라인 정책, 준비된 workflow 실행 한 번, 수동 dev 평가, Lab 09 trace 상태 기록입니다.
 File Search·IQ Chat·Hosted 배포·cloud judge·C 모듈은 별도로 선택하지 않는 한 **미선택**입니다.
@@ -27,7 +28,7 @@ File Search·IQ Chat·Hosted 배포·cloud judge·C 모듈은 별도로 선택�
 | 2 | [Lab 01 A](../labs/01-foundry.md#path-a): account/project/deployment/agent 구분 | 네 객체의 관계 그림과 실제 endpoint 추가 |
 | 3 | [Lab 02 A](../labs/02-models.md#path-a): Playground | 실제 답변과 근거 부족 관찰을 `session-notes.txt`에 기록 |
 | 4 | [Lab 03 A](../labs/03-prompt-agent.md#path-a): 전체 지침 붙여넣기·저장 | `instructions-baseline.txt` 저장. `session-notes.txt`에 해당 에이전트/버전·실제 확인 4건 연결 |
-| 5 | [Lab 05 A](../labs/05-workflows.md#path-a): 준비된 Hosted Playground 방식 또는 준비된 순차 터미널 명령 하나 | `workflow-review.txt`에 실행 방식, 실제 출력/ID 전체와 내 검토가 있음 |
+| 5 | [Lab 05 A](../labs/05-workflows.md#path-a): 준비된 순차 터미널 명령 하나. Hosted Playground는 담당자가 사전 선택한 경우에만 | `workflow-review.txt`에 실행 방식, 실제 출력/ID 전체와 내 검토가 있음 |
 | 6 | [Lab 06 A](../labs/06-knowledge.md#path-a): 정책 ID·날짜 확인 | `session-notes.txt`에 원문 확인 기록. 기본 경로는 IQ Chat 미선택 |
 | 7 | [Lab 07 A](../labs/07-evaluation.md#path-a): 저장한 버전 하나로 dev 6문항 평가 | `assessment-baseline.csv`에 실제 응답·인용·이유 6건. `session-notes.txt`에 버전·통과 수 / 6 기록. Candidate는 정당한 변경이 있을 때만 |
 | 8 | [Lab 09 A](../labs/09-operations.md#path-a): 운영과 trace 확인 | `operations-checklist.txt`에 소유 자산, 잔여 비용, 실제 trace 근거 또는 `추적 미확인: <이유>`가 있음 |
@@ -48,7 +49,10 @@ Toolbox 생성, Hosted 배포, workflow 작성, Optimizer 실행, 회사/Microso
 
 계정·모델·권한 문제는 담당자와 [설정 카드](../setup.md)부터 확인합니다. 혼자 학습하면 해당하는
 [혼자 학습 준비 단계](../setup-owner.md#self-study)를 직접 해결합니다.
-잘못된 답변도 평가표에 그대로 남깁니다. 다른 사람의 결과, fixture, 녹화 속 답변으로 교체하지 않습니다.
+잘못된 답변도 평가표에 남깁니다. 실제 답변 6개를 검토했다면 실패가 있어도 평가는 완료할 수 있습니다.
+응답 누락·요청 오류·버전 혼합은 **평가 미완료**입니다. 파일을 보존하고 `session-notes.txt`에 이유를 적은 뒤,
+[Lab 09 A](../labs/09-operations.md#path-a)와 [Lab 11 A](../labs/11-capstone.md#path-a)에서 운영·인계를 진행합니다.
+다른 사람의 결과, fixture, 녹화 속 답변으로 교체하지 않습니다.
 선택 기능이 없으면 **미실행**으로 남기고, trace가 없으면 `추적 미확인: <이유>`로 남깁니다.
 
 **중단·재개:** `session-notes.txt`에 마지막 완료 Lab/단계·에이전트 버전·다음 링크를 적습니다.

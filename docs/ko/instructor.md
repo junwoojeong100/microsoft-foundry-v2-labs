@@ -4,7 +4,8 @@
 
 **수업 시간은 설치·구독 개설·기능 승인 시간이 아닙니다. 조별 환경을 먼저 확인하세요.**
 
-상위: [학습 경로](paths.md) · 실제 확인 범위: [검증 기록](reference/validation.md)
+**강사 진행 순서:** 1–3절 준비 → [리허설](#rehearse-route) → [A](paths/a-beginner.md) 또는 [B](paths/b-practitioner.md) 진행 → [인계](#class-handoff).
+실제 확인 범위: [검증 기록](reference/validation.md).
 
 ## 1. 수업 범위 확정
 
@@ -247,6 +248,9 @@ python -m pip freeze > outputs/instructor/environment.txt
 
 ## 고급 Hosted workflow·평가 준비
 
+<details>
+<summary>선택 — 고급 Hosted workflow·평가를 수업 범위로 정한 경우에만</summary>
+
 기본 리허설 뒤 [평가 워크북](reference/evaluation-workbook.md)을 사용합니다.
 나열한 모든 배포의 실제 API 지원, 별도 judge, 의도한 런타임 ID,
 전용 국문 정책 index·source·base, App Insights 조회 권한을 준비합니다.
@@ -259,6 +263,11 @@ python -m pip freeze > outputs/instructor/environment.txt
 모든 실패와 native 발견 사항을 보존하며, 전 문항 통과 baseline에 회귀를 지어낼 필요는 없습니다.
 holdout은 지침 개발에 쓰지 않습니다.
 
+독립적인 Hosted Responses 확인에는 [Lab 08의 완전한 호출 블록](labs/08-hosted.md#hosting-gates)에서
+`--new-session --new-conversation`을 함께 사용합니다.
+
+</details>
+
 ### 원본 언어와 미디어 순서
 
 과거의 국문 우선·영문 우선 체크리스트가 아니라 사용자의 현재 제작 순서와
@@ -268,13 +277,19 @@ holdout은 지침 개발에 쓰지 않습니다.
 새 녹화는 별도 승인된 실제 실행과 언어별 독립 근거가 필요합니다.
 가이드만 고치는 작업은 새 녹화를 요구하지도, 새 녹화를 주장하지도 않습니다.
 
+<a id="class-handoff"></a>
+
 ## 7. 수업 종료 / Ignite 전 최종 동결
 
-- 참가자 결과와 fixture가 구분되어 있는지 확인.
-- session 목록의 다음 페이지까지 확인하고 본인 활성 session 중지.
-- Responses 재검증은 `--new-session --new-conversation`을 함께 사용해 이전 대화가 섞이지 않는지 확인.
-- 조별 에이전트·Search 객체·별도 연결과 공유 자원을 구분해 정리.
-- 강사가 전용 서비스·모델·로그·capacity의 잔여 과금을 확인.
+1. [Lab 11 A](labs/11-capstone.md#path-a), [Lab 11 B](labs/11-capstone.md#path-b) 또는 선택한 [C 모듈 인계](labs/11-capstone.md#path-c)에서 이미 저장한 파일을 검토합니다.
+   참가자 결과와 fixture를 구분하고 실패·미완료 결과도 보존합니다. 인계의 빈칸을 채우려고 새 Azure 요청을 보내지 않습니다.
+2. A/B의 `operations-checklist.txt`에서 본인/공유 자산, trace 근거 또는 미확인 이유, 정리 담당자, 잔여 비용을 확인합니다.
+3. 실제 사용한 자산만 [정리](reference/cleanup.md)를 따릅니다. Hosted를 실행한 경우에만 session 목록의 다음 페이지까지 확인하고 본인 활성 session을 중지합니다. 패키징만 했다면 session은 생성되지 않았습니다.
+   공유 자원은 권한이 있는 담당자에게 맡깁니다.
+4. 담당자가 서비스·모델·로그·capacity의 잔여 과금을 확인합니다.
+
+**수업 후 배포본 유지보수 담당자만:**
+
 - [버전 기준](reference/versions.md)의 점검일과 [검증 기록](reference/validation.md)을 실제로 갱신.
 - 문서/API 이름이 바뀌었다면 한 모듈만 수정하지 말고 CLI·코드·검사·환경표도 같이 갱신.
 - 확인하지 않은 Ignite 2026 발표 내용이나 미래 지원 일정을 추가하지 않음.

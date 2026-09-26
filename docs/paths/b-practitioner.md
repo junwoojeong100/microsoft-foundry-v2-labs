@@ -7,7 +7,7 @@ The 480-minute core teaching plan uses two 4-hour sessions; it is not a measured
 
 ## Before the first command
 
-1. Complete [setup](../setup.md), then [Lab 00 B](../labs/00-start.md#path-b): source folder, personal notes, `.venv`, `.env`, sign-in and preflight.
+1. Complete [setup](../setup.md), then [Lab 00 B](../labs/00-start.md#path-b): source folder, personal notes, `.venv`, `.env`, sign-in and preflight. If already done for this pass, resume at the first unfinished row below.
 2. Run each block from the repository root with `.venv` active and `--language en` intact. Never shell-`source` `.env`.
 3. At each **Save** checkpoint, open the JSON before the next request. Write the filename and your finding in `session-notes.txt`'s **B - code evidence and handoff** section; keep Lab 05's detailed review in `workflow-review.txt`. `--output` saves the full response, so do not paste it into the notes again.
 
@@ -21,11 +21,13 @@ Generated evaluation runs stay in `outputs/<label>/`. B needs no browser agent o
 | Lab 03 managed agent | SDK-created Prompt Agent; invoke the exact returned immutable version |
 | Lab 05 workflows | Sequential, concurrent and Group Chat |
 | Lab 06 retrieval lesson | Ordinary Search, then GA IQ |
-| Lab 07 prompt comparison | Local retrieval + a real Azure model, held fixed for all three collections |
+| Lab 07 prompt comparison | Local retrieval + a real Azure model, kept fixed; dev v1/v2 first, then gated final holdout |
 | Lab 08 hosting | Package only; local serving and remote deployment **not run** |
 | Lab 09 trace | Search Traces by the Lab 03 B `response_id`; local MAF runs have no server-side trace |
 
 Lab 07 deliberately starts a local-retrieval experiment; it is not a fallback for a Lab 06 error.
+Before holdout, [the dev gate](../labs/07-evaluation.md#final-acceptance) requires six candidate passes, zero errors and a comparison that accepts the frozen configuration.
+If blocked, keep final evaluation **incomplete** and use [the incomplete handoff](../labs/11-capstone.md#incomplete-handoff); do not collect holdout.
 File Search, hybrid/Preview IQ and cloud judges are optional.
 
 **Cost/write boundary:** Labs 02/03/04/05/07 call the real model; Lab 03 creates a managed agent version. Lab 06 also writes owned
@@ -42,7 +44,7 @@ Without Search access, record Lab 06 incomplete rather than claiming the full B 
 | 4 | [Lab 04 B](../labs/04-agents-tools.md#path-b): functions and MCP | Three complete JSON files saved by the commands; review each |
 | 5 | [Lab 05 B](../labs/05-workflows.md#path-b): MAF workflows | Three automatically saved pattern outputs and your human review |
 | 6 | [Lab 06 B](../labs/06-knowledge.md#path-b): Search and IQ | Save retrieval/answer output and `outputs/azure-objects.json` ownership |
-| 7 | [Lab 07 B](../labs/07-evaluation.md#path-b): controlled evaluation | `outputs/baseline/`, `outputs/candidate/`, `outputs/final-holdout/`, including errors |
+| 7 | [Lab 07 B](../labs/07-evaluation.md#path-b): controlled evaluation | `outputs/baseline/` and `outputs/candidate/`, including errors; `outputs/final-holdout/` only after the dev gate passes |
 | 8 | [Lab 08 B](../labs/08-hosted.md#path-b): package only | `.build/hosted-en/package-manifest.json`; local/remote execution marked not run |
 | 9 | [Lab 09 B](../labs/09-operations.md#path-b): operations and trace | Existing lineage, Prompt Agent trace lookup or unverified reason, cleanup inventory, owner and remaining costs |
 | 10 | [Lab 11 B](../labs/11-capstone.md#path-b): handoff | Actual acceptance/rejection report, or an explicitly incomplete handoff with missing steps |

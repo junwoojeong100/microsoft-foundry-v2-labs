@@ -4,7 +4,8 @@
 
 **Class time is not installation, subscription creation, or feature-approval time. Verify every team's environment first.**
 
-Parent: [Learning paths](paths.md) · Evidence: [Validation record](reference/validation.md)
+**Facilitator sequence:** prepare sections 1–3 → [rehearse](#rehearse-route) → teach [A](paths/a-beginner.md) or [B](paths/b-practitioner.md) → [handoff](#class-handoff).
+Recorded evidence: [Validation record](reference/validation.md).
 
 ## 1. Choose the class scope
 
@@ -249,6 +250,9 @@ Large MP4/WebP assets live in this repository and its history; the current pack 
 
 ## Advanced Hosted workflow/evaluation preparation
 
+<details>
+<summary>Optional — only for a class that selected advanced Hosted workflow/evaluation</summary>
+
 Use the [evaluation workbook](reference/evaluation-workbook.md) after the basic rehearsal.
 Prepare actual API support for every listed deployment, a separate judge, the intended runtime identity,
 the dedicated English policy index/source/base, and App Insights query access.
@@ -261,6 +265,11 @@ For four models, budget 24/24/16 target rows plus internal workflow/retrieval/re
 Preserve all failures and native findings; an all-pass baseline does not need a fabricated regression.
 Keep holdout out of prompt development.
 
+For independent Hosted Responses checks, use [Lab 08's full invocation blocks](labs/08-hosted.md#hosting-gates)
+with both `--new-session --new-conversation`.
+
+</details>
+
 ### Source-language and media order
 
 Use the user's current production order and the active `source_language` in
@@ -270,13 +279,19 @@ Any deferred translation needs a visible warning and exact source/target hashes.
 New recordings require their own authorized execution and independent language evidence;
 a guide-only revision does not require or claim a new recording.
 
+<a id="class-handoff"></a>
+
 ## 7. End of class and pre-Ignite freeze
 
-- Separate real participant outputs from fixtures.
-- Check all session-list pages and stop only owned active sessions.
-- Use both `--new-session --new-conversation` for independent Responses checks.
-- Separate team agents, Search objects, and connections from shared resources.
-- Check residual service, model, log, and capacity charges.
+1. Review the files already saved using [Lab 11 A](labs/11-capstone.md#path-a), [Lab 11 B](labs/11-capstone.md#path-b), or the selected [C module handoff](labs/11-capstone.md#path-c).
+   Separate participant outputs from fixtures; retain failed or incomplete outcomes. Do not send new Azure requests to fill handoff gaps.
+2. For A/B, check `operations-checklist.txt`: owned/shared assets, trace evidence or an unverified reason, cleanup owner, and remaining costs.
+3. Follow [Cleanup](reference/cleanup.md) for assets actually used. Only if Hosted ran, check all session-list pages and stop owned active sessions; packaging alone created no session.
+   Shared resources remain with their authorized owner.
+4. Have owners confirm residual service, model, log, and capacity charges.
+
+**After class, edition maintainers only:**
+
 - Update the dates in [Versions](reference/versions.md) and actual evidence in [Validation](reference/validation.md).
 - Keep both languages, CLI, code, checks, and configuration tables aligned when APIs change.
 - Do not add unverified Ignite 2026 announcements or future support promises.

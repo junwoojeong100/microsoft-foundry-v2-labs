@@ -2,7 +2,7 @@
 
 **English** | [한국어](../../ko/labs/extensions/developer-toolkit.md)
 
-**Path B preparation.** The canonical route uses the repository's Python CLI.
+**Path B preparation, also used by selected C modules.** The canonical route uses the repository's Python CLI.
 
 **Evidence status:** the tooling checks date from September 16, 2026 (earlier `gpt-5.6-luna` preset); not re-run with `gpt-6-sol`.
 
@@ -10,11 +10,12 @@ Foundry Toolkit is an optional editor interface, not a second implementation or 
 
 **First pass:** core B uses section 1 and returns to its route. Hosted SDKs, azd and the editor extension below are needed only by separately selected modules.
 
-**Need:** Lab 00 B's source folder, `.venv`, `.env` and your own `az login`. `doctor --cloud` is a read-only preflight; it creates nothing.
+**Need for local checks:** the source folder and prepared `.venv`. Only Azure-backed work additionally needs
+Lab 00 B's `.env` and your own Azure CLI login. Local approval/recovery needs neither.
 
 ## 1. Confirm the actual Python and project
 
-Complete [Lab 00 B](../00-start.md#b-code-one-folder-one-environment).
+Use the source folder and Python environment prepared in [Lab 00 B](../00-start.md#b-code-one-folder-one-environment).
 In VS Code, open the repository folder and choose its `.venv` with **Python: Select Interpreter**.
 Open a new terminal at the same root and activate that environment.
 
@@ -23,11 +24,22 @@ source .venv/bin/activate
 python --version
 python -m pip check
 python scripts/workshop.py --language en doctor
+```
+
+**Local approval/recovery:** skip the following cloud block. Continue to the [Hosted SDK check](#hosted-sdk),
+then return to that module's own `check` command.
+
+**Only before Azure-backed work:** with Lab 00 B's `.env` and existing Azure CLI login, run this read-only preflight.
+It contacts Azure but creates no resources:
+
+```bash
 python scripts/workshop.py --language en doctor --cloud
 ```
 
 An offline PASS does not prove cloud authentication.
-A successful cloud preflight does not prove model feature support; complete Lab 02's actual request.
+For Azure-backed work, a successful cloud preflight still needs Lab 02's actual request to verify model feature support.
+Record the Python version and the required check's result or error in `session-notes.txt`.
+If that check fails, stop the selected module and retain the error; unused cloud, azd and editor checks remain **not run**.
 
 **Core B done:** return to [B's next unfinished step](../../paths/b-practitioner.md).
 Do not install Hosted packages or azd just to pass a check that the core route does not require.

@@ -9,9 +9,11 @@
 먼저 일반 [Toolbox 실습](toolbox.md)을 완료합니다. 그 Toolbox·원래 버전·소유 ledger를 유지합니다.
 이 모듈도 동봉 합성 정책 6개만 읽습니다. 공개 웹을 호출하거나 skill script를 실행하지 않습니다.
 
-**준비:** 동작하는 합성 Toolbox, 같은 `.env`, 설치된 azd skill 명령, 새 Toolbox/Skill 버전과 모델 호출 승인.
+**준비:** 동작하는 합성 Toolbox, 같은 `.env`, [준비된 azd skill 명령](developer-toolkit.md#azd-check),
+새 Toolbox/Skill 버전과 모델 호출 승인.
 **완료:** 발견/고정 설정과 실제 도구 목록이 일치하고, 고정된 skill을 실제 MAF 요청에서 불러옴.
-**중단:** 오류 뒤에 `toolbox_search_preview`나 다른 skill로 바꾸지 않습니다.
+**중단:** 오류·생성된 버전 ID를 보관하고 시도한 단계는 **실패/차단**, 이후 단계는 **미실행**으로 적습니다.
+오류 뒤에 `toolbox_search_preview`나 다른 skill로 바꾸지 않습니다.
 
 **첫 회차:** 1–5절에서 고정 Skill을 검증하고 6절에서 보관·정리 담당자를 기록합니다.
 Consumer default 변경이나 private catalog 생성은 필수가 아닙니다.
@@ -34,7 +36,15 @@ Consumer default 변경이나 private catalog 생성은 필수가 아닙니다.
 python scripts/workshop.py --language ko toolbox plan --discovery --pin-policy
 ```
 
-계획의 소유 이름·도구 정의를 확인합니다. 그 확인과 작성 승인을 받은 뒤에만 실행합니다.
+이는 로컬 계획(`azure_requests_sent: false`)이며 생성된 Toolbox 버전이나 discovery 결과가 아닙니다.
+소유 이름·도구 정의를 확인한 뒤 **어떤 쓰기 작업보다도 먼저** 필요한 Skill 명령을 확인합니다.
+
+```bash
+azd ai skill create --help
+azd ai skill download --help
+```
+
+명령이 없으면 discovery 버전을 만들기 전에 멈춥니다. 이 확인과 쓰기 승인을 받은 뒤에만 실행합니다.
 
 ```bash
 python scripts/workshop.py --language ko toolbox add-version --discovery --pin-policy --confirm-create
@@ -52,7 +62,9 @@ python scripts/workshop.py --language ko toolbox probe --version "$DISCOVERY_VER
 
 ## 3. 원본 절차에서 Skill 준비
 
-이 명령은 **한 번** 실행합니다. 다른 C 모듈이 이미 `outputs/extensions-ko/`를 만들었다면 manifest를 확인해 재사용하고 다시 실행하지 않습니다.
+이는 Skill 업로드나 서비스 실행이 아닌 **오프라인 입력 준비**입니다. Toolbox와 같은 언어·prefix에서 **한 번** 실행합니다.
+다른 C 모듈이 이미 `outputs/extensions-ko/`를 만들었다면 manifest의 `language`, `prefix`, `skill_name`이
+현재 세션과 일치할 때만 재사용합니다. 다르면 멈추고 이전 파일을 보존하며 덮어쓰지 않습니다.
 
 ```bash
 python scripts/workshop.py --language ko prepare-extensions --label extensions-ko
@@ -63,13 +75,11 @@ python scripts/workshop.py --language ko prepare-extensions --label extensions-k
 holdout·답변 fixture·승인 자격 증명은 넣지 않습니다. manifest는 원본 prompt/corpus/dev hash를 보존합니다.
 이 준비 명령은 다른 extension 모듈의 입력도 함께 만듭니다.
 `optimizer-dev.jsonl`에는 evaluator reference 필드가 있습니다. 이 필드를 agent 대화에 절대 붙여넣지 않습니다.
+4절에서는 `policy-review/`만 업로드합니다. 상위 `extensions-ko/` 폴더를 업로드하지 않습니다.
 
 ## 4. Skill 생성 후 bytes 확인
 
-```bash
-azd ai skill create --help
-azd ai skill download --help
-```
+이 단계는 실제 Azure Skill 자산을 만들고 읽습니다. 2절의 CLI 확인과 별도 쓰기 승인을 받은 뒤에만 계속합니다.
 
 설정 카드의 실제 endpoint와 manifest의 `skill_name`을 입력합니다.
 
@@ -116,7 +126,7 @@ python scripts/workshop.py --language ko toolbox add-version --discovery --pin-p
 ```
 
 helper는 `<내-prefix>-policy-review-ko`와 위의 명시적 버전만 참조합니다.
-Skill 버전을 생략하면 mutable default를 따르게 되며 이는 이 실습의 계약이 아닙니다.
+`--skill-version`을 생략해도 Skill이 연결되거나 그 기본 버전이 선택되는 것은 **아닙니다**. 검증한 버전을 명시적으로 유지합니다.
 기본 Toolbox 버전은 별도 pointer로 남습니다. promotion을 가정하지 말고 반환된 `selected_version`과 `default_version`을 확인합니다.
 
 ```bash

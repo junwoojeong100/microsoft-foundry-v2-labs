@@ -10,7 +10,8 @@
 
 **This pass:** A uses the Playground; B checks the deployment and saves two real responses. Model comparison is optional.
 
-**Need:** The prepared gpt-6-sol deployment; B needs Lab 00's activated environment and .env.
+**Need:** Both routes use the prepared `gpt-6-sol` deployment. A starts in Lab 01's training project with the extracted learner ZIP and `session-notes.txt`.
+B uses Lab 00's repository root, activated `.venv`, `.env` and prepared `outputs/learner-notes-en/` folder.
 
 **Continue when:** A real response and the actual deployment are recorded. B also has a validated structured answer.
 
@@ -119,15 +120,22 @@ Use the repository root and activated `.venv`. The preflight is read-only; the m
 In `session-notes.txt`'s B section, use `Lab 02 model.json / answer-local.json findings:` for one finding per saved file.
 The A-only Playground fields are not required for these SDK calls.
 
+**Resuming:** If `model.json` or `answer-local.json` already belongs to this project, language and pass,
+open it and do that step's checks without repeating the request. `--output` rejects an existing file before any request.
+If a response printed but saving failed, preserve stdout and follow [save recovery](../reference/troubleshooting.md#resume-safely);
+do not call the model again just to save the answer.
+
 ### 1. Check the deployment
 
 ```bash
 python scripts/workshop.py --language en doctor --cloud
 ```
 
-Continue only when the project matches your setup card and preflight shows **deployment/model `gpt-6-sol`,
-version `2026-09-22`, state `Succeeded`**. A different model can also be `Succeeded`; that does not make it this guide's preset.
-Stop and resolve a mismatched setup before any model request. This preflight does not test inference.
+Compare `project_endpoint` with your setup card. Require **`deployment.name` = `gpt-6-sol`,
+`deployment.model.name` = `gpt-6-sol`, `deployment.model.version` = `2026-09-22` and `deployment.state` = `Succeeded`** together.
+`deployment.name` is the name configured by `AZURE_AI_MODEL_DEPLOYMENT_NAME` and passed to the SDK's `model=` parameter;
+the nested `model.name` and `model.version` describe the underlying model, not a second invocation name.
+A different model can also be `Succeeded`. Stop and resolve any mismatch before requesting an answer; this preflight does not test inference.
 
 ### 2. Save one actual model response
 

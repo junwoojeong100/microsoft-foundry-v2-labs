@@ -19,6 +19,7 @@ Do not enable recurring paid work or push a deployment without its own approval.
 **Need:** only the selected lane's prerequisites. Monitoring does not require a GitHub identity.
 **Stop when:** its configuration, execution and quality decisions are recorded separately.
 **If blocked:** retain the current deployment and report the missing permission/configuration; no success-shaped fallback.
+For monitoring, pause any enabled schedule before investigating; if pausing cannot be confirmed, hand the cleanup to the named owner as pending.
 
 ## 1. Establish the evidence before automation
 
@@ -43,7 +44,11 @@ Choose one mode, not both on the first pass:
 | Continuous | Sample agent traffic as it occurs | Lowest supported sampling/run limit; no uncontrolled traffic generation. Unavailable for trace evaluations on September 23, 2026 |
 
 For the first pass keep **Scheduled** and **Live traffic**, set **Run interval** to 1 **Hourly**, keep **Random** sampling and set
-**Maximum traces to evaluate per run** to `5`, then select **Save**. The page's button changes to **Pause**.
+**Maximum traces to evaluate per run** to `5`.
+**Before Save**, agree a specific wall-clock pause deadline with the owner and write it in `session-notes.txt`.
+Budget for the immediate run; observe the next hourly run only if that extra run and wait are approved.
+Five traces is a per-run limit, not a total run count or spending cap.
+Then select **Save**. The page's button changes to **Pause**.
 Record the schedule ID (listed by the SDK as `<agent>-scheduled-<suffix>`), agent/version filter, sampling mode, maximum traces,
 evaluator versions, owner and pause plan.
 
@@ -62,8 +67,13 @@ from the latest seven days (the one-time run's time range), not only the last ho
 planned request (5/5 passed) but not the Korean one (5/5 from earlier conversations). That is a sampling outcome to record,
 not a reason to send the request again.
 
-Select **Pause** after the test and read back the paused state: the SDK listed both schedules with `enabled: false`.
-Keep the schedule/run IDs and result artifacts. Pausing does not erase model, Search or logging charges already incurred.
+Select **Pause** when the planned observation finishes **or the agreed deadline arrives**, including after a pending/failed run
+or an inspection error. Read back the paused state; the historical SDK check listed both schedules with `enabled: false`.
+If no completed sample was observed, record `schedule configured; sample unverified`, preserve the status/error and hand off;
+do not leave recurring work enabled while waiting for evidence.
+Keep result artifacts unchanged; record their paths, the schedule/run IDs and confirmed pause state in `session-notes.txt`.
+If the pause cannot be verified, record cleanup pending with its owner rather than module complete.
+Pausing does not erase model, Search or logging charges already incurred.
 
 **Monitoring done:** add those records to [Lab 11](../11-capstone.md).
 Do not create an OIDC identity unless you separately chose the CI lane.

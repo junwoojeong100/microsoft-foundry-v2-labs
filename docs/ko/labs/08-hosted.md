@@ -23,6 +23,7 @@
 ## 1. Azure 없이 안전한 패키지 만들기
 
 **기본 B는 명령 하나 실행 → manifest 확인 → Lab 09 이동입니다.**
+학습자 ZIP 폴더가 아니라 Lab 00의 소스 저장소 루트와 가상환경을 사용합니다.
 `.build/hosted/`가 이미 있으면 manifest부터 확인합니다. 명령은 기존 폴더를 덮어쓰지 않습니다.
 다시 만들려면 먼저 이전 패키지를 옮겨 보존합니다. 예: `mv .build/hosted ".build/hosted-$(date +%Y%m%d-%H%M%S)"`.
 
@@ -43,8 +44,10 @@ python scripts/package_hosted.py
 나중에 생성되는 `.foundry/` 평가 데이터·결과와 `eval*.yaml` 설정도
 `.agentignore`로 제외합니다. 재배포할 때 평가 정답이 에이전트 코드에 섞이지 않게 합니다.
 
-`package-manifest.json`과 `requirements.txt`를 확인합니다.
+`.build/hosted/package-manifest.json`과 `.build/hosted/requirements.txt`를 엽니다.
 소스를 바꿨다면 hash를 비교합니다. 저장된 패키지는 소스 변경을 자동으로 반영하지 않습니다.
+`cloud_deployed: false`는 패키징 시점의 기록이지 실제 배포 상태를 조회한 결과가 아닙니다.
+Manifest는 그대로 두고, 나중에 승인받아 실행한 결과는 별도로 기록합니다.
 `session-notes.txt`의 B 구간에서 `Lab 08 패키지 경로 / cloud_deployed / 로컬·원격 실행:`을 채웁니다.
 실제 패키지 경로와 `cloud_deployed: false`를 적고, 두 선택 실행 단계는 모두 **미실행**으로 표시합니다.
 
@@ -178,14 +181,15 @@ Manifest 생성과 stub을 사용한 azd 환경/재조회 계약을 **오프라�
 로컬 `.env`의 인증 모드는 계속 `cli`입니다.
 `azd`의 원격 런타임 설정과 로컬 SDK의 `.env`를 혼동하지 않습니다.
 
-**터미널 A — 2절의 준비 터미널을 그대로 사용합니다:**
+**터미널 A — 소스 저장소 루트에 있는 2절의 준비 터미널을 그대로 사용합니다:**
 
 ```bash
 source .venv/bin/activate
 python scripts/workshop.py serve
 ```
 
-서버를 계속 실행해 둡니다. 기본 로컬 포트는 8088입니다.
+이 서버는 로컬 포트 8088에서 foreground로 실행되어 터미널 A를 계속 사용합니다. 새 셸 프롬프트가 나오지 않는 것이 정상입니다.
+서버를 그대로 두고 다음 블록은 터미널 B에서 실행합니다.
 **터미널 B:**
 
 **같은 소스 저장소 루트**에서 두 번째 터미널을 엽니다. A의 셸 변수는 B에 자동으로 생기지 않습니다.
@@ -200,18 +204,17 @@ azd ai agent invoke --cwd "${HOSTED_DIRECTORY:?Use the prepared standalone direc
 ```
 
 
-**화면 확인:** 터미널 A를 종료하지 않고 B에서 HTTP 200을 확인합니다.
-고정 SDK의 실제 반환값은 `{"status":"healthy"}`입니다(2026-09-15 재확인). `status: ready`가 아닙니다.
-서버에 연결됐다는 뜻이지 모델 응답까지 성공했다는 뜻은 아닙니다.
+**화면 확인:** B에 먼저 `{"status":"healthy"}`가 출력됩니다(2026-09-15 재확인). `status: ready`가 아닙니다.
+이 `curl` 명령은 HTTP 상태 코드가 아니라 본문을 출력합니다. Readiness가 실패하면 `&&`가 호출을 건너뛰므로
+터미널 A를 확인하고 [Hosted 문제 해결](../reference/troubleshooting.md#자주-막히는-지점)을 따릅니다.
+Readiness 성공은 서버 연결 확인이지 모델 추론 성공이 아닙니다.
 
 
 **화면 확인:** 실제 답변의 한도·근거와 새 **Session / Conversation**을 확인합니다.
 이 로컬 호출도 Azure 모델을 사용합니다. 사진의 결과를 원격 배포 결과로 표시하지 않습니다.
 
-readiness의 HTTP 200은 서버 준비 상태일 뿐 모델 추론 성공이 아닙니다.
-실제 답변과 문서 근거까지 확인합니다.
-이 로컬 실행도 Azure 모델을 호출하므로 비용이 발생합니다.
-끝나면 터미널 A에서 `Ctrl+C`로 해당 서버만 종료합니다.
+실제 답변과 문서 근거를 확인한 뒤 터미널 A에서 `Ctrl+C`로 해당 서버만 종료합니다.
+로컬만 실행한다면 4절은 건너뛰고 5절에 결과를 기록합니다.
 
 ## 4. 원격 배포 — 별도 비용/권한 확인 후
 
@@ -278,8 +281,11 @@ Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습
 `serve`와 `package_hosted.py`는 인자를 생략하면 이전 단일 함수 Agent 경로를 유지합니다.
 워크플로를 선택한 경우에는 `runtime-profile.json`에 kind/pattern/retrieval/prompt/API/protocol을 고정합니다.
 
+소스 저장소 루트의 활성 `.venv`에서 실행합니다. **첫 명령은 유료 Azure 모델 호출**이고,
+둘째 명령만 로컬 패키징입니다. `&&`는 workflow 확인이 실패했을 때 패키징으로 이어지는 것을 막습니다.
+
 ```bash
-python scripts/workshop.py workflow-agent --pattern sequential --retrieval local --prompt v2
+python scripts/workshop.py workflow-agent --pattern sequential --retrieval local --prompt v2 &&
 python scripts/package_hosted.py --kind workflow --pattern sequential
 ```
 
@@ -293,7 +299,8 @@ python scripts/package_hosted.py --kind workflow --pattern sequential
 반환된 정확한 패키지·새 소유 agent 이름·새 빈 폴더로 **2절의 공통 준비**를 완료합니다.
 소스 복사본에 다른 서비스를 초기화하지 않습니다. 아래 workflow 명령은 **3절의 기본 단일 agent 서버 대신** 실행합니다.
 
-터미널 A는 소스 저장소 루트·활성 `.venv`에서 실행합니다.
+터미널 A는 소스 저장소 루트·활성 `.venv`를 사용합니다. 3절 서버가 아직 실행 중이면
+여기서 `Ctrl+C`로 멈춘 뒤 workflow 서버를 시작합니다. 교체한 서버는 터미널 B의 호출 동안 계속 실행해 둡니다.
 
 ```bash
 python scripts/workshop.py serve --kind workflow --pattern sequential

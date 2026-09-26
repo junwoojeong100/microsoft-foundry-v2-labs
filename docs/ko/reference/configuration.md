@@ -13,13 +13,15 @@
 
 ## 현재 실습에 필요한 값만 입력하기
 
-녹화나 오래된 `azure.yaml`이 아니라 [`.env.example`](../../../.env.example)의 번호 구간을 사용합니다.
+[`.env.example`](../../../.env.example)은 번호 구간을 찾는 참고용이며, 실제 값은 템플릿이 아닌 저장소 루트의 `.env`에 입력합니다.
+`.env`가 준비되지 않았다면 [Lab 00 B의 설정 단계](../labs/00-start.md#4-로그인과-env)를 따릅니다.
+녹화나 오래된 `azure.yaml` 대신 담당자가 검증한 [준비 카드의 값](../setup.md)을 사용합니다.
 
 | 현재 단계 | 입력·유지할 값 |
 |---|---|
 | 오프라인 체험 | 없음. 해당 명령은 `.env`를 읽지 않음 |
-| 첫 실제 모델·MAF·로컬 검색 평가 | 1번 구간에 검증된 준비 카드 값 입력. `WORKSHOP_AUTH_MODE=cli`, 출력 한도 2048 유지 |
-| 기본 B의 Lab 06 Search/IQ | 2번 구간의 `AZURE_SEARCH_ENDPOINT` 추가. 객체 이름 기본값은 본인 prefix 사용 |
+| [첫 실제 모델](../labs/02-models.md#path-b)·MAF·로컬 검색 평가 | 1번 구간에 검증된 준비 카드 값 입력. `WORKSHOP_AUTH_MODE=cli`, 출력 한도 2048 유지 |
+| [기본 B의 Lab 06 Search/IQ](../labs/06-knowledge.md#path-b) | 2번 구간의 `AZURE_SEARCH_ENDPOINT` 추가. 객체 이름 기본값은 본인 prefix 사용 |
 | 선택 IQ Chat·hybrid·Toolbox·Hosted·cloud judge | 선택한 모듈이 명시한 추가 값만 입력 |
 
 잘못된 UUID·출력 한도는 단순 파서 오류 대신 **설정 이름**을 알려 줍니다.
@@ -124,7 +126,8 @@ Label만 또는 `WORKSHOP_PREFIX`만 바꾸어 초기화할 수 없습니다. �
 `decision`은 `answer`, `needs_approval`, `insufficient_evidence` 중 하나입니다.
 정답 금액을 code가 몰래 보정하지 않으며 잘못된 JSON/중복 키/잘못된 타입을 거부합니다.
 
-실행은 `outputs/<label>/`에 저장합니다. label은 경로가 아니라 제한된 이름입니다.
+기본 `demo`/`collect` 실행은 `outputs/<label>/`에 저장합니다. 다른 명령군의 위치는 [저장 결과 표](commands.md#saved-results)에서 찾습니다.
+Label은 경로가 아니라 제한된 이름입니다.
 기존 실행 디렉터리는 덮어쓰지 않습니다.
 `manifest.json`의 hash는 재현을 돕는 장치이며 전자서명이나 변조 방지 저장소는 아닙니다.
 대화형 명령은 [`--output`으로 JSON 전체를 저장](commands.md#saving-json)할 수도 있습니다.

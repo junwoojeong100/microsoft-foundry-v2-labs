@@ -12,8 +12,10 @@ When the learning goal is provider diversity, prefer making the second approved 
 for example a Grok model whose Azure documentation lists Responses API support (checked 2026-09-24).
 On 2026-09-25 the training account's catalog listed `grok-4-1-fast-reasoning` (GlobalStandard) and `Mistral-Large-3` (DataZoneStandard) with unused quota; deploying either needs owner approval.
 
-**Need:** the real [Lab 07](../07-evaluation.md) candidate, a second approved deployment,
+**Need:** the real code-based dev candidate from [Lab 07 B](../07-evaluation.md#dev-candidate),
+its `outputs/<label>/manifest.json` and complete `responses.jsonl`, a second approved deployment,
 matching API/Structured Outputs support, cost approval and new labels.
+Portal assessment sheets and Hosted matrix directories are not inputs to this module's `compare` command.
 **Stop when:** the comparison includes actual model identities, all rows/errors and a written migration decision.
 **If blocked:** retain the existing model; never let an error choose another deployment or endpoint.
 
@@ -28,6 +30,14 @@ Do not use a Router as a fixed-model baseline or reuse results from another lang
 
 The new deployment must already exist and be permitted in the same experiment.
 This lab does not deploy models or increase quota.
+
+The commands below assume your baseline is `outputs/candidate/`, with `mode: live`, `split: dev`,
+`prompt_version: v2` and `retrieval: local`. Check those fields before paying for another collection.
+If your saved label differs, replace `candidate` in the comparison and report path below; match the saved prompt/retrieval in `collect`.
+Use `migration-model-b` only for an unused output directory; otherwise inspect the saved run or choose a new label consistently.
+Keep the original project, output limit, retrieval settings, source code and synthetic files unchanged:
+`compare` rejects mismatched `inference`, code, corpus or dataset hashes. If that baseline is missing, return to
+Lab 07's dev steps or hand off as blocked; no new holdout is needed here.
 
 ## 2. Check the second model without changing your saved setup
 
@@ -44,9 +54,8 @@ read -r MODEL_B
 ```
 
 Confirm the actual underlying model/version and deployment state.
-If the API or output schema is incompatible, stop. That is a migration finding, not permission to use another API for only this model.
-For a non-OpenAI provider, the project Responses path and strict `json_schema` Structured Outputs must both be accepted.
-If either is rejected, stop and record an API-compatibility finding. Do not switch APIs, loosen the schema or fall back to plain text.
+The expected `inference_tested: false` means this checked token acquisition and deployment metadata,
+**not** Responses API or Structured Outputs support. Step 3 is the real request test.
 Keep `MODEL_B` in this terminal for step 3; a missing value stops before any request.
 
 ## 3. Collect a new dev run and compare
@@ -67,7 +76,13 @@ python scripts/workshop.py --language en evaluate --label migration-model-b
 python scripts/workshop.py --language en compare --baseline candidate --candidate migration-model-b --variable model
 ```
 
-If your baseline used another provider, explicitly use that same provider throughout this separate comparison.
+Open `outputs/migration-model-b/comparison-vs-candidate.json`.
+Read both metrics and `changed_context_cases`: changed evidence makes this an end-to-end comparison, not an isolated model ranking.
+If your baseline used another **retrieval provider**, explicitly use that same provider throughout this separate comparison;
+this does not require both model deployments to come from the same model provider.
+For a non-OpenAI provider, the project Responses path and strict `json_schema` Structured Outputs must both be accepted.
+If either is rejected, preserve all collected error rows and record an API-compatibility finding.
+Do not switch APIs, loosen the schema or fall back to plain text.
 Do not replace only the failed cases or omit errors from the denominator.
 Inspect amounts, dates, citations, approval behavior, latency and token measurements together.
 Both subshells leave the original terminal deployment and `.env` unchanged, including after failure.

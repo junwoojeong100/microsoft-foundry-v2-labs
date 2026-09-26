@@ -2,7 +2,7 @@
 
 [English](../../../labs/extensions/developer-toolkit.md) | **한국어**
 
-**B 준비.** 기준 경로는 저장소의 Python CLI입니다.
+**B 준비 및 일부 선택 C 모듈의 공통 준비.** 기준 경로는 저장소의 Python CLI입니다.
 
 **근거 상태:** 도구 확인은 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며 `gpt-6-sol`로 다시 실행하지 않았습니다.
 
@@ -10,12 +10,12 @@ Foundry Toolkit은 선택 편집기 UI이며 다른 구현이나 모든 최신 S
 
 **첫 회차:** 기본 B는 1절 후 자기 경로로 돌아갑니다. 아래 Hosted SDK·azd·편집기 확장은 별도로 선택한 모듈에만 필요합니다.
 
-**준비:** Lab 00 B의 소스 폴더, `.venv`, `.env`, 본인의 `az login`.
-`doctor --cloud`는 read-only 사전 확인이며 아무것도 만들지 않습니다.
+**로컬 검사 준비:** 소스 폴더와 준비된 `.venv`. Azure를 사용하는 작업에만
+Lab 00 B의 `.env`와 본인의 Azure CLI 로그인이 추가로 필요합니다. 로컬 승인/복구에는 둘 다 필요하지 않습니다.
 
 ## 1. 실제 Python과 프로젝트
 
-[Lab 00 B](../00-start.md#b-코드--한-폴더-한-환경) 이후 VS Code에서 저장소를 열고
+[Lab 00 B](../00-start.md#b-코드--한-폴더-한-환경)에서 준비한 소스 폴더와 Python 환경을 사용합니다. VS Code에서 저장소를 열고
 **Python: Select Interpreter**로 같은 `.venv`를 선택합니다. 새 터미널도 같은 루트와 환경을 사용합니다.
 
 ```bash
@@ -23,10 +23,22 @@ source .venv/bin/activate
 python --version
 python -m pip check
 python scripts/workshop.py --language ko doctor
+```
+
+**로컬 승인/복구:** 아래 cloud 블록은 건너뜁니다. [Hosted SDK 검사](#hosted-sdk) 후
+해당 모듈 자체의 `check` 명령으로 돌아갑니다.
+
+**Azure를 사용하는 작업 전에만:** Lab 00 B의 `.env`와 기존 Azure CLI 로그인을 사용해 아래 읽기 전용 사전 확인을 실행합니다.
+Azure에 접속하지만 리소스를 생성하지는 않습니다.
+
+```bash
 python scripts/workshop.py --language ko doctor --cloud
 ```
 
-offline PASS는 cloud 인증이 아닙니다. cloud 사전 확인도 기능 지원 증거가 아니므로 Lab 02의 실제 요청을 완료합니다.
+offline PASS는 cloud 인증이 아닙니다. Azure 작업에서는 cloud 사전 확인이 성공해도
+모델 기능 지원을 검증하려면 Lab 02의 실제 요청이 필요합니다.
+Python 버전과 필요한 검사의 결과 또는 오류를 `session-notes.txt`에 기록합니다.
+해당 검사가 실패하면 선택 모듈을 멈추고 오류를 보존합니다. 사용하지 않는 cloud·azd·편집기 검사는 **미실행**으로 둡니다.
 
 **기본 B 완료:** [B의 다음 미완료 단계](../../paths/b-practitioner.md)로 돌아갑니다.
 기본 경로에 필요 없는 검사를 통과시키려고 Hosted 패키지·azd를 설치하지 않습니다.

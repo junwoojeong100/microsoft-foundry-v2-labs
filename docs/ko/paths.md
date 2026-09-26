@@ -23,8 +23,9 @@ Azure나 agent가 처음이면 **A**, Python·API에 익숙하면 **B**를 선�
 Lab 05는 SDK 설치와 본인 계정 로그인이 끝난 **준비된 MAF 실행 환경**이 기본입니다.
 Hosted Responses workflow의 Playground는 수업 전에 담당자가 검증한 경우에만 선택합니다. 학습자는 명령을 복사해 실행하고 결과를 읽습니다.
 Python 코드 작성·설치·구독 결제 설정은 사전 준비입니다.
-혼자 학습하면 [혼자 학습 준비](setup-owner.md#self-study)를 먼저 완료합니다. 여기에
-[Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)와 [Lab 02 B](labs/02-models.md#path-b)의 터미널 준비가 포함됩니다.
+혼자 학습하면 [혼자 학습 준비](setup-owner.md#self-study)를 먼저 완료합니다.
+그 안의 [Lab 00 B](labs/00-start.md#b-코드--한-폴더-한-환경)와 [Lab 02 B](labs/02-models.md#path-b)는 터미널을 준비하는 단계입니다.
+그 뒤에는 Lab 03 B가 아니라 **[Lab 00 A](labs/00-start.md#path-a)**를 시작합니다.
 
 | 순서 | 실습 | 시간 | 직접 남길 결과 |
 |---|---|---:|---|
@@ -32,7 +33,7 @@ Python 코드 작성·설치·구독 결제 설정은 사전 준비입니다.
 | 2 | [01. Foundry](labs/01-foundry.md#path-a) | 25분 | 리소스·프로젝트·모델 구분 그림 |
 | 3 | [02. 모델 — A](labs/02-models.md#path-a) | 20분 | Playground 실제 응답과 배포 이름 |
 | 4 | [03. 에이전트 — A](labs/03-prompt-agent.md#path-a) | 35분 | 인라인 합성 정책을 사용하는 에이전트 |
-| 5 | [05. MAF 워크플로 — A](labs/05-workflows.md#path-a) | 25분 | 준비된 브라우저 또는 터미널 순차 실행 + 사람 검토 기록 |
+| 5 | [05. MAF 워크플로 — A](labs/05-workflows.md#path-a) | 25분 | 준비된 순차 실행(기본은 터미널)과 사람의 검토 기록 |
 | 6 | [06. 지식 — A](labs/06-knowledge.md#path-a) | 35분 | 원문 인용·적용 시점 확인. IQ Chat은 기본 미선택 |
 | 7 | [07. 평가 — A](labs/07-evaluation.md#path-a) | 40분 | dev 6문항의 수동 업무 평가표 |
 | 8 | [09. 운영 — A](labs/09-operations.md#path-a) | 30분 | 운영 위험·trace 근거 또는 미확인 이유·비용·정리 확인 |
@@ -77,7 +78,8 @@ B는 준비·검증된 환경을 전제로 하며 실패·역할 변경·승인�
 첫째 날을 마칠 때 Search 소유권 ledger와 저장 출력을 보존합니다. 둘째 날에는 Search를 다시 seed하거나 이전 모델 호출을 반복하지 않고 Lab 07에서 재개합니다.
 
 **B의 핵심 완료:** 표에 있는 실제 모델·도구·workflow·Search/IQ 결과,
-관리형 Prompt Agent create/invoke 근거, 비교 가능한 dev 이력·고정된 최종 평가·패키지·trace 상태·정리 인계가 있습니다.
+관리형 Prompt Agent create/invoke 근거, 비교 가능한 dev 이력, [dev 게이트 통과 후](labs/07-evaluation.md#final-acceptance)에만 수행한
+고정 holdout 최종 평가, 패키지·trace 상태·정리 인계가 있습니다.
 Hosted 서버/배포·실제 client-side telemetry·유료 cloud judge는 선택 게이트이며, 수행하지 않았으면
 캡스톤에 `미실행`으로 남깁니다. 할당량이 없다고 fixture를 실제 응답 대신 제출하지 않습니다.
 필수 단계가 계속 막혀 있다면 [미완료 인계](labs/11-capstone.md#incomplete-handoff)로 실제 작업과 복구 담당자를 보존합니다.
@@ -113,7 +115,7 @@ Hosted 서버/배포·실제 client-side telemetry·유료 cloud judge는 선택
 
 | 필요한 모듈 | 최소 선행 결과 | 재시작 지점 |
 |---|---|---|
-| 모델/프롬프트 | 프로젝트·배포·Foundry User 권한 | [02 B](labs/02-models.md#path-b) |
+| 모델/프롬프트 | [Lab 00 B에서 준비한 코드 환경](labs/00-start.md#path-b)·프로젝트·배포·Foundry User 권한 | [02 B](labs/02-models.md#path-b) |
 | MAF·MCP·워크플로 | SDK 설치, `doctor --cloud`, `model` 성공 | [04 B](labs/04-agents-tools.md#path-b) |
 | Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | [06 B](labs/06-knowledge.md#path-b) |
 | 오프라인 fixture 비교 | `outputs/<label>`에 명시적으로 구분한 fixture 결과. Azure 준비 불필요 | [00: 오프라인 비교와 종료](labs/00-start.md#offline-fixtures). 재실행하지 말고 기존 결과 확인 |

@@ -4,7 +4,9 @@
 
 **Prepare the Azure environment before learners start setup.** This page is for the subscription/project owner or instructor, not a hidden prerequisite inside a later lab.
 
-**Learning alone?** You are also the owner. Follow [Learning alone](#self-study) first; the [class owner checklist](#class-owner-checklist) after it adds class, B Search and optional preparation.
+**Preparing a class?** Start at the [class owner checklist](#class-owner-checklist), not the self-study steps.
+**Environment already supplied?** Return to [learner setup](setup.md#learner-files); do not create another project.
+**Learning alone without a prepared environment?** You are also the owner. Follow [Learning alone](#self-study), using its A or B directions.
 
 <a id="self-study"></a>
 
@@ -47,14 +49,17 @@ Skip A's steps 6–7; the Search section returns you to [setup](setup.md) for B.
    **Check:** a connection confirmation appears. If you skip this step, Lab 09 records `trace unverified: <reason>`.
 6. **Files and values.** Complete [setup sections 2–3](setup.md#learner-files): download the learner ZIP and fill its setup card from your own portal.
    On `Cost and permission owner:` write yourself.
+   On `Prepared MAF terminal location:` write `pending step 7` until the terminal is ready; the learner ZIP is not a code environment.
    If you have `setup-attempts.txt`, keep it in this personal evidence folder and add every earlier group and its current state
    to item 4 of `operations-checklist.txt`, with its remaining cost and cleanup owner.
    If you configured tracing, add both logging resources and their actual groups to item 4 of `operations-checklist.txt`.
-   **Check:** every line of the **Lab 00 - setup card** section in `session-notes.txt` is filled.
+   **Check:** the portal values are recorded in **Lab 00 - setup card**; only the terminal location is still pending.
 7. **Lab 05 terminal.** Complete [Lab 00 B](labs/00-start.md#path-b) steps 1–5, then [Lab 02 B](labs/02-models.md#path-b) steps 1–3,
    and leave through [its A return choices](labs/02-models.md#a-terminal-ready). Finish this preparation **before starting the timed A route**;
    do not continue into the rest of B.
    **Check:** `doctor --cloud` reports `gpt-6-sol` / `2026-09-22` / `Succeeded`, and Lab 02 B saved `model.json` and `answer-local.json`.
+   Replace `pending step 7` on the learner ZIP's setup card with this source folder's full path. Keep that folder, `.venv`, `.env`
+   and the saved responses for Lab 05; your A notes remain in the learner ZIP, not the B worksheet copy.
 
 **Ready:** complete steps **1–7** (step 5 may be recorded as skipped), then tick [the setup ready check](setup.md#5-ready-to-start)
 and start [Lab 00 A](labs/00-start.md#path-a). The setup card alone does not make the Lab 05 terminal ready.
@@ -104,6 +109,10 @@ Log Analytics and remaining costs. Keep the resources needed for route B instead
 10. Optional lightweight source distribution: provide a sparse checkout that omits `docs/assets/` and video files for learners who need the source without large media history.
     The full repository remains the source of truth. The sparse pattern in [Lab 00](labs/00-start.md#source-folder) was checked locally on 2026-09-24:
     `docs/assets/` and `videos/` were excluded while scripts and guides remained.
+
+**Hand back to learners:** supply [their verified environment values](setup.md#environment-card), unique prefixes and A's selected Lab 05 option.
+Learners then complete [setup sections 2–4](setup.md#learner-files) and follow its A or B link to Lab 00.
+Continue below only for the Search/IQ preparation selected for the class.
 
 <a id="search-service"></a>
 

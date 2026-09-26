@@ -8,7 +8,7 @@
 
 ## Before you start
 
-**This pass:** A verifies the prepared project in sections 1–3. Environment owners use the collapsed owner reference only if it is not prepared.
+**This pass:** A verifies the prepared project in sections 1–3. If no environment is prepared, use [owner preparation](../setup-owner.md) first; resource creation is not part of this lab.
 
 **Need:** The setup card's tenant, project, account and gpt-6-sol deployment.
 
@@ -50,7 +50,9 @@ The project and model deployment are both under the Foundry resource. The agent 
 ## 1. Check the prepared environment
 
 1. Open `https://ai.azure.com` and select your training project. Its name appears at the top, next to **Microsoft Foundry**.
-2. On **Home**, find **Project endpoint** and select its copy icon. Paste it into the `Full project endpoint:` line of `session-notes.txt`.
+2. On **Home**, find **Project endpoint** and select its copy icon. In `session-notes.txt`, paste it on a new line beside
+   `Full project endpoint:` and compare the complete URLs without overwriting the setup-card value.
+   If they differ or the card is blank, stop and confirm the intended project with the owner before continuing.
 3. On the same page, select **View deployments** and find the **`gpt-6-sol`** row. Close the list when you have seen it.
 4. Select **Build** in the top bar (not the **Start building** button). In the left menu, find **Agents**, **Models**, **Knowledge** and **Evaluations**:
    these are entry points in the project's view, not an ownership hierarchy. Model deployments belong to the parent Foundry resource.
@@ -71,7 +73,7 @@ If you see a classic Hub project or threads/runs code instead, stop and use the 
 
 ## 2. Check the endpoint on your setup card
 
-Compare the `Full project endpoint:` line in `session-notes.txt` with the first row below.
+First confirm that the portal copy matches the setup card's `Full project endpoint:` value, then compare its shape with the first row below.
 
 | Purpose | Shape |
 |---|---|
@@ -80,7 +82,8 @@ Compare the `Full project endpoint:` line in `session-notes.txt` with the first 
 | Azure AI Search | `https://<search>.search.windows.net` |
 | Browser portal | `https://ai.azure.com` — **not an SDK endpoint** |
 
-It must keep the `/api/projects/<project>` ending. If it has another shape, copy **Project endpoint** from **Home** again.
+It must keep the `/api/projects/<project>` ending, with **your recorded account and project names**, not just the right URL shape.
+For a mismatch, return to [Lab 00's project selection](00-start.md#path-a) and confirm the owner's values; do not overwrite the card to make another project pass.
 
 ## 3. Write your sketch and explanation
 
@@ -99,7 +102,7 @@ In the **Lab 01** section of `session-notes.txt`, write:
 
 2. This sentence: `Replacing the model means rechecking the agent's instructions, knowledge, evaluation and permissions.`
 
-**A done:** the **Lab 01** section has your sketch and sentence, and the `Full project endpoint:` line is filled in.
+**A done:** the **Lab 01** section has your sketch and sentence, and the portal's full project endpoint matches your verified setup card.
 Continue to [Lab 02 A](02-models.md#path-a). You do not create resources or assign roles in this prepared-project exercise.
 
 <details>
@@ -107,19 +110,13 @@ Continue to [Lab 02 A](02-models.md#path-a). You do not create resources or assi
 
 ## Owner: no environment yet
 
-These steps are outside participant class time and require separate authorization.
-
-1. Select a training subscription and dedicated resource group.
-2. Create a Foundry resource and current project following the
-   [official quickstart](https://learn.microsoft.com/azure/foundry/quickstarts/get-started-code).
-3. Verify **model/SKU/quota** before choosing a region. If using Hosted, separately
-   check [Hosted regions](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents);
-   the region lists need not match.
-4. Prepare `gpt-6-sol`, model version `2026-09-22`, with the exact deployment name `gpt-6-sol`.
-   Check availability rather than copying a recording's region/SKU/capacity.
-5. Assign necessary project roles and wait for propagation.
-6. Verify an actual model request with a learner account.
-7. Prepare Search, Application Insights, and Hosted only for selected modules.
+Preparation is outside participant class time and requires separate authorization.
+Use [self-study preparation](../setup-owner.md#self-study) or [the class owner checklist](../setup-owner.md#class-owner-checklist),
+not a second setup sequence inside this lab. Complete its learner handoff, return to [Lab 00 A](00-start.md#path-a),
+then verify the project in sections 1–3 here.
+Before choosing a region, verify **model/SKU/quota**. For optional Hosted, separately check
+[Hosted regions](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents); the region lists need not match.
+Do not copy a recording's region/SKU/capacity. Wait for role propagation and verify an actual model request with a learner account.
 
 Resource-creation permission does not imply model-invocation permission.
 **Management-plane and data-plane permissions differ.** Do not give every learner subscription Owner.

@@ -21,7 +21,7 @@ The original integrated workshop's last checked commit is dated December 14, 202
 |---|---|---|
 | foundry-maf-workshop | Portal, model SDK, agent, tool, workflow, hosted | Shared CLI/environment and synthetic-policy scenario |
 | agent-framework-labs | Single/sequential/concurrent/Group Chat/MCP/RAG | Same inputs, permission boundaries, explicit termination |
-| microsoft-iq-on-foundry | Sources/bases, Toolbox, IQ distinctions | GA default; explicit opt-in for real external data |
+| microsoft-iq-on-foundry | Sources/bases, Toolbox, IQ distinctions | GA retrieval over bundled synthetic data; optional [IQ routing design](../labs/10-iq-extensions.md), not a company-data connection |
 | foundry-evaluation | Enterprise learning loop, failures, dev/holdout, review | No mandatory four-model set; small shared data/provider choices |
 
 ## What was not copied unchanged
@@ -50,6 +50,6 @@ before reviving an older sample.
 | Foundry Agent Service classic agents using threads/runs/messages | 2027-03-31 | Migrate classic agents to the new Foundry agent service | [Classic agents deprecation](https://learn.microsoft.com/azure/foundry-classic/agents/concepts/threads-runs-messages) |
 | Foundry portal Workflows visual Preview | 2026-12-01 | Build new workflow logic with Microsoft Agent Framework | [Workflows retirement](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow) |
 
-The core needs no additional repository clones. Source links support deeper exploration
-and attribution; the executable core, data, and documentation are here.
+The core needs no additional repository clones or old notebooks. Return to your current lab,
+or choose [A or B](../paths.md) if starting here; source links are background and attribution, not another setup sequence.
 English is now the default entry point, with matching [Korean guides](../../README.ko.md).

@@ -2,7 +2,7 @@
 
 [English](../../labs/10-iq-extensions.md) | **한국어**
 
-**선택 심화입니다. 기본 실습은 실제 Fabric/Microsoft 365 계정에 접근하지 않고 완료됩니다.**
+**선택 심화입니다. 첫 회차는 설계만 하며 실제 회사/Microsoft 365 데이터는 이 워크숍의 범위 밖입니다.**
 
 다음: A/B → [Lab 11](11-capstone.md) · 선택 선행: [Lab 06](06-knowledge.md) · [학습 경로](../paths.md)
 
@@ -10,12 +10,13 @@
 
 **이번 순서:** 선택 확장입니다. A/B는 이 모듈 없이 Lab 11에서 끝낼 수 있습니다.
 
-**준비물:** 핵심 A/B 경로에는 없습니다. 이 선택 모듈 안의 합성 라우팅 설계는 서비스 접근이 필요 없고,
-외부 서비스에는 별도로 준비한 자산과 승인이 필요합니다.
+**준비물:** 동봉한 정책 원본과 본인의 기록 폴더뿐입니다. 2–5절은 담당자의 계획을 위한 참고 자료이며,
+이 랩을 마치려고 없는 자산을 만들거나 서비스를 연결하라는 지시가 아닙니다.
 
 **다음으로 갈 기준:** 설계 결과는 설계로 기록합니다. Work IQ/Fabric 연결을 실행했다고 표시하지 않습니다.
 
-**막히면:** 동의·과금·사용자 context 조건이 없으면 멈추며 회사 데이터를 기본 연결하지 않습니다.
+**막히면:** 빠진 원본·identity·승인을 **미준비 / 미실행**으로 기록하고 Lab 11로 돌아갑니다.
+이 설계 실습을 위해 Fabric/Microsoft 365에 로그인하거나 없는 자산을 만들지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
@@ -23,9 +24,9 @@
 
 | 구분 | 주된 맥락 | 이번 통합 가이드의 기본 범위 |
 |---|---|---|
-| Foundry IQ | 기업 지식 검색, knowledge source/base | 합성 Search index의 GA retrieval |
-| Fabric IQ | 의미 모델·분석·ontology·OneLake·data agent | 합성 자산을 준비한 경우의 별도 연결 설계 |
-| Work IQ | Microsoft 365 업무·협업 맥락 | 기본 비활성화; 실제 사용자 연결은 별도 승인 |
+| Foundry IQ | 기업 지식 검색, knowledge source/base | Lab 06의 합성 Search 경로. 이 페이지에서는 검색을 실행하지 않음 |
+| Fabric IQ | 의미 모델·분석·ontology·OneLake·data agent | 연결 설계만. 분석 자산은 제공하지 않음 |
+| Work IQ | Microsoft 365 업무·협업 맥락 | 설계만. 이 과정에서는 Microsoft 365 연결·데이터 접근 없음 |
 
 “둘 다 IQ니까 같은 키를 넣으면 된다”거나 “Copilot 라이선스가 있으니 백엔드가
 app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습니다.
@@ -44,11 +45,12 @@ app-only로 자유롭게 호출할 수 있다”는 결론을 내리지 않습�
 기본 실습에는 번들 정책 원본만 있으며 분기별 분석·회의 dataset은 제공하지 않습니다.
 Fabric과 Work IQ는 **설계만 / 미실행**으로 표시하고 응답 JSON이나 회사 데이터를 만들어 넣지 않습니다.
 
-**화면 확인:** 이 과제의 결과는 본인의 설계 기록입니다. 연결 상태 flag를 출력하거나 실제 연결을 입증하는 명령은 없습니다.
-선택한 범위가 설계뿐이면 여기서 멈추고 [Lab 11](11-capstone.md)로 이동합니다.
+**화면 확인:** 이 과제의 결과는 설계 기록뿐이며 연결 상태 flag나 서비스 결과가 아닙니다.
+이전 Lab 06 근거는 따로 보관합니다. 첫 회차는 끝났으므로 [Lab 11](11-capstone.md)로 이동합니다.
+아래 참고 자료는 추가 필수 단계가 아닙니다.
 
 <details>
-<summary>선택 준비 참고 — 외부 서비스는 별도 자산·권한·비용 승인이 필요합니다</summary>
+<summary>참고 전용 — 선행 조건을 계획하되 이 랩을 마치려고 없는 서비스를 만들지 않습니다</summary>
 
 ## 2. Fabric 연결 — 준비된 합성 자산이 있을 때만
 
@@ -61,18 +63,19 @@ Fabric과 Work IQ는 **설계만 / 미실행**으로 표시하고 응답 JSON이
 5. 자산별 identity: ontology/semantic model 경로는 delegated/OBO context가 필요하고, 게시된 Data Agent MCP는 별도로 승인된 service principal을 지원할 수 있습니다.
 6. capacity 활성 시간, 호출 비용, 종료·복원 계획.
 
-자산이 없다면 [공식 Fabric Data Agent 튜토리얼](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial)에서
-합성 자산을 먼저 만듭니다. 자산 준비는 이 랩의 45–90분에 포함하지 않습니다.
-자산별 연결 순서는 [통합 IQ 워크북](../reference/iq-workbook.md)과
-[현재 공식 Fabric IQ 가이드](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq)를 사용합니다.
-소스 저장소를 clone할 필요는 없습니다.
+자산이 없다면 **미준비 / 미실행**으로 기록하고 복구 단계로 새로 만들지 않습니다.
+[공식 Fabric Data Agent 튜토리얼](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial),
+[IQ 워크북](../reference/iq-workbook.md),
+[Fabric IQ 가이드](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq)는
+별도로 승인한 합성 프로젝트를 위한 담당자 참고 자료이지 첫 회차의 과제가 아닙니다.
 
-**완료 증거:** 실제 사용자의 질문, 선택된 Data Agent/데이터 원본, 응답·근거,
-user-context/OBO 검증 결과. 관리자 계정으로 한 번 성공했다고 모든 사용자에게 권한이 있는 것은 아닙니다.
+**별도 승인 실험의 근거:** 실제 합성 질문, 선택한 agent/원본, 응답·근거, 자산별 호출 identity 검증 결과.
+관리자 계정으로 한 번 성공했다고 모든 사용자에게 권한이 있는 것은 아닙니다.
 
 ## 3. Work IQ — 명시적 옵트인과 추가 과금
 
-관리자가 먼저 현재
+**이 워크숍에서는 계획만 합니다.** 아래 조건을 충족해도 여기서 Microsoft 365에 접근해도 된다는 뜻이 아닙니다.
+별도 프로젝트의 담당 관리자는
 [Work IQ knowledge-source 요구사항](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq)을 검토합니다.
 tenant enablement, 실제 사용자 로그인과 할당된 사용량 기반 과금,
 delegated `WorkIQAgent.Ask` 및 관리자/사용자 동의, 네트워크·tenant·지원 경계,
@@ -82,18 +85,19 @@ Preview Work IQ는 단순히 읽는 것이 아니라 **작업을 수행할 수 �
 이 리포에는 실제 Work IQ를 자동 활성화하거나 계정/서비스 principal을 생성하는 스크립트가 없습니다.
 개인 계정을 강제로 로그인시키거나 Graph/Microsoft 365 token을 복사해 넣지 않습니다.
 M365 Copilot 보유 여부만으로 위 조건을 충족했다고 판단하지 않습니다.
-9월 15일 계약에는 사용자별 할당이 있는 Copilot Studio 사용량 기반 과금 plan, tenant enablement, user assertion,
+2026년 9월 15일 계약에는 사용자별 할당이 있는 Copilot Studio 사용량 기반 과금 plan, tenant enablement, user assertion,
 `WorkIQAgent.Ask` 위임 동의, `2026-08-01-preview` 경로용 고객 소유 Entra 앱/페더레이션 자격 증명이 포함됩니다.
 `applicationId`는 client ID이고 `federatedCredentialId`는 credential object ID입니다.
 이전의 같은 tenant 예시를 일반화하거나 사용자 context를 host identity로 대체하지 않습니다.
 
-**중단 조건:** 승인/과금/tenant/위임 권한/행동 범위 중 하나라도 불명확하면 실제 연결을 하지 않고
-합성 라우팅 실습에서 멈춥니다.
+**중단 조건:** 다른 프로젝트가 필요한 동의·과금 조건을 갖췄더라도 이 경로의 Work IQ는 **설계만 / 미실행**으로 남깁니다.
+워크숍을 마치려고 Microsoft 365를 연결하지 않습니다.
 
 ## 4. Toolbox / 원격 MCP / 웹
 
-기본 [Lab 04](04-agents-tools.md)는 로컬 MCP입니다.
-원격 도구로 확장할 때는 승인된 Microsoft Learn 등 공개 문서 조회부터 시작합니다.
+기본 [Lab 04](04-agents-tools.md)는 로컬 MCP입니다. 동봉 데이터로 실행하는 확장을 원한다면
+Lab 06 선행 조건을 갖춘 뒤 [관리형 Toolbox](extensions/toolbox.md)를 선택합니다.
+아래 행은 계획 예시이지 이 페이지에서 연결할 서비스가 아닙니다.
 
 | 추가할 것 | 연결 전에 정할 것 |
 |---|---|
@@ -132,9 +136,9 @@ Lab 10은 선택 단원이며 2026-09-24 `gpt-6-sol` 녹화에 포함하지 않�
 
 ## 종료
 
-설계만 했다면 cloud 자산을 만들지 않았습니다. 사용하지 않은 서비스를 정리하지 않습니다.
-추가 연결을 제거/복원하고, 본인 Fabric capacity·Work IQ billing·session 상태를 확인합니다.
-capacity를 멈추기 전에 공유 에이전트가 그 source를 여전히 참조하는지 점검합니다.
-다른 조의 연결이나 조직 전체 consent를 임의로 삭제하지 않습니다.
+설계만 했다면 cloud 자산을 만들지 않았습니다. 라우팅 기록과 **미실행** 항목을 Lab 11용으로 보관하고,
+사용하지 않은 서비스의 capacity·billing·consent를 바꾸지 않습니다.
+별도로 승인한 실행 모듈에서 돌아왔다면 그 모듈의 소유 리소스 정리 절차를 따릅니다.
+다른 조의 연결이나 조직 전체 설정을 변경하지 않습니다.
 
 다음: A: [Lab 11로 이동](11-capstone.md) · B: [Lab 11로 이동](11-capstone.md)

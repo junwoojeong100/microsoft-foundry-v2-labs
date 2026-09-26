@@ -70,7 +70,9 @@ Lab 02에서 제거했더라도 새 에이전트에는 다시 들어 있을 수 
    파일 전체를 붙여 넣어 **교체**합니다. 기본 지침 뒤에 덧붙이거나 오른쪽 대화 입력란에 넣지 않습니다.
 4. 오른쪽 위 **저장**을 선택하고 옆에 표시되는 **버전**을 `session-notes.txt`의 `Agent 이름 / 저장 버전 / 배포:` 줄에 적습니다.
 
-이 파일에는 지침과 합성 정책 6개가 이미 들어 있으므로 다른 내용을 덧붙이지 않습니다.
+이 파일에는 지침·합성 정책 6개·브라우저 출력 규칙이 이미 들어 있으므로 파일 전체를 그대로 유지합니다.
+마지막 **브라우저 출력 형식** 문단이 A에서는 첫머리의 JSON 출력 지침을 대신합니다.
+따라서 기대 출력은 JSON 블록이 아니라 문서 ID를 인용한 읽기 쉬운 문장입니다.
 
 ![2026-09-24 국문 녹화: instructions-with-policies.txt를 지침에 붙여 넣기](../../assets/g6sol-20260924-ko/screenshots/KP03-006-instructions-2.webp)
 
@@ -191,6 +193,7 @@ D01, D02, D03, D05를 하나씩 질문합니다. ZIP의 `dev-questions.txt`에�
 ## B. 코드 — SDK로 관리형 Prompt Agent를 만들고 정확한 버전 호출
 
 **2026-09-24에 갱신한 SDK 고정 버전으로 영문·국문 실제 검증, 2026-09-25에 화면과 [짧은 영상](../video-summary.md#review-refresh-supplement) 녹화.** 이 핵심 B 단계는 프로젝트 관리형 Prompt Agent와 변경 불가능한 버전 하나를 만듭니다.
+1–2단계는 Playground가 아니라 Lab 00의 저장소 터미널에서 `.venv`를 활성화한 상태로 실행합니다. 3–4단계에서 브라우저로 돌아갑니다.
 `.env`의 `WORKSHOP_PREFIX`로 시작하는 새 이름을 사용합니다. A의 브라우저 agent나 녹화 속 이름을 재사용하지 않습니다.
 `session-notes.txt`의 `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json 검토:`에 확인 결과를 기록합니다.
 
@@ -211,6 +214,10 @@ D01, D02, D03, D05를 하나씩 질문합니다. ZIP의 `dev-questions.txt`에�
 <a id="create-managed-agent"></a>
 
 ### 1. 관리형 Prompt Agent 만들기
+
+아래 명령이 [`prompts/v2.txt`](../../../prompts/v2.txt), 네 필드의 JSON schema,
+[`data/knowledge/policies.json`](../../../data/knowledge/policies.json)의 정책 6개를 자동으로 합쳐 지침으로 저장합니다.
+A의 ZIP 지침을 붙여 넣거나 파일을 업로드하지 않습니다. `v2`는 **프롬프트 개정판**이며 2단계에 입력할 `agent_version`이 아닙니다.
 
 ```bash
 printf '새 agent 이름(<본인 prefix>-policy-sdk): '
@@ -245,11 +252,12 @@ python scripts/workshop.py prompt-agent invoke --name "${AGENT_NAME:?Enter agent
 
 이 블록은 이름과 버전을 다시 읽으므로 중단 후에도 재개할 수 있습니다. 둘 중 하나라도 비어 있으면 요청 전에 멈춥니다.
 `latest`를 호출하지 않습니다. 이번 회차의 호출 파일이 이미 있다면 새 요청을 보내지 말고 그 파일을 읽습니다.
-`prompt-agent-invoke.json`의 `response_id`를 보관합니다. Lab 09에서 trace 조회에 사용합니다.
 에이전트에 `text` 안의 JSON 답변(`answer`, `decision`, `limit_krw`, `citations`)을 요청하지만,
-이 명령은 내부 JSON을 검증하지 않습니다. 비어 있거나 형식이 잘못된 답변은 그대로 보존하고 확인 실패로 기록합니다.
-임의로 고치거나 성공으로 세지 않습니다.
-2026-09-24 확인에서 첫 버전은 `1`이었고 답변은 `TRAVEL-2026`과 150,000원을 인용했습니다. 본인의 ID와 문구는 다를 수 있습니다.
+이 명령은 내부 JSON을 검증하지 않습니다. 본인의 답변을 제공된 `TRAVEL-2026` 규정과 대조합니다.
+기대값은 `decision: answer`, `limit_krw: 150000`, `citations`에 포함된 `TRAVEL-2026`입니다.
+비어 있거나 형식이 잘못된 답변, 규정과 다른 답변은 그대로 보존하고 확인 실패로 기록합니다. 임의로 고치거나 성공으로 세지 않습니다.
+이 요청 한 건은 기본 동작 확인이며 A의 네 질문 확인이나 Lab 07 평가가 아닙니다.
+`prompt-agent-invoke.json`의 `response_id`를 보관합니다. Lab 09에서 trace 조회에 사용합니다.
 
 <a id="sdk-invoke-recording-scope"></a>
 
@@ -271,8 +279,7 @@ Foundry 상단 **빌드** → 왼쪽 **에이전트**에서 본인 SDK agent를 
 ![2026-09-25 국문 녹화: 플레이그라운드에 버전 1과 SDK 지침이 보이고 메시지는 보내지 않음](../../assets/review-refresh-20260925/KP03-201-playground.webp)
 
 **화면 확인:** 상단 **버전**이 본인의 `prompt-agent-invoke.json`에 있는 `agent_version`과 같고,
-**지침**에 [`v2.txt`](../../../prompts/v2.txt), 네 필드의 JSON schema,
-[`policies.json`](../../../data/knowledge/policies.json)의 정책 6개가 있는지 확인합니다.
+**지침**에 [1단계](#create-managed-agent)의 v2 프롬프트·네 필드의 JSON schema·정책 6개가 있는지 확인합니다.
 명령이 정책을 인라인으로 넣으며 File Search나 IQ를 사용하지 않습니다.
 채팅은 비워 두고 수정·저장 없이 불일치를 기록합니다. 녹화의 버전 `1`이 본인 실행의 필수 값은 아닙니다.
 

@@ -10,7 +10,8 @@
 
 **이번 순서:** A는 Playground를 사용하고 B는 배포 확인 후 실제 응답 두 개를 저장합니다. 모델 비교는 선택입니다.
 
-**준비물:** 준비된 gpt-6-sol 배포. B는 Lab 00의 활성 환경과 .env.
+**준비물:** 두 경로 모두 준비된 `gpt-6-sol` 배포를 사용합니다. A는 압축을 푼 학습자 ZIP과 `session-notes.txt`를 준비하고 Lab 01의 실습 프로젝트에서 시작합니다.
+B는 Lab 00의 저장소 루트, 활성 `.venv`, `.env`, 준비된 `outputs/learner-notes-ko/` 폴더를 사용합니다.
 
 **다음으로 갈 기준:** 실제 응답과 배포 이름을 기록했습니다. B는 구조화된 답변도 확인했습니다.
 
@@ -110,15 +111,22 @@
 `session-notes.txt`의 B 구간에서 `Lab 02 model.json / answer-local.json 검토:`에 저장 파일별 확인 결과를 적습니다.
 이 SDK 호출에는 A 전용 Playground 항목을 채울 필요가 없습니다.
 
+**재개할 때:** 같은 프로젝트·언어·회차의 `model.json`이나 `answer-local.json`이 이미 있다면,
+요청을 반복하지 말고 파일을 열어 해당 단계의 확인을 수행합니다. `--output`은 요청 전에 기존 파일을 거절합니다.
+응답은 출력됐지만 저장에 실패했다면 stdout을 보존하고 [저장 복구](../reference/troubleshooting.md#resume-safely)를 따릅니다.
+답변을 저장하려고 모델을 다시 호출하지 않습니다.
+
 ### 1. 배포 확인
 
 ```bash
 python scripts/workshop.py doctor --cloud
 ```
 
-프로젝트가 준비 카드와 같고 **배포/모델 `gpt-6-sol`, 버전 `2026-09-22`, 상태 `Succeeded`**가 모두 확인된 뒤 계속합니다.
-다른 모델도 `Succeeded`일 수 있지만 이번 preset은 아닙니다. 설정이 다르면 모델 요청 전에 멈추고 해결합니다.
-이 사전 확인은 추론까지 검증한 것이 아닙니다.
+`project_endpoint`를 준비 카드와 대조합니다. **`deployment.name` = `gpt-6-sol`,
+`deployment.model.name` = `gpt-6-sol`, `deployment.model.version` = `2026-09-22`, `deployment.state` = `Succeeded`**가 모두 맞아야 합니다.
+`deployment.name`은 `AZURE_AI_MODEL_DEPLOYMENT_NAME`에 설정하고 SDK의 `model=` 매개변수에 전달하는 배포 이름입니다.
+그 안의 `model.name`과 `model.version`은 기반 모델 정보이지 별도의 호출 이름이 아닙니다.
+다른 모델도 `Succeeded`일 수 있습니다. 다르면 답변 요청 전에 멈추고 해결합니다. 이 사전 확인은 추론까지 검증한 것이 아닙니다.
 
 ### 2. 실제 모델 응답 하나 저장
 

@@ -106,13 +106,13 @@ It must contain your trace/operation ID and finding, or `trace unverified: <reas
 
 ### Choose the actual outcome
 
-**Choose the outcome before running a command.** Use the actual state of your own files:
+**Check whether the saved evidence permits `accept` first.** Then use its actual report or error to record the outcome:
 
 | Evidence available | Handoff action | Status |
 |---|---|---|
-| Complete real candidate and bound holdout | Read or create the acceptance report below | Ready for human review only if its business gate passes |
-| Complete records but a failed final business gate | Preserve the report and all failed rows | Rejected; not deployment approval |
-| A required run or stage is missing/blocked | Skip `accept`; use [incomplete handoff](#incomplete-handoff) | Incomplete; not full B completion |
+| Complete real candidate and bound holdout; both business gates pass | Read or create the acceptance report below | `accept` exit `0`: `ready-for-human-review`, not deployment approval |
+| Complete records but a failed final business gate | Preserve the report and all failed rows | `accept` exit `1`: `reject` |
+| A required run/stage is missing or blocked, or `accept` exits `2` | Use [incomplete handoff](#incomplete-handoff); do not invent a report or recollect holdout | Incomplete; a successful local grade alone cannot establish acceptance lineage |
 
 Only if you have the actual candidate and holdout from [Lab 07](07-evaluation.md), use their labels.
 If already run in Lab 07, open `outputs/final-holdout/acceptance.json` instead of repeating the command:
@@ -186,6 +186,7 @@ Select any accepted subset **using dev**, not favorable holdout results.
 
 If this exact frozen experiment already has `outputs/benchmarks/wf-final/release-verification.json`, read it instead of repeating verification.
 Otherwise, run the local verification below only after the workbook's required evidence exists:
+Use the policy recorded before the experiment: add `--require-native-pass` only if you selected it then, and retain that choice at handoff.
 
 ```bash
 python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
@@ -193,13 +194,19 @@ python scripts/workshop.py --language en benchmark verify --baseline wf-baseline
 
 Open `outputs/benchmarks/wf-final/release-verification.json` and retain `gate_passed`, `native_quality_passed`,
 `recommendation` and `deployment_approved: false`. Use your actual holdout label if it differs from `wf-final`.
-If required evidence is missing and no report can be produced, hand over **incomplete** work; do not invent the file.
+Check that `selected_model_keys` matches the dev-selected subset and `native_quality_required` matches your recorded policy.
+
+| Actual result | Handoff decision |
+|---|---|
+| `ready-for-human-review` | Requested gates passed; a person must still review the evidence |
+| `review-native-findings` | A dev-selected model failed a candidate/holdout native check (`native_quality_passed: false`) while the default gate passed; preserve the scores and unresolved findings for human review, not automatic acceptance |
+| `reject` (exit `1`) | Preserve the rejection and failed rows; do not loosen criteria or tune on holdout |
+| Missing/invalid evidence prevents a report (exit `2`) | Hand over **incomplete** work and its blocker; do not invent the file or recollect holdout |
 
 This default does not assume a promoted regression exists.
 If a reviewed regression was actually consumed by the candidate, add `--require-regressions`; otherwise record the all-pass/no-promotion reason.
 Execution, business correctness, native quality, and findings are separate.
-Neither `gate_passed` nor `ready-for-human-review` is production approval.
-Choose `--require-native-pass` beforehand if every generic native quality check must pass.
+Neither command success, `gate_passed` nor `ready-for-human-review` is production approval.
 
 Include original synthetic inputs/hashes; exact version/model/API/retrieval configuration;
 all responses/errors/model calls; evaluator versions/thresholds; trace-query receipts;

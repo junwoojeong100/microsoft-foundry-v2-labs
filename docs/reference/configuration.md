@@ -13,13 +13,15 @@ The language freezes prompt/corpus/dataset selection and is part of the Hosted p
 
 ## Fill only what your current lab needs
 
-Use the numbered sections of [`.env.example`](../../.env.example), not a recording or an old `azure.yaml`.
+Use [`.env.example`](../../.env.example) to look up the numbered sections; put your values in the repository-root `.env`, not the template.
+If `.env` is not ready, follow [Lab 00 B's configuration step](../labs/00-start.md#4-sign-in-and-configure-env)
+using the owner's verified [setup-card values](../setup.md), not a recording or an old `azure.yaml`.
 
 | Current step | Fill / keep |
 |---|---|
 | Offline rehearsal | Nothing; these commands do not load `.env` |
-| First live model, MAF and local-retrieval evaluation | Section 1's verified setup-card values; keep `WORKSHOP_AUTH_MODE=cli` and output limit 2048 |
-| Core B Search/IQ in Lab 06 | Also section 2's `AZURE_SEARCH_ENDPOINT`; default names use your prefix |
+| [First live model](../labs/02-models.md#path-b), MAF and local-retrieval evaluation | Section 1's verified setup-card values; keep `WORKSHOP_AUTH_MODE=cli` and output limit 2048 |
+| [Core B Search/IQ in Lab 06](../labs/06-knowledge.md#path-b) | Also section 2's `AZURE_SEARCH_ENDPOINT`; default names use your prefix |
 | Optional IQ Chat, hybrid, Toolbox, Hosted or cloud judge | Only the additional settings named by that selected module |
 
 Invalid UUIDs and token limits report the **setting name**, not just a parser error.
@@ -123,7 +125,8 @@ Answer fields: `answer`, `decision`, `limit_krw`, `citations`.
 The code does not silently correct an amount. Invalid JSON, duplicate keys, and wrong
 types are rejected.
 
-Runs live under `outputs/<label>/`; a label is a restricted name, not a path.
+Core `demo`/`collect` runs use `outputs/<label>/`; find other families in the [saved-result table](commands.md#saved-results).
+A label is a restricted name, not a path.
 Existing run directories are not overwritten. Manifest hashes aid reproduction but
 are not digital signatures or tamper-proof storage.
 Interactive commands can also [save their complete JSON with `--output`](commands.md#saving-json).

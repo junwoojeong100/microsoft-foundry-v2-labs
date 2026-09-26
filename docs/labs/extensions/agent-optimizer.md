@@ -17,16 +17,25 @@ baseline-only, no improvement or invalid evaluator binding are valid findings to
 ## 1. Prepare the inputs once
 
 Use the [Lab 03](../03-prompt-agent.md) agent built with all six inline synthetic policies.
-For an isolated experiment, create a new agent with your own prefix and preserve the baseline instructions/version.
+Preserve its baseline instructions/version. Wait until the optimizer deployment and cost are approved
+before creating an isolated copy with your own prefix through Lab 03.
 Do not optimize a shared agent or change a previously frozen benchmark target.
 
-If `outputs/extensions-en/` is not already prepared:
+**Local preparation comes first.** The command below needs [Lab 00 B's prepared `.venv`](../00-start.md#b-code-one-folder-one-environment)
+(including `python-dotenv`) and the setup card's `WORKSHOP_PREFIX` in `.env`.
+It reads local files only: no Azure login, model call or optimization job.
+If `outputs/extensions-en/` is not already prepared, run from the repository root:
 
 ```bash
+source .venv/bin/activate
 python scripts/workshop.py --language en prepare-extensions --label extensions-en
 ```
 
-Open `optimizer-dev.jsonl`, `SOURCE.json` and `manifest.json`.
+In `outputs/extensions-en/`, open `optimizer-dev.jsonl`, `SOURCE.json`, `manifest.json` and `preparation.json`.
+For reused materials, check `SOURCE.json` identifies language `en`, your prefix and `dataset_split: dev`;
+`preparation.json` must report `mode: local-materials` and `azure_requests_sent: false`.
+Folder existence alone is not completed preparation. If files are missing or belong to different inputs, do not upload or overwrite them.
+Preserve them, prepare an explicitly chosen unused label, and use that new directory in every upload path below.
 The six records derive from canonical **dev**; no holdout or new target answers were generated.
 The `query` is the agent input. `context` and `ground_truth` are evaluation references, not instructions to send to the target.
 The wizard does not offer arbitrary column mapping: verify its required columns before submitting.
@@ -41,7 +50,8 @@ The wizard does not offer arbitrary column mapping: verify its required columns 
 | Candidate limit | **2** for this bounded first pass |
 | Targets to optimize | **Instructions only** initially |
 
-If the prepared project has no supported optimizer model, record **not run** and stop.
+If the prepared project has no supported optimizer model, save the local input directory and
+`inputs prepared; optimization not run` in `optimizer-review.txt`, then hand off without creating the isolated agent or submitting a job.
 A working answer model is not automatically a supported optimizer model: with only `gpt-6-sol` deployed, the **Optimize** tab
 showed **No supported optimization model** on September 23, 2026. The
 [optimizer models listed on Microsoft Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-overview#models)
@@ -123,7 +133,7 @@ Keep the original scores and input hashes, mark the reference binding invalid, a
 Do not silently repair columns, relax thresholds or submit another run to produce a better-looking recording.
 
 Save an `optimizer-review.txt` containing the run ID, baseline/candidate IDs, findings,
-the selected candidate **or** `pending-human-review`, and the review reason.
+the local input directory and uploaded dataset version, the selected candidate **or** `pending-human-review`, and the review reason.
 Do not impersonate a human reviewer in that record.
 
 ## 6. Promote only after a person approves

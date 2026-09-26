@@ -12,9 +12,11 @@
 **준비:** B의 모델/agent 설정, 기존 프로젝트/모델 접근, 새 agent 두 개와 keyless A2A 연결 권한,
 실제 호출 ID의 endpoint 접근, 비용 승인.
 **완료:** 인증된 card가 1.0을 알리고 실제 caller 응답에 성공한 A2A 도구 호출이 포함됨.
-**중단:** 0.3, 다른 agent, 익명 인증으로 바꾸지 않습니다.
+**중단:** 시도한 단계는 **실패/차단**, 시도하지 않은 단계는 **미실행**으로 적고 오류·생성된 ID를 `session-notes.txt`에 남깁니다.
+일부만 생성되어도 5절 정리를 위해 소유 기록을 보관합니다. 0.3, 다른 agent, 익명 인증으로 바꾸지 않습니다.
 
-**첫 회차:** 1–5절입니다. 필요하면 [azd 준비](developer-toolkit.md#azd-check)를 먼저 마칩니다.
+**첫 회차:** 1절의 로컬 계획부터 시작합니다. 2–4절은 실제 Azure 서비스를 사용하므로
+필요하면 그 전에 [azd 준비](developer-toolkit.md#azd-check)를 마칩니다.
 Target → 연결 → caller 순서로 만들며 각 결과를 확인한 뒤 다음 쓰기를 수행합니다.
 
 ## 1. 계획
@@ -23,9 +25,11 @@ Target → 연결 → caller 순서로 만들며 각 결과를 확인한 뒤 다
 python scripts/workshop.py --language ko a2a plan
 ```
 
+계획의 `azure_requests_sent: false`는 아무것도 생성하지 않았다는 뜻이며 접근 권한이나 A2A 지원을 검증하지 않습니다.
 target/caller/connection은 내 prefix와 언어로 이름이 정해집니다.
 target에는 동봉한 합성 정책과 지침만 들어갑니다.
-관리 호출은 `azure-ai-projects` 2.5 이상의 형식이 있는 SDK 모델(`A2ATool`, `update_details`, `get_version`)을 사용합니다.
+실제 실행 단계에서는 임의의 최신 SDK가 아니라 이 edition에 고정된 SDK 환경을 사용합니다.
+관리 호출은 형식이 있는 SDK 모델(`A2ATool`, `update_details`, `get_version`)을 사용합니다.
 protocol card만 `A2A-Version: 1.0` header를 붙인 raw GET입니다.
 
 ## 2. 전문 agent와 incoming A2A
@@ -40,7 +44,7 @@ python scripts/workshop.py --language ko a2a inspect
 
 새 Prompt Agent 버전 하나를 만들고 공식 card/endpoint patch를 적용합니다.
 Python 목록에 다른 로컬 agent를 추가하는 것만으로 incoming A2A가 구성되지 않습니다.
-실제 버전·base path·연결 이름·소유 기록을 보관합니다.
+실제 버전·base path·연결 이름과 `outputs/a2a/<target-name>/ownership.json`을 보관합니다.
 
 card URL은 **`/agentCard/v1.0`**으로 끝납니다.
 `supportedInterfaces`에 `protocolVersion: 1.0`, `protocolBinding: JSONRPC`,
@@ -91,7 +95,7 @@ caller는 `type: a2a`, `a2a_version: 1.0`이며 모델 요청은 기록된 실�
 위임 없이 생성한 답변을 완료로 계산하지 않습니다.
 
 `outputs/a2a-runs/a2a-first/`의
-`request.json`, `binding.json`, 전체 `response.json`, `summary.json`을 확인합니다.
+`request.json`, `binding.json`, `actual-caller-definition.json`, 전체 `response.json`, `summary.json`을 확인합니다.
 성공한 A2A call item, 원문 정책 ID, caller/target 버전과 반환 model/request metadata를 유지합니다.
 caller 사용량만 있으면 target 사용량을 만들어 더하지 않습니다.
 
@@ -102,7 +106,9 @@ helper는 실제로 수락된 `a2a/1.0` 설정과 일치하는 target output을 
 ## 5. 검토·정리
 
 card는 기능 설명이지 사용 권한이 아닙니다. 성공한 위임도 예약·승인·지급 권한을 주지 않습니다.
-소유/응답 근거를 보관하고 참조 확인 후 새 caller → 연결 → target만 담당자가 정리합니다.
+소유/응답 근거를 보관합니다. 생성이나 endpoint patch가 실패해도 `ownership.json`이 작성됐다면
+그 안의 ID를 담당자에게 인계하고, 일부 생성된 target을 복구하려고 `target`을 다시 실행하지 않습니다.
+참조 확인 후 새 caller → 연결 → target만 담당자가 정리합니다.
 공유 모델과 프로젝트는 삭제하지 않습니다. Foundry의 A2A task/context 보존은 별도 서비스 정책입니다.
 agent 삭제가 보존된 모든 record의 영구 삭제를 의미한다고 주장하지 않습니다.
 
@@ -115,7 +121,7 @@ agent 삭제가 보존된 모든 record의 영구 삭제를 의미한다고 주�
 | 추가 target 버전 감지 | 전용 target을 고정하거나 새 실험을 시작합니다. endpoint가 어느 버전을 제공했는지 추측하지 않습니다 |
 | 연결 target 불일치 | 전체 base path와 프로젝트를 비교합니다. 다른 팀 agent를 가리키지 않습니다 |
 | 응답에 A2A call 없음 | raw output을 실패한 통합 검사로 보존합니다. 위임 성공으로 기록하지 않습니다 |
-| typed SDK symbol 미지원 | 이 실습의 문서화된 REST 경로나 독립적으로 검증된 SDK 환경을 사용합니다. protocol fallback 금지 |
+| typed SDK symbol 미지원 | 멈추고 활성 [B 환경](developer-toolkit.md)을 edition의 pin과 비교합니다. 오류·부분 소유 기록을 보관합니다. helper에는 별도 관리 REST 명령이나 protocol fallback이 없습니다 |
 
 **다음:** [Memory](memory.md), [C 모듈](../../paths/c-advanced.md), [Lab 11](../11-capstone.md).
 [Incoming A2A](https://learn.microsoft.com/azure/foundry/agents/how-to/enable-agent-to-agent-endpoint) ·

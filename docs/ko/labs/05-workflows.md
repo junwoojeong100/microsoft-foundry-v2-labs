@@ -8,9 +8,11 @@
 
 ## 시작 전
 
-**이번 순서:** A는 미리 선택된 실행 방식 하나를 사용합니다. 담당자가 준비한 Hosted workflow agent가 있으면 Playground를, 아니면 준비된 터미널 명령 하나를 사용합니다. B는 세 MAF 패턴을 비교합니다. 배포용 wrapper는 심화입니다.
+**이번 순서:** A는 설정 카드에 표시된 한 가지 방식만 사용합니다. 기본은 준비된 터미널이며, 담당자가 미리 선택한 경우에만 Hosted workflow agent의 Playground를 사용합니다. B는 세 MAF 패턴을 비교합니다. 배포용 wrapper는 심화입니다.
 
-**준비물:** 준비된 Hosted workflow agent의 Playground 또는 저장소 루트의 활성화된 준비 터미널이 필요합니다. 둘 다 없으면 Lab 00 B와 Lab 02 B를 한 번 완료한 뒤 돌아옵니다.
+**준비물:** A는 준비된 터미널 또는 미리 선택한 Hosted Responses workflow agent가 필요합니다. 둘 다 준비되지 않았다면 수업에서는 담당자에게 요청합니다.
+혼자 학습한다면 Lab 00 B와 Lab 02 B를 한 번 완료한 뒤 돌아옵니다.
+B는 Lab 04 B의 터미널과 Lab 00 기록 폴더를 사용하며 Hosted agent나 실행 중인 서버가 필요 없습니다.
 
 **다음으로 갈 기준:** 실제 MAF 출력과 사람의 검토 기록이 남았습니다. pending-human-review는 승인이 아닙니다.
 
@@ -64,8 +66,8 @@ Foundry는 그 코드가 호출하는 모델과 선택적인 호스팅·관측�
 
 **터미널 방식만 진행합니다.** Playground 학습자는 이미 요청 한 번을 보냈으므로 이 단계를 건너뜁니다.
 
-1. 브라우저 IDE나 VS Code에서 준비된 터미널을 엽니다. 파일 목록에 `README.md`와 `scripts/`가 보이는지 확인합니다.
-   프롬프트는 보통 `(.venv)`로 시작합니다.
+1. 브라우저 IDE나 VS Code에서 준비된 터미널을 엽니다. 그 터미널에서 `pwd`를 실행하면 `README.md`와 `scripts/`가 있는
+   준비된 저장소 루트가 나와야 합니다. 편집기 파일 목록에 그 폴더가 보이는 것만으로는 부족합니다. 프롬프트는 보통 `(.venv)`로 시작합니다.
    - `(.venv)`가 없으면 그 소스 폴더에서 `source .venv/bin/activate`를 실행합니다. 실패하면 멈춥니다. 수업에서는 담당자에게 요청하고,
      혼자 학습한다면 [Lab 00 B 3단계](00-start.md#3-가상환경과-sdk-설치)로 돌아갑니다.
    - 준비된 터미널이 없으면 수업에서는 멈추고 담당자에게 요청합니다. 수업 중에 직접 설치하지 않습니다.
@@ -120,6 +122,7 @@ flowchart LR
    터미널 방식은 실제 파일 경로를 적고, 같은 파일의 JSON 전체를 `실제 JSON 출력 전체(A 전용):`에 붙여 넣습니다.
    Playground의 pattern은 `runtime_profile.pattern`에서 읽습니다. 이전 양식에 칸이 없으면 추가하고 작성한 기록을 교체하지 않습니다.
 3. 같은 파일에 맞는 부분·수정할 부분·이유를 적습니다. 안내문 검토이지 업무 승인이 아닙니다.
+   `workflow-review.txt` 작성을 마쳐도 `approval_status: pending-human-review`는 바뀌지 않습니다. 원래 JSON을 그대로 보존합니다.
 
 **화면 확인:** 저장한 출력이 170000원 호텔은 한도 150000원을 넘으므로 예약 전 승인이 필요하다고 설명하고
 `TRAVEL-2026`과 `APPROVAL-01`을 인용합니다(빠진 ID는 검토에 적을 발견 사항입니다).
@@ -139,6 +142,9 @@ flowchart LR
 
 ## B. 코드 — 세 가지 오케스트레이션 비교
 
+Lab 04 B의 저장소 루트 터미널에서 `.venv`를 활성화한 상태로 계속하며 A의 명령은 건너뜁니다.
+프로그램이 workflow 시작 전에 동봉된 합성 근거를 조회하여 참여자에게 데이터로 전달합니다.
+참여자는 Lab 04의 함수나 MCP 도구를 호출하지 않으며, 별도 서버를 계속 띄워 둘 필요도 없습니다.
 세 명령 모두 실제 Azure 모델을 호출하고 JSON 전체를 `--output`으로 저장하며, 포털 workflow 리소스는 만들지 않습니다.
 먼저 `src/foundry_workshop/agents.py`의 `run_workflow`를 엽니다. 데이터·모델·세 역할의 지침은 그대로이고 builder만 바뀝니다.
 
@@ -156,7 +162,9 @@ A의 170000원 호텔 질문과는 다릅니다. 앞 절의 질문이 자동으�
 | 여러 역할의 짧은 토론 | `GroupChatBuilder` + 발화자 선택 함수 + 최대 라운드 |
 | 업무 승인 경계 | 출력 이후 사람의 검토; 아래의 운영용 승인 설계를 별도 구현 |
 
-**검토 파일:** `workflow-review.txt`의 검토 항목을 패턴마다 반복하고 **저장된 JSON 파일 경로(B 전용)** 칸에
+**검토 파일:** `outputs/learner-notes-ko/workflow-review.txt`(또는 Lab 00에서 선택한 기록 폴더의 사본)를 엽니다.
+`data/learner/`의 빈 양식이 아닙니다. 답변은 동봉된 [한국어 정책 원문](../../../data/knowledge/policies.json)과 대조합니다.
+검토 항목을 패턴마다 반복하고 **저장된 JSON 파일 경로(B 전용)** 칸에
 해당 명령의 정확한 `--output` 경로를 적습니다. **JSON을 다시 붙여 넣지 않습니다.** 인계할 때 JSON 세 파일을 검토 기록과 함께 보관합니다.
 실제 파일 없이 경로만 적은 것은 근거가 아닙니다.
 `session-notes.txt`의 B 구간에 있는 `Lab 05 workflow-review.txt 경로:`에 검토 파일 위치를 적습니다.
@@ -252,8 +260,7 @@ async def run(analyst, writer, question, policies):
 
 ## Human-in-the-loop를 정확히 이해하기
 
-예제의 `approval_status: pending-human-review`는 **정지 표지**입니다.
-응답을 받은 사람이 검토할 때까지 승인됐다고 표시하지 않습니다.
+예제의 `approval_status: pending-human-review`는 **정지 표지**이지 승인 서비스가 아닙니다.
 이 코드에는 지급/이메일 전송/예약 API가 아예 없으므로 `external_actions_performed`는
 `false`입니다. **영속적인 승인 서비스나 재시작 가능한 durable workflow를 구현한 것은 아닙니다.**
 

@@ -2,7 +2,9 @@
 
 [English](../../reference/troubleshooting.md) | **한국어**
 
-**오류가 난 단계를 해결하기 전에는 배포·평가·삭제를 연속 실행하지 않습니다.**
+**오류가 난 단계를 해결하기 전에는 배포·유료 평가를 이어서 실행하지 않습니다.**
+오류와 근거를 보존한 뒤 별도로 승인된 [기록된 자산의 정리](cleanup.md)는 진행할 수 있습니다.
+정리가 실패한 단계를 해결하거나 더 넓은 삭제 범위를 승인하는 것은 아닙니다.
 같은 에러에 새 모델/새 구독/새 리소스를 무작정 만드는 것은 복구가 아닙니다.
 
 <a id="resume-safely"></a>
@@ -31,8 +33,9 @@
 | `evaluate`가 `1` 반환 | `total`, `passed`, `errors`, 사례별 `checks` 확인. Baseline 실패는 검토하되 실패한 candidate는 holdout을 열지 않음 | 요청 완료를 업무 게이트 통과로 해석 |
 | Candidate·holdout이 이미 있음 | `outputs/<holdout-label>/acceptance.json`을 읽거나 정확한 기존 label로 로컬 `accept` 재실행 | 같은 노출 holdout을 재수집해 좋은 점수 만들기 |
 | Hosted 패키지가 이미 있음 | Manifest 확인. 재빌드 시 그 정확한 생성 폴더를 다른 이름으로 보관 | 소스·`.build` 전체·`outputs`·azd 상태 삭제 |
+| `serve`가 터미널 A를 계속 사용함 | 정상 동작. A를 그대로 두고 [Lab 08의 두 터미널 순서](../labs/08-hosted.md#hosting-gates)로 readiness·호출 확인 후 A에서 `Ctrl+C` | 셸 프롬프트를 되찾으려고 두 번째 서버 실행·배포 |
 | Search의 scope/corpus 불일치 | 기존 ledger 보존. 언어·prefix·서비스 변경은 [새 복사본 규칙](configuration.md#workspace-scope) 적용 | 다음 label만 변경·ledger 삭제/편집 |
-| 입문 Hosted 준비에서 폴더/profile 거절 | 기존 azd 프로젝트 밖의 새 빈 폴더와 정확한 local/v2/Responses 패키지/언어 선택 | `azd ai agent init` 반복·`--force`·패키지 검사 완화 |
+| 입문 Hosted 준비에서 폴더/profile 거절 | 오류/폴더 보존 후 [Lab 08 준비](../labs/08-hosted.md#hosting-gates)에 따라 기존 azd 프로젝트 밖의 새 빈 폴더와 정확한 local/v2/Responses 패키지/언어 선택 | `azd ai agent init` 반복·`--force`·패키지 검사 완화 |
 | 필수 평가가 계속 막힘 | 기존 기록과 [미완료 인계](../labs/11-capstone.md#incomplete-handoff) 사용 | 없는 실행의 인수 보고서 생성·막힌 작업을 완료로 표시 |
 | Cloud judge가 timeout | 저장한 job ID와 **같은** `cloud-evaluate --label` 명령으로 조회 재개 | 이미 제출한 judge job에 새 수집 label 규칙 적용 |
 | 로컬 matrix smoke가 `--azd-directory`를 요구 | 워크북에서 준비한 독립 폴더 지정. 소스 프로젝트를 자동 선택하는 기본값은 없음 | 다른 agent의 `azure.yaml`을 소스 루트에 복사 |
@@ -62,8 +65,9 @@
 | 새 모델 출시 직후 `model`·`answer`·MAF·agent에서 HTTP 500 | 프로젝트 agent 경로가 아직 그 모델을 지원하지 않을 수 있음(2026-09-23 `gpt-6-luna`). 멈추고 기록. 모델·endpoint 변경 금지 | [모델 선택](model-choice.md) |
 | IQ에 Chat 모델이 없다고 나옴 | 기본 B는 모델 없는 GA 검색. 선택 A IQ Chat은 별도로 준비한 base 필요 | [06](../labs/06-knowledge.md) |
 | Hosted 명령이 다른 로컬 프로젝트를 선택 | 기록한 절대 경로 `HOSTED_DIRECTORY`를 복구하고 모든 azd 명령에 `--cwd` 사용 | [08](../labs/08-hosted.md) |
+| 로컬 Hosted readiness 실패 / 8088 포트 사용 중 | 터미널 A의 시작 오류와 선택한 profile 확인. 재시작 전 자신이 실행한 이전 서버만 중지하며, 모르는 프로세스를 중지하거나 원격 배포로 해결하지 않음 | [08 실행 게이트](../labs/08-hosted.md#hosting-gates) |
 | Traces에 trace가 보이지 않음 | 원래 요청 날짜·agent·버전을 필터에 포함하고 Response ID 또는 Trace ID로 검색. 요청 전에 Application Insights가 연결됐는지 확인. 로컬 MAF에는 server-side agent trace가 없음 | [09](../labs/09-operations.md#path-b) |
-| Traces 권한 오류 | 학습자에게 연결된 Application Insights 리소스의 Log Analytics Reader가 필요. 보호된 테이블이 있으면 Privileged Monitoring Data Reader도 필요 | [09](../labs/09-operations.md) |
+| Traces 권한 오류 | **추적 미확인** 기록. 담당자가 연결된 Application Insights의 Log Analytics Reader와 보호된 테이블의 Privileged Monitoring Data Reader를 확인하며, 학습자는 **해결** 선택·직접 역할 추가를 하지 않음 | [09 B](../labs/09-operations.md#path-b) |
 
 <details>
 <summary>전체 오류 참조 — 위 짧은 표에 없는 오류일 때 펼칩니다</summary>
@@ -113,7 +117,7 @@
 | batch의 API version 누락 | session query parameter를 대체하지 않고 merge해 `api-version=v1`을 보존 | 07–08 |
 | 프로젝트 embedding 404 | 실패한 실험을 중단·보존. `WORKSHOP_EMBEDDING_API=account`와 같은 계정 endpoint는 별도로 승인한 새 hybrid 실험의 초기 설정으로만 사용. 설정·결과를 분리하며 fallback으로 이어가지 않음 | [06 C](../labs/06-knowledge.md#hybrid-rag) |
 | trace 조회 `InvalidTokenError` | App Insights audience와 지정된 구독/tenant credential. identity·리소스 대체 금지 | 09 |
-| idle 세션 중지가 409 반환 | 기록된 session/version을 다시 조회하고 추가 stop 요청 없이 idle 상태를 기록 | 09 |
+| idle 세션 중지가 409 반환 | 기록된 session/version을 다시 조회하고 추가 stop 요청 없이 idle 상태를 기록 | [09](cleanup.md#hosted-sessions) |
 | Host profile/contract 불일치 또는 `runtime-profile.json` 없음 | 현재 코드로 다시 패키징한 뒤 profile 언어·model map·source package·실제 version·retrieval 설정 비교. 새 label로 수집하며 manifest를 고쳐 통과시키지 않음 | 08 |
 | model key가 allowlist에 없음 | `.env`와 원격 서비스 환경의 `WORKSHOP_MODEL_DEPLOYMENTS_JSON`이 같은 map이고 기본 배포를 포함하는지 확인 | 08 |
 | `account-chat` endpoint 불일치 | `AZURE_OPENAI_ENDPOINT`에 같은 Foundry 계정의 실제 OpenAI root 사용. 실패 후 CLI가 URL을 바꾸지 않음 | 06–08 |

@@ -21,7 +21,7 @@
 |---|---|---|
 | foundry-maf-workshop | 포털 → 모델 SDK → Agent → tool → workflow → hosted | 공통 CLI/환경, 합성 정책 시나리오 |
 | agent-framework-labs | 단일/순차/병렬/Group Chat/MCP/RAG | 같은 입력·권한 경계·명시적 종료 조건 |
-| microsoft-iq-on-foundry | knowledge source/base, Toolbox, IQ 구분 | GA 기본과 실제 외부 데이터 옵트인 분리 |
+| microsoft-iq-on-foundry | knowledge source/base, Toolbox, IQ 구분 | 제공된 합성 데이터의 GA 검색. 선택 [IQ 분기 설계](../labs/10-iq-extensions.md)는 회사 데이터 연결 실습이 아님 |
 | foundry-evaluation | 기업의 학습 루프, 실패 이력, dev/holdout, 사람 검토 | 특정 네 모델 강제 제거, 작은 공통 데이터·provider 선택 |
 
 ## 그대로 복사하지 않은 것
@@ -49,6 +49,6 @@
 | threads/runs/messages를 사용하는 Foundry Agent Service classic agent | 2027-03-31 | classic agent를 새 Foundry agent service로 이전 | [Classic agents deprecation](https://learn.microsoft.com/azure/foundry-classic/agents/concepts/threads-runs-messages) |
 | Foundry portal Workflows visual Preview | 2026-12-01 | 새 workflow logic은 Microsoft Agent Framework로 작성 | [Workflows retirement](https://learn.microsoft.com/azure/foundry/agents/concepts/workflow) |
 
-핵심 과정에는 다른 저장소를 추가로 clone할 필요가 없습니다. 원본 링크는 깊은 확장과 출처 확인을 위한 참고이며,
-실행 가능한 핵심·데이터·문서는 이 저장소에 있습니다.
+핵심 과정에는 다른 저장소를 추가로 clone하거나 옛 notebook을 사용할 필요가 없습니다. 진행 중인 랩으로 돌아가고,
+여기서 처음 시작한다면 [A 또는 B](../paths.md)를 고릅니다. 원본 링크는 배경·출처 참고이며 또 다른 준비 순서가 아닙니다.
 이제 영문이 기본 진입점이며, 같은 내용의 [국문 가이드](../../../README.ko.md)가 있습니다.

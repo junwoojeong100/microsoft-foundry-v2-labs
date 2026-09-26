@@ -8,6 +8,7 @@ New modules must meet their own prerequisites and completion criteria before the
 
 **Choose one module below.** Read its **First pass**, **Need**, and **Stop when** before running anything.
 Use the [developer setup](../labs/extensions/developer-toolkit.md) only for that module's missing tools.
+For local approval/recovery, use its [Hosted SDK check](../labs/extensions/developer-toolkit.md#hosted-sdk), not the Azure preflight.
 Keep the same language, record the last step and exact labels in `session-notes.txt`, and leave generated outputs in their original directories.
 An unselected feature is **not run**; an attempted failure stays **failed/blocked**, not a successful substitute.
 
@@ -32,7 +33,7 @@ These are independent starting points, not a sequence to complete. The full cata
 | [Hosted Toolbox](../labs/extensions/toolbox-hosted.md) | Run that same tool agent remotely | Verified local Toolbox; a separate azd directory, runtime permissions and deployment approval |
 | [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | Verify a real generated CSV or read-only API call | Choose one tool; Code Interpreter first, OpenAPI needs the owned Search index |
 | [Tool Search and Skills](../labs/extensions/tool-search-skills.md) | Discover selected tools; version and reuse behavioral instructions | An owned, working Toolbox; Preview opt-in |
-| [Conversation evaluation](../labs/extensions/conversation-evaluation.md) | Compare individual-turn checks with full-conversation outcomes | A real multi-turn run from bundled dev questions; no holdout development |
+| [Conversation evaluation](../labs/extensions/conversation-evaluation.md) | Compare individual-turn checks with full-conversation outcomes | Prepared Python/Structured Outputs, reviewed dev checks and a separate judge; this module collects the multi-turn run |
 | [Agent Insights](../labs/extensions/agent-insights.md) | Review AI-generated trace-pattern findings before deciding on evaluation, routing or instruction changes | Lab 03 Prompt Agent, connected App Insights, existing synthetic traces and one approved scan budget; Preview; not ground truth |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | Generate and review candidate configurations against a frozen dev baseline | Prepared evaluator/optimizer models, explicit cost approval; Preview |
 | [Approval and recovery](../labs/extensions/approval-recovery.md) | Observe real SDK suspension/checkpoints with explicit prewritten work and simulated decisions | Local-only first pass; not real human authorization or Hosted crash proof |
@@ -40,7 +41,7 @@ These are independent starting points, not a sequence to complete. The full cata
 | [Memory](../labs/extensions/memory.md) | Persist, isolate, recall and remove synthetic context | Compatible chat/embedding models; API-backed first pass, not automatic agent memory or user authorization proof |
 | [Routines](../labs/extensions/routines.md) | Dispatch and inspect bounded scheduled work | Existing agent, explicit schedule/cost/cleanup ownership |
 | [Agent safety](../labs/extensions/agent-safety.md) | Observe applied guardrails and controlled safety evaluation | Owned policy and non-production target; additional permissions/Preview boundaries |
-| [Release operations](../labs/extensions/release-operations.md) | Connect OIDC, smoke/evaluation gates, approval and rollback | Dedicated deployment identity and manual release approval |
+| [Release operations](../labs/extensions/release-operations.md) | Connect OIDC, smoke/evaluation gates, approval and rollback | Choose monitoring with an existing trace evaluation and pause owner, or CI with prepared OIDC and release approval |
 | [Model operations](../labs/extensions/model-operations.md) | Evaluate a replacement/router and plan retirement | Frozen workload, exact permitted model list, actual usage/latency evidence |
 | [Governance/networking](../labs/extensions/governance-networking.md) | Explain actor, policy and private-network boundaries | Owner-prepared infrastructure; do not alter shared network/access settings |
 

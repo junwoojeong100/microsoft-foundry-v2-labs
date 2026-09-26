@@ -8,15 +8,15 @@ This page does not ask learners to create resources.
 
 ## 1. Choose your starting point
 
-| Your situation | Do this |
-|---|---|
-| A training environment is ready | Follow sections **1 → 2 → 3 → 4** on this page |
-| You are learning alone with your own Azure subscription | Complete [the self-study preparation](setup-owner.md#self-study); it walks you through sections 2–4 |
-| You have no Azure permission or quota yet | Run only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run** |
-
 **Choose one route for the whole pass:** **A** if you are new to Azure or agents (browser steps and one prepared
 Lab 05 workflow option), or **B** if you are comfortable with Python and APIs. [Compare the routes](paths.md).
 Keep one language for the whole pass: English and Korean use different input files (in B, a switch also needs new run labels).
+
+| Your situation | Do this |
+|---|---|
+| Your workshop environment is already prepared, in class or for self-study | Continue with sections **2 → 3 → 4** on this page; do not create it again |
+| You own the Azure subscription but have no prepared workshop environment | Complete [the self-study preparation](setup-owner.md#self-study) for your chosen A or B route; it returns you here |
+| You have no Azure permission or quota yet | Run only [Lab 00's offline rehearsal](labs/00-start.md#offline-rehearsal) and mark the cloud labs **not run** |
 
 <a id="learner-files"></a>
 <a id="3-download-the-ready-learner-materials"></a>
@@ -94,8 +94,8 @@ You do not need to install anything just to collect the values. Never record pas
 | Foundry account, project and resource group | A and B | Your training project's resource details; the account is also the `<account>` part of the project endpoint |
 | Full project endpoint | A and B | Foundry project **Home**; keep the `/api/projects/<project>` ending |
 | **Answer deployment** | A and B | **`gpt-6-sol`**, model version **`2026-09-22`** |
-| Prefix for your objects | A and B | Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters. Example: `mfv2-team01-en` |
-| Code environment | B; A's default Lab 05 terminal option | Repository folder, Python 3.13, activated `.venv`, your own Azure sign-in |
+| Prefix for your objects | A and B | Agree a unique value with the owner; `mfv2-team01-en` is an example, not a shared default. Starts with **`mfv2-`**; lowercase letters, digits and single hyphens; no trailing hyphen; at most 32 characters |
+| Code environment | B; A's default Lab 05 terminal option | Source folder, Python 3.13, activated `.venv`, your own Azure sign-in. B prepares these in Lab 00; A needs a prepared terminal before starting the route |
 | Prepared Hosted workflow agent | Only for A's separately selected Lab 05 browser option | Owner-verified name/version and Playground location; sequential local/v2 Responses profile in your language, not the Lab 03 Prompt Agent |
 | Search endpoint | B's Lab 06 | The prepared Search service: `https://<search>.search.windows.net` |
 
@@ -122,7 +122,7 @@ If the deployment or its version is missing, stop and ask the owner to fix it; t
 - [ ] I can open the intended project with my own account.
 - [ ] The actual `gpt-6-sol` deployment and version `2026-09-22` are prepared.
 - [ ] A: I have the learner ZIP, have [checked the local editors](#local-tools), and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
-- [ ] **A only:** I have the default prepared Lab 05 terminal, or the owner has preselected and verified the optional Hosted Responses Playground path. If neither was supplied, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
+- [ ] **A only:** I have the default prepared Lab 05 terminal, or the owner has preselected and verified the optional Hosted Responses Playground path. If neither was supplied, I complete [Lab 00 B](labs/00-start.md#path-b) steps **1–5** and [Lab 02 B](labs/02-models.md#path-b) steps **1–3** **before** starting the timed A route. I stop at [A's return point](labs/02-models.md#a-terminal-ready), then finish this ready check; I do not continue to Lab 03 B.
 - [ ] For B, the owner has checked [Search authentication and writer roles](setup-owner.md#search-authentication) and approved owned-object creation costs. For A, IQ Chat is **not selected** unless separately prepared.
 - [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
 

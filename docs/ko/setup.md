@@ -8,15 +8,15 @@ Azure 접근·권한·모델 quota·과금 승인은 환경 담당자가 제공�
 
 ## 1. 지금 내 시작점 선택
 
-| 현재 상황 | 할 일 |
-|---|---|
-| 실습 환경을 이미 받음 | 이 페이지의 **1 → 2 → 3 → 4**절을 진행 |
-| 본인 Azure 구독으로 혼자 학습함 | [혼자 학습 준비](setup-owner.md#self-study)를 진행하면 2–4절까지 안내합니다 |
-| 아직 Azure 권한·quota가 없음 | [Lab 00 오프라인 체험](labs/00-start.md#offline-rehearsal)만 진행하고 cloud 실습은 **미실행**으로 기록 |
-
 **한 회차 동안 경로 하나를 사용합니다.** Azure나 agent가 처음이면 **A**(브라우저 조작과 Lab 05의 준비된 workflow 경로),
 Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 한 회차 전체를 같은 언어로 진행합니다. 국문과 영문은 입력 파일이 다릅니다(B는 언어를 바꾸면 새 실행 label도 필요합니다).
+
+| 현재 상황 | 할 일 |
+|---|---|
+| 수업 또는 자습용 실습 환경이 이미 준비됨 | 이 페이지의 **2 → 3 → 4**절로 이어갑니다. 환경을 다시 만들지 않습니다 |
+| 본인 Azure 구독은 있지만 준비된 실습 환경이 없음 | 선택한 A 또는 B 경로의 [혼자 학습 준비](setup-owner.md#self-study)를 마친 뒤 이 페이지로 돌아옵니다 |
+| 아직 Azure 권한·quota가 없음 | [Lab 00 오프라인 체험](labs/00-start.md#offline-rehearsal)만 진행하고 cloud 실습은 **미실행**으로 기록 |
 
 <a id="learner-files"></a>
 <a id="3-바로-쓰는-학습자-자료-내려받기"></a>
@@ -94,8 +94,8 @@ Tenant뿐 아니라 **로그인할 계정**도 확인합니다. 평소 회사 �
 | Foundry 계정·프로젝트·리소스 그룹 | A·B | 실습 프로젝트의 리소스 상세. 계정 이름은 project endpoint의 `<account>` 부분과도 같음 |
 | 전체 project endpoint | A·B | Foundry 프로젝트 **홈**. 끝의 `/api/projects/<project>`를 유지 |
 | **응답 모델 배포** | A·B | **`gpt-6-sol`**, 모델 버전 **`2026-09-22`** |
-| 내 객체 prefix | A·B | **`mfv2-`**로 시작. 소문자 영문·숫자·하이픈만 사용하고 하이픈을 연달아 쓰거나 끝에 두지 않음, 최대 32자. 예: `mfv2-team01-ko` |
-| 코드 환경 | B와 A의 기본 Lab 05 터미널 방식 | 저장소 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인 |
+| 내 객체 prefix | A·B | 담당자와 중복되지 않는 본인 값을 정합니다. `mfv2-team01-ko`는 예시이지 공용 기본값이 아닙니다. **`mfv2-`**로 시작하며 소문자 영문·숫자·하이픈 하나씩 사용, 끝 하이픈 금지, 최대 32자 |
+| 코드 환경 | B와 A의 기본 Lab 05 터미널 방식 | 소스 폴더·Python 3.13·활성화된 `.venv`·본인 Azure 로그인. B는 Lab 00에서 준비하며, A는 경로를 시작하기 전에 준비된 터미널이 필요합니다 |
 | 준비된 Hosted workflow agent | A에서 Lab 05 브라우저 방식을 별도 선택했을 때만 | 담당자가 확인한 이름·버전·Playground 위치. 본인 언어의 순차 local/v2 Responses profile이며 Lab 03 Prompt Agent가 아님 |
 | Search endpoint | B의 Lab 06 | 준비된 Search 서비스: `https://<search>.search.windows.net` |
 
@@ -122,7 +122,7 @@ Tenant뿐 아니라 **로그인할 계정**도 확인합니다. 평소 회사 �
 - [ ] 본인 계정으로 정확한 프로젝트를 열 수 있습니다.
 - [ ] 실제 `gpt-6-sol` 배포와 버전 `2026-09-22`가 준비되었습니다.
 - [ ] A: 학습자 ZIP을 받고 [로컬 편집기를 확인](#local-tools)했으며 **지침**과 대화창에 넣을 파일을 구분합니다. B: Lab 00의 소스 복사본·기록 준비 순서를 확인했습니다.
-- [ ] **A만:** 기본 Lab 05 준비 터미널이 있거나, 담당자가 선택 Hosted Responses Playground 방식을 미리 지정·검증했습니다. 둘 다 받지 못했다면 시간표의 A를 시작하기 **전에** Lab 00 B와 Lab 02 B를 완료합니다.
+- [ ] **A만:** 기본 Lab 05 준비 터미널이 있거나, 담당자가 선택 Hosted Responses Playground 방식을 미리 지정·검증했습니다. 둘 다 받지 못했다면 시간표의 A를 시작하기 **전에** [Lab 00 B](labs/00-start.md#path-b) **1–5단계**와 [Lab 02 B](labs/02-models.md#path-b) **1–3단계**를 완료합니다. [A 복귀 지점](labs/02-models.md#a-terminal-ready)에서 멈춘 뒤 이 시작 가능 여부를 마저 확인합니다. Lab 03 B로 계속 가지 않습니다.
 - [ ] B라면 담당자가 [Search 인증과 작성자 역할](setup-owner.md#search-authentication)을 확인하고 본인 객체 작성 비용을 승인했습니다. A의 IQ Chat은 별도 준비하지 않았다면 **미선택**입니다.
 - [ ] 비용·권한 담당자를 알고 있으며 승인 없이 리소스 생성·역할 부여를 하지 않습니다.
 

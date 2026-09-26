@@ -10,10 +10,13 @@ OpenAPI는 별도 분기이며 어느 쪽도 실제 회사 데이터가 필요�
 
 **준비:** 프로젝트/모델, 도구의 지역·모델 지원, 전용 agent/파일 생성 권한, 모델과 sandbox 비용 승인.
 **완료:** 실제 code call이 생성한 CSV를 내려받아 원문 ID/title 6행을 모두 검증함.
-**중단:** 원래 오류·파일 ID를 남깁니다. 로컬에서 정답 파일을 만들어 도구 결과라고 표시하지 않습니다.
+**중단:** 시도 전이면 빠진 선행 조건과 **미실행**을 기록합니다.
+시도 후이면 **실패/차단**으로 적고 원래 오류·파일 ID를 보관한 뒤, 소유 기록이 있는 리소스는 4절에서 정리합니다.
+로컬에서 정답 파일을 만들어 도구 결과라고 표시하지 않습니다.
 
 **첫 회차:** Code Interpreter 1–4절 후 인계합니다. OpenAPI는 별도 선택이며
 CSV를 확인한 뒤 반드시 실행할 두 번째 도구가 아닙니다.
+2절은 파일을 업로드하고 소유 리소스를 만드는 **실제 Azure 실행**입니다. 이 helper에는 오프라인 Code Interpreter 실행이 없습니다.
 
 ## 1. 검증 범위
 
@@ -45,7 +48,7 @@ helper는 생성한 합성 CSV만 업로드하고 고유 이름의 Prompt Agent�
 
 | 파일 | 확인 |
 |---|---|
-| `policy-records.csv` | 원래 합성 입력 6행 |
+| `policy-records.csv` | 원본 문서 6개로 로컬에서 생성한 업로드 입력. sandbox 결과가 아님 |
 | `ownership.json` | 업로드 파일·agent/버전·container의 실제 ID |
 | `request.json` | 고정 작업과 버전 |
 | `response.json` | 실제 completed code call과 생성 파일 인용 |
@@ -55,8 +58,13 @@ helper는 생성한 합성 CSV만 업로드하고 고유 이름의 Prompt Agent�
 helper는 code call이 실제 보고한 container의 생성 CSV citation 하나만 허용합니다.
 모델이 제시한 경로를 그대로 신뢰하지 않고 고정 로컬 파일명에 저장합니다.
 열·누락·중복·순서·title 변경은 검증 실패입니다. 틀린 출력도 그대로 보관합니다.
+실패한 실행에는 일부 파일만 남을 수 있습니다. `summary.json`이 없다고 통과로 처리하지 않습니다.
 
 ## 4. 내 임시 리소스 정리
+
+업로드·추론·CSV 검증이 실패했어도 같은 시도의 label을 사용합니다.
+그 시도에 `ownership.json`이 있을 때만 정리 명령을 실행합니다. 없다면 오류를 인계하고 **정리 미실행 — 소유 기록 없음**으로 적습니다.
+리소스 ID를 만들어 넣거나 소유 기록을 얻으려고 추론을 다시 실행하지 않습니다.
 
 ```bash
 python scripts/workshop.py --language ko code-interpreter cleanup --label code-policy-table --confirm-delete
@@ -91,7 +99,8 @@ token audience는 Foundry project endpoint가 아니라 **`https://search.azure.
 python scripts/workshop.py --language ko openapi plan
 ```
 
-서버·index 하나의 읽기 전용 계획과 런타임 권한을 확인한 뒤 유료 요청을 실행합니다.
+이 계획은 로컬 결과(`azure_requests_sent: false`)이며 원격 index나 런타임 권한을 검증하지 않습니다.
+서버·index 하나의 읽기 전용 정의를 확인하고 담당자가 해당 권한을 확인한 뒤 유료 요청을 실행합니다.
 
 ```bash
 python scripts/workshop.py --language ko openapi invoke --label openapi-policy --confirm-cost

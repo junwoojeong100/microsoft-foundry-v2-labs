@@ -74,7 +74,9 @@ Do not connect company data or tools that modify external systems.
    then paste to **replace** it with the whole file. Do not append to default instructions or paste into the chat box on the right.
 4. Select **Save** at the top right and write the **Version** shown next to it on the `Agent name / saved version / deployment:` line of `session-notes.txt`.
 
-The file already contains the instructions and all six synthetic policies; do not add other text.
+The file already contains the instructions, all six synthetic policies and the browser output rule; keep the whole file unchanged.
+Its final **Browser output format** paragraph replaces the opening JSON-output instruction for A:
+expect readable prose with cited document IDs, not a JSON block.
 
 
 ![September 24 English recording: Paste instructions-with-policies.txt into Instructions](../assets/g6sol-20260924-en/screenshots/EP03-006-instructions-2.webp)
@@ -197,6 +199,7 @@ Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the B SDK path are no
 ## B. Code — create a managed Prompt Agent with the SDK and call its exact version
 
 **Live-verified on 2026-09-24 in English and Korean with the refreshed SDK pins; screenshots and [short clips](../video-summary.md#review-refresh-supplement) recorded on 2026-09-25.** This core B step creates a project-managed Prompt Agent and one immutable version.
+Run steps 1–2 in Lab 00's repository terminal with `.venv` active, not in the Playground. Steps 3–4 return to the browser.
 Use a new name starting with your `.env` `WORKSHOP_PREFIX`; do not reuse A's browser agent or any recording name.
 Record findings in `Lab 03 prompt-agent-create.json / prompt-agent-invoke.json findings:` in `session-notes.txt`.
 
@@ -217,6 +220,10 @@ Do not create another version merely to restore a terminal variable.
 <a id="create-managed-agent"></a>
 
 ### 1. Create the managed Prompt Agent
+
+The command automatically combines [`prompts/en/v2.txt`](../../prompts/en/v2.txt), the four-field JSON schema
+and all six policies from [`data/knowledge/en/policies.json`](../../data/knowledge/en/policies.json) into the saved instructions.
+Do not paste A's ZIP instructions or upload files. `v2` is the **prompt revision**, not the `agent_version` you enter in step 2.
 
 ```bash
 printf 'New agent name (<your prefix>-policy-sdk): '
@@ -252,9 +259,10 @@ python scripts/workshop.py --language en prompt-agent invoke --name "${AGENT_NAM
 The block reads the name and version again so it works after a pause; either blank value stops before the request.
 Do not invoke `latest`. If this pass's invocation file already exists, read it instead of sending another request.
 The agent is asked to return JSON (`answer`, `decision`, `limit_krw`, `citations`) inside `text`;
-this command does not validate that inner JSON. Preserve empty or malformed answers as failed checks in your notes.
-Do not repair them or count them as success.
-In the 2026-09-24 check the first version was `1` and the answer cited `TRAVEL-2026` with KRW 150,000; your IDs and wording will differ.
+this command does not validate that inner JSON. Compare your answer with the supplied `TRAVEL-2026` policy:
+expect `decision: answer`, `limit_krw: 150000` and `TRAVEL-2026` in `citations`.
+Preserve empty or malformed answers and policy mismatches as failed checks in your notes; do not repair them or count them as success.
+This one request is a smoke check, not A's four-question check or a Lab 07 evaluation.
 Keep the `response_id` from `prompt-agent-invoke.json`; Lab 09 uses it for trace lookup.
 
 <a id="sdk-invoke-recording-scope"></a>
@@ -277,8 +285,7 @@ In Foundry, open **Build → Agents → your SDK agent**. Verify the same versio
 ![September 25 English recording: Playground shows Version 1 and the SDK instructions; no message sent](../assets/review-refresh-20260925/EP03-201-playground.webp)
 
 **What to check:** the header's **Version** matches `agent_version` in your `prompt-agent-invoke.json`,
-and **Instructions** contains [`v2.txt`](../../prompts/en/v2.txt), the four-field JSON schema
-and all six policies from [`policies.json`](../../data/knowledge/en/policies.json).
+and **Instructions** contains the v2 prompt, four-field JSON schema and six policies listed in [step 1](#create-managed-agent).
 The command inserts the policies inline; it does not use File Search or IQ.
 Keep chat empty and record mismatches without editing or saving. The recording's version `1` is not required for your run.
 Do not send a new Playground message for this check. This SDK agent is a managed project asset, unlike the local MAF agent you create in Lab 04.

@@ -11,7 +11,9 @@
 예: Azure 문서가 Responses API 지원을 명시한 Grok 모델(2026-09-24 확인).
 2026-09-25 실습 계정 카탈로그에는 `grok-4-1-fast-reasoning`(GlobalStandard)과 `Mistral-Large-3`(DataZoneStandard)가 남은 할당량과 함께 있었습니다. 어느 쪽이든 배포하려면 담당자 승인이 필요합니다.
 
-**준비:** [Lab 07](../07-evaluation.md)의 실제 candidate, 승인된 두 번째 배포, API/구조화 응답 호환성, 비용과 새 label.
+**준비:** [Lab 07 B](../07-evaluation.md#dev-candidate)의 실제 코드 기반 dev candidate,
+해당 `outputs/<label>/manifest.json`과 완전한 `responses.jsonl`, 승인된 두 번째 배포, API/구조화 응답 호환성, 비용과 새 label.
+포털 평가 시트와 Hosted matrix 폴더는 이 모듈의 `compare` 명령에 넣는 입력이 아닙니다.
 **완료:** 실제 모델 ID·모든 행/오류를 포함한 비교와 이전 결정을 기록함.
 **중단:** 기존 모델을 유지합니다. 오류가 다른 배포/endpoint를 선택하지 않습니다.
 
@@ -23,6 +25,14 @@
 deployment/model/version, project/API, prompt, corpus, retrieval, 출력 제한과 data hash를 기록합니다.
 원래 run 폴더를 유지하고 Router를 고정 모델 baseline으로 사용하지 않습니다.
 다른 언어 결과도 재사용하지 않습니다. 이 실습은 모델 생성이나 quota 증액을 하지 않습니다.
+
+아래 명령은 baseline이 `outputs/candidate/`이고 `mode: live`, `split: dev`,
+`prompt_version: v2`, `retrieval: local`인 경우입니다. 다시 수집 비용을 쓰기 전에 이 필드를 확인합니다.
+저장한 label이 다르면 아래 비교 명령과 보고서 경로의 `candidate`를 바꾸고, `collect`의 prompt/retrieval도 저장한 값에 맞춥니다.
+`migration-model-b`는 아직 없는 출력 폴더에만 사용합니다. 이미 있다면 저장된 run을 확인하거나 새 label을 모든 참조에 일관되게 사용합니다.
+원래 project·출력 제한·retrieval 설정·소스 코드·합성 파일은 그대로 유지합니다.
+`compare`는 `inference`나 code·corpus·dataset hash가 다르면 거부합니다. 해당 baseline이 없다면
+Lab 07의 dev 단계로 돌아가거나 차단 상태로 인계합니다. 이 모듈 때문에 holdout을 새로 실행할 필요는 없습니다.
 
 ## 2. 저장된 설정을 바꾸지 않고 두 번째 모델 확인
 
@@ -39,9 +49,8 @@ read -r MODEL_B
 ```
 
 실제 하위 모델/버전·배포 상태를 확인합니다.
-API/schema가 맞지 않으면 이전 검토 결과로 남깁니다. 이 모델만 다른 API로 우회하지 않습니다.
-non-OpenAI provider의 경우 project Responses 경로와 엄격한 `json_schema` Structured Outputs를 모두 받아야 합니다.
-둘 중 하나라도 거부되면 중단하고 API 호환성 finding으로 기록합니다. API를 바꾸거나 schema를 느슨하게 하거나 plain text로 fallback하지 않습니다.
+예상되는 `inference_tested: false`는 token 획득과 배포 metadata를 확인했다는 뜻이며,
+Responses API나 구조화 응답 지원을 확인했다는 뜻은 **아닙니다**. 실제 요청 시험은 3절입니다.
 3절에서도 같은 터미널의 `MODEL_B`를 사용합니다. 값이 없으면 요청 전에 멈춥니다.
 
 ## 3. 새 dev 수집과 비교
@@ -62,7 +71,13 @@ python scripts/workshop.py --language ko evaluate --label migration-model-b
 python scripts/workshop.py --language ko compare --baseline candidate --candidate migration-model-b --variable model
 ```
 
-다른 provider였다면 양쪽 모두 그 provider로 고정합니다.
+`outputs/migration-model-b/comparison-vs-candidate.json`을 엽니다.
+양쪽 metrics와 `changed_context_cases`를 읽습니다. 반환 근거가 달라졌다면 고정된 조건의 모델 순위가 아니라 end-to-end 비교입니다.
+baseline이 다른 **retrieval provider**를 사용했다면 이번 비교 양쪽 모두 그 provider를 유지합니다.
+두 모델 배포가 같은 모델 공급자 제품이어야 한다는 뜻은 아닙니다.
+non-OpenAI provider의 경우 project Responses 경로와 엄격한 `json_schema` Structured Outputs를 모두 받아야 합니다.
+둘 중 하나라도 거부되면 수집한 모든 오류 행을 보존하고 API 호환성 finding으로 기록합니다.
+API를 바꾸거나 schema를 느슨하게 하거나 plain text로 fallback하지 않습니다.
 실패 행만 교체하거나 분모에서 빼지 않습니다.
 금액·날짜·인용·승인 경계·지연·실제 토큰을 함께 확인합니다.
 두 subshell은 실패해도 원래 터미널 배포 설정과 `.env`를 바꾸지 않습니다.

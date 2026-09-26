@@ -108,15 +108,17 @@ On September 23, 2026 the first run started as soon as the schedule was saved, a
 
 ### 1. Find local lineage first
 
-In `outputs/<label>/manifest.json` and `responses.jsonl`, locate run/question IDs
-(`run_id`, `case_id`), prompt/data/code/evidence hashes, `response_id`, `request_id`,
-actual response model, retrieval provider/document IDs/IQ activity, success/errors,
-token usage, and latency.
+Use an existing **Lab 07 dev label** from `session-notes.txt`, such as your baseline or candidate.
+In `outputs/<label>/manifest.json`, find `run_id` and the prompt/dataset/corpus/code/response hashes.
+In `outputs/<label>/responses.jsonl`, find `case_id`, `response_id`, `request_id`, actual response model,
+retrieval provider/document IDs/IQ activity, success/errors, token usage and latency.
+The Lab 03 B invocation is not one of these batch folders: step 2 uses the separate saved
+`outputs/learner-notes-en/prompt-agent-invoke.json`.
 
 Write the run labels and the IDs you used in item 3 of `outputs/learner-notes-en/operations-checklist.txt`.
 
 **What to check:** every successful response row has a `response_id`; error rows keep their error fields and still count.
-The current CLI writes `trace_id: null` and `trace_export: not-configured` in these records.
+The current CLI writes `trace_id: null` and `trace_export: not-configured` in these core Responses records.
 They are **not a check of the project's Application Insights connection**, and connecting it does not fill these saved fields.
 Use step 2 to find the actual trace/operation ID and record it separately in `operations-checklist.txt`; do not edit the original response.
 
@@ -157,12 +159,15 @@ Review changes only on dev in [Lab 07](07-evaluation.md#path-b), not the exposed
 
 ### 4. Print the cleanup inventory
 
+Return to the source repository terminal with your existing `.venv` active.
+
 ```bash
 python scripts/workshop.py --language en cleanup-plan
 ```
 
 This **reads the local ownership file; it does not query Azure or delete anything**.
-Add the inventory to item 4 of your `operations-checklist.txt`, separating owned objects, shared services,
+It prints JSON in the terminal; it does not save a new report file.
+Copy the relevant inventory into item 4 of your `operations-checklist.txt`, separating owned objects, shared services,
 authorized owner actions and residual costs.
 
 | Output | What to record |
@@ -288,8 +293,10 @@ python scripts/workshop.py --language en benchmark trace-plan --label wf-candida
 python scripts/workshop.py --language en benchmark monitor --label wf-candidate
 ```
 
-The first writes KQL only. The second queries the configured App Insights application ID
-with a subscription/tenant-scoped credential and `https://api.applicationinsights.io/.default`.
+`trace-plan` writes `outputs/benchmarks/<label>/trace-query.kql` only, with
+`azure_queried: false` and `trace_export_verified: false`.
+`monitor` queries the configured App Insights application ID with a subscription/tenant-scoped credential
+and `https://api.applicationinsights.io/.default`.
 The September 15 Korean run (earlier `gpt-5.6-luna` edition) retained a CLI `InvalidTokenError` and corrected that credential path, not the identity or target.
 Application IDs are not workspace IDs or instrumentation keys.
 
@@ -298,15 +305,21 @@ Start from `requests`; code-level participant names are not the deployed agent n
 Do not double-count parent and child token/latency observations.
 The default gate verifies root requests; deeper model/tool semantics need separate review.
 
-Missing, duplicate, failed, or unmeasured rows cannot pass.
-Existing verified evidence is reused only after hash checks, without pretending to query Azure again.
+Missing/duplicate trace-ID rows, failed requests and unmeasured durations fail this check.
+For a successful check, inspect `trace-query-result.json` and `trace-verification.json` in that same matrix folder;
+the receipt must say `trace_export_verified: true`. KQL generation and portal Monitor totals are not this gate.
+`cached_verified_evidence: true` means hash-checked evidence was reused, not that Azure was queried again.
+
+If trace verification fails, preserve its error/results and record **trace unverified**.
+That blocks trace acceptance, not separately authorized cleanup of the recorded session:
 
 ```bash
 python scripts/workshop.py --language en benchmark stop-session --label wf-candidate
 ```
 
 Only the recorded session/version is stopped or confirmed idle.
-Shared services, models, evaluation history, and persistent files remain.
+Read `outputs/benchmarks/<label>/session-cleanup.json` for its confirmed state.
+Shared services, models, evaluation history, and persistent files remain; cleanup does not turn a failed trace gate into a pass.
 
 ### Optional continuous evaluation
 
@@ -342,7 +355,8 @@ These captures come from the September 24, 2026 English recording with `gpt-6-so
 
 ## Always finish with cleanup
 
-If you selected the Hosted matrix, verify its exact root traces and owned session states.
+If you selected the Hosted matrix, retain the exact root-trace check outcome and owned session states.
+Missing telemetry remains **unverified**; do not leave approved cleanup waiting for a successful trace query.
 A and core B do not need that optional telemetry to finish their cleanup handoff.
 Completed overall does not mean every child span is exported or error-free.
 The September 24 `gpt-6-sol` recording covers the agent Details/Traces/Monitor tabs, the optional trace evaluation and the cleanup inventory; the September 25 supplement adds the B trace search by `response_id`.

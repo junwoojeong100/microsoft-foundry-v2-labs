@@ -2,7 +2,9 @@
 
 **English** | [한국어](../ko/reference/troubleshooting.md)
 
-**Do not chain deployment, evaluation, or deletion while the previous step is failing.**
+**Do not continue deployment or paid evaluation while the previous step is failing.**
+Separately authorized [cleanup of recorded resources](cleanup.md) can still proceed after preserving the error and evidence;
+it does not repair the failed step or authorize a wider deletion scope.
 Creating a new model, subscription, or resource for the same unexplained error is not recovery.
 
 <a id="resume-safely"></a>
@@ -31,8 +33,9 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | `evaluate` returned `1` | Read `total`, `passed`, `errors` and per-case `checks`; review a baseline failure, but keep holdout closed for a failing candidate | Treat a completed request as a passed business gate |
 | Candidate and holdout already exist | Read `outputs/<holdout-label>/acceptance.json`, or rerun local `accept` with those exact labels | Recollect an exposed holdout to get a better result |
 | Hosted package already exists | Inspect its manifest; preserve that exact generated directory under a new name before a rebuild | Delete source code, the whole `.build`, `outputs`, or azd state |
+| `serve` keeps terminal A occupied | Expected: leave it running and use [Lab 08's two-terminal sequence](../labs/08-hosted.md#hosting-gates) for readiness and invocation; finish with `Ctrl+C` in A | Start a second server or deploy to make the shell prompt return |
 | Search says scope/corpus differs | Keep the old ledger; follow [the fresh-copy rule](configuration.md#workspace-scope) for a language, prefix or service change | Change only the next run label or delete/edit the ledger |
-| Introductory Hosted preparation rejects a directory/profile | Select a new empty directory outside existing azd projects and the exact local v2 Responses package/language | Repeat `azd ai agent init`, use `--force`, or weaken the package checks |
+| Introductory Hosted preparation rejects a directory/profile | Preserve the error/directory, then follow [Lab 08's preparation](../labs/08-hosted.md#hosting-gates) with a new empty directory outside existing azd projects and the exact local v2 Responses package/language | Repeat `azd ai agent init`, use `--force`, or weaken the package checks |
 | A required evaluation is still blocked | Save existing records and use [incomplete handoff](../labs/11-capstone.md#incomplete-handoff) | Create an acceptance report for absent runs or call blocked work complete |
 | Cloud judge timed out | Resume polling with the **same** `cloud-evaluate --label` command and saved job IDs | Apply the new-collection-label rule to an already submitted judge job |
 | Local matrix smoke requires `--azd-directory` | Supply the standalone directory prepared by the workbook; there is no implicit source-project default | Copy another agent's `azure.yaml` into the source root |
@@ -62,8 +65,9 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | HTTP 500 from `model`, `answer`, MAF or an agent right after a model release | The project agent path may not support that model yet (seen with `gpt-6-luna` on September 23, 2026). Stop and record it; no model or endpoint switch | [Model choice](model-choice.md) |
 | IQ reports no chat model | Default B uses model-free GA retrieval; optional A IQ Chat needs a different prepared base | [06](../labs/06-knowledge.md) |
 | Hosted call selects the wrong local project | Restore the recorded absolute `HOSTED_DIRECTORY` and use `--cwd` on every azd command | [08](../labs/08-hosted.md) |
+| Local Hosted readiness fails / port 8088 is in use | Inspect terminal A's startup error and selected profile. Stop only an earlier server you started before restarting; do not stop an unknown process or try remote deployment | [08 execution gates](../labs/08-hosted.md#hosting-gates) |
 | No trace appears in Traces | Include the original request's date and agent/version in the filters, then search by Response ID or Trace ID. Confirm Application Insights was connected before the request; local MAF has no server-side agent trace | [09](../labs/09-operations.md#path-b) |
-| Traces authorization error | The learner needs Log Analytics Reader on the connected Application Insights resource; if protected tables are enabled, also Privileged Monitoring Data Reader | [09](../labs/09-operations.md) |
+| Traces authorization error | Record **trace unverified**. The owner checks Log Analytics Reader on connected Application Insights and, for protected tables, Privileged Monitoring Data Reader; do not select **Resolve** or add roles yourself | [09 B](../labs/09-operations.md#path-b) |
 
 <details>
 <summary>Full error reference — open if the short table does not cover your failure</summary>
@@ -113,7 +117,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Batch API version missing | Merge session query parameters instead of replacing `api-version=v1` | 07–08 |
 | Project embeddings 404 | Stop and preserve the failed experiment. Use `WORKSHOP_EMBEDDING_API=account` and the same account's endpoint only as the initial configuration of a separately approved new hybrid experiment; retain separate configuration/results, not a fallback | [06 C](../labs/06-knowledge.md#hybrid-rag) |
 | Trace-query `InvalidTokenError` | App Insights audience and the intended subscription/tenant credential; no identity/resource substitution | 09 |
-| Stop returns 409 for idle session | Re-read the exact recorded session/version and record the idle state without another stop request | 09 |
+| Stop returns 409 for idle session | Re-read the exact recorded session/version and record the idle state without another stop request | [09](cleanup.md#hosted-sessions) |
 | Host profile/contract mismatch or missing `runtime-profile.json` | Package again with the current code, then compare the exact profile language, model map, source package, actual version and retrieval configuration. Collect under a new label; never edit a manifest to pass | 08 |
 | Model key not in the allowlist | The same `WORKSHOP_MODEL_DEPLOYMENTS_JSON` map in `.env` and the remote service environment, including the default deployment | 08 |
 | `account-chat` endpoint mismatch | The same Foundry account's actual OpenAI root in `AZURE_OPENAI_ENDPOINT`; the CLI never switches URLs after a failure | 06–08 |

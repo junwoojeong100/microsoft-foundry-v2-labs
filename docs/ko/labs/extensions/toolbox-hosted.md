@@ -7,12 +7,14 @@
 
 **근거 상태:** 영문 로컬·원격 Hosted Toolbox 실행은 2026-09-16(이전 `gpt-5.6-luna` preset) 기록이며 `gpt-6-sol`로 다시 실행하지 않았습니다.
 
-**준비:** 실제 동작한 소유 Toolbox 버전, 합성 seed ledger, Hosted SDK, 기존 프로젝트의 전체 ARM ID,
+**준비:** 실제 동작한 소유 Toolbox 버전, 합성 seed ledger, Hosted SDK, [준비된 azd 접근](developer-toolkit.md#azd-check), 기존 프로젝트의 전체 ARM ID,
 새 agent 이름과 배포/모델/도구 권한 승인.
 **완료:** 새 원격 버전이 실제 도구·모델·근거 metadata를 반환함.
-**중단:** 패키징/로컬까지만 확인한 경우 원격은 미실행으로 표시합니다.
+**중단:** 시도한 단계·오류·생성된 ID는 **실패/차단**으로 보관하고 시도하지 않은 단계는 **미실행**으로 적습니다.
+패키징만 선택했다면 1절 뒤에 멈추고 [Lab 11](../11-capstone.md)로 돌아갑니다. 패키징은 로컬·원격 서비스 실행 검증이 아닙니다.
 
-**첫 회차:** 1–3절에서 패키지와 프로젝트를 준비합니다. 4절은 로컬 서버에서 실행하지만
+**첫 회차:** 1절은 로컬 패키징입니다. 2–3절은 격리된 azd 상태를 준비하며, 2절은 `azd ai project show`도 실행합니다.
+그 azd/프로젝트 확인은 패키징만 하는 준비와 구분합니다. 4절은 로컬 서버에서 실행하지만
 실제 Foundry 모델과 Toolbox/Search를 호출하는 **Azure 실행이며 오프라인 fixture가 아닙니다**.
 4절의 요청 전에 모델·도구 비용 승인을 받습니다. 5절의 Hosted 배포와 원격 요청은 별도로 승인합니다.
 사용한 자산은 6절로 마무리합니다. 두 터미널 모두 **소스 저장소 루트**와
@@ -37,6 +39,7 @@ python scripts/package_toolbox.py --language ko --version "$TOOLBOX_VERSION"
 
 `.build/toolbox-ko-<version>/`에는 코드·합성 정책·질문·고정된 `toolbox-profile.json`만 들어갑니다.
 정답, holdout, `.env`, 이전 출력은 제외합니다.
+`package-manifest.json`과 파일 hash를 보관합니다. `cloud_deployed: false`는 패키징만 했다는 기록이지 Hosted 준비 완료가 아닙니다.
 프로젝트·모델·Toolbox·Search 연결/원문 설정을 고정합니다.
 
 Hosted의 `/app`은 읽기 전용입니다. 요청 근거는
@@ -52,6 +55,8 @@ Hosted의 `/app`은 읽기 전용입니다. 요청 근거는
 package는 원래 repository 폴더에 남아 있어도 됩니다.
 저장소 터미널 A에서 실제 값을 입력합니다. `~` 축약형 없이 절대 경로를 사용하고
 새 터미널에서도 복원하도록 폴더·이름을 `session-notes.txt`에 기록합니다.
+준비된 azd 접근이 있을 때만 계속합니다. helper가 성공하면 이어지는 `azd ai project show`가 기존 프로젝트를 조회합니다.
+모델 추론은 아니지만, 패키징 성공만으로 그 접근 권한이 검증된 것은 아닙니다.
 
 ```bash
 printf '절대 Toolbox 패키지 경로: '

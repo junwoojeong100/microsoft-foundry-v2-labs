@@ -15,16 +15,25 @@ fine-tuning이나 모델 가중치 변경이 아닙니다. 기존 Hosted matrix�
 ## 1. 입력 한 번 준비
 
 [Lab 03](../03-prompt-agent.md)의 전체 합성 정책을 가진 내 agent를 사용합니다.
-새 이름의 전용 agent를 만들면 원래 지침/버전을 보존할 수 있습니다.
+원래 지침/버전을 보존합니다. 지원 optimizer 배포와 비용이 승인된 뒤에만
+Lab 03 절차로 본인 prefix의 격리 복사본을 만듭니다.
 공유 agent나 이미 고정된 benchmark target을 변경하지 않습니다.
 
-`outputs/extensions-ko/`가 아직 없을 때만:
+**로컬 준비부터 합니다.** 아래 명령에는 [Lab 00 B의 준비된 `.venv`](../00-start.md#b-코드--한-폴더-한-환경)
+(`python-dotenv` 포함)와 `.env`에 기록한 설정 카드의 `WORKSHOP_PREFIX`가 필요합니다.
+로컬 파일만 읽으며 Azure 로그인·모델 호출·최적화 job은 수행하지 않습니다.
+`outputs/extensions-ko/`가 아직 준비되지 않았다면 저장소 루트에서 실행합니다.
 
 ```bash
+source .venv/bin/activate
 python scripts/workshop.py --language ko prepare-extensions --label extensions-ko
 ```
 
-`optimizer-dev.jsonl`, `SOURCE.json`, `manifest.json`을 확인합니다.
+`outputs/extensions-ko/`에서 `optimizer-dev.jsonl`, `SOURCE.json`, `manifest.json`, `preparation.json`을 확인합니다.
+재사용한다면 `SOURCE.json`의 언어가 `ko`, prefix가 본인 값, `dataset_split`이 `dev`인지 확인합니다.
+`preparation.json`에는 `mode: local-materials`, `azure_requests_sent: false`가 있어야 합니다.
+폴더가 존재한다는 사실만으로 준비가 완료된 것은 아닙니다. 파일이 없거나 다른 입력으로 만든 자료라면 업로드하거나 덮어쓰지 않습니다.
+원래 자료를 보존하고 사용하지 않은 label을 명시적으로 골라 준비한 뒤, 아래 모든 업로드 경로에 새 폴더를 사용합니다.
 원본 **dev 6행**에서 파생되며 holdout이나 새 target 정답은 만들지 않습니다.
 `query`만 agent 입력입니다. `context`, `ground_truth`는 평가 참조이며 target에 보내는 지침이 아닙니다.
 wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다고 가정하지 않습니다.
@@ -39,7 +48,8 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 | Max candidates | **2** |
 | 최적화 대상 | **Instruction만** |
 
-지원되는 optimizer 모델이 없으면 미실행으로 멈춥니다.
+지원되는 optimizer 모델이 없다면 `optimizer-review.txt`에 로컬 입력 폴더와
+`inputs prepared; optimization not run`을 적고, 격리 agent 생성이나 job 제출 없이 인계합니다.
 답변 모델이 동작한다는 사실만으로 optimizer 용도를 지원한다고 판단하지 않습니다. `gpt-6-sol`만 배포된 2026-09-23에는
 **Optimize** 탭이 **No supported optimization model**을 표시했습니다. 그날
 [Microsoft Learn의 optimizer 모델 목록](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-overview#models)은
@@ -118,7 +128,7 @@ Groundedness의 `context`에 원래 정책 대신 생성한 답변 자체가 들
 원래 점수·입력 hash를 보존하고 참조 binding을 무효로 표시하며 **이 결과로 승격하지 않습니다**.
 촬영 결과를 좋게 만들려고 열·기준을 몰래 바꾸거나 새 run을 제출하지 않습니다.
 
-`optimizer-review.txt`에 run, baseline/candidate ID, 관찰, 선택 후보 또는
+`optimizer-review.txt`에 run, baseline/candidate ID, 관찰, 로컬 입력 폴더와 업로드한 dataset 버전, 선택 후보 또는
 `pending-human-review`, 이유를 적습니다. AI가 사람의 검토를 사칭하지 않습니다.
 
 ## 6. 사람 승인 후에만 승격

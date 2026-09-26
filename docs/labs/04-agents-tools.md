@@ -10,7 +10,8 @@
 
 **This pass:** A skips directly to Lab 05. B arrives from Lab 03 B, then runs no-tool, function-tool and MCP commands in order.
 
-**Need:** Lab 00 environment, a real Lab 02 response and the Lab 03 B managed-agent files; no separate MCP server terminal is required.
+**Need:** Lab 00 environment and notes directory, a real Lab 02 B response, and your Lab 03 B record for comparison.
+These local runs do not read the managed-agent files or invoke that managed agent. No separate MCP server terminal is required.
 
 **Continue when:** You have the no-tool response plus function/MCP responses with their source IDs. The long-input rejection is an optional negative test.
 
@@ -37,6 +38,7 @@ python scripts/workshop.py --language en maf \
 ![September 24 English recording: MAF agent without tools](../assets/g6sol-20260924-en/screenshots/E04-001-maf-2.webp)
 
 **What to check:** Read `mode: live`, `orchestration: local`, and `tools: none`.
+Read the model's reply in `text`; `answer: null` is expected in this no-tool mode.
 Local Python owns execution, but the answer model is called in Azure.
 
 **Save:** `maf-none.json` is written automatically in your Lab 00 notes directory. Open it and check the fields above.
@@ -81,13 +83,16 @@ sequenceDiagram
 
 ![September 24 English recording: MAF with the read-only function tool](../assets/g6sol-20260924-en/screenshots/E04-002-tools-2.webp)
 
-**What to check:** Inspect `tools: function` and the nested `decision`, `limit_krw`,
-and `citations`. `needs_approval` means prior human approval is required, not granted.
+**What to check:** Inspect `tools: function` and `answer.decision`, `answer.limit_krw`,
+and `answer.citations`. Compare with the bundled [English policies](../../data/knowledge/en/policies.json):
+September 2026 uses the KRW 150000 limit, so KRW 170000 needs prior approval.
+`needs_approval` means prior human approval is required, not granted.
 
 Verify evidence corresponding to `TRAVEL-2026` and `APPROVAL-01`, an explanation without
 booking/approving, and that `never_require` applies only to **side-effect-free synthetic lookup**.
 `tools` identifies the configured path, not an observed tool call. The core JSON does not preserve a tool-call transcript.
-Review the answer and citations, but record `tool execution: unverified` without a retained client-side call record.
+Review the answer and citations, but record `tool execution: unverified` separately for both function and MCP runs
+unless you retained a client-side call record for that run.
 Lab 09's managed-agent trace cannot verify these local MAF runs.
 
 **Save:** `maf-function.json` is written to the same notes directory. Review it before starting MCP.
@@ -120,8 +125,9 @@ Do not repair invalid output and call it success.
 
 ![September 24 English recording: MAF with the local MCP policy tool](../assets/g6sol-20260924-en/screenshots/E04-003-mcp-2.webp)
 
-**What to check:** Verify `tools: local-mcp` and the historical limit/`TRAVEL-2025`
-for May 2026. A function-tool response cannot stand in for an MCP execution.
+**What to check:** Verify `tools: local-mcp`, `answer.limit_krw: 120000`, and `TRAVEL-2025` in `answer.citations`
+for May 2026. Compare with the same policy file; the historical limit applies through June 30, 2026.
+A function-tool response cannot stand in for an MCP execution.
 
 **Save:** `maf-mcp.json` is written to the same notes directory on success. Keep the original error instead if this request failed.
 
@@ -189,6 +195,7 @@ Do not create real messaging or payment tools just for this exercise.
 
 MAF's evaluation API runs the function-tool agent on the six dev questions (six paid agent runs) and sends each answer,
 its `lookup_policy` call and the tool definition to the Foundry `tool_call_accuracy` and `relevance` evaluators.
+These are fresh runs, not a re-score of your saved `maf-function.json` or `maf-mcp.json`.
 Only the function tool is scored, not the MCP variant. The code is in `src/foundry_workshop/tool_evaluation.py`.
 First set `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME=gpt-6-sol-judge` in `.env` (the judge row of your setup card);
 the command stops if the judge is missing or is the answer deployment `gpt-6-sol`.
@@ -199,11 +206,16 @@ python scripts/workshop.py --language en maf-evaluate --confirm-cost --output ou
 
 ![September 24 English recording: Optional: score the MAF tool calls with Foundry evaluators](../assets/g6sol-20260924-en/screenshots/E04-004-maf-evaluate-2.webp)
 
-**What to check:** `complete: true` and `errors: 0`; each row lists its recorded `tool_calls` (one `lookup_policy` call)
-and a `tool_call_accuracy` and `relevance` score. Open `report_url` for the reasons. MAF prints one `ExperimentalWarning`
-for `FoundryEvals`; that is expected. In the September 24, 2026 English recording it scored tool_call_accuracy 6/6 and relevance 6/6.
+**What to check:** Open `maf-tool-evaluation.json` in your notes directory. `complete: true` and `errors: 0` mean all six
+dev rows have valid scores, **not that every score passed**. Read `native_pass_counts` and each row's `scores`;
+inspect the actual `tool_calls` rather than assuming exactly one `lookup_policy` call. Open `report_url` for the reasons.
+Keep failed or missing rows as findings; do not replace them with another run's results.
+
+MAF prints one `ExperimentalWarning` for `FoundryEvals`; that is expected.
+In the September 24, 2026 English recording it scored tool_call_accuracy 6/6 and relevance 6/6.
 With the refreshed SDK pins (`openai` 3.x) the same command also prints Pydantic serializer warnings about `azure_ai_evaluator`;
 the 2026-09-24 re-check still returned `complete: true`, `errors: 0`, tool_call_accuracy 6/6 and relevance 6/6. Judge by those fields, not by the warnings.
+Those historical results are not evidence of your run's outcome.
 These scores judge tool use, not business correctness, so keep Lab 07's business checks separate.
 The MAF evaluation API was experimental and several agent evaluators were marked Preview on September 23, 2026.
 

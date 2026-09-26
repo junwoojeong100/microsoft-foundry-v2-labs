@@ -10,7 +10,7 @@
 
 **This pass:** A checks the sources in three Lab 03 answers. B runs the numbered Search and GA IQ steps. IQ Chat and hybrid search are optional.
 
-**Need:** A: Lab 03 responses and learner files. B: .env, a prepared Search service, writer permissions and a fresh owned prefix or matching ownership ledger.
+**Need:** A: Lab 03 responses and learner files. B: .env, a prepared Search service, writer permissions for seed steps and a fresh owned prefix or matching ownership ledger.
 
 **Continue when:** A: the policy IDs and dates in three answers are checked. B: the four retrieval and answer files are saved.
 
@@ -64,9 +64,12 @@ This lets you compare evidence without changing the question too. The provider c
 No core step needs an embedding deployment. Hybrid search and model-based IQ Chat are separate optional branches.
 An error does not permit switching providers.
 
+**Resuming:** keep the same copy, language and prefix. Open matching saved outputs instead of replaying their commands;
+`--output` refuses an existing file before sending a request. An intentional repeat needs a new filename recorded in your notes.
+
 ### 1. Check instructor preparation
 
-You need the prepared Search service. Your account needs **Search Service Contributor** and
+You need the prepared Search service. For the seed commands, your account needs **Search Service Contributor** and
 **Search Index Data Contributor** on it (reading alone needs only **Search Index Data Reader**).
 The owner approves Search usage and billing.
 
@@ -77,7 +80,7 @@ Do not copy API keys into `.env` or change a shared service's settings yourself.
 Open `.env` and check two values before seeding:
 
 - `AZURE_SEARCH_ENDPOINT=https://<search>.search.windows.net`, from your setup card.
-- `WORKSHOP_PREFIX` is your own prefix and has not been seeded before.
+- `WORKSHOP_PREFIX` is new and unseeded for a fresh copy, or unchanged from the matching prepared copy.
 
 Subscription Owner alone does not imply Search data access. Scripts do not create a
 Search service or roles; they create **your prefixed objects inside a prepared service**.
@@ -85,6 +88,7 @@ Search service or roles; they create **your prefixed objects inside a prepared s
 **Choose the ownership situation before seeding.** A new learner copy needs a new, unseeded `mfv2-...` prefix and writer permissions.
 An instructor-prepared copy must already contain the matching `outputs/azure-objects.json`.
 An existing remote index plus an empty local ledger is not ready for a create/update exercise; do not overwrite it.
+For a prepared copy, ask the owner which seed steps (3 and 4) completed successfully; a ledger alone does not prove all documents uploaded.
 `--language en` does not append `-en` to Search names. See [workspace/language changes](../reference/configuration.md#workspace-scope).
 
 ### 2. Inspect the small source corpus
@@ -105,14 +109,15 @@ Use them to find output fields, not as results of this same-question comparison;
 
 ![September 24 English recording: Local keyword retrieval over the six synthetic policies](../assets/g6sol-20260924-en/screenshots/E06-001-local-2.webp)
 
-**What to check:** Read `source_ids` and `context_hash`. This is local synthetic-file
-retrieval, not Search/IQ. Check the returned provider, not just configured endpoint names.
+**What to check:** Expect `provider: local-keyword`; read `source_ids` and `context_hash`.
+This is local synthetic-file retrieval, not Search/IQ. Configured endpoint names do not prove a cloud call.
 
 **Save:** `retrieve-local.json` is written to your Lab 00 notes directory. Open it and check the original evidence.
 
 ### 3. Create an ordinary Search index
 
 **This writes to the cloud.** Verify the prepared service, prefix, and permissions first.
+If the owner confirmed successful index seeding in this prepared copy, skip this seed command and continue with the query below.
 
 ```bash
 python scripts/workshop.py --language en seed-search --confirm-create
@@ -146,12 +151,15 @@ python scripts/workshop.py --language en retrieve --provider search \
 
 ![September 24 English recording: Keyword retrieval from Azure AI Search](../assets/g6sol-20260924-en/screenshots/E06-003-search-2.webp)
 
-**What to check:** Read the result of `--provider search`; verify endpoint/index.
-Do not relabel an ordinary result without IQ `references`/`activity` as IQ.
+**What to check:** Expect `provider: azure-ai-search-keyword`; verify `configuration.endpoint` and `configuration.index`.
+This result also contains `references: []` and `activity: []`. Those field names alone do not make it IQ.
 
 **Save:** `retrieve-search.json` is written to the same notes directory. Review it before creating the IQ source/base.
 
 ### 4. Create a GA IQ knowledge source/base
+
+If the owner confirmed this source/base was already seeded successfully in the matching copy, skip this seed command and continue with the IQ query below.
+Otherwise this command uploads the policies again and creates the missing IQ objects; it is a cloud write, not a read-only check.
 
 ```bash
 python scripts/workshop.py --language en seed-search --iq --confirm-create
@@ -288,8 +296,8 @@ Planning/synthesis for this Search-index source is **Preview as of September 15,
    If no prepared chat base exists, the owner completes [check → authorized setup](../reference/iq-model-identity.md);
    do not fix the model-free GA base by changing its configuration.
 3. In that prepared repository-root terminal, run `check` below. Continue only when `configured: true`; `ready_for_setup: true` alone means prerequisites, not a saved chat base.
-4. After cost approval, run `ask` **once**. Use the CLI for this test so its API/request fields and returned activity are preserved; do not also send a duplicate portal chat.
-5. Compare `answer`, `source_ids`, `references`, and both model activities with the synthetic originals. Record a failure unchanged.
+4. After cost approval, run `ask` **once**, or inspect your own already recorded run for this language/scope instead. The owner's setup run is not your own invocation evidence. Use the CLI, not an additional duplicate portal chat.
+5. Open that run's `summary.json` and compare its answer/citations with the synthetic originals using the checks below. Record a failure unchanged.
 
 | Setting | Exact first-pass choice |
 |---|---|
@@ -318,18 +326,28 @@ Keep the saved selection; use the owner's fixed CLI preset for initial setup rat
 python scripts/workshop.py --language en iq-chat check
 ```
 
-Only after that check passes and the request cost is approved:
+Only after that check passes and a new request's cost is approved:
 
 ```bash
 python scripts/workshop.py --language en iq-chat ask --label iq-chat-lab06 --confirm-cost
 ```
 
-The result must show `model_planning_verified: true`, `model_synthesis_verified: true`,
+Without `--question`, this command asks **“What is the domestic business-trip lodging limit per night for September 2026?”**,
+not B's KRW 170000 question. Check the actual question in `request.json`.
+
+The saved `summary.json` must show `model_planning_verified: true`, `model_synthesis_verified: true`,
 and actual `modelQueryPlanning` / `modelAnswerSynthesis` for `gpt-5.6-luna`.
+Its `answer` is plain text, not B's structured `decision`/`limit_krw` object. For this default question, check the KRW 150000
+limit against `TRAVEL-2026`. Follow each answer citation through its returned reference to `sourceData.id` and `content`;
+a numeric reference label is not a policy ID. Verified model calls do not by themselves prove a correct answer.
 Request, response, source evidence and failures stay in `outputs/iq-chat/iq-chat-lab06/`; use a new label for another request.
 `check` does not change Azure and `ask` never chooses another model/provider.
 For `configured: false`, missing permissions, a wrong version, 403 or 429, stop and use [the fixed-preset recovery guide](../reference/iq-model-identity.md).
 A fixed model removes a common configuration mismatch; it cannot guarantee quota or service availability.
+
+**Return:** record the actual label and finding on `Optional IQ Chat outcome, or not selected:` in `session-notes.txt`.
+Resume any unfinished [A source checks](#path-a) or [B steps](#path-b), not another workbook run.
+If your core checks are complete, continue to [Lab 07 A](07-evaluation.md#path-a) or [Lab 07 B](07-evaluation.md#path-b).
 
 </details>
 
@@ -346,6 +364,7 @@ A fixed model removes a common configuration mismatch; it cannot guarantee quota
 
 **This optional branch was not re-run with `gpt-6-sol` on September 23, 2026.**
 Use a separate owned index instead of silently changing the existing text index.
+Record the original `AZURE_SEARCH_INDEX_NAME` value, including a blank default, before changing `.env`.
 Configure a verified embedding deployment and its actual dimensions.
 
 ```dotenv
@@ -376,6 +395,8 @@ The code rejects silent text-to-vector schema replacement and text-only uploads 
 Ownership/per-index configuration stays in `outputs/azure-objects.json`.
 
 Changing an environment index name does not rewire a remote IQ source/base.
+Before returning to GA IQ or Lab 07, restore that original index setting; do not seed again to restore it.
+Keep the source/base names unchanged and retain the ledger, including the hybrid index, for cleanup.
 Do not mix retrieval changes into a prompt-only evaluation comparison.
 
 </details>

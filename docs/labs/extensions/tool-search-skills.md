@@ -9,9 +9,11 @@
 Complete the ordinary [Toolbox lab](toolbox.md) first. Keep that Toolbox, its original version and ownership ledger.
 This module still reads only the six bundled synthetic policies. It neither calls the public web nor executes skill scripts.
 
-**Need:** the working synthetic Toolbox, the same `.env`, installed azd skill commands, and approval for new Toolbox/Skill versions and model calls.
+**Need:** the working synthetic Toolbox, the same `.env`, [prepared azd skill commands](developer-toolkit.md#azd-check),
+and approval for new Toolbox/Skill versions and model calls.
 **Stop when:** the actual tool list matches discovery/pinning configuration and a real MAF run loads the pinned skill before using policy evidence.
-**If blocked:** do not change to the old `toolbox_search_preview` contract or load another skill after an error.
+**If blocked:** keep the error and created version IDs; record the attempted step as **failed/blocked** and later steps as **not run**.
+Do not change to the old `toolbox_search_preview` contract or load another skill after an error.
 
 **First pass:** steps 1–5 verify a pinned Skill; step 6 records keep/cleanup ownership.
 Changing the consumer default or creating a private catalog is not required.
@@ -35,7 +37,15 @@ Inspect the complete proposed definition first:
 python scripts/workshop.py --language en toolbox plan --discovery --pin-policy
 ```
 
-Inspect the plan's owned name and tool definition. Only after that check and write approval:
+This is a local plan (`azure_requests_sent: false`), not a created Toolbox version or a discovery result.
+Inspect its owned name and tool definition, then check the required Skill commands **before any write**:
+
+```bash
+azd ai skill create --help
+azd ai skill download --help
+```
+
+If a command is unavailable, stop before creating a discovery version. Only after these checks and write approval:
 
 ```bash
 python scripts/workshop.py --language en toolbox add-version --discovery --pin-policy --confirm-create
@@ -55,7 +65,9 @@ No model or policy query has run in this probe.
 
 ## 3. Prepare the reviewed skill from canonical inputs
 
-Run this **once**. If another C module already produced `outputs/extensions-en/`, inspect its manifest and reuse it rather than rerunning:
+This is **offline input preparation**, not a Skill upload or service run. Run it **once** in the same language/prefix as your Toolbox.
+If another C module already produced `outputs/extensions-en/`, reuse it only after its manifest's `language`, `prefix`
+and `skill_name` match this session. If they differ, stop and preserve the earlier files rather than overwriting them.
 
 ```bash
 python scripts/workshop.py --language en prepare-extensions --label extensions-en
@@ -67,15 +79,11 @@ It contains no holdout, answer fixture or approval credential. The manifest pres
 
 This preparation command also creates inputs for other extension modules.
 `optimizer-dev.jsonl` contains evaluator reference fields: never paste those fields into an agent conversation.
+Upload only `policy-review/` in step 4, never the parent `extensions-en/` directory.
 
 ## 4. Create the Skill asset, then verify its bytes
 
-Check the commands before a write:
-
-```bash
-azd ai skill create --help
-azd ai skill download --help
-```
+This step creates and reads an actual Azure Skill asset. Continue only after step 2's CLI checks and separate write approval.
 
 Enter the **actual project endpoint** from your setup card and the **skill_name** printed in the generated manifest:
 
@@ -122,7 +130,7 @@ python scripts/workshop.py --language en toolbox add-version --discovery --pin-p
 ```
 
 The helper references only `<your-prefix>-policy-review-en`, with the explicit version above.
-Omitting a skill version would follow a mutable default and is not this lab's contract.
+Omitting `--skill-version` does **not** attach the Skill or select its default; keep the explicit verified version.
 The default Toolbox version remains a separate pointer; inspect the returned values rather than assuming promotion.
 
 ```bash

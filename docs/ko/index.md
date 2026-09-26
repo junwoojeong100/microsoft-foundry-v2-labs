@@ -20,8 +20,8 @@ A Lab 05는 준비된 터미널이 기본이며, 선택 브라우저 경로는 �
 
 A는 압축을 푼 학습자 ZIP을 개인 증거 폴더로 사용합니다.
 B는 추가 ZIP 없이 [소스 복사본의 기록 폴더](labs/00-start.md#prepare-notes)를 사용합니다.
-`session-notes.txt`, `workflow-review.txt`, `operations-checklist.txt`를 진행하면서 채우고,
-A는 복사한 `assessment.csv`도 작성합니다.
+`session-notes.txt`, `workflow-review.txt`, `operations-checklist.txt`를 진행하면서 채웁니다.
+[Lab 07 A](labs/07-evaluation.md#assessment-sheet)에서는 `assessment.csv`를 빈 채로 두고 **`assessment-baseline.csv`**라는 이름의 복사본을 작성합니다.
 정답 레코드 대신 준비된 파일을 사용합니다. 인증정보나 작성한 양식을 `data/learner/`에 넣지 않습니다.
 
 <details>

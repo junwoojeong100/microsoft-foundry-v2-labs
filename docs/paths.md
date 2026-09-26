@@ -23,8 +23,9 @@ You need a browser, an Entra account, and an instructor-prepared Foundry project
 **`gpt-6-sol` deployment**. Lab 05 defaults to a **prepared MAF environment** with SDKs installed and the learner signed in.
 A Hosted Responses workflow in Playground is optional, only after the owner verifies it before class. Copy commands and read their results; Python authoring,
 installation, and subscription billing setup are preparation, not class exercises.
-For self-study, complete [the self-study preparation](setup-owner.md#self-study) first; it includes the
-[Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) and [Lab 02 B](labs/02-models.md#path-b) terminal setup.
+For self-study, complete [the self-study preparation](setup-owner.md#self-study) first.
+Its [Lab 00 B](labs/00-start.md#b-code-one-folder-one-environment) and [Lab 02 B](labs/02-models.md#path-b) steps prepare the terminal;
+then start **[Lab 00 A](labs/00-start.md#path-a)**, not Lab 03 B.
 
 | Order | Lab | Time | Your evidence |
 |---|---|---:|---|
@@ -32,7 +33,7 @@ For self-study, complete [the self-study preparation](setup-owner.md#self-study)
 | 2 | [01. Foundry](labs/01-foundry.md#path-a) | 25 min | Resource/project/model relationship diagram |
 | 3 | [02. Models: A](labs/02-models.md#path-a) | 20 min | Actual Playground response and deployment name |
 | 4 | [03. Agent: A](labs/03-prompt-agent.md#path-a) | 35 min | Agent using inline synthetic policies |
-| 5 | [05. MAF workflow: A](labs/05-workflows.md#path-a) | 25 min | Prepared browser or terminal sequential run and human review record |
+| 5 | [05. MAF workflow: A](labs/05-workflows.md#path-a) | 25 min | Prepared sequential run (terminal by default) and human review record |
 | 6 | [06. Knowledge: A](labs/06-knowledge.md#path-a) | 35 min | Source citation and effective-date check; IQ Chat not selected by default |
 | 7 | [07. Evaluation: A](labs/07-evaluation.md#path-a) | 40 min | Manual business assessment of all six dev cases |
 | 8 | [09. Operations: A](labs/09-operations.md#path-a) | 30 min | Risks, trace evidence or unverified reason, costs, and cleanup record |
@@ -78,7 +79,8 @@ B assumes a prepared, verified environment; failures, role changes and approvals
 At the Day 1 pause, keep the Search ownership ledger and all saved outputs. Resume at Lab 07 without reseeding Search or repeating earlier model calls.
 
 **B's core completion** requires the listed real model/tool/workflow and Search/IQ results,
-managed Prompt Agent create/invoke evidence, comparable dev records, frozen final evaluation, package, trace status and cleanup handoff.
+managed Prompt Agent create/invoke evidence, comparable dev records, a frozen final holdout evaluation only after
+[the dev gate passes](labs/07-evaluation.md#final-acceptance), package, trace status and cleanup handoff.
 Hosted serving/deployment, actual client-side telemetry and paid cloud judges have separate optional gates.
 Mark them **not run** if omitted; unavailable quota is not permission to submit fixtures
 as real model responses.
@@ -115,7 +117,7 @@ Optional [IQ extensions](reference/iq-workbook.md) need separate service-specifi
 
 | Module | Minimum prerequisite | Restart at |
 |---|---|---|
-| Model/prompt | Project, deployment, Foundry User permission | [02 B](labs/02-models.md#path-b) |
+| Model/prompt | [Lab 00 B's prepared code environment](labs/00-start.md#path-b), project, deployment and Foundry User permission | [02 B](labs/02-models.md#path-b) |
 | MAF/MCP/workflow | SDKs, successful `doctor --cloud` and `model` | [04 B](labs/04-agents-tools.md#path-b) |
 | Foundry IQ | Above plus prepared Search, retrieval configuration, and roles | [06 B](labs/06-knowledge.md#path-b) |
 | Offline fixture comparison | Explicitly labeled fixture results in `outputs/<label>`; no Azure preparation | [00: offline comparison and stopping point](labs/00-start.md#offline-fixtures); inspect existing results rather than rerunning them |

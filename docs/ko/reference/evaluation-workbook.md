@@ -11,15 +11,15 @@
 두 언어 데이터 세트를 지침만 다른 실험처럼 비교하지 않습니다.
 
 **첫 회차:** 순차 workflow·GA IQ·account Chat Completions·Invocations·준비된 명시적 모델 목록입니다.
-2–10절을 한 번씩 진행하며 기본 명령은 검토된 회귀가 있다고 가정하지 않습니다.
+새 실험이면 2–10절을 한 번씩 진행하고, 저장된 작업이면 2절의 재개 안내를 따릅니다. 기본 명령은 검토된 회귀가 있다고 가정하지 않습니다.
 블록 하나 실행 → 결과 확인 → 다음 블록 순서로 진행하고 문서 전체를 터미널에 붙이지 않습니다.
 소스 명령은 저장소 루트에 두고 별도 azd 폴더는 셸 이동이 아니라 명시적 인자로 선택합니다.
 
 ## 1. 무엇이 기본 평가보다 깊어지는가
 
-기존 `collect/evaluate`는 프로젝트 Responses의 답을 검사합니다.
-이 워크북은 **정확한 Hosted version이 실제로 생성한 답**을 모델별로 수집합니다.
-두 경로의 점수는 서로 대신할 수 없습니다.
+이 문서는 심화 C 경로이며 A의 평가표나 B의 `outputs/candidate/`를 이어 쓰는 절차가 아닙니다.
+입문 B의 `collect/evaluate`는 프로젝트 Responses의 답을 검사하고, 이 워크북은
+**정확한 Hosted version이 실제로 생성한 답**을 모델별로 수집합니다. 저장된 실행과 점수는 서로 대신할 수 없습니다.
 
 ```mermaid
 flowchart LR
@@ -63,6 +63,26 @@ provider 다양성을 추가하려면 같은 고정 입력, API, 엄격한 Struc
 [Hosted SDK](../labs/extensions/developer-toolkit.md#hosted-sdk)와
 [azd 확인](../labs/extensions/developer-toolkit.md#azd-check)도 완료합니다. B의 패키징만으로는 설치되지 않습니다.
 이 소스 복사본의 합성 Search 소유권 ledger를 보관합니다.
+
+**수집 전에 근거의 이름을 정합니다.** 아래 label을 `session-notes.txt`에 적고 이후 참조가 모두 같은 실험을 가리키게 합니다.
+
+| Label | 처음 만드는 단계 | 저장되는 근거 |
+|---|---|---|
+| `wf-baseline` | 5절, v1 dev 수집 | `outputs/benchmarks/wf-baseline/` |
+| `wf-candidate` | 7절, v2 dev 수집 | `outputs/benchmarks/wf-candidate/` |
+| `judge-calibration` | 8절, judge용 정답/오답 fixture | `outputs/judge-calibration/judge-calibration/calibration.json` |
+| `wf-final` | 9절, 고정 후보의 최종 holdout | `outputs/benchmarks/wf-final/` |
+
+새 실험에는 사용하지 않은 label을 정하고 해당 `--label`, `--baseline`, `--candidate`, `--reference`,
+`--holdout`, `--calibration` 참조를 일관되게 바꿉니다. 재개할 때는 원래 label·패키지·버전·응답을 유지하고
+이미 완료한 준비·배포·수집을 반복하지 않습니다. 저장된 manifest를 확인한 뒤 아직 끝내지 않은 첫 단계부터 진행합니다.
+이미 있는 holdout은 최종 cohort로 유지하며 새 이름으로 다시 수집하지 않습니다.
+Timeout 뒤에도 실행 중인 judge job은 같은 평가 명령과 label로 조회를 재개합니다.
+
+**점수를 보기 전에 인수 정책을 기록합니다.** 기본 최종 명령은 유효한 native 평가·검증된 trace·calibration 통과를 요구하지만,
+인수할 모델의 candidate/holdout native 품질 검사가 모두 통과할 것을 요구하지는 않습니다.
+그것도 필수인 정책이라면 `--require-native-pass`를 기록하고 9절 검증과 Lab 11 인계 명령 양쪽에 추가합니다.
+결과를 본 뒤 이 조건을 추가하거나 빼지 않습니다.
 
 `.env`에서 실제 값을 입력합니다. 네 개 모두 준비되지 않았다면 목록을 명시적으로 줄이고
 실제 행 수를 기록합니다. 하나가 실패했다고 수집기가 다른 모델로 바꾸지는 않습니다.
@@ -201,10 +221,14 @@ python scripts/workshop.py benchmark plan --kind workflow --pattern sequential -
 python scripts/workshop.py benchmark collect --label wf-baseline --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --concurrency 1 --confirm-cost
 ```
 
-`outputs/benchmarks/wf-baseline/`의 `manifest.json`과 `business-evaluation.json`을 확인합니다.
-`benchmark collect`는 업무 검사 실패에도 `1`을 반환합니다. Manifest가 `status: completed`이고
+<a id="matrix-collection-check"></a>
+
+**수집 확인 — baseline·candidate·holdout에 모두 적용합니다.**
+이번 실행 폴더(여기서는 `outputs/benchmarks/wf-baseline/`)의 `manifest.json`과 `business-evaluation.json`을 확인합니다.
+`benchmark collect`는 업무 검사 실패 **또는 요청 오류**에 `1`을 반환합니다. Manifest가 `status: completed`이고
 `actual_rows`와 `expected_rows`가 같으며 업무 보고서가 `errors: 0`일 때만 judge로 진행합니다.
-실패한 답변은 6절 검토를 위해 보존합니다. 요청 오류·행 누락·종료 코드 `2`이면 근거를 보존하고
+요청 오류가 없는 업무 실패 답변은 유효한 평가 입력이지만 통과한 후보는 아닙니다.
+실패한 dev 답변은 검토를 위해 보존합니다. 요청 오류·행 누락·종료 코드 `2`이면 근거를 보존하고
 judge를 건너뛰어 [미완료 인계](../labs/11-capstone.md#incomplete-handoff)를 진행합니다. 10절의 본인 세션 정리도 마칩니다.
 
 ```bash
@@ -304,7 +328,8 @@ azd ai agent show --cwd "${HOSTED_DIRECTORY:?Use the prepared V2 directory}" --o
 python scripts/workshop.py benchmark collect --label wf-candidate --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --confirm-cost
 ```
 
-전체 행을 읽고 다음 유료 judge 전에 고정 설정을 로컬에서 비교합니다.
+먼저 `outputs/benchmarks/wf-candidate/`에 [수집 확인](#matrix-collection-check)을 적용합니다.
+그 조건을 충족한 뒤에만 다음 유료 judge 전에 고정 설정을 로컬에서 비교합니다.
 
 ```bash
 python scripts/workshop.py benchmark compare --baseline wf-baseline --candidate wf-candidate
@@ -361,7 +386,8 @@ Calibration이 실패하거나 미완료이면 점수·오류를 보존하고 ho
 python scripts/workshop.py benchmark collect --split holdout --label wf-final --candidate wf-candidate --unlock-holdout --kind workflow --pattern sequential --retrieval iq --prompt v2 --api account-chat --concurrency 1 --confirm-cost
 ```
 
-실패를 포함한 마지막 행을 모두 보관합니다. 완전한 수집만 native 평가에 넣습니다.
+실패를 포함한 마지막 행을 모두 보관합니다. Native 평가 전에 `outputs/benchmarks/wf-final/`에
+[수집 확인](#matrix-collection-check)을 적용합니다. 행 수가 맞아도 요청 오류가 있으면 이 확인을 통과하지 못합니다.
 
 ```bash
 python scripts/workshop.py benchmark evaluate --label wf-final --reference wf-baseline --confirm-cost
@@ -381,9 +407,10 @@ python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate w
 
 후보가 검토된 회귀를 실제 소비한 경우만 `--require-regressions`를 추가합니다.
 아니라면 전체 통과·미승격 이유를 보존합니다. 예제 flag를 충족하려고 회귀를 만들지 않습니다.
-일반 native 점수까지 모두 통과해야 하는 정책이라면 **실험 전에** `--require-native-pass`를 인수 기준으로 정합니다.
-기본 검사는 native **실행·결과 계보**와 native **품질 통과**를 분리하고 낮은 점수를 숨기지 않습니다.
-`review-native-findings`는 자동 승인이나 좋은 점수로의 보정이 아닙니다.
+2절에서 기록한 인수 정책을 사용하며, 그때 선택한 경우에만 `--require-native-pass`를 포함합니다.
+`native_quality_required`가 그 선택과 일치하는지 확인합니다. 기본 검사는 native 실행·계보와 native 품질을 구분하므로
+`gate_passed: true`여도 `review-native-findings`가 나올 수 있습니다. Boolean만 보지 말고 recommendation을 읽습니다.
+[Hosted 인계 결과](../labs/11-capstone.md#hosted-acceptance)에 따라 사람 검토 준비·미해결 native 발견 사항·반려·근거 미완료를 구분해 기록합니다.
 
 번들 holdout은 이미 교육 자료에서 사용됐습니다. **최종 인수 절차를 배우는 세트**이지 새로운 미사용
 운영 검증셋은 아닙니다. 이를 prompt 개발·회귀 수집에 사용하지 않습니다.

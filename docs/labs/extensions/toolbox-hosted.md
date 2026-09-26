@@ -9,12 +9,14 @@
 This module reuses the same MAF wrapper, tool/version validation and failure-preserving execution;
 it does not copy an earlier workflow's quality score onto a new target.
 
-**Need:** a working owned Toolbox version, the synthetic seed ledger, hosted SDKs,
+**Need:** a working owned Toolbox version, the synthetic seed ledger, hosted SDKs, [prepared azd access](developer-toolkit.md#azd-check),
 the actual existing project ARM ID, a new agent name and explicit deployment/model/tool permission.
 **Stop when:** the exact new remote version returns real tool/model/evidence metadata.
-**If blocked:** stop at packaging or local execution and record the remote stage as not run.
+**If blocked:** retain the stage, error and any created IDs as **failed/blocked**; unattempted stages are **not run**.
+For package-only scope, stop after step 1 and return to [Lab 11](../11-capstone.md). Packaging is not a local or remote service test.
 
-**First pass:** steps 1–3 prepare the package/project. Step 4 hosts locally but calls the real
+**First pass:** step 1 packages locally. Steps 2–3 prepare isolated azd state; step 2 also runs `azd ai project show`.
+Treat that azd/project check separately from package-only preparation. Step 4 hosts locally but calls the real
 Foundry model and Toolbox/Search: it is **live Azure, not an offline fixture**.
 Obtain model/tool cost approval before step 4's request. Step 5's Hosted deployment and remote request need separate approval.
 Always finish step 6 for assets you used. Keep both terminals at the **source repository root**
@@ -39,6 +41,7 @@ python scripts/package_toolbox.py --language en --version "$TOOLBOX_VERSION"
 
 The package is `.build/toolbox-en-<version>/`. It contains source, synthetic policies,
 questions only, and a pinned `toolbox-profile.json`; no evaluator answer keys, holdout, `.env` or prior outputs.
+Keep `package-manifest.json` and its file hashes; `cloud_deployed: false` records packaging only, not Hosted readiness.
 Its profile freezes project, model, Toolbox name/version, Search connection and source configuration.
 The application directory is read-only in Hosted execution. Request evidence is written under
 the session's `$HOME/workshop-evidence/toolbox-runs`, not `/app/outputs`.
@@ -55,6 +58,8 @@ The package can remain in the original repository folder.
 
 In repository terminal A, enter the actual values. Use absolute paths without `~` shorthand.
 Record the directory/name in `session-notes.txt` for a new terminal.
+Continue only with prepared azd access: after the helper succeeds, the chained `azd ai project show` queries the existing project.
+It is not model inference, but a successful package alone does not establish that access.
 
 ```bash
 printf 'Absolute Toolbox package directory: '

@@ -106,13 +106,13 @@ Lab 08의 패키지·실행 상태도 있어야 합니다.
 
 ### 실제 결과 선택
 
-**명령 전에 인계 결과를 구분합니다.** 본인 파일의 실제 상태를 사용합니다.
+**먼저 저장된 근거로 `accept`를 실행할 수 있는지 확인합니다.** 그런 다음 실제 보고서나 오류에 따라 결과를 기록합니다.
 
 | 있는 근거 | 인계 행동 | 상태 |
 |---|---|---|
-| 완전한 실제 후보와 연결된 holdout | 아래 인수 보고서를 읽거나 생성 | 업무 게이트가 통과한 경우에만 사람 검토 준비 |
-| 기록은 완전하지만 최종 업무 게이트 실패 | 보고서와 모든 실패 행 보존 | 반려. 배포 승인이 아님 |
-| 필수 실행/단계가 누락되거나 막힘 | `accept`를 건너뛰고 [미완료 인계](#incomplete-handoff) | 미완료. 전체 B 완료가 아님 |
+| 완전한 실제 후보와 연결된 holdout, 양쪽 업무 게이트 통과 | 아래 인수 보고서를 읽거나 생성 | `accept` 종료 코드 `0`: `ready-for-human-review`. 배포 승인이 아님 |
+| 기록은 완전하지만 최종 업무 게이트 실패 | 보고서와 모든 실패 행 보존 | `accept` 종료 코드 `1`: `reject` |
+| 필수 실행/단계 누락·차단 또는 `accept` 종료 코드 `2` | [미완료 인계](#incomplete-handoff). 보고서를 꾸미거나 holdout을 재수집하지 않음 | 미완료. 로컬 평가 성공만으로 인수 계보가 성립하지 않음 |
 
 [Lab 07](07-evaluation.md)의 실제 후보·holdout이 있는 경우에만 해당 label을 사용합니다.
 이미 Lab 07에서 실행했다면 반복하는 대신 `outputs/final-holdout/acceptance.json`을 엽니다.
@@ -185,6 +185,7 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 
 이 고정 실험의 `outputs/benchmarks/wf-final/release-verification.json`이 이미 있다면 검증 명령을 반복하지 말고 그 파일을 읽습니다.
 없다면 워크북의 필수 근거가 준비된 경우에만 아래 로컬 검증을 실행합니다.
+실험 전에 기록한 정책을 사용합니다. 그때 선택한 경우에만 `--require-native-pass`를 추가하고 인계에도 그 선택을 유지합니다.
 
 ```bash
 python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
@@ -192,13 +193,19 @@ python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate w
 
 `outputs/benchmarks/wf-final/release-verification.json`을 열어 `gate_passed`, `native_quality_passed`,
 `recommendation`, `deployment_approved: false`를 보관합니다. Holdout label이 `wf-final`과 다르면 실제 경로를 사용합니다.
-필수 근거가 부족해 보고서를 만들 수 없다면 **미완료**로 인계하고 파일을 꾸며 만들지 않습니다.
+`selected_model_keys`가 dev에서 선택한 모델 목록과 같고 `native_quality_required`가 기록한 정책과 같은지 확인합니다.
+
+| 실제 결과 | 인계 판단 |
+|---|---|
+| `ready-for-human-review` | 요구한 게이트 통과. 사람의 근거 검토는 여전히 필요 |
+| `review-native-findings` | dev에서 선정한 모델의 candidate/holdout native 검사 실패(`native_quality_passed: false`)에도 기본 게이트는 통과한 상태. 자동 인수가 아니라 점수·미해결 발견 사항을 보존해 사람 검토로 인계 |
+| `reject`(종료 코드 `1`) | 반려·실패 행 보존. 기준을 낮추거나 holdout으로 개선하지 않음 |
+| 근거 누락·오류로 보고서 생성 불가(종료 코드 `2`) | **미완료**와 원인을 인계. 파일을 꾸미거나 holdout을 재수집하지 않음 |
 
 기본 명령은 승격된 회귀가 있다고 가정하지 않습니다.
 후보가 검토된 회귀를 실제 소비했다면 `--require-regressions`를 추가하고, 아니라면 전체 통과·미승격 이유를 남깁니다.
 이 명령은 실행 검증, 업무 gate, native 품질과 findings를 각각 표시합니다.
-`gate_passed` 또는 `ready-for-human-review`를 실제 배포 승인으로 해석하지 않습니다.
-Native 전체 품질도 반드시 통과시킬 정책이라면 실험 전에 `--require-native-pass`를 요구합니다.
+명령 성공·`gate_passed`·`ready-for-human-review` 어느 것도 실제 배포 승인이 아닙니다.
 
 원래 synthetic 입력/hash, 정확한 버전·모델·API·retrieval 구성, 모든 응답/오류/model call, 평가자 version/threshold, trace 조회 receipt, 해당하는 경우 소비된 regression 이력, calibration과 작은 표본 한계, 소유 session 정리와 남은 비용을 포함합니다.
 이 자료는 [통합·아카이브 인수 기준](../reference/consolidation.md)에 사용하며, 이전 녹화나 upstream 보고서로 대신하지 않습니다.

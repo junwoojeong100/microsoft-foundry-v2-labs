@@ -46,10 +46,11 @@ prevent translated datasets from being presented as the same-input experiment.
 
 ## A. Browser: no coding required
 
-**Learning alone?** Finish [the self-study preparation](../setup-owner.md#self-study) first; it creates the project and model used below.
+**Learning alone?** If [self-study preparation](../setup-owner.md#self-study) is not complete, finish it first.
+If you are returning from that preparation or Lab 02 B's A-terminal check, keep the same project, files and terminal and start at step 1 below; do not prepare them again.
 
 1. Open `https://ai.azure.com` in Edge or Chrome.
-2. Sign in with the instructor-specified **Microsoft Entra account and directory (tenant)**.
+2. Sign in with the **Microsoft Entra account and directory (tenant)** verified on your setup card.
    Personal Microsoft, GitHub, and Azure work-account sign-ins are different.
    A successful sign-in to your usual work account does not establish access to the training tenant.
    If the portal URL shows `tid=`, compare it with the setup card's tenant ID before changing permissions;
@@ -71,7 +72,7 @@ prevent translated datasets from being presented as the same-input experiment.
 | `Full project endpoint:` | The owner's value; Lab 01 checks it on **Home** |
 | `Search endpoint (B only):` | `not used` for A; B records the owner's verified Search URL for Lab 06 |
 | `Answer deployment / model version:` | `gpt-6-sol` / `2026-09-22` |
-| `Personal prefix:` | Your own, for example `mfv2-team01-en` |
+| `Personal prefix:` | Your owner-confirmed unique prefix from setup; do not copy the example or another learner's value |
 | `Cost and permission owner:` | The person who approves costs and roles; yourself when learning alone |
 | `Prepared MAF terminal location:` | Where to open the terminal prepared for Lab 05 (learning alone: your source folder), or `not used` for the Playground option |
 | `Optional IQ Chat selected or not selected:` | `not selected`, unless the owner prepared it for you |
@@ -293,7 +294,7 @@ Versions are pinned in `pyproject.toml`. Do not add the entire `agent-framework`
 metapackage. Add `.[hosted]` only for [selected Hosted/Toolbox SDK work](extensions/developer-toolkit.md#hosted-sdk), not for B's package-only Lab 08. Never bypass download errors by
 disabling certificate validation or using an untrusted mirror.
 
-In each new terminal, return to the repository root and reactivate the venv.
+In each new terminal, return to this same repository root and run `source .venv/bin/activate`; do not recreate the venv or reinstall the SDKs.
 Do not paste Bash into a browser developer console or Python's `>>>` prompt.
 
 
@@ -334,7 +335,9 @@ If `.env` already exists, inspect it instead of overwriting it with the copy com
 | `WORKSHOP_AUTH_MODE` | `cli` locally; `managed-identity` only in an actual Azure runtime |
 
 Scripts read `.env` without replacing existing process variables. Old endpoint
-variables in a terminal can therefore take precedence. Check again in a fresh terminal.
+variables in a terminal can therefore take precedence. If they conflict with the setup card, open a fresh terminal at this same
+repository root and run `source .venv/bin/activate` before step 5. If preflight still reports different values,
+stop and resolve the inherited settings with the owner; do not change the intended project to match them.
 Do not store API keys, passwords, or access tokens in this file.
 No Microsoft 365 account or real customer document is needed.
 

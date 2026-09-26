@@ -8,9 +8,11 @@
 
 ## Before you start
 
-**This pass:** A uses one pre-chosen execution option: a prepared Hosted workflow agent in Playground if the owner supplied it, otherwise one prepared terminal command. B compares three MAF patterns. The deployable wrapper is advanced.
+**This pass:** A follows the one option marked on the setup card: the prepared terminal by default, or the owner-preselected Hosted workflow agent in Playground. B compares three MAF patterns. The deployable wrapper is advanced.
 
-**Need:** A prepared Hosted workflow agent in Playground, or a prepared activated terminal at the repository root. If neither was supplied, complete Lab 00 B and Lab 02 B once, then return here.
+**Need:** A: the prepared terminal or the preselected Hosted Responses workflow agent. If neither is ready, ask the owner in class;
+for self-study, complete Lab 00 B and Lab 02 B once, then return here.
+B: the Lab 04 B terminal and Lab 00 notes directory; no Hosted agent or running server is needed.
 
 **Continue when:** Actual MAF outputs and a human review note exist; pending-human-review is not approval.
 
@@ -64,8 +66,8 @@ On 2026-09-24 this workflow answered one local Responses request with the refres
 
 **Terminal option only.** Playground learners have already sent their one request and skip this step.
 
-1. Open the prepared terminal in its browser IDE or VS Code. Check that its file list shows `README.md` and `scripts/`;
-   the prompt usually starts with `(.venv)`.
+1. Open the prepared terminal in its browser IDE or VS Code. Run `pwd` there: it must show the prepared repository root,
+   where `README.md` and `scripts/` live, not merely a folder visible in the editor. The prompt usually starts with `(.venv)`.
    - No `(.venv)`: in that source folder, run `source .venv/bin/activate`. If this fails, stop: in a class ask the owner;
      learning alone, return to [Lab 00 B step 3](00-start.md#3-install-a-virtual-environment-and-sdks).
    - No prepared terminal: in a class, stop and ask the owner; do not install anything in class.
@@ -121,6 +123,7 @@ flowchart LR
    Terminal: record that actual file path, then copy the same file's entire JSON into `Complete actual JSON output (A only):`.
    For Playground, read the worksheet's pattern from `runtime_profile.pattern`. If an older worksheet lacks a field, append it; do not replace filled notes.
 3. Write your review there: what is correct, what needs correction, and why. This reviews guidance; it is not business approval.
+   Completing `workflow-review.txt` does not change `approval_status: pending-human-review`; leave the original JSON unchanged.
 
 **What to check:** the saved output says the KRW 170000 hotel exceeds the KRW 150000 limit and needs approval before booking,
 and cites `TRAVEL-2026` and `APPROVAL-01` (a missing ID is a finding for your review).
@@ -140,6 +143,9 @@ Continue to [Lab 06 A](06-knowledge.md#path-a); do not run the three B commands 
 
 ## B. Code: compare three orchestration patterns
 
+Continue in Lab 04 B's repository-root terminal with `.venv` active; skip A's command.
+The program retrieves bundled synthetic evidence before starting the workflow. The participants receive it as data;
+they do not call Lab 04's function or MCP tool, and no separate server needs to stay running.
 All three commands call a real Azure model and save their full JSON through `--output`; none creates a portal workflow resource.
 Open `run_workflow` in `src/foundry_workshop/agents.py` first: the data, model and three role instructions stay fixed; only the builder changes.
 
@@ -157,7 +163,9 @@ This is not A's KRW 170000 hotel question. Review the replies against the questi
 | Short shared discussion | `GroupChatBuilder`, speaker selector, maximum rounds |
 | Business approval boundary | Human review after output; production approval design is separate |
 
-**Review file:** in `workflow-review.txt`, repeat the review fields for each pattern and fill **Saved JSON file path (B only)**
+**Review file:** open `outputs/learner-notes-en/workflow-review.txt` (or the copy in your chosen Lab 00 notes directory),
+not the blank template under `data/learner/`. Compare the replies with the bundled [English policies](../../data/knowledge/en/policies.json).
+Repeat the review fields for each pattern and fill **Saved JSON file path (B only)**
 with that command's exact `--output` path. **Do not paste the JSON again.** Keep the three JSON files beside the review for handoff;
 a path without its file is not evidence.
 Record the review's location on `Lab 05 workflow-review.txt path:` in the B section of `session-notes.txt`.

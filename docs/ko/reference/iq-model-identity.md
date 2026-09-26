@@ -26,7 +26,10 @@ Managed identity는 IQ Chat completion model을 구성하는 지원되는 정상
 **배포/모델 `gpt-5.6-luna`, 모델 버전 `2026-07-09`, Search system-assigned identity**를 사용합니다.
 초보자에게 임의의 Chat 모델을 고르게 하지 않습니다.
 [담당자 준비와 합성 seed](../setup.md#4-환경-담당자의-준비)를 완료한 뒤,
-그 `.env`와 소유권 기록이 있는 원래 작업 폴더에서 먼저 확인합니다.
+그 `.env`와 소유권 기록이 있는 원래 작업 폴더를 사용합니다.
+**이 실행 명령은 `WORKSHOP_AUTH_MODE=cli`와 본인의 로컬 Azure CLI 로그인이 필요하며 Hosted identity로 실행하지 않습니다.**
+`check`도 Azure에 접속하므로 먼저 [로컬 호출자 역할](#1-어느-identity가-호출하는가)을 확인합니다.
+읽기 전용은 오프라인이라는 뜻이 아닙니다. 그다음 확인합니다.
 
 ```bash
 python scripts/workshop.py iq-chat check
@@ -46,16 +49,21 @@ python scripts/workshop.py iq-chat setup --confirm-create
 python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
 ```
 
-준비 카드와 같은 순서이며 추가 필수 검사가 아닙니다. 유료 요청이 이미 기록됐으면 반복하지 않습니다.
+준비 카드와 같은 순서이며 추가 필수 검사가 아닙니다. 같은 언어·범위에서 본인이 이미 실행한 기록은 재사용합니다.
+담당자의 준비 결과는 본인의 호출 증거가 아닙니다. `--question`을 생략한 명령은
+Lab 06 B의 170000원 질문이 아니라 CLI의 기본 2026년 9월 숙박 한도 질문을 묻습니다.
 `check`는 Azure 변경 없이 정확한 실제 모델/버전·Search identity/역할·source를 검사합니다.
 `setup`은 **별도의 본인 소유** `<prefix>-chat-ko-kb`를 만듭니다(`AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME`으로 명시적 변경).
 소유권/설정이 다른 base 덮어쓰기, 모델 배포, 역할 부여, GA base 변경은 하지 않습니다.
-`ask`는 `outputs/iq-chat/<label>/`에 요청·응답·근거를 남기며 실제 `gpt-5.6-luna` 계획 **및** 합성을 요구합니다.
+`ask`는 `outputs/iq-chat/<label>/`에 요청·응답·근거를 남깁니다. `request.json`에서 질문을,
+`summary.json`에서 일반 텍스트 답변·참조·원문과 실제 `gpt-5.6-luna` 계획 **및** 합성을 확인합니다.
 유료 POST 전에 실제 모델/버전을 다시 확인하고 선택 언어의 canonical 원문과 다른 근거를 거부합니다.
 `model-preflight.json`, `knowledge-base-response.json`, 실패 단계로 모델 준비·KB 읽기·검색·답변 검사를 구분합니다.
 기존 source는 별도 날짜 필드 없이 `id`, `title`, `content`를 반환합니다.
 반환된 필드만 canonical 정책과 비교하며 없는 날짜 메타데이터를 만들어 넣지 않습니다.
 검증된 `maxOutputSize` 필드를 사용하고 새 요청은 새 label이 필요합니다.
+그 label을 가지고 [Lab 06의 선택 IQ Chat 확인과 A/B 복귀](../labs/06-knowledge.md#iq-chat-model)로 돌아갑니다.
+랩의 예시 label을 맞추려고 유료 요청을 다시 보내지 않습니다.
 
 | 결과/오류 | 다음 조치 |
 |---|---|

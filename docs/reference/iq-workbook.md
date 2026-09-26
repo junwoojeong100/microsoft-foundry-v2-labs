@@ -29,7 +29,8 @@ Lab 08's local-retrieval Responses package is a different target, not a shortcut
 
 The default `2026-04-01` path uses direct intents and extractive retrieval without a KB model.
 **Configuring a Chat model with managed identity is supported.**
-Grant model access to the Search identity and verify model-based planning/synthesis in a separate owned base.
+Only for the separately approved Chat branch, the owner prepares the Search identity's model access and a separate owned base.
+Learners use the local-CLI preset to inspect it; this reference is not authorization to grant roles.
 A missing-model form message is not an MI authentication failure.
 Follow the [configuration, caller identity, and actual verification guide](iq-model-identity.md).
 For that optional chat experiment, the first-pass choice is **`iq-chat` with `gpt-5.6-luna` / `2026-07-09`, Search SMI, `low` and `answerSynthesis`**,
@@ -165,3 +166,7 @@ Preserve tools, sources, dates, identities, and actual evaluator inputs.
 Restore only owned workshop connections; never delete organizational consent or another team's capacity.
 Record disabled/unexecuted features and remaining costs.
 Claiming these optional paths replace the old curricula requires their separate [live acceptance gates](consolidation.md).
+
+**Return to the core lab:** resume your unfinished [Lab 06 A](../labs/06-knowledge.md#path-a) or
+[Lab 06 B](../labs/06-knowledge.md#path-b) step, then follow its Lab 07 link. Reading this workbook does not select
+Toolbox, Fabric, Work IQ or Hosted evaluation, and does not require repeating saved IQ calls.

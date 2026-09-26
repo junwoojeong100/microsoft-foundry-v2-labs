@@ -8,6 +8,7 @@
 
 **아래에서 모듈 하나만 선택합니다.** 명령 전에 **첫 회차·준비·완료 기준**을 읽습니다.
 [개발 도구 준비](../labs/extensions/developer-toolkit.md)는 그 모듈에 부족한 도구만 보완할 때 사용합니다.
+로컬 승인/복구에는 Azure 사전 확인이 아니라 [Hosted SDK 검사](../labs/extensions/developer-toolkit.md#hosted-sdk)를 사용합니다.
 언어를 유지하고 마지막 단계·정확한 label을 `session-notes.txt`에 기록하며 자동 결과 폴더는 원래 위치에 둡니다.
 미선택 기능은 **미실행**, 시도한 오류는 **실패/차단**입니다. 다른 결과로 성공을 대신하지 않습니다.
 
@@ -32,7 +33,7 @@
 | [Hosted Toolbox](../labs/extensions/toolbox-hosted.md) | 같은 도구 agent의 원격 실행 | 검증한 로컬 Toolbox·별도 azd 폴더·런타임 권한·배포 승인 |
 | [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | 실제 CSV 생성 또는 읽기 전용 API 호출 검증 | 도구 하나 선택. 첫 회차는 Code Interpreter, OpenAPI는 본인 Search index 필요 |
 | [Tool Search와 Skills](../labs/extensions/tool-search-skills.md) | 도구 발견·검토된 절차의 버전 재사용 | 실제 동작하는 내 Toolbox, Preview 선택 |
-| [대화 평가](../labs/extensions/conversation-evaluation.md) | 개별 턴과 전체 대화 평가 구분 | 동봉 dev를 사용한 실제 다중 턴, holdout 개발 금지 |
+| [대화 평가](../labs/extensions/conversation-evaluation.md) | 개별 턴과 전체 대화 평가 구분 | 준비된 Python·구조화 응답, 검토한 dev 결과와 별도 judge. 다중 턴은 이 모듈에서 수집 |
 | [Agent Insights](../labs/extensions/agent-insights.md) | AI 생성 trace 패턴 finding을 검토한 뒤 평가·routing·instruction 변경을 결정 | Lab 03 Prompt Agent, 연결된 App Insights, 기존 합성 trace, scan 1회 비용 승인. Preview이며 ground truth가 아님 |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | 고정된 dev baseline에 대한 후보 검토 | 준비된 optimizer/judge 모델, 비용 승인, Preview |
 | [승인 게이트와 복구](../labs/extensions/approval-recovery.md) | 실제 SDK 중단·체크포인트·재개 | 로컬 모의 결정, 실제 사람 승인/Hosted crash 증거 아님 |
@@ -40,7 +41,7 @@
 | [Memory](../labs/extensions/memory.md) | 합성 맥락 저장·검색·삭제 | 준비된 모델, API 기반 경로, 자동 추출/사용자 인가 증거 아님 |
 | [Routines](../labs/extensions/routines.md) | 제한된 예약과 전달 이력 | 대상 agent·예약·비용·정리 책임 |
 | [Agent 안전 제어](../labs/extensions/agent-safety.md) | 적용된 정책과 실제 개입 구분 | 실습 전용 정책·대상, 추가 권한/Preview 경계 |
-| [릴리스 운영](../labs/extensions/release-operations.md) | OIDC·평가 gate·승인·rollback | 전용 배포 ID와 수동 릴리스 승인 |
+| [릴리스 운영](../labs/extensions/release-operations.md) | OIDC·평가 gate·승인·rollback | 기존 trace 평가·일시 중지 담당자가 있는 모니터링, 또는 준비된 OIDC·릴리스 승인이 있는 CI 중 하나 선택 |
 | [모델 운영](../labs/extensions/model-operations.md) | 교체·Router·폐기 판단 | 고정된 작업과 모델 허용 목록, 실제 사용량·지연 |
 | [거버넌스·네트워크](../labs/extensions/governance-networking.md) | 호출 주체·정책·사설망 경계 | 담당자가 준비한 인프라, 공유 설정 변경 금지 |
 

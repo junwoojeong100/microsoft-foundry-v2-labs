@@ -29,7 +29,8 @@ Lab 08의 로컬 검색·Responses 패키지는 다른 대상이며 이 IQ 실�
 
 현재 기본 코드는 `2026-04-01`의 직접 intents·extractive 검색이며 KB 모델을 구성하지 않습니다.
 **Chat 모델을 managed identity로 구성하는 경로는 정상 지원됩니다.**
-Search identity에 모델 권한을 부여하고 별도 base에서 모델 기반 계획·합성을 검증합니다.
+별도로 승인된 Chat 경로에 한해 담당자가 Search identity의 모델 권한과 별도 소유 base를 준비합니다.
+학습자는 로컬 CLI preset으로 확인합니다. 이 참고 문서 자체가 역할 부여 승인은 아닙니다.
 포털의 모델 미선택 메시지와 MI 인증 오류를 구분하세요.
 [설정 순서·호출 주체·실제 확인 결과](iq-model-identity.md)를 따릅니다.
 선택 Chat 실험의 첫 선택은 **`iq-chat`의 `gpt-5.6-luna` / `2026-07-09`, Search SMI, `low`, `answerSynthesis`**입니다.
@@ -169,3 +170,7 @@ IQ를 사용한 Hosted 업무 응답은 [같은 target의 평가 워크북](eval
 추가 connection은 본인 실습 자산만 복원/정리하고 조직 전체 consent나 다른 팀의 capacity를 지우지 않습니다.
 비활성화 상태, 남은 비용, 선택 기능 `미실행` 여부를 기록합니다.
 이 선택 경로까지 원본을 대체했다고 선언하려면 [아카이브 인수 기준](consolidation.md)의 별도 live 게이트를 먼저 통과해야 합니다.
+
+**기본 랩으로 복귀:** 미완료인 [Lab 06 A](../labs/06-knowledge.md#path-a) 또는
+[Lab 06 B](../labs/06-knowledge.md#path-b) 단계로 돌아간 뒤 그곳의 Lab 07 링크를 따릅니다.
+이 워크북을 읽었다고 Toolbox·Fabric·Work IQ·Hosted 평가를 선택한 것은 아니며, 저장된 IQ 호출을 반복할 필요도 없습니다.

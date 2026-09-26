@@ -106,18 +106,17 @@ Lab 03·07에서 기록된 대화를 새 에이전트 호출 없이 채점합니
 
 ### 1. 로컬 이력부터 찾기
 
-`outputs/<label>/manifest.json`과 `responses.jsonl`에서 다음 값을 찾습니다.
-
-- 실행과 질문: `run_id`, `case_id`.
-- 지침·데이터·코드·근거: hash와 버전.
-- 요청: `response_id`, `request_id`, 실제 응답 모델.
-- 검색: provider, 문서 ID, IQ references/activity.
-- 결과: 정상/오류, token usage, latency.
+`session-notes.txt`에 기록한 기존 **Lab 07 dev label**(본인의 baseline 또는 candidate)을 사용합니다.
+`outputs/<label>/manifest.json`에서 `run_id`와 prompt/dataset/corpus/code/response hash를 찾습니다.
+`outputs/<label>/responses.jsonl`에서 `case_id`, `response_id`, `request_id`, 실제 응답 모델,
+검색 provider·문서 ID·IQ activity, 정상/오류, token usage와 latency를 찾습니다.
+Lab 03 B 호출은 이런 batch 폴더가 아닙니다. 2단계에서는 별도로 저장한
+`outputs/learner-notes-ko/prompt-agent-invoke.json`을 사용합니다.
 
 사용한 실행 label과 ID를 `outputs/learner-notes-ko/operations-checklist.txt`의 3번에 적습니다.
 
 **화면 확인:** 성공한 모든 응답 행에 `response_id`가 있고, 오류 행은 오류 필드를 유지한 채 그대로 집계됩니다.
-현재 CLI는 이 기록에 `trace_id: null`, `trace_export: not-configured`를 씁니다.
+현재 CLI는 이 핵심 Responses 기록에 `trace_id: null`, `trace_export: not-configured`를 씁니다.
 이 값은 **프로젝트의 Application Insights 연결 상태를 검사한 결과가 아니며**, 연결해도 저장된 필드가 채워지지 않습니다.
 2단계에서 실제 trace/operation ID를 찾아 `operations-checklist.txt`에 따로 적습니다. 원래 응답을 수정하지 않습니다.
 
@@ -158,12 +157,15 @@ Lab 04와 05의 로컬 MAF 실행은 Python process에서 실행되므로 Foundr
 
 ### 4. 정리 목록 출력
 
+기존 `.venv`가 활성화된 소스 저장소 터미널로 돌아옵니다.
+
 ```bash
 python scripts/workshop.py cleanup-plan
 ```
 
 이 명령은 **로컬 소유권 파일만 읽으며 Azure를 조회하거나 삭제하지 않습니다**.
-`operations-checklist.txt`의 4번에 본인 객체·공유 서비스·승인된 담당자 작업·남은 비용을 구분해 적습니다.
+터미널에 JSON을 출력하며 새 보고서 파일을 저장하지는 않습니다.
+해당 목록을 `operations-checklist.txt`의 4번에 옮기고 본인 객체·공유 서비스·승인된 담당자 작업·남은 비용을 구분합니다.
 
 | 출력 | 기록할 내용 |
 |---|---|
@@ -287,7 +289,8 @@ python scripts/workshop.py benchmark trace-plan --label wf-candidate
 python scripts/workshop.py benchmark monitor --label wf-candidate
 ```
 
-`trace-plan`은 로컬 KQL만 작성하며 Azure를 조회하지 않습니다.
+`trace-plan`은 `outputs/benchmarks/<label>/trace-query.kql`만 작성하며,
+`azure_queried: false`, `trace_export_verified: false`를 반환합니다.
 `monitor`는 `.env`의 **AZURE_APPLICATION_INSIGHTS_APP_ID**와 명시적 구독을 사용해 실제 조회합니다.
 credential은 지정된 구독/tenant로 scope를 고정하고
 `https://api.applicationinsights.io/.default` 토큰으로 동일 Application Insights query API를 호출합니다.
@@ -301,16 +304,21 @@ Application ID는 workspace ID나 instrumentation key와 다릅니다.
 부모 요청과 자식 span의 token/latency를 합산하지 않습니다.
 현재 구현의 기본 trace gate는 root 요청의 성공/존재 검사이며, 개별 모델·도구·검색의 의미적 검토는 별도입니다.
 
-누락·중복·실패 요청·미측정 duration은 인수 통과가 아닙니다.
-한 번 확인한 정확한 immutable run의 receipt는 hash를 검증해 재사용하며,
-새 live 조회를 한 것처럼 시간을 갱신하지 않습니다.
+Trace-ID 행의 누락/중복, 실패 요청, 미측정 duration은 이 검사를 통과하지 못합니다.
+확인이 성공했다면 같은 matrix 폴더의 `trace-query-result.json`과 `trace-verification.json`을 읽습니다.
+Receipt의 `trace_export_verified: true`를 확인합니다. KQL 생성이나 포털 Monitor 합계는 이 게이트가 아닙니다.
+`cached_verified_evidence: true`는 hash 검증을 거친 기존 근거를 재사용했다는 뜻이며 Azure를 새로 조회한 것이 아닙니다.
+
+Trace 검증이 실패하면 오류/결과를 보존하고 **추적 미확인**으로 기록합니다.
+Trace 인수는 막히지만, 별도로 승인받은 기록된 session 정리까지 막히는 것은 아닙니다.
 
 ```bash
 python scripts/workshop.py benchmark stop-session --label wf-candidate
 ```
 
 이 명령은 그 label에서 만든 agent/version/session만 중지하고 상태를 다시 확인합니다.
-공유 서비스·모델·평가 이력이나 persistent filesystem은 삭제하지 않습니다.
+확인된 상태는 `outputs/benchmarks/<label>/session-cleanup.json`에서 읽습니다.
+공유 서비스·모델·평가 이력이나 persistent filesystem은 삭제하지 않으며, 정리해도 실패한 trace 게이트가 통과로 바뀌지는 않습니다.
 별도 smoke 세션은 자기 목록과 raw HTTP 기록으로 확인해 정리합니다.
 
 ### 선택: continuous evaluation
@@ -349,12 +357,14 @@ python scripts/workshop.py benchmark stop-session --label wf-candidate
 
 ## 반드시 정리하고 끝내기
 
-Hosted matrix를 선택한 경우에만 본인 실행의 root trace와 세션 상태를 확인합니다.
+Hosted matrix를 선택했다면 본인 실행의 정확한 root-trace 확인 결과와 소유 세션 상태를 보존합니다.
+Telemetry가 없으면 **미확인**을 유지하며, trace 조회가 성공할 때까지 승인된 정리를 미루지 않습니다.
 A와 기본 B는 선택적인 telemetry 없이 정리 인계를 마칠 수 있습니다.
 2026-09-24 `gpt-6-sol` 녹화는 agent 세부 정보·추적·모니터링 탭, 선택 추적 평가와 정리 목록을 포함하고, 2026-09-25 보충 녹화는 B의 `response_id` 추적 검색을 더합니다.
 전체 요청의 확인을 모든 하위 span이 빠짐없이 export되었다는 의미로 확대하지 않습니다.
 이미 idle인 세션은 다시 stop을 호출해 409를 만들지 않고 실제 상태를 확인합니다.
-활성 세션은 중지 후 재조회하고 [실행 기록](../live-run.md)에 별도 receipt를 남깁니다.
+활성 세션은 중지 후 재조회하고 본인의 `operations-checklist.txt`에 결과를 남깁니다.
+[실행 기록](../live-run.md)은 이전 실행 결과와 보존 자산을 정리한 것입니다.
 
 A는 위 체크리스트·담당자 인계를 사용합니다. B는 4단계에서 로컬 목록을 이미 출력했습니다.
 [정리 체크리스트](../reference/cleanup.md)를 따라 본인 자산을 확인하고,

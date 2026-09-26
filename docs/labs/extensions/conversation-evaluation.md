@@ -2,11 +2,14 @@
 
 **English** | [한국어](../../ko/labs/extensions/conversation-evaluation.md)
 
-**Path C.** Complete [Lab 07](../07-evaluation.md) first.
+**Path C, code-based.** Reuse [Lab 07's dev review](../07-evaluation.md#dev-review).
+Its final holdout and optional cloud judges are not prerequisites for this module.
 The existing matrix evaluates isolated cases. This module instead sends the same six **dev** questions
 as two three-turn conversations, retaining each conversation's earlier answers.
 
-**Need:** working model/Structured Outputs, a separate judge deployment, new labels and cost approval.
+**Need for real execution:** [Lab 00 B's prepared Python environment and `.env`](../00-start.md#b-code-one-folder-one-environment),
+the working Structured Outputs request from [Lab 02](../02-models.md#path-b), reviewed dev results,
+a separate judge deployment, new labels and cost approval. A browser-only Lab 07 assessment does not prepare the code environment.
 **Stop when:** six turn records and two complete conversation records exist, with separate native results at both levels.
 **If blocked:** keep partial/error records; never evaluate only the successful prefix.
 
@@ -28,6 +31,11 @@ conversation level groundedness 2/2 and coherence 2/2. Judge scores can differ b
 python scripts/workshop.py --language en conversations plan
 ```
 
+`plan` runs locally without `.env`, Azure login or a judge. It prints the plan and hashes with
+`azure_requests_sent: false` and `holdout_loaded: false`; it does not create a run directory.
+For a preparation-only visit, record `plan reviewed; collection/native evaluation not run` in `session-notes.txt`
+and go to step 6. Do not substitute fixture responses for the collection.
+
 | Conversation | Canonical dev turns | What the interaction tests |
 |---|---|---|
 | `dates-and-approval` | D01 → D02 → D03 | Changing the travel date and then asking about an over-limit hotel |
@@ -42,6 +50,10 @@ Native turn evaluation has six input items; whole-conversation evaluation has tw
 Those denominators are different and must not be compared as if they measured the same unit.
 
 ## 2. Collect actual conversations once
+
+This is the first billable step. Run at the repository root with the prepared environment active.
+It calls `AZURE_AI_MODEL_DEPLOYMENT_NAME` directly with the bundled `--prompt v2` instructions;
+it does **not** invoke your Lab 03 Prompt Agent or a Hosted version, and it does not import portal instruction edits.
 
 ```bash
 python scripts/workshop.py --language en conversations collect --label conversations-first --prompt v2 --confirm-cost
@@ -113,6 +125,9 @@ A timeout resumes the same saved evaluation job when you rerun the same command;
 ## 6. Handoff
 
 Keep both native directories, their catalogs, all raw response/error files and the local business report.
+In `session-notes.txt`, record the two denominators, one transcript-backed finding (or no disagreement),
+and your decision: **keep**, **investigate on dev**, or **blocked**.
+If you stopped after the local plan, record preparation only and the missing prerequisite; no response or evaluation files are expected.
 Record that the scenario order is a **derived dev experiment**, not the unchanged isolated-case matrix and not a new holdout.
 This module adds no automatic deployment approval.
 

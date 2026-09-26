@@ -12,9 +12,11 @@ This module creates an owned synthetic specialist endpoint and a separate relay 
 **Need:** B's model/agent setup, existing project/model access, permission for two new agents,
 a keyless A2A connection, endpoint access for the actual calling identity, and cost approval.
 **Stop when:** the authenticated card advertises 1.0 and a real caller response contains a successful A2A tool call.
-**If blocked:** do not switch to preview 0.3, another agent or anonymous authentication.
+**If blocked:** record the attempted step as **failed/blocked**, its error and any created IDs in `session-notes.txt`;
+unattempted steps are **not run**. Keep partial ownership for step 5. Do not switch to preview 0.3, another agent or anonymous authentication.
 
-**First pass:** steps 1–5. Use [azd preparation](developer-toolkit.md#azd-check) if needed.
+**First pass:** start with step 1's local plan; steps 2–4 use actual Azure services.
+Use [azd preparation](developer-toolkit.md#azd-check) before those live steps if needed.
 The target, connection and caller are created in that order; inspect each result before the next write.
 
 ## 1. Inspect the plan
@@ -23,9 +25,11 @@ The target, connection and caller are created in that order; inspect each result
 python scripts/workshop.py --language en a2a plan
 ```
 
+The plan reports `azure_requests_sent: false`: it creates nothing and does not verify access or A2A support.
 The target/caller/connection names use your prefix and language.
 The target contains only the bundled synthetic policy instructions and corpus.
-Management calls use typed SDK models from `azure-ai-projects` 2.5 or later (`A2ATool`, `update_details`, `get_version`);
+The live steps use this edition's pinned SDK environment, not an arbitrary newer SDK.
+Management calls use typed SDK models (`A2ATool`, `update_details`, `get_version`);
 only the protocol card is a raw GET with the `A2A-Version: 1.0` header.
 
 ## 2. Create the specialist and enable incoming A2A
@@ -41,7 +45,7 @@ python scripts/workshop.py --language en a2a inspect
 The first command creates one new Prompt Agent version, then applies the documented agent-card and endpoint patch.
 Incoming A2A is not configured by merely adding another local agent to a Python list.
 
-Keep the actual target version, base path, connection name and ownership file.
+Keep the actual target version, base path, connection name and `outputs/a2a/<target-name>/ownership.json`.
 The card URL ends in **`/agentCard/v1.0`**. Its `supportedInterfaces` must include
 `protocolVersion: 1.0`, `protocolBinding: JSONRPC`, and your exact A2A base URL.
 The current service can advertise 0.3 alongside 1.0 (on 2026-09-24: 1.0 JSONRPC, 0.3 JSONRPC and 0.3 HTTP+JSON); select the 1.0 interface explicitly.
@@ -91,7 +95,7 @@ The model request references the caller's **actual recorded version**, not lates
 It requires the A2A tool rather than accepting a plausible answer generated without delegation.
 
 Inspect `outputs/a2a-runs/a2a-first/`:
-`request.json`, `binding.json`, the full `response.json`, and `summary.json`.
+`request.json`, `binding.json`, `actual-caller-definition.json`, the full `response.json`, and `summary.json`.
 Keep the successful A2A call item, original policy IDs, caller/target versions and returned model/request metadata.
 Do not invent target token usage if only caller usage is reported.
 In the observed service response, the event can still be named `a2a_preview_call` even when
@@ -106,6 +110,8 @@ A successful caller request does not authorize booking, approval or payment.
 The specialist and relay must retain that boundary.
 
 Before cleanup, retain the ownership and response artifacts.
+If creation or the endpoint patch failed, retain `ownership.json` if written and hand its recorded IDs to the owner;
+do not rerun `target` to repair a partially created target.
 The owner removes only the new caller, its connection and the new target after checking for references.
 Do not delete shared models or the project. Foundry's A2A task/context retention is a separate service policy;
 deleting an agent is not a claim that every retained record was permanently erased.
@@ -119,7 +125,7 @@ deleting an agent is not a claim that every retained record was permanently eras
 | Additional target versions detected | Freeze a dedicated target or start a new experiment; do not infer which version the endpoint served |
 | Connection target mismatch | Compare the full base path and project; never point at another team's agent |
 | No A2A call in response | Keep the raw output as a failed integration check, not delegated success |
-| Unsupported typed SDK symbol | Use the documented REST path for this lab or an independently verified SDK environment; no protocol fallback |
+| Unsupported typed SDK symbol | Stop and check the active [B environment](developer-toolkit.md) against the edition's pins. Keep the error/partial ownership; this helper provides no alternate management REST command or protocol fallback |
 
 **Next:** [Memory](memory.md), [C module selection](../../paths/c-advanced.md), or [Lab 11](../11-capstone.md).
 [Enable incoming A2A](https://learn.microsoft.com/azure/foundry/agents/how-to/enable-agent-to-agent-endpoint) ·

@@ -10,7 +10,8 @@
 
 **이번 순서:** B는 도구 없음→함수→MCP 순서로 실행합니다. A는 Lab 05로 이동합니다.
 
-**준비물:** Lab 00 환경, Lab 02 실제 응답, Lab 03 B 관리형 agent 파일. 별도 MCP 서버 터미널은 필요 없습니다.
+**준비물:** Lab 00 환경과 기록 폴더, Lab 02 B의 실제 응답, 비교할 Lab 03 B 기록이 필요합니다.
+이 로컬 실행은 관리형 agent 파일을 읽거나 그 관리형 agent를 호출하지 않습니다. 별도 MCP 서버 터미널은 필요 없습니다.
 
 **다음으로 갈 기준:** 도구 없는 응답과 원문 ID를 가진 함수/MCP 응답을 기록했습니다. 긴 입력 거절은 선택적인 실패 검사입니다.
 
@@ -37,6 +38,7 @@ python scripts/workshop.py maf \
 ![2026-09-24 국문 녹화: 도구 없는 MAF agent](../../assets/g6sol-20260924-ko/screenshots/K04-001-maf-2.webp)
 
 **화면 확인:** 마지막 출력의 `mode: live`, `orchestration: local`, `tools: none`을 읽습니다.
+모델의 답변은 `text`에서 읽습니다. 도구 없는 이 방식에서는 `answer: null`이 정상입니다.
 로컬 Python이 실행을 소유해도 답변 모델 호출은 Azure에서 이루어집니다.
 
 **저장:** `maf-none.json`이 Lab 00 기록 폴더에 자동 작성됩니다. 파일을 열어 위 필드를 확인합니다.
@@ -80,8 +82,10 @@ sequenceDiagram
 
 ![2026-09-24 국문 녹화: 읽기 전용 함수 도구를 쓰는 MAF](../../assets/g6sol-20260924-ko/screenshots/K04-002-tools-2.webp)
 
-**화면 확인:** `tools: function`과 `answer` 안의 `decision`, `limit_krw`, `citations`를 확인합니다.
-사진의 `needs_approval`은 승인 완료가 아니라 사람의 사전 승인이 필요하다는 뜻입니다.
+**화면 확인:** `tools: function`과 `answer.decision`, `answer.limit_krw`, `answer.citations`를 확인합니다.
+동봉된 [한국어 정책 원문](../../../data/knowledge/policies.json)과 대조합니다.
+2026년 9월에는 한도 150000원이 적용되므로 170000원은 사전 승인이 필요합니다.
+`needs_approval`은 승인 완료가 아니라 사람의 사전 승인이 필요하다는 뜻입니다.
 
 확인할 것:
 
@@ -90,7 +94,8 @@ sequenceDiagram
 - 도구의 `never_require`는 **부작용 없는 합성 조회**에만 적용했는가.
 
 `tools`는 설정한 경로이며 실제 도구 호출 기록이 아닙니다. 핵심 JSON은 도구 호출 내역을 보존하지 않습니다.
-답변과 인용은 검토하되 보관한 클라이언트 호출 기록이 없다면 `tool execution: unverified`로 적습니다.
+답변과 인용은 검토하되 해당 실행의 클라이언트 호출 기록을 보관하지 않았다면
+함수와 MCP 실행 각각에 `tool execution: unverified`로 적습니다.
 Lab 09의 관리형 agent trace로 이 로컬 MAF 실행을 검증할 수 없습니다.
 
 **저장:** `maf-function.json`이 같은 기록 폴더에 작성됩니다. 내용을 검토한 뒤 MCP로 갑니다.
@@ -124,8 +129,9 @@ python scripts/workshop.py maf --mcp \
 
 ![2026-09-24 국문 녹화: 로컬 MCP 정책 도구를 쓰는 MAF](../../assets/g6sol-20260924-ko/screenshots/K04-003-mcp-2.webp)
 
-**화면 확인:** `tools: local-mcp`를 확인하고 2026년 5월에 과거 한도와 `TRAVEL-2025`를 적용했는지 봅니다.
-함수 도구 결과로 MCP 실행을 대신한 것이 아닙니다.
+**화면 확인:** 2026년 5월 응답에서 `tools: local-mcp`, `answer.limit_krw: 120000`,
+`answer.citations`의 `TRAVEL-2025`를 확인합니다. 같은 정책 원문과 대조합니다. 과거 한도는 2026년 6월 30일까지 적용됩니다.
+함수 도구 결과로 MCP 실행을 대신할 수 없습니다.
 
 **저장:** `maf-mcp.json`은 성공 시 같은 기록 폴더에 작성됩니다. 요청이 실패했다면 성공 파일 대신 실제 오류를 보관합니다.
 
@@ -195,6 +201,7 @@ Azure 호출 전 입력 거절이며 환경이 망가졌다는 뜻이 아닙니�
 
 MAF의 평가 API가 함수 도구 에이전트를 dev 6문항으로 실행하고(유료 에이전트 실행 6회), 각 답변과 `lookup_policy` 호출,
 도구 정의를 Foundry의 `tool_call_accuracy`·`relevance` 평가자에 보냅니다.
+저장한 `maf-function.json`이나 `maf-mcp.json`을 다시 채점하는 것이 아니라 새로 실행합니다.
 함수 도구만 채점하며 MCP 방식은 포함하지 않습니다. 코드는 `src/foundry_workshop/tool_evaluation.py`에 있습니다.
 먼저 `.env`에 `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME=gpt-6-sol-judge`(준비 카드의 judge 행)를 설정합니다.
 judge가 없거나 답변 배포 `gpt-6-sol`과 같으면 명령이 멈춥니다.
@@ -205,13 +212,18 @@ python scripts/workshop.py maf-evaluate --confirm-cost --output outputs/learner-
 
 ![2026-09-24 국문 녹화: 선택: Foundry 평가자로 MAF 도구 호출 채점](../../assets/g6sol-20260924-ko/screenshots/K04-004-maf-evaluate-2.webp)
 
-**화면 확인:** `complete: true`, `errors: 0`이고 각 행에 기록된 `tool_calls`(`lookup_policy` 호출 1회)와
-`tool_call_accuracy`·`relevance` 점수가 있습니다. 이유는 `report_url`에서 확인합니다. MAF가 `FoundryEvals`에 대한
-`ExperimentalWarning`을 한 번 출력하는 것은 정상입니다. 2026-09-24 국문 녹화는 tool_call_accuracy 5/6, relevance 5/6이었습니다.
+**화면 확인:** 기록 폴더의 `maf-tool-evaluation.json`을 엽니다. `complete: true`, `errors: 0`은 dev 6행 모두
+유효한 점수를 받았다는 뜻이지 **모든 점수가 통과했다는 뜻이 아닙니다**. `native_pass_counts`와 각 행의 `scores`를 읽고,
+`lookup_policy` 호출을 정확히 1회로 가정하지 말고 실제 `tool_calls`를 확인합니다. 이유는 `report_url`에서 확인합니다.
+실패하거나 빠진 행도 검토 사항으로 남기며 다른 실행의 결과로 대체하지 않습니다.
+
+MAF가 `FoundryEvals`에 대한 `ExperimentalWarning`을 한 번 출력하는 것은 정상입니다.
+2026-09-24 국문 녹화는 tool_call_accuracy 5/6, relevance 5/6이었습니다.
 tool_call_accuracy는 D03 검색어에 대화에 없던 문서 ID `APPROVAL-01`을 넣은 것을 지어낸 인자로 보았고, relevance 실패는 D05의 올바른 보류였습니다. 이 점수는 도구 사용을 판단할 뿐 업무 정답 여부가 아니므로 Lab 07의 업무 검사와 구분합니다.
 MAF 평가 API는 실험 기능이었고 일부 에이전트 평가자는 2026-09-23에 Preview로 표시되었습니다.
 갱신한 SDK 고정 버전(`openai` 3.x)에서는 같은 명령이 `azure_ai_evaluator`에 대한 Pydantic serializer 경고도 출력합니다.
 2026-09-24 재확인은 여전히 `complete: true`, `errors: 0`, tool_call_accuracy 6/6, relevance 6/6을 반환했습니다. 경고가 아니라 이 필드로 판단합니다.
+이 과거 결과가 본인 실행의 결과를 증명하는 것은 아닙니다.
 
 </details>
 

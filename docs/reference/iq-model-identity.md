@@ -28,7 +28,10 @@ and for the synthetic Search-index source the GA API does not support an LLM ins
 Use **deployment/model `gpt-5.6-luna`, model version `2026-07-09`, Search system-assigned identity**.
 Do not make a first-time learner choose among arbitrary chat models.
 After [the owner prerequisites and synthetic seed](../setup.md#4-environment-owner-checklist) are complete,
-use the original working copy with its matching `.env` and ownership ledger. First inspect:
+use the original working copy with its matching `.env` and ownership ledger.
+**These executable commands require `WORKSHOP_AUTH_MODE=cli` and your local Azure CLI sign-in, not a Hosted identity.**
+Even `check` contacts Azure: confirm the [local caller roles](#1-separate-the-callers-and-permissions) first.
+Read-only does not mean offline. Then inspect:
 
 ```bash
 python scripts/workshop.py --language en iq-chat check
@@ -48,16 +51,21 @@ Only after configuration checks pass and a new request is approved:
 python scripts/workshop.py --language en iq-chat ask --label iq-chat-first --confirm-cost
 ```
 
-This is the same sequence as the setup card, not another mandatory test. Do not repeat the paid request if it is already recorded.
+This is the same sequence as the setup card, not another mandatory test. Reuse your own recorded run for the same language/scope;
+the owner's setup result is not your own invocation evidence. The command without `--question` asks the CLI's default
+September 2026 lodging-limit question, not Lab 06 B's KRW 170000 question.
 `check` verifies the exact underlying model/version, Search identity/role and source without changing Azure.
 `setup` creates a **separate owned** `<prefix>-chat-en-kb` (override: `AZURE_SEARCH_CHAT_KNOWLEDGE_BASE_NAME`).
 It will not overwrite an unowned/mismatched base, deploy models, grant roles, or change the GA base.
-`ask` preserves request/response/evidence under `outputs/iq-chat/<label>/` and requires actual `gpt-5.6-luna` planning **and** synthesis.
+`ask` preserves request/response/evidence under `outputs/iq-chat/<label>/`; open `request.json` for the question and
+`summary.json` for the plain-text answer, references, original documents and actual `gpt-5.6-luna` planning **and** synthesis.
 It rechecks the underlying model/version before the paid POST and rejects evidence that differs from the selected canonical language corpus.
 `model-preflight.json`, `knowledge-base-response.json` and failure stages distinguish model preparation, KB reads, retrieval and answer validation.
 The existing source returns `id`, `title`, and `content`, not separate date fields.
 Only returned fields are compared with the canonical policy; missing date metadata is never invented.
 The preset uses the tested `maxOutputSize` field. All new requests need a new label.
+Return to [Lab 06's optional IQ Chat checks and A/B continuation](../labs/06-knowledge.md#iq-chat-model) with that label;
+do not send another paid request just to use the lab's example label.
 
 | Result/error | Do this next |
 |---|---|

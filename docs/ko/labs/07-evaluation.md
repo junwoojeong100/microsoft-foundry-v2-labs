@@ -306,11 +306,14 @@ python scripts/workshop.py evaluate --label diagnostic-no-evidence
 
 ![2026-09-24 국문 녹화: 진단은 정직하게 실패: 0/6, 오류 0](../../assets/g6sol-20260924-ko/screenshots/K07-022-diagnostic-evaluate-2.webp)
 
-**화면 확인:** `evaluate`는 `passed: 0`, `errors: 0`을 출력하고, 바로 다음에 `echo $?`를 실행하면 종료 코드 `1`이 나옵니다. `business-evaluation.json`의 모든 행에서
-`required_citations`와 `citations_retrieved`가 `false`이고, `responses.jsonl`에서 에이전트는 금액을 추측하지 않고
-`insufficient_evidence`로 보류합니다. 위 표의 첫 행(정답 문서 없음)에 해당하므로 고칠 곳은 지침이 아니라 검색입니다.
-`feedback`은 이 실행을 거부하므로 회귀 기록이 되지 않습니다. `cloud-evaluate`도 유료 호출 전에 거부합니다.
-context가 없는 행은 Groundedness가 건너뛰기 때문입니다. 2026-09-24 국문 녹화는 오류 0건, 0/6이었습니다.
+**화면 확인:** 완전한 6행 진단은 `total: 6`, `passed: 0`입니다. 검색한 정책 ID가 없으면 `citations_retrieved`가
+통과할 수 없기 때문입니다. `evaluate`는 `1`을 반환하며, 바로 다음에 `echo $?`를 실행하면 그 종료 코드가 나옵니다.
+실제 `errors` 수와 모든 응답을 읽습니다. 오류 0건·금액 보류·특정 인용 선택은 보장되지 않습니다.
+`errors: 0`이면 지침 결함으로 단정하지 말고 의도적으로 제거한 근거를 검토합니다. 요청/JSON 오류가 있다면 행을 보존하고
+멈춰서 그 오류를 진단합니다. 의도한 근거 부족 결과로 취급하지 않습니다.
+`feedback`은 이 실행을 거부하고, `cloud-evaluate`도 context 없는 행을 Groundedness가 건너뛰므로 유료 호출 전에 거부합니다.
+2026-09-24 국문 녹화에서는 오류 0건·0/6, 금액 보류(`insufficient_evidence`), 모든 행의 `required_citations: false`를 기록했습니다.
+이는 그 실행의 관찰값이지 재시도로 맞출 목표값이 아닙니다.
 
 </details>
 
@@ -405,7 +408,9 @@ python scripts/workshop.py accept --candidate candidate --holdout final-holdout
 
 Holdout은 4건입니다. 실패를 보고 지침을 고치면 더 이상 미사용 검증셋이 아닙니다.
 새 holdout 없이 최종 합격이라고 하지 않습니다. 저장소 파일 분리는 교육적 절차이지 접근 통제나 비밀 보장이 아닙니다.
-`accept` 종료 코드 `1`은 업무 게이트 반려입니다. 같은 holdout이 통과할 때까지 재시도하지 않고 그 결과를 보존합니다.
+`accept` 종료 코드 `0`은 `ready-for-human-review`, `1`은 `reject`를 저장합니다. 어느 결과든 보존하며 같은 holdout이 통과할 때까지 재시도하지 않습니다.
+종료 코드 `2`이면 유효한 인수 보고서를 만들지 못한 상태입니다. 예를 들어 observed-model 계보가 없으면 로컬 평가가 성공해도 그럴 수 있습니다.
+평가·오류를 보존하고 [미완료 인계](11-capstone.md#incomplete-handoff)를 기록합니다. 보고서를 꾸미거나 holdout을 새로 수집하지 않습니다.
 
 ![2026-09-24 국문 녹화: 배포 승인이 아닌 인수 판단](../../assets/g6sol-20260924-ko/screenshots/K07-009-accept-2.webp)
 

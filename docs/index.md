@@ -20,8 +20,8 @@ For A Lab 05, use the prepared terminal by default; the optional browser path ne
 
 A keeps the extracted learner ZIP as a personal evidence folder. B uses
 [the source copy's notes directory](labs/00-start.md#prepare-notes), without a second ZIP.
-Fill `session-notes.txt`, `workflow-review.txt` and `operations-checklist.txt` as you go;
-A also fills a copy of `assessment.csv`.
+Fill `session-notes.txt`, `workflow-review.txt` and `operations-checklist.txt` as you go.
+In [Lab 07 A](labs/07-evaluation.md#assessment-sheet), keep `assessment.csv` blank and fill a copy named **`assessment-baseline.csv`**.
 Use the ready files, not reference-answer records. Keep credentials and filled worksheets out of `data/learner/`.
 
 <details>

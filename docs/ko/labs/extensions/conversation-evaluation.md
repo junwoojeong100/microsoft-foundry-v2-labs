@@ -2,10 +2,13 @@
 
 [English](../../../labs/extensions/conversation-evaluation.md) | **한국어**
 
-**C 경로.** [Lab 07](../07-evaluation.md) 이후에 진행합니다.
+**C 코드 경로.** [Lab 07의 dev 검토](../07-evaluation.md#dev-review)를 재사용합니다.
+Lab 07의 최종 holdout과 선택 cloud judge는 이 모듈의 선행 조건이 아닙니다.
 독립 문항 matrix와 달리 같은 dev 6문항을 **두 개의 3턴 대화**로 보내며 실제 이전 답변을 다음 턴에 유지합니다.
 
-**준비:** 모델/구조화 응답, 별도 judge 배포, 새 label, 비용 승인.
+**실제 실행 준비:** [Lab 00 B의 Python 환경과 `.env`](../00-start.md#b-코드--한-폴더-한-환경),
+[Lab 02](../02-models.md#path-b)의 동작하는 구조화 응답 요청, 검토한 dev 결과,
+별도 judge 배포, 새 label, 비용 승인. 브라우저로만 Lab 07 평가를 마쳤다고 코드 환경까지 준비된 것은 아닙니다.
 **완료:** 6개 턴과 2개 완전한 대화, 각 수준의 별도 native 결과가 있음.
 **중단:** 성공한 앞부분만 평가하지 않고 부분 결과·오류를 보존합니다.
 
@@ -26,6 +29,11 @@
 python scripts/workshop.py --language ko conversations plan
 ```
 
+`plan`은 `.env`·Azure 로그인·judge 없이 로컬에서 실행됩니다. 계획과 hash,
+`azure_requests_sent: false`, `holdout_loaded: false`를 출력하며 run 폴더는 만들지 않습니다.
+준비만 하는 방문이라면 `session-notes.txt`에 `plan reviewed; collection/native evaluation not run`을 적고
+6절로 이동합니다. 실제 수집을 fixture 응답으로 대신하지 않습니다.
+
 | 대화 | 원본 dev 순서 | 확인 목적 |
 |---|---|---|
 | `dates-and-approval` | D01 → D02 → D03 | 적용 날짜 변경과 한도 초과 승인 조건 |
@@ -39,6 +47,10 @@ python scripts/workshop.py --language ko conversations plan
 턴 평가의 입력 6개와 전체 대화 평가의 입력 2개는 서로 다른 분모입니다.
 
 ## 2. 실제 대화 한 번 수집
+
+첫 과금 단계입니다. 준비된 환경을 활성화한 저장소 루트에서 실행합니다.
+동봉된 `--prompt v2` 지침으로 `AZURE_AI_MODEL_DEPLOYMENT_NAME`을 직접 호출합니다.
+Lab 03 Prompt Agent나 Hosted 버전을 호출하는 것이 **아니며**, 포털에서 수정한 지침도 가져오지 않습니다.
 
 ```bash
 python scripts/workshop.py --language ko conversations collect --label conversations-first --prompt v2 --confirm-cost
@@ -105,6 +117,9 @@ Timeout이면 같은 명령을 다시 실행해 저장된 같은 평가 job을 �
 ## 6. 인계
 
 두 native directory, catalog, 모든 raw response/error file, local business report를 보관합니다.
+`session-notes.txt`에 두 분모, 실제 대화로 뒷받침한 발견 하나(또는 불일치 없음),
+**유지**, **dev에서 조사**, **차단** 중 본인의 결정을 기록합니다.
+로컬 계획까지만 진행했다면 준비만 완료했다는 사실과 부족한 선행 조건을 적습니다. 응답·평가 파일은 아직 없는 것이 맞습니다.
 시나리오 순서는 **파생 dev 실험**이며 변경 없는 isolated-case matrix도 새 holdout도 아니라고 기록합니다.
 이 모듈은 자동 배포 승인을 추가하지 않습니다.
 

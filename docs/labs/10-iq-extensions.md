@@ -2,7 +2,7 @@
 
 **English** | [한국어](../ko/labs/10-iq-extensions.md)
 
-**Optional advanced work. Complete the core labs without accessing actual Fabric or Microsoft 365 accounts.**
+**Optional advanced work. The first pass is design-only; real company/Microsoft 365 data stays outside this workshop.**
 
 Next: A/B → [Lab 11](11-capstone.md) · Optional prerequisite: [Lab 06](06-knowledge.md) · [Paths](../paths.md)
 
@@ -10,12 +10,13 @@ Next: A/B → [Lab 11](11-capstone.md) · Optional prerequisite: [Lab 06](06-kno
 
 **This pass:** Optional extension only. A/B can finish at Lab 11 without this module.
 
-**Need:** Nothing for the core A/B route. In this optional module, the synthetic routing exercise needs no access;
-external services need separately prepared assets and approval.
+**Need:** Only the bundled policy source and your notes directory. Sections 2–5 are owner-planning references,
+not instructions to create missing assets or connect services to finish this lab.
 
 **Continue when:** A design-only result is labeled design-only. No Work IQ/Fabric access is implied.
 
-**If blocked:** Stop without consent, billing or user-context requirements; never connect real company data by default.
+**If blocked:** Record the missing source, identity or approval as **not prepared / not run** and return to Lab 11.
+Do not sign in to Fabric/Microsoft 365 or create missing assets for this design exercise.
 
 [One-time setup and learner files](../setup.md).
 
@@ -23,9 +24,9 @@ external services need separately prepared assets and approval.
 
 | Product | Main context | Default scope here |
 |---|---|---|
-| Foundry IQ | Enterprise knowledge, knowledge sources/bases | GA retrieval over a synthetic Search index |
-| Fabric IQ | Semantic models, analytics, ontology, OneLake, data agents | Separate connection design only when synthetic assets are prepared |
-| Work IQ | Microsoft 365 work/collaboration context | Disabled by default; real user connection needs separate approval |
+| Foundry IQ | Enterprise knowledge, knowledge sources/bases | Lab 06's synthetic Search route; no retrieval runs on this page |
+| Fabric IQ | Semantic models, analytics, ontology, OneLake, data agents | Connection design only; no analytics asset is supplied |
+| Work IQ | Microsoft 365 work/collaboration context | Design only; no Microsoft 365 connection or data access in this course |
 
 Do not infer that similarly named products share a key, or that a Copilot license
 permits unrestricted app-only backend access.
@@ -44,11 +45,12 @@ Copy the table into your own `iq-routing-design.txt` and add **source available 
 Only the bundled policy source exists in the core workshop; no quarterly analytics or meeting dataset is supplied.
 Mark Fabric and Work IQ **design-only / not run**. Do not invent their response JSON or company data.
 
-**What to check:** This task produces your own design note. No command here prints connection-status flags or proves a service connection.
-If this is your selected scope, stop here and continue to [Lab 11](11-capstone.md).
+**What to check:** This task produces only your design note, not connection-status flags or service results.
+Keep any earlier Lab 06 evidence separate. The first pass is complete: continue to [Lab 11](11-capstone.md);
+the references below are not additional required steps.
 
 <details>
-<summary>Optional preparation reference: external services need separate assets, permission and cost approval</summary>
+<summary>Reference only — plan prerequisites; do not create missing services to complete this lab</summary>
 
 ## 2. Fabric: only with prepared synthetic assets
 
@@ -61,19 +63,19 @@ Record prerequisites before connecting:
 5. Asset-specific identity: ontology/semantic-model paths require delegated/OBO context; published Data Agent MCP may support a separately authorized service principal.
 6. Capacity uptime, request costs, and shutdown/restoration plan.
 
-If assets are absent, start with the
-[official Fabric Data Agent tutorial](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial).
-Preparation is outside the 45–90-minute module.
-Use the [self-contained IQ workbook](../reference/iq-workbook.md) and
-[current official Fabric IQ guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq);
-no source-repository clone is required.
+If assets are absent, record **not prepared / not run**; do not create them as a recovery step.
+The [official Fabric Data Agent tutorial](https://learn.microsoft.com/fabric/data-science/data-agent-end-to-end-tutorial),
+[IQ workbook](../reference/iq-workbook.md) and
+[Fabric IQ guide](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq)
+are owner references for a separately approved synthetic project, not tasks for this first pass.
 
-**Evidence:** actual user question, selected agent/source, answer/evidence, and
-user-context/OBO verification. An administrator's success does not establish every user's access.
+**Evidence for a separate approved experiment:** actual synthetic question, selected agent/source,
+answer/evidence and asset-specific calling-identity verification. An administrator's success does not establish every user's access.
 
 ## 3. Work IQ: explicit opt-in and additional billing
 
-An administrator first reviews the current
+**Planning only in this workshop:** meeting the following requirements does not authorize Microsoft 365 access here.
+For a separate project, an administrator reviews the
 [Work IQ knowledge-source requirements](https://learn.microsoft.com/azure/search/agentic-knowledge-source-how-to-work-iq):
 tenant enablement, real user sign-in and assigned usage-based billing;
 delegated `WorkIQAgent.Ask` and admin/user consent; network/tenant/support boundaries;
@@ -83,18 +85,19 @@ Preview Work IQ may **perform actions**, not merely read.
 No repository script automatically enables Work IQ or creates accounts/service
 principals. Do not force personal sign-in or paste Graph/M365 tokens.
 Owning M365 Copilot alone does not satisfy these requirements.
-The September 15 contract includes a Copilot Studio usage-based billing plan with per-user assignments,
+The September 15, 2026 contract includes a Copilot Studio usage-based billing plan with per-user assignments,
 tenant enablement, user assertions, `WorkIQAgent.Ask` delegated consent, and a customer-owned Entra app/federated credential
 for the `2026-08-01-preview` path. `applicationId` is the client ID; `federatedCredentialId` is the credential object ID.
 Do not generalize old same-tenant examples or replace user context with the host identity.
 
-**Stop:** if approval, billing, tenant, delegated access, or action scope is unclear,
-remain with synthetic routing. Do not make a real connection.
+**Stop:** keep Work IQ **design-only / not run** on this route, even if another project has the required
+consent and billing. Do not make a Microsoft 365 connection to complete the workshop.
 
 ## 4. Toolbox, remote MCP, and the web
 
-[Lab 04](04-agents-tools.md) uses local MCP. Begin remote-tool extensions with approved
-public documentation such as Microsoft Learn.
+[Lab 04](04-agents-tools.md) uses local MCP. For an executable extension over bundled data,
+choose [Managed Toolbox](extensions/toolbox.md) after its Lab 06 prerequisites.
+The rows below are planning examples, not services to connect on this page.
 
 | Addition | Decide before connecting |
 |---|---|
@@ -133,9 +136,9 @@ Lab 10 is optional and was not recorded in the September 24 `gpt-6-sol` edition.
 
 ## Finish
 
-Design-only work created no cloud resources. Do not perform cleanup for services you did not use.
-Remove/restore only approved added connections and check owned Fabric capacity,
-Work IQ billing, and sessions. Check shared-agent dependencies before stopping capacity.
-Never arbitrarily remove another team's connection or organization-wide consent.
+Design-only work created no cloud resources. Retain the routing note and its **not run** entries for Lab 11;
+do not change capacity, billing or consent for services you did not use.
+If returning from a separately approved executable extension, follow that module's owned-resource cleanup,
+not another team's connection or organization-wide settings.
 
 Next: A: [skip to Lab 11](11-capstone.md) · B: [skip to Lab 11](11-capstone.md)

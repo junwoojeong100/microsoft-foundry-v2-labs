@@ -76,6 +76,7 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 ```
 
 Follow any continuation token with `--pagination-token` on that same scoped list command.
+Match the session ID and agent version to your own invocation notes; appearing in the list is not proof of ownership.
 If your session is already idle/stopped, record that state without another stop request.
 For your own **active** session only:
 
@@ -87,9 +88,9 @@ azd ai agent sessions list --cwd "${HOSTED_DIRECTORY:?Use the recorded standalon
 ```
 
 Use stop when persistent files must remain. Deleting a session removes compute and persistent filesystem state.
-Inspect the selected agent/session and stop only IDs you created.
-An already-idle session is verified as idle without submitting another conflicting stop request.
-Never treat an unverified stop request as a confirmed stopped state.
+After stopping, find that **same session ID** in the scoped list, following pagination again if needed.
+An absent first-page row or a list error is not a confirmed stopped state.
+If its state cannot be verified, record the error and pending authorized owner action; do not broaden the cleanup scope.
 
 </details>
 
@@ -100,7 +101,7 @@ Never treat an unverified stop request as a confirmed stopped state.
 | Prompt/Hosted agent and version | Confirm the exact project, name, version and owner, including the Lab 03 B SDK managed agent now core in B; the owner deletes it. In the 2026-09-25 check, deleting a prompt agent also removed its Entra agent identity and blueprint |
 | Search knowledge base/source/index | Dependency order base → source → index; only your names in the ledger |
 | Uploaded files/vector stores | Separate your File Search material from shared material |
-| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, the `eval-data-<UTC time>` dataset the service creates with each evaluation run (`cloud-evaluate`, `maf-evaluate`, `conversations evaluate`; its time is within seconds of the evaluation's creation; other people's runs create the same kind), and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
+| Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, service-generated `eval-data-<UTC time>` datasets (`cloud-evaluate`, `maf-evaluate`, `conversations evaluate`), and `<prefix>_business_rubric` versions (hyphens become underscores). The owner must confirm each generated dataset belongs to your recorded evaluation/run; a nearby timestamp alone is not proof. Keep results before deletion |
 | Model deployments | Check whether it is team-only or shared; keep shared models |
 | Search service | Deleting an index does not remove the service's fixed cost |
 | Application Insights/Log Analytics | Inventory both resources and their actual groups. Check shared versus managed workspace ownership and verify each cleanup outcome; retention and cost remain owner-managed, including the Lab 09 trace requirement |
@@ -132,7 +133,7 @@ Do not use `azd down`, subscription changes, or resource-group deletion as a sho
 
 - [ ] Only the local servers you ran are stopped; unused ones are recorded as **not run**.
 - [ ] Each Hosted session you used has a recorded final state or a pending authorized owner.
-- [ ] Your agents, files and Search objects have a verified outcome: read each deleted object back, because a delete response alone is not proof.
+- [ ] Your agents, files and Search objects have a verified outcome: read each deleted object back in the recorded scope with working read access. A delete response alone is not proof; a 403 or timeout means **unverified**, not deleted.
 - [ ] Shared resources and other people's data are kept.
 - [ ] The owner has confirmed residual costs for services, models, logs, storage and capacity.
 - [ ] Results to keep are separated from sensitive data to remove.
@@ -163,7 +164,8 @@ The maintainer media work below is not part of learner completion.
 Only run this block if these actual matrix labels exist; A and introductory B skip it.
 
 The matrix manifest records the created session and exact agent version.
-After actual trace verification:
+Preserve available trace results/errors, then stop only that recorded session with separate cleanup authorization.
+Successful trace verification is **not** a prerequisite for stopping compute; unavailable telemetry remains unverified.
 
 ```bash
 python scripts/workshop.py --language en benchmark stop-session --label wf-baseline

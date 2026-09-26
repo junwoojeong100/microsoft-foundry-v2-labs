@@ -10,7 +10,7 @@
 
 **이번 순서:** A는 Lab 03 답변 세 개의 원문을 확인합니다. B는 번호 순서대로 Search와 GA IQ를 실행합니다. IQ Chat과 hybrid 검색은 선택입니다.
 
-**준비물:** A: Lab 03 응답·학습자 파일. B: .env·준비된 Search 서비스·작성 권한·새 소유 prefix 또는 대응하는 소유권 ledger.
+**준비물:** A: Lab 03 응답·학습자 파일. B: .env·준비된 Search 서비스·seed 단계의 작성 권한·새 소유 prefix 또는 대응하는 소유권 ledger.
 
 **다음으로 갈 기준:** A: 답변 세 개의 정책 ID·날짜를 대조했습니다. B: 검색·답변 파일 네 개를 저장했습니다.
 
@@ -64,9 +64,12 @@
 기본 단계에는 embedding 배포가 필요 없습니다. Hybrid 검색과 모델 기반 IQ Chat은 별도 선택입니다.
 오류가 나도 검색 방식을 바꾸지 않습니다.
 
+**재개할 때:** 같은 복사본·언어·prefix를 유지합니다. 이미 저장된 대응 출력은 명령을 반복하지 말고 파일을 엽니다.
+`--output`은 요청을 보내기 전에 기존 파일의 덮어쓰기를 거부합니다. 의도적으로 재실행한다면 새 파일명을 정해 기록합니다.
+
 ### 1. 강사 사전 준비 확인
 
-준비된 Search 서비스가 필요합니다. 본인 계정에는 그 서비스의 **Search Service Contributor**와
+준비된 Search 서비스가 필요합니다. Seed 명령을 실행할 본인 계정에는 그 서비스의 **Search Service Contributor**와
 **Search Index Data Contributor**가 필요합니다(읽기만 한다면 **Search Index Data Reader**).
 Search 사용·과금은 담당자가 승인합니다.
 
@@ -77,7 +80,7 @@ Search 사용·과금은 담당자가 승인합니다.
 seed 전에 `.env`에서 두 값을 확인합니다.
 
 - `AZURE_SEARCH_ENDPOINT=https://<search>.search.windows.net` — 설정 카드의 값.
-- `WORKSHOP_PREFIX` — 아직 seed한 적 없는 본인 prefix.
+- `WORKSHOP_PREFIX` — 새 복사본이면 아직 seed하지 않은 새 prefix, 준비된 대응 복사본이면 원래 prefix를 유지합니다.
 
 구독 Owner만으로 Search 데이터 접근이 된다고 가정하지 않습니다.
 기본 실습 스크립트는 Search 서비스나 역할을 생성하지 않고 **준비된 서비스 안의
@@ -86,6 +89,7 @@ seed 전에 `.env`에서 두 값을 확인합니다.
 **Seed 전에 소유권 상황을 정합니다.** 새 학습자 복사본은 아직 seed하지 않은 새 `mfv2-...` prefix와 작성 권한이 필요합니다.
 강사의 준비 복사본에는 대응하는 `outputs/azure-objects.json`이 있어야 합니다.
 원격 index는 있는데 로컬 ledger가 비어 있다면 생성/갱신 실습의 준비 완료가 아닙니다. 덮어쓰지 않습니다.
+준비된 복사본이라면 담당자에게 3·4단계 중 어떤 seed가 성공했는지 확인합니다. Ledger만으로 전체 문서 업로드 성공을 입증하지는 못합니다.
 언어 옵션은 Search 객체 이름에 언어 접미사를 붙이지 않습니다. [작업 폴더·언어 변경 규칙](../reference/configuration.md#workspace-scope)을 확인합니다.
 
 ### 2. 작은 지식 원본 확인
@@ -106,14 +110,15 @@ python scripts/workshop.py retrieve --provider local \
 
 ![2026-09-24 국문 녹화: 여섯 합성 정책의 로컬 키워드 검색](../../assets/g6sol-20260924-ko/screenshots/K06-001-local-2.webp)
 
-**화면 확인:** `source_ids`와 `context_hash`를 확인합니다. 이 단계는 합성 파일의 로컬 검색입니다.
-Search나 IQ를 호출했다고 표시하지 않습니다. 설정된 endpoint 이름만 보지 말고 반환된 provider를 확인합니다.
+**화면 확인:** `provider: local-keyword`와 `source_ids`·`context_hash`를 확인합니다.
+이 단계는 합성 파일의 로컬 검색이지 Search/IQ가 아닙니다. 설정된 endpoint 이름만으로 클라우드 호출을 입증할 수 없습니다.
 
 **저장:** `retrieve-local.json`이 Lab 00 기록 폴더에 작성됩니다. 파일을 열어 원문 근거를 확인합니다.
 
 ### 3. 일반 Search 색인 만들기
 
 **클라우드 쓰기 작업입니다.** 준비된 실습 서비스·접두사·권한을 확인한 뒤 실행합니다.
+담당자가 이 준비 복사본의 index seed 성공을 확인했다면 아래 seed 명령을 건너뛰고 조회 명령으로 이어갑니다.
 
 ```bash
 python scripts/workshop.py seed-search --confirm-create
@@ -149,12 +154,15 @@ python scripts/workshop.py retrieve --provider search \
 
 ![2026-09-24 국문 녹화: Azure AI Search 키워드 검색](../../assets/g6sol-20260924-ko/screenshots/K06-003-search-2.webp)
 
-**화면 확인:** `--provider search` 명령의 결과를 읽고 endpoint/index가 본인 값인지 확인합니다.
-`references`·`activity`가 없는 일반 Search 결과를 IQ 결과로 바꾸어 적지 않습니다.
+**화면 확인:** `provider: azure-ai-search-keyword`와 `configuration.endpoint`·`configuration.index`가 본인 값인지 확인합니다.
+이 결과에도 `references: []`와 `activity: []`가 있습니다. 필드 이름이 있다는 것만으로 IQ가 되지는 않습니다.
 
 **저장:** `retrieve-search.json`이 같은 기록 폴더에 작성됩니다. 검토한 뒤 IQ source/base를 만듭니다.
 
 ### 4. GA Foundry IQ knowledge source/base 만들기
+
+담당자가 대응 복사본의 source/base seed 성공을 확인했다면 아래 seed 명령을 건너뛰고 IQ 조회 명령으로 이어갑니다.
+그렇지 않으면 이 명령은 정책을 다시 업로드하고 없는 IQ 객체를 만듭니다. 읽기 전용 검사가 아니라 클라우드 쓰기입니다.
 
 ```bash
 python scripts/workshop.py seed-search --iq --confirm-create
@@ -288,9 +296,9 @@ response.raise_for_status()  # an error is a finding; never switch to plain Sear
    모델 없는 GA base의 설정을 바꾸어 해결하지 않습니다.
 3. 이렇게 준비된 저장소 루트의 터미널에서 아래 `check`를 실행합니다. `configured: true`여야 합니다.
    `ready_for_setup: true`만으로는 저장된 chat base가 있다는 뜻이 아닙니다.
-4. 비용 승인 후 `ask`를 **한 번** 실행합니다. API·요청 필드·실제 activity를 보존하기 위해 이 검사는 CLI로 합니다.
-   포털에서 같은 채팅을 추가 전송하지 않습니다.
-5. `answer`, `source_ids`, `references`, 두 모델 activity를 합성 원문과 비교합니다. 실패는 그대로 기록합니다.
+4. 비용 승인 후 `ask`를 **한 번** 실행하거나, 같은 언어·범위에서 본인이 이미 실행한 기록을 검토합니다.
+   담당자의 준비 실행은 본인의 호출 증거가 아닙니다. CLI로 확인하며 포털에서 같은 채팅을 추가 전송하지 않습니다.
+5. 해당 실행의 `summary.json`을 열어 아래 기준으로 답변·인용을 합성 원문과 비교합니다. 실패는 그대로 기록합니다.
 
 | 설정 | 첫 실습의 정확한 선택 |
 |---|---|
@@ -319,18 +327,28 @@ MI 안내는 Search의 ID를 사용한다는 뜻이지 인증 실패나 역할 �
 python scripts/workshop.py iq-chat check
 ```
 
-위 검사를 통과하고 요청 비용이 승인된 경우에만 실행합니다.
+위 검사를 통과하고 새 요청의 비용이 승인된 경우에만 실행합니다.
 
 ```bash
 python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 ```
 
-결과의 `model_planning_verified: true`, `model_synthesis_verified: true`와
+`--question`을 생략한 이 명령은 B의 170000원 질문이 아니라
+**“2026년 9월 국내 출장 숙박비는 1박 얼마까지인가요?”**를 묻습니다. 실제 질문은 `request.json`에서 확인합니다.
+
+저장된 `summary.json`의 `model_planning_verified: true`, `model_synthesis_verified: true`와
 `gpt-5.6-luna`의 실제 `modelQueryPlanning` / `modelAnswerSynthesis`를 확인합니다.
+`answer`는 B의 구조화된 `decision`/`limit_krw` 객체가 아니라 일반 텍스트입니다. 이 기본 질문에서는
+150000원 한도를 `TRAVEL-2026`과 대조합니다. 답변의 각 인용을 반환된 reference의 `sourceData.id`·`content`로 따라가며,
+참조 번호를 정책 ID로 취급하지 않습니다. 모델 호출을 확인했다고 답변까지 정확한 것은 아닙니다.
 요청·응답·원문 근거·실패는 `outputs/iq-chat/iq-chat-lab06/`에 남습니다. 새 요청은 새 label을 사용합니다.
 `check`는 Azure를 변경하지 않고 `ask`는 모델/provider를 자동 대체하지 않습니다.
 `configured: false`, 권한 누락, 다른 모델 버전, 403/429이면 멈추고 [고정 preset 복구 안내](../reference/iq-model-identity.md)를 따릅니다.
 모델 고정은 흔한 설정 불일치를 없애지만 quota와 서비스 가동까지 보장하지는 않습니다.
+
+**복귀:** `session-notes.txt`의 `선택 IQ Chat의 결과 또는 미선택:`에 실제 label과 확인 결과를 적습니다.
+다른 워크북을 실행하지 말고 미완료인 [A 원문 확인](#path-a) 또는 [B 단계](#path-b)를 이어갑니다.
+기본 확인을 이미 마쳤다면 [Lab 07 A](07-evaluation.md#path-a) 또는 [Lab 07 B](07-evaluation.md#path-b)로 이동합니다.
 
 </details>
 
@@ -347,6 +365,7 @@ python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 
 **이 선택 경로는 2026-09-23에 `gpt-6-sol`로 다시 실행하지 않았습니다.**
 이미 만든 텍스트 index의 필드를 몰래 바꾸지 않습니다.
+`.env`를 수정하기 전에 `AZURE_SEARCH_INDEX_NAME`의 원래 값(기본값을 쓰는 빈 값 포함)을 기록합니다.
 같은 실습 prefix 아래 별도 index 이름을 `.env`에 정하고, 강사가 확인한 embedding 배포와
 **실제 반환 차원**을 입력합니다. embedding 모델을 새로 배포하는 작업은 별도 승인 대상입니다.
 
@@ -381,6 +400,8 @@ python scripts/workshop.py answer --retrieval hybrid --prompt v2
 
 일반/IQ/Hybrid를 비교할 때는 `AZURE_SEARCH_INDEX_NAME`이 어느 index인지 다시 확인합니다.
 IQ의 source/base는 원래 연결한 index를 참조하므로 환경변수만 바꿨다고 원격 base가 바뀌지 않습니다.
+GA IQ나 Lab 07로 돌아가기 전에 원래 index 설정을 복원합니다. 복원하려고 다시 seed하지 않습니다.
+Source/base 이름은 바꾸지 않고 hybrid index가 추가된 ledger도 정리를 위해 보존합니다.
 이 실험의 index 변경을 Lab 07의 prompt-only 전후 비교 사이에 섞지 않습니다.
 
 </details>

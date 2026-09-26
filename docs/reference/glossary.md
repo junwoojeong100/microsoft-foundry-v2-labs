@@ -19,6 +19,9 @@
 | `.env` | Configuration file; this lab stores no secrets in it |
 | JSON/JSONL | Structured data / one JSON object per line |
 | Prompt/instructions | A model request / business rules an agent follows |
+| Prompt Agent | Foundry-managed model/instructions agent; Lab 03 creates it through [A's portal](../labs/03-prompt-agent.md#path-a) or [B's SDK](../labs/03-prompt-agent.md#path-b) |
+| MAF (Microsoft Agent Framework) | Framework for agents and workflows; [Lab 04](../labs/04-agents-tools.md#path-b) runs the agent in local Python while calling the model in Azure |
+| Hosted agent | Custom agent code hosted by Foundry; [Lab 08 B](../labs/08-hosted.md#path-b) only builds its local package, not a deployment |
 | Tool | Function/API requested by the model and executed by the application |
 | MCP | Standard protocol between model/agent clients and tool servers |
 | RAG | Retrieve relevant material before generating a grounded answer |

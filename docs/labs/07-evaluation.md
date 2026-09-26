@@ -308,12 +308,14 @@ python scripts/workshop.py --language en evaluate --label diagnostic-no-evidence
 
 ![September 24 English recording: The diagnostic fails honestly: 0/6 with 0 errors](../assets/g6sol-20260924-en/screenshots/E07-022-diagnostic-evaluate-2.webp)
 
-**What to check:** `evaluate` prints `passed: 0` and `errors: 0`; `echo $?` right after it prints its exit code `1`. In `business-evaluation.json`,
-`required_citations` and `citations_retrieved` are `false` in every row, and `responses.jsonl` shows the agent withholding
-amounts (`insufficient_evidence`) instead of guessing. Use the first row of the table above: the correct document is absent,
-so the fix is retrieval, not the instructions. `feedback` rejects this run, so it never becomes a regression record, and
-`cloud-evaluate` refuses it before any paid call because Groundedness skips rows that have no context.
-The September 24, 2026 English recording returned 0/6 with 0 errors.
+**What to check:** a complete six-row diagnostic has `total: 6` and `passed: 0`, because `citations_retrieved` cannot pass without
+retrieved policy IDs. `evaluate` returns `1`; `echo $?` immediately afterward displays that exit code.
+Read the actual `errors` count and all responses: zero errors, withheld amounts and particular citation choices are not guaranteed.
+With `errors: 0`, review the deliberately absent evidence, not an assumed instruction defect. With request/JSON errors, preserve the
+rows and stop to diagnose those errors; do not treat them as the intended missing-evidence result.
+`feedback` rejects this run, and `cloud-evaluate` refuses it before any paid call because Groundedness skips rows that have no context.
+The September 24, 2026 English recording returned 0/6 with 0 errors, withheld amounts (`insufficient_evidence`), and
+`required_citations: false` in every row. Those are that run's observations, not values to reproduce by retrying.
 
 </details>
 
@@ -409,7 +411,9 @@ python scripts/workshop.py --language en accept --candidate candidate --holdout 
 Holdout has four cases. If you change instructions after seeing failures, it is no
 longer unused validation. Do not claim final acceptance without a new holdout.
 Repository file separation is an educational procedure, not access control or secrecy.
-`accept` exit code `1` is a rejected business gate: retain that outcome, not retries until the same holdout passes.
+`accept` exit code `0` saves `ready-for-human-review`; `1` saves `reject`. Retain either outcome, not retries until the same holdout passes.
+For exit `2`, a valid acceptance report could not be produced—even if local grading succeeded, for example when observed-model lineage
+is missing. Preserve the grades/errors and record [incomplete handoff](11-capstone.md#incomplete-handoff), not a fabricated report or a new holdout collection.
 
 ![September 24 English recording: Acceptance handoff, not a deployment approval](../assets/g6sol-20260924-en/screenshots/E07-009-accept-2.webp)
 

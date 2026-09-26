@@ -1,37 +1,37 @@
 {
   "schema_version": 1,
   "source_language": "en",
-  "revision": "straightforwardness-isolated-followup-20260926",
+  "revision": "straightforwardness-blind-ten-20260926",
   "pending_files": {},
   "completed_translations": {
     "docs/paths/a-beginner.md": {
-      "revision": "beginner-self-study-20260925",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "eeedf6f47094a25c5a0964c9e0618d301aac54582a5ce7030242149a32e1fa87",
-        "korean_sha256": "b80c9c132965b5970eb4bcda2f72e32a12a795a733d0e816adc4b31072528286"
+        "english_sha256": "9220de1fdade6166ff75609acba01cc6fc95a4136896ddfbbc779752421a4b6d",
+        "korean_sha256": "f55b06d3acaf8bab9429e5542c6b12c2c290474118685e14457bf71e26ebb1d9"
       },
-      "english_sha256_at_completion": "eeedf6f47094a25c5a0964c9e0618d301aac54582a5ce7030242149a32e1fa87",
-      "korean_sha256_at_completion": "86b15319637ea3c3f7794bbf544ebaf1d29ad58a8506d4069a0d3ed7f3c625e3",
+      "english_sha256_at_completion": "9220de1fdade6166ff75609acba01cc6fc95a4136896ddfbbc779752421a4b6d",
+      "korean_sha256_at_completion": "0b31c95db7863838009d79327b3ae0f8853cbad3e31b67de73993ea9ce55f3ce",
       "cli_parity_verified": true
     },
     "docs/paths/b-practitioner.md": {
-      "revision": "final-guide-closeout-20260925",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "3a6361fd4538acff5603740f7c6d873c9976d9074aa5b809a5e2ead166180671",
-        "korean_sha256": "8f25ef1c3bb0f5ea1f49c1891950c7539dd4e04cb27bac0627ee569718473b8b"
+        "english_sha256": "0779776cffac3a19cd0e9a5a92e6843234a6ae1e4e5d8485b55e9ca48f725ac7",
+        "korean_sha256": "1392b1fadf77256062c06207abc55f063963c1e5c52d786268f70813a03bef98"
       },
-      "english_sha256_at_completion": "3a6361fd4538acff5603740f7c6d873c9976d9074aa5b809a5e2ead166180671",
-      "korean_sha256_at_completion": "5f8d3224f4919e385e445e1f47ee6cf19062ec5f99fad7aae0e2e32460d3ad9c",
+      "english_sha256_at_completion": "0779776cffac3a19cd0e9a5a92e6843234a6ae1e4e5d8485b55e9ca48f725ac7",
+      "korean_sha256_at_completion": "49c85c4425b30f12affb95f03bf694905af8c2d9283f2aedd75d20b9dfe6a1bd",
       "cli_parity_verified": true
     },
     "docs/paths/c-advanced.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "255e94f30df0fe411c4ce48a20802dc5088e214d399a316e7db1e7c295417175",
-        "korean_sha256": "19943c7fac14cab1cbbc28e244d0f8f4039f77be0f75d10cd025ab8fd3a6455b"
+        "english_sha256": "2f7b70918fb587f4fd496f0ddca02b788ee397953932dc24633d9532896e077a",
+        "korean_sha256": "5caef5d18b5690af2d7821540638a21400ec7a3f43dc2d32b9c8ebd99eab0a05"
       },
-      "english_sha256_at_completion": "255e94f30df0fe411c4ce48a20802dc5088e214d399a316e7db1e7c295417175",
-      "korean_sha256_at_completion": "9ca3d0cc3aafd2346a595ff0359a08f54ae9887a2eb17d0ac2ff3d600e5e8c0a",
+      "english_sha256_at_completion": "2f7b70918fb587f4fd496f0ddca02b788ee397953932dc24633d9532896e077a",
+      "korean_sha256_at_completion": "db2a54008f848ae49f0b31bc9cbe215c3bae17dee594727258219d523501ab8e",
       "cli_parity_verified": true
     },
     "docs/coverage.md": {
@@ -55,23 +55,23 @@
       "cli_parity_verified": true
     },
     "docs/labs/extensions/conversation-evaluation.md": {
-      "revision": "review-refresh-supplement-20260925",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "f8b3adfa8536d4f0ed88dc0e0a0bb7d586bb008e752934e3f07bf6176c68228e",
-        "korean_sha256": "53294e4eff4c0b49cfa31b8f13fa30694b8a07403fc5031b6caa41acbab3d929"
+        "english_sha256": "add3b27d9175a971584d52cb926be05741548e70224fd9063bcca93c40e36d06",
+        "korean_sha256": "3fefaba6019975976a271dc0d71b3a07b232dd818d5d2b21ce54e871c927e4af"
       },
-      "english_sha256_at_completion": "f8b3adfa8536d4f0ed88dc0e0a0bb7d586bb008e752934e3f07bf6176c68228e",
-      "korean_sha256_at_completion": "9616b450319c06cb4499d869876f79b455fb94c5f72f97a34ee95668f2a7e72e",
+      "english_sha256_at_completion": "add3b27d9175a971584d52cb926be05741548e70224fd9063bcca93c40e36d06",
+      "korean_sha256_at_completion": "244e50930560ad4c929644a7d7f73962afd897b8fd13a3f2553028dec87dffd8",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/tool-search-skills.md": {
-      "revision": "review-refresh-supplement-20260925",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "0b8ead2ded0597a70e43e7a6afa2584f0e1d9efd84558ea28caa4139c8fe409c",
-        "korean_sha256": "5b8a5ad5d81978334a0cde305980dd4fe176e6689e6995fe4602ab4ac76b688c"
+        "english_sha256": "225049e886152a2fd4a6876d1784a50e4eaed8c148e5325f3e093298599313ea",
+        "korean_sha256": "b0b88c13ca7de952da63c2e58e0a0f02ec99b2f92db292a35e833e39a200d40d"
       },
-      "english_sha256_at_completion": "0b8ead2ded0597a70e43e7a6afa2584f0e1d9efd84558ea28caa4139c8fe409c",
-      "korean_sha256_at_completion": "4ba217dcb2ab22454d03ac88d00b813fd2e81bf9342b45e3800c070810b77b10",
+      "english_sha256_at_completion": "225049e886152a2fd4a6876d1784a50e4eaed8c148e5325f3e093298599313ea",
+      "korean_sha256_at_completion": "fe1e3f88bb21b3159e57e29c3e1d4e237f0bb722a5810556aa56743f2d8048cc",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/routines.md": {
@@ -85,23 +85,23 @@
       "cli_parity_verified": true
     },
     "docs/labs/extensions/agent-optimizer.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "79b9fe847ff33a7653c9df8ceff99331754fe0ffda8d531603984394008588f2",
-        "korean_sha256": "49c2254ed089da5473591b7a28d315824fcd25bf45b33c6009994a3acc049331"
+        "english_sha256": "cbd1fe18918fb0fc53183dbf060cb9c33a57867f78e7955b6b3476c88d23fb2d",
+        "korean_sha256": "05c8bfdff27b45561b79f1352c9c0646970c03870c4092ddc0549179f220e95c"
       },
-      "english_sha256_at_completion": "79b9fe847ff33a7653c9df8ceff99331754fe0ffda8d531603984394008588f2",
-      "korean_sha256_at_completion": "3a217542af08620262c424b6a895fe8f15e5a521d5cc86ffe530849af5149e3b",
+      "english_sha256_at_completion": "cbd1fe18918fb0fc53183dbf060cb9c33a57867f78e7955b6b3476c88d23fb2d",
+      "korean_sha256_at_completion": "73073a18683ca4faee0bbc34f1164c5a35fd6071d0470b60b1e961fdea25f6de",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/model-operations.md": {
-      "revision": "review-refresh-supplement-20260925",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "a473ce83fb354eebe7c8621889ed6c887efd84eb1b8faf029659f672e2182949",
-        "korean_sha256": "09875cfff040a1fc1eb63909563e433a357c7bca4d992584ee73f982167e2165"
+        "english_sha256": "21010cb8bf5191b4af07411b1012b0f25bb2b62481e97e643afcf25ec0ee4317",
+        "korean_sha256": "2f9b9833875333414dd1df2ee5040df5cc597c88b147a138830a62d14a87e713"
       },
-      "english_sha256_at_completion": "a473ce83fb354eebe7c8621889ed6c887efd84eb1b8faf029659f672e2182949",
-      "korean_sha256_at_completion": "fb4e86c329484d48941e855b1fca3adb71f56525629319ed5623d0f6b582e184",
+      "english_sha256_at_completion": "21010cb8bf5191b4af07411b1012b0f25bb2b62481e97e643afcf25ec0ee4317",
+      "korean_sha256_at_completion": "dc728b0fc47ba2d895831f503d03ac7df1add3c32a5cf7a9cf7f5b72b18961ad",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/memory.md": {
@@ -115,13 +115,13 @@
       "cli_parity_verified": true
     },
     "docs/labs/extensions/developer-toolkit.md": {
-      "revision": "review-refresh-20260924",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "e5e8e5d37d2d03429040cb3dacc8eefaff5740593fcca085f92c735b822eac5b",
-        "korean_sha256": "b2ffc32ae383394c33a9f051827dcf3264e3445d309bd9ce30903400374ea5ff"
+        "english_sha256": "359bff9f24b193e98f8fe15d6702aae355d2bbe8cea206fec4a160e918cd6805",
+        "korean_sha256": "f612d4906af913ba4685a15fa6b011b75a86be3574dd8c85235ad0f58bd66cca"
       },
-      "english_sha256_at_completion": "e5e8e5d37d2d03429040cb3dacc8eefaff5740593fcca085f92c735b822eac5b",
-      "korean_sha256_at_completion": "75801b9f38bf580fcbe78d464e1fcde28538f4ff61c11d2a7ad5df89b36ada47",
+      "english_sha256_at_completion": "359bff9f24b193e98f8fe15d6702aae355d2bbe8cea206fec4a160e918cd6805",
+      "korean_sha256_at_completion": "5a4ba6ac9ce2375cc623a63ecac70d39b1a38501e044c6dd7ef1674713f54245",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/governance-networking.md": {
@@ -155,13 +155,13 @@
       "cli_parity_verified": true
     },
     "docs/labs/extensions/release-operations.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "7dc58b28a9d4d66edc2ec635665feeabb831193d52ce3cf4fd1752be16b85c37",
-        "korean_sha256": "8a8045bc3f28b7d192c2c7c7422953ac2fffaa702e2944dac5578dbfe0b3e719"
+        "english_sha256": "230d3870ea4fae6e8b9aac5ecb44fe814e365057ef1a13c17b53229c8c5ceb1d",
+        "korean_sha256": "1d8c48b6b49f2dab4979a1af0ba6d9d412bb73657129d783329a6d5576cd0c9e"
       },
-      "english_sha256_at_completion": "7dc58b28a9d4d66edc2ec635665feeabb831193d52ce3cf4fd1752be16b85c37",
-      "korean_sha256_at_completion": "28ae610e872d235cd26d1d6783ffcf85f2220017ecda23b2204dff1bd0177d54",
+      "english_sha256_at_completion": "230d3870ea4fae6e8b9aac5ecb44fe814e365057ef1a13c17b53229c8c5ceb1d",
+      "korean_sha256_at_completion": "23f5307b19f93d25fd843e67fb86be9c1246eab1ba735f31faec2eea04268567",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/approval-recovery.md": {
@@ -175,63 +175,63 @@
       "cli_parity_verified": true
     },
     "docs/labs/extensions/a2a.md": {
-      "revision": "review-refresh-live-20260924",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "499c4a21d3f3a29866e0649fa89015053e930d83d1b088339a9035c39d9e001a",
-        "korean_sha256": "428a92e05c550f7527b65348bc420fe3aa857d7c0f92a62bc6498658ae2c12e1"
+        "english_sha256": "5fbce434fe68052fbe89006c4b5cb8a31068168c42d1a6626ed2acbb20e49ef8",
+        "korean_sha256": "71c5e165b0063fd09c6b829bddfe4795a09e074358e5ebb1af1acdd747268eef"
       },
-      "english_sha256_at_completion": "499c4a21d3f3a29866e0649fa89015053e930d83d1b088339a9035c39d9e001a",
-      "korean_sha256_at_completion": "b9ec4a5fe254531b41ab7a7971f7790999494229337dfb201335eb74d3224587",
+      "english_sha256_at_completion": "5fbce434fe68052fbe89006c4b5cb8a31068168c42d1a6626ed2acbb20e49ef8",
+      "korean_sha256_at_completion": "d29e670f9eab1c063752ca8ab9a280956ff9cc99762e6641e3a2639f8319ab46",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/additional-tools.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "52e9c13f298f8ebab51b981262ed459b119976877f7560f76a358107d1cabe6c",
-        "korean_sha256": "a8141b8f084c136ff3e5b92ff8df8f30ff82184ec3a6b089d41090f0e5ec2136"
+        "english_sha256": "3d4bdf7ba8dc60fa5ef41044e86f5bedbbe7cb7258b2d39065b843803350f73d",
+        "korean_sha256": "0e6bff9d037e6a14dba9b1d6f355552bf007fd40954a918a84a2600fcb8533c5"
       },
-      "english_sha256_at_completion": "52e9c13f298f8ebab51b981262ed459b119976877f7560f76a358107d1cabe6c",
-      "korean_sha256_at_completion": "f039c0acf2eadf8da21c7a89334d61dc42a3b07902686ae7f92067a74f44578f",
+      "english_sha256_at_completion": "3d4bdf7ba8dc60fa5ef41044e86f5bedbbe7cb7258b2d39065b843803350f73d",
+      "korean_sha256_at_completion": "2535cb139e039f202f81aaa5306d726eb17674b6d8ddfe9f3e20cd0848032f12",
       "cli_parity_verified": true
     },
     "README.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "7bc87d5cd349f318022cbf79ef014d0727572d6abee4f6b2235cc3c2bfeb7d46",
-        "korean_sha256": "18ac12629f7c6b46b58c5ed93cfc5ee39f6d5e61f40ec4ae3116b83bf582bc50"
+        "english_sha256": "bd9da65ef29aee968137fdbe6f74c0a3aeaf414cab726fcc1e3b66fcaabead5f",
+        "korean_sha256": "bfc63dd62e34d62ce6eb6fdf7760297dda50219f56da0cc488f9f19f2ea59bf9"
       },
-      "english_sha256_at_completion": "7bc87d5cd349f318022cbf79ef014d0727572d6abee4f6b2235cc3c2bfeb7d46",
-      "korean_sha256_at_completion": "9167deabc949040f47c03361f1e84dd14afc9be65099de357b8e6e97b04c263a",
+      "english_sha256_at_completion": "bd9da65ef29aee968137fdbe6f74c0a3aeaf414cab726fcc1e3b66fcaabead5f",
+      "korean_sha256_at_completion": "afbf1243e5e5e3e85a0fd6534940338464812771d80baf3d4df3f920a6815cb8",
       "cli_parity_verified": true
     },
     "docs/index.md": {
-      "revision": "beginner-self-study-20260925",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "81e85fcd8159f36957df76d3896873f82030de3d789f455119d58aabfc76aa1e",
-        "korean_sha256": "2e9f437c5013e34b7fee1534a37db43a275aaa4fa4e20e372a938f26896cdfd9"
+        "english_sha256": "aa6553a73c81add51eb62c25951698f8ca5785e9816a7dae45f4589ed099fd82",
+        "korean_sha256": "99733d6b1d9bed78e222d93d7dcbf5ff50bdb2eea0c6992a601c17c326aef449"
       },
-      "english_sha256_at_completion": "81e85fcd8159f36957df76d3896873f82030de3d789f455119d58aabfc76aa1e",
-      "korean_sha256_at_completion": "539a304591e5acc4dee17f2872cfe3b52f21459b9743244d7f1e1c009775caca",
+      "english_sha256_at_completion": "aa6553a73c81add51eb62c25951698f8ca5785e9816a7dae45f4589ed099fd82",
+      "korean_sha256_at_completion": "c55463f0452e8ac2a87dd94846b196b2fdb1ddb3ee1987c4bd8e056b950ab848",
       "cli_parity_verified": true
     },
     "docs/paths.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "fabb5973f05360baa37555d45000b69d997abf296e45ed21c33c803ab6413230",
-        "korean_sha256": "fb12ee79ef82c57d9a21a3cf2e08877bc7cb3ca7a8dd5cd98e35a2de59765bd0"
+        "english_sha256": "b6e719ed018091f2d5f6360b5c0ff8dcf4e59a84871a0fc7baba3849f7416c08",
+        "korean_sha256": "fec4a10d4013e81f7d8022c3472c67891b3d4b89f22d16929a44d76442e88a01"
       },
-      "english_sha256_at_completion": "fabb5973f05360baa37555d45000b69d997abf296e45ed21c33c803ab6413230",
-      "korean_sha256_at_completion": "6664bd874aecb96c13d08c988a4fb69a08208d18f18ac23dd9145876503e6bc1",
+      "english_sha256_at_completion": "b6e719ed018091f2d5f6360b5c0ff8dcf4e59a84871a0fc7baba3849f7416c08",
+      "korean_sha256_at_completion": "4ce07554f56b0b6c1a3611eeb2672eb0ae96315d6db019115c9f23f8a387a84d",
       "cli_parity_verified": true
     },
     "docs/labs/extensions/toolbox-hosted.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "5989f71596c8c1dd758cb4ab95b0b4289fe72d371b499165238435178ccb67cb",
-        "korean_sha256": "70ec9bb2c0846833079049a3bcc0047bb23cc14f6493055c9a88853b6ab4cd37"
+        "english_sha256": "9b22a61bb29199c3c754329a91e4e677ac808ca629b65490ee71022244770b2b",
+        "korean_sha256": "144fba43bca2e8c7e29314c7ae49419f76fb7775112609d74f4ff07564e6db69"
       },
-      "english_sha256_at_completion": "5989f71596c8c1dd758cb4ab95b0b4289fe72d371b499165238435178ccb67cb",
-      "korean_sha256_at_completion": "673dc9c4b7d5e5e35e41df6ae097401402a5a8849d2d1de88b70f98d3be08d3b",
+      "english_sha256_at_completion": "9b22a61bb29199c3c754329a91e4e677ac808ca629b65490ee71022244770b2b",
+      "korean_sha256_at_completion": "136f3a96c1c96fa74a406a391a3dead4dd08c2db8b55e8ba5b6acb39b271fd7e",
       "cli_parity_verified": true
     },
     "data/README.md": {
@@ -245,133 +245,133 @@
       "cli_parity_verified": true
     },
     "docs/setup.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "4cb208645d785f024af81fb461070853260c5d9a00a68aab618c226db249419f",
-        "korean_sha256": "9e686d004bcb6ef00e8a00961862bbea79e1d4d9d37345a224c286d5546feb1f"
+        "english_sha256": "369df89cb9760f59eb3aba64fd5116f8b2093cf0dbead6ad7e188e59098c94b1",
+        "korean_sha256": "45909f1df92047d1950300212c6858960d57be9ccd861eb1ac6a4acbef96324d"
       },
-      "english_sha256_at_completion": "4cb208645d785f024af81fb461070853260c5d9a00a68aab618c226db249419f",
-      "korean_sha256_at_completion": "ba34d8fdb13786c0bf38739feeed33590509b800ce27cc5c750d7e14c7aeb89f",
+      "english_sha256_at_completion": "369df89cb9760f59eb3aba64fd5116f8b2093cf0dbead6ad7e188e59098c94b1",
+      "korean_sha256_at_completion": "cf56ce5bf5f6c7f09d88823d00bab03b4a10bbd5195e34f6389c3bf137690b7f",
       "cli_parity_verified": true
     },
     "docs/labs/00-start.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "8c73d21ca90e4f7c76aeba14f51d4d2f79a2601b8351bbf20fa70d5572fb03fb",
-        "korean_sha256": "f8e04cba001bdf06a306cb610aed5d2d89989a2cea9a6a0f048dce3bf267f568"
+        "english_sha256": "450e1b8f2c9a3eb9dcb1c99894ad0af05ec156b614ada1143ee58b5ab472c385",
+        "korean_sha256": "093e5cb6693b7e115d0bc16e58604f615498bc2a54dbca1ddb488eb4f6262218"
       },
-      "english_sha256_at_completion": "8c73d21ca90e4f7c76aeba14f51d4d2f79a2601b8351bbf20fa70d5572fb03fb",
-      "korean_sha256_at_completion": "866d321c29302862ee69a5186b8c5832d5998843da3b65506c69268e67aa69dc",
+      "english_sha256_at_completion": "450e1b8f2c9a3eb9dcb1c99894ad0af05ec156b614ada1143ee58b5ab472c385",
+      "korean_sha256_at_completion": "d4d771c8be26cf0a8eacc291100fc9ba36220482b3f2f75018e8e0f895c9c177",
       "cli_parity_verified": true
     },
     "docs/labs/01-foundry.md": {
-      "revision": "beginner-self-study-20260925",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "b95c58e838da841cec1d1b6e065e8b41d973c8e76710381148e62b8be24388e4",
-        "korean_sha256": "ec7eadab7ab313203289db01fcecbb79b4251483119984f1f9fa0705cc8b28b7"
+        "english_sha256": "3df5b9b435c8c6c068b9d95f019df174c8be3c10946d49e98ec4a987df7262a8",
+        "korean_sha256": "2db32ec00bfb6773d0d04db2d0baf0d998d102df599a2d065837bb48ae5d60f0"
       },
-      "english_sha256_at_completion": "b95c58e838da841cec1d1b6e065e8b41d973c8e76710381148e62b8be24388e4",
-      "korean_sha256_at_completion": "cd7a84ddae43f1661992c142574717be1eae505ff57c62033168d9c648bf0c05",
+      "english_sha256_at_completion": "3df5b9b435c8c6c068b9d95f019df174c8be3c10946d49e98ec4a987df7262a8",
+      "korean_sha256_at_completion": "b29ce1ed01b64b0e98cafe60f97888eaf54e6caa86815c538d314cd91e3ab89f",
       "cli_parity_verified": true
     },
     "docs/labs/02-models.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "62ac1b6e827b707def7a5c5ed45dab60b176b5613d2e4cd6dadd74a390c60844",
-        "korean_sha256": "d5b67a169c452ae16d5840d9536c45e23bfa324f595750f37bc89ad8d4f894bd"
+        "english_sha256": "faf755dbff01dbed25d63818d00762f7a805a9dcc9efeb29c5803da650b48000",
+        "korean_sha256": "acc8710f5ba1f7b5d3f2f3abd4ae6f940f62fe16ce808a80275e7ca43b7584bb"
       },
-      "english_sha256_at_completion": "62ac1b6e827b707def7a5c5ed45dab60b176b5613d2e4cd6dadd74a390c60844",
-      "korean_sha256_at_completion": "124ca94a4ea5c0f4205102541670de4876c377edfc7ef41c47393f470026e87d",
+      "english_sha256_at_completion": "faf755dbff01dbed25d63818d00762f7a805a9dcc9efeb29c5803da650b48000",
+      "korean_sha256_at_completion": "7b1447b76b88bedc60f5d466b707184cfaed41efffc118ba2f4e3532e0786130",
       "cli_parity_verified": true
     },
     "docs/labs/03-prompt-agent.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "508b63fa7fdbf7b27d7e7e6f3f29cd875741568171dc793173edaf9b094c38f3",
-        "korean_sha256": "4325103e5ff4d404f493e1a746e837d6dc729690c9f8a8a6dcc71ce2befb8696"
+        "english_sha256": "91a5f0fab4d94552ad66de135c394def6801e44ed1c192dddcf0f62d1882ed80",
+        "korean_sha256": "9f7d85bf24ada82841bf6ad6a96321dbb1fd5a263e41cf7f9ce77a3a6a8d9a73"
       },
-      "english_sha256_at_completion": "508b63fa7fdbf7b27d7e7e6f3f29cd875741568171dc793173edaf9b094c38f3",
-      "korean_sha256_at_completion": "2e9ce9cee4f85c842885dd42a844dff59189a5915eebe26cc1ae85d28d065555",
+      "english_sha256_at_completion": "91a5f0fab4d94552ad66de135c394def6801e44ed1c192dddcf0f62d1882ed80",
+      "korean_sha256_at_completion": "c3e035bb0e8a72432f43553cee0a2e4b27d8d0d21e04b5c18e3bf772bec8d0ca",
       "cli_parity_verified": true
     },
     "docs/labs/04-agents-tools.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "66500065e66526803d5176906f5992a09fc178d44c523833c9fcb63836bd406d",
-        "korean_sha256": "a5a3a8157de5f199634b474e5cdccc7b61e22ee269cbe2b599eb68b89db365f8"
+        "english_sha256": "57ef129fc0d790b04070e882814de31d24505f5b1edc2a9b8d252dce7c271511",
+        "korean_sha256": "01f369553a768002b651832aa07fc2d58c1853b103f6f7bfebd7f4deafbdc100"
       },
-      "english_sha256_at_completion": "66500065e66526803d5176906f5992a09fc178d44c523833c9fcb63836bd406d",
-      "korean_sha256_at_completion": "0da7c08bd789c07b136be8b91fb73baa43639442ca618b789ca4dfed62c2c116",
+      "english_sha256_at_completion": "57ef129fc0d790b04070e882814de31d24505f5b1edc2a9b8d252dce7c271511",
+      "korean_sha256_at_completion": "a178aceaca64bd7b89dc838f4f9d739198cd636c21ed9b47404771a07f0d9d9e",
       "cli_parity_verified": true
     },
     "docs/labs/05-workflows.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "8a4cd6c1642b98bbdca3699dc8d081be287fb3140f78ccbcabbbeb547bc5b24a",
-        "korean_sha256": "57fa7a08642f2c92769d9cbb0406e0147754b218e2df2b86303ba4aa22893ba1"
+        "english_sha256": "2066facf403a2fe4c79bf5d7e21e62c8a2670be7c87a2f3e512e6284211e3a2d",
+        "korean_sha256": "aa3f8cad7d39d403edd48c7f36d8032220af7b84be22467221511791827037a4"
       },
-      "english_sha256_at_completion": "8a4cd6c1642b98bbdca3699dc8d081be287fb3140f78ccbcabbbeb547bc5b24a",
-      "korean_sha256_at_completion": "0fc97ab12c90d5fea4efaaea62f1e40add59d09bf031ffffff2ded0bf25b62cd",
+      "english_sha256_at_completion": "2066facf403a2fe4c79bf5d7e21e62c8a2670be7c87a2f3e512e6284211e3a2d",
+      "korean_sha256_at_completion": "2ea8e6e5ac0c1a29537d5f178dd43862eac37fdd0d176bd632f3a47cddc33038",
       "cli_parity_verified": true
     },
     "docs/labs/06-knowledge.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "e11fe3bec6dbdb5b46ef018aae68f8b703d79e91962e314f42a1cbe0c25b72b4",
-        "korean_sha256": "b7a0f4d02ffe51f7cbde0c1b77035dbaacb3409d3759341fe3ae638efac45907"
+        "english_sha256": "ff80b1cfd5037504de3821be0126d9fb7253217a7854f6aee89e7e7b8818b2c4",
+        "korean_sha256": "c2ba7b517c861dd2cfb966a5a0e821cd08fe51069cd8e59d6a010de63c69e111"
       },
-      "english_sha256_at_completion": "e11fe3bec6dbdb5b46ef018aae68f8b703d79e91962e314f42a1cbe0c25b72b4",
-      "korean_sha256_at_completion": "cf7a30cf9bc9e8598477e61d5476f04e5f9745079247e5542771be10d07ebc4e",
+      "english_sha256_at_completion": "ff80b1cfd5037504de3821be0126d9fb7253217a7854f6aee89e7e7b8818b2c4",
+      "korean_sha256_at_completion": "23b29eef9e3f7b6f3022ccc6817fa573d0aee239e6b20fa76d49dd4a3fb20e52",
       "cli_parity_verified": true
     },
     "docs/labs/07-evaluation.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "56c6e4081d8da28236d30c9a930beae46eb5a612ad28ab6d0cb80c40d12fab8b",
-        "korean_sha256": "2e93ab9d5642673506203c9e2d05ed38ddaa471ee20da5de8e36f05493b9210c"
+        "english_sha256": "6ce0d31e554a5b09665af29e7bad8f12d12ebfb469b857606dd6e6604ea38a08",
+        "korean_sha256": "0c7bab4754fd1bf59f7a58c105244b85e75895c40c6dcc6e97029bf29c8da57d"
       },
-      "english_sha256_at_completion": "56c6e4081d8da28236d30c9a930beae46eb5a612ad28ab6d0cb80c40d12fab8b",
-      "korean_sha256_at_completion": "53bfaed3daaa03ef79ce95f19b09a3896055f02ae61316f6e518754d53830081",
+      "english_sha256_at_completion": "6ce0d31e554a5b09665af29e7bad8f12d12ebfb469b857606dd6e6604ea38a08",
+      "korean_sha256_at_completion": "93d02ce387ac30d844c182e1273bf62f49e24cf8eed4782789d8de6bb1e0c95c",
       "cli_parity_verified": true
     },
     "docs/labs/08-hosted.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "619c1eef17b2714e9c526a0893f543a524e27dfcffc62e2a25982ddfa2b3b9d6",
-        "korean_sha256": "bf13d65dae4e44ff01b82fb1ea341b3c38702fd27994203e368905a69cdc8a93"
+        "english_sha256": "c3dceaf79728ca1017aacc9531241dae932cedd47f74944fc0bab42c4d3094a6",
+        "korean_sha256": "15525307ad31168712b48d17d34759f03038e72d6ca2596a4b22d39924510e61"
       },
-      "english_sha256_at_completion": "619c1eef17b2714e9c526a0893f543a524e27dfcffc62e2a25982ddfa2b3b9d6",
-      "korean_sha256_at_completion": "14a473c27abadc4bf94dddad3c4df1338ab3519b9d9bc2d8afe561e32e6c4337",
+      "english_sha256_at_completion": "c3dceaf79728ca1017aacc9531241dae932cedd47f74944fc0bab42c4d3094a6",
+      "korean_sha256_at_completion": "1b6e05a839bf2c59a9a40d49e2e2b5084d8f7d375984dc4d7104735a33d7260d",
       "cli_parity_verified": true
     },
     "docs/labs/09-operations.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "1f220686545a2e192107a107765922f45f8f6105adf832b6f2242462c112599e",
-        "korean_sha256": "239fb7198d1f94be5bc2bfed6391d8043fcc0cda71ae41de7821804a4583b2cf"
+        "english_sha256": "fed38ea1cc06f2648ccf8bc3999415c49eda522026a6f7bca755d6ac6c8e56e9",
+        "korean_sha256": "47816c597ab731ef5729ff8cef343f2d8eb8cf2cdb8152606a86437139d721a4"
       },
-      "english_sha256_at_completion": "1f220686545a2e192107a107765922f45f8f6105adf832b6f2242462c112599e",
-      "korean_sha256_at_completion": "b6e532e02bfdf9e326795cd403f380483c01bc60f41090a4533db0434f1f0640",
+      "english_sha256_at_completion": "fed38ea1cc06f2648ccf8bc3999415c49eda522026a6f7bca755d6ac6c8e56e9",
+      "korean_sha256_at_completion": "2b843826c125c328d4bb9dd2ad9e2923a1c26f2ed9e741573b235599f2fc76be",
       "cli_parity_verified": true
     },
     "docs/labs/11-capstone.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "616d8daba669ba4c54833a64e18edf03c9588a928499c63b040bedc2ac257250",
-        "korean_sha256": "cc51ffbd87222a73330f4cd9c7b3d6c47f09109c536710490382535edf50c9f4"
+        "english_sha256": "293a9327d6caf90dc6a07d03921733ae030d673732de9a96093c360f3c192a98",
+        "korean_sha256": "7b1103aac151dfcc5906db222fe5e8f90c136093337b536b4708e8b192c0a8b7"
       },
-      "english_sha256_at_completion": "616d8daba669ba4c54833a64e18edf03c9588a928499c63b040bedc2ac257250",
-      "korean_sha256_at_completion": "683bfc29d0227347f9376874f5d2df060095132906d2fe9e8f84b4f56b890f5f",
+      "english_sha256_at_completion": "293a9327d6caf90dc6a07d03921733ae030d673732de9a96093c360f3c192a98",
+      "korean_sha256_at_completion": "15eecac9a80c5c4871a8e89d72748fe023a4a0c6f8392eca7c84fb5cc2fa45a6",
       "cli_parity_verified": true
     },
     "docs/reference/troubleshooting.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "3d1ac3a1597741fde9bbcc3cce5a7f3bb86ea79f7ffb2aea7857d45ccfedf08b",
-        "korean_sha256": "f0d4a35e6e3a594804d2f55ebd83e4af666337d3b8dfb4d4b114da35842123b3"
+        "english_sha256": "29ee75ae60bcca7fd79fc6d13351117d7a7eaf3f1bc6dc7d4560f4be04756381",
+        "korean_sha256": "4bc3103a8ebb101d8dbcfdb95af1c687fa134b704c67060e615b6a97bb23039b"
       },
-      "english_sha256_at_completion": "3d1ac3a1597741fde9bbcc3cce5a7f3bb86ea79f7ffb2aea7857d45ccfedf08b",
-      "korean_sha256_at_completion": "32b8fa7fa3a63810085569cf1b5884a454a6018ecacc4bf439dc045cb6a09e03",
+      "english_sha256_at_completion": "29ee75ae60bcca7fd79fc6d13351117d7a7eaf3f1bc6dc7d4560f4be04756381",
+      "korean_sha256_at_completion": "e86701aa8cace6877d54baa16fc15b5018fcde5cc7d0dccae57413823985ab74",
       "cli_parity_verified": true
     },
     "docs/reference/validation.md": {
@@ -385,13 +385,13 @@
       "cli_parity_verified": true
     },
     "docs/instructor.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "983ea2529f80913480f884800354d357e3739387b468a713336d77355b19efba",
-        "korean_sha256": "83e5a950047ac2a887b8dedf1e9ac81d79e6f207b105f126cc7b72df9c071704"
+        "english_sha256": "ec717a7666292377d47b34b1f33d55d9912d2e7fde0efc435bf08a7270de0567",
+        "korean_sha256": "1198816fd422658551e2f8c0bb9484b8727d81754dd4ae16c8ccb739e19e4a5c"
       },
-      "english_sha256_at_completion": "983ea2529f80913480f884800354d357e3739387b468a713336d77355b19efba",
-      "korean_sha256_at_completion": "a1d169b0c417f11134a13bcddcb44134d3bf6944e016c65089de5518912fdc93",
+      "english_sha256_at_completion": "ec717a7666292377d47b34b1f33d55d9912d2e7fde0efc435bf08a7270de0567",
+      "korean_sha256_at_completion": "511fd9fa3fe03e9aaeafa361869c081322c7deb52b63fec6721b3bb8f68c1269",
       "cli_parity_verified": true
     },
     "docs/reference/commands.md": {
@@ -405,13 +405,13 @@
       "cli_parity_verified": true
     },
     "docs/reference/configuration.md": {
-      "revision": "gpt-6-sol-20260924",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "70c7e38d28021a2a7ef41fe16255461e4c00ba025c9c367270c0a4cd34864a36",
-        "korean_sha256": "cc447203201e7ddc9b231d708e36e005ea891badb633ae4b68ca496f9588ccb5"
+        "english_sha256": "1e57cba6edc327c26cc233d00544416053df7e9b2275011edc82b42803b423f6",
+        "korean_sha256": "5b5a49185619f3c4e643530ff371d020590ab28fd2ab2adb0db33e88cf3c3986"
       },
-      "english_sha256_at_completion": "70c7e38d28021a2a7ef41fe16255461e4c00ba025c9c367270c0a4cd34864a36",
-      "korean_sha256_at_completion": "f423172693484a6742cc3725ec7e9af17a6f01cdef068ae4e0c7f1d3a07a3cd8",
+      "english_sha256_at_completion": "1e57cba6edc327c26cc233d00544416053df7e9b2275011edc82b42803b423f6",
+      "korean_sha256_at_completion": "0aae8d4d4f16833ec6c451607f772bf203fbaabe3fc6ad6938973b69e9b2ddb9",
       "cli_parity_verified": true
     },
     "docs/reference/languages.md": {
@@ -425,13 +425,13 @@
       "cli_parity_verified": true
     },
     "docs/reference/cleanup.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "79bb8caeb9fa8b29bcc4ed93e260ebbd5c42a8ec3f8a147a72a66a2d73ad626b",
-        "korean_sha256": "54743527d163db7a4d87405ad67ef5515260b846646c9eec42a5d3e692102bb3"
+        "english_sha256": "83035212f6a4b7571765c630878a01e8d1a7e6f87a4c801d766eb0494d76d5ef",
+        "korean_sha256": "46994bcd29d954409d64f81afa825ceb1cae8e8f9bb7aa0fe7343cdc8b301686"
       },
-      "english_sha256_at_completion": "79bb8caeb9fa8b29bcc4ed93e260ebbd5c42a8ec3f8a147a72a66a2d73ad626b",
-      "korean_sha256_at_completion": "87d2a312e9ddef1b7d32f52bb3430629df7b69a7572f456399348ba72f6757c2",
+      "english_sha256_at_completion": "83035212f6a4b7571765c630878a01e8d1a7e6f87a4c801d766eb0494d76d5ef",
+      "korean_sha256_at_completion": "53a477939cdb1be8e86c367cf37551ccb7815aeef5df907e9d020628d61df64d",
       "cli_parity_verified": true
     },
     "docs/reference/consolidation.md": {
@@ -445,43 +445,43 @@
       "cli_parity_verified": true
     },
     "docs/reference/evaluation-workbook.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "c4c15601e2db62f9587272773c83d8a2727c4c004485308bde0f707499d0bf30",
-        "korean_sha256": "8d241a3bc52b65649995f6dee62c690318ee40940a45aab6d2242a4b4e675c47"
+        "english_sha256": "5ec3b4f9a3bd76362c64489209b56fe99690068b3bd55825e3d65349c346033e",
+        "korean_sha256": "8d8cbd4e637f3812925e06eb4c452a534a4c4b7ca7304d2ffb585d5f15ac5474"
       },
-      "english_sha256_at_completion": "c4c15601e2db62f9587272773c83d8a2727c4c004485308bde0f707499d0bf30",
-      "korean_sha256_at_completion": "fe785dc0a5a4a9682b58f1bd89bbdf1e2423bf779b7c22df5dad528007430f08",
+      "english_sha256_at_completion": "5ec3b4f9a3bd76362c64489209b56fe99690068b3bd55825e3d65349c346033e",
+      "korean_sha256_at_completion": "28655ac42a005c6cefee685040f1db59496e72fbe2543baf289391bd36b681f1",
       "cli_parity_verified": true
     },
     "docs/reference/iq-workbook.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "acfbdca2cd9cc22474eff928f42ea128740d19a30677e03d952115aa6f5e9192",
-        "korean_sha256": "909c32e38c4b979e25495935a21fcf6ab96ed3ac5f54f0ac56b5bb2d19186773"
+        "english_sha256": "f729d35d4b13b11d764c77e7f1c9af84df9b7a223a8f42cce15375e9fe22ff05",
+        "korean_sha256": "a73d7f436676c15f36f5881dc1aabbbbe91eb067e181d7ff8b9fc2074814c4bc"
       },
-      "english_sha256_at_completion": "acfbdca2cd9cc22474eff928f42ea128740d19a30677e03d952115aa6f5e9192",
-      "korean_sha256_at_completion": "54725d7e0f893f534dc161f7366cc4ac47dfae880e7862f43620b1a45378f82c",
+      "english_sha256_at_completion": "f729d35d4b13b11d764c77e7f1c9af84df9b7a223a8f42cce15375e9fe22ff05",
+      "korean_sha256_at_completion": "c89c21fc93c2c62733ae3287057205848625652b3e9597e25fe82b75e888f29b",
       "cli_parity_verified": true
     },
     "docs/reference/glossary.md": {
-      "revision": "review-refresh-20260924",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "8136e3598e65a6bc10a71b800356da2fd03507c5c183f4fd6cc7c12b06e52f02",
-        "korean_sha256": "9b9968a167a26f96c1163062c0e9a2acba6a996a5f5466d6dada8f5d754cdc3e"
+        "english_sha256": "d48d779821187b2de26f972b77c08027b85aabf9d841b0920a44927868ff1cba",
+        "korean_sha256": "db6283735bfbf0c7c0ce37b53944caf71c86851de579412f471be7b4b85f3901"
       },
-      "english_sha256_at_completion": "8136e3598e65a6bc10a71b800356da2fd03507c5c183f4fd6cc7c12b06e52f02",
-      "korean_sha256_at_completion": "6b69c26cb0ebd12d2ca5f59da0c7e678dc28bc7171d55fbc330dcd0de2de9393",
+      "english_sha256_at_completion": "d48d779821187b2de26f972b77c08027b85aabf9d841b0920a44927868ff1cba",
+      "korean_sha256_at_completion": "0595a0631c8ba07f8bfc089ae620cfb938b3c38976d0ea6a0c6cc51deac42ae9",
       "cli_parity_verified": true
     },
     "docs/reference/iq-model-identity.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "bab788ae8bf1f8b387bee9cb377eea366b24645cbe95e325b70efdc14c728e89",
-        "korean_sha256": "be5868ee3acc3802d8d060972145bbac01e2614592d7061b8dba9b0948725662"
+        "english_sha256": "202561ba8915e80d07227a29bace9813f8bc45d89a76101e3b0d64e5a2d3e80e",
+        "korean_sha256": "3f67bcee3c3134d1c2ad8d8b6835695d47270600a0298530f49f8ac25bc5faf7"
       },
-      "english_sha256_at_completion": "bab788ae8bf1f8b387bee9cb377eea366b24645cbe95e325b70efdc14c728e89",
-      "korean_sha256_at_completion": "1d8bfa2bbe9e24c5dbef4f2744403168d1bf318957e58eca0f4e50f8df34ca91",
+      "english_sha256_at_completion": "202561ba8915e80d07227a29bace9813f8bc45d89a76101e3b0d64e5a2d3e80e",
+      "korean_sha256_at_completion": "6b48822d707f6806f4e3f2c9ade2ae44b1620df0c5f07deba7cfd4715019c3c3",
       "cli_parity_verified": true
     },
     "docs/reference/versions.md": {
@@ -505,13 +505,13 @@
       "cli_parity_verified": true
     },
     "docs/labs/10-iq-extensions.md": {
-      "revision": "straightforwardness-ten-independent-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "5bf1932147a2fafe415e073ebdb8dd1d672239afb9df47cfcabd5d4b03caac94",
-        "korean_sha256": "375b674afc91dd81a27af280332b86bd41ef951c4420a77205784a199268c852"
+        "english_sha256": "258f9b393717ed8bcabb6e218f8e1eec9beac634930376a3e2feaa8a378ed5f9",
+        "korean_sha256": "eb6aab43b14f05a56bbed41447bc8b7fe5d4ffd0efc56acb14857dc52cb979e6"
       },
-      "english_sha256_at_completion": "5bf1932147a2fafe415e073ebdb8dd1d672239afb9df47cfcabd5d4b03caac94",
-      "korean_sha256_at_completion": "6f36a17a59785d6fc1ec6ee5e99ca97a31d6cbea191c133a05a5a6c1631bc9f7",
+      "english_sha256_at_completion": "258f9b393717ed8bcabb6e218f8e1eec9beac634930376a3e2feaa8a378ed5f9",
+      "korean_sha256_at_completion": "10581361d6b48502f69ccf35fcf37e0946d37dca3464e9f9b4becd759ae4f588",
       "cli_parity_verified": true
     },
     "docs/live-run.md": {
@@ -565,13 +565,13 @@
       "cli_parity_verified": true
     },
     "docs/reference/migration.md": {
-      "revision": "review-refresh-20260924",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "cbadc9e8802ad6bccb35c3d0fe9a8a9d7d8a92bf4ee240b46005c27f2978800f",
-        "korean_sha256": "34877a9c452c92e951bae3c1398760b60d1728c8f3dabe9769fbd8a09cb1cb80"
+        "english_sha256": "d45f1f9d78073c478f1aa2dd2d4020e46296b17d3e15be44b027a677073e11e4",
+        "korean_sha256": "f768acd31d1271da60a396444d884fa13691ce26a9760d8d41228a5a26c0da7a"
       },
-      "english_sha256_at_completion": "cbadc9e8802ad6bccb35c3d0fe9a8a9d7d8a92bf4ee240b46005c27f2978800f",
-      "korean_sha256_at_completion": "7affc302b3cb50b294a0b8181fdab15ff1deaf3990c27212ee8396657e3fe171",
+      "english_sha256_at_completion": "d45f1f9d78073c478f1aa2dd2d4020e46296b17d3e15be44b027a677073e11e4",
+      "korean_sha256_at_completion": "8ea03752d2dfbffea48951a138797b7264fdc9a536018817812f0841787d9baf",
       "cli_parity_verified": true
     },
     "data/fixtures/README.md": {
@@ -625,13 +625,13 @@
       "cli_parity_verified": true
     },
     "docs/setup-owner.md": {
-      "revision": "straightforwardness-isolated-followup-20260926",
+      "revision": "straightforwardness-blind-ten-20260926",
       "pending_source_record": {
-        "english_sha256": "31de7b41b88aeb81f64fb03c6917ec9b342856ec6154784133340d53b5325804",
-        "korean_sha256": "a89427f6f3961371906b929de77b35fa3e3c65fc93a868e81c42c1ba98c1c390"
+        "english_sha256": "dfe83de9aff42456ea8dc729df1daf0bb4305791153120b8671a6e831a54a2c4",
+        "korean_sha256": "db5d6b14e0914c4d1b088450d77d48320794cc0b75c9d4eafbeb628baa232c8d"
       },
-      "english_sha256_at_completion": "31de7b41b88aeb81f64fb03c6917ec9b342856ec6154784133340d53b5325804",
-      "korean_sha256_at_completion": "315ce3c50590ecd1622083541370c5d8839f5f241a25c90e8792064189a1d27f",
+      "english_sha256_at_completion": "dfe83de9aff42456ea8dc729df1daf0bb4305791153120b8671a6e831a54a2c4",
+      "korean_sha256_at_completion": "a9942af4a4effee7710cc2d16bea6ae8425a028708c30e2a8aeb4e591c01df4c",
       "cli_parity_verified": true
     }
   }

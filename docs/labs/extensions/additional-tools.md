@@ -11,10 +11,13 @@ OpenAPI is a separate integration branch. Neither requires real company data.
 **Need:** working project/model access, regional/model support for the selected tool,
 permission to create a dedicated agent/uploaded file and approval for model plus sandbox charges.
 **Stop when:** an actual code call produced a downloaded CSV that preserves every original policy ID/title.
-**If blocked:** keep the original error/file IDs; do not generate the expected artifact locally and claim the tool made it.
+**If blocked:** before an attempt, record the missing prerequisite and **not run**.
+After an attempted run, record **failed/blocked**, keep the original error/file IDs and use step 4 for recorded owned resources.
+Do not generate the expected artifact locally and claim the tool made it.
 
 **First pass:** Code Interpreter steps 1–4, then handoff. OpenAPI is a separate choice,
 not a second tool you must run after a verified CSV.
+Step 2 is **live Azure execution**: it uploads a file and creates owned resources. There is no offline Code Interpreter run in this helper.
 
 ## 1. Know what is being tested
 
@@ -46,7 +49,7 @@ Open `outputs/code-interpreter/code-policy-table/`:
 
 | File | What to verify |
 |---|---|
-| `policy-records.csv` | The six original synthetic inputs |
+| `policy-records.csv` | Generated locally from the six canonical documents; this is the uploaded input, not the sandbox result |
 | `ownership.json` | Actual uploaded file, agent/version and container identifiers |
 | `request.json` | Fixed task and exact agent version |
 | `response.json` | Actual completed code call and generated-file citation |
@@ -57,8 +60,13 @@ The helper accepts one generated CSV citation from a container actually reported
 It writes to a fixed local filename rather than trusting a model-provided path.
 Wrong columns, missing/duplicate/reordered rows or modified titles fail verification.
 Keep the mismatched output unchanged for diagnosis.
+A failed run may leave only some of these files; a missing `summary.json` is not a pass.
 
 ## 4. Clean up the owned temporary resources
+
+Use the same attempt's label even when upload, inference or CSV verification failed.
+Run cleanup only if that attempt has `ownership.json`; otherwise hand off the error and record **cleanup not run — no ownership record**.
+Do not invent resource IDs or rerun inference to obtain a cleanup record.
 
 ```bash
 python scripts/workshop.py --language en code-interpreter cleanup --label code-policy-table --confirm-delete
@@ -96,7 +104,8 @@ This is separate from your local user's Search access.
 python scripts/workshop.py --language en openapi plan
 ```
 
-Verify the one-server, one-index, read-only plan and runtime permissions before the billable request:
+The plan is local (`azure_requests_sent: false`); it does not verify the remote index or runtime permissions.
+Verify the one-server, one-index, read-only definition and have the owner confirm those permissions before the billable request:
 
 ```bash
 python scripts/workshop.py --language en openapi invoke --label openapi-policy --confirm-cost

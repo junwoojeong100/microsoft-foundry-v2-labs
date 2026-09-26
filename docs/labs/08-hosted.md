@@ -23,6 +23,7 @@
 ## 1. Build a safe bundle without Azure
 
 **Default B: run this one command, inspect its manifest, then go to Lab 09.**
+Use the source repository root and the virtual environment from Lab 00, not the learner ZIP directory.
 If `.build/hosted-en/` already exists, inspect its manifest first; the command will not overwrite it.
 To rebuild, move the old package aside first, for example `mv .build/hosted-en ".build/hosted-en-$(date +%Y%m%d-%H%M%S)"`.
 
@@ -42,8 +43,10 @@ Output: `.build/hosted-en/`.
 
 `.agentignore` also excludes later `.foundry/` evaluation data/results and `eval*.yaml`
 so evaluation answers do not enter a redeployment package.
-Inspect `package-manifest.json` and `requirements.txt`.
+Open `.build/hosted-en/package-manifest.json` and `.build/hosted-en/requirements.txt`.
 Compare hashes after source changes; a saved package is not automatically updated with your source.
+`cloud_deployed: false` records packaging, not a live deployment check. Keep the manifest unchanged;
+record any later approved execution separately.
 In `session-notes.txt`'s B section, fill `Lab 08 package path / cloud_deployed / local and remote execution:`.
 Use the actual package path, `cloud_deployed: false`, and **not run** for both optional execution stages.
 
@@ -180,14 +183,15 @@ The older `--kind workflow` is the distinct CI Invocations preset; it is not a s
 
 Keep local `.env` authentication as `cli`, distinct from azd's remote runtime configuration.
 
-**Terminal A — reuse the setup terminal from section 2:**
+**Terminal A — reuse the setup terminal from section 2 at the source repository root:**
 
 ```bash
 source .venv/bin/activate
 python scripts/workshop.py --language en serve
 ```
 
-Leave the server running on its default local port 8088.
+This foreground server occupies terminal A on local port 8088; no new shell prompt is expected.
+Leave it running and use terminal B for the next block.
 
 **Terminal B:**
 
@@ -206,16 +210,17 @@ The question requests the September 2026 domestic lodging limit and sources.
 
 
 
-**What to check:** Leave A running and check HTTP 200 in B. The pinned SDK returns
-`{"status":"healthy"}` (rechecked September 15, 2026), not `status: ready`.
-HTTP readiness proves server availability, not model inference.
+**What to check:** B first prints `{"status":"healthy"}` (rechecked September 15, 2026), not `status: ready`.
+This `curl` command prints the body, not the HTTP status. If readiness fails, `&&` skips the invocation;
+inspect terminal A and use [Hosted recovery](../reference/troubleshooting.md#common-blockers).
+A successful readiness check proves server availability, not model inference.
 
 
 **What to check:** Inspect the limit/evidence and fresh **Session / Conversation**.
 This local invocation still calls a billable Azure model; it is not remote-deployment evidence.
 
-Check the real answer and sources beyond HTTP 200. When finished, stop only this
-server with `Ctrl+C` in terminal A.
+After checking the answer and sources, stop only this server with `Ctrl+C` in terminal A.
+For local-only work, skip section 4 and record the result in section 5.
 
 ## 4. Remote deployment: separate cost and permission approval
 
@@ -283,8 +288,11 @@ Default serve/package commands retain the earlier single-function-agent path.
 Explicit workflow profiles freeze kind, pattern, retrieval, prompt, API, protocol, and language.
 Do not reuse single-agent scores as evidence for the workflow target.
 
+At the source repository root with `.venv` active, the **first command makes billable Azure model calls**;
+the second only builds a local package. `&&` prevents packaging after a failed workflow check.
+
 ```bash
-python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval local --prompt v2
+python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval local --prompt v2 &&
 python scripts/package_hosted.py --language en --kind workflow --pattern sequential
 ```
 
@@ -298,7 +306,8 @@ Complete **section 2's shared setup** with this exact returned package, a new ow
 Do not initialize another service in the source copy. Then use the following matching workflow command
 **instead of section 3's default single-agent server**.
 
-Terminal A, at the source repository root with `.venv` active:
+Terminal A, at the source repository root with `.venv` active: if section 3's server is still running,
+stop it with `Ctrl+C` here before starting the workflow server. Leave this replacement running for terminal B.
 
 ```bash
 python scripts/workshop.py --language en serve --kind workflow --pattern sequential
