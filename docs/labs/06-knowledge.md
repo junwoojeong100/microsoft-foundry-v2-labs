@@ -139,7 +139,8 @@ failure is not overall success.
 
 **What to check:** The seed result has `mode: live`, your `index`, `document_count: 6`,
 `hybrid: false`, and `knowledge_base: null`. It created ordinary Search objects, not IQ.
-The ownership record `outputs/azure-objects.json` is this command's saved evidence; no other file is needed.
+`outputs/azure-objects.json` records ownership, not upload completion. Keep it and copy this seed result or error
+into B's Lab 06 notes in `session-notes.txt`; do the same for step 4's seed.
 
 Only after successful seeding, query that index:
 
@@ -345,7 +346,8 @@ Request, response, source evidence and failures stay in `outputs/iq-chat/iq-chat
 For `configured: false`, missing permissions, a wrong version, 403 or 429, stop and use [the fixed-preset recovery guide](../reference/iq-model-identity.md).
 A fixed model removes a common configuration mismatch; it cannot guarantee quota or service availability.
 
-**Return:** record the actual label and finding on `Optional IQ Chat outcome, or not selected:` in `session-notes.txt`.
+**Return:** in `session-notes.txt`, use Lab 00's shared `Optional IQ Chat selected or not selected:` entry
+to record selection, the actual label, result/error path and finding for either route. A's Lab 06 outcome line can refer to that entry.
 Resume any unfinished [A source checks](#path-a) or [B steps](#path-b), not another workbook run.
 If your core checks are complete, continue to [Lab 07 A](07-evaluation.md#path-a) or [Lab 07 B](07-evaluation.md#path-b).
 
@@ -377,10 +379,15 @@ AZURE_OPENAI_ENDPOINT=https://<same-foundry-account>.openai.azure.com
 
 ```bash
 python scripts/workshop.py --language en seed-search --hybrid --confirm-create --confirm-cost
-python scripts/workshop.py --language en retrieve --provider hybrid --question "What is the domestic business-trip lodging limit for September 2026?"
-python scripts/workshop.py --language en answer --retrieval hybrid --prompt v2
+python scripts/workshop.py --language en retrieve --provider hybrid \
+  --question "What is the domestic business-trip lodging limit for September 2026?" \
+  --output outputs/learner-notes-en/retrieve-hybrid.json
+python scripts/workshop.py --language en answer --retrieval hybrid --prompt v2 \
+  --output outputs/learner-notes-en/answer-hybrid.json
 ```
 
+Keep the seed result/error in `session-notes.txt`. Open each saved JSON before continuing;
+on resume, reuse your matching files instead of repeating paid requests.
 Creation approval covers the owned index; cost approval covers real embeddings.
 All six synthetic documents are embedded and checked against the vector field/HNSW profile.
 Queries contain both `search` and `vectorQueries`, with `top=6`.
@@ -418,11 +425,13 @@ Keep the initial failed cohort and run a new, consistently configured baseline/c
 Do not apply this small-corpus setting blindly to production, change reference answers, or describe it as an error-triggered provider fallback.
 
 ```bash
-python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval iq --prompt v2
+python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval iq --prompt v2 \
+  --output outputs/learner-notes-en/workflow-iq.json
 ```
 
 This optional command asks the CLI's default lodging-limit question and performs fresh IQ retrieval;
-it does not consume the `retrieve-iq.json` saved in B. Save its complete output as a separate experiment.
+it does not consume the `retrieve-iq.json` saved in B. Inspect the complete saved `workflow-iq.json` as a separate experiment;
+on resume, reopen that matching file rather than repeating the request.
 For the remote matrix, start at the
 [evaluation workbook's preparation](../reference/evaluation-workbook.md#matrix-setup);
 it packages its own IQ/account-chat/Invocations target once.

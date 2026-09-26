@@ -179,11 +179,12 @@ package는 다른 프로젝트/모델/Toolbox/connection 값을 runtime에서 �
 ## 6. 공유 도구를 망가뜨리지 않고 마무리
 
 [owned-session cleanup](../../reference/cleanup.md)을 이 새 Hosted agent에 사용합니다.
-session을 중지/삭제하기 전에 검증기가 보고한 `remote_evidence_directory`에 대해
-`azd ai agent files list`와 `files download`를 사용합니다.
-`files` 명령의 경로는 세션 home 기준입니다.
-실제 binding·request·model/function/tool 결과와 summary를 보관한 뒤 새 세션을 중지하고 상태를 확인합니다.
-package와 response 근거를 보존합니다.
+기록한 azd 폴더·agent·session을 지정해 `azd ai agent files list`와 `files download`로 남아 있는 근거를 받습니다.
+경로는 세션 home 기준입니다. 성공했다면 검증기의 `remote_evidence_directory`를 사용하고,
+검증에 실패했다면 같은 세션의 `workshop-evidence/toolbox-runs/`를 확인합니다.
+Binding·request·model/function/tool 결과·summary 또는 `failure.json`과 package·response 근거를 보존합니다.
+회수가 막히면 이유와 담당자를 적습니다. 소유 compute 중지는 회수가 끝날 때까지 기다릴 필요가 없으며 stopped/idle 상태를 확인합니다.
+단, session이나 agent를 삭제하기 전에는 근거를 보존합니다.
 
 새 Hosted agent를 삭제한다면 Toolbox, skill 또는 Search source를 제거하기 전에 참조 관계를 확인합니다.
 공유 프로젝트·모델·Search 리소스를 삭제하거나 이전 endpoint/버전 ID를 재사용하지 않습니다.

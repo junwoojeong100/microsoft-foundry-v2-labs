@@ -363,6 +363,191 @@ class DocumentationTests(unittest.TestCase):
                 self.assertIn("`optimizer-review.txt`", review)
                 self.assertIn(no_promotion, review)
 
+    def test_optional_hybrid_and_iq_commands_save_distinct_results(self):
+        expected = {
+            ("retrieve", "hybrid"): "retrieve-hybrid.json",
+            ("answer", "hybrid"): "answer-hybrid.json",
+            ("workflow-agent", "iq"): "workflow-iq.json",
+        }
+        command_parser = DOCS.parser()
+        for language, directory in (("en", "docs"), ("ko", "docs/ko")):
+            with self.subTest(language=language):
+                text = (ROOT / directory / "labs/06-knowledge.md").read_text()
+                found = {}
+                for _, arguments in DOCS.workshop_commands(text):
+                    args = command_parser.parse_args(arguments)
+                    key = (
+                        args.command,
+                        getattr(args, "provider", getattr(args, "retrieval", None)),
+                    )
+                    if key in expected:
+                        self.assertNotIn(key, found)
+                        found[key] = args.output
+                self.assertEqual(
+                    found,
+                    {
+                        key: Path(f"outputs/learner-notes-{language}/{name}")
+                        for key, name in expected.items()
+                    },
+                )
+
+    def test_hosted_monitor_reentry_does_not_regenerate_a_verified_query(self):
+        for directory in ("docs", "docs/ko"):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/09-operations.md").read_text()
+                operations = [
+                    args[args.index("benchmark") + 1]
+                    for _, args in DOCS.workshop_commands(text)
+                    if "benchmark" in args
+                ]
+                self.assertNotIn("trace-plan", operations)
+                self.assertEqual(operations.count("monitor"), 1)
+                self.assertLess(operations.index("monitor"), operations.index("stop-session"))
+                for marker in (
+                    "trace-query.kql",
+                    "trace-verification.json",
+                    "query hash",
+                    "cached_verified_evidence: true",
+                ):
+                    self.assertIn(marker, text)
+
+    def test_iq_chat_handoff_uses_a_shared_worksheet_field(self):
+        for language, directory, heading, field in (
+            ("en", "docs", "**Return:**", "Optional IQ Chat selected or not selected:"),
+            ("ko", "docs/ko", "**복귀:**", "선택 IQ Chat의 선택 또는 미선택:"),
+        ):
+            with self.subTest(language=language):
+                notes = (ROOT / "data/learner" / language / "session-notes.txt").read_text()
+                shared = notes.split("\nA -", 1)[0]
+                self.assertIn(field, shared)
+                text = (ROOT / directory / "labs/06-knowledge.md").read_text()
+                handoff = text.split(heading, 1)[1].split("</details>", 1)[0]
+                self.assertIn(f"`{field}`", handoff)
+                self.assertIn("label", handoff)
+
+    def test_evaluation_resume_reuses_review_and_code_changes_need_a_new_dev_pair(self):
+        for directory, pair, approval, holdout in (
+            ("docs", "new dev baseline/candidate pair", "cost approval", "Keep holdout closed"),
+            ("docs/ko", "새 dev baseline/candidate 쌍", "비용 승인", "Holdout은 열지 않습니다"),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/07-evaluation.md").read_text()
+                resume = text.split('<a id="resume-evaluation"></a>', 1)[1].split(
+                    '<a id="dev-baseline"></a>', 1
+                )[0]
+                self.assertIn("`review-*.json`", resume)
+                candidate = text.split('<a id="dev-candidate"></a>', 1)[1].split(
+                    "collect --split dev --label candidate", 1
+                )[0]
+                for marker in (pair, approval, holdout):
+                    self.assertIn(marker, candidate)
+
+    def test_creation_and_optimizer_review_prerequisites_precede_paid_actions(self):
+        for directory, button, authorization in (
+            ("docs", "**Create agent and open playground**", "owner's authorization"),
+            ("docs/ko", "**에이전트 만들기 및 플레이그라운드 열기**", "담당자 승인"),
+        ):
+            with self.subTest(directory=directory):
+                agent = (ROOT / directory / "labs/03-prompt-agent.md").read_text()
+                before_create = agent.split(button, 1)[0]
+                self.assertIn("`text-embedding-3-large`", before_create)
+                self.assertIn(authorization, before_create)
+                optimizer = (ROOT / directory / "labs/extensions/agent-optimizer.md").read_text()
+                prerequisites = optimizer.split("## 2.", 1)[0]
+                for marker in (
+                    "`sample.input`",
+                    "evaluation ID",
+                    "raw-input review unavailable",
+                    "`optimizer-review.txt`",
+                ):
+                    self.assertIn(marker, prerequisites)
+
+    def test_conversation_evaluation_names_status_files_and_both_result_denominators(self):
+        for directory, turn_rows, conversation_rows in (
+            ("docs", "**six**", "**two**"),
+            ("docs/ko", "**6행**", "**2행**"),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/extensions/conversation-evaluation.md").read_text()
+                turn = text.split("## 4.", 1)[1].split("## 5.", 1)[0]
+                before_request = turn.split("conversations evaluate", 1)[0]
+                for marker in (
+                    "groundedness",
+                    "coherence",
+                    "300",
+                    "native-<level>/cloud-evaluation.json",
+                    "status: completed",
+                    "validation_status: valid",
+                ):
+                    self.assertIn(marker, before_request)
+                self.assertIn("native-turn/cloud-evaluation-results.json", turn)
+                self.assertIn(turn_rows, turn)
+                conversation = text.split("## 5.", 1)[1].split("## 6.", 1)[0]
+                self.assertIn("native-conversation/cloud-evaluation-results.json", conversation)
+                self.assertIn(conversation_rows, conversation)
+
+    def test_matrix_recovery_never_recollects_an_exposed_holdout(self):
+        for directory, prefix, dev_only, no_recollection in (
+            ("docs", "| Matrix rows", "**Dev only:**", "do not recollect"),
+            ("docs/ko", "| matrix 행", "**Dev만:**", "재수집하지 말고"),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "reference/troubleshooting.md").read_text()
+                row = next(line for line in text.splitlines() if line.startswith(prefix))
+                for marker in (dev_only, "holdout", no_recollection, "endpoint", "provider"):
+                    self.assertIn(marker, row)
+
+    def test_optional_hosting_has_a_local_exit_and_failed_verification_evidence_path(self):
+        for directory, local_only, not_run in (
+            ("docs", "**Local-only:**", "**not run**"),
+            ("docs/ko", "**로컬만 실행한 경우:**", "**미실행**"),
+        ):
+            with self.subTest(directory=directory):
+                hosted = (ROOT / directory / "labs/08-hosted.md").read_text()
+                handoff = hosted.split("## 5.", 1)[1].split("</details>", 1)[0]
+                for marker in (
+                    local_only,
+                    not_run,
+                    "`session-notes.txt`",
+                    "(09-operations.md#path-b)",
+                ):
+                    self.assertIn(marker, handoff)
+                toolbox = (ROOT / directory / "labs/extensions/toolbox-hosted.md").read_text()
+                cleanup = toolbox.split("## 6.", 1)[1]
+                for marker in (
+                    "`remote_evidence_directory`",
+                    "`workshop-evidence/toolbox-runs/`",
+                    "`failure.json`",
+                    "stopped/idle",
+                ):
+                    self.assertIn(marker, cleanup)
+
+    def test_extension_inspection_paths_and_synthetic_policy_input_are_explicit(self):
+        for language, directory in (("en", "docs"), ("ko", "docs/ko")):
+            with self.subTest(language=language):
+                extensions = ROOT / directory / "labs/extensions"
+                routine = (extensions / "routines.md").read_text()
+                for marker in (
+                    "outputs/routine-inspections/<label>/",
+                    "`routine.json`",
+                    "`runs.json`",
+                    "`summary.json`",
+                    "`manual_delivery_verified: true`",
+                ):
+                    self.assertIn(marker, routine)
+                memory = (extensions / "memory.md").read_text()
+                for marker in (
+                    "`memory inspect`",
+                    "`scope`",
+                    "`alpha`/`beta`",
+                    "`memory-alpha-02`",
+                    "`outputs/memory-runs/<new-label>/`",
+                ):
+                    self.assertIn(marker, memory)
+                policy = "policies/RECEIPT-01.txt"
+                self.assertIn(f"`{policy}`", (extensions / "specialist-scope.md").read_text())
+                self.assertTrue((ROOT / "data/learner" / language / policy).is_file())
+
     def test_english_cli_examples_explicitly_select_the_english_bundle(self):
         for english, _ in DOCS.translation_pairs(ROOT):
             for line, arguments in DOCS.workshop_commands(english.read_text()):

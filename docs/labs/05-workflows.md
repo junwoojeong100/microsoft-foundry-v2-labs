@@ -36,7 +36,7 @@ Using the Agent Playground is different from authoring a workflow in the portal.
 
 ## A. Beginner: run the prepared example yourself
 
-Use **one** option selected on your setup card: the terminal of a **prepared MAF environment**, or an owner-prepared Hosted workflow agent in Playground.
+Use the **one** option already recorded in `workflow-review.txt`: the terminal of a **prepared MAF environment**, or an owner-prepared Hosted workflow agent in Playground.
 No code authoring is required. Either option makes real, billable Azure model calls within the owner's budget.
 Never share an administrator account or run both options just to complete A.
 
@@ -45,8 +45,6 @@ Never share an administrator account or run both options just to complete A.
 Both options use this exact question:
 
 > My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking.
-
-Record `Execution option (prepared terminal / prepared hosted workflow agent in Playground):` in your personal `workflow-review.txt`.
 
 **Terminal option (default recording path):** continue to step 2.
 

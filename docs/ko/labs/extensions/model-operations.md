@@ -32,7 +32,7 @@ deployment/model/version, project/API, prompt, corpus, retrieval, 출력 제한�
 `migration-model-b`는 아직 없는 출력 폴더에만 사용합니다. 이미 있다면 저장된 run을 확인하거나 새 label을 모든 참조에 일관되게 사용합니다.
 원래 project·출력 제한·retrieval 설정·소스 코드·합성 파일은 그대로 유지합니다.
 `compare`는 `inference`나 code·corpus·dataset hash가 다르면 거부합니다. 해당 baseline이 없다면
-Lab 07의 dev 단계로 돌아가거나 차단 상태로 인계합니다. 이 모듈 때문에 holdout을 새로 실행할 필요는 없습니다.
+Lab 07의 dev 단계로 돌아가거나 차단 상태로 인계합니다.
 
 ## 2. 저장된 설정을 바꾸지 않고 두 번째 모델 확인
 
@@ -73,6 +73,8 @@ python scripts/workshop.py --language ko compare --baseline candidate --candidat
 
 `outputs/migration-model-b/comparison-vs-candidate.json`을 엽니다.
 양쪽 metrics와 `changed_context_cases`를 읽습니다. 반환 근거가 달라졌다면 고정된 조건의 모델 순위가 아니라 end-to-end 비교입니다.
+보고서 `note`의 미사용 holdout 요구는 이후의 최종 인수에 해당합니다. 이 모듈은 dev 비교와 이전 결정을 기록하면 끝나며,
+여기서 holdout을 새로 열지 않습니다.
 baseline이 다른 **retrieval provider**를 사용했다면 이번 비교 양쪽 모두 그 provider를 유지합니다.
 두 모델 배포가 같은 모델 공급자 제품이어야 한다는 뜻은 아닙니다.
 non-OpenAI provider의 경우 project Responses 경로와 엄격한 `json_schema` Structured Outputs를 모두 받아야 합니다.

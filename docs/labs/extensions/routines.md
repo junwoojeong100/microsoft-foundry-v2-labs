@@ -104,7 +104,9 @@ printf 'Returned dispatch ID: '; read -r DISPATCH_ID
 python scripts/workshop.py --language en routines inspect --name "$ROUTINE_NAME" --dispatch-id "$DISPATCH_ID" --label routine-result
 ```
 
-This verifies **delivery**, not answer content. The observed agent-identity routine completed,
+Keep the whole `outputs/routine-inspections/<label>/` directory: `routine.json`, `runs.json` and `summary.json` when written.
+Require `manual_delivery_verified: true` in `summary.json` and confirm the final routine state is disabled before finishing.
+This verifies **manual delivery**, not answer content or a future scheduled run. The observed agent-identity routine completed,
 but its returned response ID produced 404 on later retrieval. Record that boundary rather than
 call the agent directly and present the replacement as a routine answer.
 If Application Insights is connected, paste the returned `response_id` into the target agent's **Traces** search ([Lab 09 B](../09-operations.md#path-b)).
@@ -112,7 +114,6 @@ On 2026-09-25 it showed `invoke_agent <agent>:<version>` with a child `chat` spa
 `--verify-response` with a new label attempts explicit response verification and fails visibly
 when the original response is unavailable. It never repeats the model request.
 Inspect the matching run's state and returned answer/error; list again only to observe that same run, not to dispatch another.
-Confirm the final routine state is disabled before leaving the lab.
 
 ## 5. Record the outcome and clean up
 

@@ -83,7 +83,8 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 강사나 환경 담당자에게 다음 값을 받습니다. 혼자 학습하면 표의 마지막 열대로 본인 포털에서 확인합니다.
 Tenant뿐 아니라 **로그인할 계정**도 확인합니다. 평소 회사 계정과 실습 계정은 다를 수 있으며,
 브라우저 로그인과 Azure CLI 로그인도 별도 세션입니다. 둘을 맞추려고 인증정보를 공유하지 않습니다.
-**A:** 방금 압축을 푼 ZIP의 `session-notes.txt`에 적습니다.
+**A:** ZIP의 `session-notes.txt`에 적고, 담당자가 선택한 Lab 05 실행 방식도 지금 `workflow-review.txt`에 기록합니다.
+Playground 방식이면 Hosted agent 이름·버전과 제공받은 Playground 링크를 같은 파일에 적습니다.
 **B:** 받은 값을 보관했다가 Lab 00에서 `outputs/learner-notes-ko/session-notes.txt`를 만들면 옮깁니다.
 설정 카드의 `Search endpoint(B 전용):` 줄에 확인된 Lab 06용 URL을 적습니다. 기존 개인 복사본에 그 줄이 없다면 기록을 교체하지 말고 줄만 추가합니다.
 값을 받기 위해 설치부터 할 필요는 없습니다. 비밀번호·key·token은 기록하지 않습니다.

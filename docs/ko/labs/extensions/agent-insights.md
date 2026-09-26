@@ -75,7 +75,7 @@ AI가 생성한 Insight는 불완전하거나 오래됐거나 틀릴 수 있습�
 
 | 결정 | 경계 |
 |---|---|
-| Evaluate | 기존 합성 정책 시나리오에서 파생한 dev 평가 사례를 추가하거나 우선순위 지정 |
+| Evaluate | 제안할 dev 사례·근거 trace·agent version을 `insights-review.txt`에 적고 인계. 원본 dev나 holdout은 수정하지 않으며, 사례 확장은 별도 버전의 실험으로 진행 |
 | Change instructions in a new version | 검토된 candidate version 생성. 현재 baseline을 덮어쓰지 않음 |
 | Route | 데이터·도구·접근·운영 담당자에게 전달 |
 | No action | Insight가 실행 가능하지 않거나 근거가 부족하면 evidence와 이유 보존 |

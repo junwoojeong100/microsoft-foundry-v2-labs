@@ -213,7 +213,7 @@ Steps 5–6 and IQ-based comparisons are separate optional experiments.
 | Existing evidence | Start here |
 |---|---|
 | None for this experiment | Step 1; use fresh labels |
-| `outputs/baseline/`, no candidate yet | Read its `manifest.json` and `responses.jsonl`; grade the saved run if needed, then continue at step 2 |
+| `outputs/baseline/`, no candidate yet | Read its `manifest.json` and `responses.jsonl`; grade if needed. If this baseline already has a `review-*.json` or all-pass review note, read it and go to step 3; otherwise go to step 2 |
 | `outputs/candidate/`, no holdout yet | Keep both dev runs; read or produce their local evaluation/comparison reports in step 3, then check step 4's gate |
 | `outputs/final-holdout/` | Skip all `collect` commands. Read the saved final reports, or run only step 4's local `evaluate` and `accept` with the original labels |
 
@@ -278,7 +278,7 @@ Record the case, failed check and your explanation, or the observed all-pass res
 | Claimed approval | Business authority boundary and tools |
 | JSON/request error | Model support, output limit, SDK, service |
 
-Run this block **only when a real baseline case failed**. Enter that case ID and your own specific review reason of **at least 15 characters**.
+Run this block **only for a real baseline failure you have not yet reviewed**. Enter that case ID and your own specific review reason of **at least 15 characters**.
 **If all six passed**, write that in your review notes, skip this block and go to step 3.
 
 ```bash
@@ -336,6 +336,9 @@ read the existing local reports or run the local checks that follow. Do not pay 
 **What to check:** Explain which omissions the changed rules target. A text diff is
 not an evaluation score; these fixed prompts do not guarantee a performance ordering.
 
+For a prompt-only revision, use a fresh candidate label. If code changed, stop this comparison:
+preserve the old runs and obtain cost approval for a new dev baseline/candidate pair under identical code. Keep holdout closed.
+
 ```bash
 python scripts/workshop.py --language en collect --split dev --label candidate --prompt v2 --retrieval local
 ```
@@ -353,8 +356,7 @@ Then compare the saved dev runs. Comparison does not itself approve holdout:
 python scripts/workshop.py --language en compare --baseline baseline --candidate candidate --variable prompt
 ```
 
-Do not edit JSONL responses or scores. After instruction/code changes, collect under
-a new label. Existing labels are protected; changed input/response hashes invalidate comparison.
+Do not edit JSONL responses or scores. Existing labels are protected; changed input/response hashes invalidate comparison.
 
 
 ![September 24 English recording: Local business checks for the candidate](../assets/g6sol-20260924-en/screenshots/E07-005-evaluate-candidate-2.webp)

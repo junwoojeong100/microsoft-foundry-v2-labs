@@ -19,7 +19,7 @@ and hand it off as **design-only**. No new service, account, data connection or 
 | Autopilot / Agent 365 | Agent identity versus agent user account, blueprint versus instances, manager and governance | Concept/design only; no mailbox, Teams presence or organizational account creation |
 | Private skill catalog | API Center registration, allowed tools, discovery and assessment | Separate API Center infrastructure; not created by attaching a skill to a Toolbox |
 | Fine-tuning | When prompting/retrieval/optimization is insufficient; training data and model-weight changes | Separate specialist curriculum; current dev/holdout are not automatically training data |
-| Content Understanding receipts | Field extraction design, validation and human review | Design only with synthetic RECEIPT-01; no service calls and no real receipts |
+| Content Understanding receipts | Field extraction design, validation and human review | Read `policies/RECEIPT-01.txt` in the prepared learner materials for your language: a synthetic policy, not a receipt image. Design only; no uploads or service calls |
 | Voice-based prompt agents | Portal quickstart, realtime media, SDK version boundaries | Design only; Python voice SDK support is in `azure-ai-projects` 2.7.0 beta, outside this edition's pins |
 | Publish to Microsoft 365 Copilot/Teams | Stable endpoint, active version and tenant publishing workflow | Concept only; requires an M365 tenant and separate approval |
 | Voice / Realtime / image | Modality-specific models, protocols, artifacts, safety and evaluation | Separate approved assets/runtime; text-agent success is not multimodal validation |
@@ -46,7 +46,7 @@ Likewise, a live connection does not establish semantic correctness, safety, aut
 
 | Exercise | Design notes to capture |
 |---|---|
-| Content Understanding receipt extraction tied to `RECEIPT-01` | Define fields `date`, `amount`, `merchant` and `category`; apply validation rules from the synthetic policy; route uncertain or policy-significant values to human review; no real receipts, no service calls |
+| Content Understanding receipt extraction tied to `policies/RECEIPT-01.txt` | Use that prepared synthetic policy to design fields `date`, `amount`, `merchant` and `category` and validation rules; route uncertain or policy-significant values to human review; hand off design notes without receipt images, uploads or service calls |
 | Voice-based Prompt Agent | Map the portal quickstart prerequisites and expected user experience; record that Python voice-agent SDK support is only in `azure-ai-projects` 2.7.0 beta, outside this edition's pins |
 | Publish to Microsoft 365 Copilot/Teams | Explain the stable endpoint and active version concept; record the need for an M365 tenant, app/publishing review and user-facing governance; no publishing action |
 

@@ -75,7 +75,7 @@ Record one of these outcomes in `insights-review.txt`:
 
 | Decision | Boundary |
 |---|---|
-| Evaluate | Add or prioritize a dev evaluation case derived from the existing synthetic policy scenario |
+| Evaluate | Record a proposed dev case, its source trace and agent version in `insights-review.txt`, then hand it off. Do not edit canonical dev or holdout; an expanded dataset needs a separately versioned experiment |
 | Change instructions in a new version | Create a reviewed candidate version; do not overwrite the current baseline |
 | Route | Send the finding to the owner of data, tools, access or operations |
 | No action | Keep the evidence and reason when the Insight is not actionable or is unsupported |

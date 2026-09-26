@@ -258,10 +258,12 @@ Responses 프로토콜에서 **세션과 대화는 별개**입니다. `--new-ses
 
 ## 5. 결과의 한계를 정확히 기록
 
+**로컬만 실행한 경우:** smoke 응답 또는 오류를 `session-notes.txt`에 보관하고 원격 배포/평가는 **미실행**으로 적은 뒤
+[Lab 09 B](09-operations.md#path-b)로 갑니다. Smoke 실패는 미완료로 남기며, 이 분기를 마치려고 원격 작업을 할 필요는 없습니다.
+
 이 Hosted 예제는 공통 MAF 함수 도구를 사용합니다.
 Lab 07의 프로젝트 Responses + precomputed retrieval 실행과 **동일한 실행 경로가 아닙니다.**
-Lab 07의 점수를 이 Hosted 버전의 평가 점수로 재사용하지 않습니다.
-원격 버전을 고정한 새 dev/holdout 평가를 해야 같은 품질이라고 주장할 수 있습니다.
+나중에 Hosted 품질을 주장하려면 정확히 그 버전을 대상으로 별도 승인된 평가가 필요합니다. Lab 07 점수를 옮겨 쓰지 않습니다.
 
 
 앞의 기본 단일-agent 경로와 다음 workflow 경로는 서로 다른 target입니다.

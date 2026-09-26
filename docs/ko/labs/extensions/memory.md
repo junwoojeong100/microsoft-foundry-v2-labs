@@ -63,8 +63,8 @@ python scripts/workshop.py --language ko memory inspect --scope beta
 확인이 늦으면 같은 항목을 조회하며 중복 항목을 만들지 않습니다.
 
 **scope는 인증된 사람 두 명이 아닙니다.** 같은 권한의 운영자가 어느 쪽도 선택할 수 있으므로 사용자 간 인가를 검증했다고 주장하지 않습니다.
-포털 **Memory → 내 store → Memories**에서는 기본 `{{$userId}}` 대신 실제 합성 scope를 입력합니다.
-로딩이 끝나기 전 빈 화면을 결과로 해석하지 않습니다.
+**선택 포털 확인:** **Memory → 내 store → Memories**에 해당 `memory inspect` 결과의 전체 `scope` 값을 복사합니다.
+`alpha`/`beta`나 `{{$userId}}`를 입력하지 말고 로딩이 끝날 때까지 기다립니다. CLI 읽기 확인만으로도 이 단계는 완료됩니다.
 
 ## 4. 새 요청에서 회상
 
@@ -81,7 +81,8 @@ helper는 실제 검색 API의 `memories[].memory_item` ID·내용·scope를 확
 모델은 다른 scope의 marker를 반복해서는 안 됩니다.
 `native_agent_memory_tool_used: false`는 의도된 API 기반 경로입니다.
 작성 뒤 alpha 검색이 비어 있으면 진단할 finding이지 recall을 조작해도 된다는 뜻이 아닙니다.
-명시적으로 새 시도를 하기 전에 원래 빈 결과와 indexing/service 오류를 보존합니다.
+실패한 시도의 폴더를 보존합니다. 원인을 진단하고 비용을 다시 승인받은 뒤 `memory-alpha-02`처럼 사용하지 않은 `--label`로 실행하고
+`outputs/memory-runs/<new-label>/`를 확인합니다. 같은 store/scope를 유지하며 `put`을 반복하거나 이전 근거를 삭제하지 않습니다.
 
 ## 5. 항목 수정과 삭제
 

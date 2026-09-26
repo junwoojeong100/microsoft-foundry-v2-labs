@@ -15,7 +15,7 @@ fine-tuning이나 모델 가중치 변경이 아닙니다. 기존 Hosted matrix�
 ## 1. 입력 한 번 준비
 
 [Lab 03](../03-prompt-agent.md)의 전체 합성 정책을 가진 내 agent를 사용합니다.
-원래 지침/버전을 보존합니다. 지원 optimizer 배포와 비용이 승인된 뒤에만
+원래 지침/버전을 보존합니다. 아래의 로컬 입력을 준비하고 선행 조건을 충족한 뒤에만
 Lab 03 절차로 본인 prefix의 격리 복사본을 만듭니다.
 공유 agent나 이미 고정된 benchmark target을 변경하지 않습니다.
 
@@ -44,12 +44,15 @@ wizard가 요구하는 열을 확인하고 임의 column mapping이 가능하다
 | 답변 모델 | 기존 검증된 배포, 첫 실행에서 모델 비교 제외 |
 | Optimizer | 담당자와 wizard가 지원을 확인한 기존 배포 |
 | Evaluator | 별도로 이름 붙인 승인된 judge |
+| 원시 judge 입력 | 각 평가자의 실제 `sample.input`과 evaluation ID를 확보할 경로를 담당자가 확인 |
 | Dataset | `optimizer-dev.jsonl` 6행, holdout 금지 |
 | Max candidates | **2** |
 | 최적화 대상 | **Instruction만** |
 
 지원되는 optimizer 모델이 없다면 `optimizer-review.txt`에 로컬 입력 폴더와
 `inputs prepared; optimization not run`을 적고, 격리 agent 생성이나 job 제출 없이 인계합니다.
+원시 judge 입력을 확보할 수 없어도 같은 지점에서 멈추고 `inputs prepared; optimization not run — raw-input review unavailable`을 적습니다.
+이 가이드는 검증된 원시 입력 내보내기 절차를 제공하지 않습니다. 복사본 생성이나 유료 실행 제출 전에 담당자의 검토 경로와 비용 승인을 확인합니다.
 답변 모델이 동작한다는 사실만으로 optimizer 용도를 지원한다고 판단하지 않습니다. `gpt-6-sol`만 배포된 2026-09-23에는
 **Optimize** 탭이 **No supported optimization model**을 표시했습니다. 그날
 [Microsoft Learn의 optimizer 모델 목록](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-overview#models)은
@@ -119,7 +122,7 @@ Review의 baseline/dataset/모델/평가 기준/후보 상한을 확인합니다
 상태 문구 대신 개별 행을 확인하고 영문 점수를 국문 결과로 옮기지 않습니다.
 
 **업로드한 열뿐 아니라 실제 judge 입력을 확인합니다.** 각 평가자의 `sample.input`과
-고정한 dataset을 비교합니다. 이 가이드는 검증된 원시 입력 내보내기 절차를 제공하지 않습니다.
+고정한 dataset을 1절에서 확인한 검토 경로로 비교합니다.
 본인 실행의 입력을 확보할 수 없다면 `optimizer-review.txt`에 `judge inputs unavailable / review incomplete`를 적고
 run/evaluation ID와 확인 가능한 결과를 보존하며 **승격하지 않습니다**. 업로드한 열·종합점수·과거 관찰로 빠진 근거를 대신하지 않습니다.
 9월 23일 두 언어 실행에서도, 9월 16일 영문 baseline과 국문 baseline·두 후보처럼

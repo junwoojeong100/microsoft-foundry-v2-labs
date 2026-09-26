@@ -93,13 +93,18 @@ Keep wrong answers unchanged; the report never repairs them.
 Set the same separate `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME` used for approved judge work.
 Do not use the target deployment as its own judge.
 
+Both levels use **groundedness and coherence**. Polling defaults to 300 seconds; inspect the run's
+`native-<level>/cloud-evaluation.json` for progress. On timeout, repeat the same evaluate command with the same label and level
+to resume that job, not create another target conversation. Completion requires `status: completed` and `validation_status: valid`;
+failed or invalid remains incomplete.
+
 ```bash
 python scripts/workshop.py --language en conversations evaluate --label conversations-first --level turn --confirm-cost
 ```
 
 Each input contains the history through one target answer.
 The command checks the real evaluator catalog for the requested level and preserves its version, schema and threshold.
-Read all **six** result items under `native-turn/`.
+Read all **six** rows in `native-turn/cloud-evaluation-results.json`, each with both evaluator results.
 
 ## 5. Evaluate complete conversations
 
@@ -109,7 +114,7 @@ python scripts/workshop.py --language en conversations evaluate --label conversa
 
 This uses explicit `evaluation_level: conversation`, full message histories,
 and the catalog-compatible groundedness/coherence evaluators.
-Read all **two** result items under `native-conversation/`.
+Read all **two** rows in `native-conversation/cloud-evaluation-results.json`, each with both evaluator results.
 Turn-only evaluators such as relevance must not be copied into this step without checking supported levels.
 
 Compare the reasons, not just pass percentages:
@@ -120,7 +125,6 @@ Compare the reasons, not just pass percentages:
 4. Does the native explanation match the actual transcript and business policy?
 
 Generic evaluator disagreement is a finding to review, not permission to edit the score or repeatedly rerun for a favorable result.
-A timeout resumes the same saved evaluation job when you rerun the same command; it does not silently create a new target conversation.
 
 ## 6. Handoff
 

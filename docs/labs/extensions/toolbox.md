@@ -8,8 +8,10 @@ It does not connect Work IQ, company APIs, public web search or an arbitrary MCP
 
 **First pass:** steps 1–5, then step 7's handoff/cleanup. Step 6's default-version changes are optional.
 
-**Need:** successful [Lab 06 Search](../06-knowledge.md), the [Hosted/Toolbox SDK extra](developer-toolkit.md#hosted-sdk) in the same B environment,
+**Need:** the owned index and successful Search query from [Lab 06 B, steps 1–3](../06-knowledge.md#path-b),
+the [Hosted/Toolbox SDK extra](developer-toolkit.md#hosted-sdk) in the same B environment,
 a prepared keyless Search project connection, and approval to create your own Toolbox.
+Reuse verified preparation; IQ steps 4–5 are not prerequisites for this extension.
 **Stop when:** one pinned MAF request has a real tool result, model response and version binding.
 **If blocked:** preserve the error and return to the prerequisite owner; never replace the provider.
 

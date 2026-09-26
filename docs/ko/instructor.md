@@ -39,7 +39,8 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
 2. 현재 Foundry 프로젝트와 **`gpt-6-sol` / `2026-09-22`**, 배포 이름 **`gpt-6-sol`**을 확인합니다.
    Quota/SKU/리전을 점검하며 초보자에게 대체 모델을 추측하게 하지 않습니다.
    수업 전에 [모델 선택](reference/model-choice.md)과 공개 가격을 다시 확인합니다.
-3. 참가자에게 프로젝트의 `Foundry User` 등 필요한 역할을 부여합니다.
+3. B와 A의 준비 터미널은 [담당자 체크리스트](setup-owner.md#class-owner-checklist)에 따라 `Foundry User` 등 프로젝트/모델 역할과
+   **Foundry 계정의 Reader**를 확인합니다. 학습자 계정으로 `doctor --cloud`를 검사합니다. 역할 변경은 담당자의 별도 승인이 필요합니다.
 4. 실제 서버 측 trace를 확인하려면 Application Insights를 프로젝트에 연결하고 학습자에게 **Log Analytics Reader**를 부여합니다.
    보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 부여합니다. Lab 09에는 추적 상태를 기록해야 합니다.
    이 조건이 준비되지 않았다면 `추적 미확인: <이유>`를 적고 진행하며, 실제 trace를 확인한 것으로 표시하지 않습니다.
@@ -107,8 +108,8 @@ Lab 05용으로 준비한 방식도 전달합니다. 저장소 위치와 학습�
 `iq-chat check`는 읽기 전용, `iq-chat setup --confirm-create`는 별도 본인 base 생성,
 `iq-chat ask --label <new-label> --confirm-cost`는 실제 유료 계획·합성 확인입니다.
 모델 배포나 역할 부여는 하지 않습니다. [상세 설정·복구](reference/iq-model-identity.md)를 확인하세요.
-학습자 CLI에는 실습 Foundry 계정·Search의 Reader와 검색용 Search Index Data Reader도 확인합니다.
-프로젝트 권한만으로 계정 ARM/역할 조회가 되는 것은 아니므로 Lab 06 중간에 이 선행 조건을 발견하지 않도록 합니다.
+Search CLI 검사를 위해 Search 서비스의 **Reader**와 검색용 **Search Index Data Reader**를 확인합니다.
+2절에서 확인한 Foundry 계정 권한과는 별개입니다.
 
 **소유권 인계:** 새 B 학습자 복사본에는 Search 서비스/권한과 아직 seed하지 않은 고유 prefix를 제공합니다.
 먼저 객체를 seed했다면 해당 ledger가 있는 승인된 준비 작업 폴더를 사용합니다.

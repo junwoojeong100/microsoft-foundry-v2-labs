@@ -18,7 +18,7 @@
 | Autopilot / Agent 365 | agent ID와 user account, blueprint/instance, 관리자·거버넌스 | 개념/설계만, mailbox·Teams·조직 계정 생성 없음 |
 | Private skill catalog | API Center 등록·허용 도구·검색·평가 | 별도 인프라, Toolbox에 Skill 연결만으로 생성되지 않음 |
 | Fine-tuning | prompt/retrieval/optimizer의 한계와 가중치 변경 | 별도 전문 과정, 현재 dev/holdout을 자동 학습 데이터로 쓰지 않음 |
-| Content Understanding receipts | field extraction 설계, validation, 사람 검토 | 합성 `RECEIPT-01`로 설계만. 서비스 호출과 실제 receipt 없음 |
+| Content Understanding receipts | field extraction 설계, validation, 사람 검토 | 본인 언어의 준비된 학습자 자료에서 `policies/RECEIPT-01.txt`를 읽음. 영수증 이미지가 아닌 합성 규정이며, 업로드·서비스 호출 없이 설계만 |
 | Voice-based prompt agents | Portal quickstart, realtime media, SDK 버전 경계 | 설계만. Python voice SDK 지원은 이 edition pin 밖인 `azure-ai-projects` 2.7.0 beta |
 | Microsoft 365 Copilot/Teams 게시 | 안정 endpoint, active version, tenant 게시 workflow | 개념만. M365 tenant와 별도 승인 필요 |
 | Voice / Realtime / image | 모달리티별 모델·protocol·안전·평가 | 별도 승인, text agent 성공을 멀티모달 검증으로 표시하지 않음 |
@@ -43,7 +43,7 @@
 
 | 연습 | 기록할 설계 note |
 |---|---|
-| `RECEIPT-01`에 연결한 Content Understanding receipt extraction | `date`, `amount`, `merchant`, `category` field 정의. 합성 정책의 validation rule 적용. 불확실하거나 정책상 중요한 값은 사람 검토로 보냄. 실제 receipt와 서비스 호출 없음 |
+| `policies/RECEIPT-01.txt`에 연결한 Content Understanding receipt extraction | 준비된 합성 규정으로 `date`, `amount`, `merchant`, `category` field와 validation rule 설계. 불확실하거나 정책상 중요한 값은 사람 검토로 보냄. 영수증 이미지·업로드·서비스 호출 없이 설계 note 인계 |
 | Voice-based Prompt Agent | Portal quickstart 선행 조건과 기대 사용자 경험 mapping. Python voice-agent SDK 지원은 이 edition pin 밖인 `azure-ai-projects` 2.7.0 beta에만 있음을 기록 |
 | Microsoft 365 Copilot/Teams 게시 | 안정 endpoint와 active version 개념 설명. M365 tenant, app/게시 검토, 사용자 governance 필요성을 기록. 게시 작업 없음 |
 

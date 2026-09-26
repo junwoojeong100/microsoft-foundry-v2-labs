@@ -126,7 +126,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Native quality score is low | Preserve the completed run; review the evaluator against business requirements, not retries until a favorable score | 07 |
 | Native run failed or invalid | Rerun the same command once with `--retry-failed`; the original attempt is kept. A completed low score cannot be retried | 07 |
 | A regression file changes a question or answer | Keep the existing dev contract or design a separate dataset version; never use holdout as regression | 07 |
-| Matrix rows missing or duplicated | Do not evaluate the successful subset; fix the cause, then collect the complete matrix under a new label | 07 |
+| Matrix rows missing or duplicated | Preserve all original rows/errors; do not evaluate only the successful subset. **Dev only:** fix the cause, then collect the complete matrix under a new label with the same model, endpoint and provider. For an exposed holdout, do not recollect; record rejected/incomplete and hand off | 07 |
 | `Missing evaluator results … missing ['business_rubric']` | The service omitted one evaluator; the attempt is saved as invalid. Rerun the same `cloud-evaluate` command once with `--retry-failed`; the attempt stays in `native-attempts/`. A retried `--reference` run stays in that evaluation as `<label>-retry-1` | 07 |
 
 </details>

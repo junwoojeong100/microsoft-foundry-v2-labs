@@ -39,7 +39,9 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
 2. Verify the current Foundry project and **`gpt-6-sol` / `2026-09-22`**, deployed as **`gpt-6-sol`**.
    Check quota, SKU and region; do not let first-time learners guess a replacement.
    Recheck [the model choice](reference/model-choice.md) and its published price before class.
-3. Assign the required project roles, such as `Foundry User`, to participants.
+3. Verify project/model roles, such as `Foundry User`, and **Foundry-account Reader** for B and A's prepared terminal using
+   the [owner checklist](setup-owner.md#class-owner-checklist). Test `doctor --cloud` with the learner's account.
+   Role changes require separate owner authorization.
 4. To verify server-side traces, connect Application Insights to the project and give learners **Log Analytics Reader** on it.
    If protected tables are enabled, also grant **Privileged Monitoring Data Reader**. Lab 09 requires recording trace status;
    without these prerequisites, learners record `trace unverified: <reason>` and continue, not a verified trace.
@@ -107,9 +109,8 @@ Do not hand out the model-free GA base as a ready-to-chat configuration.
 `iq-chat check` is read-only; `iq-chat setup --confirm-create` creates only the owned separate base;
 `iq-chat ask --label <new-label> --confirm-cost` verifies actual paid planning/synthesis.
 Neither command deploys a model or grants roles. [Details and recovery](reference/iq-model-identity.md).
-For the learner's CLI checks, verify Reader on the training Foundry account/Search service
-and Search Index Data Reader for retrieval. Project-only access is not account-level ARM/role visibility;
-do not discover that missing prerequisite halfway through Lab 06.
+For Search CLI checks, verify **Reader** on the Search service and **Search Index Data Reader** for retrieval;
+these are separate from the Foundry-account permissions checked in section 2.
 
 **Ownership handoff:** for fresh B learner copies, prepare the Search service/roles and give each learner an unseeded prefix.
 If you seed their objects first, use the authorized prepared working copy that contains the corresponding ledger.

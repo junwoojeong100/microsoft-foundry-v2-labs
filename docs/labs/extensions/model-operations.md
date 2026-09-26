@@ -37,7 +37,7 @@ If your saved label differs, replace `candidate` in the comparison and report pa
 Use `migration-model-b` only for an unused output directory; otherwise inspect the saved run or choose a new label consistently.
 Keep the original project, output limit, retrieval settings, source code and synthetic files unchanged:
 `compare` rejects mismatched `inference`, code, corpus or dataset hashes. If that baseline is missing, return to
-Lab 07's dev steps or hand off as blocked; no new holdout is needed here.
+Lab 07's dev steps or hand off as blocked.
 
 ## 2. Check the second model without changing your saved setup
 
@@ -78,6 +78,8 @@ python scripts/workshop.py --language en compare --baseline candidate --candidat
 
 Open `outputs/migration-model-b/comparison-vs-candidate.json`.
 Read both metrics and `changed_context_cases`: changed evidence makes this an end-to-end comparison, not an isolated model ranking.
+The report's `note` about unused holdout applies to later final acceptance. Finish this module with the dev comparison
+and migration decision; do not open a new holdout here.
 If your baseline used another **retrieval provider**, explicitly use that same provider throughout this separate comparison;
 this does not require both model deployments to come from the same model provider.
 For a non-OpenAI provider, the project Responses path and strict `json_schema` Structured Outputs must both be accepted.

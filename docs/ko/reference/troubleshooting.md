@@ -126,7 +126,7 @@
 | native 품질 점수가 낮음 | 완료된 실행을 보존하고 평가자를 업무 요구와 비교해 검토. 좋은 점수가 나올 때까지 재시도하지 않음 | 07 |
 | native 실행 failed/invalid | 같은 명령에 `--retry-failed`를 붙여 한 번 재실행. 원래 시도는 보존. 완료된 낮은 점수는 재시도할 수 없음 | 07 |
 | 회귀 파일이 질문·정답을 바꿈 | 기존 dev 계약을 유지하거나 별도 dataset version 설계. holdout을 회귀로 사용하지 않음 | 07 |
-| matrix 행 누락·중복 | 성공한 일부만 평가하지 않음. 원인을 해결한 뒤 새 label로 전체 matrix 수집 | 07 |
+| matrix 행 누락·중복 | 원래 모든 행·오류를 보존하고 성공한 일부만 평가하지 않음. **Dev만:** 원인을 해결한 뒤 같은 모델·endpoint·provider로 새 label의 전체 matrix 수집. 노출된 holdout은 재수집하지 말고 반려/미완료로 인계 | 07 |
 | `Missing evaluator results … missing ['business_rubric']` | 서비스가 평가자 하나를 빠뜨려 시도가 invalid로 저장됨. 같은 `cloud-evaluate` 명령에 `--retry-failed`를 붙여 한 번 재실행. 시도는 `native-attempts/`에 보존. `--reference`로 추가한 실행은 재시도해도 그 평가에 `<label>-retry-1`로 남음 | 07 |
 
 </details>

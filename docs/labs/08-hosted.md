@@ -265,9 +265,12 @@ a remote identity's 403; its actual model/tool permissions need review.
 
 ## 5. Record the limits of the evidence
 
+**Local-only:** save the smoke response or error in `session-notes.txt`, mark remote deployment/evaluation **not run**,
+and continue to [Lab 09 B](09-operations.md#path-b). A failed smoke remains incomplete; remote work is not required to finish this branch.
+
 This Hosted example uses the shared MAF function tool. It is **not the same path**
-as Lab 07's project Responses with precomputed retrieval. Do not reuse that score for
-a Hosted version; collect a separately version-pinned dev/holdout evaluation.
+as Lab 07's project Responses with precomputed retrieval. Any later Hosted quality claim needs a separately approved
+evaluation of that exact version; Lab 07 scores are not transferable.
 
 
 Verify evaluation type, exact agent/version, evaluator, and the complete case denominator.

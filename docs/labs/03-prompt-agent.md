@@ -23,7 +23,7 @@
 ## A. Browser: the smallest useful agent
 
 This creates an agent, saves a version and makes billable test calls. Use the approved training project and your own prefix.
-Keep `session-notes.txt` open for the returned version and actual answers; no deployment or Publish action is required.
+Keep `session-notes.txt` open for the returned version and actual answers; no manual deployment or Publish step is required.
 
 ### 1. Create the agent
 
@@ -38,14 +38,15 @@ Select **Build** in the top bar and **Agents** in the left menu, then **New agen
 **Code an agent** or an external-agent connection.
 
 In **Agent name**, replace the generated name with one that starts with your prefix, for example `mfv2-team01-en-policy`.
-Keep **Interaction mode** on **Text**; it cannot be changed after creation. Select **Create agent and open playground** and wait for completion.
+Keep **Interaction mode** on **Text**; it cannot be changed after creation.
+Opening the first agent may also create a `text-embedding-3-large` deployment. Confirm the owner's authorization for this
+before selecting **Create agent and open playground**. Wait for completion and record any created deployment for Lab 09.
 
 
 ![September 25 English check: your prefixed name, Interaction mode Text, then Create agent and open playground](../assets/e2e-check-20260925/EP03-301-create-dialog.webp)
 
 **What to check:** Use your own **Agent name**, not the recording's `mfv2-sol-20260924-en-policy`
 name. The September 24 video shows the earlier dialog, without **Interaction mode**. If the button is disabled while creating, wait rather than submitting twice.
-Opening the first agent can also create a `text-embedding-3-large` deployment; note it for the Lab 09 cleanup inventory.
 
 #### Model and tools
 

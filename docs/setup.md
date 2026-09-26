@@ -83,7 +83,8 @@ If either editor is unavailable, finish this preparation before starting the rou
 Get these values from your instructor or environment owner; learning alone, read them from your own portal as the table's last column shows.
 Confirm the **sign-in account as well as the tenant**. Your usual work account and the workshop account can be different;
 browser sign-in and Azure CLI sign-in are also separate sessions. Never share credentials to make them match.
-**A:** fill `session-notes.txt` from the ZIP you just extracted.
+**A:** fill `session-notes.txt` from the ZIP. Also record the owner-selected Lab 05 option in `workflow-review.txt` now.
+For Playground, fill `Hosted agent name / version` and keep the supplied Playground link beside it.
 **B:** keep the owner's values; copy them into `outputs/learner-notes-en/session-notes.txt` when Lab 00 prepares that file.
 Use the setup card's `Search endpoint (B only):` line for the verified Lab 06 URL. If your existing personal copy lacks that line, add it without replacing your notes.
 You do not need to install anything just to collect the values. Never record passwords, keys or tokens.

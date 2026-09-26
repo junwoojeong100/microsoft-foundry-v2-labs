@@ -127,6 +127,9 @@ do not call the model again just to save the answer.
 
 ### 1. Check the deployment
 
+If Lab 00's cloud preflight just passed in this unchanged terminal, reuse that result for the checks below.
+Otherwise rerun it:
+
 ```bash
 python scripts/workshop.py --language en doctor --cloud
 ```
@@ -182,9 +185,8 @@ with the returned `documents`. Valid JSON does not prove policy correctness; rec
 
 **Save:** `answer-local.json` is written to the same notes directory. Check its source and response metadata, not just the answer.
 
-Stop if the model rejects `json_schema`. The code does not silently switch to plain
-text or repair invalid JSON. Explicitly configure an instructor-verified deployment
-and record a new run after resolving support.
+Stop if the model rejects `json_schema`. Preserve the error and ask the owner to resolve support on the same approved
+`gpt-6-sol` deployment. Otherwise mark this step incomplete; do not switch deployments, use plain text or repair the response.
 
 <a id="a-terminal-ready"></a>
 

@@ -142,7 +142,8 @@ python scripts/workshop.py seed-search --confirm-create
 
 **화면 확인:** seed 결과의 `mode: live`, 본인의 `index`, `document_count: 6`,
 `hybrid: false`, `knowledge_base: null`을 확인합니다. IQ가 아니라 일반 Search 객체를 만든 단계입니다.
-소유권 기록 `outputs/azure-objects.json`이 이 명령의 저장된 증거이며 다른 파일은 필요 없습니다.
+`outputs/azure-objects.json`은 소유권 기록이지 업로드 완료 증거가 아닙니다. 이 파일은 보관하고 seed 결과 또는 오류는
+`session-notes.txt`의 B Lab 06 기록란에 복사합니다. 4단계의 seed도 같은 방식으로 기록합니다.
 
 Seed 성공을 확인한 뒤에만 해당 index를 조회합니다.
 
@@ -346,7 +347,8 @@ python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 `configured: false`, 권한 누락, 다른 모델 버전, 403/429이면 멈추고 [고정 preset 복구 안내](../reference/iq-model-identity.md)를 따릅니다.
 모델 고정은 흔한 설정 불일치를 없애지만 quota와 서비스 가동까지 보장하지는 않습니다.
 
-**복귀:** `session-notes.txt`의 `선택 IQ Chat의 결과 또는 미선택:`에 실제 label과 확인 결과를 적습니다.
+**복귀:** 어느 경로든 `session-notes.txt`의 공통 Lab 00 항목 `선택 IQ Chat의 선택 또는 미선택:`에
+선택 여부·실제 label·결과/오류 경로·확인 결과를 적습니다. A의 Lab 06 결과란에서는 이 항목을 참조해도 됩니다.
 다른 워크북을 실행하지 말고 미완료인 [A 원문 확인](#path-a) 또는 [B 단계](#path-b)를 이어갑니다.
 기본 확인을 이미 마쳤다면 [Lab 07 A](07-evaluation.md#path-a) 또는 [Lab 07 B](07-evaluation.md#path-b)로 이동합니다.
 
@@ -379,10 +381,15 @@ AZURE_OPENAI_ENDPOINT=https://<same-foundry-account>.openai.azure.com
 
 ```bash
 python scripts/workshop.py seed-search --hybrid --confirm-create --confirm-cost
-python scripts/workshop.py retrieve --provider hybrid --question "2026년 9월 국내 출장 숙박비 한도는?"
-python scripts/workshop.py answer --retrieval hybrid --prompt v2
+python scripts/workshop.py retrieve --provider hybrid \
+  --question "2026년 9월 국내 출장 숙박비 한도는?" \
+  --output outputs/learner-notes-ko/retrieve-hybrid.json
+python scripts/workshop.py answer --retrieval hybrid --prompt v2 \
+  --output outputs/learner-notes-ko/answer-hybrid.json
 ```
 
+Seed 결과/오류는 `session-notes.txt`에 보관합니다. 저장된 JSON을 하나씩 열어 확인한 뒤 계속하며,
+재개할 때는 유료 요청을 반복하지 말고 이번 실험의 기존 파일을 사용합니다.
 `--confirm-create`는 준비된 Search의 본인 index 작성, `--confirm-cost`는 실제 embedding 요청을 확인합니다.
 6개 합성 문서의 embedding을 일괄 요청하고 `content_vector`의 차원·HNSW profile을 맞춥니다.
 조회에는 `"search"`와 `"vectorQueries"`가 동시에 들어가며 `top=6`입니다.
@@ -423,11 +430,13 @@ Source/base 이름은 바꾸지 않고 hybrid index가 추가된 ledger도 정�
 이 작은 corpus 설정을 production에 무작정 적용하거나, reference answer를 바꾸거나, 오류가 난 뒤 provider를 fallback한 것으로 설명하지 않습니다.
 
 ```bash
-python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
+python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2 \
+  --output outputs/learner-notes-ko/workflow-iq.json
 ```
 
 이 선택 명령은 CLI의 기본 숙박 한도 질문으로 IQ를 새로 검색합니다. B에서 저장한 `retrieve-iq.json`을 입력으로 읽지 않습니다.
-출력 전체를 별도 실험으로 보존합니다. 원격 matrix는 [평가 워크북의 준비](../reference/evaluation-workbook.md#matrix-setup)에서 시작합니다.
+저장된 `workflow-iq.json` 전체를 별도 실험으로 확인합니다. 재개할 때는 요청을 반복하지 말고 이번 실험의 해당 파일을 다시 엽니다.
+원격 matrix는 [평가 워크북의 준비](../reference/evaluation-workbook.md#matrix-setup)에서 시작합니다.
 그 워크북에서 별도 IQ/account-chat/Invocations 대상을 한 번 패키징합니다.
 Lab 08의 입문 도우미는 이 IQ 프로필이 아니라 로컬 검색을 받습니다.
 Toolbox/Fabric/Work IQ의 승인·원문·OBO 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)에서 따로 다룹니다.

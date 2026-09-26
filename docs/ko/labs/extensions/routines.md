@@ -102,7 +102,9 @@ read -r DISPATCH_ID
 python scripts/workshop.py --language ko routines inspect --name "$ROUTINE_NAME" --dispatch-id "$DISPATCH_ID" --label routine-result
 ```
 
-helper는 **전달**을 확인합니다. 답변 내용이나 미래 timer 발화를 증명하지 않습니다.
+`outputs/routine-inspections/<label>/` 전체를 보존합니다. `routine.json`, `runs.json`과 생성된 `summary.json`이 포함됩니다.
+`summary.json`의 `manual_delivery_verified: true`와 최종 routine의 disabled 상태를 확인한 뒤 마칩니다.
+helper는 **수동 전달**을 확인하며 답변 내용이나 미래 예약 실행을 증명하지 않습니다.
 관찰된 agent-identity routine은 완료됐지만 반환된 response ID는 나중 조회에서 404였습니다.
 그 경계를 기록하고 agent를 직접 호출해 대체 답변을 routine 답변처럼 제시하지 않습니다.
 Application Insights가 연결되어 있다면 반환된 `response_id`를 대상 agent의 **추적** 검색에 붙여 넣습니다([Lab 09 B](../09-operations.md#path-b)).
@@ -111,7 +113,6 @@ Application Insights가 연결되어 있다면 반환된 `response_id`를 대상
 모델 요청을 반복하지 않습니다.
 일치하는 run의 상태와 반환된 답변/오류를 확인합니다.
 다시 list할 때도 같은 run을 보기 위한 것이지 다른 dispatch를 만들기 위한 것이 아닙니다.
-실습을 떠나기 전에 최종 routine 상태가 disabled인지 확인합니다.
 
 ## 5. 기록·정리
 

@@ -70,9 +70,9 @@ and retries only bounded reads, never the write. If verification still times out
 **Important:** alpha/beta are partition keys, not two authenticated people.
 The same authorized operator can select either scope. This does not prove that one real user is forbidden from choosing another user's scope.
 
-In the portal's **Memory → your store → Memories** view, enter the actual alpha or beta scope.
-The default `{{$userId}}` text is not the synthetic scope you created.
-Wait for **Loading memories…** to finish before interpreting an empty table or taking a result screenshot.
+**Optional portal check:** in **Memory → your store → Memories**, copy the full `scope` value from the corresponding
+`memory inspect` output, not `alpha`/`beta` or `{{$userId}}`. Wait for **Loading memories…** to finish.
+The CLI readback already satisfies this step.
 
 ## 4. Recall in a new request
 
@@ -91,7 +91,9 @@ The model must not repeat a marker from another scope.
 `native_agent_memory_tool_used: false` is intentional: this is explicit API-backed memory, not the automatic agent-tool path.
 
 An empty alpha search after writing is a finding to diagnose, not permission to fabricate recall.
-Keep the original empty result and indexing/service error before an explicitly new attempt.
+Preserve the failed attempt's directory. After diagnosis and renewed cost approval, use an unused `--label`,
+such as `memory-alpha-02`, and inspect `outputs/memory-runs/<new-label>/`.
+Keep the same store/scope; do not repeat `put` or delete earlier evidence.
 
 ## 5. Update the item, then forget it
 

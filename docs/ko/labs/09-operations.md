@@ -285,15 +285,13 @@ Lab tenant용 token을 사용합니다. Azure CLI 계정이 여러 개이면 기
 `wf-candidate`는 입문의 `candidate`가 아닙니다. 모든 명령에서 본인의 실제 matrix label로 바꿉니다.
 
 ```bash
-python scripts/workshop.py benchmark trace-plan --label wf-candidate
 python scripts/workshop.py benchmark monitor --label wf-candidate
 ```
 
-`trace-plan`은 `outputs/benchmarks/<label>/trace-query.kql`만 작성하며,
-`azure_queried: false`, `trace_export_verified: false`를 반환합니다.
-`monitor`는 `.env`의 **AZURE_APPLICATION_INSIGHTS_APP_ID**와 명시적 구독을 사용해 실제 조회합니다.
-credential은 지정된 구독/tenant로 scope를 고정하고
-`https://api.applicationinsights.io/.default` 토큰으로 동일 Application Insights query API를 호출합니다.
+`monitor`는 필요할 때 `outputs/benchmarks/<label>/trace-query.kql`을 만들고, `.env`의 **AZURE_APPLICATION_INSIGHTS_APP_ID**를 조회합니다.
+지정된 구독/tenant credential과 `https://api.applicationinsights.io/.default` 토큰으로 같은 Application Insights query API를 호출합니다.
+이미 검증 receipt가 있으면 저장된 근거를 확인합니다. `trace-plan`은 다시 실행하지 않습니다.
+시간 범위가 있는 쿼리를 덮어써 기존 receipt의 query hash를 무효화하기 때문입니다.
 2026-09-15 국문 실행(이전 `gpt-5.6-luna` 판)에서 일반 CLI query의 `InvalidTokenError`를 보존한 뒤 이 인증 경로를 수정했습니다.
 다른 사용자·다른 App Insights로 바꾸는 우회가 아닙니다.
 Application ID는 workspace ID나 instrumentation key와 다릅니다.

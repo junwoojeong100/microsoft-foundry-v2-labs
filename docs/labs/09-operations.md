@@ -289,14 +289,13 @@ Use an existing matrix label from the [evaluation workbook](../reference/evaluat
 `wf-candidate` is not the introductory `candidate` run; substitute your actual matrix label in every command.
 
 ```bash
-python scripts/workshop.py --language en benchmark trace-plan --label wf-candidate
 python scripts/workshop.py --language en benchmark monitor --label wf-candidate
 ```
 
-`trace-plan` writes `outputs/benchmarks/<label>/trace-query.kql` only, with
-`azure_queried: false` and `trace_export_verified: false`.
-`monitor` queries the configured App Insights application ID with a subscription/tenant-scoped credential
-and `https://api.applicationinsights.io/.default`.
+`monitor` creates `outputs/benchmarks/<label>/trace-query.kql` when needed and queries the configured App Insights
+application ID with a subscription/tenant-scoped credential and `https://api.applicationinsights.io/.default`.
+If a verified receipt already exists, it checks the saved evidence instead. Do not rerun `trace-plan`:
+it overwrites the time-bound query and invalidates that receipt's query hash.
 The September 15 Korean run (earlier `gpt-5.6-luna` edition) retained a CLI `InvalidTokenError` and corrected that credential path, not the identity or target.
 Application IDs are not workspace IDs or instrumentation keys.
 

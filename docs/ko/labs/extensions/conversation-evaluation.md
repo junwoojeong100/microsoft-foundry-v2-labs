@@ -86,13 +86,19 @@ python scripts/workshop.py --language ko conversations report --label conversati
 ## 4. 이전 맥락을 포함한 턴 평가
 
 `AZURE_AI_EVALUATION_MODEL_DEPLOYMENT_NAME`은 승인된 별도 judge 배포입니다.
+Target 배포가 자기 답변을 채점하게 하지 않습니다.
+
+두 수준 모두 **groundedness와 coherence**를 사용합니다. 기본 polling 제한은 300초이며 실행 폴더의
+`native-<level>/cloud-evaluation.json`에서 상태를 확인합니다. Timeout이면 같은 label·level의 evaluate 명령으로
+같은 job을 재개합니다. 새 target 대화를 만들지 않습니다. `status: completed`와 `validation_status: valid`가 모두 있어야 완료이며,
+failed 또는 invalid는 미완료입니다.
 
 ```bash
 python scripts/workshop.py --language ko conversations evaluate --label conversations-first --level turn --confirm-cost
 ```
 
 각 입력은 해당 답변까지의 history입니다. catalog의 실제 수준 지원, 버전, schema, threshold를 남기고
-`native-turn/`의 **6개 결과**를 모두 확인합니다.
+`native-turn/cloud-evaluation-results.json`의 **6행**에서 각 행의 두 평가자 결과를 모두 확인합니다.
 
 ## 5. 전체 대화 평가
 
@@ -101,7 +107,7 @@ python scripts/workshop.py --language ko conversations evaluate --label conversa
 ```
 
 명시적 `evaluation_level: conversation`, 전체 message history, catalog 호환 groundedness/coherence evaluator를 사용합니다.
-`native-conversation/`의 **2개 결과**를 모두 읽습니다.
+`native-conversation/cloud-evaluation-results.json`의 **2행**에서 각 행의 두 평가자 결과를 모두 읽습니다.
 relevance처럼 턴 전용 evaluator는 지원 수준을 확인하지 않고 이 단계에 복사하지 않습니다.
 
 통과율만 보지 말고 이유를 비교합니다.
@@ -112,7 +118,6 @@ relevance처럼 턴 전용 evaluator는 지원 수준을 확인하지 않고 이
 4. native 설명이 실제 대화 기록과 업무 정책에 맞나요?
 
 일반 evaluator와 업무 판단이 다르면 검토할 발견 사항입니다. 점수를 고치거나 유리한 결과가 나올 때까지 반복 실행할 근거가 아닙니다.
-Timeout이면 같은 명령을 다시 실행해 저장된 같은 평가 job을 재개합니다. 새 target 대화를 몰래 만들지 않습니다.
 
 ## 6. 인계
 

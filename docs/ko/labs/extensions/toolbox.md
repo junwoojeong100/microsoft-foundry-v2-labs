@@ -8,7 +8,9 @@
 
 **첫 회차:** 1–5절 후 7절의 인계·정리로 끝냅니다. 6절의 default 버전 변경은 선택입니다.
 
-**준비:** 성공한 [Lab 06 Search](../06-knowledge.md), 같은 B 환경의 [Hosted/Toolbox SDK extra](developer-toolkit.md#hosted-sdk), 준비된 키 없는 Search 프로젝트 연결, 내 Toolbox 생성 승인.
+**준비:** [Lab 06 B 1–3단계](../06-knowledge.md#path-b)의 소유 index와 성공한 Search 조회,
+같은 B 환경의 [Hosted/Toolbox SDK extra](developer-toolkit.md#hosted-sdk), 준비된 키 없는 Search 프로젝트 연결, 내 Toolbox 생성 승인.
+검증된 준비는 재사용합니다. IQ 4–5단계는 이 확장의 선행 조건이 아닙니다.
 **완료:** 고정 버전의 MAF 요청에 실제 도구 결과·모델 응답·버전 근거가 있음.
 **중단:** 오류를 보존하고 담당자에게 돌아갑니다. 다른 provider로 교체하지 않습니다.
 

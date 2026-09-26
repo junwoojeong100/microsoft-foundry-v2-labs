@@ -184,11 +184,12 @@ A Toolbox upstream connection/index can still change; freeze those assets and in
 ## 6. Finish without breaking shared tools
 
 Use [owned-session cleanup](../../reference/cleanup.md) for this new Hosted agent.
-Before stopping/deleting a session, use `azd ai agent files list` and `files download`
-for the `remote_evidence_directory` reported by the verifier.
-File-command paths are relative to the session's home; keep the actual binding, request,
-model/function/tool results and summary. Then stop the new session and verify its state.
-Retain the package and response evidence.
+Using the recorded azd directory, agent and session, retrieve available evidence with `azd ai agent files list` and
+`files download`. Paths are relative to the session's home: use the verifier's `remote_evidence_directory` on success,
+or inspect that same session's `workshop-evidence/toolbox-runs/` if verification failed.
+Keep the binding, request, model/function/tool results, summary or `failure.json`, package and response evidence.
+If retrieval is blocked, record the reason and responsible owner. Stopping owned compute need not wait for retrieval;
+verify its stopped/idle state, but preserve evidence before deleting the session or agent.
 If deleting the new Hosted agent, check dependencies before removing its Toolbox, skill or Search source.
 Do not delete shared project/model/Search resources or reuse old endpoint/version IDs.
 

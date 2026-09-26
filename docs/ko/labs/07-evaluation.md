@@ -213,7 +213,7 @@ Lab 06 이후 시작하는 별도 실험이지 Search/IQ 실패를 대신하는 
 | 기존 근거 | 시작할 지점 |
 |---|---|
 | 이번 실험의 결과가 없음 | 새 label로 1단계 시작 |
-| `outputs/baseline/`만 있고 candidate는 없음 | `manifest.json`·`responses.jsonl`을 읽고, 필요하면 저장된 실행을 로컬 평가한 뒤 2단계 진행 |
+| `outputs/baseline/`만 있고 candidate는 없음 | `manifest.json`·`responses.jsonl`을 읽고 필요하면 로컬 평가. 이번 baseline의 `review-*.json` 또는 전체 통과 검토 기록이 있으면 이를 읽고 3단계, 없으면 2단계 진행 |
 | `outputs/candidate/`가 있고 holdout은 없음 | 두 dev 실행을 유지. 3단계의 로컬 평가·비교 보고서를 읽거나 생성한 뒤 4단계 게이트 확인 |
 | `outputs/final-holdout/`이 있음 | 모든 `collect`를 건너뜀. 저장된 최종 보고서를 읽거나 원래 label로 4단계의 로컬 `evaluate`·`accept`만 실행 |
 
@@ -276,7 +276,7 @@ python scripts/workshop.py evaluate --label baseline
 | 승인됐다고 주장함 | 업무 권한 경계·도구 구현 |
 | JSON/요청 오류 | 모델 지원·출력 제한·SDK·서비스 오류 |
 
-**실제 baseline 실패가 있을 때만** 아래를 실행하고 그 case ID와 **15자 이상**의 구체적인 검토 이유를 입력합니다.
+**아직 검토하지 않은 실제 baseline 실패에만** 아래를 실행하고 그 case ID와 **15자 이상**의 구체적인 검토 이유를 입력합니다.
 **6개가 모두 통과했다면** 검토 기록에 그 사실을 적고 이 블록을 건너뛰어 3으로 이동합니다.
 
 ```bash
@@ -333,6 +333,9 @@ v2는 적용일, 증빙/승인, 문서 ID, 근거 부족 처리의 우선순위�
 **화면 확인:** 추가·변경된 지침을 보고 어떤 누락을 막으려는지 설명합니다.
 이것은 텍스트 차이이며 평가 점수 자체가 아닙니다. 두 고정 지침의 차이가 성능 우위를 보장하지는 않습니다.
 
+지침만 바꾼 경우 새 candidate label을 사용합니다. 코드를 바꿨다면 이 비교를 중단합니다.
+기존 실행을 보존하고 같은 코드로 새 dev baseline/candidate 쌍을 수집할 비용 승인을 받습니다. Holdout은 열지 않습니다.
+
 ```bash
 python scripts/workshop.py collect --split dev --label candidate --prompt v2 --retrieval local
 ```
@@ -350,9 +353,7 @@ python scripts/workshop.py evaluate --label candidate
 python scripts/workshop.py compare --baseline baseline --candidate candidate --variable prompt
 ```
 
-JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다.
-지침·코드를 바꾸었다면 새로운 label로 다시 수집합니다.
-명령은 기존 label을 덮어쓰지 않으며, 입력/응답 hash가 달라지면 비교를 거부합니다.
+JSONL의 응답이나 평가 점수를 직접 수정하지 않습니다. 명령은 기존 label을 덮어쓰지 않으며, 입력/응답 hash가 달라지면 비교를 거부합니다.
 
 
 ![2026-09-24 국문 녹화: candidate 로컬 업무 기준 평가](../../assets/g6sol-20260924-ko/screenshots/K07-005-evaluate-candidate-2.webp)

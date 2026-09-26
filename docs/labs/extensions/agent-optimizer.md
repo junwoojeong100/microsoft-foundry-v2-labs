@@ -17,7 +17,7 @@ baseline-only, no improvement or invalid evaluator binding are valid findings to
 ## 1. Prepare the inputs once
 
 Use the [Lab 03](../03-prompt-agent.md) agent built with all six inline synthetic policies.
-Preserve its baseline instructions/version. Wait until the optimizer deployment and cost are approved
+Preserve its baseline instructions/version. Prepare the local inputs and pass the prerequisites below
 before creating an isolated copy with your own prefix through Lab 03.
 Do not optimize a shared agent or change a previously frozen benchmark target.
 
@@ -46,12 +46,15 @@ The wizard does not offer arbitrary column mapping: verify its required columns 
 | Target model | The existing verified answer deployment; do not add a model-comparison branch on the first pass |
 | Optimizer model | A supported **existing** deployment confirmed by the owner and wizard |
 | Evaluator model | A separately named approved judge deployment |
+| Raw judge inputs | Owner-verified access to each evaluator's actual `sample.input` and evaluation ID |
 | Dataset | The six-row `optimizer-dev.jsonl`, never holdout |
 | Candidate limit | **2** for this bounded first pass |
 | Targets to optimize | **Instructions only** initially |
 
 If the prepared project has no supported optimizer model, save the local input directory and
 `inputs prepared; optimization not run` in `optimizer-review.txt`, then hand off without creating the isolated agent or submitting a job.
+The same stop applies if raw judge inputs cannot be retrieved: record `inputs prepared; optimization not run — raw-input review unavailable`.
+This guide does not provide a verified raw-input export procedure; confirm the owner's review route and cost approval before creating the copy or submitting a paid run.
 A working answer model is not automatically a supported optimizer model: with only `gpt-6-sol` deployed, the **Optimize** tab
 showed **No supported optimization model** on September 23, 2026. The
 [optimizer models listed on Microsoft Learn](https://learn.microsoft.com/azure/foundry/agents/concepts/agent-optimizer-overview#models)
@@ -123,7 +126,7 @@ and English minibatches failed D01, D05 and D06 relevance.
 Read the individual rows rather than treating a successful job status or generic message as all-pass evidence.
 
 **Check the actual judge input, not only the uploaded columns.** Compare each evaluator's
-`sample.input` with the frozen dataset. This guide does not provide a verified raw-input export procedure.
+`sample.input` with the frozen dataset through the review route verified in step 1.
 If those inputs are unavailable for your run, record `judge inputs unavailable / review incomplete` in `optimizer-review.txt`,
 retain the run/evaluation IDs and visible results, and **do not promote**. Uploaded columns, aggregate scores and historical findings cannot fill that gap.
 In the September 23 runs, as in the September 16 English baseline and Korean candidates,
