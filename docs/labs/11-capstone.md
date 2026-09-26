@@ -39,6 +39,9 @@ learner. Add neither company data nor automatic payments.
 
 ## A. Fifteen-minute handoff, no new Azure calls
 
+**Handoff means making your existing work understandable, not building something new.**
+Keep the files below together so you, or another learner, can find the exact agent, answers, review and cleanup owner later.
+
 Put these in your own evidence folder, without `.env`, credentials or another learner's outputs:
 
 | File/result | Completion check |
@@ -58,6 +61,20 @@ A does **not** run the B/C acceptance commands below or open holdout.
 Tick only the checks you actually meet. For missing evidence, record the reason, next permitted action and owner
 in **Lab 07 A** of `session-notes.txt`, and label the handoff **incomplete**.
 The no-credentials check is mandatory before **any** handoff.
+
+<a id="explain-your-result"></a>
+
+**Check your understanding using the saved files; no extra requests or scored test:**
+
+| Explain in your own words | Look at |
+|---|---|
+| What did adding the policies change, without changing the model? | Lab 02 and Lab 03 observations in `session-notes.txt`, plus `instructions-baseline.txt` |
+| Why is the right amount with the wrong policy still a failed answer? | Your source checks and all six rows of `assessment-baseline.csv` |
+| Why does the AI review not approve a booking? | `approval_status` and your review in `workflow-review.txt` |
+| Who will stop or delete the resources, and what can still cost money? | `operations-checklist.txt` |
+
+If you cannot explain one yet, reread that saved result and its lab; do not resend the question just to obtain a better answer.
+Closing the browser or terminal **does not delete Azure resources**. Keep the cleanup owner and remaining costs explicit.
 
 - [ ] Each file in the table opens and meets its completion check.
 - [ ] `assessment-baseline.csv` has all six actual-answer rows, including business failures.

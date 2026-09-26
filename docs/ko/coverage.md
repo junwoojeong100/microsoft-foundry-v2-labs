@@ -44,6 +44,7 @@ GA/Preview는 **제품 속성**이지 위 완료 상태가 아닙니다.
 | MAF 에이전트의 도구 호출 평가 | B | Lab 04의 선택 `maf-evaluate` | 2026-09-24 `gpt-6-sol` 녹화와 2026-09-23 검증, 두 언어. MAF 평가 API는 실험 기능 |
 | 추적 확인을 핵심 근거로 | A/B | Lab 09 A/B는 실제 추적 근거 또는 명시적인 미확인 이유를 기록 | 2026-09-25 headless: A의 새 응답과 B의 원래 점검 응답이 두 언어의 포털 trace ID·agent 버전·input/output token과 일치. B는 추적 조회를 위해 다시 호출하지 않음 |
 | 독립 SDK 예제 | B/C | 모델, Prompt Agent, MAF, IQ, Hosted 패턴의 최소 예제 파일 | 2026-09-24 오프라인 stub 테스트, 두 가지 수정 뒤 예제 02–06·08 실제 실행(영문) |
+| [SDK 코드 연습](code-along.md)과 [소스에 연결된 품질 검사](reference/quality.md) | 선택 학습 / 유지보수 | 개인 예제 사본, 의도한 실패·복구 검사, 단일 검증 명령, 모든 revision의 번역 해시 | 2026-09-26 로컬/stub 전용 작업. 새 Azure 실행·배포·모델 품질 점수·초보자 시범 운영은 없음 |
 | SDK 고정 버전 갱신 | B/C | 갱신한 의존성 조합과 공급자 제약 문서화 | 2026-09-24 오프라인 테스트와 두 언어 핵심 B 경로·선택 평가 실제 실행 |
 | [Hosted workflow·모델 matrix·calibration·regression·trace](reference/evaluation-workbook.md) | C | 기존 워크북 | 2026-09-15 `gpt-5.6-luna`만(국문 4모델 matrix). `gpt-6-sol`로 다시 실행하지 않음 |
 | [관리형 Toolbox lifecycle](labs/extensions/toolbox.md) | B | 실행 가능한 소유·버전 경로 | 2026-09-25 `gpt-6-sol`(영문): 생성과 MCP 탐색 확인. 프로젝트 ID에 Search Index Data Reader만 있어 직접 query는 Search가 거부함. 이전: 2026-09-16 `gpt-5.6-luna` 직접 조회·MAF·로컬/원격 Hosted·다운로드 근거 확인 |

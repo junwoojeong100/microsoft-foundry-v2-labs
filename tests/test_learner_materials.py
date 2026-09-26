@@ -1,9 +1,11 @@
 import csv
 import io
 import json
+import re
 import unittest
 import zipfile
 from unittest.mock import patch
+from urllib.parse import urlsplit
 
 from foundry_workshop.contracts import load_cases, load_documents
 from foundry_workshop.materials import learner_files, policy_document_text
@@ -69,6 +71,28 @@ class LearnerMaterialTests(unittest.TestCase):
                 )
                 for name in bundle.namelist():
                     self.assertEqual(bundle.read(name), files[name])
+
+    def test_zip_alone_has_browser_links_to_the_matching_language_setup_and_guide(self):
+        for language, directory in (("en", "docs"), ("ko", "docs/ko")):
+            with self.subTest(language=language):
+                files = learner_files(ROOT, language)
+                with zipfile.ZipFile(io.BytesIO(files["learner-materials.zip"])) as bundle:
+                    start = bundle.read("START-HERE.txt").decode()
+                base = "https://github.com/junwoojeong100/microsoft-foundry-v2-labs/blob/main/"
+                links = re.findall(r"https://\S+", start)
+                self.assertEqual(
+                    links,
+                    [
+                        f"{base}{directory}/setup.md",
+                        f"{base}{directory}/paths/a-beginner.md#first-success",
+                    ],
+                )
+                for link in links:
+                    target = urlsplit(link.removeprefix(base))
+                    page = ROOT / target.path
+                    self.assertTrue(page.is_file(), target.path)
+                    if target.fragment:
+                        self.assertIn(f'<a id="{target.fragment}"></a>', page.read_text())
 
     def test_policy_exports_keep_original_ids_dates_and_text(self):
         for language in ("ko", "en"):

@@ -4,10 +4,13 @@
 
 **출장 규정 안내 도우미 하나를 만들고 다른 학습자가 검토할 수 있는 실행 근거를 남깁니다.**
 
-1. 브라우저 조작과 준비된 Lab 05 workflow 경로라면 [A. 입문](paths/a-beginner.md),
-   SDK 호출·관리형 prompt agent·도구·workflow·Search/IQ·통제된 평가·trace·로컬 패키징을 다루려면 [B. 구현](paths/b-practitioner.md)을 고릅니다.
+1. Azure나 에이전트가 처음이라면 [A. 입문](paths/a-beginner.md)을 고릅니다.
+   Python·API에 이미 익숙하다면 [B. 구현](paths/b-practitioner.md)을 고릅니다.
 2. 고른 경로의 [준비](setup.md)를 마칩니다. A는 학습자 ZIP, B는 소스 저장소를 사용합니다.
 3. 경로의 체크리스트를 따라 Lab 00부터 진행합니다. 다른 경로까지 이어서 실행하지 말고 **A 완료 / B 완료**로 나옵니다.
+
+**첫 클릭 전에:** [A 시작 안내](paths/a-beginner.md#first-success)에서 실습 예제·필수 용어·작업 화면·첫 목표를 확인합니다.
+본문의 순서대로 따라가면 되며 녹화 시청은 선행 조건이 아닙니다.
 
 **Azure 권한이 없다면:** [오프라인 체험](labs/00-start.md#offline-rehearsal)까지만 합니다.
 **혼자 학습한다면:** 먼저 [혼자 학습 준비](setup-owner.md#self-study)로 본인 환경을 준비합니다.
@@ -34,6 +37,8 @@ B는 추가 ZIP 없이 [소스 복사본의 기록 폴더](labs/00-start.md#prep
 |---|---|
 | 계정·고정 모델·입력 파일·혼자 준비하는 경로 | [한 번만 하는 준비](setup.md) |
 | 나에게 맞는 시작점과 시간표 | [학습 경로](paths.md) |
+| Azure 호출 없이 SDK 코드를 이해하고 수정하기 | [코드 따라 만들기](code-along.md) |
+| 공개 비교·품질 기준·한 번에 실행하는 로컬 검사 | [실습 품질 기준](reference/quality.md) |
 | 처음 실행하는 방법 | [Lab 00](labs/00-start.md) |
 | 수업 전에 준비할 환경 | [강사 가이드](instructor.md) |
 | 2026-09-24 `gpt-6-sol` 국문 녹화 | [근거 hub](evidence.md)와 [영상: 통합본 6분 3초 · CLI 2분 57초 · 포털 2분 43초](video-summary.md) |

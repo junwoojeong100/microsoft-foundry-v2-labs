@@ -59,6 +59,10 @@ Additional capability modules are **extra sessions**; do not claim the expanded 
 <details>
 <summary>Optional after the core handoff — not the next required command</summary>
 
+To understand the code behind the commands before adding another cloud feature, use
+[the offline code-along exercises](../code-along.md). Work on personal copies, predict a contract failure, then repair it.
+These fixed SDK tests do not replace any B Azure result or consume holdout.
+
 The first added implementation module is a **[managed Toolbox](../labs/extensions/toolbox.md)**:
 create a small approved tool collection, connect MAF, make one real call, inspect its version,
 and save its evidence. Default-version changes are a separate optional exercise.

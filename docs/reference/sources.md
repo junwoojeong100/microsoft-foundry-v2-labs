@@ -7,6 +7,9 @@ Source check date: September 15, 2026. The commits below remain fixed even if up
 New official-reference rows marked checked 2026-09-24 reflect this review refresh, not new workshop execution.
 See [consolidation and archive gates](consolidation.md) for self-contained replacement paths and optional-feature limits.
 
+The separate [September 26 public-workshop comparison](quality.md#public-reference-sample) fixes seven additional
+GitHub references to immutable commits. It compares educational patterns, not borrowed code, execution results or a global rank.
+
 ## User-owned source workshops
 
 | Source | Checked commit/date | Incorporated scope |

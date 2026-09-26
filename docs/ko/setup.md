@@ -35,9 +35,21 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 원본에서 생성하므로 별도 원본을 관리하는 것이 아닙니다. 영상·holdout·정답 기준 필드는 없으며, B는 이미 파일이 있어 받지 않습니다.
 비공개 저장소에서는 읽기 권한이 있는 GitHub 계정을 사용합니다.
 
+<a id="extract-learner-files"></a>
+
+**편집 전에 압축부터 풉니다.**
+
+1. 다운로드 폴더에서 받은 `learner-materials.zip`을 찾습니다.
+2. **Windows:** 파일 탐색기에서 마우스 오른쪽 버튼 → **모두 압축 풀기...** → 개인 폴더 선택 → **압축 풀기**를 누릅니다.
+   **macOS:** Finder에서 두 번 클릭한 뒤 만들어진 `learner-materials` 폴더를 엽니다.
+3. **`START-HERE.txt`**, **`session-notes.txt`**, **`policies/`**가 바로 보이는 폴더를 엽니다.
+   아직 `.zip` 안을 보고 있다면 미리보기를 나가서 압축을 푼 폴더를 엽니다.
+4. `START-HERE.txt`를 엽니다. 준비 페이지와 A 가이드의 전체 웹 주소가 있어 소스 저장소가 없어도 가이드를 열 수 있습니다.
+   A 가이드를 즐겨찾기에 넣고 같은 폴더를 끝까지 사용합니다. 매 랩마다 새로 내려받지 않습니다.
+
 | 파일 | 용도 |
 |---|---|
-| `START-HERE.txt` | 파일별 사용 순서 |
+| `START-HERE.txt` | 가이드 전체 웹 주소와 파일별 사용 순서 |
 | `instructions-with-policies.txt` | 전체를 새 Prompt Agent의 **지침**에 복사하고 저장 |
 | `instructions.txt` | 인라인 근거 없는 지침. 선택 File Search 경로에서 사용 |
 | `policies/` | 기본 Lab 03·06에서 확인할 합성 TXT 원문 6개. File Search 업로드는 기능을 사용할 수 있고 별도 선택한 경우에만 진행 |
@@ -74,6 +86,17 @@ Python·API에 익숙하면 **B**를 고릅니다. [경로 비교](paths.md).
 ([Lab 07의 평가표 안내](labs/07-evaluation.md#assessment-sheet)).
 빈 평가표는 수정하지 않고 닫습니다. Lab 07에서 별도 baseline 복사본을 만들어 작성합니다.
 편집기를 사용할 수 없다면 경로를 시작하기 전에 준비를 마칩니다. 도구를 확인하려고 모델 요청을 보내지 않습니다.
+
+<a id="saving-notes"></a>
+
+**기록이 실제로 저장되는지 확인:** `session-notes.txt`의 `언어 / 경로:`에 `한국어 / A`를 적습니다.
+**Ctrl+S**(macOS는 **Cmd+S**)로 저장하고 파일을 닫은 뒤, 압축을 푼 같은 파일을 다시 엽니다. 적은 내용이 남아 있어야 합니다.
+없다면 다음으로 가기 전에 폴더·편집기를 확인합니다. 브라우저 미리보기나 저장하지 않은 편집기 탭은 저장된 기록이 아닙니다.
+
+나중에 Lab 03에서 `instructions-baseline.txt`를 만들 때는 텍스트 편집기의 **파일 → 새로 만들기**에서
+복사한 지침을 붙여 넣고 같은 폴더에 **다른 이름으로 저장**합니다. TextEdit의 새 문서는 저장 전에 **포맷 → 일반 텍스트 만들기**를 선택합니다.
+UTF-8 일반 텍스트와 정확한 `.txt` 이름을 유지합니다. `.rtf`·`.docx`·`.txt.txt`로 저장하지 않습니다.
+가이드에 붙여 넣거나 `instructions-with-policies.txt`를 덮어쓰지 않습니다.
 
 <a id="environment-card"></a>
 <a id="2-환경-카드-채우기"></a>

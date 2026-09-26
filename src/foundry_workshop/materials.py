@@ -260,6 +260,10 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
     documents = load_documents(root, language)
     cases = load_cases(root, "dev", language)
     prompt, prompt_hash = load_prompt(root, "v2", language)
+    guide_directory = "docs" if language == "en" else "docs/ko"
+    guide_url = (
+        f"https://github.com/junwoojeong100/microsoft-foundry-v2-labs/blob/main/{guide_directory}"
+    )
     override = BROWSER_OUTPUT[language]
     instructions = prompt.rstrip() + "\n\n" + override + "\n"
     inline = (
@@ -275,6 +279,10 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
             "Synthetic workshop materials only; no real company data.\n"
             "This is the small learner ZIP, not the source repository or a ready code environment.\n"
             "Keep this extracted personal copy outside the repository; never commit filled notes or credentials.\n"
+            "Open these full addresses in a browser; the guide pages are not files inside this ZIP.\n"
+            f"Setup: {guide_url}/setup.md\n"
+            f"Beginner guide: {guide_url}/paths/a-beginner.md#first-success\n"
+            "If GitHub asks you to sign in, use an account with repository read access; this is separate from Azure sign-in.\n\n"
             "1. In the workshop guide (not in this ZIP), complete docs/setup.md and the setup section of session-notes.txt. Use prepared gpt-6-sol, not the judge or a router.\n"
             "2. Follow the guide's docs/paths/a-beginner.md. Record Labs 00-03 and 06 in session-notes.txt.\n"
             "3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Keep the actual saved text as instructions-baseline.txt and record its version. Do not paste instructions into chat.\n"
@@ -291,6 +299,10 @@ def learner_files(root: Path, language: str) -> dict[str, bytes]:
             else "합성 실습 자료만 포함하며 실제 회사 데이터가 아닙니다.\n"
             "작은 학습자 ZIP이며 소스 저장소나 준비된 코드 실행 환경이 아닙니다.\n"
             "압축을 푼 개인 복사본은 저장소 밖에 보관합니다. 작성한 기록이나 인증정보를 커밋하지 않습니다.\n"
+            "아래 전체 주소를 브라우저에서 엽니다. 가이드 페이지는 이 ZIP 안의 파일이 아닙니다.\n"
+            f"준비: {guide_url}/setup.md\n"
+            f"입문 가이드: {guide_url}/paths/a-beginner.md#first-success\n"
+            "GitHub 로그인을 요구하면 저장소 읽기 권한이 있는 계정을 사용합니다. Azure 로그인과는 별개입니다.\n\n"
             "1. 워크숍 가이드(이 ZIP에는 없음)의 docs/ko/setup.md를 마치고 session-notes.txt의 설정 카드를 채웁니다. judge/router가 아닌 준비된 gpt-6-sol을 사용합니다.\n"
             "2. 가이드의 docs/ko/paths/a-beginner.md를 따릅니다. Lab 00-03과 06은 session-notes.txt에 기록합니다.\n"
             "3. Lab 03에서 instructions-with-policies.txt 전체를 대화창이 아닌 Instructions(지침)에 붙여 넣고 Save(저장)합니다. 실제 저장 내용은 instructions-baseline.txt로 보관하고 버전을 적습니다.\n"

@@ -128,16 +128,15 @@ Hosted 초기화는 상위 `azure.yaml`을 찾을 수 있으므로 기존 azd �
 source .venv/bin/activate &&
 python -m pip install -e ".[cloud,agents,dev]" &&
 python -m pip check &&
-python -m ruff check . &&
-python -m ruff format --check . &&
-python -m compileall -q src scripts examples tests tests_sdk &&
-python -m unittest discover -s tests -t . -v &&
-python scripts/check_docs.py &&
+python scripts/verify_workshop.py --label instructor-check &&
 python scripts/workshop.py doctor
 ```
 
-첫 검사 실패에서 실행이 멈춥니다. 해결한 뒤 계속합니다. 이 블록은 Azure를 호출하지 않습니다.
+검사기가 실패를 포함한 로컬 검사 전체를 `outputs/verification/instructor-check/report.json`에 기록합니다.
+다음 리허설에는 새 label을 사용하며 기존 보고서 폴더를 덮어쓰지 않습니다.
+검사기가 실패하면 `doctor` 전에 실행이 멈춥니다. 실패를 해결한 뒤 계속합니다. 이 블록은 Azure를 호출하지 않습니다.
 기본 A/B에 Hosted SDK는 필요 없습니다. 전체 SDK 검사는 아래 선택 절에 있습니다.
+[품질 기준](reference/quality.md#verify-this-copy)에서 보고서의 소스 해시와 명시적으로 미확인 상태인 항목을 확인합니다.
 
 로컬 검사가 모두 통과한 뒤 읽기 전용 cloud 사전 확인을 실행합니다.
 

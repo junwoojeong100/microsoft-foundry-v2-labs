@@ -14,7 +14,7 @@ from itertools import pairwise
 from unittest.mock import patch
 
 from foundry_workshop.cli import DEFAULT_QUESTION, DEFAULT_QUESTION_EN, main, parser
-from foundry_workshop.contracts import load_documents, read_json, read_jsonl
+from foundry_workshop.contracts import load_cases, load_documents, read_json, read_jsonl
 from foundry_workshop.evaluation import grade
 from foundry_workshop.knowledge import local_retrieve
 from foundry_workshop.profiles import RuntimeProfile
@@ -611,6 +611,96 @@ python() {
                     self.assertNotIn("--unlock-holdout", core)
                     self.assertNotIn("azd deploy", core)
 
+    def test_beginner_orientation_uses_the_dev_question_and_explains_work_locations(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                route = (directory / "paths/a-beginner.md").read_text()
+                question = load_cases(ROOT, "dev", language)[0]["question"]
+                self.assertIn(question, route)
+                self.assertIn('<a id="first-success"></a>', route)
+                self.assertIn("```mermaid\n", route)
+                self.assertIn(
+                    "not full A completion" if language == "en" else "A 전체 완료가 아닙니다",
+                    route,
+                )
+                work_locations = route.split('<a id="where-to-work"></a>', 1)[1]
+                for marker in (
+                    "ai.azure.com",
+                    "Instructions",
+                    "session-notes.txt",
+                    "workflow-review.txt",
+                    "assessment-baseline.csv",
+                ):
+                    self.assertIn(marker, work_locations)
+                self.assertEqual(DOCS.workshop_commands(route), [])
+                for page in (
+                    ROOT / ("README.md" if language == "en" else "README.ko.md"),
+                    directory / "index.md",
+                ):
+                    self.assertIn("paths/a-beginner.md#first-success)", page.read_text())
+
+    def test_beginner_file_preparation_checks_extraction_and_persistent_plain_text(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                setup = (directory / "setup.md").read_text()
+                extraction = setup.split('<a id="extract-learner-files"></a>', 1)[1].split(
+                    '<a id="local-tools"></a>', 1
+                )[0]
+                for marker in ("Windows", "macOS", "START-HERE.txt", "policies/"):
+                    self.assertIn(marker, extraction)
+                saving = setup.split('<a id="saving-notes"></a>', 1)[1].split(
+                    '<a id="environment-card"></a>', 1
+                )[0]
+                for marker in (
+                    "session-notes.txt",
+                    "Ctrl+S",
+                    "Cmd+S",
+                    "UTF-8",
+                    "instructions-baseline.txt",
+                    ".rtf",
+                    ".txt.txt",
+                ):
+                    self.assertIn(marker, saving)
+                agent = self.core_section(language, labs[3], "A")
+                self.assertIn("(../setup.md#saving-notes)", agent)
+                self.assertIn("policies/TRAVEL-2026.txt", agent)
+                policy = (ROOT / "data/learner" / language / "policies/TRAVEL-2026.txt").read_text()
+                for field in ("Document ID", "Effective"):
+                    self.assertIn(field, agent)
+                    self.assertIn(field, policy)
+
+    def test_worked_assessment_marks_a_correct_amount_with_the_wrong_source_as_failure(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                core = self.core_section(language, labs[7], "A")
+                example = core.split('<a id="assessment-example"></a>', 1)[1].split("![", 1)[0]
+                self.assertIn(
+                    "not an actual model result"
+                    if language == "en"
+                    else "실제 모델 결과가 아닙니다",
+                    example,
+                )
+                values = dict(re.findall(r"^\| `(\w+)` \| (.*?) \|$", example, re.MULTILINE))
+                self.assertEqual(
+                    set(values),
+                    {"actual_answer", "actual_document_ids", "pass_or_fail", "review_note"},
+                )
+                case = load_cases(ROOT, "dev", language)[0]
+                self.assertEqual(case["case_id"], "D01")
+                self.assertIn(str(case["expected_limit_krw"]), values["actual_answer"])
+                source = values["actual_document_ids"].strip("`")
+                document = next(
+                    doc for doc in load_documents(ROOT, language) if doc["id"] == source
+                )
+                self.assertIn(f"[{source}]", values["actual_answer"])
+                self.assertNotIn(source, case["required_citations"])
+                self.assertEqual(values["pass_or_fail"], "`fail`")
+                self.assertIn(document["effective_to"], values["review_note"])
+                for citation in case["required_citations"]:
+                    self.assertIn(citation, values["review_note"])
+                for score in ("**4/6**", "**5/6**", "4/5"):
+                    self.assertIn(score, core)
+
     def test_practitioner_core_keeps_its_declared_commands_and_no_optional_calls(self):
         for language, _, labs in self.language_labs():
             for number, expected in CORE_COMMANDS.items():
@@ -820,14 +910,8 @@ python() {
                 self.assertIn("Search", required)
                 self.assertIn("GA IQ", required)
                 self.assertIn("MCP", required)
-                for check in (
-                    "python -m ruff check .",
-                    "python -m ruff format --check .",
-                    "python -m compileall -q",
-                    "python -m unittest discover -s tests -t . -v",
-                    "python scripts/check_docs.py",
-                ):
-                    self.assertIn(check, visible)
+                self.assertIn("python scripts/verify_workshop.py --label instructor-check", visible)
+                self.assertIn("outputs/verification/instructor-check/report.json", visible)
 
     def test_command_lookup_keeps_no_evidence_diagnostic_out_of_the_core(self):
         for language, directory, _ in self.language_labs():

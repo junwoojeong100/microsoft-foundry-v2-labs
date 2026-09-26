@@ -653,6 +653,105 @@ class DocumentationTests(unittest.TestCase):
                 )
                 self.assertIs(record["cli_parity_verified"], True)
 
+    def test_documentation_check_rejects_stale_completed_hashes_from_an_older_revision(self):
+        state = json.loads((ROOT / "docs/localization.json").read_text())
+        name = "docs/reference/languages.md"
+        state["completed_translations"][name]["english_sha256_at_completion"] = "0" * 64
+        state["completed_translations"][name]["revision"] = "older-reviewed-revision"
+        original = DOCS.read_json
+        with patch.object(
+            DOCS,
+            "read_json",
+            side_effect=lambda path, current=state: (
+                current if path == ROOT / "docs/localization.json" else original(path)
+            ),
+        ):
+            failures, _ = DOCS.check(ROOT)
+        self.assertTrue(
+            any(name in failure and "completion hashes changed" in failure for failure in failures),
+            failures,
+        )
+
+    def test_completed_records_require_real_hashes_revision_and_verified_parity(self):
+        original = DOCS.read_json
+        name = "docs/reference/glossary.md"
+        for key, value in (
+            ("english_sha256_at_completion", None),
+            ("korean_sha256_at_completion", "not-a-hash"),
+            ("revision", "../unreviewed"),
+            ("cli_parity_verified", 1),
+        ):
+            with self.subTest(field=key):
+                state = json.loads((ROOT / "docs/localization.json").read_text())
+                state["completed_translations"][name][key] = value
+                failures = []
+                with patch.object(
+                    DOCS,
+                    "read_json",
+                    side_effect=lambda path, current=state: (
+                        current if path == ROOT / "docs/localization.json" else original(path)
+                    ),
+                ):
+                    completed = DOCS.completed_translations(ROOT, failures)
+                self.assertNotIn(ROOT / name, completed)
+                self.assertTrue(
+                    any("invalid translation completion record" in failure for failure in failures)
+                )
+
+    def test_pending_work_does_not_claim_its_historical_completion_hash_is_current(self):
+        state = json.loads((ROOT / "docs/localization.json").read_text())
+        name = "docs/reference/glossary.md"
+        state["pending_files"][name] = {}
+        state["completed_translations"][name]["english_sha256_at_completion"] = "0" * 64
+        failures = []
+        with patch.object(DOCS, "read_json", return_value=state):
+            completed = DOCS.completed_translations(ROOT, failures)
+        self.assertNotIn(ROOT / name, completed)
+        self.assertEqual(failures, [])
+
+    def test_quality_reference_sample_is_dated_commit_pinned_and_consistent_in_both_languages(self):
+        samples = []
+        for directory in ("docs", "docs/ko"):
+            text = (ROOT / directory / "reference/quality.md").read_text()
+            self.assertIn("September 26, 2026" if directory == "docs" else "2026-09-26", text)
+            references = re.findall(r"https://github.com/([^/]+/[^/]+)/tree/([a-f0-9]{40})", text)
+            self.assertEqual(len(references), 7)
+            self.assertEqual(len(set(references)), 7)
+            self.assertNotIn("/tree/main", text)
+            for field in ("azure_tested", "global_ranking_established", "learner_pilot_performed"):
+                self.assertIn(f"`{field}`", text)
+            self.assertIn("python scripts/verify_workshop.py --label quality-check", text)
+            samples.append(references)
+        self.assertEqual(samples[0], samples[1])
+
+    def test_code_along_has_isolated_copies_and_non_overwriting_offline_commands(self):
+        commands = []
+        for language, directory in (("en", "docs"), ("ko", "docs/ko")):
+            text = (ROOT / directory / "code-along.md").read_text()
+            self.assertIn(f"mkdir outputs/code-along-{language} &&", text)
+            for name in (
+                "02_responses.py",
+                "03_prompt_agent.py",
+                "04_maf_tool.py",
+                "05_maf_sequential.py",
+                "06_iq_retrieve.py",
+                "08_hosted_agent.py",
+            ):
+                self.assertIn(name, text)
+            blocks = re.findall(r"```bash\n(.*?)```", text, re.DOTALL)
+            checks = [block for block in blocks if "scripts/check_recipes.py" in block]
+            self.assertEqual(len(checks), 4)
+            for block in checks:
+                self.assertIn("set -C", block)
+                self.assertIn(f"--directory outputs/code-along-{language}", block)
+            commands.append(
+                [block.replace(f"code-along-{language}", "code-along-LANG") for block in checks]
+            )
+            for marker in ("store=True", '"version": "latest"', "participants=[writer]"):
+                self.assertIn(marker, text)
+            self.assertEqual(DOCS.workshop_commands(text), [])
+        self.assertEqual(commands[0], commands[1])
+
     def test_english_first_revision_warns_korean_readers_and_pins_both_files(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

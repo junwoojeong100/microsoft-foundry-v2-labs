@@ -40,6 +40,10 @@ Use the **one** option already recorded in `workflow-review.txt`: the terminal o
 No code authoring is required. Either option makes real, billable Azure model calls within the owner's budget.
 Never share an administrator account or run both options just to complete A.
 
+**Why a workflow?** Instead of one agent answering, the prepared code sends work through **policy analysis → answer writing → evidence review**.
+All three roles are AI agents, including the reviewer. You inspect their final output; no role can grant business approval.
+The terminal runs on the prepared computer, but its model requests still go to Azure.
+
 ### 1. Choose the prepared execution option
 
 Both options use this exact question:
@@ -96,6 +100,11 @@ This is a MAF run in the terminal, not portal Workflow Designer activity. The re
 
 ### 3. Read the actual output
 
+**First time reading JSON?** It is a labeled result, not another command: `"mode": "live"` means the field named `mode` has the value `live`.
+Braces `{}` group fields; brackets `[]` contain a list; `false` means "no", not "an error occurred".
+Use your editor's Find (**Ctrl+F** / **Cmd+F**) for the field names below. Text may contain `\n` for a line break;
+leave the saved JSON unchanged and write your interpretation in `workflow-review.txt`.
+
 Both options run three MAF roles in order, but **their JSON shapes differ**. Use the row for your chosen option:
 
 | Option | Execution fields | Answer to review |
@@ -117,8 +126,12 @@ flowchart LR
 
 | Field | What it establishes |
 |---|---|
+| `mode: live` | This used the real model, not an offline example; it does not prove the answer is correct |
 | `approval_status: pending-human-review` | Model review has not become human approval |
 | `external_actions_performed: false` | No actual booking/payment |
+
+**Read in this order:** confirm the execution fields → read the terminal's first `outputs` item or Playground's `answer` →
+check its cited original policies → check the two approval/action fields. You do not need to understand every SDK metadata field.
 
 1. Open the terminal file named after `Saved JSON:` (or the existing file you verified in step 2), or read the complete Playground reply you saved.
    Compare the cited policy IDs with the learner ZIP's `policies/`. Playground learners do not need a terminal output file.

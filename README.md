@@ -7,9 +7,12 @@
 **Build one travel-policy assistant, then hand over its reviewed answers and cleanup record.**
 Use only the supplied synthetic data.
 
-1. Choose **A** or **B** below.
+1. New to Azure or agents? Choose **A**. Choose **B** only if you are already comfortable with Python and APIs.
 2. Complete [the setup card](docs/setup.md) **for that route**.
 3. Follow your route's checklist from Lab 00. Leave each lab through **A done / B done**, not the next section on the page.
+
+**First time here:** [A's illustrated starting guide](docs/paths/a-beginner.md#first-success) explains what you will build,
+which window to use and what your first result should establish. No recording or prior Foundry knowledge is required.
 
 | Route | Choose it if | You do | You finish with |
 |---|---|---|---|
@@ -130,6 +133,10 @@ Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authe
 **Evidence:** [Versions/status](docs/reference/versions.md) ·
 [Validation scope](docs/reference/validation.md) · [Sources](docs/reference/sources.md) ·
 [Troubleshooting](docs/reference/troubleshooting.md) · [Cleanup](docs/reference/cleanup.md)
+
+**Quality and continued practice:** [Dated public comparison and reproducible quality gates](docs/reference/quality.md) ·
+[Learn by changing the SDK code, offline](docs/code-along.md).
+Local checks, actual Azure runs and learner pilots remain separate; no global “best workshop” ranking is claimed.
 
 New terms: [glossary](docs/reference/glossary.md). Next learning: [learning resources](docs/reference/learning-resources.md). Execution options:
 [command reference](docs/reference/commands.md). Environment variables:

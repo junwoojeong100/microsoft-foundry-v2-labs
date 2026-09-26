@@ -4,10 +4,13 @@
 
 **Build one travel-policy assistant and finish with evidence another learner can review.**
 
-1. Choose [A. Beginner](paths/a-beginner.md) for browser steps plus a prepared Lab 05 workflow path, or
-   [B. Implementation](paths/b-practitioner.md) for SDK calls, managed prompt agent, tools, workflows, Search/IQ, controlled evaluation, traces and local packaging.
+1. New to Azure or agents? Choose [A. Beginner](paths/a-beginner.md). Choose
+   [B. Implementation](paths/b-practitioner.md) only if you are already comfortable with Python and APIs.
 2. Complete [setup](setup.md) for that route. A uses the learner ZIP; B uses the source repository.
 3. Follow the route's checklist from Lab 00. Use **A done / B done** to leave each lab; do not continue into the other path.
+
+**Before your first click:** [A's starting guide](paths/a-beginner.md#first-success) explains the example, essential terms,
+work windows and first milestone. Follow the written steps; recordings are not prerequisites.
 
 **No Azure access yet:** stop after the [offline rehearsal](labs/00-start.md#offline-rehearsal).
 **Learning alone:** prepare your own environment with [the self-study steps](setup-owner.md#self-study) first.
@@ -34,6 +37,8 @@ Use the ready files, not reference-answer records. Keep credentials and filled w
 |---|---|
 | Accounts, exact model, input files, and a self-setup route | [One-time setup](setup.md) |
 | A starting point and schedule | [Learning paths](paths.md) |
+| Understand and change the SDK code without Azure calls | [Code-along practice](code-along.md) |
+| Public comparison, quality criteria and one-command local verification | [Workshop quality contract](reference/quality.md) |
 | First-run instructions | [Lab 00](labs/00-start.md) |
 | Classroom preparation | [Instructor guide](instructor.md) |
 | September 24 `gpt-6-sol` English recordings | [Evidence hub](evidence.md) and [videos: 6:29 in guide order, 3:11 CLI, 2:55 portal](video-summary.md) |

@@ -20,11 +20,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install -e ".[dev]"
-      - run: python -m ruff check .
-      - run: python -m ruff format --check .
-      - run: python -m compileall -q src scripts examples tests tests_sdk
-      - run: python -m unittest discover -s tests -t . -v
-      - run: python scripts/check_docs.py
+      - run: python scripts/verify_workshop.py --label ci-quality
       - run: python scripts/workshop.py doctor
       - run: python scripts/workshop.py demo --label ci-offline --prompt v2
       - run: python scripts/workshop.py evaluate --label ci-offline

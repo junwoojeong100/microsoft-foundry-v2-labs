@@ -35,9 +35,21 @@ This approximately 20 KB ZIP delivers all 16 learner files in one download, with
 It is a generated handout, not another source of truth. It contains no videos, holdout or reference-answer fields; B already has the files and skips it.
 For private repositories, use a GitHub account with read access.
 
+<a id="extract-learner-files"></a>
+
+**Extract before editing:**
+
+1. Find the downloaded `learner-materials.zip` in your Downloads folder.
+2. **Windows:** right-click it in File Explorer → **Extract All...** → choose a personal folder → **Extract**.
+   **macOS:** double-click it in Finder, then open the extracted `learner-materials` folder.
+3. Open the folder containing **`START-HERE.txt`**, **`session-notes.txt`** and **`policies/`** directly.
+   If you are still viewing the `.zip`, leave that preview and open the extracted folder instead.
+4. Open `START-HERE.txt`. It includes full browser links to setup and the A guide, so the handout does not depend on a source checkout.
+   Bookmark the A guide and keep this folder for the entire pass. Do not download a new copy each lab.
+
 | File | Use |
 |---|---|
-| `START-HERE.txt` | File-by-file instructions |
+| `START-HERE.txt` | Full guide links and file-by-file instructions |
 | `instructions-with-policies.txt` | Copy the entire file into a new Prompt Agent's **Instructions**, then Save |
 | `instructions.txt` | Instructions without inline evidence, for the optional File Search path |
 | `policies/` | Six original synthetic TXT files to inspect in core Labs 03 and 06; upload only for separately selected, available File Search |
@@ -74,6 +86,17 @@ If everything is in one column, import with **UTF-8** encoding and a **comma** s
 ([Lab 07's worksheet instructions](labs/07-evaluation.md#assessment-sheet)).
 Close the blank assessment unchanged; you make and fill a separate baseline copy in Lab 07.
 If either editor is unavailable, finish this preparation before starting the route; do not send model requests to test it.
+
+<a id="saving-notes"></a>
+
+**Check that your notes really save:** in `session-notes.txt`, fill `Language / path:` with `English / A`.
+Press **Ctrl+S** (**Cmd+S** on macOS), close the file, and reopen that same extracted file. Your entry must still be there.
+If not, fix the folder/editor before proceeding; a browser preview or unsaved editor tab is not a saved record.
+
+Later, when Lab 03 asks for `instructions-baseline.txt`, use **File → New** in the text editor, paste the copied instructions,
+then **Save As** in this same folder. In TextEdit, use **Format → Make Plain Text** before saving a new document.
+Keep UTF-8 plain text and the exact `.txt` name, not `.rtf`, `.docx` or `.txt.txt`.
+Do not paste it into the guide or overwrite `instructions-with-policies.txt`.
 
 <a id="environment-card"></a>
 <a id="2-fill-this-environment-card"></a>

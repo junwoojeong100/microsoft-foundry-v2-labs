@@ -1,6 +1,11 @@
 Synthetic workshop materials only; no real company data.
 This is the small learner ZIP, not the source repository or a ready code environment.
 Keep this extracted personal copy outside the repository; never commit filled notes or credentials.
+Open these full addresses in a browser; the guide pages are not files inside this ZIP.
+Setup: https://github.com/junwoojeong100/microsoft-foundry-v2-labs/blob/main/docs/setup.md
+Beginner guide: https://github.com/junwoojeong100/microsoft-foundry-v2-labs/blob/main/docs/paths/a-beginner.md#first-success
+If GitHub asks you to sign in, use an account with repository read access; this is separate from Azure sign-in.
+
 1. In the workshop guide (not in this ZIP), complete docs/setup.md and the setup section of session-notes.txt. Use prepared gpt-6-sol, not the judge or a router.
 2. Follow the guide's docs/paths/a-beginner.md. Record Labs 00-03 and 06 in session-notes.txt.
 3. In Lab 03, paste instructions-with-policies.txt into Instructions, then Save. Keep the actual saved text as instructions-baseline.txt and record its version. Do not paste instructions into chat.

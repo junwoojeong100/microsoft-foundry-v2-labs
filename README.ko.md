@@ -7,9 +7,12 @@
 **출장 규정 안내 도우미 하나를 만들고, 검토한 답변과 자원 정리 기록을 남깁니다.**
 동봉한 합성 데이터만 사용합니다.
 
-1. 아래에서 **A** 또는 **B**를 고릅니다.
+1. Azure나 에이전트가 처음이라면 **A**를 고릅니다. Python·API에 이미 익숙하다면 **B**를 고릅니다.
 2. **고른 경로에 맞춰** [준비 카드](docs/ko/setup.md)를 완료합니다.
 3. 경로의 체크리스트를 따라 Lab 00부터 진행합니다. 페이지의 다음 절이 아니라 **A 완료 / B 완료** 링크로 이동합니다.
+
+**처음이라면:** [그림으로 시작하는 A 입문 가이드](docs/ko/paths/a-beginner.md#first-success)에서 만들 것,
+작업할 화면, 첫 결과의 확인 기준부터 읽습니다. 녹화 시청이나 Foundry 사전 지식은 필요하지 않습니다.
 
 | 경로 | 이런 분께 | 하는 일 | 끝나면 남는 것 |
 |---|---|---|---|
@@ -136,6 +139,10 @@ SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)
 [원본 커밋·공식 출처](docs/ko/reference/sources.md) ·
 [문제 해결](docs/ko/reference/troubleshooting.md) ·
 [리소스 정리](docs/ko/reference/cleanup.md)
+
+**품질과 다음 연습:** [날짜를 고정한 공개 비교·재현 가능한 품질 검사](docs/ko/reference/quality.md) ·
+[Azure 호출 없이 SDK 코드를 바꿔 보는 연습](docs/ko/code-along.md).
+로컬 검사·실제 Azure 실행·학습자 시범 운영을 구분하며 전체 GitHub의 “최고 실습” 순위를 주장하지 않습니다.
 
 처음 보는 용어는 [용어 사전](docs/ko/reference/glossary.md), 다음 학습은 [학습 자료](docs/ko/reference/learning-resources.md), 실행 옵션은
 [명령 참조](docs/ko/reference/commands.md), 환경변수는 [공통 설정](docs/ko/reference/configuration.md)을 확인하세요.

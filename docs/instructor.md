@@ -129,16 +129,15 @@ Reuse that venv; do not recreate it after setup. Run each block only with the ap
 source .venv/bin/activate &&
 python -m pip install -e ".[cloud,agents,dev]" &&
 python -m pip check &&
-python -m ruff check . &&
-python -m ruff format --check . &&
-python -m compileall -q src scripts examples tests tests_sdk &&
-python -m unittest discover -s tests -t . -v &&
-python scripts/check_docs.py &&
+python scripts/verify_workshop.py --label instructor-check &&
 python scripts/workshop.py --language en doctor
 ```
 
-The chain stops on the first failed check. Resolve it before continuing. No command in this block calls Azure.
+The runner records all local checks, including failures, in `outputs/verification/instructor-check/report.json`.
+Use a fresh label for another rehearsal; an existing report directory is not overwritten.
+The chain stops before `doctor` when the runner fails. Resolve failures before continuing. No command in this block calls Azure.
 The Hosted SDK is not needed for core A/B; its full SDK checks are optional below.
+See [the quality contract](reference/quality.md#verify-this-copy) for the report's source hashes and explicit unverified claims.
 
 Only after all local checks pass, run the read-only cloud preflight:
 

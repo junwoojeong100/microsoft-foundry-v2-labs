@@ -10,6 +10,10 @@ English lives in `README.md` and `docs/`; Korean lives in `README.ko.md` and `do
 Every page links to its counterpart.
 Source-language-first deferrals are bounded by hashes and visible warnings in `docs/localization.json`.
 Follow its active source language and revision; complete the counterpart before removing the notice and rechecking command parity.
+`check_docs.py` verifies the current bytes against **all completed translation records**, including older revisions.
+Changing either language invalidates its completion record even when no executable command changed.
+Use `scripts/update_localization.py` to mark the affected pairs pending, complete the translation, then record completion;
+do not replace hashes merely to silence a failure without reviewing both pages.
 
 ## Runtime data and answers
 
@@ -46,4 +50,5 @@ python scripts/check_docs.py
 ```
 
 Commands and local links are checked in both languages.
-Unrecorded deferrals or command drift fail; English execution results are not copied into Korean scores.
+Unrecorded deferrals, stale completion hashes or command drift fail; English execution results are not copied into Korean scores.
+The [local quality report](quality.md#verify-this-copy) includes this gate without making a live Azure claim.

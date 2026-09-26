@@ -25,6 +25,10 @@
 This creates an agent, saves a version and makes billable test calls. Use the approved training project and your own prefix.
 Keep `session-notes.txt` open for the returned version and actual answers; no manual deployment or Publish step is required.
 
+**What changes from Lab 02?** The model stays the same. You now supply rules and six fictional policy documents,
+like giving a helper the handbook before asking a question. This is adding evidence to the request, **not training model weights**.
+You will check what the agent actually says rather than assume the handbook makes every answer correct.
+
 ### 1. Create the agent
 
 #### Creation menu and name
@@ -164,6 +168,12 @@ For each of the four questions:
 4. Compare its amount, applicable date, cited IDs and approval conditions with that case's row in the table above, and write your finding.
    For D05, withholding the amount is correct, but a missing `SCOPE-01` citation is still a finding.
 
+**How to read your first D01 answer:** `TRAVEL-2026` is a document ID, not an agent version or a button you must click.
+Open **`policies/TRAVEL-2026.txt`** in the extracted learner folder. Find **Document ID**, **Effective**, then the lodging amount
+in the policy text. Check that September 2026 is within its dates and that the reply uses its KRW 150000 limit.
+The phrasing can vary; a correct-looking number without the right source is not enough. Record a wrong or missing citation,
+then continue the remaining checks without editing the saved reply.
+
 <details>
 <summary>September 24 English recording — not the results of your own four questions</summary>
 
@@ -191,6 +201,11 @@ These four images are recording examples. Record your own actual answers and fai
 Paste it into a new plain-text file and save it as `instructions-baseline.txt` in your personal evidence folder (the extracted ZIP folder).
 On `Evidence method / instructions-baseline.txt path:` write `inline instructions` and that file's path; keep the version on the line above.
 The downloaded instruction file alone does not establish what was actually saved. Do not overwrite an earlier pass's snapshot.
+For file-format help, use [saving plain-text notes](../setup.md#saving-notes).
+
+**First milestone reached when those records are saved:** you have connected the model, instructions and policy evidence,
+and inspected four real answers. This is not yet the six-question assessment or full A completion. Keep the same agent for Labs 06 and 07;
+Lab 05 next uses a separate prepared workflow, not another version of this agent.
 
 **A done:** keep `instructions-baseline.txt`, its agent version and four checks in your evidence folder.
 Continue to [Lab 05 A](05-workflows.md#path-a); Lab 04 and the B SDK path are not required for A.

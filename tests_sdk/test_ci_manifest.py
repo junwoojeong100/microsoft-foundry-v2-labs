@@ -12,6 +12,15 @@ from tests.test_toolbox import settings
 
 
 class CIManifestTests(unittest.TestCase):
+    def test_offline_ci_uses_the_same_source_bound_verifier_without_azure_login(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/check.yml").read_text())
+        steps = workflow["jobs"]["offline"]["steps"]
+        commands = "\n".join(step.get("run", "") for step in steps)
+        self.assertIn("python scripts/verify_workshop.py --label ci-quality", commands)
+        self.assertNotIn("--sdk", commands)
+        self.assertFalse(any("azure/login" in step.get("uses", "") for step in steps))
+        self.assertEqual(workflow["permissions"], {"contents": "read"})
+
     def test_release_deployment_is_isolated_from_the_historical_repository_project(self):
         workflow = yaml.safe_load((ROOT / ".github/workflows/hosted-lab-release.yml").read_text())
         job = workflow["jobs"]["release"]

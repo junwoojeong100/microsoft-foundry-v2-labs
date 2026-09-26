@@ -5,6 +5,37 @@
 **Finish with your own agent, a six-question assessment, one workflow review, trace status and a cleanup handoff.**
 Follow only the A rows below. The 270-minute teaching plan assumes setup, permissions and installations are already complete; it is not a measured learner duration.
 
+<a id="first-success"></a>
+
+## Understand what you are building
+
+Imagine someone asks: **"What is the domestic business-trip lodging limit per night for September 2026?"**
+You will give an assistant the fictional Hanbit Technology policies so it can answer from those documents,
+show which policy it used, and say when the evidence is insufficient. It must not approve or book a trip.
+You do not need to write Python or memorize the reference documents.
+
+```mermaid
+flowchart LR
+    Q["Your travel question"] --> A["Assistant\nModel + instructions"]
+    D["Six supplied fictional policies"] --> A
+    A --> R["Answer + policy IDs"]
+    R --> H["You check the original policy"]
+```
+
+| Word you will see | Meaning in this exercise |
+|---|---|
+| Foundry / project | The Azure platform / your prepared workspace in it |
+| Model / deployment | The engine that generates answers / its callable name; use the prepared `gpt-6-sol` |
+| Agent | Your configured assistant: a model with instructions, evidence and permitted tools |
+| Instructions | Rules the assistant should follow on every question, not the question itself |
+| Grounding / citation | Basing an answer on supplied evidence / naming that evidence, such as `TRAVEL-2026` |
+| Saved version | A numbered snapshot of the agent's configuration; saving instructions does not train a new model |
+
+**Your first milestone is Labs 00–03:** open the right project, see the model without policy evidence, then save an agent
+with that evidence and check four answers. Keep its instructions and your actual findings, even if an answer is wrong.
+This is **not full A completion**: Labs 05–11 add the workflow, source review, six-question assessment and cleanup handoff.
+Use the sequence below; do not jump directly to Lab 03.
+
 ## Start here
 
 Complete [setup](../setup.md): get the English learner ZIP, then record the owner's values.
@@ -16,9 +47,29 @@ A Hosted Responses Playground is used only if the owner verified it before class
 If neither is prepared, complete [Lab 00 B setup](../labs/00-start.md#path-b) and [Lab 02 B](../labs/02-models.md#path-b) before this timed route,
 then return to **step 1 below (Lab 00 A)**, not Lab 03 B.
 
-**First-pass choices are already made:** inline policies, one prepared workflow run, manual dev assessment, and trace status in Lab 09.
+**First-pass choices are already made:** put the six policies directly in Instructions (**inline**), run one prepared workflow,
+assess the six practice questions (**dev**) yourself, and record the request-history (**trace**) status in Lab 09.
 File Search, IQ Chat, Hosted deployment, cloud judges and C modules are **not selected** unless you opt in separately.
 The numbered links below open A's exact section; use **A done** to leave each lab.
+
+<a id="where-to-work"></a>
+
+## Know which window to use
+
+Keep this guide and the Foundry portal in separate browser tabs. Open your personal files beside them.
+
+| Place | What you do there | Do not put there |
+|---|---|---|
+| This guide on GitHub | Read the next A step and its expected result | Your answers or credentials |
+| Foundry portal, `ai.azure.com` | Paste the complete instruction file into **Instructions**; send only a question in **Message the agent...** | Terminal commands or the assessment criteria |
+| Extracted learner folder in a text/spreadsheet editor | Save observations in `session-notes.txt`, workflow review in `workflow-review.txt`, and later answers in `assessment-baseline.csv` | Another learner's results; do not edit inside the ZIP preview |
+| Prepared terminal, Lab 05 only | Copy the one supplied workflow command and inspect its saved output | Instructions or questions pasted as bare commands |
+
+**For every lab: read → do → check → save → follow A done.** A screenshot helps locate a control; it is not the answer you should copy.
+When the wording of your model's reply differs, compare the amount, date, source and approval conditions, not identical sentences.
+**No reply or an error is different from a wrong answer:** preserve the error and use that lab's **If blocked** instructions.
+Read only A and the shared opening card; collapsed **Optional**, B and C sections are not extra steps.
+If a term is still unfamiliar, use the [glossary](../reference/glossary.md), then return to the same step.
 
 ## Your sequence
 

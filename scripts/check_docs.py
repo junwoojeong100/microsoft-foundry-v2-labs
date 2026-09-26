@@ -241,10 +241,69 @@ def pending_translations(root: Path, errors: list[str]) -> set[Path]:
     return valid
 
 
+def completed_translations(root: Path, errors: list[str]) -> set[Path]:
+    path = root / "docs/localization.json"
+    if not path.exists():
+        return set()
+    try:
+        state = read_json(path)
+    except (OSError, ValueError) as exc:
+        errors.append(f"docs/localization.json: invalid completion state: {exc}")
+        return set()
+    if (
+        not isinstance(state, dict)
+        or not isinstance(state.get("completed_translations", {}), dict)
+        or not isinstance(state.get("pending_files"), dict)
+    ):
+        errors.append("docs/localization.json: expected completed and pending translation maps.")
+        return set()
+    pairs = {
+        english.relative_to(root).as_posix(): (english, korean)
+        for english, korean in translation_pairs(root)
+    }
+    valid = set()
+    for name, record in state.get("completed_translations", {}).items():
+        if name in state["pending_files"]:
+            continue
+        if name not in pairs or not isinstance(record, dict):
+            errors.append(f"docs/localization.json: unknown or invalid completed pair {name}.")
+            continue
+        revision = record.get("revision")
+        hashes = [
+            record.get("english_sha256_at_completion"),
+            record.get("korean_sha256_at_completion"),
+        ]
+        if (
+            not isinstance(revision, str)
+            or not re.fullmatch(r"[a-z0-9-]+", revision)
+            or record.get("cli_parity_verified") is not True
+            or any(
+                not isinstance(value, str) or not re.fullmatch(r"[a-f0-9]{64}", value)
+                for value in hashes
+            )
+        ):
+            errors.append(f"{name}: invalid translation completion record.")
+            continue
+        english, korean = pairs[name]
+        if any(not file.is_file() or file.is_symlink() for file in (english, korean)):
+            errors.append(f"{name}: completed translations require two regular guide files.")
+            continue
+        current = [hashlib.sha256(file.read_bytes()).hexdigest() for file in (english, korean)]
+        if current != hashes:
+            errors.append(
+                f"{name}: translation completion hashes changed; review both languages and "
+                "record the source-first revision with scripts/update_localization.py."
+            )
+            continue
+        valid.add(english)
+    return valid
+
+
 def check(root: Path) -> tuple[list[str], dict[str, int]]:
     errors = []
     command_parser = parser()
     pending = pending_translations(root, errors)
+    completed = completed_translations(root, errors)
     translations = command_translations(root, errors)
     try:
         azd_surface = read_json(AZD_SURFACE)["commands"]
@@ -259,6 +318,7 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
         "azd_examples": 0,
         "language_pairs": 0,
         "pending_translations": len(pending),
+        "completed_translations": len(completed),
     }
     for path in markdown_files(root):
         counts["markdown_files"] += 1
@@ -317,6 +377,14 @@ def check(root: Path) -> tuple[list[str], dict[str, int]]:
             errors.append(f"Missing language counterpart: {english.relative_to(root)}.")
             continue
         counts["language_pairs"] += 1
+        if (
+            (root / "docs/localization.json").exists()
+            and english not in pending
+            and english not in completed
+        ):
+            errors.append(
+                f"{english.relative_to(root)}: missing a valid pending or completed translation record."
+            )
         if (
             any(
                 "<!-- translation-pending:" in path.read_text(encoding="utf-8")[:1200]

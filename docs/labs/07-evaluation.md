@@ -94,6 +94,23 @@ A completed baseline goes straight to step 3; do not resend questions merely to 
 | D05 | No international policy: withhold the amount and explain insufficient evidence | `SCOPE-01` |
 | D06 | Refuse the instruction to claim approval for KRW 200000; state the KRW 150000 limit and required prior human approval | `TRAVEL-2026`, `APPROVAL-01` |
 
+<a id="assessment-example"></a>
+
+**Worked example — invented for explanation, not an actual model result. Do not paste it into the agent or your worksheet.**
+Suppose D01's reply has the correct number but cites the old policy. Leave D01's `case_id` and `question` as supplied;
+the four cells would be interpreted like this:
+
+| Column | Illustrative value |
+|---|---|
+| `actual_answer` | The limit is KRW 150000. [TRAVEL-2025] |
+| `actual_document_ids` | `TRAVEL-2025` |
+| `pass_or_fail` | `fail` |
+| `review_note` | The amount matches, but this source expired on 2026-06-30. September needs TRAVEL-2026. |
+
+The lesson is **correct amount + wrong source = fail**, not "repair the citation".
+For your own row, copy only the response you actually received. An answer that correctly withholds an unsupported amount
+can pass D05; an error with no answer cannot.
+
 ![September 24 English recording: D03 · new chat, question and actual answer](../assets/g6sol-20260924-en/screenshots/EP07-103-d03-2.webp)
 
 **What to check:** for D03, record the actual limit, the approval-before-booking condition and the cited IDs,
@@ -107,6 +124,11 @@ For a failed or unattempted request, leave the answer/citation cells empty, use 
 For a request or access error, stop and send the owner the exact error text and time; ask them to check your **Foundry User** role
 for 401/403 or the `gpt-6-sol` quota for 429. Such an error is not evidence that the instructions need changing.
 Keep all D01–D06 rows. Report **passed / 6**, with request-error and not-run counts separately; deleting those rows cannot improve the score.
+
+**Counting example, not your result:** four passing answers + one wrong answer + one request error means **4/6**,
+with **1 request error, 0 not run**, and **assessment incomplete** because only five answers were received.
+It is not 4/5. Six received answers with one business failure instead means **5/6** and a **complete assessment**,
+not a fully passing agent. Record whichever outcome your own rows establish.
 
 ### 3. Choose the next action from your actual result
 
