@@ -26,12 +26,12 @@ learner. Add neither company data nor automatic payments.
 
 | Deliverable | A. Beginner | B. Implementation |
 |---|---|---|
-| Architecture | Project/model/evidence/agent diagram | Include actual code, provider, identity |
+| Architecture | Project/model/evidence/agent diagram | [Code, provider and caller identity in the B notes](#b-architecture); no extra diagram |
 | Knowledge | Six synthetic documents and effective periods | Corpus hash, retrieval provider, IDs |
 | Instructions | Final instructions and reasons for changes | v1/v2 hashes and frozen candidate |
 | MAF workflow | Actual prepared sequential run and human review | Code/results for sequential, concurrent, Group Chat |
 | Evaluation | Manual assessment of all six real dev answers | Complete dev before/after, final holdout, errors |
-| Failure review | Actual failure or all-pass record | Source run/request/response and pending review |
+| Failure review | Actual failure or all-pass record | Actual failure: source run/request/response and pending review; all-pass: review note and remaining limitations |
 | Operations | Permissions, cost, cleanup and trace evidence or unverified reason | Reproduction settings, cleanup and trace evidence; local MAF has no server-side trace |
 | Limitations | Observed-only and unrun features | SDK/cloud/Preview verification boundaries |
 
@@ -55,15 +55,18 @@ A complete assessment may contain business failures. Missing answers, request er
 record that outcome in **Lab 07 A** of `session-notes.txt`, preserve the existing files and still hand over cleanup ownership.
 Do not invent responses or repeat paid calls just to fill the folder.
 A does **not** run the B/C acceptance commands below or open holdout.
-Before you hand over, tick these five checks:
+Tick only the checks you actually meet. For missing evidence, record the reason, next permitted action and owner
+in **Lab 07 A** of `session-notes.txt`, and label the handoff **incomplete**.
+The no-credentials check is mandatory before **any** handoff.
 
 - [ ] Each file in the table opens and meets its completion check.
-- [ ] `assessment-baseline.csv` has all six rows, including failures.
+- [ ] `assessment-baseline.csv` has all six actual-answer rows, including business failures.
 - [ ] `workflow-review.txt` has the complete output and your review.
 - [ ] `operations-checklist.txt` names who stops or deletes each asset you own.
 - [ ] The folder contains no `.env`, password, key or token.
 
-**A done:** hand the folder over through the agreed class channel (for self-study, keep it),
+**A done:** all required evidence checks above are met. Otherwise record **A incomplete / handoff recorded**, not successful completion.
+For either outcome, hand the existing folder over through the agreed class channel (for self-study, keep it),
 then follow [Cleanup](../reference/cleanup.md) for the assets you own.
 
 <a id="path-b"></a>
@@ -99,6 +102,13 @@ In `session-notes.txt`, **B - code evidence and handoff** must also contain your
 Lab 07's comparison/gate decision and actual verdict, and Lab 08's package/execution status.
 An empty template or a filename alone is not execution evidence. If an item is missing, use the incomplete outcome below;
 do not repeat paid calls or fabricate files just to fill the inventory.
+
+<a id="b-architecture"></a>
+
+**B architecture:** fill `Lab 11 architecture (code/command path / provider / caller identity):` in that B section.
+Use one line per executed path, drawing on the existing Lab 03–08 records and Lab 09 item 3.
+Distinguish the managed agent, local MAF and Lab 07 direct Responses; mark an unverified identity as unverified.
+No extra diagram or new call is required. If an older copy lacks this field, append it without replacing your notes.
 
 **Lab 09 trace record:** open `operations-checklist.txt` and check the
 `Actual trace evidence, or unverified when unavailable:` line you filled in Lab 09.
@@ -235,11 +245,13 @@ Use this evidence for [archive acceptance](../reference/consolidation.md), not e
 - [ ] Source, dataset, prompt, response, and evaluator lineage is preserved.
 - [ ] An LLM reviewer is not treated as a human approver.
 - [ ] Unmeasured latency/usage is not filled with zero.
-- [ ] Features not remotely executed are marked not run.
+- [ ] Local execution and packaging are recorded separately; omitted remote deployment/invocation is marked not run.
 - [ ] Owned cleanup is verified or assigned to a named authorized owner; shared assets are preserved.
 
-Six/four cases are workshop gates. Production adoption also requires business-expert
-policy approval, broader evaluation, threat modeling, load/recovery/access reviews,
+**Use the completion criteria for your chosen route above.** Completing an assessment, passing every case and production approval are different.
+A reviews all six actual dev answers, including failures; A does not open holdout.
+B records the dev gate and final acceptance/rejection, or the exact incomplete stage.
+Production adoption also requires business-expert policy approval, broader evaluation, threat modeling, load/recovery/access reviews,
 and service-specific SLA, price, and retention reviews.
 
 [Full action index](../action-captures.md) · [Recordings](../video-summary.md)

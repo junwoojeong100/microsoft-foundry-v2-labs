@@ -192,6 +192,8 @@ Add the dataset and the evaluation to item 4 of `operations-checklist.txt`, then
 ## B. Code: compare two prompts, then make one final check
 
 **Use local retrieval + a real Azure model for this entire experiment.**
+`collect` calls project Responses directly with prior retrieval, not the Lab 03 managed Prompt Agent
+or the Lab 05 MAF workflow.
 This is a declared new experiment after Lab 06, not a substitute for a failed Search/IQ lab.
 Keep the model, language, policies and retrieval fixed; only the prompt changes on dev.
 

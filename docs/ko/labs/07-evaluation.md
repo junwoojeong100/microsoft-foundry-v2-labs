@@ -192,6 +192,8 @@ TaskAdherence는 2026-09-24 평가자 목록에 Preview로 표시되었으며 �
 ## B. 코드 — 지침 두 개를 비교하고 최종 확인은 한 번
 
 **이 실험 전체에서 로컬 검색 + 실제 Azure 모델을 사용합니다.**
+`collect`는 사전 검색을 붙여 프로젝트 Responses를 직접 호출하며,
+Lab 03의 관리형 Prompt Agent나 Lab 05의 MAF workflow를 호출하지 않습니다.
 Lab 06 이후 시작하는 별도 실험이지 Search/IQ 실패를 대신하는 단계가 아닙니다.
 모델·언어·정책·검색은 고정하고 dev에서 지침만 바꿉니다.
 

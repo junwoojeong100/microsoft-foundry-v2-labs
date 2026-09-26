@@ -191,11 +191,13 @@ Stop if the model rejects `json_schema`. Preserve the error and ask the owner to
 <a id="a-terminal-ready"></a>
 
 **Preparing A's terminal rather than taking B?** The terminal is now ready; the browser labs are not completed by these SDK calls.
-Choose your return point and stop the B route here:
+On the learner ZIP's setup card, set `Prepared MAF terminal location:` to this source folder's full path,
+replacing `pending step 7` if present. Keep your A notes in the learner ZIP.
+Then choose your return point and stop the B route here:
 
 | Your place in A | Go next |
 |---|---|
-| Preparing before starting A | [Lab 00 A](00-start.md#path-a), then follow A's checklist; do not skip the Lab 03 agent |
+| Preparing before starting A | Finish [the setup ready check](../setup.md#5-ready-to-start), then start [Lab 00 A](00-start.md#path-a); do not skip the Lab 03 agent |
 | Paused at Lab 05 A to prepare its terminal | [Lab 05 A](05-workflows.md#path-a), keeping your existing agent and notes |
 
 **B done:** save the complete outputs as `model.json` and `answer-local.json` in your Lab 00 notes directory,

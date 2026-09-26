@@ -27,8 +27,9 @@ Write each result under the same number in the learner ZIP's blank `operations-c
 
 1. In the left menu, select **Agents** and open your Lab 03 agent. On its **Details** tab, compare the name and the active version
    (`Latest (Version N)`) with the version you assessed in Lab 07.
-2. On its **Playground** tab, check **Model** (`gpt-6-sol`), **Instructions**, **Tools** and **Knowledge**. On the default A route, **Instructions** holds the six
-   inline synthetic policies and **Knowledge** stays empty; if you separately selected File Search or IQ, note that connection instead.
+2. On its **Playground** tab, check **Model** (`gpt-6-sol`), **Instructions**, **Tools** and **Knowledge**. The original inline agent's **Instructions** holds the six
+   synthetic policies and **Knowledge** stays empty, even after an optional File Search or IQ Chat lab.
+   Record the separate `-files` agent and IQ Chat base, if used, with their own names/results in **item 4**; do not add connections to this assessed agent.
    There must be no unapproved Web search or company connection.
 3. Open your agent's **Traces** tab; the owner should have connected Application Insights before class ([self-study step 5](../setup-owner.md#self-study)).
    The list opens on **Last Day**; choose **7D** for an older request. Open one saved request from your own Lab 03 or Lab 07 work
@@ -39,7 +40,7 @@ Write each result under the same number in the learner ZIP's blank `operations-c
    write `trace unverified: <reason>` there. Do not send a new message for this check.
    Then note where your six-row assessment and `workflow-review.txt` are. Your assessment is a manual review; the optional Lab 07 Foundry evaluation is a separate run.
 4. Use [the cleanup checklist](../reference/cleanup.md) to inventory your agent, any model deployment created during your labs (such as Lab 03's
-   `text-embedding-3-large`), optional files/chat base, any evaluation dataset or evaluation you created, and any sessions.
+   `text-embedding-3-large`), any separate File Search agent and its files/store, IQ Chat base, any evaluation dataset or evaluation you created, and any sessions.
    Mark shared services as **owner-managed**, confirm residual costs with the owner, and record who will stop/delete each authorized asset.
    Learning alone, check the dedicated group from [self-study step 2](../setup-owner.md#self-study) and any earlier groups in `setup-attempts.txt`.
    Carry every group's current state and cost/cleanup owner into `operations-checklist.txt`, including unsuccessful setup attempts.
@@ -74,7 +75,7 @@ menus can be normal for your role. Gaining subscription-wide permissions is not 
 This scores your recorded Lab 03 and Lab 07 conversations without new agent calls; the judge calls still cost.
 
 1. Open your agent's **Evaluation** tab and select **Create**. Keep **Agent** with only your saved **Version** selected
-   (as in item 2 of [Lab 07 A step 4](07-evaluation.md#path-a)), **Individual turns** and **One time**.
+   (as in item 2 of [Lab 07 A step 4](07-evaluation.md#portal-evaluation)), **Individual turns** and **One time**.
 2. In **Data**, select **Existing traces**. Keep **Number of traces** `15` (the maximum to include) and **Time range** **7D**;
    your conversations appear with their trace and response IDs. Allow 3–5 minutes after your last question.
    If none appear after 5 minutes, write `trace evaluation not run: no traces` in item 3 of `operations-checklist.txt`
@@ -82,16 +83,20 @@ This scores your recorded Lab 03 and Lab 07 conversations without new agent call
 3. If a **Setup incomplete** banner asks you to give the project's managed identity the **Monitoring Reader** role on
    Application Insights, stop and ask the owner. Do not select **Resolve**: it changes a role assignment.
 4. Otherwise select **Next** and set **Criteria** as in Lab 07 A step 4: open **Judge model** and pick `gpt-6-sol-judge` under
-   **Deployments** (the default can be another deployment); **Remove all** under Safety and Agents; remove Groundedness and Fluency;
-   **Add new evaluator** → **Task-Adherence-Evaluator-(Preview)** → **Confirm**. Select **Next**, name it `<your prefix>-traces` and **Submit**.
+   **Deployments** (the default can be another deployment); **Remove all** under Safety and Agents; remove Groundedness and Fluency; keep Relevance and Coherence.
+   If available, **Add new evaluator** → **Task-Adherence-Evaluator-(Preview)**, confirm its judge is `gpt-6-sol-judge`, then **Confirm**.
+   If it is unavailable, record `TaskAdherence not available`, keep the other two and do not add a substitute.
+   Select **Next**, name it `<your prefix>-traces` and **Submit**.
 5. When the run shows **Completed** (about two minutes), open it.
 
 ![September 24 English recording: Each trace's query carries the agent instructions](../assets/g6sol-20260924-en/screenshots/EP09-105-traces-results-2.webp)
 
-**What to check:** **Overall metric results** shows passed / N for Relevance, Coherence and TaskAdherence, where N is your
-number of conversations (at most 15), and each row's `query` starts with your agent's **Instructions** (with the six
-policies) before the question. That is why TaskAdherence can pass here but not in the Lab 07 A dataset run, which sent only
-the question. The September 24, 2026 English recording scored 10/10 on all three evaluators over its ten conversations.
+**What to check:** **Overall metric results** shows passed / N for the **two or three evaluators you actually selected**,
+where N is your number of conversations (at most 15). Keep `TaskAdherence not available` when applicable; do not invent its score.
+A missing result for a selected evaluator is **incomplete**, not the allowed not-available branch.
+Each row's `query` starts with your agent's **Instructions** (with the six policies) before the question.
+That is why TaskAdherence, when selected, can pass here but not in the Lab 07 A dataset run, which sent only the question.
+The September 24, 2026 English recording scored 10/10 on all three evaluators over its ten conversations.
 
 **Make recurring** on the evaluation page (enabled after one successful trace run) offers **Scheduled** runs on **Live traffic**
 with an **Hourly** interval, **Random** or **Intelligent** sampling and a **Maximum traces to evaluate per run**.
@@ -105,6 +110,10 @@ On September 23, 2026 the first run started as soon as the schedule was saved, a
 <a id="path-b"></a>
 
 ## B. Code: link execution lineage and record trace status
+
+Open `outputs/learner-notes-en/operations-checklist.txt`. From your existing setup card and saved outputs, fill
+**item 1** with the project, model and run labels, and **item 2** with the instructions, tools and source paths you checked.
+The steps below fill items 3–4. No new model request is needed.
 
 ### 1. Find local lineage first
 

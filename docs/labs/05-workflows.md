@@ -46,9 +46,10 @@ Both options use this exact question:
 
 > My domestic business-trip hotel in September 2026 costs KRW 170000. State the applicable limit and the steps required before booking.
 
-**Terminal option (default recording path):** continue to step 2.
+**Terminal option (default recording path):** continue to [step 2](#workflow-a-run).
 
-**Browser option, only if preselected by the owner — remote Playground use not verified in this edition:**
+<details>
+<summary>Browser option, only if preselected by the owner — remote Playground use not verified in this edition</summary>
 
 1. Open **Build → Agents → the supplied Hosted workflow agent → Playground**. This is **not** your Lab 03 Prompt Agent.
    Check the supplied name/version and language. The owner must prepare the sequential local/v2 **Responses** profile from
@@ -59,6 +60,10 @@ Both options use this exact question:
 
 On 2026-09-24 this workflow answered one local Responses request with the refreshed SDK (three model calls,
 `pending-human-review`); no remote deployment or Playground run was made for that check.
+
+</details>
+
+<a id="workflow-a-run"></a>
 
 ### 2. Run the prepared sequential workflow
 

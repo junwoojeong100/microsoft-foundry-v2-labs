@@ -193,8 +193,13 @@ class LearnerMaterialTests(unittest.TestCase):
                 self.assertTrue(all(line.endswith(":") for line in fields))
                 self.assertEqual(
                     [line.split()[1] for line in fields],
-                    ["02", "03", "04", "05", "06", "06", "07", "07", "07", "07", "08"],
+                    ["02", "03", "04", "05", "06", "06", "07", "07", "07", "07", "08", "11"],
                 )
+                architecture = next(line for line in fields if line.startswith("Lab 11 "))
+                directory = ROOT / ("docs" if language == "en" else "docs/ko")
+                capstone = (directory / "labs/11-capstone.md").read_text()
+                handoff = capstone.split('<a id="b-architecture"></a>', 1)[1]
+                self.assertIn(f"`{architecture}`", handoff.split("\n\n", 1)[1])
                 for name in (
                     "model.json",
                     "answer-local.json",

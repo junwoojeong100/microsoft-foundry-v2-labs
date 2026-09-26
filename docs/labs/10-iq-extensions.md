@@ -46,7 +46,7 @@ Only the bundled policy source exists in the core workshop; no quarterly analyti
 Mark Fabric and Work IQ **design-only / not run**. Do not invent their response JSON or company data.
 
 **What to check:** This task produces only your design note, not connection-status flags or service results.
-Keep any earlier Lab 06 evidence separate. The first pass is complete: continue to [Lab 11](11-capstone.md);
+Keep any earlier Lab 06 evidence separate. The first pass is complete: continue to [Lab 11's selected-module handoff](11-capstone.md#path-c);
 the references below are not additional required steps.
 
 <details>
@@ -141,4 +141,4 @@ do not change capacity, billing or consent for services you did not use.
 If returning from a separately approved executable extension, follow that module's owned-resource cleanup,
 not another team's connection or organization-wide settings.
 
-Next: A: [skip to Lab 11](11-capstone.md) · B: [skip to Lab 11](11-capstone.md)
+Next: [Hand off this selected module](11-capstone.md#path-c).

@@ -1194,6 +1194,17 @@ python() {
                 self.assertIn("(00-start.md#path-a)", return_choices)
                 self.assertIn("(05-workflows.md#path-a)", return_choices)
                 self.assertIn("(03-prompt-agent.md#path-b)", return_choices)
+                ready = "5-ready-to-start" if language == "en" else "5-시작-가능-여부"
+                field = (
+                    "Prepared MAF terminal location:"
+                    if language == "en"
+                    else "준비된 MAF 터미널 위치:"
+                )
+                self.assertIn(f"`{field}`", return_choices)
+                self.assertLess(
+                    return_choices.index(f"(../setup.md#{ready})"),
+                    return_choices.index("(00-start.md#path-a)"),
+                )
                 self.assertEqual(DOCS.workshop_commands(return_choices), [])
 
     def test_self_study_preparation_is_reachable_and_checks_every_step(self):
@@ -1390,6 +1401,7 @@ python() {
     def test_a_workflow_options_share_a_question_but_keep_distinct_output_contracts(self):
         for language, _, labs in self.language_labs():
             with self.subTest(language=language):
+                text = labs[5].read_text()
                 core = self.core_section(language, labs[5], "A")
                 self.assertEqual(
                     re.findall(r"^### (\d+)\.", core, re.MULTILINE), ["1", "2", "3", "4"]
@@ -1397,7 +1409,18 @@ python() {
                 command = parser().parse_args(DOCS.workshop_commands(core)[0][1])
                 choice, remainder = core.split("### 2.", 1)
                 self.assertIn(f"> {command.question}", choice)
-                self.assertIn("(#workflow-a-review)", choice)
+                self.assertIn("(#workflow-a-run)", choice)
+                self.assertIn('<a id="workflow-a-run"></a>', choice)
+                browser = next(
+                    block
+                    for block in re.findall(r"<details>.*?</details>", text, re.DOTALL)
+                    if "(#workflow-a-review)" in block
+                )
+                self.assertLess(text.index(browser), text.index("### 2."))
+                self.assertIn("Responses", browser)
+                self.assertIn("Invocations", browser)
+                self.assertNotIn("Invocations", choice)
+                self.assertEqual(DOCS.workshop_commands(browser), [])
                 self.assertIn('<a id="workflow-a-review"></a>', remainder)
                 terminal_label = "Terminal" if language == "en" else "터미널"
                 rows = {

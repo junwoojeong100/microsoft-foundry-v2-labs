@@ -72,6 +72,7 @@ Lab 07 v1/v2 change and purpose:
 Lab 07 comparison findings / holdout gate decision:
 Lab 07 acceptance report path / recommendation, or incomplete reason:
 Lab 08 package path / cloud_deployed / local and remote execution:
+Lab 11 architecture (code/command path / provider / caller identity):
 Outcome (complete evidence / rejected / incomplete; not deployment approval):
 Missing or blocked steps and exact reason:
 Existing error files / request IDs:

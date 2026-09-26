@@ -202,16 +202,89 @@ class DocumentationTests(unittest.TestCase):
             ("docs", "two or three evaluators", "TaskAdherence not available", "incomplete"),
             ("docs/ko", "평가자 2개 또는 3개", "TaskAdherence 사용 불가", "미완료"),
         ):
+            for name in ("07-evaluation.md", "09-operations.md"):
+                with self.subTest(directory=directory, lab=name):
+                    text = (ROOT / directory / "labs" / name).read_text()
+                    portal = next(
+                        block
+                        for block in re.findall(r"<details>.*?</details>", text, re.DOTALL)
+                        if "Task-Adherence-Evaluator-(Preview)" in block
+                    )
+                    self.assertIn(count, portal)
+                    self.assertGreaterEqual(portal.count(unavailable), 2)
+                    self.assertIn(f"**{incomplete}**", portal)
+
+    def test_operations_separates_optional_assets_and_fills_b_checklist_items_one_and_two(self):
+        for directory, empty, separate, items in (
+            ("docs", "**Knowledge** stays empty", "**item 4**", ("**item 1**", "**item 2**")),
+            ("docs/ko", "**지식**은 계속 비어", "**4번**", ("**1번**", "**2번**")),
+        ):
             with self.subTest(directory=directory):
-                text = (ROOT / directory / "labs/07-evaluation.md").read_text()
-                portal = next(
-                    block
-                    for block in re.findall(r"<details>.*?</details>", text, re.DOTALL)
-                    if "Task-Adherence-Evaluator-(Preview)" in block
-                )
-                self.assertIn(count, portal)
-                self.assertGreaterEqual(portal.count(unavailable), 2)
-                self.assertIn(f"**{incomplete}**", portal)
+                text = (ROOT / directory / "labs/09-operations.md").read_text()
+                inline = text.split("\n2. ", 1)[1].split("\n3. ", 1)[0]
+                for marker in (empty, separate, "`-files`", "IQ Chat"):
+                    self.assertIn(marker, inline)
+                intro = text.split('<a id="path-b"></a>', 1)[1].split("### 1.", 1)[0]
+                for marker in ("operations-checklist.txt", *items):
+                    self.assertIn(marker, intro)
+                self.assertEqual(DOCS.workshop_commands(intro), [])
+
+    def test_capstone_separates_incomplete_handoff_all_pass_review_and_execution_status(self):
+        for directory, outcome, mandatory, failure_row, all_pass, distinction, local_status in (
+            (
+                "docs",
+                "**A incomplete / handoff recorded**",
+                "mandatory before **any** handoff",
+                "| Failure review |",
+                "all-pass:",
+                "Completing an assessment, passing every case and production approval are different.",
+                "Local execution and packaging are recorded separately",
+            ),
+            (
+                "docs/ko",
+                "**A 미완료 / 인계 기록 완료**",
+                "**어떤 인계에도** 필수",
+                "| 실패 검토 |",
+                "전체 통과:",
+                "평가 완료·전 문항 통과·운영 승인은 서로 다릅니다.",
+                "로컬 실행·패키징은 각각 기록",
+            ),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/11-capstone.md").read_text()
+                browser = text.split('<a id="path-a"></a>', 1)[1].split('<a id="path-b"></a>', 1)[0]
+                self.assertIn(outcome, browser)
+                self.assertIn(mandatory, browser)
+                row = next(line for line in text.splitlines() if line.startswith(failure_row))
+                self.assertIn(all_pass, row.split("|")[3])
+                self.assertIn(distinction, text)
+                self.assertIn(local_status, text)
+                self.assertEqual(DOCS.workshop_commands(browser), [])
+
+    def test_b_evaluation_and_packaging_identify_their_distinct_targets_in_the_core_path(self):
+        for directory, excluded, no_transfer, checkpoint in (
+            (
+                "docs",
+                "not the Lab 03 managed Prompt Agent",
+                "Lab 07 scores do not transfer",
+                "**B done:**",
+            ),
+            (
+                "docs/ko",
+                "Lab 03의 관리형 Prompt Agent나 Lab 05의 MAF workflow를 호출하지 않습니다",
+                "Lab 07 점수를 옮겨 쓰지 않습니다",
+                "**B 완료:**",
+            ),
+        ):
+            with self.subTest(directory=directory):
+                evaluation = (ROOT / directory / "labs/07-evaluation.md").read_text()
+                intro = evaluation.split('<a id="path-b"></a>', 1)[1].split("|", 1)[0]
+                for marker in ("`collect`", "Responses", excluded):
+                    self.assertIn(marker, intro)
+                hosted = (ROOT / directory / "labs/08-hosted.md").read_text()
+                packaging = hosted.split(checkpoint, 1)[0]
+                self.assertIn(no_transfer, packaging)
+                self.assertIn("(07-evaluation.md#path-b)", packaging)
 
     def test_iq_reference_reuses_core_outputs_and_requires_explicit_optional_preparation(self):
         for directory, optional, browser, new_experiment in (
@@ -296,6 +369,10 @@ class DocumentationTests(unittest.TestCase):
                     self.assertIn(marker, handoff)
                 self.assertEqual(DOCS.workshop_commands(handoff), [])
                 self.assertNotIn("--unlock-holdout", handoff)
+                module = (ROOT / directory / "labs/10-iq-extensions.md").read_text()
+                link = "(11-capstone.md#path-c)"
+                self.assertIn(link, module.split("<details>", 1)[0])
+                self.assertIn(link, module.strip().splitlines()[-1])
 
     def test_fixture_and_live_evaluation_reentry_have_separate_destinations(self):
         for directory in ("docs", "docs/ko"):

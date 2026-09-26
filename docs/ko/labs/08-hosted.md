@@ -57,6 +57,9 @@ Manifest는 그대로 두고, 나중에 승인받아 실행한 결과는 별도�
 **화면 확인:** 마지막 `package_hosted.py` 명령이 `.build/hosted`의 절대 경로를 출력하는지 확인합니다.
 파일을 묶은 단계일 뿐 Azure 배포 성공이 아닙니다. 위 표와 manifest로 포함·제외 파일을 대조하세요.
 
+이 패키지는 MAF 함수 도구를 사용하며, [Lab 07 B](07-evaluation.md#path-b)의 사전 검색 + 직접 프로젝트 Responses 경로와 다릅니다.
+패키징은 이 런타임의 품질 검증이 아니며, Lab 07 점수를 옮겨 쓰지 않습니다.
+
 **B 완료:** `cloud_deployed: false`인 `.build/hosted/package-manifest.json`을 보관합니다.
 로컬 호출·원격 배포는 **미실행**으로 적고 [Lab 09 B](09-operations.md#path-b)로 이동합니다.
 

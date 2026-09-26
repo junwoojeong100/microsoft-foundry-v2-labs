@@ -56,6 +56,9 @@ Use the actual package path, `cloud_deployed: false`, and **not run** for both o
 **What to check:** `package_hosted.py` prints the absolute path of `.build/hosted-en`. This is packaging, not
 Azure deployment. Check included/excluded files against the manifest.
 
+This package uses a MAF function tool, not [Lab 07 B](07-evaluation.md#path-b)'s direct project Responses with prior retrieval.
+Packaging does not verify this runtime's quality; Lab 07 scores do not transfer to it.
+
 **B done:** retain `.build/hosted-en/package-manifest.json` with `cloud_deployed: false`;
 mark local invocation and remote deployment **not run**, then continue to [Lab 09 B](09-operations.md#path-b).
 

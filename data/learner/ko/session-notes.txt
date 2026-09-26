@@ -72,6 +72,7 @@ Lab 07 v1/v2 변경과 목적:
 Lab 07 비교 결과 / holdout 진행 판단:
 Lab 07 인수 보고서 경로 / recommendation 또는 미완료 이유:
 Lab 08 패키지 경로 / cloud_deployed / 로컬·원격 실행:
+Lab 11 구조(코드/명령 경로 / provider / 호출 identity):
 결과(근거 완비 / 반려 / 미완료이며 배포 승인이 아님):
 빠졌거나 막힌 단계와 정확한 이유:
 기존 오류 파일 / request ID:
