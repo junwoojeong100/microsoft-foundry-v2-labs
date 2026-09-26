@@ -14,7 +14,7 @@
 
 **다음으로 갈 기준:** A: 답변 세 개의 정책 ID·날짜를 대조했습니다. B: 검색·답변 파일 네 개를 저장했습니다.
 
-**막히면:** A: 빠진 질문만 다시 보냅니다(1단계). B: Search 401/403이면 담당자에게 Search 서비스의 **Search Index Data Contributor**와 **Search Service Contributor**를 요청합니다. 다른 provider로 바꾸지 않습니다.
+**막히면:** A: 빠진 질문만 다시 보냅니다(1단계). B: Search 401/403을 보존하고 담당자에게 역할만 추가하지 말고 [Search 인증과 호출자 역할](../setup-owner.md#search-authentication)을 함께 확인하도록 요청합니다. 다른 provider로 바꾸지 않습니다.
 
 [한 번만 하는 준비와 학습자 파일](../setup.md).
 
@@ -69,6 +69,10 @@
 준비된 Search 서비스가 필요합니다. 본인 계정에는 그 서비스의 **Search Service Contributor**와
 **Search Index Data Contributor**가 필요합니다(읽기만 한다면 **Search Index Data Reader**).
 Search 사용·과금은 담당자가 승인합니다.
+
+담당자는 서비스의 **API access control**이 Microsoft Entra ID 토큰을 허용하는지도 확인해야 합니다
+([Search 인증 확인](../setup-owner.md#search-authentication)). Key 전용 서비스는 위 역할이 있어도 workshop 요청을 거절합니다.
+`.env`에 API key를 복사하거나 공유 서비스 설정을 직접 바꾸지 않습니다.
 
 seed 전에 `.env`에서 두 값을 확인합니다.
 

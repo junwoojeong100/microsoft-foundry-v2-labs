@@ -88,7 +88,8 @@ The pasted file puts six synthetic policies directly into the agent's context (n
 
 1. In **Instructions**, find the six IDs: `TRAVEL-2025`, `TRAVEL-2026`, `APPROVAL-01`, `RECEIPT-01`, `MEAL-01` and `SCOPE-01`.
 2. Open the same six files in the ZIP's `policies/` folder and compare each amount and effective period.
-3. If one is missing or different, repeat the whole-field replacement above and select **Save**; otherwise change nothing.
+3. If one is missing or different, repeat the whole-field replacement above, select **Save** and update the saved version
+   in `session-notes.txt` to the newly returned number. Otherwise change nothing.
 
 ![September 24 English recording: Save and read the returned agent version](../assets/g6sol-20260924-en/screenshots/EP03-007-save-2.webp)
 
@@ -124,9 +125,21 @@ The new index is a File Search store, not Lab 06's Azure AI Search index. Do not
 If the menu is unavailable, leave this optional branch unselected. If an attempted upload/retrieval fails,
 retain that failure and stop the branch; do not relabel the inline response as File Search.
 
+The core route still uses the original inline agent: [return to its check below](#check-inline-agent).
+Keep the optional File Search outcome separate; its replies do not become the Lab 03 or Lab 07 baseline.
+
 </details>
 
+<a id="check-inline-agent"></a>
+
 ### 3. Check four questions
+
+**Use the original inline agent, not the optional `-files` agent.** Open the agent named in the Lab 03 section of
+`session-notes.txt`. Its **Version** must match the recorded saved version, **Save** must be greyed out,
+and **Instructions** must contain the complete `instructions-with-policies.txt`, including all six policies.
+If the name/version differs or there are unsaved edits, preserve any wanted draft separately and reopen the recorded inline version
+without those edits. If you cannot restore that state, record Lab 03 incomplete and resolve it before asking.
+Do not select **Save** merely to get past a version mismatch.
 
 Ask D01, D02, D03 and D05 one at a time. Copy **only the question** from the ZIP's `dev-questions.txt`;
 do not send the criteria column below.
@@ -171,7 +184,7 @@ These four images are recording examples. Record your own actual answers and fai
 
 </details>
 
-**Save:** click inside your saved agent's **Instructions**, press Ctrl+A (Cmd+A on macOS) to select only that text and copy it.
+**Save:** stay on that same recorded inline agent/version. Click inside its **Instructions**, press Ctrl+A (Cmd+A on macOS) to select only that text and copy it.
 Paste it into a new plain-text file and save it as `instructions-baseline.txt` in your personal evidence folder (the extracted ZIP folder).
 On `Evidence method / instructions-baseline.txt path:` write `inline instructions` and that file's path; keep the version on the line above.
 The downloaded instruction file alone does not establish what was actually saved. Do not overwrite an earlier pass's snapshot.

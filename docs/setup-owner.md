@@ -26,17 +26,26 @@ The portal steps follow the linked Microsoft Learn pages, checked on September 2
    ([official steps](https://learn.microsoft.com/azure/foundry/foundry-models/how-to/deploy-foundry-models)).
    Skip `gpt-6-sol-judge` unless you later choose an optional Foundry evaluation.
    **Check:** **Home → View deployments** shows `gpt-6-sol`, version `2026-09-22` and **Succeeded**.
-   If that model or version is not offered, or has no quota, in your location, stop: repeat step 2 in another location
-   with a new resource group, or [request quota](https://aka.ms/oai/stuquotarequest). Do not deploy another model instead.
+   If that model or version is not offered, or has no quota, in your location, stop. In a personal local text file named
+   `setup-attempts.txt`, record the subscription, resource group, location, Foundry account/project, exact error and time.
+   Keep every attempt; do not record credentials. You can [request quota](https://aka.ms/oai/stuquotarequest) for the same location,
+   or verify the required model/version, quota and costs elsewhere before repeating step 2 with a new course-only group.
+   Creating that new group does **not** remove the earlier resources. Do not deploy another model instead.
+   If you stop preparation here, follow [the cleanup check](reference/cleanup.md#self-study-cleanup) now; do not wait for Lab 11.
 4. **Your role.** Creating the project in the portal with role-assignment rights also gives you, and the project's managed identity,
    **Foundry User** on the new Foundry resource ([official RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry#minimum-role-assignments-to-get-started)).
    **Check:** in the Azure portal, open the new Foundry resource → **Access control (IAM)** → **Role assignments** and find **Foundry User**
    (older name **Azure AI User**) for your account. If it is missing, [assign it](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal) to your account on that resource.
 5. **Traces, optional.** For Lab 09's trace check, select **Build → Agents**, the **Traces** tab and **Connect**, then create a new
    Application Insights resource ([official steps](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup)). It adds log costs.
+   Check the resource groups of both Application Insights and its linked **Log Analytics workspace** in the Azure portal;
+   they need not be the course group. Keep their names/groups for `operations-checklist.txt` when your route prepares its personal notes.
    **Check:** a connection confirmation appears. If you skip this step, Lab 09 records `trace unverified: <reason>`.
 6. **Files and values.** Complete [setup sections 2–3](setup.md#learner-files): download the learner ZIP and fill its setup card from your own portal.
    On `Cost and permission owner:` write yourself.
+   If you have `setup-attempts.txt`, keep it in this personal evidence folder and add every earlier group and its current state
+   to item 4 of `operations-checklist.txt`, with its remaining cost and cleanup owner.
+   If you configured tracing, add both logging resources and their actual groups to item 4 of `operations-checklist.txt`.
    **Check:** every line of the **Lab 00 - setup card** section in `session-notes.txt` is filled.
 7. **Lab 05 terminal.** Complete [Lab 00 B](labs/00-start.md#path-b) steps 1–5, then [Lab 02 B](labs/02-models.md#path-b) steps 1–3,
    and leave through [its A return choices](labs/02-models.md#a-terminal-ready). Finish this preparation **before starting the timed A route**;
@@ -46,11 +55,13 @@ The portal steps follow the linked Microsoft Learn pages, checked on September 2
 **Ready:** complete steps **1–7** (step 5 may be recorded as skipped), then tick [the setup ready check](setup.md#5-ready-to-start)
 and start [Lab 00 A](labs/00-start.md#path-a). The setup card alone does not make the Lab 05 terminal ready.
 If a step fails, fix that step before continuing. Do not create another model, resource or project for the same unexplained error.
-**Learning B alone?** Complete steps 1–5 (B's Lab 09 needs step 5), then step 4 of the [class owner checklist](#class-owner-checklist)
-for the Search service and your two Search roles, and continue with [setup](setup.md) for route B.
-**After Lab 11:** keep your evidence folder, then delete the step 2 resource group in the Azure portal (**Resource groups** → your group →
-**Delete resource group**) only if it holds nothing but this course's resources. That removes the project, its deployments and any
-Application Insights together; [cleanup](reference/cleanup.md) shows how to confirm and record it. Keep the group instead if you will continue with route B.
+**Learning B alone?** Complete steps 1–5 (B's Lab 09 needs step 5), then [prepare B's Search service](#search-service).
+That section checks the service, billing plans and your Search roles before returning to [setup](setup.md) for route B.
+**After Lab 11:** keep your evidence folder, then check every group created during preparation, including earlier attempts.
+Delete each in the Azure portal (**Resource groups** → your group → **Delete resource group**) only if it holds nothing but this course's resources.
+Do not assume connected logging resources are in that group
+or were deleted with it. Follow [the self-study cleanup check](reference/cleanup.md#self-study-cleanup) for Application Insights,
+Log Analytics and remaining costs. Keep the resources needed for route B instead if you will continue with it; record the owner and ongoing costs.
 
 <a id="class-owner-checklist"></a>
 
@@ -64,7 +75,8 @@ Application Insights together; [cleanup](reference/cleanup.md) shows how to conf
 3. Give the learner the appropriate Foundry project/model permissions.
    The CLI's deployment preflight also needs **Reader on the training Foundry account**. Test with that learner's account, not only an administrator.
 4. For B's GA Search/IQ or optional IQ Chat, prepare Basic-or-higher Search, semantic/knowledge retrieval access,
-   and Search read/write permissions for the person who seeds the synthetic index.
+   and Search read/write permissions for the person who seeds the synthetic index. Use [the Search service steps](#search-service) if no service is ready.
+   Complete [the Search authentication check](#search-authentication) as well as the role assignments below.
    For B learners starting from a fresh copy, prepare the **service and permissions**, not objects under their new prefixes.
    If supplying pre-seeded objects, supply the authorized matching working copy; endpoint/base names alone do not supply its local ownership ledger.
 5. **Only for optional model-based IQ Chat**, enable Search's system-assigned identity and prepare a separate
@@ -88,6 +100,60 @@ Application Insights together; [cleanup](reference/cleanup.md) shows how to conf
 10. Optional lightweight source distribution: provide a sparse checkout that omits `docs/assets/` and video files for learners who need the source without large media history.
     The full repository remains the source of truth. The sparse pattern in [Lab 00](labs/00-start.md#source-folder) was checked locally on 2026-09-24:
     `docs/assets/` and `videos/` were excluded while scripts and guides remained.
+
+<a id="search-service"></a>
+
+### Prepare B's Search service before Lab 00
+
+**Owner only, including a self-study learner who owns the subscription. Default A does not need Search.**
+If the owner already supplied a service, keep it and check steps 2–4; do not create another one.
+Creating a service or changing its billing, roles or network settings requires that owner's approval.
+
+1. In the Azure portal, select **Create a resource → Azure AI Search** and follow [the service-creation form](https://learn.microsoft.com/azure/search/search-create-service-portal).
+   Select the course subscription/resource group, a globally unique service name starting with `mfv2-`, **Basic** tier
+   (or the owner's approved higher tier) and **Default** compute, not Confidential.
+   Before creating it, check that the chosen region offers both **Agentic retrieval** and **Semantic ranker** in
+   [the current region table](https://learn.microsoft.com/azure/search/search-region-support); model availability alone does not establish Search availability.
+   Review the displayed service cost, then select **Review + create → Create** only within the approved budget.
+2. After creation succeeds, open the service's **Overview**. Check the subscription, resource group, region and tier.
+   Copy its **URL**, `https://<search>.search.windows.net`, for the setup card's Search endpoint and later `AZURE_SEARCH_ENDPOINT` in `.env`.
+   Keep the service name and actual group for item 4 of `operations-checklist.txt` when Lab 00 prepares your personal notes.
+   Use the owner's approved network access; do not disable a shared firewall to make the service reachable.
+3. Open **Settings → Premium features**. Check **Semantic ranker** and **Knowledge retrieval** separately.
+   On a new dedicated service, keep their **Free** feature plans for the limited included allowances; these do **not** make the Basic service free.
+   For the core `2026-04-01` API, paid knowledge retrieval has its own consent, separate from semantic ranker.
+   **Standard** feature plans need separate cost approval. If an allowance is exhausted, stop and have the owner review the billing error;
+   do not change a shared plan or switch providers to bypass it.
+   See [semantic-ranker billing](https://learn.microsoft.com/azure/search/semantic-how-to-enable-disable) and
+   [knowledge-retrieval billing](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-enable-disable).
+4. Complete [the token-authentication check](#search-authentication) below. On the Search service's **Access control (IAM)**,
+   use [Add role assignment](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal) to give the actual learner account
+   **Search Service Contributor** and **Search Index Data Contributor**, if missing. Verify both assignments on that service.
+   Being the subscription Owner alone does not grant Search data access.
+
+**Ready:** the intended service, endpoint, feature plans, token authentication and two writer roles are checked.
+Return to [setup](setup.md) for B, then Lab 00; do not continue into optional owner commands.
+Do not import data or pre-create the learner's index here: [Lab 06 B](labs/06-knowledge.md#path-b) creates the owned objects
+and records their ownership using only the bundled synthetic policies.
+These official setup and billing pages were checked on **2026-09-26**; this is a documentation check, not a new live Azure run.
+
+<a id="search-authentication"></a>
+
+### Search authentication and learner roles
+
+**B and optional IQ Chat; owner only.** The workshop uses **Microsoft Entra identity tokens**, not API keys, to call Search.
+The service must accept those tokens **and** the caller must have the required roles. Assigning roles alone does not change a keys-only service's authentication setting.
+
+1. In the Azure portal, open the intended **Search service → Settings → Keys** and inspect **API access control**.
+   Do not copy or share any displayed keys.
+2. For a new dedicated training service, the authorized owner selects **Role-based access control**.
+   An existing **Both** setting also accepts identity tokens; leave it unchanged if shared clients still need keys.
+   If a shared service has **API Key** selected, stop for the owner's approved transition. Do not disable other clients' authentication to finish this lab.
+3. **Check:** the setting reads **Role-based access control** or **Both**. Then verify the role assignments below for the learner's actual sign-in account,
+   not only the owner's. Enabling token authentication does not itself grant those roles.
+
+[Official Search authentication steps](https://learn.microsoft.com/azure/search/search-security-enable-roles), checked **2026-09-26**.
+This documentation check is not a new live Azure verification. Never add a Search key to `.env` or change providers to bypass an authentication error.
 
 For an IQ Chat learner, **Reader on Search** allows inspection of service/object definitions,
 and **Search Index Data Reader** allows retrieval; these are separate from the model-account Reader above.

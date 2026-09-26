@@ -7,9 +7,32 @@
 **A needs no terminal here.** Use your existing `operations-checklist.txt` and the ownership checks below.
 **B reuses Lab 09's inventory.** Expand a command section only for an asset you actually used.
 An owner-managed or pending authorized cleanup must name its owner and remaining cost; it is not a claim that deletion occurred.
-**Learning alone in your own resource group?** After Lab 11, keep your evidence folder, then delete the resource group from
-[self-study step 2](../setup-owner.md#self-study) if it holds only this course's resources. That removes the project, its deployments
-and any Application Insights at once. When it no longer appears under **Resource groups**, record that in `operations-checklist.txt`. Never delete a shared group this way.
+
+<a id="self-study-cleanup"></a>
+
+**Learning alone in your own resource group?** After Lab 11, or if setup stopped before Lab 00, keep your evidence and follow these checks.
+If the learner worksheets are not prepared yet, record these findings in your personal `setup-attempts.txt`;
+transfer them to item 4 of `operations-checklist.txt` when your notes are ready. An unfinished setup can still leave resources behind.
+If you will continue with B, retain the required resources and record their owner and ongoing costs instead of deleting them.
+
+1. In the Azure portal, check each recorded group: the current course group and every group from earlier attempts in `setup-attempts.txt`.
+   Check their contents separately; the working project's group is not the whole inventory.
+   If tracing was configured, also check the actual resource groups
+   of the connected **Application Insights** and **Log Analytics workspace**. Record those names and groups in item 4 of
+   `operations-checklist.txt`. Logging resources can be in **other resource groups**; a connection does not place them inside the course group.
+   If tracing was not configured, record **not run**; do not create logging resources for cleanup.
+2. For each recorded group from [self-study step 2](../setup-owner.md#self-study), delete it only if it contains only this course's resources
+   and you own the cleanup: **Resource groups → your group → Delete resource group**.
+   Plan this deletion around **only resources in that group**, not every connected service. Never delete a shared group this way.
+3. Refresh the resource list and record each group's actual outcome. Check the recorded logging resources separately
+   and retain shared ones. For anything remaining or unverified, record its state, authorized owner and residual cost;
+   a disappeared course group alone does not establish that all costs stopped.
+
+**Managed workspace exception:** Application Insights can create its own Log Analytics workspace in a separate managed group.
+Deleting Application Insights initiates that group's cleanup, but a lock, policy or other dependency can leave it behind.
+Verify the outcome; do not delete a managed workspace directly or remove protection to force cleanup.
+The authorized owner follows [managed-workspace cleanup](https://learn.microsoft.com/azure/azure-monitor/app/managed-workspaces#remove-managed-workspaces)
+for a remaining group. This distinction was checked against Microsoft Learn on September 26, 2026, not by deleting workshop resources.
 
 ## 1. Inventory before changing anything
 
@@ -78,7 +101,7 @@ Never treat an unverified stop request as a confirmed stopped state.
 | Evaluation datasets, evaluations and custom evaluators | Your `<prefix>-dev-questions` dataset, `<prefix>-...` evaluations, the `eval-data-<UTC time>` dataset the service creates with each evaluation run (`cloud-evaluate`, `maf-evaluate`, `conversations evaluate`; its time is within seconds of the evaluation's creation; other people's runs create the same kind), and `<prefix>_business_rubric` versions (hyphens become underscores); keep results first, then the owner deletes them |
 | Model deployments | Check whether it is team-only or shared; keep shared models |
 | Search service | Deleting an index does not remove the service's fixed cost |
-| Application Insights/Log Analytics | Check required evidence and sharing. Retention and cost are owner-managed, including the Lab 09 trace requirement |
+| Application Insights/Log Analytics | Inventory both resources and their actual groups. Check shared versus managed workspace ownership and verify each cleanup outcome; retention and cost remain owner-managed, including the Lab 09 trace requirement |
 | Resource group | Only its owner deletes it, and only if it is training-only and every asset is checked |
 
 <details>
@@ -117,10 +140,17 @@ Do not use `azd down`, subscription changes, or resource-group deletion as a sho
 
 Cost views can lag; record when you last checked and who owns the remaining cost. Budget alerts do not stop resources.
 
+<a id="learner-finish"></a>
+
 **Learner cleanup handoff is ready when** `operations-checklist.txt` identifies each used asset,
 its verified state or pending authorized owner, preserved evidence and residual costs.
 Mark unused local/Hosted services **not run**, not “deleted.”
-If you came from Lab 11 and the handoff is done, **you have finished the course**. Otherwise return to [Lab 11](../labs/11-capstone.md).
+
+**End of this session:** if you came from Lab 11 and the handoff is done, stop here.
+Keep the learning outcome in `session-notes.txt`: missing required stages remain **incomplete** and a failed B final gate remains **rejected**.
+Finishing cleanup does not complete an unrun exercise or turn a rejected result into acceptance.
+If resuming later, use the recorded unfinished step and resolve its blocker first; do not rerun exposed holdout to improve a score.
+If the handoff is not done yet, return to [Lab 11](../labs/11-capstone.md).
 The maintainer media work below is not part of learner completion.
 
 ## Hosted matrix sessions

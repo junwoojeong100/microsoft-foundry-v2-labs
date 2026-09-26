@@ -57,6 +57,24 @@ Keep the extracted folder as your **personal evidence folder outside the reposit
 Fill the note templates as you go; in Lab 07, save `assessment.csv` as `assessment-baseline.csv`.
 Empty templates are not completed evidence. Nothing in this ZIP installs a code environment.
 
+<a id="local-tools"></a>
+
+### A's local editing tools
+
+Prepare these **before Lab 00**, not when you reach the assessment:
+
+- A plain-text editor for the `.txt` files, such as Windows Notepad or macOS TextEdit in plain-text mode.
+- A local spreadsheet editor for Lab 07's CSV table. CSV stores rows and comma-separated columns in a text file.
+  Keep an installed desktop Excel; if you have no spreadsheet editor, [LibreOffice Calc](https://www.libreoffice.org/download/) is a free option.
+  It must open and save **UTF-8 CSV**, not just preview it in a browser. No paid Office subscription is required.
+
+**Check now:** open `session-notes.txt` as editable text and `assessment.csv` in the spreadsheet editor.
+The table must show D01–D06 as six data rows and **six columns**, from `case_id` through `review_note`.
+If everything is in one column, import with **UTF-8** encoding and a **comma** separator
+([Lab 07's worksheet instructions](labs/07-evaluation.md#assessment-sheet)).
+Close the blank assessment unchanged; you make and fill a separate baseline copy in Lab 07.
+If either editor is unavailable, finish this preparation before starting the route; do not send model requests to test it.
+
 <a id="environment-card"></a>
 <a id="2-fill-this-environment-card"></a>
 
@@ -102,9 +120,9 @@ If the deployment or its version is missing, stop and ask the owner to fix it; t
 
 - [ ] I can open the intended project with my own account.
 - [ ] The actual `gpt-6-sol` deployment and version `2026-09-22` are prepared.
-- [ ] A: I have the learner ZIP and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
+- [ ] A: I have the learner ZIP, have [checked the local editors](#local-tools), and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
 - [ ] I have the default prepared Lab 05 terminal, or the owner has preselected and verified the optional Hosted Responses Playground path. If neither was supplied, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
-- [ ] For B, Search access and owned-object creation costs are approved. For A, IQ Chat is **not selected** unless separately prepared.
+- [ ] For B, the owner has checked [Search authentication and writer roles](setup-owner.md#search-authentication) and approved owned-object creation costs. For A, IQ Chat is **not selected** unless separately prepared.
 - [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
 
 If a required box is not ticked, stop and finish that preparation first. An offline fixture never replaces a live result.

@@ -127,9 +127,20 @@
 프로젝트·모델이 다르면 이전 복사본을 보존하고 담당자에게 새 복사본용 현재 설정값을 받습니다.
 Search 소유권이 있는 복사본의 대상을 바꾸거나 이전 모델의 사전 확인 성공을 이번 가이드의 준비 완료로 해석하지 않습니다.
 
+<a id="editor-and-folder"></a>
+
+**편집기가 필요한가요?** **VS Code**는 아래에서 파일을 편집할 **Visual Studio Code**를 뜻합니다.
+제공받은 편집기나 기존 설치를 유지하고, 없다면 [운영체제에 맞는 공식 설치 단계](https://code.visualstudio.com/docs/getstarted/overview#_install-vs-code)를 따릅니다.
+이 파일·터미널 단계에는 AI 확장, Copilot 구독, 편집기 로그인이 필요 없습니다.
+
 **아직 소스 폴더가 없나요?** 접근 권한이 있는 GitHub 계정으로
 [이 저장소](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)를 열고 **Code → Download ZIP**을 선택합니다.
-압축을 풀고 그 폴더를 VS Code로 엽니다. 작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
+압축을 풉니다. 작은 학습자 자료 ZIP이 아니라 **소스 저장소 ZIP**입니다.
+
+VS Code에서 **File → Open Folder...**(**파일 → 폴더 열기...**)를 선택하고 압축을 푼 소스 폴더를 엽니다.
+ZIP 파일 자체나 상위 다운로드 폴더가 아닙니다. **확인:** 탐색기의 연 폴더 바로 아래에
+`README.md`, `pyproject.toml`, `scripts/`가 보입니다.
+이 파일들이 다른 폴더 안에 있다면 아래 터미널을 열기 전에 그 안쪽 폴더를 대신 엽니다.
 
 <a id="terminal-check"></a>
 
@@ -207,6 +218,8 @@ cp data/learner/ko/{session-notes.txt,workflow-review.txt,operations-checklist.t
 이후에는 **B - 코드 근거와 인계**, **중단 / 재개**만 사용합니다. Playground·원문 확인 항목을 포함한
 **A - 브라우저 전용 기록** 전체는 건너뜁니다. B 구간에 Lab별 검토란이 따로 있습니다.
 이전에 작성한 개인 파일에 해당 줄이 없다면 그 줄만 추가합니다. 새 빈 양식으로 기존 기록을 덮어쓰지 않습니다.
+**이전 환경 준비 시도가 있는 B 자습 학습자인가요?** 개인 기록 옆에 `setup-attempts.txt`를 보관하고,
+현재 `.env`의 그룹뿐 아니라 기록한 모든 리소스 그룹·상태·남은 비용/정리 담당자를 `operations-checklist.txt` 4번에 옮깁니다.
 **A의 Lab 05 터미널만 준비하나요?** Lab 02 B가 `model.json`과 `answer-local.json`을 이 폴더에 저장하므로 블록은 실행합니다.
 다만 이 복사본은 비워 두고, 기록은 학습자 ZIP의 `session-notes.txt`에 계속 적습니다.
 
@@ -222,17 +235,35 @@ Lab 02/03/04/05/06의 B 명령에는 **`--output`**이 있어 JSON 전체를 이
 
 ### 2. Azure 없이 먼저 실행 형태 익히기
 
+**첫 고정 예제(fixture)는 의도적으로 업무 검사를 통과하지 못합니다. 모델은 호출하지 않습니다.**
+블록 하나를 실행하고 결과를 확인한 뒤 다음 블록으로 진행합니다.
+
 ```bash
 python3.13 scripts/workshop.py demo --label rehearsal-v1 --prompt v1
+```
+
+**기대 결과:** `total: 6`, `passed: 0`, `errors: 0`, `business_gate_passed: false`.
+v1은 고정 답변에서 인용을 제거해 검사기가 이를 거절하는지 보여 줍니다.
+**0/6은 의도된 결과**이지 설치·Azure 오류가 아닙니다. 결과를 그대로 보존합니다.
+
+```bash
 python3.13 scripts/workshop.py demo --label rehearsal-v2 --prompt v2
+```
+
+**기대 결과:** `total: 6`, `passed: 6`, `errors: 0`, `business_gate_passed: true`.
+v2는 인용이 포함된 고정 답변 원본을 사용합니다. `outputs/rehearsal-v1/`과 `outputs/rehearsal-v2/` 각각에서
+`manifest.json`, `responses.jsonl`, `business-evaluation.json`을 엽니다.
+두 실행 모두 `mode: offline-fixture`이며 모델 응답은 들어 있지 않습니다.
+
+```bash
 python3.13 scripts/workshop.py compare --baseline rehearsal-v1 --candidate rehearsal-v2
 ```
 
-`outputs/rehearsal-v2/`에서 `manifest.json`, `responses.jsonl`,
-`business-evaluation.json`을 엽니다.
-v1은 **고정 답변에서 인용을 제거한 검사기 연습**, v2는 고정 답변 원본입니다.
-두 점수의 차이를 “프롬프트 개선 실측”이라고 발표하면 안 됩니다.
-재실행하려면 `rehearsal2-v1`처럼 새 label을 사용합니다.
+**기대 결과:** `outputs/rehearsal-v2/comparison-vs-rehearsal-v1.json`에 두 결과와
+`OFFLINE FIXTURES ONLY` 경고가 남습니다. 이 차이는 **프롬프트 개선 실측이 아닙니다**.
+위 명령 세 개는 성공하면 종료 코드 `0`을 반환합니다. 첫 fixture의 업무 게이트가 false여도 명령 자체는 성공한 것입니다.
+**FAIL:**로 시작하는 메시지나 0이 아닌 종료 코드가 나오면 명령 오류이므로 멈추고 [복구](../reference/troubleshooting.md#resume-safely)를 따릅니다.
+의도적으로 다시 실행할 때는 `rehearsal2-v1`, `rehearsal2-v2`처럼 새 label 두 개를 정해 해당 demo와 비교 명령에 함께 사용합니다.
 
 ![2026-09-24 국문 녹화: 모델 품질 주장 없이 fixture 비교](../../assets/g6sol-20260924-ko/screenshots/K00-005-fixture-compare-2.webp)
 

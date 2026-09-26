@@ -130,9 +130,20 @@ For later Azure steps, this must be a copy prepared for **this route, language a
 If its project/model differs, preserve that copy and have the owner supply the current values for a fresh copy;
 do not repoint a Search-owning copy or treat the older model's successful preflight as readiness for this guide.
 
+<a id="editor-and-folder"></a>
+
+**Need an editor?** **VS Code** means **Visual Studio Code**, the file editor used below.
+Keep a supplied editor or existing installation; otherwise follow [the official installation steps for your operating system](https://code.visualstudio.com/docs/getstarted/overview#_install-vs-code).
+These file and terminal steps need no AI extension, Copilot subscription or editor sign-in.
+
 **No source folder yet?** Open [this repository](https://github.com/junwoojeong100/microsoft-foundry-v2-labs)
-with a GitHub account that has access, then **Code → Download ZIP**, extract it and open the folder in VS Code.
+with a GitHub account that has access, then **Code → Download ZIP** and extract it.
 This is the **source repository ZIP**, not the small learner-materials ZIP.
+
+In VS Code, select **File → Open Folder...** and choose the extracted source folder,
+not the ZIP file or its parent Downloads folder. **Check:** the Explorer file list shows
+`README.md`, `pyproject.toml` and `scripts/` directly under the opened folder.
+If they are inside another folder, open that inner folder instead before starting the terminal below.
 
 <a id="terminal-check"></a>
 
@@ -210,6 +221,8 @@ Open the copied `session-notes.txt` and fill its **Lab 00 - setup card** with th
 After that, use only **B - code evidence and handoff** and **Pause / resume**; skip the entire **A - browser notes only** section,
 including its Playground and source-check fields. The B section has its own lab-by-lab review lines.
 If an older personal copy lacks a named line, append that line there; do not replace your filled notes with the new blank template.
+**Self-study on B with earlier setup attempts?** Keep your `setup-attempts.txt` beside these personal notes and copy every recorded
+resource group, its state and remaining cost/cleanup owner into item 4 of `operations-checklist.txt`; not just the group now in `.env`.
 **Preparing only A's Lab 05 terminal?** Run the block anyway, because Lab 02 B saves `model.json` and `answer-local.json` there,
 but leave this copy blank: your notes stay in the learner ZIP's `session-notes.txt`.
 
@@ -225,16 +238,35 @@ no successful-response file is created. [Save behavior and recovery](../referenc
 
 ### 2. Learn the output format without Azure
 
+**The first fixture deliberately fails the business checks. No model is called.**
+Run one block, check its result, then continue to the next block.
+
 ```bash
 python3.13 scripts/workshop.py --language en demo --label rehearsal-v1 --prompt v1
+```
+
+**Expected:** `total: 6`, `passed: 0`, `errors: 0`, `business_gate_passed: false`.
+v1 removes citations from fixed answers so you can see the checker reject them.
+This **0/6 is intentional**, not an installation or Azure error. Keep the result unchanged.
+
+```bash
 python3.13 scripts/workshop.py --language en demo --label rehearsal-v2 --prompt v2
+```
+
+**Expected:** `total: 6`, `passed: 6`, `errors: 0`, `business_gate_passed: true`.
+v2 uses the original fixed answers with their citations. Open `manifest.json`, `responses.jsonl`
+and `business-evaluation.json` in each of `outputs/rehearsal-v1/` and `outputs/rehearsal-v2/`.
+Both runs say `mode: offline-fixture`; neither contains a model response.
+
+```bash
 python3.13 scripts/workshop.py --language en compare --baseline rehearsal-v1 --candidate rehearsal-v2
 ```
 
-Open `manifest.json`, `responses.jsonl`, and `business-evaluation.json` in
-`outputs/rehearsal-v2/`. v1 removes citations from **fixed answers** to exercise the
-checker; v2 uses the original fixture. Their score difference is **not a measured
-prompt improvement**. Use fresh labels such as `rehearsal2-v1` to rerun.
+**Expected:** `outputs/rehearsal-v2/comparison-vs-rehearsal-v1.json` keeps the two results
+and the `OFFLINE FIXTURES ONLY` warning. Their difference is **not a measured prompt improvement**.
+The three commands above return exit code `0` when successful, even though the first fixture's business gate is false.
+A message starting with **FAIL:** or a nonzero exit code is a command error: stop and use [recovery](../reference/troubleshooting.md#resume-safely).
+To rerun intentionally, use two fresh labels, such as `rehearsal2-v1` and `rehearsal2-v2`, in the matching demo and comparison commands.
 
 
 ![September 24 English recording: Compare fixtures without claiming model quality](../assets/g6sol-20260924-en/screenshots/E00-005-fixture-compare-2.webp)

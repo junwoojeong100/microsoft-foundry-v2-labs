@@ -96,9 +96,13 @@ If you chose different names, record those exact paths in `session-notes.txt`.
 
 Open each saved JSON and review the whole response. `--output` preserves it; saving alone does not establish a correct answer.
 In `session-notes.txt`, **B - code evidence and handoff** must also contain your per-lab findings,
-Lab 07's comparison/gate decision and actual verdict, Lab 08's package/execution status, and Lab 09's trace evidence or unverified reason.
+Lab 07's comparison/gate decision and actual verdict, and Lab 08's package/execution status.
 An empty template or a filename alone is not execution evidence. If an item is missing, use the incomplete outcome below;
 do not repeat paid calls or fabricate files just to fill the inventory.
+
+**Lab 09 trace record:** open `operations-checklist.txt` and check the
+`Actual trace evidence, or unverified when unavailable:` line you filled in Lab 09.
+It must contain your trace/operation ID and finding, or `trace unverified: <reason>`; do not make a new request to fill it.
 
 ### Choose the actual outcome
 
@@ -144,7 +148,8 @@ Still finish the owned/shared asset and residual-cost entries in `operations-che
 
 **B done:** hand over the existing files in the [B evidence inventory](#b-evidence), including Lab 02's model outputs, Lab 03's managed-agent outputs, Lab 05's human review and Lab 09 trace status.
 Finish the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup handoff](../reference/cleanup.md).
-Mark a failed business gate **rejected**, missing required stages **incomplete**, and omitted optional local/remote hosting, cloud judge or trace work **not run / unverified**.
+Mark a failed business gate **rejected** and missing required stages **incomplete**.
+Omitted optional local/remote hosting and cloud judges are **not run**; unavailable traces are **unverified**, with the reason recorded.
 
 ## Hosted workflow/evaluation acceptance evidence
 

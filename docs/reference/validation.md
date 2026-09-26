@@ -12,7 +12,7 @@ Earlier videos and upstream results are not relabeled as new evidence.
 
 | Question | Answer | Details |
 |---|---|---|
-| What changed in the latest straightforwardness pass? | Beginner instructions now distinguish offline-only preparation, the correct terminal, replacing an instruction field, preserving a saved baseline and six-row CSV, and course-only cleanup ownership. English/Korean guidance and recovery links are aligned. Offline checks only; no new learner-pilot or Azure claim | [Beginner final audit](#beginner-final-audit-20260926) |
+| What changed in the latest straightforwardness pass? | Three sequential, fresh-context reviews corrected seven further beginner gaps: local editors, Search preparation/authentication, trace-record location, truthful completion status, opening the source folder and cleanup of earlier preparation attempts. Both languages are aligned; no new learner-pilot or Azure claim | [Three fresh-context passes](#fresh-context-three-pass-20260926) |
 | What is the final closeout status? | Six guide/material/evidence issues corrected; all 63 language pairs checked. After the corrected revision passed offline gates, 32 bounded guide CLI commands and two local package commands completed in both languages. Two new SDK responses matched portal traces. This is not a fresh full acceptance or an all-feature Azure claim | [Final closeout](#final-guide-closeout-20260925) |
 | What is recorded? | The main A/B steps of Labs 00–09 and 11 and the optional Foundry evaluation steps, in English and Korean, with `gpt-6-sol` / `gpt-6-sol-judge` (`2026-09-22`) in the Sweden Central training project | [Re-recording](#gpt-6-sol-20260924) · [videos](../video-summary.md) |
 | What did the live runs return? | In each language: business checks baseline 6/6, candidate 6/6 and holdout 4/4; acceptance `ready-for-human-review` with `deployment_approved: false`. Judge scores are kept separately and do not decide acceptance | [Actual results](../live-run.md) |
@@ -27,6 +27,67 @@ Earlier videos and upstream results are not relabeled as new evidence.
 | What did the headless follow-up complete? | A's model/inline-agent/dev checks and A/B portal trace correlation, English then Korean. New manual dev assessments: 6/6 each. Median Send-to-render time: 6.75 s / 5.41 s over six rows each. File Search upload was disabled for the selected model | [Headless follow-up](#headless-guide-audit-20260925) |
 | How straightforward are the guides and documents? | Earlier AI editorial review scored guides 94/100 and documents 90/100 (round 6), then 99.5/100 and 98/100 (round 7). Those scores do not rate the later audit revision and are not a learner pilot or timing measurement | [Earlier review](#straightforwardness-95) |
 | Can a beginner finish route A alone from the guide? | Offline editorial audit: in a prepared environment, each A step names the screen, value or worksheet line and its check. Learning alone was the gap; [self-study preparation](../setup-owner.md#self-study) now covers the project, exact model, role, tracing, terminal and final cleanup. Not a learner pilot; the new portal steps follow official docs and were not run live | [Self-study audit](#beginner-self-study-audit-20260925) |
+
+<a id="fresh-context-three-pass-20260926"></a>
+
+## Three fresh-context beginner reviews, offline only — September 26, 2026
+
+**Method:** three separate agent contexts ran sequentially. Each started from the current README/setup and followed the
+complete A route and B's entry/setup and route boundaries. Only the updated files carried forward: earlier conversations,
+findings, scores, session history and validation reports were excluded from each review. This isolated review context;
+it did not delete stored conversation history. Each pass implemented and checked its own English-first/Korean changes.
+
+| Pass | Independently found beginner gaps | Improvement |
+|---|---|---|
+| 1 | A discovered its spreadsheet requirement only at assessment time; B's Search token authentication was assumed | Check local text/CSV editors during setup, including six rows and columns; separately prepare Search token authentication and user roles |
+| 2 | B self-study lacked concrete Search service setup; the handoff looked for trace evidence in the wrong notes file; cleanup could call incomplete work finished | Add owner-only Search creation/readiness steps and a return to setup; reuse the trace field in `operations-checklist.txt`; preserve incomplete/rejected outcomes after cleanup |
+| 3 | Opening the source assumed VS Code knowledge; earlier failed region/project attempts could disappear from cleanup | Explain the editor, installation and **File → Open Folder...**; retain each owned preparation attempt through notes, operations and per-group cleanup |
+
+**Final verification:** 341 offline tests passed on each of Python 3.13 and 3.14, including seven new bilingual regression
+tests from these passes. Ruff 0.16.6 lint/format, compilation on both versions, documentation checks for all 63 language pairs,
+and both unchanged learner-bundle checks passed. Changed pairs retain exact completion hashes and command parity in
+`docs/localization.json`; no translation is pending.
+
+Two child contexts had full-suite failures because their temporary workspaces were inside this existing azd project.
+The final coordinator runs used a neutral system temporary directory, without hiding `azure.yaml`, changing guards or
+using sandbox exclusions:
+
+```bash
+TMPDIR=/private/tmp python3.13 -S -m unittest discover -s tests -t . -q
+TMPDIR=/private/tmp python3.14 -S -m unittest discover -s tests -t . -q
+```
+
+These are macOS validation commands; other systems should use their own temporary location outside an existing azd project.
+Earlier failed attempts are not presented as successful standard-suite runs.
+
+**Evidence boundary:** application code, executable workshop commands, prompts, synthetic data, grading and learner ZIPs
+are unchanged. No Azure/portal execution, resource or role change, new recording, actual beginner pilot/timing, or new
+editorial score was produced. Three AI reviews improve the instructions but do not prove that every beginner will finish
+unaided. Installed-SDK tests were not rerun because application code and dependencies are unchanged.
+
+<a id="checkpoint-clarity-audit-20260926"></a>
+
+## Checkpoint clarity audit, offline only — September 26, 2026
+
+**Scope:** traced the core A/B reading order against the current commands and worksheets, then corrected three remaining
+action/check/return gaps in English first and Korean second. Executable workshop commands, application code, model,
+prompts, synthetic inputs, grading and learner ZIPs are unchanged.
+
+| Finding | Correction |
+|---|---|
+| Lab 00's intentionally failing v1 fixture could look like a broken environment; three commands appeared in one block | Separate each command from its expected result: v1 0/6 and v2 6/6, both with zero request errors, then the saved fixture-only comparison. Distinguish command success from the business gate |
+| A learner finishing optional File Search could run the core checks on the wrong agent; a corrective Save could leave the recorded version stale | Return to the recorded inline agent/version with no unsaved edits before the four questions and baseline snapshot. Record the new version when correcting the initial policy paste; keep File Search evidence separate |
+| Self-study cleanup implied that deleting the course group removed all connected logging resources | Record Application Insights and Log Analytics separately, including their actual groups. Verify remaining/shared/managed workspace state and costs; tracing not configured stays not run |
+
+**Verified locally:** 334 offline tests on each of Python 3.13 and 3.14 with site packages disabled, including three new bilingual
+regressions that failed before the guide corrections. Existing tests execute the documented offline commands and verify
+the exact fixture counts, business gates, saved files and overwrite protection. Ruff 0.16.6 lint/format, compilation on both
+Python versions, all 63 documentation language pairs and both unchanged learner bundles passed.
+Completed translations retain exact file hashes in `docs/localization.json`.
+
+**Evidence boundary:** logging-resource cleanup was checked against the linked Microsoft Learn documentation on September 26, 2026.
+No new Azure execution, portal/deletion check, recording, beginner pilot/timing or editorial score was produced.
+Installed-SDK tests were not rerun because application code and dependencies are unchanged; older media is not proof of these guide changes.
 
 <a id="beginner-final-audit-20260926"></a>
 

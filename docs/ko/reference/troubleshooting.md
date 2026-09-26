@@ -14,6 +14,7 @@
 | 상황 | 안전한 다음 행동 | 하지 않을 일 |
 |---|---|---|
 | 브라우저를 닫았음 | 같은 프로젝트·agent·저장 버전을 열고 기존 대화 확인 | 새 agent 생성·모든 질문 재전송 |
+| 선택 File Search 분기를 마침 | A의 기본 질문 4개 전에 [기록한 인라인 agent·버전으로 복귀](../labs/03-prompt-agent.md#check-inline-agent). File Search 결과는 별도 보존 | `-files` agent나 그 응답을 인라인 baseline으로 사용 |
 | Lab 07 A의 **저장** 버튼이 활성화됨 | 보관할 초안은 따로 복사한 뒤 [기록된 baseline 버전 복구](../labs/07-evaluation.md#assessment-version). 미저장 수정이 없는 상태에서 질문 | 초안을 baseline으로 저장·원래 지침 파일 덮어쓰기·한 평가표에 여러 버전 혼합 |
 | 답변을 붙여 넣자 여러 셀이 바뀜 | 마지막 붙여넣기를 실행 취소하고 [셀 편집 상태에서 받은 답변을 다시 붙여넣기](../labs/07-evaluation.md#assessment-sheet). 원래 ID·질문 6개 유지 | 질문 재전송·작성한 baseline을 빈 양식으로 교체·영향받은 문항 삭제 |
 | 새 터미널을 열었음 | 저장소 루트로 돌아와 `source .venv/bin/activate`. 기존 Azure 로그인 유지 | 전체 재설치·`.env` 덮어쓰기·셸 `source .env`·단순 재개를 위한 `az login` 반복 |
@@ -24,6 +25,7 @@
 | `--output` 파일이 이미 있다고 나옴 | 저장된 JSON 확인. 새 요청은 보내지 않았음. 의도적인 새 요청에만 다른 파일명 사용 | 근거 삭제·다시 저장하려고 유료 호출 반복 |
 | 응답은 출력됐지만 저장이 실패함 | stdout 전체를 새 파일에 직접 보관하고 파일 오류도 유지 | 이미 받은 답변을 복구하려고 모델 재호출 |
 | Label이 이미 있음 | 모듈이 출력한 폴더 확인. [저장 위치 표](commands.md#saved-results)에서 입문·matrix·Toolbox·대화 구분 | 결과 삭제·같은 label로 `collect` |
+| Lab 00의 v1 fixture가 `passed: 0`, `errors: 0` 보고 | [의도된 인용 검사 실패](../labs/00-start.md#offline-fixtures). 결과를 보존하고 명령 자체가 성공했다면 v2로 진행 | 환경 재설치·통과시키려고 fixture 수정·실제 모델 점수로 해석 |
 | `collect`가 0이 아닌 종료 코드 반환 | 모든 행·오류 보존, `evaluate`로 확인, 원인 해결 후 명시적인 새 dev label로 수집 | 실패 행을 fixture로 대체·모델/provider 자동 변경 |
 | `evaluate`가 `1` 반환 | `total`, `passed`, `errors`, 사례별 `checks` 확인. Baseline 실패는 검토하되 실패한 candidate는 holdout을 열지 않음 | 요청 완료를 업무 게이트 통과로 해석 |
 | Candidate·holdout이 이미 있음 | `outputs/<holdout-label>/acceptance.json`을 읽거나 정확한 기존 label로 로컬 `accept` 재실행 | 같은 노출 holdout을 재수집해 좋은 점수 만들기 |
@@ -83,7 +85,7 @@
 | 원본 hash 불일치 | 원본 파일·오류 보존 후 입력/응답 변경 조사. 새 dev 실험으로만 재수집하며 노출 holdout을 재시도하지 않음 | 07 |
 | MCP 실패 | 같은 venv의 `mcp`, 서버 path, stdout에 비-JSON 로그 여부 | 04 |
 | workflow timeout | 최대 라운드·출력 한도·도구 지연·quota | 05 |
-| Search 403 | Entra 데이터 평면 인증과 Index Data Reader/Contributor | 06 |
+| Search 401/403 | 담당자가 [API access control의 Entra 토큰 허용](../setup-owner.md#search-authentication)과 호출자의 Search 역할을 순서대로 확인. 역할만으로 토큰 인증이 활성화되지는 않음 | 06 |
 | Search 부분 upload 실패 | 개별 `status`, 문서 수·키, index 필드 | 06 |
 | 기존 Search 객체 거부 | 내 접두사/소유권 ledger인지 확인; 공유 객체 덮어쓰기 금지 | 06 |
 | 하이브리드 index 차원 또는 기존 index 충돌 | 실제 embedding 차원, 별도 본인 index, namespace/ledger 확인. 벡터 자르기·0 채우기 금지 | 06 |

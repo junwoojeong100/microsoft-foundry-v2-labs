@@ -14,6 +14,7 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | What happened | Safe next action | Do not |
 |---|---|---|
 | Closed the browser | Reopen the same project, agent and saved version; inspect the existing conversation | Create another agent or resend all questions |
+| Finished the optional File Search branch | [Return to the recorded inline agent/version](../labs/03-prompt-agent.md#check-inline-agent) before A's four core checks; keep the File Search result separate | Use the `-files` agent or its replies as the inline baseline |
 | Lab 07 A's **Save** button is enabled | Preserve any wanted draft separately, then [restore the recorded baseline version](../labs/07-evaluation.md#assessment-version) with no unsaved edits before asking | Save the draft as the baseline, overwrite its snapshot, or mix versions in one assessment |
 | Pasting an answer changed several spreadsheet cells | Undo the last paste, then [paste the received answer in cell edit mode](../labs/07-evaluation.md#assessment-sheet); keep all six original case IDs/questions | Resend the question, replace the filled baseline with a blank template, or delete affected cases |
 | Opened a new terminal | Return to the repository root; run `source .venv/bin/activate`; keep your existing Azure sign-in | Reinstall everything, overwrite or shell-`source` `.env`, or repeat `az login` merely to resume |
@@ -24,6 +25,7 @@ Read the last completed step and exact version/labels in your notes. Use the **f
 | `--output` says the file already exists | Open the saved JSON; the new request was not sent. Choose another filename only for an intentionally new request | Delete the evidence or repeat a paid call just to save it again |
 | The response printed, but saving failed | Keep the complete stdout and save it manually to a new file; retain the file error | Repeat the model request to recover an already returned answer |
 | A label already exists | Inspect the directory printed by that module; [saved-result locations](commands.md#saved-results) distinguish core, matrix, Toolbox and conversation runs | Delete the run or invoke `collect` with that same label |
+| Lab 00's v1 fixture reports `passed: 0`, `errors: 0` | This is the [expected citation-check failure](../labs/00-start.md#offline-fixtures); preserve it and continue with v2, provided the command itself succeeded | Reinstall the environment, edit the fixture to pass, or treat it as a real model score |
 | `collect` returned a nonzero exit code | Preserve all rows/errors; use `evaluate` to inspect them, resolve the cause, then collect a new explicitly labeled dev run | Replace failed rows with fixtures or silently change the provider/model |
 | `evaluate` returned `1` | Read `total`, `passed`, `errors` and per-case `checks`; review a baseline failure, but keep holdout closed for a failing candidate | Treat a completed request as a passed business gate |
 | Candidate and holdout already exist | Read `outputs/<holdout-label>/acceptance.json`, or rerun local `accept` with those exact labels | Recollect an exposed holdout to get a better result |
@@ -83,7 +85,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Source hash mismatch | Preserve the original files/error; investigate changed inputs or responses. Recollect only as a new dev experiment, not by retrying exposed holdout | 07 |
 | MCP failure | Same-venv `mcp`, server path, non-JSON stdout | 04 |
 | Workflow timeout | Round/output bounds, tool latency, quota | 05 |
-| Search 403 | Entra data-plane auth and Index Data Reader/Contributor | 06 |
+| Search 401/403 | The owner checks [API access control for Entra tokens](../setup-owner.md#search-authentication), then the caller's Search roles; roles alone do not enable token authentication | 06 |
 | Partial Search upload | Per-document status, count/keys, index fields | 06 |
 | Existing Search object rejected | Prefix and ownership ledger; no shared-object overwrite | 06 |
 | Hybrid index dimension or existing-index conflict | Actual embedding dimension, a separate owned index and the namespace/ledger; never truncate or zero-fill vectors | 06 |

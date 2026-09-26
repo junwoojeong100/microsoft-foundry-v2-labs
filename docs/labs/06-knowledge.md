@@ -14,7 +14,7 @@
 
 **Continue when:** A: the policy IDs and dates in three answers are checked. B: the four retrieval and answer files are saved.
 
-**If blocked:** A: ask only the missing question again (step 1). B: for a Search 401/403, ask the owner for **Search Index Data Contributor** and **Search Service Contributor** on the Search service. Never switch to another provider.
+**If blocked:** A: ask only the missing question again (step 1). B: preserve a Search 401/403 and ask the owner to check [Search authentication and caller roles](../setup-owner.md#search-authentication), not just add another role. Never switch to another provider.
 
 [One-time setup and learner files](../setup.md).
 
@@ -69,6 +69,10 @@ An error does not permit switching providers.
 You need the prepared Search service. Your account needs **Search Service Contributor** and
 **Search Index Data Contributor** on it (reading alone needs only **Search Index Data Reader**).
 The owner approves Search usage and billing.
+
+The owner must also confirm that the service's **API access control** accepts Microsoft Entra identity tokens
+([Search authentication check](../setup-owner.md#search-authentication)). A keys-only service rejects the workshop's requests even with the roles above.
+Do not copy API keys into `.env` or change a shared service's settings yourself.
 
 Open `.env` and check two values before seeding:
 

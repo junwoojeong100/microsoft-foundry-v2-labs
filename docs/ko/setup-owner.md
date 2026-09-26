@@ -27,17 +27,26 @@ Lab 00 전에 한 번만 진행합니다. 본인 구독에 유료 리소스를 �
    ([공식 절차](https://learn.microsoft.com/azure/foundry/foundry-models/how-to/deploy-foundry-models)).
    `gpt-6-sol-judge`는 나중에 선택 Foundry 평가를 고를 때만 준비합니다.
    **확인:** **홈 → 배포 보기**에 `gpt-6-sol`, 버전 `2026-09-22`, **Succeeded**가 보입니다.
-   그 위치에서 이 모델·버전을 제공하지 않거나 quota가 없으면 멈춥니다. 다른 위치와 새 리소스 그룹으로 2단계를 다시 하거나
-   [quota를 요청](https://aka.ms/oai/stuquotarequest)합니다. 다른 모델을 대신 배포하지 않습니다.
+   그 위치에서 이 모델·버전을 제공하지 않거나 quota가 없으면 멈춥니다. 개인 로컬 텍스트 파일 `setup-attempts.txt`에
+   구독·리소스 그룹·위치·Foundry 계정/프로젝트·정확한 오류·시각을 적습니다.
+   모든 시도를 보존하고 인증정보는 기록하지 않습니다. 같은 위치의 [quota를 요청](https://aka.ms/oai/stuquotarequest)하거나,
+   다른 위치의 필요한 모델/버전·quota·비용을 확인한 뒤 새 실습 전용 그룹으로 2단계를 다시 진행할 수 있습니다.
+   새 그룹을 만들어도 이전 리소스가 삭제되는 것은 **아닙니다**. 다른 모델을 대신 배포하지 않습니다.
+   여기서 준비를 중단한다면 Lab 11까지 기다리지 말고 지금 [정리 확인](reference/cleanup.md#self-study-cleanup)을 따릅니다.
 4. **본인 역할.** 역할 할당 권한이 있는 계정으로 포털에서 프로젝트를 만들면 본인과 프로젝트의 관리 ID에
    새 Foundry 리소스의 **Foundry User**가 함께 부여됩니다([공식 RBAC](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry#minimum-role-assignments-to-get-started)).
    **확인:** Azure 포털에서 새 Foundry 리소스 → **액세스 제어(IAM)** → **역할 할당**을 열고 본인 계정의 **Foundry User**
    (이전 이름 **Azure AI User**)를 찾습니다. 없으면 그 리소스에서 본인 계정에 [역할을 할당](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal)합니다.
 5. **추적, 선택.** Lab 09의 추적 확인을 하려면 **빌드 → 에이전트**의 **추적** 탭에서 연결(**Connect**)을 선택하고
    새 Application Insights 리소스를 만듭니다([공식 절차](https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup)). 로그 비용이 추가됩니다.
+   Azure 포털에서 Application Insights와 연결된 **Log Analytics 작업 영역** 각각의 리소스 그룹을 확인합니다.
+   실습 그룹과 다를 수 있습니다. 이름·그룹을 보관했다가 본인 경로의 개인 기록을 준비할 때 `operations-checklist.txt`에 적습니다.
    **확인:** 연결 완료 메시지가 나타납니다. 이 단계를 건너뛰면 Lab 09에서 `추적 미확인: <이유>`를 적습니다.
 6. **파일과 설정값.** [준비 2–3절](setup.md#learner-files)을 진행합니다. 학습자 ZIP을 받고, 본인 포털에서 확인한 값으로 설정 카드를 채웁니다.
    `비용·권한 담당자:`에는 본인을 적습니다.
+   `setup-attempts.txt`가 있다면 이 개인 증거 폴더에 보관하고, 모든 이전 그룹과 현재 상태·남은 비용·정리 담당자를
+   `operations-checklist.txt` 4번에 추가합니다.
+   추적을 설정했다면 `operations-checklist.txt` 4번에 로그 리소스 두 개와 각각의 실제 그룹을 추가합니다.
    **확인:** `session-notes.txt`의 **Lab 00 - 설정 카드** 구역이 모두 채워져 있습니다.
 7. **Lab 05 터미널.** [Lab 00 B](labs/00-start.md#path-b) 1–5단계와 [Lab 02 B](labs/02-models.md#path-b) 1–3단계를 마치고
    [A 복귀 선택](labs/02-models.md#a-terminal-ready)으로 나갑니다. **정해진 시간의 A 경로를 시작하기 전에** 준비를 마칩니다.
@@ -47,11 +56,13 @@ Lab 00 전에 한 번만 진행합니다. 본인 구독에 유료 리소스를 �
 **준비 완료:** **1–7**단계를 마치고(5단계는 건너뛴 것으로 기록 가능) [준비 완료 체크](setup.md#5-시작-가능-여부)를 확인한 뒤
 [Lab 00 A](labs/00-start.md#path-a)를 시작합니다. 설정 카드를 채운 것만으로 Lab 05 터미널이 준비되지는 않습니다.
 단계가 실패하면 그 단계부터 해결한 뒤 진행합니다. 원인을 모르는 같은 오류 때문에 모델·리소스·프로젝트를 새로 만들지 않습니다.
-**B를 혼자 학습하나요?** 1–5단계(B의 Lab 09에는 5단계가 필요)를 마친 뒤 [수업 담당자 체크리스트](#class-owner-checklist) 4단계로
-Search 서비스와 본인의 Search 역할 두 개를 준비하고, B 경로의 [준비](setup.md)로 이어 갑니다.
-**Lab 11 뒤:** 증거 폴더를 보관한 뒤, 2단계의 리소스 그룹에 이 과정의 리소스만 있을 때만 Azure 포털에서 삭제합니다
-(**리소스 그룹** → 본인 그룹 → **리소스 그룹 삭제**). 프로젝트·배포·Application Insights가 함께 삭제되며,
-확인·기록 방법은 [정리](reference/cleanup.md)에 있습니다. B 경로로 이어 갈 계획이면 그룹을 남겨 둡니다.
+**B를 혼자 학습하나요?** 1–5단계(B의 Lab 09에는 5단계가 필요)를 마친 뒤 [B의 Search 서비스 준비](#search-service)를 진행합니다.
+그 절에서 서비스·기능별 과금 플랜·본인의 Search 역할을 확인하고 B 경로의 [준비](setup.md)로 돌아옵니다.
+**Lab 11 뒤:** 증거 폴더를 보관하고 이전 시도를 포함해 준비 중 만든 모든 그룹을 확인합니다.
+각 그룹에 이 과정의 리소스만 있을 때만 Azure 포털에서 삭제합니다
+(**리소스 그룹** → 본인 그룹 → **리소스 그룹 삭제**). 연결된 로그 리소스가 그 그룹 안에 있거나 함께 삭제됐다고 가정하지 않습니다.
+Application Insights·Log Analytics·남은 비용은 [자습 정리 확인](reference/cleanup.md#self-study-cleanup)을 따릅니다.
+B 경로로 이어 갈 계획이면 필요한 자원을 남겨 두고 담당자·계속 발생하는 비용을 기록합니다.
 
 <a id="class-owner-checklist"></a>
 
@@ -66,6 +77,8 @@ Search 서비스와 본인의 Search 역할 두 개를 준비하고, B 경로의
    CLI의 배포 사전 조회에는 **실습 Foundry 계정의 Reader**도 필요합니다. 관리자뿐 아니라 학습자 계정으로 실제 호출을 점검합니다.
 4. B의 GA Search/IQ 또는 선택 IQ Chat을 진행한다면 Basic 이상 Search, semantic/knowledge retrieval 사용 조건과
    합성 index를 작성할 사람의 Search 읽기/쓰기 권한을 준비합니다.
+   아직 서비스가 없다면 [Search 서비스 준비 단계](#search-service)를 사용합니다.
+   아래 역할 할당뿐 아니라 [Search 인증 확인](#search-authentication)도 완료합니다.
    새 복사본으로 시작하는 B 학습자에게는 **서비스·권한**을 준비하고, 새 학습자 prefix의 객체를 미리 만들지 않습니다.
    이미 seed한 객체를 제공한다면 승인된 대응 작업 폴더를 제공합니다. Endpoint/base 이름만으로 로컬 소유권 ledger가 생기지 않습니다.
 5. **선택 모델 기반 IQ Chat에서만** Search의 system-assigned identity를 켜고, 별도의
@@ -87,6 +100,60 @@ Search 서비스와 본인의 Search 역할 두 개를 준비하고, B 경로의
 10. 선택 lightweight 소스 배포: 큰 media 이력이 필요 없는 학습자에게 `docs/assets/`와 video 파일을 제외한 sparse checkout을 제공합니다.
     전체 저장소가 계속 원본입니다. [Lab 00](labs/00-start.md#source-folder)의 sparse pattern은 2026-09-24에 로컬 확인했습니다.
     `docs/assets/`와 `videos/`는 제외됐고 스크립트와 가이드는 남았습니다.
+
+<a id="search-service"></a>
+
+### Lab 00 전에 B의 Search 서비스 준비
+
+**구독 소유자인 자습 학습자를 포함한 담당자 전용입니다. 기본 A에는 Search가 필요 없습니다.**
+담당자가 이미 서비스를 제공했다면 그대로 두고 2–4단계를 확인합니다. 서비스를 하나 더 만들지 않습니다.
+서비스 생성이나 과금·역할·네트워크 설정 변경은 담당자의 승인이 필요합니다.
+
+1. Azure 포털에서 **리소스 만들기(Create a resource) → Azure AI Search**를 선택하고 [서비스 생성 양식](https://learn.microsoft.com/azure/search/search-create-service-portal)을 따릅니다.
+   실습 구독·리소스 그룹, 전역에서 고유한 `mfv2-`로 시작하는 서비스 이름, **Basic** 요금제
+   (또는 담당자가 승인한 상위 요금제), Confidential이 아닌 **Default** 컴퓨팅을 선택합니다.
+   만들기 전에 [현재 리전 표](https://learn.microsoft.com/azure/search/search-region-support)에서 선택한 위치의
+   **Agentic retrieval**과 **Semantic ranker**를 모두 확인합니다. 모델 제공 여부만으로 Search 기능의 제공 여부를 판단하지 않습니다.
+   표시된 서비스 비용을 검토한 뒤 승인된 예산 안에서만 **검토 + 만들기(Review + create) → 만들기(Create)**를 선택합니다.
+2. 생성에 성공하면 서비스의 **개요(Overview)**를 열어 구독·리소스 그룹·리전·요금제를 확인합니다.
+   **URL**인 `https://<search>.search.windows.net`을 준비 카드의 Search endpoint와 이후 `.env`의 `AZURE_SEARCH_ENDPOINT` 값으로 사용할 수 있게 보관합니다.
+   서비스 이름과 실제 그룹도 보관했다가 Lab 00에서 개인 기록을 준비하면 `operations-checklist.txt` 4번에 적습니다.
+   담당자가 승인한 네트워크 접근을 사용하며, 접속하려고 공유 방화벽을 끄지 않습니다.
+3. **설정(Settings) → 프리미엄 기능(Premium features)**에서 **Semantic ranker**와 **Knowledge retrieval**을 따로 확인합니다.
+   새 전용 서비스는 한정된 기본 제공 사용량을 쓰도록 각 기능의 **Free** 플랜을 유지합니다. 이 플랜 때문에 Basic 서비스 자체가 무료가 되는 것은 **아닙니다**.
+   기본 `2026-04-01` API의 유료 knowledge retrieval 동의는 semantic ranker와 별개입니다.
+   **Standard** 기능 플랜은 별도 비용 승인이 필요합니다. 기본 제공량을 소진하면 멈추고 담당자에게 과금 오류를 확인하도록 요청합니다.
+   오류를 우회하려고 공유 플랜이나 검색 방식을 바꾸지 않습니다.
+   [Semantic ranker 과금](https://learn.microsoft.com/azure/search/semantic-how-to-enable-disable)과
+   [Knowledge retrieval 과금](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-enable-disable)을 확인하세요.
+4. 아래 [토큰 인증 확인](#search-authentication)을 완료합니다. Search 서비스의 **액세스 제어(IAM)**에서
+   [역할 할당 추가(Add role assignment)](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal)로 실제 학습자 계정에
+   **Search Service Contributor**와 **Search Index Data Contributor** 중 빠진 역할을 부여합니다. 그 서비스 범위에서 두 역할을 확인합니다.
+   구독 Owner라는 이유만으로 Search 데이터 접근 권한이 생기지는 않습니다.
+
+**준비 완료:** 의도한 서비스·endpoint·기능별 플랜·토큰 인증·작성자 역할 두 개를 확인했습니다.
+B의 [준비](setup.md)로 돌아간 뒤 Lab 00을 진행합니다. 아래 선택 담당자 명령으로 계속 내려가지 않습니다.
+여기서 데이터를 가져오거나 학습자 index를 미리 만들지 않습니다. [Lab 06 B](labs/06-knowledge.md#path-b)가
+동봉한 합성 정책만 사용해 본인 객체를 만들고 소유권을 기록합니다.
+위 공식 설정·과금 문서는 **2026-09-26**에 대조했으며, 새 Azure 실제 실행 검증은 아닙니다.
+
+<a id="search-authentication"></a>
+
+### Search 인증과 학습자 역할
+
+**B와 선택 IQ Chat의 담당자 전용입니다.** Workshop은 API key가 아니라 **Microsoft Entra ID 토큰**으로 Search를 호출합니다.
+서비스가 그 토큰을 허용해야 **하고**, 호출자에게 필요한 역할도 있어야 합니다. 역할만 할당해도 key 전용 서비스의 인증 설정이 바뀌지는 않습니다.
+
+1. Azure 포털에서 정확한 **Search 서비스 → 설정(Settings) → 키(Keys)**를 열어 **API 액세스 제어(API access control)**를 확인합니다.
+   화면에 표시되는 key를 복사하거나 공유하지 않습니다.
+2. 새 전용 실습 서비스라면 권한이 있는 담당자가 **역할 기반 액세스 제어(Role-based access control)**를 선택합니다.
+   기존 **둘 다(Both)** 설정도 ID 토큰을 허용하므로 공유 클라이언트에 key가 필요하면 그대로 둡니다.
+   공유 서비스에서 **API Key**가 선택되어 있다면 멈추고 담당자의 승인된 전환을 기다립니다. 실습을 마치려고 다른 클라이언트의 인증을 끄지 않습니다.
+3. **확인:** 설정이 **Role-based access control** 또는 **Both**입니다. 그다음 담당자 계정뿐 아니라
+   학습자가 실제 로그인할 계정의 역할을 아래 표와 대조합니다. 토큰 인증을 켜는 것만으로 역할이 부여되지는 않습니다.
+
+[공식 Search 인증 단계](https://learn.microsoft.com/azure/search/search-security-enable-roles), **2026-09-26** 확인.
+문서 대조이며 새 Azure 실제 실행 검증은 아닙니다. 인증 오류를 우회하려고 `.env`에 Search key를 넣거나 provider를 바꾸지 않습니다.
 
 IQ Chat 학습자는 서비스/객체 정의를 읽는 **Search의 Reader**와 검색하는 **Search Index Data Reader**가 필요합니다.
 위 모델 계정 Reader와는 다른 범위이며 `check`는 모델 계정의 역할 할당도 읽습니다.

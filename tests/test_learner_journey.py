@@ -184,6 +184,26 @@ class LearnerJourneyTests(unittest.TestCase):
                 )
                 self.assertIn("not run" if language == "en" else "미실행", rehearsal)
 
+    def test_offline_rehearsal_checks_each_expected_result_before_the_next_command(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                rehearsal = (
+                    expanded_markdown(labs[0].read_text())
+                    .split('<a id="offline-fixtures"></a>', 1)[1]
+                    .split("### 3.", 1)[0]
+                )
+                blocks = list(re.finditer(r"```bash\n(.*?)```", rehearsal, re.DOTALL))
+                self.assertEqual(len(blocks), 3, "Inspect each fixture before the next command")
+                for index, passed in enumerate((0, 6)):
+                    check = rehearsal[blocks[index].end() : blocks[index + 1].start()]
+                    for field in ("total: 6", f"passed: {passed}", "errors: 0"):
+                        self.assertIn(f"`{field}`", check)
+                    gate = "false" if passed == 0 else "true"
+                    self.assertIn(f"`business_gate_passed: {gate}`", check)
+                comparison = rehearsal[blocks[-1].end() :]
+                self.assertIn("outputs/rehearsal-v2/comparison-vs-rehearsal-v1.json", comparison)
+                self.assertIn("OFFLINE FIXTURES ONLY", comparison)
+
     def test_terminal_choice_is_explained_before_the_first_download_command(self):
         for language, directory, labs in self.language_labs():
             with self.subTest(language=language):
@@ -195,6 +215,33 @@ class LearnerJourneyTests(unittest.TestCase):
                     self.assertIn(marker, check)
                 recovery = (directory / "reference/troubleshooting.md").read_text()
                 self.assertIn("(../labs/00-start.md#terminal-check)", recovery)
+
+    def test_source_setup_prepares_the_editor_and_opens_the_extracted_root(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                setup = self.core_section(language, labs[0], "B")
+                folder = setup.split('<a id="source-folder"></a>', 1)[1].split(
+                    '<a id="terminal-check"></a>', 1
+                )[0]
+                anchor = '<a id="editor-and-folder"></a>'
+                self.assertIn(anchor, folder)
+                opening = folder.split(anchor, 1)[1]
+                for marker in (
+                    "Visual Studio Code",
+                    "https://code.visualstudio.com/docs/getstarted/overview#_install-vs-code",
+                    "**File → Open Folder...**",
+                    "`README.md`",
+                    "`pyproject.toml`",
+                    "`scripts/`",
+                ):
+                    self.assertIn(marker, opening)
+                self.assertIn(
+                    "not the ZIP file or its parent Downloads folder"
+                    if language == "en"
+                    else "ZIP 파일 자체나 상위 다운로드 폴더가 아닙니다",
+                    opening,
+                )
+                self.assertEqual(DOCS.workshop_commands(opening), [])
 
     def test_browser_paste_replaces_instructions_and_absent_web_search_is_ready(self):
         for language, _, labs in self.language_labs():
@@ -210,6 +257,33 @@ class LearnerJourneyTests(unittest.TestCase):
                 for marker in ("instructions-with-policies.txt", "Ctrl+A", "Cmd+A"):
                     self.assertIn(marker, paste)
                 self.assertIn("replace" if language == "en" else "교체", paste)
+
+    def test_optional_file_search_returns_to_the_recorded_inline_agent_before_core_checks(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                text = labs[3].read_text()
+                optional = next(
+                    block
+                    for block in re.findall(r"<details>.*?</details>", text, re.DOTALL)
+                    if "File Search" in block
+                )
+                self.assertIn("(#check-inline-agent)", optional)
+                core = self.core_section(language, labs[3], "A")
+                anchor = '<a id="check-inline-agent"></a>'
+                self.assertIn(anchor, core)
+                check = core.split(anchor, 1)[1].split("\n|", 1)[0]
+                for field in ("session-notes.txt", "instructions-with-policies.txt", "-files"):
+                    self.assertIn(field, check)
+                for marker in (
+                    ("**Version**", "**Save**", "unsaved")
+                    if language == "en"
+                    else ("**버전**", "**저장**", "미저장")
+                ):
+                    self.assertIn(marker, check)
+                policy_check = core.split("### 2.", 1)[1].split(anchor, 1)[0]
+                self.assertIn("session-notes.txt", policy_check)
+                recovery = (directory / "reference/troubleshooting.md").read_text()
+                self.assertIn("(../labs/03-prompt-agent.md#check-inline-agent)", recovery)
 
     def test_a_assessment_preserves_saved_version_and_all_csv_cells(self):
         for language, directory, labs in self.language_labs():
@@ -265,6 +339,83 @@ class LearnerJourneyTests(unittest.TestCase):
                     else "본인 리소스 그룹의 모든 자산이 본인 것입니다",
                     operations,
                 )
+
+    def test_self_study_cleanup_checks_log_resources_outside_the_course_group(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                owner = (directory / "setup-owner.md").read_text()
+                study = owner.split('<a id="self-study"></a>', 1)[1].split(
+                    '<a id="class-owner-checklist"></a>', 1
+                )[0]
+                tracing = study.split("5. **", 1)[1].split("6. **", 1)[0]
+                self.assertIn("Application Insights", tracing)
+                self.assertIn("Log Analytics", tracing)
+                self.assertIn("operations-checklist.txt", tracing)
+                self.assertIn("(reference/cleanup.md#self-study-cleanup)", study)
+                cleanup = expanded_markdown((directory / "reference/cleanup.md").read_text()).split(
+                    "## 1.", 1
+                )[0]
+                self.assertIn('<a id="self-study-cleanup"></a>', cleanup)
+                for marker in (
+                    ("only resources in that group", "other resource groups", "Log Analytics")
+                    if language == "en"
+                    else ("그 그룹 안의 리소스만", "다른 리소스 그룹", "Log Analytics")
+                ):
+                    self.assertIn(marker, cleanup)
+                self.assertIn("operations-checklist.txt", cleanup)
+
+    def test_self_study_location_retries_retain_every_group_for_cleanup(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                study = (
+                    (directory / "setup-owner.md")
+                    .read_text()
+                    .split('<a id="self-study"></a>', 1)[1]
+                    .split('<a id="class-owner-checklist"></a>', 1)[0]
+                )
+                model = study.split("3. **", 1)[1].split("4. **", 1)[0]
+                self.assertIn("setup-attempts.txt", model)
+                self.assertIn("(reference/cleanup.md#self-study-cleanup)", model)
+                for marker in (
+                    ("subscription", "resource group", "location", "project", "error")
+                    if language == "en"
+                    else ("구독", "리소스 그룹", "위치", "프로젝트", "오류")
+                ):
+                    self.assertIn(marker, model)
+                files = study.split("6. **", 1)[1].split("7. **", 1)[0]
+                for section in (
+                    files,
+                    self.core_section(language, labs[0], "B"),
+                    self.core_section(language, labs[9], "A"),
+                ):
+                    self.assertIn("setup-attempts.txt", section)
+                    self.assertIn("operations-checklist.txt", section)
+                cleanup = expanded_markdown((directory / "reference/cleanup.md").read_text()).split(
+                    "## 1.", 1
+                )[0]
+                self.assertIn("setup-attempts.txt", cleanup)
+                for marker in (
+                    ("before Lab 00", "each recorded group", "earlier attempts")
+                    if language == "en"
+                    else ("Lab 00 전에", "기록한 각 그룹", "이전 시도")
+                ):
+                    self.assertIn(marker, cleanup)
+
+    def test_cleanup_preserves_incomplete_and_rejected_handoff_outcomes(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                cleanup = expanded_markdown((directory / "reference/cleanup.md").read_text())
+                anchor = '<a id="learner-finish"></a>'
+                self.assertEqual(cleanup.count(anchor), 1, "Give cleanup an explicit ending")
+                ending = cleanup.split(anchor, 1)[1].split("\n## ", 1)[0]
+                outcomes = ("incomplete", "rejected") if language == "en" else ("미완료", "반려")
+                handoff = self.core_section(language, labs[11], "B")
+                for outcome in outcomes:
+                    self.assertIn(f"**{outcome}**", handoff)
+                    self.assertIn(f"**{outcome}**", ending)
+                self.assertIn("session-notes.txt", ending)
+                self.assertIn("(../labs/11-capstone.md)", ending)
+                self.assertEqual(DOCS.workshop_commands(ending), [])
 
     def test_each_practitioner_session_fits_four_hours_including_breaks(self):
         for language, directory, _ in self.language_labs():
@@ -331,6 +482,72 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertEqual(len(reader_rows), 1)
                 self.assertIn("Search Index Data Reader", reader_rows[0])
                 self.assertNotIn("Contributor", reader_rows[0])
+
+    def test_self_study_b_has_search_service_steps_before_authentication(self):
+        for language, directory, _ in self.language_labs():
+            with self.subTest(language=language):
+                owner = expanded_markdown((directory / "setup-owner.md").read_text())
+                anchor = '<a id="search-service"></a>'
+                self.assertEqual(owner.count(anchor), 1, "B needs a service preparation entry")
+                study, rest = owner.split('<a id="class-owner-checklist"></a>', 1)
+                self.assertIn("(#search-service)", study)
+                checklist, preparation = rest.split(anchor, 1)
+                self.assertIn("(#search-service)", checklist)
+                preparation = preparation.split('<a id="search-authentication"></a>', 1)[0]
+                for marker in (
+                    "**Basic**",
+                    "**Default**",
+                    "https://<search>.search.windows.net",
+                    "Premium features",
+                    "Semantic ranker",
+                    "Knowledge retrieval",
+                    "**Free**",
+                    "**Standard**",
+                    "2026-09-26",
+                    "(#search-authentication)",
+                    "(labs/06-knowledge.md#path-b)",
+                    "(setup.md)",
+                    "https://learn.microsoft.com/azure/search/search-create-service-portal",
+                    "https://learn.microsoft.com/azure/search/search-region-support",
+                    "https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-enable-disable",
+                ):
+                    self.assertIn(marker, preparation)
+                self.assertEqual(DOCS.workshop_commands(preparation), [])
+
+    def test_search_token_authentication_is_prepared_separately_from_caller_roles(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                owner = expanded_markdown((directory / "setup-owner.md").read_text())
+                anchor = '<a id="search-authentication"></a>'
+                self.assertIn(anchor, owner)
+                preparation = owner.split(anchor, 1)[1]
+                for marker in (
+                    "Microsoft Entra",
+                    "Settings",
+                    "Keys",
+                    "API access control",
+                    "Role-based access control",
+                    "Both",
+                    "API Key",
+                    "Search Service Contributor",
+                    "Search Index Data Contributor",
+                    "2026-09-26",
+                    "https://learn.microsoft.com/azure/search/search-security-enable-roles",
+                ):
+                    self.assertIn(marker, preparation)
+                self.assertIn("owner only" if language == "en" else "담당자 전용", preparation)
+                self.assertIn("shared" if language == "en" else "공유", preparation)
+                self.assertIn("(#search-authentication)", owner.split(anchor, 1)[0])
+                setup = expanded_markdown((directory / "setup.md").read_text())
+                self.assertIn("(setup-owner.md#search-authentication)", setup)
+                entry = self.core_section(language, labs[6], "B").split("### 2.", 1)[0]
+                self.assertIn("(../setup-owner.md#search-authentication)", entry)
+                self.assertIn("API access control", entry)
+                recovery = (directory / "reference/troubleshooting.md").read_text()
+                search_error = next(
+                    line for line in recovery.splitlines() if line.startswith("| Search 401/403")
+                )
+                self.assertIn("(../setup-owner.md#search-authentication)", search_error)
 
     def test_evidence_hub_and_coverage_include_the_headless_followup(self):
         for language, directory, _ in self.language_labs():
@@ -462,6 +679,44 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertIn("(labs/00-start.md#source-folder)", text[files:card])
                 self.assertIn(f"`outputs/learner-notes-{language}/session-notes.txt`", text[card:])
                 self.assertEqual(DOCS.workshop_commands(text), [])
+
+    def test_a_local_editors_are_checked_during_setup_before_billable_assessment(self):
+        for language, directory, labs in self.language_labs():
+            with self.subTest(language=language):
+                setup = expanded_markdown((directory / "setup.md").read_text())
+                anchor = '<a id="local-tools"></a>'
+                self.assertIn(anchor, setup)
+                tools = setup.split(anchor, 1)[1].split('<a id="environment-card"></a>', 1)[0]
+                for marker in (
+                    "session-notes.txt",
+                    "assessment.csv",
+                    "LibreOffice Calc",
+                    "UTF-8",
+                    "D01",
+                    "D06",
+                    "`case_id`",
+                    "`review_note`",
+                    "(labs/07-evaluation.md#assessment-sheet)",
+                ):
+                    self.assertIn(marker, tools)
+                self.assertIn("six columns" if language == "en" else "6개 열", tools)
+                self.assertIn("unchanged" if language == "en" else "수정하지 않고", tools)
+                readiness = setup.split("## 4.", 1)[1]
+                self.assertIn("(#local-tools)", readiness)
+                assessment = self.core_section(language, labs[7], "A")
+                before_questions = assessment.split("### 2.", 1)[0]
+                self.assertIn("(../setup.md#local-tools)", before_questions)
+                with (ROOT / "data/learner" / language / "assessment.csv").open(
+                    encoding="utf-8-sig", newline=""
+                ) as source:
+                    reader = csv.DictReader(source)
+                    self.assertEqual(len(reader.fieldnames), 6)
+                    self.assertEqual(reader.fieldnames[0], "case_id")
+                    self.assertEqual(reader.fieldnames[-1], "review_note")
+                    self.assertEqual(
+                        [row["case_id"] for row in reader],
+                        [f"D{index:02d}" for index in range(1, 7)],
+                    )
 
     def test_core_model_and_hosting_steps_exclude_optional_reading_and_runtime_gates(self):
         for language, directory, labs in self.language_labs():
@@ -928,7 +1183,7 @@ class LearnerJourneyTests(unittest.TestCase):
                     "(setup.md#learner-files)",
                     "(labs/02-models.md#a-terminal-ready)",
                     "(labs/00-start.md#path-a)",
-                    "(reference/cleanup.md)",
+                    "(reference/cleanup.md#self-study-cleanup)",
                 ):
                     self.assertIn(required, section)
                 self.assertEqual(DOCS.workshop_commands(section), [])
@@ -1636,6 +1891,21 @@ class LearnerJourneyTests(unittest.TestCase):
                 package = "hosted-en" if language == "en" else "hosted"
                 self.assertIn(f"`.build/{package}/package-manifest.json`", inventory[1])
 
+    def test_b_handoff_points_to_the_existing_operations_trace_field(self):
+        for language, _, labs in self.language_labs():
+            with self.subTest(language=language):
+                worksheet = (
+                    ROOT / "data/learner" / language / "operations-checklist.txt"
+                ).read_text()
+                prefix = "Actual trace evidence" if language == "en" else "실제 추적 근거"
+                field = next(line for line in worksheet.splitlines() if line.startswith(prefix))
+                handoff = self.core_section(language, labs[11], "B")
+                paragraphs = [text for text in handoff.split("\n\n") if f"`{field}`" in text]
+                self.assertEqual(len(paragraphs), 1, "Name the trace field where Lab 09 filled it")
+                self.assertIn("`operations-checklist.txt`", paragraphs[0])
+                self.assertNotIn("`session-notes.txt`", paragraphs[0])
+                self.assertIn(f"`{field}`", self.core_section(language, labs[9], "B"))
+
     def test_browser_check_tables_use_the_canonical_dev_limits_and_citations(self):
         for language, _, labs in self.language_labs():
             directory = ROOT / "data/evaluation"
@@ -2191,6 +2461,7 @@ class LearnerJourneyTests(unittest.TestCase):
                     self.assertEqual(
                         (grade["total"], grade["passed"], grade["errors"]), (6, passed, 0)
                     )
+                    self.assertEqual(grade["business_gate_passed"], passed == 6)
                 comparison = read_json(
                     root / "outputs/rehearsal-v2/comparison-vs-rehearsal-v1.json"
                 )

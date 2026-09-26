@@ -10,7 +10,7 @@
 
 **This pass:** A uses the questions-only file and blank worksheet. B runs the six-case dev comparison. A's portal evaluation, B's cloud judges and the matrices are optional.
 
-**Need:** A: your saved Lab 03 agent and learner ZIP. B: a working code environment; new labels for a new experiment, or the original labels and files when resuming.
+**Need:** A: your saved Lab 03 agent, learner ZIP and [prepared local spreadsheet editor](../setup.md#local-tools). B: a working code environment; new labels for a new experiment, or the original labels and files when resuming.
 
 **Continue when:** A: all six actual answers, their saved agent version and review are recorded. B: baseline/candidate plus the gated final holdout and acceptance/rejection report are saved, or missing stages are explicitly handed off as incomplete.
 
@@ -65,7 +65,9 @@ and file paths. Keep that version, model, tools, policy evidence and language un
 <a id="assessment-sheet"></a>
 
 Copy the ZIP's blank **`assessment.csv`** and rename the copy **`assessment-baseline.csv`** in your personal evidence folder;
-keep the blank original for a possible candidate. Open the copy in a local spreadsheet editor; leave `case_id` and `question` unchanged in all six rows,
+keep the blank original for a possible candidate. Open the copy in the [local spreadsheet editor checked during setup](../setup.md#local-tools),
+not a browser file preview. If you cannot open and save UTF-8 CSV, finish that setup before sending questions.
+Leave `case_id` and `question` unchanged in all six rows,
 and keep the CSV format when saving (in Excel, **CSV UTF-8**).
 If everything appears in one column, import the file with **UTF-8** encoding and a **comma** separator before entering answers.
 If this pass's sheet already exists, preserve its recorded rows and resume only unattempted questions on the same version.
