@@ -201,8 +201,11 @@ python scripts/workshop.py benchmark plan --kind workflow --pattern sequential -
 python scripts/workshop.py benchmark collect --label wf-baseline --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --concurrency 1 --confirm-cost
 ```
 
-유료 judge job 전에 전체 수집과 오류를 읽습니다.
-부분 수집을 평가하거나 0이 아닌 수집 종료 코드를 무시하지 않습니다.
+`outputs/benchmarks/wf-baseline/`의 `manifest.json`과 `business-evaluation.json`을 확인합니다.
+`benchmark collect`는 업무 검사 실패에도 `1`을 반환합니다. Manifest가 `status: completed`이고
+`actual_rows`와 `expected_rows`가 같으며 업무 보고서가 `errors: 0`일 때만 judge로 진행합니다.
+실패한 답변은 6절 검토를 위해 보존합니다. 요청 오류·행 누락·종료 코드 `2`이면 근거를 보존하고
+judge를 건너뛰어 [미완료 인계](../labs/11-capstone.md#incomplete-handoff)를 진행합니다. 10절의 본인 세션 정리도 마칩니다.
 
 ```bash
 python scripts/workshop.py benchmark evaluate --label wf-baseline --confirm-cost
@@ -330,14 +333,17 @@ Native `--reference`는 기존 evaluator/version/judge/threshold를 재사용하
 python scripts/workshop.py calibrate-judge --label judge-calibration --reference wf-candidate --confirm-cost
 ```
 
-번들 calibration의 명시적 정답/오답 2건을 사용합니다. target 모델이 생성한 응답은 아닙니다.
-groundedness의 오탐·미탐을 확인하되 두 예가 맞았다고 judge 전체를 신뢰하지 않습니다.
-보류 답변의 relevance가 낮으면 실제 native 점수를 유지하고 업무 기준과 다른 이유를 검토합니다.
+정답/오답 calibration fixture 2건으로 **groundedness만** 검사합니다. Target 모델의 품질 점수가 아닙니다.
+`outputs/judge-calibration/judge-calibration/calibration.json`을 엽니다. 9절 전에
+`total: 2`, `correct: 2`, `gate_passed: true`를 확인합니다. 오답 fixture는 실패해야 하므로 native groundedness **1/2 통과**가 정상입니다.
+Calibration이 실패하거나 미완료이면 점수·오류를 보존하고 holdout을 열지 않은 채 최종 인수를 미완료로 인계합니다. 10절 정리도 마칩니다.
+두 예의 정확한 판별이 judge 전체를 인증하지는 않습니다. 올바른 보류에 대한 relevance 감점은 이 calibration이 아니라 7절 후보의 native 결과에서 검토합니다.
 
 ## 9. 후보 고정 후 마지막 holdout
 
 **게이트:** `outputs/benchmarks/wf-candidate/business-evaluation.json`에서 최종 인수할 각 모델의
 `models.<key>.business_gate_passed: true`, dev 6행 전체·오류 없음을 확인하고 비교에서 고정 설정을 인정해야 합니다.
+8절의 calibration도 통과해야 합니다.
 아니라면 holdout을 열지 않고 [미완료 근거를 인계](../labs/11-capstone.md#incomplete-handoff)합니다.
 10절의 본인 세션 정리는 여전히 마칩니다.
 

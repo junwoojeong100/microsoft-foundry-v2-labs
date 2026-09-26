@@ -27,6 +27,11 @@ The example does not promise that stopping a chat eliminates those charges immed
 
 ## 2. Execute once
 
+Use an unused label. If `outputs/code-interpreter/code-policy-table/` already exists, preserve it;
+cleanup does not make that label reusable. Diagnose the earlier attempt before approving another billable run.
+For a new attempt, change `code-policy-table` consistently in the `run` command, step 3's directory,
+and the `cleanup` command. Keep each attempt's ownership record and clean up using that attempt's own label.
+
 ```bash
 python scripts/workshop.py --language en code-interpreter run --label code-policy-table --confirm-create --confirm-cost
 ```

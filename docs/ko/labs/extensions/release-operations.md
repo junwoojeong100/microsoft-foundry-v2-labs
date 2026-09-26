@@ -125,10 +125,18 @@ agent 이름은 prefix로 시작해야 하고 branch/environment 보호를 설�
 | 사람 결정 | 실제 인수 또는 검토 대기, 자동 운영 승인 금지 |
 | 정리/rollback | 내 session/rule과 이전 알려진 버전 |
 
+Dispatch 전에 정확히 배포할 commit의 [Workshop checks](../../../../.github/workflows/check.yml)에서
+`offline`과 `sdk-imports` job이 모두 성공했는지 확인하고 실행 URL·commit SHA를 기록합니다.
+릴리스 workflow는 이 검사를 실행하거나 완료를 기다리지 않습니다. 근거가 없거나 실패했다면 dispatch 전에 멈춥니다.
+
 첫 workflow는 수동 실행하며 언어와 배포·역할·추론 비용 동의를 명시합니다.
 동의가 없으면 skipped-success가 아니라 실패합니다.
 시연 때문에 매 push 배포나 scheduled trigger를 추가하지 않습니다.
 아직 게시/실행하지 않았다면 **설정만 완료**입니다.
+
+실행 뒤 **Actions → 해당 실행 → Artifacts**에서 `foundry-lab-<language>-<run-id>`를 **14일** 보존 기간이 끝나기 전에 내려받습니다.
+해당 실행의 archive와 URL/commit SHA를 보관하고, 생성됐다면 `ci-binding.json`과 `benchmarks/ci-dev/`의 실패·정리 receipt까지 확인합니다.
+초기 실패로 artifact가 없거나 일부만 있으면 빠진 단계를 기록하며 다른 실행의 근거로 대신하지 않습니다.
 
 **2026-09-23 `gpt-6-sol` 실행:** 담당자가 `foundry-workshop` 변수를 `gpt-6-sol` 프로젝트(prefix `mfv2-sol-20260923-ci`)로 바꾸고,
 기존 CI ID에 프로젝트 범위 **Foundry Project Manager**와 계정 **Reader**를 부여했습니다. federated credential은 바꾸지 않았습니다.

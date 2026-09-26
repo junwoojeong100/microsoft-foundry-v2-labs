@@ -119,6 +119,20 @@ class LearnerMaterialTests(unittest.TestCase):
                 self.assertIn("approval_status", files["workflow-review.txt"].decode())
                 self.assertIn("external_actions_performed", files["workflow-review.txt"].decode())
 
+    def test_setup_card_has_a_blank_search_endpoint_handoff_for_b(self):
+        for language, field in (
+            ("en", "Search endpoint (B only):"),
+            ("ko", "Search endpoint(B 전용):"),
+        ):
+            with self.subTest(language=language):
+                notes = learner_files(ROOT, language)["session-notes.txt"].decode()
+                card = notes.split("\nLab 00 -", 1)[1].split("\n\n", 1)[0]
+                self.assertIn(field, card.splitlines())
+                directory = ROOT / ("docs" if language == "en" else "docs/ko")
+                setup = (directory / "setup.md").read_text()
+                self.assertIn(f"`{field}`", setup)
+                self.assertIn("Lab 06", setup)
+
     def test_workflow_review_uses_saved_paths_for_b_without_requiring_a_second_json_copy(self):
         for language, fields in (
             ("en", ("Saved JSON file path (B only):", "Complete actual JSON output (A only):")),

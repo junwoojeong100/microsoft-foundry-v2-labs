@@ -64,7 +64,8 @@ python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
 | 다른 모델/버전·Search 역할 누락 | 담당자가 해당 선행 조건 해결. 배포·identity·API key로 우회하지 않음 |
 | 소유권 ledger 없음 | 합성 source를 seed한 동일 작업 폴더로 복귀. 소유권을 임의 작성하지 않음 |
 | 기존 base의 모델/모드가 다름 | 기존 구성을 검토하고 새 소유 이름 선택. 자동 덮어쓰기 없음 |
-| 403 / 429 / 서비스 오류 | `failure.json` 보존. RBAC 전파·네트워크·quota 확인 후 명시적인 새 시도 |
+| `check` / `setup` 오류 | 명령·시각·stderr를 기록합니다. 이 명령들은 `failure.json`을 만들지 않습니다. 소유권 ledger가 있으면 보존하고 담당자가 원인을 해결합니다 |
+| `ask` 오류 | `outputs/iq-chat/<label>/`와 생성된 `failure.json`을 보존합니다. 파일이 없으면 stderr를 기록합니다. RBAC 전파·네트워크·quota 확인 후 승인된 새 label로만 다시 시도하며 모델/provider를 바꾸지 않습니다 |
 
 모델 고정은 예방 가능한 불일치를 막지만, 장애나 quota 소진까지 없애지는 않습니다.
 2026-09-15 새 명령의 실제 확인은 **읽기 전용**(`configured: false`)이며 영구 chat base를 만들지 않았습니다.

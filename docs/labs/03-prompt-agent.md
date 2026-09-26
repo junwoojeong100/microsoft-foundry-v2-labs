@@ -251,7 +251,9 @@ python scripts/workshop.py --language en prompt-agent invoke --name "${AGENT_NAM
 
 The block reads the name and version again so it works after a pause; either blank value stops before the request.
 Do not invoke `latest`. If this pass's invocation file already exists, read it instead of sending another request.
-The saved `text` is itself a JSON answer (`answer`, `decision`, `limit_krw`, `citations`) because this SDK agent's instructions include that schema.
+The agent is asked to return JSON (`answer`, `decision`, `limit_krw`, `citations`) inside `text`;
+this command does not validate that inner JSON. Preserve empty or malformed answers as failed checks in your notes.
+Do not repair them or count them as success.
 In the 2026-09-24 check the first version was `1` and the answer cited `TRAVEL-2026` with KRW 150,000; your IDs and wording will differ.
 Keep the `response_id` from `prompt-agent-invoke.json`; Lab 09 uses it for trace lookup.
 
@@ -275,8 +277,10 @@ In Foundry, open **Build → Agents → your SDK agent**. Verify the same versio
 ![September 25 English recording: Playground shows Version 1 and the SDK instructions; no message sent](../assets/review-refresh-20260925/EP03-201-playground.webp)
 
 **What to check:** the header's **Version** matches `agent_version` in your `prompt-agent-invoke.json`,
-and **Instructions** shows your SDK instructions; the chat box stays empty.
-The recording used version `1` and its instructions matched the CLI definition exactly; that number is not a required value for your run.
+and **Instructions** contains [`v2.txt`](../../prompts/en/v2.txt), the four-field JSON schema
+and all six policies from [`policies.json`](../../data/knowledge/en/policies.json).
+The command inserts the policies inline; it does not use File Search or IQ.
+Keep chat empty and record mismatches without editing or saving. The recording's version `1` is not required for your run.
 Do not send a new Playground message for this check. This SDK agent is a managed project asset, unlike the local MAF agent you create in Lab 04.
 The reverse also works: the step 2 `prompt-agent invoke` command can call a portal-created agent by its name and saved version (for example, the Lab 03 A agent if you made one). It is optional and billable; record it separately if you run it.
 

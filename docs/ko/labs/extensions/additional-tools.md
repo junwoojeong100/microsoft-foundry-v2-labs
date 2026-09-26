@@ -26,6 +26,11 @@ Code Interpreter에는 모델 token 외에 session/container 비용이 추가됩
 
 ## 2. 한 번 실행
 
+사용하지 않은 label로 시작합니다. `outputs/code-interpreter/code-policy-table/`가 이미 있으면 보존합니다.
+cleanup 후에도 그 label을 다시 사용할 수 없습니다. 이전 시도를 진단한 뒤 새 유료 실행을 승인합니다.
+새 시도에는 `run` 명령, 3절 결과 폴더, `cleanup` 명령의 `code-policy-table`을 같은 새 label로 바꿉니다.
+각 시도의 소유 기록을 유지하고 정리할 때도 해당 시도의 label을 사용합니다.
+
 ```bash
 python scripts/workshop.py --language ko code-interpreter run --label code-policy-table --confirm-create --confirm-cost
 ```

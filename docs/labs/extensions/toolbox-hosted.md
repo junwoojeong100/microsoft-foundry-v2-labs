@@ -14,13 +14,22 @@ the actual existing project ARM ID, a new agent name and explicit deployment/mod
 **Stop when:** the exact new remote version returns real tool/model/evidence metadata.
 **If blocked:** stop at packaging or local execution and record the remote stage as not run.
 
-**First pass:** steps 1–4 prepare and check locally; step 5 is the separately approved remote request.
+**First pass:** steps 1–3 prepare the package/project. Step 4 hosts locally but calls the real
+Foundry model and Toolbox/Search: it is **live Azure, not an offline fixture**.
+Obtain model/tool cost approval before step 4's request. Step 5's Hosted deployment and remote request need separate approval.
 Always finish step 6 for assets you used. Keep both terminals at the **source repository root**
 with the [Hosted SDK environment](developer-toolkit.md#hosted-sdk); `--cwd` selects the standalone azd project.
 
 ## 1. Package only the runtime and questions
 
-In the repository terminal, use the actual version you already tested:
+Choose the branch **before packaging**:
+
+- **Ordinary Toolbox:** enter the version verified in [Toolbox](toolbox.md); use the commands as shown.
+- **Skill-bearing Toolbox:** enter the verified `SKILLED_VERSION` from [Tool Search/Skills](tool-search-skills.md).
+  Add `--with-skill` to the package command below and step 4's server command **before running either**.
+
+This choice is frozen in the package; do not package without the flag first and then try to overwrite it.
+In the repository terminal, enter the verified version for your chosen branch:
 
 ```bash
 printf 'Verified Toolbox version: '
@@ -28,7 +37,6 @@ read -r TOOLBOX_VERSION
 python scripts/package_toolbox.py --language en --version "$TOOLBOX_VERSION"
 ```
 
-For a skill-bearing version, explicitly add `--with-skill` to the package and local server commands.
 The package is `.build/toolbox-en-<version>/`. It contains source, synthetic policies,
 questions only, and a pinned `toolbox-profile.json`; no evaluator answer keys, holdout, `.env` or prior outputs.
 Its profile freezes project, model, Toolbox name/version, Search connection and source configuration.
@@ -95,7 +103,8 @@ Local user permission does not transfer to the Hosted identity.
 
 ## 4. Verify local behavior with two terminals
 
-In repository terminal A:
+In repository terminal A, use the same branch as step 1.
+For a skill-bearing version, add `--with-skill` to the following command before running it:
 
 ```bash
 OTEL_SDK_DISABLED=true python scripts/workshop.py --language en toolbox serve --version "$TOOLBOX_VERSION"

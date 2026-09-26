@@ -116,13 +116,14 @@ freshness/source URL을 기록하며, 민감 query를 보내지 않습니다.
 메시지 기반 planning, 추론 노력, synthesis, 추가 source는 GA `2026-04-01`과 body가 다릅니다.
 이 리포의 `seed-search --iq`에 Preview 필드를 끼워 넣지 않습니다.
 
-별도 실험 복사본·접두사·설정에서 [공식 API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate)을
+번들 `iq-chat` preset을 벗어난 별도 Preview 실험에만 새 복사본·접두사·설정과 [공식 API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate)을
 따릅니다. Preview Search SDK가 필요하면 별도 환경에 해당 버전을 설치합니다.
 기본 GA 실습의 패키지를 한꺼번에 업그레이드하지 않습니다.
 사용되지 않는 planner 환경변수 대신 실제 KB 모델 연결을 설정합니다.
 Managed identity 지원 여부와 Preview 여부는 별개입니다.
 [IQ 모델 identity 가이드](../reference/iq-model-identity.md)에 검증한 계획·합성 경로와 버전별 요청 필드를 설명합니다.
 번들 Search 원본에는 새 모델 연결을 설계하지 말고 Lab 06의 **`iq-chat` Luna/SMI preset**을 선택합니다.
+이 preset은 source를 소유한 원래 작업 폴더에서 같은 언어·접두사·소유권 ledger로 실행하고 GA base는 그대로 둡니다.
 고정 HTTP 클라이언트를 사용하므로 Preview Search SDK를 추가 설치할 필요가 없습니다.
 
 </details>

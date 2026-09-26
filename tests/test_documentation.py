@@ -114,6 +114,77 @@ class DocumentationTests(unittest.TestCase):
         self.assertGreaterEqual(counts["cli_examples"], 108)
         self.assertGreater(counts["local_anchors"], 0)
 
+    def test_hosted_workbook_checks_collection_and_calibration_before_paid_next_steps(self):
+        for directory in ("docs", "docs/ko"):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "reference/evaluation-workbook.md").read_text()
+                baseline = text.split("## 5.", 1)[1].split("benchmark evaluate", 1)[0]
+                for marker in (
+                    "`manifest.json`",
+                    "`business-evaluation.json`",
+                    "`status: completed`",
+                    "`actual_rows`",
+                    "`expected_rows`",
+                    "`errors: 0`",
+                    "#incomplete-handoff",
+                ):
+                    self.assertIn(marker, baseline)
+                calibration = text.split("## 8.", 1)[1].split("## 9.", 1)[0]
+                for marker in (
+                    "outputs/judge-calibration/judge-calibration/calibration.json",
+                    "`total: 2`",
+                    "`correct: 2`",
+                    "`gate_passed: true`",
+                    "1/2",
+                ):
+                    self.assertIn(marker, calibration)
+                holdout_gate = text.split("## 9.", 1)[1].split("--unlock-holdout", 1)[0]
+                self.assertIn("calibration", holdout_gate)
+                self.assertIn("#incomplete-handoff", holdout_gate)
+
+    def test_insights_sdk_preserves_results_before_separate_cleanup(self):
+        for directory in ("docs", "docs/ko"):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/extensions/agent-insights.md").read_text()
+                block = next(
+                    block
+                    for block in re.findall(r"```python\n(.*?)```", text, re.DOTALL)
+                    if "agent_insight_monitors" in block
+                )
+                self.assertIn("run = monitors.begin_create_run", block)
+                self.assertIn("insights = list(", block)
+                self.assertNotIn("monitors.delete(", block)
+                cleanup = text.split(block, 1)[1].split("</details>", 1)[0]
+                self.assertLess(
+                    cleanup.index("insights-review.txt"), cleanup.index("monitors.delete(")
+                )
+
+    def test_local_only_cleanup_exits_before_remote_commands_without_ignoring_failed_deploys(self):
+        for directory, markers in (
+            ("docs", ("**Local-only:**", "**not run**", "attempted", "failed deployment")),
+            ("docs/ko", ("**로컬만 실행한 경우:**", "**미실행**", "시도", "배포 실패")),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "reference/cleanup.md").read_text()
+                before_commands = text.split('<a id="hosted-sessions"></a>', 1)[1].split(
+                    "```bash", 1
+                )[0]
+                for marker in markers:
+                    self.assertIn(marker, before_commands)
+                self.assertIn("Ctrl+C", before_commands)
+
+    def test_optimizer_missing_raw_judge_inputs_cannot_become_a_completed_review(self):
+        for directory, no_promotion in (
+            ("docs", "**do not promote**"),
+            ("docs/ko", "**승격하지 않습니다**"),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/extensions/agent-optimizer.md").read_text()
+                review = text.split("`sample.input`", 1)[1].split("## 6.", 1)[0]
+                self.assertIn("`judge inputs unavailable / review incomplete`", review)
+                self.assertIn("`optimizer-review.txt`", review)
+                self.assertIn(no_promotion, review)
+
     def test_english_cli_examples_explicitly_select_the_english_bundle(self):
         for english, _ in DOCS.translation_pairs(ROOT):
             for line, arguments in DOCS.workshop_commands(english.read_text()):

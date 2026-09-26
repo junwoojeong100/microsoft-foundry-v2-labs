@@ -117,13 +117,14 @@ The dated compatibility snapshot uses `2026-08-01-preview` for richer experiment
 Message-based planning, reasoning effort, synthesis, and added sources have different
 bodies from GA `2026-04-01`. Do not insert Preview fields into `seed-search --iq`.
 
-Use a separate experiment copy, prefix, and configuration following
+For custom Preview experiments beyond the bundled `iq-chat` preset, use a separate copy, prefix, and configuration following
 [official API migration](https://learn.microsoft.com/azure/search/agentic-retrieval-how-to-migrate).
 Install any Preview SDK in its own environment; do not upgrade all GA dependencies.
 Configure the actual KB model binding rather than unused planner environment placeholders.
 Managed identity is supported independently of Preview status.
 The [IQ model-identity guide](../reference/iq-model-identity.md) shows the tested planning/synthesis path and its version-specific request fields.
 For the bundled Search source, choose the existing **`iq-chat` Luna/SMI preset** in Lab 06 rather than designing a new model binding.
+Run that preset in the original source-owning copy with the same language, prefix and ownership ledger; keep the GA base unchanged.
 It uses the pinned HTTP client and does not require installing a Preview Search SDK.
 
 </details>

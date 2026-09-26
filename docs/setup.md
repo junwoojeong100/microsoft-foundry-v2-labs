@@ -85,6 +85,7 @@ Confirm the **sign-in account as well as the tenant**. Your usual work account a
 browser sign-in and Azure CLI sign-in are also separate sessions. Never share credentials to make them match.
 **A:** fill `session-notes.txt` from the ZIP you just extracted.
 **B:** keep the owner's values; copy them into `outputs/learner-notes-en/session-notes.txt` when Lab 00 prepares that file.
+Use the setup card's `Search endpoint (B only):` line for the verified Lab 06 URL. If your existing personal copy lacks that line, add it without replacing your notes.
 You do not need to install anything just to collect the values. Never record passwords, keys or tokens.
 
 | Value | Needed for | Where to get it |
@@ -121,7 +122,7 @@ If the deployment or its version is missing, stop and ask the owner to fix it; t
 - [ ] I can open the intended project with my own account.
 - [ ] The actual `gpt-6-sol` deployment and version `2026-09-22` are prepared.
 - [ ] A: I have the learner ZIP, have [checked the local editors](#local-tools), and know which file goes into Instructions versus chat. B: I know the source-copy and notes-preparation steps in Lab 00.
-- [ ] I have the default prepared Lab 05 terminal, or the owner has preselected and verified the optional Hosted Responses Playground path. If neither was supplied, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
+- [ ] **A only:** I have the default prepared Lab 05 terminal, or the owner has preselected and verified the optional Hosted Responses Playground path. If neither was supplied, I complete Lab 00 B and Lab 02 B **before** starting the timed A route.
 - [ ] For B, the owner has checked [Search authentication and writer roles](setup-owner.md#search-authentication) and approved owned-object creation costs. For A, IQ Chat is **not selected** unless separately prepared.
 - [ ] I know who owns costs/permissions and will not create resources or grant roles without approval.
 

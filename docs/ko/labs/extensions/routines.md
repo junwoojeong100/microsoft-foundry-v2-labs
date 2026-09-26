@@ -7,7 +7,11 @@
 
 **근거 상태:** 2026-09-25에 `gpt-6-sol`과 azd `azure.ai.routines` 1.0.0-beta.6으로 영문 재실행: 수동 dispatch 1회가 완료됐고 routine을 비활성화한 뒤 삭제했습니다. 응답은 이번에도 조회할 수 없었지만 그 `response_id`로 agent의 서버 측 추적을 찾았습니다. 이전 실행: 2026-09-16(`gpt-5.6-luna`).
 
-**준비:** 승인된 기존 Prompt 또는 Hosted Responses agent, 실제 프로젝트 endpoint, azd routine 명령, 소유 routine 이름, 비용 승인.
+**준비:** [B의 Python 환경(1절)](developer-toolkit.md)과 Azure CLI 로그인,
+승인된 기존 Prompt 또는 Hosted Responses agent, 실제 프로젝트 endpoint, azd routine 명령, 소유 routine 이름, 비용 승인.
+생성 전에 SDK의 `AZURE_AI_PROJECT_ENDPOINT`가 아래에서 입력할 endpoint와 같고
+routine 이름이 설정된 `WORKSHOP_PREFIX` 값 뒤에 `-`를 붙인 문자열로 시작하는지 확인합니다.
+SDK helper는 azd 로그인이나 `PROJECT_ENDPOINT` shell 변수를 이어받지 않습니다.
 **완료:** dispatch 하나에서 식별 가능한 실행 결과를 얻고 이후 routine을 비활성화함.
 **막히면:** 조사하기 전에 소유 routine을 비활성화하고 dispatch ID·오류를 보존합니다.
 
@@ -88,7 +92,9 @@ Enable이 실패하면 dispatch하지 않습니다. Disable과 재조회는 의�
 dispatch ID와 action correlation ID를 보관합니다. queued dispatch는 완료된 agent 응답이 아닙니다.
 관찰한 CLI 버전의 `run list`는 실제 SDK 이력이 있는데도 `value: null`을 출력할 수 있습니다.
 그 CLI 모양만으로 미실행이라고 판단하지 않습니다.
-read-only SDK helper로 정확히 반환된 dispatch를 확인합니다.
+read-only SDK helper로 정확히 반환된 dispatch를 확인합니다. 대기 중인 run이나 조회 오류 뒤에도
+매 시도에는 사용하지 않은 `--label`이 필요합니다. 같은 dispatch를 나중에 확인할 때는 기다린 뒤
+label만 바꿉니다(예: `routine-result-2`). 이전 파일을 보존하고 dispatch를 다시 보내지 않습니다.
 
 ```bash
 printf '반환된 dispatch ID: '

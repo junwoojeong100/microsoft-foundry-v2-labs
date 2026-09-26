@@ -86,8 +86,9 @@ and `citations`. `needs_approval` means prior human approval is required, not gr
 
 Verify evidence corresponding to `TRAVEL-2026` and `APPROVAL-01`, an explanation without
 booking/approving, and that `never_require` applies only to **side-effect-free synthetic lookup**.
-If the model skips the tool or evidence, inspect the actual answer, instructions,
-tool description, and tracing. A connected tool alone is not success.
+`tools` identifies the configured path, not an observed tool call. The core JSON does not preserve a tool-call transcript.
+Review the answer and citations, but record `tool execution: unverified` without a retained client-side call record.
+Lab 09's managed-agent trace cannot verify these local MAF runs.
 
 **Save:** `maf-function.json` is written to the same notes directory. Review it before starting MCP.
 

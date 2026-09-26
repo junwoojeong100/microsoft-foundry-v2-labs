@@ -101,12 +101,13 @@ monitor = monitors.create(
         agent_name=agent, enabled=False, model_deployment_name="gpt-6-sol-judge"
     )
 )
-monitors.begin_create_run(monitor.id, AgentInsightRunCreate(lookback_hours=168)).result()
+run = monitors.begin_create_run(monitor.id, AgentInsightRunCreate(lookback_hours=168)).result()
 insights = list(monitors.list_insights(monitor.id, include_details=True))
-monitors.delete(monitor.id)  # removes the monitor, its runs and insights
 ```
 
-`enabled=False` keeps scheduled generation off. Delete the monitor only after saving the insights you want to keep.
+`enabled=False` keeps scheduled generation off. Save the monitor/run IDs, linked trace references and insights
+in `insights-review.txt` before cleanup. After verifying the saved evidence, run `monitors.delete(monitor.id)`;
+this removes the monitor, its runs and insights.
 
 </details>
 

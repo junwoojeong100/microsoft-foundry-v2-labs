@@ -12,13 +12,22 @@
 **완료:** 새 원격 버전이 실제 도구·모델·근거 metadata를 반환함.
 **중단:** 패키징/로컬까지만 확인한 경우 원격은 미실행으로 표시합니다.
 
-**첫 회차:** 1–4절은 준비·로컬 확인, 5절은 별도로 승인한 원격 요청입니다.
+**첫 회차:** 1–3절에서 패키지와 프로젝트를 준비합니다. 4절은 로컬 서버에서 실행하지만
+실제 Foundry 모델과 Toolbox/Search를 호출하는 **Azure 실행이며 오프라인 fixture가 아닙니다**.
+4절의 요청 전에 모델·도구 비용 승인을 받습니다. 5절의 Hosted 배포와 원격 요청은 별도로 승인합니다.
 사용한 자산은 6절로 마무리합니다. 두 터미널 모두 **소스 저장소 루트**와
 [Hosted SDK 환경](developer-toolkit.md#hosted-sdk)을 유지하고 `--cwd`로 독립 azd 프로젝트를 선택합니다.
 
 ## 1. 런타임과 질문만 패키징
 
-저장소 터미널에서 실제 검증한 버전을 입력합니다.
+패키징 **전에 분기를 선택**합니다.
+
+- **일반 Toolbox:** [Toolbox 실습](toolbox.md)에서 검증한 버전을 입력하고 아래 명령을 그대로 사용합니다.
+- **Skill이 연결된 Toolbox:** [Tool Search/Skills](tool-search-skills.md)에서 검증한 `SKILLED_VERSION` 값을 입력합니다.
+  아래 패키징 명령과 4절 서버 명령을 **실행하기 전에** 두 명령 모두에 `--with-skill`을 추가합니다.
+
+이 선택은 패키지에 고정됩니다. 옵션 없이 먼저 패키징한 뒤 기존 패키지를 덮어쓰려고 하지 않습니다.
+저장소 터미널에서 선택한 분기의 검증된 버전을 입력합니다.
 
 ```bash
 printf '검증한 Toolbox 버전: '
@@ -26,7 +35,6 @@ read -r TOOLBOX_VERSION
 python scripts/package_toolbox.py --language ko --version "$TOOLBOX_VERSION"
 ```
 
-Skill 버전이면 패키징과 로컬 server 명령 모두에 `--with-skill`을 추가합니다.
 `.build/toolbox-ko-<version>/`에는 코드·합성 정책·질문·고정된 `toolbox-profile.json`만 들어갑니다.
 정답, holdout, `.env`, 이전 출력은 제외합니다.
 프로젝트·모델·Toolbox·Search 연결/원문 설정을 고정합니다.
@@ -91,7 +99,8 @@ runtime binding이나 schema가 달라졌다면 배포 전에 멈춥니다.
 
 ## 4. 두 터미널로 로컬 동작 확인
 
-저장소 터미널 A:
+저장소 터미널 A에서 1절과 같은 분기로 실행합니다.
+Skill이 연결된 버전이면 아래 명령에도 실행 전에 `--with-skill`을 추가합니다.
 
 ```bash
 OTEL_SDK_DISABLED=true python scripts/workshop.py --language ko toolbox serve --version "$TOOLBOX_VERSION"

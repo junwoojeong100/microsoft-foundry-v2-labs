@@ -8,6 +8,7 @@ Language / path:
 Tenant / subscription:
 Resource group / Foundry account / project:
 Full project endpoint:
+Search endpoint (B only):
 Answer deployment / model version:
 Personal prefix:
 Cost and permission owner:

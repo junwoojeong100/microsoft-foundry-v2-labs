@@ -69,6 +69,7 @@ prevent translated datasets from being presented as the same-input experiment.
 | `Tenant / subscription:` | The owner's values; they match the directory you signed in to |
 | `Resource group / Foundry account / project:` | The owner's values; the project matches the one you opened |
 | `Full project endpoint:` | The owner's value; Lab 01 checks it on **Home** |
+| `Search endpoint (B only):` | `not used` for A; B records the owner's verified Search URL for Lab 06 |
 | `Answer deployment / model version:` | `gpt-6-sol` / `2026-09-22` |
 | `Personal prefix:` | Your own, for example `mfv2-team01-en` |
 | `Cost and permission owner:` | The person who approves costs and roles; yourself when learning alone |

@@ -15,6 +15,9 @@ Lab 00 전에 한 번만 진행합니다. 본인 구독에 유료 리소스를 �
 포털 단계는 아래에 연결한 Microsoft Learn 문서를 따르며 2026-09-25에 확인했습니다. 워크숍 녹화는 미리 준비한 프로젝트를 사용했습니다.
 괄호 안은 영문 UI 이름입니다.
 
+**B를 혼자 학습하나요?** 1–5단계만 마친 뒤(B의 Lab 09에는 5단계가 필요) [B의 Search 서비스 준비](#search-service)를 진행합니다.
+A의 6–7단계는 건너뜁니다. Search 준비 뒤 B 경로의 [준비](setup.md)로 돌아옵니다.
+
 1. **구독.** Azure 구독에서 리소스를 만들고 역할을 할당할 수 있는 계정(예: 구독 **소유자(Owner)**)으로 `https://ai.azure.com`에 로그인합니다. 모델 호출 비용은 그 구독에 청구됩니다.
    **확인:** Foundry 포털이 열리고 상단의 **새 Foundry** 토글이 켜져 있습니다.
 2. **프로젝트.** 왼쪽 위 프로젝트 이름을 선택한 뒤 새 프로젝트 만들기(영문 UI **Create new project**)를 선택합니다(프로젝트가 아직 없으면 포털이 만들기를 안내합니다).
@@ -56,8 +59,6 @@ Lab 00 전에 한 번만 진행합니다. 본인 구독에 유료 리소스를 �
 **준비 완료:** **1–7**단계를 마치고(5단계는 건너뛴 것으로 기록 가능) [준비 완료 체크](setup.md#5-시작-가능-여부)를 확인한 뒤
 [Lab 00 A](labs/00-start.md#path-a)를 시작합니다. 설정 카드를 채운 것만으로 Lab 05 터미널이 준비되지는 않습니다.
 단계가 실패하면 그 단계부터 해결한 뒤 진행합니다. 원인을 모르는 같은 오류 때문에 모델·리소스·프로젝트를 새로 만들지 않습니다.
-**B를 혼자 학습하나요?** 1–5단계(B의 Lab 09에는 5단계가 필요)를 마친 뒤 [B의 Search 서비스 준비](#search-service)를 진행합니다.
-그 절에서 서비스·기능별 과금 플랜·본인의 Search 역할을 확인하고 B 경로의 [준비](setup.md)로 돌아옵니다.
 **Lab 11 뒤:** 증거 폴더를 보관하고 이전 시도를 포함해 준비 중 만든 모든 그룹을 확인합니다.
 각 그룹에 이 과정의 리소스만 있을 때만 Azure 포털에서 삭제합니다
 (**리소스 그룹** → 본인 그룹 → **리소스 그룹 삭제**). 연결된 로그 리소스가 그 그룹 안에 있거나 함께 삭제됐다고 가정하지 않습니다.
@@ -172,10 +173,16 @@ IQ Chat 학습자는 서비스/객체 정의를 읽는 **Search의 Reader**와 �
 **별도로 선택한 IQ Chat 경로에서만 실습 객체 작성·비용 승인을 받은 뒤** 고정 모델 chat base를 준비합니다.
 기본 B GA-only 수업을 위해 아래 블록을 실행하지 않습니다. 담당자의 복사본/ledger를 보존하고 다른 새 학습자 복사본에 같은 seed된 prefix를 주지 않습니다.
 
+이 선택 블록을 실행하기 전에 담당자 복사본의 `.env`를 편집합니다.
+`AZURE_SEARCH_ENDPOINT`에는 준비된 Search URL을, `AZURE_OPENAI_ENDPOINT`에는 같은 Foundry 계정의
+`https://<account>.openai.azure.com`을 입력합니다. Search의 리소스 그룹이 다르면 `AZURE_SEARCH_RESOURCE_GROUP`도 채웁니다.
+응답용 `AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-6-sol`은 유지합니다. IQ Chat은 별도로 준비한 `gpt-5.6-luna`를 사용합니다.
+`.env`를 셸에서 source하거나 key를 넣지 않습니다. 준비가 실패하면 `&&` 연결이 다음 단계 실행을 막습니다.
+
 ```bash
-python scripts/workshop.py seed-search --iq --confirm-create
-python scripts/workshop.py iq-chat check
-python scripts/workshop.py iq-chat setup --confirm-create
+python scripts/workshop.py seed-search --iq --confirm-create &&
+python scripts/workshop.py iq-chat check &&
+python scripts/workshop.py iq-chat setup --confirm-create &&
 python scripts/workshop.py iq-chat ask --label iq-chat-first --confirm-cost
 ```
 

@@ -200,8 +200,11 @@ Confirm the planned model list, rows and cost scope, then collect:
 python scripts/workshop.py --language en benchmark collect --label wf-baseline --kind workflow --pattern sequential --retrieval iq --prompt v1 --api account-chat --concurrency 1 --confirm-cost
 ```
 
-Inspect the complete collection and its errors before paying for a judge job.
-Do not evaluate a partial collection or ignore a nonzero collection exit:
+In `outputs/benchmarks/wf-baseline/`, inspect `manifest.json` and `business-evaluation.json`.
+`benchmark collect` also exits `1` for business failures. Continue to the judge only when
+the manifest has `status: completed`, `actual_rows` equals `expected_rows`, and the business report has `errors: 0`.
+Retain failed answers for step 6. For request errors, missing rows or exit `2`, preserve the evidence,
+skip the judge and use [incomplete handoff](../labs/11-capstone.md#incomplete-handoff); still complete owned-session cleanup in step 10.
 
 ```bash
 python scripts/workshop.py --language en benchmark evaluate --label wf-baseline --confirm-cost
@@ -331,15 +334,17 @@ Native `--reference` reuses evaluator/version/judge/threshold; changed criteria 
 python scripts/workshop.py --language en calibrate-judge --label judge-calibration --reference wf-candidate --confirm-cost
 ```
 
-The two bundled calibration answers are explicitly correct/incorrect fixtures, not target-generated responses.
-Inspect false positives/negatives without treating two correct classifications as general judge certification.
-If relevance penalizes a correct abstention, retain the actual score and review the mismatch with the business rubric.
+The two correct/incorrect calibration fixtures test **groundedness only**, not target-model quality.
+Open `outputs/judge-calibration/judge-calibration/calibration.json`. Before step 9, require
+`total: 2`, `correct: 2` and `gate_passed: true`. Native groundedness passing **1/2** is expected: the incorrect fixture must fail.
+If calibration fails or is incomplete, retain its scores/errors, keep holdout closed and hand off final acceptance as incomplete; still finish step 10 cleanup.
+Two correct classifications do not certify general judge quality. Review relevance penalties for correct abstention in step 7's candidate native results, not this calibration.
 
 ## 9. Freeze the candidate before final holdout
 
 **Gate:** in `outputs/benchmarks/wf-candidate/business-evaluation.json`, every model selected
 for final acceptance must have `models.<key>.business_gate_passed: true` with all six dev rows and no errors.
-The comparison must accept the frozen configuration. Otherwise keep holdout closed and
+The comparison must accept the frozen configuration and step 8's calibration must pass. Otherwise keep holdout closed and
 [hand off the incomplete evidence](../labs/11-capstone.md#incomplete-handoff); still clean up owned sessions in step 10.
 
 Stop changing model, prompt, retrieval, code, agent version, and concurrency before proceeding.

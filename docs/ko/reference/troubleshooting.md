@@ -26,7 +26,8 @@
 | 응답은 출력됐지만 저장이 실패함 | stdout 전체를 새 파일에 직접 보관하고 파일 오류도 유지 | 이미 받은 답변을 복구하려고 모델 재호출 |
 | Label이 이미 있음 | 모듈이 출력한 폴더 확인. [저장 위치 표](commands.md#saved-results)에서 입문·matrix·Toolbox·대화 구분 | 결과 삭제·같은 label로 `collect` |
 | Lab 00의 v1 fixture가 `passed: 0`, `errors: 0` 보고 | [의도된 인용 검사 실패](../labs/00-start.md#offline-fixtures). 결과를 보존하고 명령 자체가 성공했다면 v2로 진행 | 환경 재설치·통과시키려고 fixture 수정·실제 모델 점수로 해석 |
-| `collect`가 0이 아닌 종료 코드 반환 | 모든 행·오류 보존, `evaluate`로 확인, 원인 해결 후 명시적인 새 dev label로 수집 | 실패 행을 fixture로 대체·모델/provider 자동 변경 |
+| `collect`가 수집을 마친 실행을 저장하고 `1` 반환 | 모든 행·오류를 보존하고 같은 label로 로컬 `evaluate` 실행. 새 **dev** 수집 전 원인 해결 | 실패 행 대체·모델/provider 자동 변경·노출 holdout 재수집 |
+| `collect`가 수집 완료 전에 실패하거나 중단됨 | stderr와 부분 파일을 보존하고 [자주 막히는 지점](#자주-막히는-지점)에서 보고된 원인 해결. 평가할 완전한 실행은 아직 없음 | 없거나 미완료인 실행 채점·근거 삭제·노출 holdout 재수집 |
 | `evaluate`가 `1` 반환 | `total`, `passed`, `errors`, 사례별 `checks` 확인. Baseline 실패는 검토하되 실패한 candidate는 holdout을 열지 않음 | 요청 완료를 업무 게이트 통과로 해석 |
 | Candidate·holdout이 이미 있음 | `outputs/<holdout-label>/acceptance.json`을 읽거나 정확한 기존 label로 로컬 `accept` 재실행 | 같은 노출 holdout을 재수집해 좋은 점수 만들기 |
 | Hosted 패키지가 이미 있음 | Manifest 확인. 재빌드 시 그 정확한 생성 폴더를 다른 이름으로 보관 | 소스·`.build` 전체·`outputs`·azd 상태 삭제 |

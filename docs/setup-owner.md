@@ -14,6 +14,9 @@
 Do this once, before Lab 00. It creates billable resources in your subscription; this edition has not timed it with learners.
 The portal steps follow the linked Microsoft Learn pages, checked on September 25, 2026. The workshop recordings used a project prepared beforehand.
 
+**Learning B alone?** Complete only steps 1–5 (B's Lab 09 needs step 5), then [prepare B's Search service](#search-service).
+Skip A's steps 6–7; the Search section returns you to [setup](setup.md) for B.
+
 1. **Subscription.** Sign in at `https://ai.azure.com` with an account that can create resources and assign roles in your Azure subscription, for example its **Owner**. Model calls are billed to that subscription.
    **Check:** the Foundry portal opens and **New Foundry** at the top is switched on.
 2. **Project.** Select the project name at the top left, then **Create new project** (if you have no project yet, the portal offers to create one).
@@ -55,8 +58,6 @@ The portal steps follow the linked Microsoft Learn pages, checked on September 2
 **Ready:** complete steps **1–7** (step 5 may be recorded as skipped), then tick [the setup ready check](setup.md#5-ready-to-start)
 and start [Lab 00 A](labs/00-start.md#path-a). The setup card alone does not make the Lab 05 terminal ready.
 If a step fails, fix that step before continuing. Do not create another model, resource or project for the same unexplained error.
-**Learning B alone?** Complete steps 1–5 (B's Lab 09 needs step 5), then [prepare B's Search service](#search-service).
-That section checks the service, billing plans and your Search roles before returning to [setup](setup.md) for route B.
 **After Lab 11:** keep your evidence folder, then check every group created during preparation, including earlier attempts.
 Delete each in the Azure portal (**Resource groups** → your group → **Delete resource group**) only if it holds nothing but this course's resources.
 Do not assume connected logging resources are in that group
@@ -172,10 +173,16 @@ Use resource-level scopes, not subscription Owner for everyone. [Official Search
 **Only for the separately selected IQ Chat branch, after authorization for these training objects**, prepare the fixed-model chat base.
 Do not run this block for a default B GA-only class. Keep the owner's copy/ledger; do not give another fresh learner copy the same seeded prefix.
 
+Before running this optional block, edit this owner's `.env`: fill `AZURE_SEARCH_ENDPOINT` with the prepared Search URL
+and `AZURE_OPENAI_ENDPOINT` with `https://<account>.openai.azure.com` for the same Foundry account.
+If Search uses another resource group, fill `AZURE_SEARCH_RESOURCE_GROUP` too.
+Keep `AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-6-sol`; IQ Chat uses the separately prepared `gpt-5.6-luna`.
+Do not shell-source `.env` or add keys. The `&&` chain stops before later steps if any preparation fails.
+
 ```bash
-python scripts/workshop.py --language en seed-search --iq --confirm-create
-python scripts/workshop.py --language en iq-chat check
-python scripts/workshop.py --language en iq-chat setup --confirm-create
+python scripts/workshop.py --language en seed-search --iq --confirm-create &&
+python scripts/workshop.py --language en iq-chat check &&
+python scripts/workshop.py --language en iq-chat setup --confirm-create &&
 python scripts/workshop.py --language en iq-chat ask --label iq-chat-first --confirm-cost
 ```
 

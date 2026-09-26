@@ -106,13 +106,12 @@ A 학습자는 이 절을 건너뛰어도 됩니다.
 # 외부 패키지나 Azure 없이 가능한 검사기 체험
 python3.13 scripts/workshop.py doctor
 python3.13 scripts/workshop.py demo --label first-offline --prompt v2
-python3.13 scripts/workshop.py evaluate --label first-offline
 ```
 
 **확인:** `doctor`는 `result: PASS`, `azure_tested: false`를 반환합니다.
 `outputs/first-offline/business-evaluation.json`을 열면 동봉한 v2 fixture의 결과는
 `total: 6`, `passed: 6`, `errors: 0`이어야 합니다. **검사기를 확인한 것이며 모델 품질·Azure 연결의 증거가 아닙니다.**
-다시 실행하려면 `demo`와 `evaluate`에 같은 새 label을 씁니다. 기존 실행은 덮어쓰지 않습니다.
+`demo`가 이 평가까지 저장합니다. 다시 실행하려면 새 label을 씁니다. 기존 실행은 덮어쓰지 않습니다.
 SDK 설치·인증·실제 호출은 [Lab 00 B](docs/ko/labs/00-start.md#path-b)에서 진행합니다.
 
 ## 이 버전의 범위

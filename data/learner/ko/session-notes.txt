@@ -8,6 +8,7 @@ Lab 00 - 설정 카드
 Tenant / subscription:
 리소스 그룹 / Foundry 계정 / 프로젝트:
 전체 project endpoint:
+Search endpoint(B 전용):
 응답 배포 / 모델 버전:
 개인 prefix:
 비용·권한 담당자:

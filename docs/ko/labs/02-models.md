@@ -150,9 +150,10 @@ python scripts/workshop.py answer --prompt v2 --retrieval local \
   --output outputs/learner-notes-ko/answer-local.json
 ```
 
-이 명령은 합성 문서에서 로컬 키워드 검색을 한 뒤 **실제 Azure 모델**을 호출합니다.
-JSON의 최상위 `answer` 객체를 열고 그 안의 `answer`, `decision`, `limit_krw`, `citations`를 확인합니다.
-`local`은 검색 위치를 뜻할 뿐 **모델 호출이 오프라인이라는 뜻이 아닙니다.**
+“2026년 9월 국내 출장 숙박비는 1박 얼마까지인가요?”를 합성 문서의 로컬 검색과 **실제 Azure 모델**로 답합니다.
+`local`은 오프라인 모델이라는 뜻이 **아닙니다**.
+최상위 `answer` 객체의 `decision: answer`, `limit_krw: 150000`, `TRAVEL-2026` 인용을 반환된 `documents`와 대조합니다.
+JSON 형식이 맞아도 정책 정답은 아닐 수 있습니다. 응답을 고치지 말고 불일치를 기록합니다.
 
 
 ![2026-09-24 국문 녹화: 로컬 근거를 사용한 검증된 구조화 답변](../../assets/g6sol-20260924-ko/screenshots/K02-002-answer-2.webp)

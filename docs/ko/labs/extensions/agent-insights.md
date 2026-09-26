@@ -101,12 +101,13 @@ monitor = monitors.create(
         agent_name=agent, enabled=False, model_deployment_name="gpt-6-sol-judge"
     )
 )
-monitors.begin_create_run(monitor.id, AgentInsightRunCreate(lookback_hours=168)).result()
+run = monitors.begin_create_run(monitor.id, AgentInsightRunCreate(lookback_hours=168)).result()
 insights = list(monitors.list_insights(monitor.id, include_details=True))
-monitors.delete(monitor.id)  # removes the monitor, its runs and insights
 ```
 
-`enabled=False`는 scheduled generation을 꺼 둡니다. 보관할 insight를 저장한 뒤에만 monitor를 삭제하세요.
+`enabled=False`는 scheduled generation을 꺼 둡니다. 정리 전에 monitor/run ID, 연결 trace 참조와 insight를
+`insights-review.txt`에 저장합니다. 저장된 근거를 확인한 뒤에만 `monitors.delete(monitor.id)`를 실행합니다.
+이 명령은 monitor와 그 run 및 insight를 삭제합니다.
 
 </details>
 

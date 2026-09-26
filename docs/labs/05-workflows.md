@@ -341,8 +341,8 @@ Do not send an IQ package through the introductory local-retrieval helper or tra
 ## Completion
 
 [Execution records](../live-run.md) list the three recorded September 24 patterns.
-A retains a sequential run and human review. B compares call counts, output shapes,
-and review effort for all three patterns. Concluding that one agent is better for this
-scenario is valid; the number of agents is not a success metric.
+A retains a sequential run and human review. B compares output shapes and review effort for all three patterns.
+The core JSON does not report model-call counts or cost; record them as `not measured`, not as the number of output entries.
+Concluding that one agent is better for this scenario is valid; agent count is not a success metric.
 
 Next: A → [Lab 06](06-knowledge.md#path-a) · B → [Lab 06](06-knowledge.md#path-b)

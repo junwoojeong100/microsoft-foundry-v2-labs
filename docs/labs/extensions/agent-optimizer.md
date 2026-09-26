@@ -48,7 +48,8 @@ showed **No supported optimization model** on September 23, 2026. The
 that day were `gpt-5`, `gpt-5.1`, `gpt-5.2`, `gpt-5.4`, `gpt-5.5`, `DeepSeek-V4-Pro` and `DeepSeek-V-3.2`. For the September 23 runs
 the owner added a temporary `gpt-5.5` deployment (`<prefix>-opt-gpt55`, DataZoneStandard) and deleted it after both language runs.
 Those runs optimized an isolated copy, `<prefix>-optimize` version 1, with the same instructions as the Lab 03 agent.
-On September 25, 2026 the project again had no supported optimizer deployment; a read-only check showed unused `gpt-5.5` quota, so a rerun needs only the owner's approval.
+On September 25, 2026 the project again had no supported optimizer deployment. A read-only check showed unused `gpt-5.5` quota, but quota does not satisfy that prerequisite.
+Keep this module **not run** until the owner separately authorizes and prepares a supported optimizer deployment and verifies it in the wizard.
 
 ## 2. Open the optimization wizard
 
@@ -112,7 +113,10 @@ and English minibatches failed D01, D05 and D06 relevance.
 Read the individual rows rather than treating a successful job status or generic message as all-pass evidence.
 
 **Check the actual judge input, not only the uploaded columns.** Compare each evaluator's
-`sample.input` with the frozen dataset. In the September 23 runs, as in the September 16 English baseline and Korean candidates,
+`sample.input` with the frozen dataset. This guide does not provide a verified raw-input export procedure.
+If those inputs are unavailable for your run, record `judge inputs unavailable / review incomplete` in `optimizer-review.txt`,
+retain the run/evaluation IDs and visible results, and **do not promote**. Uploaded columns, aggregate scores and historical findings cannot fill that gap.
+In the September 23 runs, as in the September 16 English baseline and Korean candidates,
 the Groundedness `context` was the generated answer itself.
 That self-comparison does not establish grounding in the original policies, even when the service reports 6/6.
 Keep the original scores and input hashes, mark the reference binding invalid, and **do not promote on that result**.

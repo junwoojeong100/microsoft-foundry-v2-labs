@@ -483,6 +483,40 @@ class LearnerJourneyTests(unittest.TestCase):
                 self.assertIn("Search Index Data Reader", reader_rows[0])
                 self.assertNotIn("Contributor", reader_rows[0])
 
+    def test_owner_iq_preparation_stops_before_later_commands_when_a_step_fails(self):
+        stub = """
+calls=0
+python() {
+    calls=$((calls + 1))
+    printf '%s\\n' "$*"
+    if [ "$calls" -eq "$FAIL_AT" ]; then return 2; fi
+    return 0
+}
+"""
+        for language, directory, _ in self.language_labs():
+            owner = (directory / "setup-owner.md").read_text()
+            blocks = [
+                block
+                for block in re.findall(r"```bash\n(.*?)```", owner, re.DOTALL)
+                if "seed-search --iq" in block and "iq-chat ask" in block
+            ]
+            self.assertEqual(len(blocks), 1)
+            for fail_at in (1, 2, 3, 0):
+                with self.subTest(language=language, fail_at=fail_at):
+                    result = subprocess.run(
+                        ["bash", "--noprofile", "--norc", "-c", stub + blocks[0]],
+                        cwd=ROOT,
+                        env={"PATH": os.defpath, "FAIL_AT": str(fail_at)},
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        check=False,
+                    )
+                    self.assertEqual(result.returncode, 2 if fail_at else 0, result.stderr)
+                    self.assertEqual(len(result.stdout.splitlines()), fail_at or 4)
+                    if fail_at:
+                        self.assertNotIn("iq-chat ask", result.stdout)
+
     def test_self_study_b_has_search_service_steps_before_authentication(self):
         for language, directory, _ in self.language_labs():
             with self.subTest(language=language):
@@ -2472,7 +2506,7 @@ class LearnerJourneyTests(unittest.TestCase):
                 preview = DOCS.workshop_commands(expanded_markdown(readme.read_text()))
                 self.assertEqual(
                     [parser().parse_args(arguments).command for _, arguments in preview],
-                    ["doctor", "demo", "evaluate"],
+                    ["doctor", "demo"],
                 )
                 for _, arguments in preview:
                     process = run(root, arguments)

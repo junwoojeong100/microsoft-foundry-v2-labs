@@ -139,11 +139,19 @@ No client secret belongs in these variables.
 | Human decision | Explicit acceptance or pending review; no automated claim of production approval |
 | Cleanup/rollback | Recorded owned sessions/rules and the previous known version |
 
+Before dispatch, require a successful [Workshop checks](../../../.github/workflows/check.yml) run
+for the exact release commit, including both `offline` and `sdk-imports` jobs. Record its run URL and commit SHA.
+The release workflow does not run or wait for those checks. If that evidence is missing or failed, stop before dispatch.
+
 Run the deployment workflow manually for the first exercise.
 Select the dataset language and explicitly acknowledge the deployment/inference cost in its dispatch form.
 The workflow fails rather than returning a skipped success when that acknowledgement is absent.
 Do not add a scheduled trigger or a deploy-on-every-push rule just to demonstrate automation.
 If the workflow has not been published/executed, mark **pipeline configuration only**, not CI/CD verified.
+
+After a run, open **Actions → that run → Artifacts** and download `foundry-lab-<language>-<run-id>` before its **14-day** retention expires.
+Keep that run's archive and URL/commit SHA; review `ci-binding.json` and `benchmarks/ci-dev/` when present, including failures and cleanup receipts.
+An early failure can leave missing or partial artifacts: record the missing stages instead of substituting another run's evidence.
 
 **September 23, 2026 with `gpt-6-sol`:** the owner pointed the `foundry-workshop` variables at the `gpt-6-sol` project
 (prefix `mfv2-sol-20260923-ci`) and gave the existing CI identity project-scoped **Foundry Project Manager** and account **Reader**;

@@ -59,9 +59,11 @@ Unknown ownership is a reason to stop, not to widen the deletion scope.
 ## 2. Hosted compute and persistent state
 
 <details>
-<summary>Only if you ran a local server or Hosted agent — otherwise skip</summary>
+<summary>Only if you ran a local server or attempted/used a remote Hosted deployment</summary>
 
-Skip this section if you did not run a local server or Hosted agent. Otherwise stop your own `serve` with `Ctrl+C` in its terminal.
+If you ran `serve`, stop only that server with `Ctrl+C` in its terminal.
+**Local-only:** if no remote Hosted deployment was attempted or used, record the server as stopped and remote Hosted sessions as **not run**, then skip the azd blocks below. Local model-call charges already incurred remain.
+Continue below only for a remote deployment you attempted or used; a failed deployment is not proof that no resources remain. Never deploy merely to complete cleanup.
 From the repository terminal, restore the **standalone azd directory and service name** from your notes.
 Do not run these commands against an unrelated `azure.yaml`.
 

@@ -101,13 +101,12 @@ A learners can skip this section.
 # Try the checker without external packages or Azure.
 python3.13 scripts/workshop.py --language en doctor
 python3.13 scripts/workshop.py --language en demo --label first-offline --prompt v2
-python3.13 scripts/workshop.py --language en evaluate --label first-offline
 ```
 
 **Check:** `doctor` reports `result: PASS` and `azure_tested: false`.
 Open `outputs/first-offline/business-evaluation.json`: the bundled v2 fixture should give
 `total: 6`, `passed: 6`, `errors: 0`. This verifies the checker, **not model quality or Azure connectivity**.
-For another run, use a fresh label in both `demo` and `evaluate`; existing runs are not overwritten.
+`demo` already writes this evaluation. For another run, use a fresh label; existing runs are not overwritten.
 Continue to [Lab 00 B](docs/labs/00-start.md#path-b) for SDK installation, authentication and real calls.
 
 ## Scope of this edition

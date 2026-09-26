@@ -8,8 +8,12 @@ The inspected azd extension labels its routine command surface Preview on Septem
 
 **Evidence status:** re-run in English on September 25, 2026 with `gpt-6-sol` and azd `azure.ai.routines` 1.0.0-beta.6: one manual dispatch finished, then the routine was disabled and deleted. The response was again not retrievable, but its `response_id` found the agent's server-side trace. Earlier run: September 16, 2026 (`gpt-5.6-luna`).
 
-**Need:** an approved existing Prompt or Hosted Responses agent, the actual project endpoint,
+**Need:** [B's prepared Python environment (section 1)](developer-toolkit.md) and Azure CLI login,
+an approved existing Prompt or Hosted Responses agent, the actual project endpoint,
 azd routine commands, an owned routine name and cost approval.
+Before creating anything, confirm that the SDK's `AZURE_AI_PROJECT_ENDPOINT` matches the endpoint below
+and the routine name begins with the configured `WORKSHOP_PREFIX` followed by `-`.
+The SDK helper does not inherit azd's login or the `PROJECT_ENDPOINT` shell variable.
 **Stop when:** one dispatch has an identifiable run result and the routine is disabled afterward.
 **If blocked:** disable the owned routine and retain its dispatch ID/error before investigating.
 
@@ -91,7 +95,9 @@ Keep each command's result: a successful final `show` does not turn a failed dis
 Keep the dispatch ID and action correlation ID. A queued dispatch is not a completed agent response.
 On the observed CLI build, `run list` can print `value: null` even when SDK history
 contains the run. That CLI shape is not proof of no execution. Verify the exact returned dispatch
-using the read-only SDK helper:
+using the read-only SDK helper. Each attempt needs an unused `--label`, including after a pending-run
+or inspection error. To observe the same dispatch later, wait and change only the label
+(for example, `routine-result-2`); retain the earlier files and do not dispatch again:
 
 ```bash
 printf 'Returned dispatch ID: '; read -r DISPATCH_ID

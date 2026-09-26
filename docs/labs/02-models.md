@@ -160,9 +160,10 @@ python scripts/workshop.py --language en answer --prompt v2 --retrieval local \
   --output outputs/learner-notes-en/answer-local.json
 ```
 
-The command performs local keyword retrieval over synthetic documents, then calls a
-**real Azure model**. Open the top-level `answer` object and inspect its `answer`, `decision`, `limit_krw` and `citations`.
-`local` describes retrieval, **not an offline model**.
+This asks “What is the domestic business-trip lodging limit per night for September 2026?”
+using synthetic local retrieval and a **real Azure model**; `local` does **not** mean offline.
+In the top-level `answer` object, compare `decision: answer`, `limit_krw: 150000` and a `TRAVEL-2026` citation
+with the returned `documents`. Valid JSON does not prove policy correctness; record discrepancies without editing the response.
 
 
 

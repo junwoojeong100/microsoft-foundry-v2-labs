@@ -66,7 +66,8 @@ The preset uses the tested `maxOutputSize` field. All new requests need a new la
 | Wrong model/version or missing Search role | Owner fixes that prerequisite; do not switch deployment, identity or API key |
 | Missing ownership ledger | Return to the same workshop copy that seeded the synthetic source; do not invent ownership |
 | Existing base has another model/mode | Review it and choose a new owned name; no automatic rewrite |
-| 403 / 429 / service error | Preserve `failure.json`; check RBAC propagation/network/quota before an explicitly new attempt |
+| `check` / `setup` error | Preserve the command, time and stderr in your notes; these commands do not create `failure.json`. Keep any ownership ledger and have the owner resolve the failure |
+| `ask` error | Preserve `outputs/iq-chat/<label>/` and `failure.json` if present; otherwise save stderr. Check RBAC propagation/network/quota before an approved new-label attempt; never switch model/provider |
 
 A fixed model prevents avoidable mismatches, not outages or quota exhaustion.
 The new command's live check on September 15 was **read-only** (`configured: false`); it did not create a permanent chat base.
