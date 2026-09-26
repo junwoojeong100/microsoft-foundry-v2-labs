@@ -1,5 +1,6 @@
 import io
 import json
+import subprocess
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
@@ -187,6 +188,39 @@ class CliTests(unittest.TestCase):
             self.assertIn("Explicit unit-test request failure.", stderr)
             self.assertFalse(target.exists())
             cloud.assert_called_once()
+
+    def test_captured_command_errors_are_readable_without_exposing_stdout_or_retrying(self):
+        message = "ERROR: (AuthorizationFailed) Synthetic deployment read denied."
+        for diagnostic in (message, message.encode(), None, ""):
+            for debug in (False, True):
+                with (
+                    self.subTest(diagnostic=diagnostic, debug=debug),
+                    tempfile.TemporaryDirectory() as directory,
+                    patch(
+                        "foundry_workshop.cli.cloud_command",
+                        side_effect=subprocess.CalledProcessError(
+                            1,
+                            ["az", "cognitiveservices", "account", "deployment", "show"],
+                            output="Synthetic captured stdout must remain private.",
+                            stderr=diagnostic,
+                        ),
+                    ) as cloud,
+                ):
+                    arguments = ["doctor", "--cloud"]
+                    if debug:
+                        arguments.insert(0, "--debug")
+                    status, stdout, stderr = self.run_cli(Path(directory), arguments)
+                    self.assertEqual(status, 2)
+                    self.assertEqual(stdout, "")
+                    self.assertIn("FAIL: CalledProcessError", stderr)
+                    if diagnostic:
+                        self.assertIn(f"Command stderr: {message}", stderr)
+                        self.assertNotIn("Command stderr: b'", stderr)
+                    else:
+                        self.assertNotIn("Command stderr:", stderr)
+                    self.assertNotIn("Synthetic captured stdout", stderr)
+                    self.assertFalse((Path(directory) / "outputs").exists())
+                    cloud.assert_called_once()
 
     def test_a_save_race_preserves_the_other_file_and_the_actual_stdout(self):
         with tempfile.TemporaryDirectory() as directory:

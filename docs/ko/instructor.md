@@ -39,7 +39,10 @@ B는 [Lab 00 B](labs/00-start.md#prepare-notes)에서 소스 복사본의 기록
    Quota/SKU/리전을 점검하며 초보자에게 대체 모델을 추측하게 하지 않습니다.
    수업 전에 [모델 선택](reference/model-choice.md)과 공개 가격을 다시 확인합니다.
 3. 참가자에게 프로젝트의 `Foundry User` 등 필요한 역할을 부여합니다.
-4. 서버 측 trace를 위해 Application Insights를 프로젝트에 연결하고 학습자에게 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 부여합니다. Lab 09 trace 확인에 필요합니다. 2026-09-24 확인에서는 관리형 agent 호출이 연결된 Application Insights에 몇 분 안에 나타났고, 모델을 직접 호출한 요청은 나타나지 않았습니다.
+4. 실제 서버 측 trace를 확인하려면 Application Insights를 프로젝트에 연결하고 학습자에게 **Log Analytics Reader**를 부여합니다.
+   보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 부여합니다. Lab 09에는 추적 상태를 기록해야 합니다.
+   이 조건이 준비되지 않았다면 `추적 미확인: <이유>`를 적고 진행하며, 실제 trace를 확인한 것으로 표시하지 않습니다.
+   2026-09-24 확인에서는 관리형 agent 호출이 연결된 Application Insights에 몇 분 안에 나타났고, 모델을 직접 호출한 요청은 나타나지 않았습니다.
 5. **B 또는 선택한 IQ 모듈에만** Search 데이터 읽기·작성 역할을 준비합니다. 기본 A에는 필요 없습니다.
 6. **원격 호스팅을 선택한 경우에만** 런타임 ID의 모델·도구 역할을 준비합니다. 패키징만 하는 B에는 필요 없습니다.
 7. A 선택 사항: 학습자 언어로 Lab 05의 **순차·local 검색·v2·Responses** Hosted workflow를 준비합니다.

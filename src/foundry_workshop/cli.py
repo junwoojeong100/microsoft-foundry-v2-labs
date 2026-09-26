@@ -903,6 +903,13 @@ def main(root: Path, argv: list[str] | None = None) -> int:
         return 0
     except (OSError, ValueError, ImportError, TimeoutError, subprocess.SubprocessError) as exc:
         print(f"FAIL: {type(exc).__name__}: {exc}", file=sys.stderr)
+        if isinstance(exc, subprocess.CalledProcessError) and exc.stderr:
+            diagnostic = (
+                exc.stderr.decode("utf-8", errors="replace")
+                if isinstance(exc.stderr, bytes)
+                else exc.stderr
+            )
+            print(f"Command stderr: {diagnostic.strip()}", file=sys.stderr)
         if args.debug:
             traceback.print_exc()
         if isinstance(exc, ImportError):

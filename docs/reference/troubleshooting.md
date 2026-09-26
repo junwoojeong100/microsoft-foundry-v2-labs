@@ -78,6 +78,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | 401 | Sign-in, tenant, credential type; renew expired local authentication only within the shared-profile boundary | [00](../labs/00-start.md#azure-sign-in) |
 | `AADSTS90072` / wrong default account | Configured subscription/account profile and subscription-scoped authentication; do not change the default, invite guests, or log everyone out | 00 |
 | 403 | Management/data-plane roles, actual identity/scope, propagation | 01 |
+| `CalledProcessError` during `doctor --cloud` | Read `Command stderr:` for the captured Azure CLI diagnostic. Distinguish deployment-read authorization from wrong subscription/resource names or network failure; do not infer a role from the exception type alone | [00 B](../labs/00-start.md#path-b) |
 | Model 404 | Actual deployment name rather than catalog name; full project endpoint | 02 |
 | 429 | Quota, TPM, concurrency, other teams, service retry guidance | 02 |
 | `json_schema`/option 400 | Model Structured Outputs support and SDK contract | 02 |
@@ -110,7 +111,7 @@ Read-only reinspection does not create new inference evidence. A new label does 
 | Missing English file | Restore the frozen English bundle; preserve original Korean files | 00 |
 | `--agent-endpoint` conflicts with `--protocol` | The full endpoint already specifies the protocol; local invocations still select it explicitly | 08 |
 | Batch API version missing | Merge session query parameters instead of replacing `api-version=v1` | 07–08 |
-| Project embeddings 404 | Set `WORKSHOP_EMBEDDING_API=account` and the same account's endpoint explicitly; retain the original failure | 06 |
+| Project embeddings 404 | Stop and preserve the failed experiment. Use `WORKSHOP_EMBEDDING_API=account` and the same account's endpoint only as the initial configuration of a separately approved new hybrid experiment; retain separate configuration/results, not a fallback | [06 C](../labs/06-knowledge.md#hybrid-rag) |
 | Trace-query `InvalidTokenError` | App Insights audience and the intended subscription/tenant credential; no identity/resource substitution | 09 |
 | Stop returns 409 for idle session | Re-read the exact recorded session/version and record the idle state without another stop request | 09 |
 | Host profile/contract mismatch or missing `runtime-profile.json` | Package again with the current code, then compare the exact profile language, model map, source package, actual version and retrieval configuration. Collect under a new label; never edit a manifest to pass | 08 |

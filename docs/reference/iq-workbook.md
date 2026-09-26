@@ -8,21 +8,12 @@ Reading the readiness procedure is not proof that a connection works.
 
 ## 1. Complete the default IQ path in this repository
 
-This is a reference, not a second run of Lab 06. Reuse completed steps and their evidence.
-Only if the selected source has not been seeded, use the approved writer's matching working copy:
+This is a reference, not a second run of Lab 06. **For B's required IQ steps, use [Lab 06 B](../labs/06-knowledge.md#path-b) and its next-lab link.**
+Reuse its saved `retrieve-iq.json` and `answer-iq.json`. If unfinished, return to those steps; do not seed completed objects again.
 
-```bash
-python scripts/workshop.py --language en seed-search --iq --confirm-create
-```
-
-After successful seeding, inspect retrieval and the local workflow:
-
-```bash
-python scripts/workshop.py --language en retrieve --provider iq --question "Domestic lodging and advance approval for over-limit costs in September 2026"
-python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval iq --prompt v2
-```
-
-The path is **actual GA retrieval → original IDs/activity → MAF participants → validated final answer**.
+An IQ-backed MAF workflow is **optional C**, not another core check. Follow only the separately selected
+[Lab 06 D workflow](../labs/06-knowledge.md#d-connect-iq-to-hosted-workflows-and-evaluation).
+It makes fresh IQ retrieval and model calls for its own question; it does not consume the earlier retrieval JSON.
 Keep local CLI identity separate from remote managed identity.
 For the remote IQ matrix, continue at [the evaluation workbook's preparation](evaluation-workbook.md#matrix-setup).
 It builds its own explicit IQ/account-chat/Invocations profile.

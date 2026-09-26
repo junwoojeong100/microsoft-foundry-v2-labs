@@ -122,12 +122,25 @@ def collect(
                     )
                 row = {**response, **common, "status": "ok"}
             except recoverable_errors as exc:
+                if split == "holdout":
+                    guidance = (
+                        "Do not repeat or recollect holdout cases. Preserve every row and use "
+                        "evaluate and accept locally on this saved run; if its prerequisites "
+                        "are incomplete, hand off that outcome."
+                    )
+                elif mode == "offline-fixture":
+                    guidance = "Inspect the bundled fixture and offline checker; do not make an Azure call."
+                else:
+                    guidance = (
+                        "Investigate this dev case with the answer command only after checking "
+                        "the configuration and request cost."
+                    )
                 row = {
                     **(exc.details if isinstance(exc, ModelOutputError) else {}),
                     **common,
                     "status": "error",
                     "error_type": type(exc).__name__,
-                    "error": "Collection failed. Reproduce this case with the answer command; no fallback was used.",
+                    "error": f"Collection failed. {guidance} No fallback was used.",
                 }
             row["latency_seconds"] = (
                 round(time.perf_counter() - started, 4) if mode == "live" else None

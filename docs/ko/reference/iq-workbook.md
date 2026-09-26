@@ -8,21 +8,12 @@
 
 ## 1. 기본 IQ 경로를 이 저장소에서 끝내기
 
-참고 문서이지 Lab 06을 한 번 더 실행하는 순서가 아닙니다. 완료한 단계와 근거를 재사용합니다.
-선택한 source를 아직 seed하지 않았다면 승인된 작성자의 대응 작업 폴더에서만 실행합니다.
+참고 문서이지 Lab 06을 한 번 더 실행하는 순서가 아닙니다. **B의 필수 IQ 단계는 [Lab 06 B](../labs/06-knowledge.md#path-b)를 따르고, 그곳의 다음 랩 링크로 B를 이어갑니다.**
+그때 저장한 `retrieve-iq.json`과 `answer-iq.json`을 재사용합니다. 미완료라면 해당 단계로 돌아가며, 완료한 객체를 다시 seed하지 않습니다.
 
-```bash
-python scripts/workshop.py seed-search --iq --confirm-create
-```
-
-Seed 성공 후 검색과 로컬 workflow를 확인합니다.
-
-```bash
-python scripts/workshop.py retrieve --provider iq --question "2026년 9월 국내 출장 숙박비와 한도 초과 사전 승인 규정"
-python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
-```
-
-핵심 흐름은 **실제 GA retrieve → 원문/ID/activity 보존 → MAF 참여자 → 검증된 최종 답**입니다.
+IQ를 연결한 MAF workflow는 **선택 C**이지 추가 기본 검사가 아닙니다. 별도로 선택한 경우에만
+[Lab 06 D workflow](../labs/06-knowledge.md#d-iq를-hosted-워크플로와-평가로-연결)를 따릅니다.
+이 명령은 자체 질문으로 IQ 검색과 모델 호출을 새로 수행하며, 앞서 저장한 검색 JSON을 입력으로 읽지 않습니다.
 인증은 로컬 CLI 계정과 원격 managed identity를 구분합니다.
 원격 IQ matrix는 [평가 워크북 준비](evaluation-workbook.md#matrix-setup)에서 이어갑니다.
 그곳에서 IQ/account-chat/Invocations 프로필을 별도로 만듭니다.

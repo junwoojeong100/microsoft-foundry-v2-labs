@@ -311,7 +311,13 @@ Inspect all rows and compare the frozen configuration locally before the next pa
 python scripts/workshop.py --language en benchmark compare --baseline wf-baseline --candidate wf-candidate
 ```
 
-After the comparison accepts the declared change:
+Open `outputs/benchmarks/wf-candidate/comparison-wf-baseline.json` before another paid job.
+`changed_context_rows: []` with `isolated_prompt_comparison: true` means the returned evidence matched.
+If rows changed and `isolated_prompt_comparison` is `false`, keep the report as an **end-to-end comparison**,
+not proof that the prompt alone improved the result. Record that interpretation in `session-notes.txt`.
+A configuration error stops this step; a successful command alone does not establish improvement.
+
+After reviewing those fields and the actual candidate results:
 
 ```bash
 python scripts/workshop.py --language en benchmark evaluate --label wf-candidate --reference wf-baseline --confirm-cost
@@ -344,7 +350,7 @@ Two correct classifications do not certify general judge quality. Review relevan
 
 **Gate:** in `outputs/benchmarks/wf-candidate/business-evaluation.json`, every model selected
 for final acceptance must have `models.<key>.business_gate_passed: true` with all six dev rows and no errors.
-The comparison must accept the frozen configuration and step 8's calibration must pass. Otherwise keep holdout closed and
+Step 7's comparison must complete without a configuration error, with any evidence differences recorded, and step 8's calibration must pass. Otherwise keep holdout closed and
 [hand off the incomplete evidence](../labs/11-capstone.md#incomplete-handoff); still clean up owned sessions in step 10.
 
 Stop changing model, prompt, retrieval, code, agent version, and concurrency before proceeding.
@@ -367,6 +373,11 @@ After the saved evaluation completes:
 python scripts/workshop.py --language en benchmark monitor --label wf-final
 python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
 ```
+
+Open `outputs/benchmarks/wf-final/release-verification.json` (use your actual holdout label).
+Keep `gate_passed`, `native_quality_passed`, `recommendation` and `deployment_approved: false` with the source evidence.
+If this matching report already exists, reuse it for [the Hosted handoff](../labs/11-capstone.md#hosted-acceptance).
+If verification stops on missing/invalid evidence before writing it, record **incomplete**, not a fabricated verdict.
 
 Add `--require-regressions` only when the candidate actually consumed the reviewed regression;
 otherwise retain the all-pass/no-promotion reason. Do not create a regression just to satisfy an example flag.

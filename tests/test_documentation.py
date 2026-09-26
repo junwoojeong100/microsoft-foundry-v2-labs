@@ -159,6 +159,184 @@ class DocumentationTests(unittest.TestCase):
                     cleanup.index("insights-review.txt"), cleanup.index("monitors.delete(")
                 )
 
+    def test_trace_setup_and_local_metadata_do_not_claim_a_verified_connection(self):
+        for directory, optional, unverified, disclaimer in (
+            ("docs", "step 5 is optional", "trace unverified", "not a check of"),
+            ("docs/ko", "5단계는 선택", "추적 미확인", "검사한 결과가 아니며"),
+        ):
+            with self.subTest(directory=directory):
+                owner = (ROOT / directory / "setup-owner.md").read_text()
+                self.assertIn(optional, owner.split("1. **", 1)[0])
+                for name in ("setup-owner.md", "instructor.md"):
+                    self.assertIn(unverified, (ROOT / directory / name).read_text())
+                operations = (
+                    (ROOT / directory / "labs/09-operations.md")
+                    .read_text()
+                    .split('<a id="path-b"></a>', 1)[1]
+                    .split("### 2.", 1)[0]
+                )
+                for marker in (
+                    "trace_id: null",
+                    "trace_export: not-configured",
+                    "Application Insights",
+                    "operations-checklist.txt",
+                    disclaimer,
+                ):
+                    self.assertIn(marker, operations)
+
+    def test_workflow_a_review_opens_the_actual_saved_file_not_the_example_name(self):
+        for directory in ("docs", "docs/ko"):
+            with self.subTest(directory=directory):
+                review = (
+                    (ROOT / directory / "labs/05-workflows.md")
+                    .read_text()
+                    .split('<a id="workflow-a-review"></a>', 1)[1]
+                    .split('<a id="path-b"></a>', 1)[0]
+                )
+                self.assertIn("Saved JSON:", review)
+                self.assertIn("workflow-review.txt", review)
+                self.assertNotIn("outputs/workflow-a-sequential.json", review)
+
+    def test_optional_evaluator_counts_follow_selection_without_ignoring_missing_results(self):
+        for directory, count, unavailable, incomplete in (
+            ("docs", "two or three evaluators", "TaskAdherence not available", "incomplete"),
+            ("docs/ko", "평가자 2개 또는 3개", "TaskAdherence 사용 불가", "미완료"),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/07-evaluation.md").read_text()
+                portal = next(
+                    block
+                    for block in re.findall(r"<details>.*?</details>", text, re.DOTALL)
+                    if "Task-Adherence-Evaluator-(Preview)" in block
+                )
+                self.assertIn(count, portal)
+                self.assertGreaterEqual(portal.count(unavailable), 2)
+                self.assertIn(f"**{incomplete}**", portal)
+
+    def test_iq_reference_reuses_core_outputs_and_requires_explicit_optional_preparation(self):
+        for directory, optional, browser, new_experiment in (
+            ("docs", "optional C", "Browser-only A", "separately approved new hybrid experiment"),
+            ("docs/ko", "선택 C", "브라우저만 사용한 A", "별도로 승인한 새 hybrid 실험"),
+        ):
+            with self.subTest(directory=directory):
+                reference = (
+                    (ROOT / directory / "reference/iq-workbook.md")
+                    .read_text()
+                    .split("## 1.", 1)[1]
+                    .split("## 2.", 1)[0]
+                )
+                self.assertEqual(DOCS.workshop_commands(reference), [])
+                for marker in (
+                    "../labs/06-knowledge.md#path-b",
+                    "../labs/06-knowledge.md#d-",
+                    "retrieve-iq.json",
+                    "answer-iq.json",
+                    optional,
+                ):
+                    self.assertIn(marker, reference)
+                lab = (ROOT / directory / "labs/06-knowledge.md").read_text()
+                chat_setup = lab.split('<a id="iq-chat-model"></a>', 1)[1].split("1. ", 1)[0]
+                for marker in (browser, ".venv", "prefix"):
+                    self.assertIn(marker, chat_setup)
+                recovery = (ROOT / directory / "reference/troubleshooting.md").read_text()
+                embedding = next(
+                    row
+                    for row in recovery.splitlines()
+                    if row.startswith("|") and "WORKSHOP_EMBEDDING_API=account" in row
+                )
+                self.assertIn(new_experiment, embedding)
+
+    def test_local_hosted_recipe_states_inference_cost_before_its_server_example(self):
+        for directory, cost in (("docs", "inference cost approval"), ("docs/ko", "추론 비용 승인")):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/08-hosted.md").read_text()
+                recipe = next(
+                    block
+                    for block in re.findall(r"<details>.*?</details>", text, re.DOTALL)
+                    if "examples/recipes/08_hosted_agent.py" in block
+                )
+                before_code = recipe.split("```python", 1)[0]
+                for marker in (cost, "Hosted SDK", "Lab 02", "(09-operations.md#path-b)"):
+                    self.assertIn(marker, before_code)
+
+    def test_insights_requires_scan_approval_and_distinguishes_empty_from_incomplete(self):
+        for directory, approval, incomplete in (
+            ("docs", "approval for one scan's judge cost", "review incomplete"),
+            ("docs/ko", "scan 1회의 judge 비용 승인", "검토 미완료"),
+        ):
+            with self.subTest(directory=directory):
+                text = (ROOT / directory / "labs/extensions/agent-insights.md").read_text()
+                self.assertIn(approval, text.split("**Run scan now**", 1)[0])
+                scan = text.split("**Run scan now**", 1)[1].split("## 3.", 1)[0]
+                for marker in (
+                    "scan completed; no insights returned",
+                    "insights-review.txt",
+                    "(#insights-cleanup)",
+                    incomplete,
+                ):
+                    self.assertIn(marker, scan)
+                self.assertIn('<a id="insights-cleanup"></a>', text)
+
+    def test_standalone_c_handoff_is_linked_without_new_evaluation_commands(self):
+        for directory, incomplete in (("docs", "incomplete"), ("docs/ko", "미완료")):
+            with self.subTest(directory=directory):
+                catalog = (ROOT / directory / "paths/c-advanced.md").read_text()
+                self.assertIn("(../labs/11-capstone.md#path-c)", catalog)
+                text = (ROOT / directory / "labs/11-capstone.md").read_text()
+                self.assertIn("(#path-c)", text.split("## ", 1)[0])
+                handoff = text.split('<a id="path-c"></a>', 1)[1].split(
+                    '<a id="hosted-acceptance"></a>', 1
+                )[0]
+                for marker in (
+                    "session-notes.txt",
+                    "(../reference/cleanup.md)",
+                    "(#hosted-acceptance)",
+                    f"**{incomplete}**",
+                ):
+                    self.assertIn(marker, handoff)
+                self.assertEqual(DOCS.workshop_commands(handoff), [])
+                self.assertNotIn("--unlock-holdout", handoff)
+
+    def test_fixture_and_live_evaluation_reentry_have_separate_destinations(self):
+        for directory in ("docs", "docs/ko"):
+            with self.subTest(directory=directory):
+                rows = (ROOT / directory / "paths.md").read_text().splitlines()
+                fixture = next(row for row in rows if "labs/00-start.md#offline-fixtures" in row)
+                real = next(row for row in rows if "labs/07-evaluation.md#resume-evaluation" in row)
+                self.assertIn("fixture", fixture)
+                self.assertNotIn("07-evaluation.md", fixture)
+                self.assertNotIn("#offline-fixtures", real)
+                self.assertNotEqual(fixture, real)
+
+    def test_hosted_comparison_and_final_handoff_name_the_actual_artifacts_and_fields(self):
+        for directory in ("docs", "docs/ko"):
+            with self.subTest(directory=directory):
+                workbook = (ROOT / directory / "reference/evaluation-workbook.md").read_text()
+                comparison = workbook.split(
+                    "benchmark compare --baseline wf-baseline --candidate wf-candidate", 1
+                )[1].split("benchmark evaluate --label wf-candidate", 1)[0]
+                for marker in (
+                    "outputs/benchmarks/wf-candidate/comparison-wf-baseline.json",
+                    "changed_context_rows: []",
+                    "isolated_prompt_comparison: true",
+                    "`false`",
+                    "session-notes.txt",
+                ):
+                    self.assertIn(marker, comparison)
+                capstone = (ROOT / directory / "labs/11-capstone.md").read_text()
+                for text in (workbook, capstone):
+                    for marker in (
+                        "outputs/benchmarks/wf-final/release-verification.json",
+                        "`gate_passed`",
+                        "`native_quality_passed`",
+                        "`recommendation`",
+                        "`deployment_approved: false`",
+                    ):
+                        self.assertIn(marker, text)
+                report = "outputs/benchmarks/wf-final/release-verification.json"
+                hosted = capstone.split('<a id="hosted-acceptance"></a>', 1)[1]
+                self.assertLess(hosted.index(report), hosted.index("benchmark verify"))
+
     def test_local_only_cleanup_exits_before_remote_commands_without_ignoring_failed_deploys(self):
         for directory, markers in (
             ("docs", ("**Local-only:**", "**not run**", "attempted", "failed deployment")),

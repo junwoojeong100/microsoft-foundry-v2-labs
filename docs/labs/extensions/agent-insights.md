@@ -9,8 +9,8 @@ It is decision support, not ground truth, and it does not replace the evaluation
 **Evidence status:** one on-demand scan ran on 2026-09-24 through the Python SDK (not the portal) against the recorded English Lab 03 agent; results are below. No recording.
 
 **Need:** the learner's own Lab 03 Prompt Agent, connected Application Insights, recent representative synthetic dev traces,
-an owner-prepared `gpt-6-sol-judge` judge deployment, and owner-prepared roles. Learners do not assign roles.
-**Stop when:** one Insight is reviewed against its linked traces and the synthetic policies, and the human decision is recorded.
+an owner-prepared `gpt-6-sol-judge` judge deployment, owner-prepared roles, and approval for one scan's judge cost. Learners do not assign roles.
+**Stop when:** one Insight and the human decision are reviewed and recorded, or a completed scan with no Insights is recorded as such; then finish cleanup.
 **If blocked:** record the missing prerequisite, or write **not enough traces** when the agent has too few representative traces.
 
 **First pass:** steps 1–5. Do not generate new traffic just to fill Insights.
@@ -28,6 +28,7 @@ The environment owner prepares the access before class:
 | Protected content tables | Privileged Monitoring Data Reader when `AppGenAIContent` is protected |
 | Judge deployment | Project managed identity can call `gpt-6-sol-judge` |
 | Trace data | Recent synthetic, representative traces from the learner's own agent |
+| Scan approval | One on-demand scan, approved lookback and judge budget; do not enable scheduled generation |
 
 Do not add roles, change the project identity, or switch the default subscription as part of this module.
 Local MAF runs do not create Foundry server-side traces unless separate client-side tracing was implemented.
@@ -39,10 +40,17 @@ Local MAF runs do not create Foundry server-side traces unless separate client-s
 3. Open your Lab 03 Prompt Agent.
 4. Open **Insights**.
 5. Choose Judge model **`gpt-6-sol-judge`**.
-6. Select **Run scan now**.
+6. Confirm the owner's approval for **one scan**, its lookback and judge cost. Do not enable scheduled generation.
+7. Select **Run scan now** once.
 
 The first scan looks back over recent traces. If the page reports too few traces, record **not enough traces**
 and stop. Do not send extra prompts only to create a more interesting Insight.
+
+**Check the scan status before its findings.** A pending or failed scan is **review incomplete**, not an empty successful scan;
+retain its status/error and do not rerun it merely to obtain an Insight.
+If the scan **completed with zero Insights**, write `scan completed; no insights returned` in `insights-review.txt`.
+Keep the scan ID (or record unavailable), agent/version, time window, trace count when shown and judge deployment.
+Skip steps 3–4 and go to [cost and cleanup](#insights-cleanup). No findings does **not** prove the agent has no defects.
 
 The Python SDK exposes `beta` Agent Insight operations in `azure-ai-projects` 2.6.x, but this workshop module uses
 the portal and adds no SDK code.
@@ -110,6 +118,8 @@ in `insights-review.txt` before cleanup. After verifying the saved evidence, run
 this removes the monitor, its runs and insights.
 
 </details>
+
+<a id="insights-cleanup"></a>
 
 ## 5. Cost and cleanup
 

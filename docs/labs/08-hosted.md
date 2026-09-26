@@ -59,6 +59,9 @@ mark local invocation and remote deployment **not run**, then continue to [Lab 0
 <details>
 <summary>Minimal SDK recipe (optional, outside this repo)</summary>
 
+**Before a request:** you need the Hosted SDK, working Lab 02 configuration/authentication and inference cost approval.
+The server is local, but its model calls still use billable Azure inference. Without these prerequisites, skip to [Lab 09 B](09-operations.md#path-b).
+
 See [`examples/recipes/08_hosted_agent.py`](../../examples/recipes/08_hosted_agent.py) for the minimal Hosted Responses server pattern. Key lines:
 
 ```python

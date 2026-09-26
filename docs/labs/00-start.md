@@ -372,7 +372,10 @@ Verify the setup card's subscription, tenant and full project endpoint. For this
 **deployment name `gpt-6-sol`, underlying model `gpt-6-sol`, version `2026-09-22`, and state `Succeeded` together**.
 `doctor --cloud` reports the configured deployment; `Succeeded` on an older model is not a pass for this preset.
 This command creates no resources and does not change the default subscription.
-If it reports an authorization error, ask the owner for **Reader** on the training Foundry account; the preflight reads the deployment through Azure Resource Manager.
+On failure, read the Azure CLI diagnostic under `Command stderr:` when present; `CalledProcessError` alone does not identify a missing role.
+If the deployment lookup reports an authorization error, ask the owner for **Reader** on the training Foundry account;
+the preflight reads the deployment through Azure Resource Manager. For a different error, preserve it and check the setup card's
+subscription/resource names and network access before retrying; do not change the default subscription or model.
 Preflight does not prove data-plane permissions or Structured Outputs support;
 [Lab 02](02-models.md) tests an actual request.
 

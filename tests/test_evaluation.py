@@ -88,6 +88,89 @@ class EvaluationTests(unittest.TestCase):
             self.assertEqual(result["pass_rate"], 0)
             self.assertFalse(result["business_gate_passed"])
             self.assertEqual(evaluate_run(root, "errors")["total"], 6)
+            _, rows, _ = load_run(root, "errors")
+            self.assertTrue(all("dev case" in row["error"] for row in rows))
+            self.assertTrue(all("answer command" in row["error"] for row in rows))
+
+    def test_holdout_error_guidance_preserves_rejection_without_repeating_cases(self):
+        calls = []
+
+        def failed(case):
+            calls.append(case["case_id"])
+            raise ModelOutputError(
+                "Synthetic invalid output.",
+                {
+                    "response_id": "unit-" + case["case_id"],
+                    "response_model": "unit-model",
+                    "raw_response_text": "not JSON",
+                },
+            )
+
+        with workspace() as root:
+            self.live_test_run(root, "candidate")
+            result = self.live_test_run(
+                root, "holdout", split="holdout", candidate="candidate", callback=failed
+            )
+            self.assertEqual((result["total"], result["errors"], result["failed"]), (4, 4, 4))
+            self.assertEqual(result["pass_rate"], 0)
+            self.assertFalse(result["business_gate_passed"])
+            manifest, rows, _ = load_run(root, "holdout")
+            self.assertEqual(manifest["status"], "completed_with_errors")
+            for row in rows:
+                self.assertIn("Do not repeat or recollect holdout", row["error"])
+                self.assertIn("evaluate", row["error"])
+                self.assertIn("accept", row["error"])
+                self.assertIn("locally", row["error"])
+                self.assertNotIn("answer command", row["error"])
+                self.assertEqual(row["response_id"], "unit-" + row["case_id"])
+                self.assertEqual(row["raw_response_text"], "not JSON")
+            saved = (root / "outputs/holdout/responses.jsonl").read_bytes()
+            self.assertEqual(evaluate_run(root, "holdout")["errors"], 4)
+            report = acceptance_report(root, "candidate", "holdout")
+            self.assertEqual(report["recommendation"], "reject")
+            self.assertFalse(report["deployment_approved"])
+            self.assertEqual(saved, (root / "outputs/holdout/responses.jsonl").read_bytes())
+            self.assertEqual(calls, ["H01", "H02", "H03", "H04"])
+
+    def test_holdout_without_observed_models_keeps_an_incomplete_handoff(self):
+        def failed(_case):
+            raise ValueError("Synthetic request failed before receiving a model response.")
+
+        with workspace() as root:
+            self.live_test_run(root, "candidate")
+            self.live_test_run(
+                root, "holdout", split="holdout", candidate="candidate", callback=failed
+            )
+            _, rows, _ = load_run(root, "holdout")
+            self.assertTrue(all("prerequisites are incomplete" in row["error"] for row in rows))
+            self.assertEqual(evaluate_run(root, "holdout")["errors"], 4)
+            with self.assertRaisesRegex(ValueError, "observed_models"):
+                acceptance_report(root, "candidate", "holdout")
+            self.assertFalse((root / "outputs/holdout/acceptance.json").exists())
+
+    def test_fixture_error_guidance_does_not_send_learners_to_azure(self):
+        def failed(_case):
+            raise ValueError("Synthetic fixture failure.")
+
+        with workspace() as root:
+            result = collect(
+                root,
+                label="fixture-errors",
+                split="dev",
+                prompt_version="v2",
+                retrieval="offline-fixture",
+                mode="offline-fixture",
+                deployment="not-a-model",
+                answer_case=failed,
+            )
+            self.assertEqual((result["total"], result["errors"]), (6, 6))
+            self.assertFalse(result["business_gate_passed"])
+            _, rows, _ = load_run(root, "fixture-errors")
+            for row in rows:
+                self.assertIn("offline checker", row["error"])
+                self.assertIn("do not make an Azure call", row["error"])
+                self.assertNotIn("answer command", row["error"])
+                self.assertIsNone(row["latency_seconds"])
 
     def test_invalid_model_output_preserves_response_id(self):
         def failed(_case):

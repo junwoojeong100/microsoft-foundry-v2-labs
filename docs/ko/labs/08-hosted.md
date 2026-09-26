@@ -60,6 +60,9 @@ python scripts/package_hosted.py
 <details>
 <summary>최소 SDK 예제(선택, 저장소 밖 재사용)</summary>
 
+**요청 전 준비:** Hosted SDK, 동작하는 Lab 02 설정·인증, 추론 비용 승인이 필요합니다.
+서버는 로컬이어도 모델 호출에는 Azure 추론 비용이 발생합니다. 준비되지 않았다면 [Lab 09 B](09-operations.md#path-b)로 건너뜁니다.
+
 최소 Hosted Responses server 패턴은 [`examples/recipes/08_hosted_agent.py`](../../../examples/recipes/08_hosted_agent.py)를 참고합니다. 핵심 줄은 다음과 같습니다.
 
 ```python

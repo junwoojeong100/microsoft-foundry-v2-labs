@@ -14,7 +14,8 @@
 Do this once, before Lab 00. It creates billable resources in your subscription; this edition has not timed it with learners.
 The portal steps follow the linked Microsoft Learn pages, checked on September 25, 2026. The workshop recordings used a project prepared beforehand.
 
-**Learning B alone?** Complete only steps 1–5 (B's Lab 09 needs step 5), then [prepare B's Search service](#search-service).
+**Learning B alone?** Complete steps 1–4; step 5 is optional. Lab 09 requires a trace-status record, not a new logging resource:
+if you skip step 5, record `trace unverified: not configured` there. Then [prepare B's Search service](#search-service).
 Skip A's steps 6–7; the Search section returns you to [setup](setup.md) for B.
 
 1. **Subscription.** Sign in at `https://ai.azure.com` with an account that can create resources and assign roles in your Azure subscription, for example its **Owner**. Model calls are billed to that subscription.
@@ -88,7 +89,9 @@ Log Analytics and remaining costs. Keep the resources needed for route B instead
    The same setup, followed by [Lab 02 B](labs/02-models.md#path-b), is the self-service route if neither Lab 05 option is prepared.
 7. Connect Application Insights to the project before class for server-side tracing. No code change is needed.
    Give learners **Log Analytics Reader** on the connected Application Insights resource; if protected tables are enabled, also give **Privileged Monitoring Data Reader**.
-   This is required for the now-core Lab 09 trace step. Checked 2026-09-24: the training project already had Application Insights connected
+   These prerequisites are required to verify an actual trace. If tracing is unavailable, learners record `trace unverified: <reason>`
+   in Lab 09 and continue; that record does not count as verified trace evidence.
+   Checked 2026-09-24: the training project already had Application Insights connected
    and managed agent calls appeared as traces within minutes; a learner-only Log Analytics Reader grant was not re-tested.
 8. Optional: deploy the Lab 05 MAF workflow as a Hosted Agent so A learners can use the browser Playground option in Lab 05.
    Use [Lab 05 C](labs/05-workflows.md) / [Lab 08 section 6](labs/08-hosted.md#6-deploy-a-maf-workflow-as-a-hosted-agent) only after separate approval.

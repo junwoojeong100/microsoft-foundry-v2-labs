@@ -116,7 +116,8 @@ Hosted 서버/배포·실제 client-side telemetry·유료 cloud judge는 선택
 | 모델/프롬프트 | 프로젝트·배포·Foundry User 권한 | [02 B](labs/02-models.md#path-b) |
 | MAF·MCP·워크플로 | SDK 설치, `doctor --cloud`, `model` 성공 | [04 B](labs/04-agents-tools.md#path-b) |
 | Foundry IQ | 위 조건 + 준비된 Search·knowledge retrieval 설정·권한 | [06 B](labs/06-knowledge.md#path-b) |
-| 평가 | `outputs/<label>`의 완전한 실제 실행 또는 명시적 fixture | [07 B: 저장된 근거부터 재개](labs/07-evaluation.md#resume-evaluation). Fixture로 실제 인수를 열지 않음 |
+| 오프라인 fixture 비교 | `outputs/<label>`에 명시적으로 구분한 fixture 결과. Azure 준비 불필요 | [00: 오프라인 비교와 종료](labs/00-start.md#offline-fixtures). 재실행하지 말고 기존 결과 확인 |
+| 실제 평가 | 해당 실험에서 저장한 실제 실행과 B의 Azure 준비 | [07 B: 저장된 근거부터 재개](labs/07-evaluation.md#resume-evaluation). Fixture로 실제 인수를 열지 않음 |
 | Hosted 패키징 | 저장소·Python. 런타임 게이트는 별도 | [08 B](labs/08-hosted.md#path-b) |
 | IQ 확장 | IQ 기본 완료 + 서비스별 별도 승인 | [10](labs/10-iq-extensions.md) |
 

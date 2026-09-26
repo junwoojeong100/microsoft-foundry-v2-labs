@@ -310,7 +310,13 @@ python scripts/workshop.py benchmark collect --label wf-candidate --kind workflo
 python scripts/workshop.py benchmark compare --baseline wf-baseline --candidate wf-candidate
 ```
 
-비교에서 선언한 변경을 인정한 뒤 실행합니다.
+새 유료 작업 전에 `outputs/benchmarks/wf-candidate/comparison-wf-baseline.json`을 엽니다.
+`changed_context_rows: []`, `isolated_prompt_comparison: true`이면 반환된 근거가 같습니다.
+변경된 행이 있고 `isolated_prompt_comparison`이 `false`라면 **전체 흐름의 비교**로 보존합니다.
+프롬프트만 바꾸어 개선됐다는 증거로 쓰지 않고, 그 해석을 `session-notes.txt`에 적습니다.
+설정 오류라면 이 단계에서 멈춥니다. 명령 성공만으로 개선이 확인되지는 않습니다.
+
+이 필드와 실제 후보 결과를 검토한 뒤 실행합니다.
 
 ```bash
 python scripts/workshop.py benchmark evaluate --label wf-candidate --reference wf-baseline --confirm-cost
@@ -342,8 +348,8 @@ Calibration이 실패하거나 미완료이면 점수·오류를 보존하고 ho
 ## 9. 후보 고정 후 마지막 holdout
 
 **게이트:** `outputs/benchmarks/wf-candidate/business-evaluation.json`에서 최종 인수할 각 모델의
-`models.<key>.business_gate_passed: true`, dev 6행 전체·오류 없음을 확인하고 비교에서 고정 설정을 인정해야 합니다.
-8절의 calibration도 통과해야 합니다.
+`models.<key>.business_gate_passed: true`, dev 6행 전체·오류 없음을 확인합니다.
+7절 비교가 설정 오류 없이 완료되고 근거 차이를 기록했으며, 8절의 calibration도 통과해야 합니다.
 아니라면 holdout을 열지 않고 [미완료 근거를 인계](../labs/11-capstone.md#incomplete-handoff)합니다.
 10절의 본인 세션 정리는 여전히 마칩니다.
 
@@ -367,6 +373,11 @@ python scripts/workshop.py benchmark evaluate --label wf-final --reference wf-ba
 python scripts/workshop.py benchmark monitor --label wf-final
 python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
 ```
+
+`outputs/benchmarks/wf-final/release-verification.json`을 엽니다(Holdout label은 실제 값 사용).
+`gate_passed`, `native_quality_passed`, `recommendation`, `deployment_approved: false`를 원래 근거와 함께 보관합니다.
+이 실험에 대응하는 보고서가 이미 있다면 [Hosted 인계](../labs/11-capstone.md#hosted-acceptance)에 재사용합니다.
+근거 누락·오류로 파일을 쓰기 전에 검증이 멈췄다면 판정을 꾸미지 말고 **미완료**로 기록합니다.
 
 후보가 검토된 회귀를 실제 소비한 경우만 `--require-regressions`를 추가합니다.
 아니라면 전체 통과·미승격 이유를 보존합니다. 예제 flag를 충족하려고 회귀를 만들지 않습니다.

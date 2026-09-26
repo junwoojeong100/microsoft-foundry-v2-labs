@@ -4,11 +4,11 @@
 
 **Goal:** Hand over a small system with separate knowledge, code, evaluation, and operations—not just a model demo.
 
-**Open your section:** [A — evidence folder](#path-a) · [B — saved acceptance](#path-b) · [Paths](../paths.md)
+**Open your section:** [A — evidence folder](#path-a) · [B — saved acceptance](#path-b) · [C — selected module](#path-c) · [Paths](../paths.md)
 
 ## Before you start
 
-**This pass:** A submits the learner worksheet plus agent/workflow/source/cleanup evidence. B/C use only the acceptance command for the path actually run.
+**This pass:** A submits its evidence folder. B reads or creates the acceptance report for its actual run. C hands over only the selected module's outcome; Hosted acceptance is a separate path.
 
 **Need:** The files you saved in the earlier labs.
 
@@ -151,6 +151,29 @@ Finish the [reviewer checklist](#reviewer-acceptance-checklist) and [cleanup han
 Mark a failed business gate **rejected** and missing required stages **incomplete**.
 Omitted optional local/remote hosting and cloud judges are **not run**; unavailable traces are **unverified**, with the reason recorded.
 
+<a id="path-c"></a>
+
+## C. Hand off one selected module
+
+**No new Azure calls or extra evaluation to fill this handoff.** For a standalone C visit, skip the A/B inventories above.
+Append `C - module handoff` to your `session-notes.txt` and record:
+
+| Keep | Record |
+|---|---|
+| Module | Name/link, language, last completed step and its own stopping criterion |
+| Actual outcome | Live execution, local simulation or design-only; completed, not run, or failed/blocked with the reason |
+| Evidence | Exact existing file paths, run/version IDs when applicable, your review and remaining limitations; preserve original errors |
+| Cleanup | Owned/shared assets, completed cleanup or the named responsible owner, and remaining costs; write none only when confirmed |
+
+Do not run `accept`, `benchmark verify` or a new holdout solely to finish one module.
+Those commands apply only to the B or [Hosted evaluation path](#hosted-acceptance) you actually selected.
+
+**C done:** hand over the recorded module outcome and follow [Cleanup](../reference/cleanup.md) for any owned assets.
+Missing requirements remain **incomplete**; a failed/blocked result does not become a successful module.
+Stop here for a module-only visit.
+
+<a id="hosted-acceptance"></a>
+
 ## Hosted workflow/evaluation acceptance evidence
 
 <details>
@@ -161,9 +184,16 @@ The `wf-*` labels below must exist as real matrix runs; introductory `candidate`
 Four models require 24 baseline dev, 24 candidate dev, and 16 frozen holdout rows.
 Select any accepted subset **using dev**, not favorable holdout results.
 
+If this exact frozen experiment already has `outputs/benchmarks/wf-final/release-verification.json`, read it instead of repeating verification.
+Otherwise, run the local verification below only after the workbook's required evidence exists:
+
 ```bash
 python scripts/workshop.py --language en benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
 ```
+
+Open `outputs/benchmarks/wf-final/release-verification.json` and retain `gate_passed`, `native_quality_passed`,
+`recommendation` and `deployment_approved: false`. Use your actual holdout label if it differs from `wf-final`.
+If required evidence is missing and no report can be produced, hand over **incomplete** work; do not invent the file.
 
 This default does not assume a promoted regression exists.
 If a reviewed regression was actually consumed by the candidate, add `--require-regressions`; otherwise record the all-pass/no-promotion reason.

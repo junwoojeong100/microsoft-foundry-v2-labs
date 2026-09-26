@@ -117,8 +117,9 @@ Lab 03·07에서 기록된 대화를 새 에이전트 호출 없이 채점합니
 사용한 실행 label과 ID를 `outputs/learner-notes-ko/operations-checklist.txt`의 3번에 적습니다.
 
 **화면 확인:** 성공한 모든 응답 행에 `response_id`가 있고, 오류 행은 오류 필드를 유지한 채 그대로 집계됩니다.
-Tracing을 설정하지 않았다면 `trace_id`는 `null`, `trace_export`는 `not-configured`로 남습니다.
-response ID가 저절로 Azure Monitor trace가 되지는 않습니다.
+현재 CLI는 이 기록에 `trace_id: null`, `trace_export: not-configured`를 씁니다.
+이 값은 **프로젝트의 Application Insights 연결 상태를 검사한 결과가 아니며**, 연결해도 저장된 필드가 채워지지 않습니다.
+2단계에서 실제 trace/operation ID를 찾아 `operations-checklist.txt`에 따로 적습니다. 원래 응답을 수정하지 않습니다.
 
 ### 2. Lab 03 B의 서버 측 trace 검색
 

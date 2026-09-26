@@ -22,7 +22,7 @@ An unselected feature is **not run**; an attempted failure stays **failed/blocke
 | Review access and architecture without changing resources | [Governance/networking](../labs/extensions/governance-networking.md) or [specialist scope](../labs/extensions/specialist-scope.md) | Creating missing infrastructure |
 | Accept a version-pinned Hosted system | [Hosted evaluation workbook](../reference/evaluation-workbook.md), after B's model/MAF/IQ results | Production release approval |
 
-These are independent starting points, not five steps to complete. The full catalog below lists each module's prerequisites.
+These are independent starting points, not a sequence to complete. The full catalog below lists each module's prerequisites.
 
 ## Additional capability modules
 
@@ -33,7 +33,7 @@ These are independent starting points, not five steps to complete. The full cata
 | [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | Verify a real generated CSV or read-only API call | Choose one tool; Code Interpreter first, OpenAPI needs the owned Search index |
 | [Tool Search and Skills](../labs/extensions/tool-search-skills.md) | Discover selected tools; version and reuse behavioral instructions | An owned, working Toolbox; Preview opt-in |
 | [Conversation evaluation](../labs/extensions/conversation-evaluation.md) | Compare individual-turn checks with full-conversation outcomes | A real multi-turn run from bundled dev questions; no holdout development |
-| [Agent Insights](../labs/extensions/agent-insights.md) | Review AI-generated trace-pattern findings before deciding on evaluation, routing or instruction changes | Lab 03 Prompt Agent with connected App Insights and enough existing synthetic traces; Preview; not a source of ground truth |
+| [Agent Insights](../labs/extensions/agent-insights.md) | Review AI-generated trace-pattern findings before deciding on evaluation, routing or instruction changes | Lab 03 Prompt Agent, connected App Insights, existing synthetic traces and one approved scan budget; Preview; not ground truth |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | Generate and review candidate configurations against a frozen dev baseline | Prepared evaluator/optimizer models, explicit cost approval; Preview |
 | [Approval and recovery](../labs/extensions/approval-recovery.md) | Observe real SDK suspension/checkpoints with explicit prewritten work and simulated decisions | Local-only first pass; not real human authorization or Hosted crash proof |
 | [A2A](../labs/extensions/a2a.md) | Connect independently addressed agent endpoints | Explicit A2A 1.0 and caller permissions; no 0.3 fallback |
@@ -68,4 +68,4 @@ have separate data, identity and runtime requirements. This course does not acce
 Their [architecture/scope discussion](../labs/extensions/specialist-scope.md) must not be reported as executed capability coverage.
 
 **Finish each selected module:** retain its complete evidence, undo only approved owned resources,
-then add its actual outcome to [Lab 11](../labs/11-capstone.md).
+then use [Lab 11's selected-module handoff](../labs/11-capstone.md#path-c). No extra holdout or Hosted evaluation is required for a standalone module.

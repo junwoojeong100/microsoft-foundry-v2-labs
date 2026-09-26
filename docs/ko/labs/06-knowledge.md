@@ -274,7 +274,9 @@ response.raise_for_status()  # an error is a finding; never switch to plain Sear
 <details>
 <summary>선택 Preview IQ Chat — 준비된 chat base·별도 비용 승인이 필요합니다</summary>
 
-담당자가 [IQ 준비](../setup.md#4-환경-담당자의-준비)를 마친 경우에만 선택합니다.
+담당자가 [IQ 준비](../setup.md#4-환경-담당자의-준비)를 마치고, 대응 작업 폴더와 저장소 루트의 터미널까지 제공한 경우에만 선택합니다.
+활성 `.venv`·본인 계정 로그인·선택한 언어와 prefix에 맞는 Search/chat-base 설정이 필요합니다.
+**브라우저만 사용한 A도 이 터미널이 필요합니다. Lab 05 Playground 실행만으로는 준비되지 않습니다.**
 아니라면 **IQ Chat 미선택**으로 기록하고 위 원문 확인을 마친 뒤 Lab 07로 이동합니다.
 이 Search-index source의 계획·합성은 **2026-09-15 기준 Preview**이며 MI 자체는 정상 지원됩니다.
 
@@ -284,7 +286,7 @@ response.raise_for_status()  # an error is a finding; never switch to plain Sear
    모델이나 모드가 비어 있으면 **저장 전에 멈추고** 목록으로 돌아가 chat-base 이름부터 확인합니다.
    준비된 chat base가 없다면 담당자가 [check → 승인된 setup](../reference/iq-model-identity.md)을 완료합니다.
    모델 없는 GA base의 설정을 바꾸어 해결하지 않습니다.
-3. Lab 05에서 사용한 준비된 터미널에서 아래 `check`를 실행합니다. `configured: true`여야 합니다.
+3. 이렇게 준비된 저장소 루트의 터미널에서 아래 `check`를 실행합니다. `configured: true`여야 합니다.
    `ready_for_setup: true`만으로는 저장된 chat base가 있다는 뜻이 아닙니다.
 4. 비용 승인 후 `ask`를 **한 번** 실행합니다. API·요청 필드·실제 activity를 보존하기 위해 이 검사는 CLI로 합니다.
    포털에서 같은 채팅을 추가 전송하지 않습니다.
@@ -334,6 +336,8 @@ python scripts/workshop.py iq-chat ask --label iq-chat-lab06 --confirm-cost
 
 > ⛔ **승인된 선택 단계가 아니면 여기서 멈춥니다.** 아래는 선택/C 단계이며 유료 자원이나 추가 역할이 필요할 수 있습니다. A/B 학습자는 위의 다음 랩 링크로 이동합니다.
 
+<a id="hybrid-rag"></a>
+
 ## C. 선택 — 실제 하이브리드 RAG
 
 **첫 회차는 [Lab 07](07-evaluation.md)로 이동합니다.** C·D는 별도 심화이며 GA 경로에서 빠진 단계가 아닙니다.
@@ -367,6 +371,8 @@ python scripts/workshop.py answer --retrieval hybrid --prompt v2
 이번 실제 실행에서 프로젝트 `/openai/v1/embeddings`는 404를 반환했습니다.
 원래 실패를 보존하고 같은 계정의 OpenAI embeddings API를 `WORKSHOP_EMBEDDING_API=account`로
 **명시적으로 설정한 뒤** 새 작업으로 실행했습니다. 오류 처리 중 자동으로 다른 endpoint를 시도하지 않습니다.
+본인 실행에서 같은 오류가 나면 중단하고 보존합니다. Account API는 **별도로 승인한 새 hybrid 실험을 시작하기 전에만** 선택합니다.
+실패한 실험을 계속하거나 성공으로 바꿔 적지 말고 새 설정·결과를 구분해서 기록합니다.
 
 **확인할 것:** `provider: azure-ai-search-hybrid`, `embedding_query.observed_model`,
 차원, index 이름, 실제 source IDs와 context hash입니다.
@@ -399,7 +405,8 @@ IQ의 source/base는 원래 연결한 index를 참조하므로 환경변수만 �
 python scripts/workshop.py workflow-agent --pattern sequential --retrieval iq --prompt v2
 ```
 
-로컬 workflow 출력을 저장합니다. 원격 matrix는 [평가 워크북의 준비](../reference/evaluation-workbook.md#matrix-setup)에서 시작합니다.
+이 선택 명령은 CLI의 기본 숙박 한도 질문으로 IQ를 새로 검색합니다. B에서 저장한 `retrieve-iq.json`을 입력으로 읽지 않습니다.
+출력 전체를 별도 실험으로 보존합니다. 원격 matrix는 [평가 워크북의 준비](../reference/evaluation-workbook.md#matrix-setup)에서 시작합니다.
 그 워크북에서 별도 IQ/account-chat/Invocations 대상을 한 번 패키징합니다.
 Lab 08의 입문 도우미는 이 IQ 프로필이 아니라 로컬 검색을 받습니다.
 Toolbox/Fabric/Work IQ의 승인·원문·OBO 경계는 [IQ 확장 워크북](../reference/iq-workbook.md)에서 따로 다룹니다.

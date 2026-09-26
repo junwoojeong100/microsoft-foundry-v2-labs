@@ -1303,6 +1303,7 @@ python() {
         }
 
     def test_core_steps_cite_only_existing_worksheet_lines(self):
+        console_labels = {"Saved JSON:", "Command stderr:"}
         for language, _, labs in self.language_labs():
             lines = {line for values in self.worksheet_lines(language).values() for line in values}
             for route, sequence in ROUTES.items():
@@ -1310,7 +1311,7 @@ python() {
                     with self.subTest(language=language, route=route, lab=number):
                         core = self.core_section(language, labs[number], route)
                         for cited in re.findall(r"`([^`\n]*:)`", core):
-                            self.assertIn(cited, lines)
+                            self.assertIn(cited, lines | console_labels)
 
     def test_b_review_fields_are_named_in_the_matching_lab_before_its_exit(self):
         for language, _, labs in self.language_labs():

@@ -79,6 +79,7 @@ python scripts/workshop.py --language en workflow --pattern sequential --questio
 
 If it stops because that file `already exists`, open the file: keep it only if it is your own run with this question;
 otherwise change the file name in `--output` and run again.
+Keep the actual path you chose. A successful save prints it after `Saved JSON:`.
 
 
 ![September 24 English recording: A's one prepared sequential workflow command](../assets/g6sol-20260924-en/screenshots/E05-001-prepared-2.webp)
@@ -114,10 +115,10 @@ flowchart LR
 | `approval_status: pending-human-review` | Model review has not become human approval |
 | `external_actions_performed: false` | No actual booking/payment |
 
-1. Open the terminal's `outputs/workflow-a-sequential.json`, or read the complete Playground reply you saved.
+1. Open the terminal file named after `Saved JSON:` (or the existing file you verified in step 2), or read the complete Playground reply you saved.
    Compare the cited policy IDs with the learner ZIP's `policies/`. Playground learners do not need a terminal output file.
 2. Keep the exact command **or Playground question**, complete output and selected option in your personal `workflow-review.txt`.
-   Terminal: open `outputs/workflow-a-sequential.json` in the editor, select all, copy it and paste it on `Complete actual JSON output (A only):`.
+   Terminal: record that actual file path, then copy the same file's entire JSON into `Complete actual JSON output (A only):`.
    For Playground, read the worksheet's pattern from `runtime_profile.pattern`. If an older worksheet lacks a field, append it; do not replace filled notes.
 3. Write your review there: what is correct, what needs correction, and why. This reviews guidance; it is not business approval.
 

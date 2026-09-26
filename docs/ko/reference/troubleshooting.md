@@ -78,6 +78,7 @@
 | 401 | 로그인·tenant·credential 종류 확인. 만료된 로컬 인증만 공유 프로필 경계를 지켜 갱신 | [00](../labs/00-start.md#azure-sign-in) |
 | `AADSTS90072` / 다른 기본 계정 선택 | `.env`의 구독과 계정 프로필 확인; 구독 범위 인증 사용. 기본 구독 변경·guest 초대·전체 logout으로 우회하지 않음 | 00 |
 | 403 | 관리 평면과 데이터 평면 역할, 올바른 identity/scope, 반영 지연 | 01 |
+| `doctor --cloud`의 `CalledProcessError` | `Command stderr:`의 Azure CLI 진단 확인. 배포 조회 권한 오류인지, 구독·리소스 이름 또는 네트워크 오류인지 구분. 예외 이름만으로 역할 부족을 판단하지 않음 | [00 B](../labs/00-start.md#path-b) |
 | 404 모델 | 카탈로그 이름 대신 실제 배포 이름, 정확한 프로젝트 endpoint | 02 |
 | 429 | quota·TPM·동시성·다른 조의 사용량, 서비스 retry 안내 | 02 |
 | `json_schema`/옵션 400 | 모델별 Structured Outputs 지원, 현재 SDK 계약 | 02 |
@@ -110,7 +111,7 @@
 | 영문 파일 누락 | 고정된 영문 번들을 복원하고 기존 국문 파일은 보존 | 00 |
 | `--agent-endpoint`와 `--protocol` 충돌 | full endpoint에 protocol이 이미 포함됨. 로컬 호출은 protocol을 명시 | 08 |
 | batch의 API version 누락 | session query parameter를 대체하지 않고 merge해 `api-version=v1`을 보존 | 07–08 |
-| 프로젝트 embedding 404 | `WORKSHOP_EMBEDDING_API=account`와 같은 계정 endpoint를 명시. 원래 실패를 보존 | 06 |
+| 프로젝트 embedding 404 | 실패한 실험을 중단·보존. `WORKSHOP_EMBEDDING_API=account`와 같은 계정 endpoint는 별도로 승인한 새 hybrid 실험의 초기 설정으로만 사용. 설정·결과를 분리하며 fallback으로 이어가지 않음 | [06 C](../labs/06-knowledge.md#hybrid-rag) |
 | trace 조회 `InvalidTokenError` | App Insights audience와 지정된 구독/tenant credential. identity·리소스 대체 금지 | 09 |
 | idle 세션 중지가 409 반환 | 기록된 session/version을 다시 조회하고 추가 stop 요청 없이 idle 상태를 기록 | 09 |
 | Host profile/contract 불일치 또는 `runtime-profile.json` 없음 | 현재 코드로 다시 패키징한 뒤 profile 언어·model map·source package·실제 version·retrieval 설정 비교. 새 label로 수집하며 manifest를 고쳐 통과시키지 않음 | 08 |

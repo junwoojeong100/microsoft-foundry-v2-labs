@@ -274,7 +274,10 @@ knowledge bases accepted no GPT-6 model on September 23, 2026 ([details](../refe
 <details>
 <summary>Optional Preview IQ Chat — requires a prepared chat base and separate cost approval</summary>
 
-Choose this segment only when the owner has completed [IQ preparation](../setup.md#4-environment-owner-checklist).
+Choose this segment only when the owner has completed [IQ preparation](../setup.md#4-environment-owner-checklist)
+and supplied a matching working copy and repository-root terminal: activated `.venv`, your own sign-in,
+and Search/chat-base settings for the selected language and prefix.
+**Browser-only A learners need this terminal too; a Lab 05 Playground run does not prepare it.**
 Otherwise record **IQ Chat not selected**, complete the source checks above, and continue to Lab 07.
 Planning/synthesis for this Search-index source is **Preview as of September 15, 2026**; MI itself is supported.
 
@@ -284,7 +287,7 @@ Planning/synthesis for this Search-index source is **Preview as of September 15,
    If the model or either mode is blank, **stop before Save**: return to the list and check the chat-base name.
    If no prepared chat base exists, the owner completes [check → authorized setup](../reference/iq-model-identity.md);
    do not fix the model-free GA base by changing its configuration.
-3. In the same prepared terminal used for Lab 05, run `check` below. Continue only when `configured: true`; `ready_for_setup: true` alone means prerequisites, not a saved chat base.
+3. In that prepared repository-root terminal, run `check` below. Continue only when `configured: true`; `ready_for_setup: true` alone means prerequisites, not a saved chat base.
 4. After cost approval, run `ask` **once**. Use the CLI for this test so its API/request fields and returned activity are preserved; do not also send a duplicate portal chat.
 5. Compare `answer`, `source_ids`, `references`, and both model activities with the synthetic originals. Record a failure unchanged.
 
@@ -332,6 +335,8 @@ A fixed model removes a common configuration mismatch; it cannot guarantee quota
 
 > ⛔ **Stop here unless this optional step was approved.** Everything below is optional/path C and may create billable resources or need extra roles. A/B learners continue with the next-lab link above.
 
+<a id="hybrid-rag"></a>
+
 ## C. Optional real hybrid RAG
 
 **First pass: continue to [Lab 07](07-evaluation.md).** C and D are separate advanced branches, not missing steps in the GA path.
@@ -364,6 +369,8 @@ Never truncate or zero-pad vectors to conceal dimension mismatches.
 
 The Korean live run retained a project-embeddings 404 and then explicitly configured the same account's OpenAI API.
 No exception handler switches endpoints automatically.
+For your run, stop on that error and preserve it. Choose the account API only **before a separately approved new hybrid experiment**;
+record its configuration and results separately instead of continuing or relabeling the failed experiment.
 Inspect the real hybrid provider, observed embedding model/dimensions, source IDs, index, and context hash.
 The code rejects silent text-to-vector schema replacement and text-only uploads that would erase existing vectors.
 Ownership/per-index configuration stays in `outputs/azure-objects.json`.
@@ -393,7 +400,9 @@ Do not apply this small-corpus setting blindly to production, change reference a
 python scripts/workshop.py --language en workflow-agent --pattern sequential --retrieval iq --prompt v2
 ```
 
-Save this local workflow output. For the remote matrix, start at the
+This optional command asks the CLI's default lodging-limit question and performs fresh IQ retrieval;
+it does not consume the `retrieve-iq.json` saved in B. Save its complete output as a separate experiment.
+For the remote matrix, start at the
 [evaluation workbook's preparation](../reference/evaluation-workbook.md#matrix-setup);
 it packages its own IQ/account-chat/Invocations target once.
 Lab 08's introductory helper accepts local retrieval, not this IQ profile.

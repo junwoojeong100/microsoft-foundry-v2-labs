@@ -163,12 +163,15 @@ Foundry가 저장된 에이전트로 dev 6문항을 다시 실행하고 기본 �
 
 ![2026-09-24 국문 녹화: 조건: gpt-6-sol-judge와 Relevance·Coherence·TaskAdherence](../../assets/g6sol-20260924-ko/screenshots/KP07-215-criteria-resume-2.webp)
 
-**화면 확인:** **판단 모델**이 `gpt-6-sol-judge`이고, **에이전트 (1)**에 TaskAdherence, **품질 (2)**에 Relevance와 Coherence가 있습니다.
+**화면 확인:** **판단 모델**이 `gpt-6-sol-judge`이고 **품질 (2)**에 Relevance와 Coherence가 있습니다.
+TaskAdherence를 선택했다면 **에이전트 (1)**에 표시됩니다. 선택할 수 없었다면 `TaskAdherence 사용 불가` 기록을 유지합니다.
 
 ![2026-09-24 국문 녹화: 6문항의 전체·자세한 결과(agent 버전 2)](../../assets/g6sol-20260924-ko/screenshots/KP07-217-results-2.webp)
 
 **화면 확인:** **전체 메트릭 결과**에 평가자별 통과 수 / 6이 있고, **자세한 메트릭 결과**에는 질문마다 점수와 이유가 한 행씩 있습니다
-(점수와 이유 열은 오른쪽으로 스크롤합니다). 세 통과 수와 내 평가표와 다른 행을 `session-notes.txt`의 **Lab 07 A**에 적습니다.
+(점수와 이유 열은 오른쪽으로 스크롤합니다). **실제로 선택한 평가자 2개 또는 3개**의 통과 수와 내 평가표와 다른 행을
+`session-notes.txt`의 **Lab 07 A**에 적습니다. 사용할 수 없던 평가자의 점수를 만들어 넣지 않습니다.
+선택한 평가자의 결과가 빠졌다면 **미완료**이며, 허용한 사용 불가 분기와 다릅니다.
 
 **점수를 따르지 말고 이유를 읽습니다.** 2026-09-24 국문 녹화에서 에이전트 버전 2는 Relevance 6/6, Coherence 6/6,
 TaskAdherence 0/6이었고 직접 한 업무 평가는 6/6 통과였습니다.
@@ -386,6 +389,8 @@ python scripts/workshop.py collect --split holdout --label final-holdout --promp
 ```
 
 실패를 포함한 실제 4행을 모두 보관한 뒤 로컬 평가와 사람 검토용 보고서를 만듭니다.
+이전 오류 기록에 재현 안내가 남아 있어도 노출된 holdout 사례를 `answer`로 다시 호출하지 않습니다.
+완료된 holdout 수집 뒤에는 아래의 로컬 평가·보고서 명령만 실행합니다.
 
 ```bash
 python scripts/workshop.py evaluate --label final-holdout

@@ -162,12 +162,16 @@ Use `dev-questions.jsonl` from the learner ZIP: questions only, no answers and n
 
 ![September 24 English recording: Criteria: gpt-6-sol-judge with Relevance, Coherence and TaskAdherence](../assets/g6sol-20260924-en/screenshots/EP07-215-criteria-2.webp)
 
-**What to check:** **Judge model** shows `gpt-6-sol-judge`; **Agents (1)** lists TaskAdherence and **Quality (2)** lists Relevance and Coherence.
+**What to check:** **Judge model** shows `gpt-6-sol-judge` and **Quality (2)** lists Relevance and Coherence.
+If you selected TaskAdherence, **Agents (1)** lists it; otherwise keep `TaskAdherence not available` in your notes.
 
 ![September 24 English recording: Overall and detailed results for the six questions (agent version 2)](../assets/g6sol-20260924-en/screenshots/EP07-217-results-2.webp)
 
 **What to check:** **Overall metric results** shows passed / 6 for each evaluator, and **Detailed metrics result**
-has one row per question with a score and a reason (scroll right for each evaluator's columns). Copy the three counts, and every row that disagrees with your worksheet, into **Lab 07 A** of `session-notes.txt`.
+has one row per question with a score and a reason (scroll right for each evaluator's columns).
+Copy the counts for the **two or three evaluators you actually selected**, and every row that disagrees with your worksheet,
+into **Lab 07 A** of `session-notes.txt`. Do not invent a score for an unavailable evaluator.
+A missing result for a selected evaluator is **incomplete**, not the allowed not-available branch.
 
 **Read the reasons; do not obey the scores.** In the September 24, 2026 English recording, agent Version 2 scored
 Relevance 6/6, Coherence 6/6 and TaskAdherence 0/6, while the manual business assessment passed 6/6.
@@ -388,6 +392,8 @@ python scripts/workshop.py --language en collect --split holdout --label final-h
 ```
 
 Keep all four actual rows, including failures. Grade and produce the human-review report locally:
+Do not reproduce an exposed holdout case with `answer`, even if an older saved error suggests it.
+Only the local grading/report commands below follow a completed holdout collection.
 
 ```bash
 python scripts/workshop.py --language en evaluate --label final-holdout

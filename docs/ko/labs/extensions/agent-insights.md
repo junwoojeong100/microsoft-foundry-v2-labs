@@ -9,8 +9,8 @@ Insights는 최근 Foundry agent trace를 분석해 반복되는 동작 패턴�
 **근거 상태:** 2026-09-24에 녹화된 영문 Lab 03 agent를 대상으로 포털이 아닌 Python SDK로 on-demand scan을 1회 실행했습니다. 결과는 아래에 있으며 녹화는 없습니다.
 
 **준비:** 학습자 본인의 Lab 03 Prompt Agent, 연결된 Application Insights, 최근의 대표적인 합성 dev trace,
-담당자가 준비한 `gpt-6-sol-judge` judge 배포, 담당자가 준비한 역할. 학습자는 역할을 부여하지 않습니다.
-**완료:** Insight 하나를 연결 trace와 합성 정책에 대조해 검토하고 사람의 결정을 기록합니다.
+담당자가 준비한 `gpt-6-sol-judge` judge 배포·역할, scan 1회의 judge 비용 승인이 필요합니다. 학습자는 역할을 부여하지 않습니다.
+**완료:** Insight 하나와 사람의 결정을 검토·기록하거나, 완료된 scan에 Insight가 없다는 결과를 그대로 기록한 뒤 정리합니다.
 **중단:** 누락된 선행 조건을 기록합니다. 대표 trace가 너무 적으면 **not enough traces**라고 적습니다.
 
 **첫 회차:** 1–5절. Insights를 채우려고 새 traffic을 만들지 않습니다.
@@ -28,6 +28,7 @@ Lab 03과 이후 Lab 07 dev 확인에서 이미 생긴 합성 dev traffic/trace�
 | 보호된 content table | `AppGenAIContent`가 보호되는 경우 Privileged Monitoring Data Reader |
 | Judge 배포 | 프로젝트 managed identity가 `gpt-6-sol-judge`를 호출 가능 |
 | Trace 데이터 | 학습자 본인 agent의 최근 합성 대표 trace |
+| Scan 승인 | 승인된 lookback과 judge 예산 안의 on-demand scan 1회. 예약 생성은 켜지 않음 |
 
 이 모듈에서 역할을 추가하거나, 프로젝트 identity를 바꾸거나, 기본 구독을 바꾸지 않습니다.
 별도 client-side tracing을 구현하지 않은 로컬 MAF 실행은 Foundry server-side trace를 만들지 않습니다.
@@ -39,10 +40,17 @@ Lab 03과 이후 Lab 07 dev 확인에서 이미 생긴 합성 dev traffic/trace�
 3. 본인의 Lab 03 Prompt Agent를 엽니다.
 4. **Insights** 탭을 엽니다(UI 언어에 따라 표시 이름이 다를 수 있음).
 5. Judge model **`gpt-6-sol-judge`**를 선택합니다.
-6. **Run scan now**를 선택합니다.
+6. **scan 1회**·lookback·judge 비용에 대한 담당자 승인을 확인합니다. 예약 생성은 켜지 않습니다.
+7. **Run scan now**를 한 번 선택합니다.
 
 첫 scan은 최근 trace를 돌아봅니다. 페이지가 trace가 너무 적다고 표시하면 **not enough traces**라고 기록하고 멈춥니다.
 더 흥미로운 Insight를 만들려고 추가 prompt를 보내지 않습니다.
+
+**발견 내용보다 scan 상태를 먼저 확인합니다.** 대기 중이거나 실패한 scan은 **검토 미완료**이지 정상 완료·발견 없음이 아닙니다.
+상태·오류를 보존하고 Insight를 얻으려고 다시 실행하지 않습니다.
+Scan이 **정상 완료됐지만 Insight가 0개**라면 `insights-review.txt`에 `scan completed; no insights returned`를 적습니다.
+Scan ID(없으면 확인 불가), agent/버전, 조회 기간, 표시된 trace 수, judge 배포를 보관합니다.
+3–4절을 건너뛰고 [비용과 정리](#insights-cleanup)로 이동합니다. 발견이 없다고 agent에 결함이 없다는 뜻은 **아닙니다**.
 
 Python SDK는 `azure-ai-projects` 2.6.x에서 `beta` Agent Insight 작업을 노출하지만,
 이 워크숍 모듈은 portal을 사용하며 SDK 코드를 추가하지 않습니다.
@@ -110,6 +118,8 @@ insights = list(monitors.list_insights(monitor.id, include_details=True))
 이 명령은 monitor와 그 run 및 insight를 삭제합니다.
 
 </details>
+
+<a id="insights-cleanup"></a>
 
 ## 5. 비용과 정리
 

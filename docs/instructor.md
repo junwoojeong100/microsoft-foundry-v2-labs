@@ -39,7 +39,10 @@ B learners can prepare their notes directly from the source copy in [Lab 00 B](l
    Check quota, SKU and region; do not let first-time learners guess a replacement.
    Recheck [the model choice](reference/model-choice.md) and its published price before class.
 3. Assign the required project roles, such as `Foundry User`, to participants.
-4. Connect Application Insights to the project for server-side traces and give learners **Log Analytics Reader** on it. If protected tables are enabled, also grant **Privileged Monitoring Data Reader**. This is required for Lab 09 trace checks. In the 2026-09-24 check, managed agent calls appeared in the connected Application Insights within minutes; direct model calls did not.
+4. To verify server-side traces, connect Application Insights to the project and give learners **Log Analytics Reader** on it.
+   If protected tables are enabled, also grant **Privileged Monitoring Data Reader**. Lab 09 requires recording trace status;
+   without these prerequisites, learners record `trace unverified: <reason>` and continue, not a verified trace.
+   In the 2026-09-24 check, managed agent calls appeared in the connected Application Insights within minutes; direct model calls did not.
 5. **For B or a selected IQ module**, prepare separate Search data read/write roles. They are not required for default A.
 6. **Only for selected remote hosting**, prepare the runtime identity's model/tool roles. B's package-only step does not need them.
 7. Optional for A: prepare Lab 05's **sequential, local-retrieval, v2, Responses** Hosted workflow in the learner's language.

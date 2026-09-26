@@ -22,7 +22,7 @@
 | 리소스 변경 없이 접근·구조 검토 | [거버넌스·네트워크](../labs/extensions/governance-networking.md) 또는 [전문 범위](../labs/extensions/specialist-scope.md) | 부족한 인프라 생성 |
 | 고정 버전의 Hosted 시스템 인수 | B의 모델·MAF·IQ 결과 이후 [Hosted 평가 워크북](../reference/evaluation-workbook.md) | 운영 릴리스 승인 |
 
-독립적인 시작점이지 차례로 마쳐야 할 다섯 단계가 아닙니다. 아래 전체 목록에서 모듈별 준비 조건을 확인합니다.
+독립적인 시작점이지 차례로 마쳐야 할 순서가 아닙니다. 아래 전체 목록에서 모듈별 준비 조건을 확인합니다.
 
 ## 추가 모듈
 
@@ -33,7 +33,7 @@
 | [Code Interpreter / OpenAPI](../labs/extensions/additional-tools.md) | 실제 CSV 생성 또는 읽기 전용 API 호출 검증 | 도구 하나 선택. 첫 회차는 Code Interpreter, OpenAPI는 본인 Search index 필요 |
 | [Tool Search와 Skills](../labs/extensions/tool-search-skills.md) | 도구 발견·검토된 절차의 버전 재사용 | 실제 동작하는 내 Toolbox, Preview 선택 |
 | [대화 평가](../labs/extensions/conversation-evaluation.md) | 개별 턴과 전체 대화 평가 구분 | 동봉 dev를 사용한 실제 다중 턴, holdout 개발 금지 |
-| [Agent Insights](../labs/extensions/agent-insights.md) | AI 생성 trace 패턴 finding을 검토한 뒤 평가·routing·instruction 변경을 결정 | Lab 03 Prompt Agent, 연결된 App Insights, 충분한 기존 합성 trace. Preview이며 ground truth가 아님 |
+| [Agent Insights](../labs/extensions/agent-insights.md) | AI 생성 trace 패턴 finding을 검토한 뒤 평가·routing·instruction 변경을 결정 | Lab 03 Prompt Agent, 연결된 App Insights, 기존 합성 trace, scan 1회 비용 승인. Preview이며 ground truth가 아님 |
 | [Agent Optimizer](../labs/extensions/agent-optimizer.md) | 고정된 dev baseline에 대한 후보 검토 | 준비된 optimizer/judge 모델, 비용 승인, Preview |
 | [승인 게이트와 복구](../labs/extensions/approval-recovery.md) | 실제 SDK 중단·체크포인트·재개 | 로컬 모의 결정, 실제 사람 승인/Hosted crash 증거 아님 |
 | [A2A](../labs/extensions/a2a.md) | 별도 주소의 agent에 위임 | 명시적인 1.0과 호출 권한, 0.3 fallback 금지 |
@@ -64,4 +64,5 @@ Fabric/Work IQ, Autopilot/Agent 365, fine-tuning, 음성·멀티모달, 브라�
 다른 데이터·ID·런타임 준비가 필요합니다. 실제 회사/Microsoft 365 데이터는 접근하지 않습니다.
 [설계·범위 문서](../labs/extensions/specialist-scope.md)를 실제 구현 결과로 표시하지 않습니다.
 
-**선택한 모듈 종료:** 근거를 남기고 승인된 내 자산만 정리한 뒤 [Lab 11](../labs/11-capstone.md)에 실제 결과를 추가합니다.
+**선택한 모듈 종료:** 근거를 남기고 승인된 내 자산만 정리한 뒤 [Lab 11의 선택 모듈 인계](../labs/11-capstone.md#path-c)를 따릅니다.
+독립 모듈 하나를 마치려고 holdout이나 Hosted 평가를 추가로 실행할 필요는 없습니다.

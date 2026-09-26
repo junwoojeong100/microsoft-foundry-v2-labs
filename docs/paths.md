@@ -118,7 +118,8 @@ Optional [IQ extensions](reference/iq-workbook.md) need separate service-specifi
 | Model/prompt | Project, deployment, Foundry User permission | [02 B](labs/02-models.md#path-b) |
 | MAF/MCP/workflow | SDKs, successful `doctor --cloud` and `model` | [04 B](labs/04-agents-tools.md#path-b) |
 | Foundry IQ | Above plus prepared Search, retrieval configuration, and roles | [06 B](labs/06-knowledge.md#path-b) |
-| Evaluation | A complete real run or an explicitly labeled fixture in `outputs/<label>` | [07 B: resume from saved evidence](labs/07-evaluation.md#resume-evaluation); fixtures do not unlock real acceptance |
+| Offline fixture comparison | Explicitly labeled fixture results in `outputs/<label>`; no Azure preparation | [00: offline comparison and stopping point](labs/00-start.md#offline-fixtures); inspect existing results rather than rerunning them |
+| Real evaluation | A saved real run from the intended experiment and B's Azure preparation | [07 B: resume from saved evidence](labs/07-evaluation.md#resume-evaluation); fixtures do not unlock real acceptance |
 | Hosted packaging | Repository and Python; runtime gates are separate | [08 B](labs/08-hosted.md#path-b) |
 | IQ extensions | IQ basics and separate service approvals | [10](labs/10-iq-extensions.md) |
 

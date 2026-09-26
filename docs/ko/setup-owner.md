@@ -15,7 +15,8 @@ Lab 00 전에 한 번만 진행합니다. 본인 구독에 유료 리소스를 �
 포털 단계는 아래에 연결한 Microsoft Learn 문서를 따르며 2026-09-25에 확인했습니다. 워크숍 녹화는 미리 준비한 프로젝트를 사용했습니다.
 괄호 안은 영문 UI 이름입니다.
 
-**B를 혼자 학습하나요?** 1–5단계만 마친 뒤(B의 Lab 09에는 5단계가 필요) [B의 Search 서비스 준비](#search-service)를 진행합니다.
+**B를 혼자 학습하나요?** 1–4단계를 마칩니다. 5단계는 선택입니다. Lab 09에 필요한 것은 추적 상태 기록이지 새 로그 리소스가 아닙니다.
+5단계를 건너뛰었다면 그때 `추적 미확인: 설정하지 않음`을 적습니다. 이어서 [B의 Search 서비스 준비](#search-service)를 진행합니다.
 A의 6–7단계는 건너뜁니다. Search 준비 뒤 B 경로의 [준비](setup.md)로 돌아옵니다.
 
 1. **구독.** Azure 구독에서 리소스를 만들고 역할을 할당할 수 있는 계정(예: 구독 **소유자(Owner)**)으로 `https://ai.azure.com`에 로그인합니다. 모델 호출 비용은 그 구독에 청구됩니다.
@@ -90,7 +91,9 @@ B 경로로 이어 갈 계획이면 필요한 자원을 남겨 두고 담당자�
    Lab 05 방식을 하나도 받지 못한 학습자는 이 설치와 [Lab 02 B](labs/02-models.md#path-b)를 마친 뒤 돌아옵니다.
 7. 수업 전에 Application Insights를 프로젝트에 연결해 server-side tracing을 켭니다. 코드 변경은 필요 없습니다.
    학습자에게 연결된 Application Insights 리소스의 **Log Analytics Reader**를 부여합니다. 보호된 테이블을 사용한다면 **Privileged Monitoring Data Reader**도 필요합니다.
-   이제 핵심이 된 Lab 09 trace 단계에 필요합니다. 2026-09-24 확인: 실습 프로젝트에는 이미 Application Insights가 연결되어 있었고 관리형 agent 호출은 몇 분 안에 추적으로 나타났습니다. 학습자 전용 Log Analytics Reader 부여는 재시험하지 않았습니다.
+   이 조건은 실제 trace를 확인할 때 필요합니다. 추적을 사용할 수 없다면 Lab 09에 `추적 미확인: <이유>`를 적고 계속 진행합니다.
+   그 기록을 실제 추적 확인 근거로 취급하지 않습니다.
+   2026-09-24 확인: 실습 프로젝트에는 이미 Application Insights가 연결되어 있었고 관리형 agent 호출은 몇 분 안에 추적으로 나타났습니다. 학습자 전용 Log Analytics Reader 부여는 재시험하지 않았습니다.
 8. 선택: A 학습자가 Lab 05에서 브라우저 Playground 옵션을 사용할 수 있도록 Lab 05 MAF workflow를 Hosted Agent로 배포합니다.
    별도 승인 뒤 [Lab 05 C](labs/05-workflows.md) / [Lab 08 6절](labs/08-hosted.md#6-maf-워크플로를-hosted-agent로-배포)만 사용합니다.
    학습자 언어의 **순차·local 검색·v2·Responses** workflow profile을 준비합니다. Invocations 평가 agent나

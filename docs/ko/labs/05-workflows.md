@@ -79,6 +79,7 @@ python scripts/workshop.py workflow --pattern sequential --question "2026년 9�
 
 그 파일이 `already exists`로 멈추면 파일을 엽니다. 이 질문으로 본인이 실행한 결과일 때만 그대로 두고,
 아니면 `--output`의 파일 이름을 바꿔 다시 실행합니다.
+실제로 선택한 경로를 보관합니다. 저장에 성공하면 `Saved JSON:` 뒤에 그 경로가 표시됩니다.
 
 ![2026-09-24 국문 녹화: A의 준비된 순차 workflow 명령 하나](../../assets/g6sol-20260924-ko/screenshots/K05-001-prepared-2.webp)
 
@@ -113,10 +114,10 @@ flowchart LR
 | `approval_status: pending-human-review` | 모델 검토를 실제 사람 승인으로 오해하지 않았는가 |
 | `external_actions_performed: false` | 실제 예약·지급을 수행하지 않았는가 |
 
-1. 터미널의 `outputs/workflow-a-sequential.json` 또는 저장한 Playground 응답 전체를 엽니다.
+1. 터미널의 `Saved JSON:` 뒤에 표시된 파일(또는 2단계에서 본인 결과로 확인한 기존 파일)이나 저장한 Playground 응답 전체를 엽니다.
    인용한 정책 ID를 학습자 ZIP의 `policies/`와 대조합니다. Playground 학습자는 터미널 출력 파일이 필요 없습니다.
 2. 정확한 명령 **또는 Playground 질문**, 출력 전체, 선택한 방식을 개인 `workflow-review.txt`에 보존합니다.
-   터미널 방식은 편집기에서 `outputs/workflow-a-sequential.json`을 열어 전체를 선택·복사한 뒤 `실제 JSON 출력 전체(A 전용):`에 붙여 넣습니다.
+   터미널 방식은 실제 파일 경로를 적고, 같은 파일의 JSON 전체를 `실제 JSON 출력 전체(A 전용):`에 붙여 넣습니다.
    Playground의 pattern은 `runtime_profile.pattern`에서 읽습니다. 이전 양식에 칸이 없으면 추가하고 작성한 기록을 교체하지 않습니다.
 3. 같은 파일에 맞는 부분·수정할 부분·이유를 적습니다. 안내문 검토이지 업무 승인이 아닙니다.
 

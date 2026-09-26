@@ -4,11 +4,11 @@
 
 **완료 목표:** 특정 모델의 데모가 아니라 지식·코드·평가·운영을 분리한 작은 시스템을 인계합니다.
 
-**내 구간 바로 열기:** [A — 증거 폴더](#path-a) · [B — 기존 인수 기록](#path-b) · [학습 경로](../paths.md)
+**내 구간 바로 열기:** [A — 증거 폴더](#path-a) · [B — 기존 인수 기록](#path-b) · [C — 선택 모듈](#path-c) · [학습 경로](../paths.md)
 
 ## 시작 전
 
-**이번 순서:** A는 평가표와 agent·workflow·원문·정리 증거를 제출합니다. B/C는 실제로 실행한 경로의 인수 명령만 사용합니다.
+**이번 순서:** A는 증거 폴더를 제출합니다. B는 실제 실행의 인수 보고서를 읽거나 만듭니다. C는 선택한 모듈의 결과만 인계하며 Hosted 인수는 별도 경로입니다.
 
 **준비물:** 앞 랩에서 저장한 본인 파일.
 
@@ -150,6 +150,29 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 업무 게이트 실패는 **반려**, 빠진 필수 단계는 **미완료**로 남깁니다.
 생략한 선택 로컬/원격 호스팅·cloud judge는 **미실행**, 조회할 수 없는 추적은 이유와 함께 **미확인**으로 기록합니다.
 
+<a id="path-c"></a>
+
+## C. 선택한 모듈 하나 인계
+
+**인계를 채우려고 새 Azure 호출이나 추가 평가를 하지 않습니다.** 독립 C 모듈만 진행했다면 위 A/B 전체 목록은 건너뜁니다.
+`session-notes.txt`에 `C - 모듈 인계` 구역을 추가하고 다음을 적습니다.
+
+| 보관할 항목 | 기록할 내용 |
+|---|---|
+| 모듈 | 이름·링크, 언어, 마지막 완료 단계와 해당 모듈의 종료 기준 |
+| 실제 결과 | 실제 클라우드 실행·로컬 시뮬레이션·설계 검토 구분. 완료·미실행·실패/차단 상태와 이유 |
+| 근거 | 실제 파일 경로, 해당하는 실행·버전 ID, 본인 검토와 남은 한계. 원래 오류 보존 |
+| 정리 | 본인/공유 자산, 정리 결과 또는 이름을 명시한 담당자, 남은 비용. 확인한 경우에만 없음으로 기록 |
+
+모듈 하나를 마치려고 `accept`, `benchmark verify`나 새 holdout을 실행하지 않습니다.
+이 명령들은 실제로 선택해 진행한 B 또는 [Hosted 평가 경로](#hosted-acceptance)에만 적용합니다.
+
+**C 완료:** 기록한 모듈 결과를 인계하고 본인 자산이 있으면 [정리](../reference/cleanup.md)를 따릅니다.
+빠진 요건은 **미완료**이며, 실패/차단 결과가 모듈 성공으로 바뀌지는 않습니다.
+모듈 하나만 진행한 경우 여기서 멈춥니다.
+
+<a id="hosted-acceptance"></a>
+
 ## Hosted workflow/evaluation 심화 인수 자료
 
 <details>
@@ -160,9 +183,16 @@ Hosted를 선택했다면 원격 버전의 실제 smoke/evaluation 결과를 별
 4개 모델을 선택했다면 24행 dev baseline, 24행 dev candidate, 16행 frozen holdout이 필요합니다.
 일부 모델만 인수한다면 **dev에서 사전에 선택한 목록**과 실제 행 수를 기록합니다.
 
+이 고정 실험의 `outputs/benchmarks/wf-final/release-verification.json`이 이미 있다면 검증 명령을 반복하지 말고 그 파일을 읽습니다.
+없다면 워크북의 필수 근거가 준비된 경우에만 아래 로컬 검증을 실행합니다.
+
 ```bash
 python scripts/workshop.py benchmark verify --baseline wf-baseline --candidate wf-candidate --holdout wf-final --require-native --require-traces --calibration judge-calibration
 ```
+
+`outputs/benchmarks/wf-final/release-verification.json`을 열어 `gate_passed`, `native_quality_passed`,
+`recommendation`, `deployment_approved: false`를 보관합니다. Holdout label이 `wf-final`과 다르면 실제 경로를 사용합니다.
+필수 근거가 부족해 보고서를 만들 수 없다면 **미완료**로 인계하고 파일을 꾸며 만들지 않습니다.
 
 기본 명령은 승격된 회귀가 있다고 가정하지 않습니다.
 후보가 검토된 회귀를 실제 소비했다면 `--require-regressions`를 추가하고, 아니라면 전체 통과·미승격 이유를 남깁니다.

@@ -116,8 +116,9 @@ token usage, and latency.
 Write the run labels and the IDs you used in item 3 of `outputs/learner-notes-en/operations-checklist.txt`.
 
 **What to check:** every successful response row has a `response_id`; error rows keep their error fields and still count.
-`trace_id` stays `null` and `trace_export` is `not-configured` unless tracing was set up for you;
-response IDs do not become Azure Monitor traces by themselves.
+The current CLI writes `trace_id: null` and `trace_export: not-configured` in these records.
+They are **not a check of the project's Application Insights connection**, and connecting it does not fill these saved fields.
+Use step 2 to find the actual trace/operation ID and record it separately in `operations-checklist.txt`; do not edit the original response.
 
 ### 2. Search server-side traces for Lab 03 B
 

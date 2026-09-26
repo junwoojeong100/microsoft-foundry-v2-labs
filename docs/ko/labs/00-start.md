@@ -368,7 +368,10 @@ python scripts/workshop.py doctor --cloud
 실제 모델 `gpt-6-sol`, 버전 `2026-09-22`, 상태 `Succeeded`를 함께** 확인해야 합니다.
 `doctor --cloud`는 설정된 배포를 보고합니다. 이전 모델의 `Succeeded`는 이번 preset의 통과가 아닙니다.
 이 명령은 리소스를 만들거나 기본 구독을 바꾸지 않습니다.
-권한 오류가 나오면 담당자에게 실습 Foundry 계정의 **Reader** 역할을 요청합니다. 이 검사는 Azure Resource Manager로 배포 정보를 읽습니다.
+실패하면 `Command stderr:`에 Azure CLI 진단이 있는지 먼저 확인합니다. `CalledProcessError`라는 이름만으로 역할 부족을 판단하지 않습니다.
+배포 조회에서 권한 오류가 나왔다면 담당자에게 실습 Foundry 계정의 **Reader** 역할을 요청합니다.
+이 검사는 Azure Resource Manager로 배포 정보를 읽습니다. 다른 오류라면 그대로 보존하고 재시도 전에 설정 카드의
+구독·리소스 이름과 네트워크 접근을 확인합니다. 기본 구독이나 모델을 바꾸지 않습니다.
 검사 통과만으로 모델의 데이터 평면 권한/Structured Outputs 지원이 증명되지는 않습니다.
 그 확인은 [Lab 02](02-models.md)의 실제 호출에서 합니다.
 
